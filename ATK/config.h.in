@@ -1,0 +1,11 @@
+/**
+ * \file config.h
+ */
+
+#ifndef ATK_CONFIG_H
+#define ATK_CONFIG_H
+
+#define ATK_VERSION_NAME @ATK_WC_REVISION_NAME@
+#define ATK_VERSION_REV @ATK_WC_REVISION_HASH@
+
+#endif

@@ -11,3 +11,8 @@
 *.lai
 *.la
 *.a
+CMakeFiles
+*.pbxproj
+*.cmake
+CMakeCache.txt
+config.h
