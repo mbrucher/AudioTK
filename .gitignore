@@ -11,8 +11,12 @@
 *.lai
 *.la
 *.a
-CMakeFiles
-*.pbxproj
+
 *.cmake
+CMakeFiles
 CMakeCache.txt
 config.h
+
+**.build
+**.xcodeproj
+
