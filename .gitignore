@@ -20,3 +20,4 @@ config.h
 **.build
 **.xcodeproj
 
+**_test

@@ -5,7 +5,7 @@ project(AudioTK)
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
 find_package(Git REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED unit_test_framework)
 
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
 
