@@ -4,6 +4,8 @@ project(AudioTK)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
+enable_testing()
+
 find_package(Git REQUIRED)
 find_package(Boost REQUIRED unit_test_framework)
 
