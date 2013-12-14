@@ -9,20 +9,19 @@
 
 namespace ATK
 {
-  template<typename DataType>
   class Base
   {
   public:
-    Base(int nbInputPorts, int nbOutputPorts);
+    Base(int nb_input_ports, int nb_output_ports);
     virtual ~Base();
     
-    void setInputPort(int port, Base<DataType>* filter);
+    void setInputPort(int input_port, Base* filter, int output_port);
     
   protected:
     void virtual process() = 0;
-    int nbInputPorts;
-    int nbOutputPorts;
-    std::vector<std::pair<int, Base<DataType> >* > connections;
+    int nb_input_ports;
+    int nb_output_ports;
+    std::vector<std::pair<int, Base*> > connections;
   };
 }
 

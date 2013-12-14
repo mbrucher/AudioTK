@@ -8,28 +8,19 @@
 
 namespace ATK
 {
-  template<typename DataType>
-  Base<DataType>::Base(int nbInputPorts, int nbOutputPorts)
-  :nbInputPorts(nbInputPorts), nbOutputPorts(nbOutputPorts), connections(nbInputPorts, NULL)
+  Base::Base(int nb_input_ports, int nb_output_ports)
+  :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports), connections(nb_input_ports, std::make_pair(-1, std::nullptr_t()))
   {
   }
 
-  template<typename DataType>
-  Base<DataType>::~Base()
+  Base::~Base()
   {
   }
 
-  template<typename DataType>
-  void Base<DataType>::setInputPort(int port, Base<DataType> *filter)
+  void Base::setInputPort(int input_port, Base* filter, int output_port)
   {
-    if(port >= 0 && port < nbInputPorts)
-      connections[port] = filter;
+    if(input_port >= 0 && input_port < nb_input_ports)
+      connections[input_port] = std::make_pair(output_port, filter);
   }
-  
-  template Base<int16_t>;
-  template Base<int32_t>;
-  template Base<int64_t>;
-  template Base<float>;
-  template Base<double>;
 }
 
