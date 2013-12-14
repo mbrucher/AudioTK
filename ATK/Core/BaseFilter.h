@@ -26,12 +26,19 @@ namespace ATK
     void update();
     void process();
     
+    void set_input_sampling_rate(int rate);
+    int get_input_sampling_rate() const;
+    void set_output_sampling_rate(int rate);
+    int get_output_sampling_rate() const;
+    
   protected:
     void virtual update_impl() = 0;
     void virtual process_impl() = 0;
     
     int nb_input_ports;
     int nb_output_ports;
+    int input_sampling_rate;
+    int output_sampling_rate;
     std::vector<std::pair<int, BaseFilter*> > connections;
   };
 }
