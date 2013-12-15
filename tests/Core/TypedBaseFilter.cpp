@@ -5,7 +5,7 @@
 #include <ATK/Core/TypedBaseFilter.h>
 
 #define BOOST_TEST_NO_MAIN
-#define BOOST_TEST_MODULE ATKCore_TypedBaseFilter_test
+#define BOOST_TEST_MODULE ATKCore_test
 #include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_int16_t )

@@ -32,6 +32,8 @@ namespace ATK
     
   protected:
     void virtual process_impl() = 0;
+    /// Returns the type that the filter processes
+    int virtual get_type() const = 0;
     
     int nb_input_ports;
     int nb_output_ports;
