@@ -7,8 +7,9 @@
 
 #include "BaseFilter.h"
 
-#include <memory>
 #include <vector>
+
+#include <boost/scoped_array.hpp>
 
 namespace ATK
 {
@@ -28,13 +29,14 @@ namespace ATK
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
     virtual void process_impl();
+    virtual int get_type() const;
     
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(int size);
     
-    std::vector<std::unique_ptr<DataType> > converted_inputs;
+    std::vector<boost::scoped_array<DataType> > converted_inputs;
     std::vector<int> converted_inputs_size;
-    std::vector<std::unique_ptr<DataType> > outputs;
+    std::vector<boost::scoped_array<DataType> > outputs;
     std::vector<int> outputs_size;
   };
 }

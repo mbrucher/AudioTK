@@ -6,14 +6,36 @@
 
 #include <cstdint>
 
+#include <boost/utility/enable_if.hpp>
+#include <boost/mpl/distance.hpp>
+#include <boost/mpl/empty.hpp>
+#include <boost/mpl/find.hpp>
+#include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/vector.hpp>
 
 namespace
 {
-  boost::mpl::vector<std::int16_t, std::int32_t, std::int64_t, float, double> ConversionTypes;
-  
-//  template<typename Vector>
-//  void convert_array(
+  typedef boost::mpl::vector<std::int16_t, std::int32_t, std::int64_t, float, double> ConversionTypes;
+
+  template<typename Vector, typename DataType>
+  typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
+  convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int size, int type)
+  {
+  }
+
+  template<typename Vector, typename DataType>
+  typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
+      convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int size, int type)
+  {
+    if(type != 0)
+    {
+      convert_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+    }
+    else
+    {
+      
+    }
+  }
 }
 
 namespace ATK
@@ -37,6 +59,12 @@ namespace ATK
   }
 
   template<typename DataType>
+  int TypedBaseFilter<DataType>::get_type() const
+  {
+    return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType>::type >::value;
+  }
+
+  template<typename DataType>
   DataType* TypedBaseFilter<DataType>::get_output_array(int port, int size)
   {
     return outputs[port].get();
@@ -52,7 +80,7 @@ namespace ATK
         converted_inputs[i].reset(new DataType[size]);
         converted_inputs_size[i] = size;
       }
-      //convert_array(connections[i].second->get_output_array(connections[i].first, size), converted_inputs[i], size);
+      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i].get(), size, get_type());
     }
   }
 
