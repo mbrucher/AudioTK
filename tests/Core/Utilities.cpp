@@ -24,6 +24,66 @@ BOOST_AUTO_TEST_CASE( Utilities_test_convert_array_int16_t_int16_t )
   BOOST_CHECK_EQUAL(input[2], output[2]);
 }
 
+BOOST_AUTO_TEST_CASE( Utilities_test_convert_array_int16_t_int32_t )
+{
+  std::vector<std::int16_t> input(3);
+  std::vector<std::int32_t> output(3);
+  input[0] = std::numeric_limits<std::int16_t>::min();
+  input[1] = 0;
+  input[2] = std::numeric_limits<std::int16_t>::max();
+  
+  ATK::ConversionUtilities<std::int16_t, std::int32_t>::convert_array(&input[0], &output[0], 3);
+  
+  BOOST_CHECK_EQUAL(std::numeric_limits<std::int32_t>::min(), output[0]);
+  BOOST_CHECK_EQUAL(0, output[1]);
+  BOOST_CHECK_CLOSE(static_cast<double>(std::numeric_limits<std::int32_t>::max()), output[2], 0.01);
+}
+
+BOOST_AUTO_TEST_CASE( Utilities_test_convert_array_int16_t_int64_t )
+{
+  std::vector<std::int16_t> input(3);
+  std::vector<std::int64_t> output(3);
+  input[0] = std::numeric_limits<std::int16_t>::min();
+  input[1] = 0;
+  input[2] = std::numeric_limits<std::int16_t>::max();
+  
+  ATK::ConversionUtilities<std::int16_t, std::int64_t>::convert_array(&input[0], &output[0], 3);
+  
+  BOOST_CHECK_EQUAL(std::numeric_limits<std::int64_t>::min(), output[0]);
+  BOOST_CHECK_EQUAL(0, output[1]);
+  BOOST_CHECK_CLOSE(static_cast<double>(std::numeric_limits<std::int64_t>::max()), output[2], 0.01);
+}
+
+BOOST_AUTO_TEST_CASE( Utilities_test_convert_array_int16_t_float )
+{
+  std::vector<std::int16_t> input(3);
+  std::vector<float> output(3);
+  input[0] = std::numeric_limits<std::int16_t>::min();
+  input[1] = 0;
+  input[2] = std::numeric_limits<std::int16_t>::max();
+  
+  ATK::ConversionUtilities<std::int16_t, float>::convert_array(&input[0], &output[0], 3);
+  
+  BOOST_CHECK_CLOSE(-1, output[0], 0.01);
+  BOOST_CHECK_CLOSE(0, output[1], 0.01);
+  BOOST_CHECK_CLOSE(1, output[2], 0.01);
+}
+
+BOOST_AUTO_TEST_CASE( Utilities_test_convert_array_int16_t_double )
+{
+  std::vector<std::int16_t> input(3);
+  std::vector<double> output(3);
+  input[0] = std::numeric_limits<std::int16_t>::min();
+  input[1] = 0;
+  input[2] = std::numeric_limits<std::int16_t>::max();
+  
+  ATK::ConversionUtilities<std::int16_t, double>::convert_array(&input[0], &output[0], 3);
+  
+  BOOST_CHECK_CLOSE(-1, output[0], 0.01);
+  BOOST_CHECK_CLOSE(0, output[1], 0.01);
+  BOOST_CHECK_CLOSE(1, output[2], 0.01);
+}
+
 BOOST_AUTO_TEST_CASE( Utilities_test_convert_array_int32_t_int32_t )
 {
   std::vector<std::int32_t> input(3);
