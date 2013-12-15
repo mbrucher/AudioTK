@@ -23,7 +23,6 @@ namespace ATK
      */
     void setInputPort(int input_port, BaseFilter* filter, int output_port);
     
-    void update();
     void process();
     
     void set_input_sampling_rate(int rate);
@@ -32,7 +31,6 @@ namespace ATK
     int get_output_sampling_rate() const;
     
   protected:
-    void virtual update_impl() = 0;
     void virtual process_impl() = 0;
     
     int nb_input_ports;

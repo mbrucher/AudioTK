@@ -18,6 +18,8 @@ configure_file (
   "ATK/config.h"
   )
 
+include_directories(${Boost_INCLUDE_DIR})
+
 add_subdirectory(ATK)
 add_subdirectory(tests)
 

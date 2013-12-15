@@ -45,11 +45,6 @@ namespace ATK
     return output_sampling_rate;
   }
 
-  void BaseFilter::update()
-  {
-    update_impl();
-  }
-  
   void BaseFilter::process()
   {
     process_impl();
