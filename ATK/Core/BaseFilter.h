@@ -30,10 +30,14 @@ namespace ATK
     void set_output_sampling_rate(int rate);
     int get_output_sampling_rate() const;
     
+    /// Resets the filter so that it will process something if needed
+    void reset();
+    
   protected:
     void virtual process_impl() = 0;
     /// Returns the type that the filter processes
     int virtual get_type() const = 0;
+    bool is_reset;
     
     int nb_input_ports;
     int nb_output_ports;

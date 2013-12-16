@@ -9,7 +9,7 @@
 namespace ATK
 {
   BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
-  :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
+  :is_reset(true), nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, std::nullptr_t()))
   {
@@ -17,6 +17,11 @@ namespace ATK
 
   BaseFilter::~BaseFilter()
   {
+  }
+  
+  void BaseFilter::reset()
+  {
+    is_reset = true;
   }
 
   void BaseFilter::setInputPort(int input_port, BaseFilter* filter, int output_port)
@@ -47,7 +52,17 @@ namespace ATK
 
   void BaseFilter::process()
   {
+    if(!is_reset)
+    {
+      return;
+    }
+    for(auto it = connections.begin(); it != connections.end(); ++it)
+    {
+      it->second->reset();
+      it->second->process();
+    }
     process_impl();
+    is_reset = true;
   }
 }
 
