@@ -10,8 +10,11 @@
 #include <boost/mpl/distance.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/find.hpp>
+#include <boost/mpl/front.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/vector.hpp>
+
+#include "Utilities.h"
 
 namespace
 {
@@ -33,7 +36,9 @@ namespace
     }
     else
     {
-      
+      typedef typename boost::mpl::front<Vector>::type InputOriginalType;
+      InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
+      ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
     }
   }
 }
@@ -54,8 +59,14 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl()
+  void TypedBaseFilter<DataType>::process_impl(int size)
   {
+  }
+
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::prepare_process(int size)
+  {
+    convert_inputs(size);
   }
 
   template<typename DataType>
@@ -65,7 +76,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  DataType* TypedBaseFilter<DataType>::get_output_array(int port, int size)
+  DataType* TypedBaseFilter<DataType>::get_output_array(int port)
   {
     return outputs[port].get();
   }

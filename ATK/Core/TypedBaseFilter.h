@@ -22,13 +22,15 @@ namespace ATK
     
     /**
      * Returns an array with the processed output
-     * @param port is the port
+     * @param port is the port that the next plugin listens to
      */
-    DataType* get_output_array(int port, int size);
+    DataType* get_output_array(int port);
     
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl();
+    virtual void process_impl(int size);
+    /// Prepares the filter by retrieving the inputs arrays
+    void virtual prepare_process(int size);
     virtual int get_type() const;
     
     /// Used to convert other filter outputs to DataType*

@@ -21,6 +21,10 @@ namespace ATK
   
   void BaseFilter::reset()
   {
+    for(auto it = connections.begin(); it != connections.end(); ++it)
+    {
+      it->second->reset();
+    }
     is_reset = true;
   }
 
@@ -50,7 +54,7 @@ namespace ATK
     return output_sampling_rate;
   }
 
-  void BaseFilter::process()
+  void BaseFilter::process(int size)
   {
     if(!is_reset)
     {
@@ -58,11 +62,11 @@ namespace ATK
     }
     for(auto it = connections.begin(); it != connections.end(); ++it)
     {
-      it->second->reset();
-      it->second->process();
+      it->second->process(size);
     }
-    process_impl();
-    is_reset = true;
+    prepare_process(size);
+    process_impl(size);
+    is_reset = false;
   }
 }
 
