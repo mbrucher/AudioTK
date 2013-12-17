@@ -4,6 +4,11 @@
 
 #include "TriangleCheckerFilter.h"
 
+#include <cstdlib>
+
+#define BOOST_TEST_NO_MAIN
+#include <boost/test/unit_test.hpp>
+
 namespace ATK
 {
   TriangleCheckerFilter::TriangleCheckerFilter()
@@ -17,5 +22,9 @@ namespace ATK
   
   void TriangleCheckerFilter::process_impl(int size)
   {
+    for(int i = 0; i < (size - 1); ++i)
+    {
+      BOOST_CHECK_EQUAL(std::abs(converted_inputs[0][i] - converted_inputs[0][i + 1]), 100);
+    }
   }
 }

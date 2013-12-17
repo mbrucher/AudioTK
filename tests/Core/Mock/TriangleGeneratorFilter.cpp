@@ -26,7 +26,7 @@ namespace ATK
     int i = 0;
     for(i = 0; i < std::min(size, output_sampling_rate - state); ++i)
     {
-      outputs[0][i] = 100 * (state + i) * (ascending ? 1 : -1);
+      outputs[0][i] = 100 * (state + i * (ascending ? 1 : -1));
     }
     if(i == output_sampling_rate - state)
     {
@@ -36,7 +36,7 @@ namespace ATK
     int j = 0;
     for(;i < size; ++i, ++j)
     {
-      outputs[0][i] = 100 * (state + j) * (ascending ? 1 : -1);
+      outputs[0][i] = 100 * (state + j * (ascending ? 1 : -1));
     }
   }
 }
