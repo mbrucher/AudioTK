@@ -28,7 +28,7 @@ namespace ATK
     is_reset = true;
   }
 
-  void BaseFilter::setInputPort(int input_port, BaseFilter* filter, int output_port)
+  void BaseFilter::set_input_port(int input_port, BaseFilter* filter, int output_port)
   {
     if(input_port >= 0 && input_port < nb_input_ports)
       connections[input_port] = std::make_pair(output_port, filter);

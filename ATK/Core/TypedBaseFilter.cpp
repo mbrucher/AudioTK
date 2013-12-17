@@ -47,7 +47,7 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
-  :BaseFilter(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports), outputs(nb_output_ports)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports), outputs(nb_output_ports)
   {
     converted_inputs_size.assign(nb_input_ports, 0);
     outputs_size.resize(nb_output_ports, 0);
@@ -86,7 +86,7 @@ namespace ATK
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
-      if(converted_inputs_size[i] > size)
+      if(converted_inputs_size[i] < size)
       {
         converted_inputs[i].reset(new DataType[size]);
         converted_inputs_size[i] = size;
