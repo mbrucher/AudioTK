@@ -32,9 +32,23 @@ namespace ATK
 
   void TriangleCheckerFilter::process_impl(int size)
   {
-    for(int i = 0; i < (size - 1); ++i)
+    
+    float real_increment = 2. * amplitude / input_sampling_rate * frequency;
+    
+    for(int i = 0; i < size; ++i)
     {
-      BOOST_CHECK_EQUAL(std::abs(converted_inputs[0][i] - converted_inputs[0][i + 1]), 100);
+      state += real_increment * (ascending ? 1 : -1);
+      if(state >= amplitude)
+      {
+        state -= 2 * real_increment;
+        ascending = !ascending;
+      }
+      else if(state <= -amplitude)
+      {
+        state += 2 * real_increment;
+        ascending = !ascending;
+      }
+      BOOST_CHECK_EQUAL(converted_inputs[0][i], static_cast<std::int64_t>(state));
     }
   }
 }

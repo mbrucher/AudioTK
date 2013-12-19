@@ -38,17 +38,17 @@ namespace ATK
     for(int i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
+      if(state >= amplitude)
+      {
+        state -= 2 * real_increment;
+        ascending = !ascending;
+      }
+      else if(state <= -amplitude)
+      {
+        state += 2 * real_increment;
+        ascending = !ascending;
+      }
       outputs[0][i] = state;
-      if(outputs[0][i] >= amplitude)
-      {
-        outputs[0][i] -= 2 * real_increment;
-        ascending = !ascending;
-      }
-      else if(outputs[0][i] <= -amplitude)
-      {
-        outputs[0][i] += 2 * real_increment;
-        ascending = !ascending;
-      }
     }
   }
 }
