@@ -12,7 +12,7 @@
 namespace ATK
 {
   TriangleCheckerFilter::TriangleCheckerFilter()
-  :TypedBaseFilter<std::int64_t>(1, 0), state(0), ascending(true)
+  :TypedBaseFilter<std::int64_t>(1, 0), state(0), ascending(true), amplitude(1), frequency(1)
   {
   }
   
@@ -20,6 +20,16 @@ namespace ATK
   {
   }
   
+  void TriangleCheckerFilter::set_amplitude(std::int64_t amplitude)
+  {
+    this->amplitude = amplitude;
+  }
+  
+  void TriangleCheckerFilter::set_frequency(int frequency)
+  {
+    this->frequency = frequency;
+  }
+
   void TriangleCheckerFilter::process_impl(int size)
   {
     for(int i = 0; i < (size - 1); ++i)

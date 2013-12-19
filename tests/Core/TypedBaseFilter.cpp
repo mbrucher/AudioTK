@@ -120,9 +120,13 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_triangle_test )
 {
   ATK::TriangleGeneratorFilter generator;
   generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
   
   ATK::TriangleCheckerFilter checker;
   checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(1000000);
+  checker.set_frequency(1000);
   
   checker.set_input_port(0, &generator, 0);
   checker.process(1024*1024);

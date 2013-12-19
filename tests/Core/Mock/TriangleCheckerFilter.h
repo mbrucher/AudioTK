@@ -15,11 +15,16 @@ namespace ATK
     TriangleCheckerFilter();
     virtual ~TriangleCheckerFilter();
     
+    void set_amplitude(std::int64_t amplitude);
+    void set_frequency(int frequency);
+
   protected:
     virtual void process_impl(int size);
     
-    int state;
+    float state;
     bool ascending;
+    std::int64_t amplitude;
+    int frequency;
   };
 }
 

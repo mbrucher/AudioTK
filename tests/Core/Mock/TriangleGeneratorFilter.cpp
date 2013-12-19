@@ -7,12 +7,22 @@
 namespace ATK
 {
   TriangleGeneratorFilter::TriangleGeneratorFilter()
-  :TypedBaseFilter<std::int64_t>(0, 1), state(0), ascending(true)
+  :TypedBaseFilter<std::int64_t>(0, 1), state(0), ascending(true), amplitude(1), frequency(1)
   {
   }
   
   TriangleGeneratorFilter::~TriangleGeneratorFilter()
   {
+  }
+  
+  void TriangleGeneratorFilter::set_amplitude(std::int64_t amplitude)
+  {
+    this->amplitude = amplitude;
+  }
+
+  void TriangleGeneratorFilter::set_frequency(int frequency)
+  {
+    this->frequency = frequency;
   }
   
   void TriangleGeneratorFilter::process_impl(int size)
@@ -23,20 +33,22 @@ namespace ATK
       outputs_size[0] = size;
     }
     
-    int i = 0;
-    for(i = 0; i < std::min(size, output_sampling_rate - state); ++i)
+    float real_increment = 2. * amplitude / output_sampling_rate * frequency;
+    
+    for(int i = 0; i < size; ++i)
     {
-      outputs[0][i] = 100 * (state + i * (ascending ? 1 : -1));
-    }
-    if(i == output_sampling_rate - state)
-    {
-      ascending = !ascending;
-      state = (ascending ? 1 : -1) * -output_sampling_rate;
-    }
-    int j = 0;
-    for(;i < size; ++i, ++j)
-    {
-      outputs[0][i] = 100 * (state + j * (ascending ? 1 : -1));
+      state += real_increment * (ascending ? 1 : -1);
+      outputs[0][i] = state;
+      if(outputs[0][i] >= amplitude)
+      {
+        outputs[0][i] -= 2 * real_increment;
+        ascending = !ascending;
+      }
+      else if(outputs[0][i] <= -amplitude)
+      {
+        outputs[0][i] += 2 * real_increment;
+        ascending = !ascending;
+      }
     }
   }
 }
