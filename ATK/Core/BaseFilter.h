@@ -21,7 +21,7 @@ namespace ATK
        @param filter is a pointer to the previous filter
        @param output_port is the port number where this filter will be connected
      */
-    void setInputPort(int input_port, BaseFilter* filter, int output_port);
+    void set_input_port(int input_port, BaseFilter* filter, int output_port);
     
     /// Starts processing if reset
     void process(int size);

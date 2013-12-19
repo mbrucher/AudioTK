@@ -4,6 +4,9 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#include "Mock/TriangleCheckerFilter.h"
+#include "Mock/TriangleGeneratorFilter.h"
+
 #define BOOST_TEST_NO_MAIN
 #define BOOST_TEST_MODULE ATKCore_test
 #include <boost/test/unit_test.hpp>
@@ -113,3 +116,18 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_output_sampling_rate_test_double )
   BOOST_CHECK_NE(filter.get_input_sampling_rate(), 44100);
 }
 
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_triangle_test )
+{
+  ATK::TriangleGeneratorFilter generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
+  
+  ATK::TriangleCheckerFilter checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(1000000);
+  checker.set_frequency(1000);
+  
+  checker.set_input_port(0, &generator, 0);
+  checker.process(1024*1024);
+}

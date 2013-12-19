@@ -2,11 +2,13 @@
 FILE(GLOB_RECURSE
     ATK_CORE_TEST_SRC
     *.cpp
+    Mock/*.cpp
 )
 
 FILE(GLOB_RECURSE
     ATK_CORE_TEST_HEADERS
     *.h
+    Mock/*.h
 )
 
 include_directories(${PROJECT_SOURCE_DIR})

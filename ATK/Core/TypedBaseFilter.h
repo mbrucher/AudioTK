@@ -13,9 +13,13 @@
 
 namespace ATK
 {
-  template<typename DataType>
+  template<typename DataType_>
   class TypedBaseFilter : public BaseFilter
   {
+  protected:
+    typedef DataType_ DataType;
+    typedef BaseFilter Parent;
+
   public:
     TypedBaseFilter(int nb_input_ports, int nb_output_ports);
     virtual ~TypedBaseFilter();
