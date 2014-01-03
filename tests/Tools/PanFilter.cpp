@@ -1,0 +1,4 @@
+/**
+ * \ file PanFilter.cpp
+ */
+
