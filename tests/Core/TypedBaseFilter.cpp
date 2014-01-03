@@ -4,8 +4,8 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
-#include "Mock/TriangleCheckerFilter.h"
-#include "Mock/TriangleGeneratorFilter.h"
+#include <ATK/Mock/TriangleCheckerFilter.h>
+#include <ATK/Mock/TriangleGeneratorFilter.h>
 
 #define BOOST_TEST_NO_MAIN
 #define BOOST_TEST_MODULE ATKCore_test

@@ -14,4 +14,5 @@ add_library(ATKTools
     SHARED
     ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
 )
+target_link_libraries(ATKTools ATKCore)
 
