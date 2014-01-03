@@ -24,9 +24,19 @@ namespace ATK
     PanFilter();
     ~PanFilter();
     
+    enum PAN_LAWS {
+      SINCOS_0_CENTER
+    };
+    
+    void set_pan_law(PAN_LAWS law);
+    void set_pan(double pan);
+    
   protected:
     virtual void process_impl(int size);
 
+  private:
+    PAN_LAWS law;
+    double pan;
   };
 }
 

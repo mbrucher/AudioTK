@@ -8,7 +8,7 @@ namespace ATK
 {
   template<typename DataType_>
   PanFilter<DataType_>::PanFilter()
-  :Parent(1, 2)
+  :Parent(1, 2), law(SINCOS_0_CENTER), pan(0)
   {
     
   }
@@ -19,6 +19,18 @@ namespace ATK
     
   }
   
+  template<typename DataType_>
+  void PanFilter<DataType_>::set_pan_law(PAN_LAWS law)
+  {
+    this->law = law;
+  }
+  
+  template<typename DataType_>
+  void PanFilter<DataType_>::set_pan(double pan)
+  {
+    this->pan = pan;
+  }
+
   template<typename DataType_>
   void PanFilter<DataType_>::process_impl(int size)
   {
@@ -32,7 +44,11 @@ namespace ATK
       outputs[1].reset(new DataType[size]);
       outputs_size[1] = size;
     }
-    
+    for(int i = 0; i < size; ++i)
+    {
+      outputs[0][i] = converted_inputs[0][i];
+      outputs[1][i] = converted_inputs[0][i];
+    }
     
   }
   
