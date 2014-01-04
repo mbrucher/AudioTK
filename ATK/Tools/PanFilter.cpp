@@ -61,6 +61,14 @@ namespace ATK
         left_coeff = std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
         right_coeff = std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
         break;
+      case SQUARE_0_CENTER:
+        left_coeff = std::sqrt(2) * std::sqrt((1 - pan) / 2);
+        right_coeff = std::sqrt(2) * std::sqrt((1 + pan) / 2);
+        break;
+      case SQUARE_3_CENTER:
+        left_coeff = std::sqrt((1 - pan) / 2);
+        right_coeff = std::sqrt((1 + pan) / 2);
+        break;
     }
     
     for(int i = 0; i < size; ++i)
