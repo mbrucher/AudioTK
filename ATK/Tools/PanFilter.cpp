@@ -4,6 +4,9 @@
 
 #include "PanFilter.h"
 
+#include <cmath>
+#include <boost/math/constants/constants.hpp>
+
 namespace ATK
 {
   template<typename DataType_>
@@ -44,10 +47,22 @@ namespace ATK
       outputs[1].reset(new DataType[size]);
       outputs_size[1] = size;
     }
+    
+    double left_coeff = 1;
+    double right_coeff = 1;
+    
+    switch(law)
+    {
+      case SINCOS_0_CENTER:
+        left_coeff = std::sqrt(2) * std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
+        right_coeff = std::sqrt(2) * std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
+        break;
+    }
+    
     for(int i = 0; i < size; ++i)
     {
-      outputs[0][i] = converted_inputs[0][i];
-      outputs[1][i] = converted_inputs[0][i];
+      outputs[0][i] = static_cast<DataType>(left_coeff * converted_inputs[0][i]);
+      outputs[1][i] = static_cast<DataType>(right_coeff * converted_inputs[0][i]);
     }
     
   }

@@ -6,26 +6,31 @@
 
 namespace ATK
 {
-  TriangleGeneratorFilter::TriangleGeneratorFilter()
-  :TypedBaseFilter<std::int64_t>(0, 1), state(0), ascending(true), amplitude(1), frequency(1)
+  template<class DataType_>
+  TriangleGeneratorFilter<DataType_>::TriangleGeneratorFilter()
+  :TypedBaseFilter<DataType_>(0, 1), state(0), ascending(true), amplitude(1), frequency(1)
   {
   }
   
-  TriangleGeneratorFilter::~TriangleGeneratorFilter()
+  template<class DataType_>
+  TriangleGeneratorFilter<DataType_>::~TriangleGeneratorFilter()
   {
   }
   
-  void TriangleGeneratorFilter::set_amplitude(std::int64_t amplitude)
+  template<class DataType_>
+  void TriangleGeneratorFilter<DataType_>::set_amplitude(DataType_ amplitude)
   {
     this->amplitude = amplitude;
   }
 
-  void TriangleGeneratorFilter::set_frequency(int frequency)
+  template<class DataType_>
+  void TriangleGeneratorFilter<DataType_>::set_frequency(int frequency)
   {
     this->frequency = frequency;
   }
   
-  void TriangleGeneratorFilter::process_impl(int size)
+  template<class DataType_>
+  void TriangleGeneratorFilter<DataType_>::process_impl(int size)
   {
     if(outputs_size[0] < size)
     {
@@ -33,7 +38,7 @@ namespace ATK
       outputs_size[0] = size;
     }
     
-    float real_increment = 2. * amplitude / output_sampling_rate * frequency;
+    double real_increment = 2. * amplitude / output_sampling_rate * frequency;
     
     for(int i = 0; i < size; ++i)
     {
@@ -51,4 +56,10 @@ namespace ATK
       outputs[0][i] = state;
     }
   }
+  
+  template class TriangleGeneratorFilter<std::int16_t>;
+  template class TriangleGeneratorFilter<std::int32_t>;
+  template class TriangleGeneratorFilter<std::int64_t>;
+  template class TriangleGeneratorFilter<float>;
+  template class TriangleGeneratorFilter<double>;
 }

@@ -9,21 +9,28 @@
 
 namespace ATK
 {
-  class TriangleCheckerFilter : public TypedBaseFilter<std::int64_t>
+  template<class DataType_>
+  class TriangleCheckerFilter : public TypedBaseFilter<DataType_>
   {
   public:
+    typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::converted_inputs_size;
+    using Parent::converted_inputs;
+    using Parent::input_sampling_rate;
+
     TriangleCheckerFilter();
     virtual ~TriangleCheckerFilter();
     
-    void set_amplitude(std::int64_t amplitude);
+    void set_amplitude(DataType amplitude);
     void set_frequency(int frequency);
 
   protected:
     virtual void process_impl(int size);
     
-    float state;
+    double state;
     bool ascending;
-    std::int64_t amplitude;
+    DataType amplitude;
     int frequency;
   };
 }
