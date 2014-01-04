@@ -69,6 +69,14 @@ namespace ATK
         left_coeff = std::sqrt((1 - pan) / 2);
         right_coeff = std::sqrt((1 + pan) / 2);
         break;
+      case LINEAR_TAPER:
+        left_coeff = (1 - pan) / 2;
+        right_coeff = (1 + pan) / 2;
+        break;
+      case BALANCE:
+        left_coeff = pan < 0 ? 1 : 1 - pan;
+        right_coeff = pan > 0 ? 1 : 1 + pan;
+        break;
     }
     
     for(int i = 0; i < size; ++i)

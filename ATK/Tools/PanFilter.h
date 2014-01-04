@@ -29,6 +29,8 @@ namespace ATK
       SINCOS_3_CENTER, //< Sin/cos law, center = -3 dB on each channel
       SQUARE_0_CENTER, //< square root law, center = 0 dB on each channel
       SQUARE_3_CENTER, //< square root law, center = -3 dB on each channel
+      LINEAR_TAPER, //< linear taper law, center = -6 dB on each channel
+      BALANCE, //< balance law, center = hard left/right = 0 dB on each channel, 
     };
     
     void set_pan_law(PAN_LAWS law);
