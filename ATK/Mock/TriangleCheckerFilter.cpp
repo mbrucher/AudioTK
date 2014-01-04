@@ -4,6 +4,7 @@
 
 #include "TriangleCheckerFilter.h"
 
+#include <cmath>
 #include <cstdlib>
 
 #include <boost/type_traits/is_floating_point.hpp>
@@ -17,10 +18,10 @@ namespace
   template<class DataType>
   typename boost::enable_if<typename boost::is_floating_point<DataType>::type>::type compare(DataType v1, DataType v2)
   {
-    if(v1 * v2 == 0)
+    if(std::abs(v1) < 1e-10 | std::abs(v2) < 1e-10)
     {
-      BOOST_REQUIRE_SMALL(v1, static_cast<DataType>(0.0001));
-      BOOST_REQUIRE_SMALL(v2, static_cast<DataType>(0.0001));
+      BOOST_REQUIRE_SMALL(v1, static_cast<DataType>(1e-10));
+      BOOST_REQUIRE_SMALL(v2, static_cast<DataType>(1e-10));
     }
     else
     {

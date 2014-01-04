@@ -13,7 +13,7 @@
 #define BOOST_TEST_MODULE ATKTools_test
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE 1
+#define PROCESSSIZE (1024*1024)
 
 BOOST_AUTO_TEST_CASE( PanFilter_center_sincos_0_left_test )
 {
