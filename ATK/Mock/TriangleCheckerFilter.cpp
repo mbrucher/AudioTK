@@ -65,22 +65,22 @@ namespace ATK
   void TriangleCheckerFilter<DataType_>::process_impl(int size)
   {
     
-    double real_increment = 2. * amplitude / input_sampling_rate * frequency;
+    double real_increment = 2. / input_sampling_rate * frequency;
     
     for(int i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
-      if(state >= amplitude)
+      if(state >= 1)
       {
         state -= 2 * real_increment;
         ascending = !ascending;
       }
-      else if(state <= -amplitude)
+      else if(state <= -1)
       {
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      compare(converted_inputs[0][i], static_cast<DataType>(state));
+      compare(converted_inputs[0][i], static_cast<DataType>(amplitude * state));
     }
   }
 

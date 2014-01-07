@@ -38,22 +38,22 @@ namespace ATK
       outputs_size[0] = size;
     }
     
-    double real_increment = 2. * amplitude / output_sampling_rate * frequency;
+    double real_increment = 2. / output_sampling_rate * frequency;
     
     for(int i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
-      if(state >= amplitude)
+      if(state >= 1)
       {
         state -= 2 * real_increment;
         ascending = !ascending;
       }
-      else if(state <= -amplitude)
+      else if(state <= -1)
       {
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      outputs[0][i] = state;
+      outputs[0][i] = amplitude * state;
     }
   }
   
