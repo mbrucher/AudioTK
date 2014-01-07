@@ -131,3 +131,13 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_triangle_test )
   checker.set_input_port(0, &generator, 0);
   checker.process(1024*1024);
 }
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_throw_triangle_test )
+{
+  ATK::TriangleCheckerFilter<std::int64_t> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(1000000);
+  checker.set_frequency(1000);
+  
+  BOOST_CHECK_THROW(checker.process(1024*1024), std::runtime_error);
+}

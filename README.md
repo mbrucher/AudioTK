@@ -21,5 +21,6 @@ Changelog
   * -3 dB center, square-root taper, constant power
   * -6 dB center, linear taper
   * 0 dB center, balance control
-
+* Volume filter, with gain input in dB and no dB
+* Sum filter
 

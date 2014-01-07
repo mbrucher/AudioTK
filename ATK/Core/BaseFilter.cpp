@@ -5,6 +5,9 @@
 #include "BaseFilter.h"
 
 #include <cstdint>
+#include <stdexcept>
+
+#include <boost/lexical_cast.hpp>
 
 namespace ATK
 {
@@ -62,6 +65,10 @@ namespace ATK
     }
     for(auto it = connections.begin(); it != connections.end(); ++it)
     {
+      if(it->second == std::nullptr_t(0))
+      {
+        throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
+      }
       it->second->process(size);
     }
     prepare_process(size);

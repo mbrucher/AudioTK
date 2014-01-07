@@ -6,13 +6,13 @@
 
 #include <cstdint>
 
-#include <boost/utility/enable_if.hpp>
 #include <boost/mpl/distance.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/find.hpp>
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/vector.hpp>
+#include <boost/utility/enable_if.hpp>
 
 #include "Utilities.h"
 
