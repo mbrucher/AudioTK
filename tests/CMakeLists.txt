@@ -1,2 +1,3 @@
-enable_testing()
+add_subdirectory(Core)
+add_subdirectory(Tools)
 

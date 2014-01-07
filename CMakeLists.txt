@@ -4,8 +4,10 @@ project(AudioTK)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
+enable_testing()
+
 find_package(Git REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED unit_test_framework)
 
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
 
@@ -15,6 +17,8 @@ configure_file (
   "ATK/config.h.in"
   "ATK/config.h"
   )
+
+include_directories(${Boost_INCLUDE_DIR})
 
 add_subdirectory(ATK)
 add_subdirectory(tests)
