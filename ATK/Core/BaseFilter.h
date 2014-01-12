@@ -43,6 +43,8 @@ namespace ATK
     int virtual get_type() const = 0;
     bool is_reset;
     
+    virtual void setup();
+    
     int nb_input_ports;
     int nb_output_ports;
     int input_sampling_rate;
