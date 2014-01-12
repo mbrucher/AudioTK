@@ -26,19 +26,19 @@ namespace ATK
     FFTCheckerFilter();
     virtual ~FFTCheckerFilter();
     
-    void set_amplitude(DataType amplitude);
-    void set_frequency(int frequency);
+    void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
     virtual void process_impl(int size);
+    virtual void setup();
     
-    DataType amplitude;
-    int frequency;
+    std::vector<std::pair<int, DataType> > frequency_checks;
     
 #ifdef __APPLE__
     int log2n;
     FFTSetupD fftSetup;
     DSPDoubleSplitComplex splitData;
+    double* output_freqs;
 #endif
   };
 }
