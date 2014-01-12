@@ -34,7 +34,13 @@ namespace ATK
   void BaseFilter::set_input_port(int input_port, BaseFilter* filter, int output_port)
   {
     if(input_port >= 0 && input_port < nb_input_ports)
+    {
       connections[input_port] = std::make_pair(output_port, filter);
+      if(filter->get_output_sampling_rate() != get_input_sampling_rate())
+      {
+        throw std::runtime_error("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
+      }
+    }
   }
   
   void BaseFilter::set_input_sampling_rate(int rate)
@@ -76,4 +82,3 @@ namespace ATK
     is_reset = false;
   }
 }
-
