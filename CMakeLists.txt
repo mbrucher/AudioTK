@@ -20,6 +20,11 @@ configure_file (
 
 include_directories(${Boost_INCLUDE_DIR})
 
+if(APPLE)
+  FIND_PACKAGE(Accelerate REQUIRED)
+  SET(FFTLIBRARIES ${ACCELERATE_FRAMEWORK_LINK_FLAGS})
+endif(APPLE)
+
 add_subdirectory(ATK)
 add_subdirectory(tests)
 
