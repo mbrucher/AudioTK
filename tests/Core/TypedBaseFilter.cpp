@@ -8,8 +8,9 @@
 #include <ATK/Mock/TriangleGeneratorFilter.h>
 
 #define BOOST_TEST_NO_MAIN
-#define BOOST_TEST_MODULE ATKCore_test
 #include <boost/test/unit_test.hpp>
+
+#define PROCESSSIZE (1024*1024)
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_int16_t )
 {
@@ -129,7 +130,7 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_triangle_test )
   checker.set_frequency(1000);
   
   checker.set_input_port(0, &generator, 0);
-  checker.process(1024*1024);
+  checker.process(PROCESSSIZE);
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_throw_triangle_test )
@@ -139,5 +140,5 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_throw_triangle_test )
   checker.set_amplitude(1000000);
   checker.set_frequency(1000);
   
-  BOOST_CHECK_THROW(checker.process(1024*1024), std::runtime_error);
+  BOOST_CHECK_THROW(checker.process(PROCESSSIZE), std::runtime_error);
 }
