@@ -294,3 +294,177 @@ BOOST_AUTO_TEST_CASE( SecondOrderFilter_HighPassCoefficients_500_test )
   
   checker.process(PROCESSSIZE);
 }
+
+BOOST_AUTO_TEST_CASE( SecondOrderFilter_LowShelvingCoefficients_1k_test )
+{
+  ATK::SinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(1000);
+  
+  ATK::SecondOrderFilter<ATK::LowShelvingCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_cut_frequency(100);
+  filter.set_gain(.5);
+  
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0.9999157109896207));
+  frequency_checks.push_back(std::make_pair(10000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderFilter_LowShelvingCoefficients_100_test )
+{
+  ATK::SinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(100);
+  
+  ATK::SecondOrderFilter<ATK::LowShelvingCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_cut_frequency(100);
+  filter.set_gain(.5);
+  
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(10, 0));
+  frequency_checks.push_back(std::make_pair(100, 0.7951544465306409));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderFilter_LowShelvingCoefficients_200_test )
+{
+  ATK::SinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(200);
+  
+  ATK::SecondOrderFilter<ATK::LowShelvingCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_cut_frequency(100);
+  filter.set_gain(.5);
+  
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(200, 0.9599245087100254));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderFilter_HighShelvingCoefficients_1k_test )
+{
+  ATK::SinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(1000);
+  
+  ATK::SecondOrderFilter<ATK::HighShelvingCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_cut_frequency(1000);
+  filter.set_gain(.5);
+  
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0.7953107582465426));
+  frequency_checks.push_back(std::make_pair(10000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderFilter_HighShelvingCoefficients_10k_test )
+{
+  ATK::SinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(10000);
+  
+  ATK::SecondOrderFilter<ATK::HighShelvingCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_cut_frequency(1000);
+  filter.set_gain(.5);
+  
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(10000, 0.7071168098138222));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderFilter_HighShelvingCoefficients_500_test )
+{
+  ATK::SinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(500);
+  
+  ATK::SecondOrderFilter<ATK::HighShelvingCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_cut_frequency(1000);
+  filter.set_gain(.5);
+  
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  frequency_checks.push_back(std::make_pair(500, 0.960256352408842));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
