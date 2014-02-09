@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  class BaseCoefficients: public TypedBaseFilter<DataType_>
+  class BaseSecondOrderCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -18,9 +18,12 @@ namespace ATK
     using Parent::setup;
   protected:
     DataType cut_frequency;
+
+    const static int in_order=2;
+    const static int out_order=2;
     
   public:
-    BaseCoefficients();
+    BaseSecondOrderCoefficients();
     void set_cut_frequency(DataType cut_frequency);
   };
 
@@ -28,10 +31,10 @@ namespace ATK
    * Coefficients for a second order bandpass filter
    */
   template<typename DataType_>
-  class BandPassCoefficients: public BaseCoefficients<DataType_>
+  class BandPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef BaseCoefficients<DataType_> Parent;
+    typedef BaseSecondOrderCoefficients<DataType_> Parent;
     typedef DataType_ DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -54,10 +57,10 @@ namespace ATK
    * Coefficients for a second order lowpass filter
    */
   template<typename DataType_>
-  class LowPassCoefficients: public BaseCoefficients<DataType_>
+  class LowPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef BaseCoefficients<DataType_> Parent;
+    typedef BaseSecondOrderCoefficients<DataType_> Parent;
     typedef DataType_ DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -75,10 +78,10 @@ namespace ATK
    * Coefficients for a second order highpass filter
    */
   template<class DataType_>
-  class HighPassCoefficients: public BaseCoefficients<DataType_>
+  class HighPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef BaseCoefficients<DataType_> Parent;
+    typedef BaseSecondOrderCoefficients<DataType_> Parent;
     typedef DataType_ DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -96,10 +99,10 @@ namespace ATK
    * Coefficients for a second order allpass peak filter
    */
   template<typename DataType_>
-  class BandPassPeakCoefficients: public BaseCoefficients<DataType_>
+  class BandPassPeakCoefficients: public BaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef BaseCoefficients<DataType_> Parent;
+    typedef BaseSecondOrderCoefficients<DataType_> Parent;
     typedef DataType_ DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -124,10 +127,10 @@ namespace ATK
    * Coefficients for a second order lowpass filter
    */
   template<typename DataType_>
-  class LowShelvingCoefficients: public BaseCoefficients<DataType_>
+  class LowShelvingCoefficients: public BaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef BaseCoefficients<DataType_> Parent;
+    typedef BaseSecondOrderCoefficients<DataType_> Parent;
     typedef DataType_ DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -149,10 +152,10 @@ namespace ATK
    * Coefficients for a second order high pass shelving filter
    */
   template<typename DataType_>
-  class HighShelvingCoefficients: public BaseCoefficients<DataType_>
+  class HighShelvingCoefficients: public BaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef BaseCoefficients<DataType_> Parent;
+    typedef BaseSecondOrderCoefficients<DataType_> Parent;
     typedef DataType_ DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -168,34 +171,6 @@ namespace ATK
     
   public:
     void set_gain(DataType gain);
-  };
-  
-  /**
-   * Second order filter template class
-   */
-  template<class Coefficients >
-  class SecondOrderFilter: public Coefficients
-  {
-  public:
-    typedef Coefficients Parent;
-    using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
-    using Parent::converted_inputs;
-    using Parent::outputs;
-    using Parent::coefficients_in;
-    using Parent::coefficients_out;
-    using Parent::input_sampling_rate;
-    using Parent::output_sampling_rate;
-
-  private:
-    DataType buffer_in[2];
-    DataType buffer_out[2];
-    
-  public:
-    SecondOrderFilter();
-    
-    virtual void process_impl(int size);
   };
 }
 
