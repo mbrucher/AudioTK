@@ -25,7 +25,7 @@ namespace ATK
     ~SumFilter();
     
   protected:
-    virtual void process_impl(int size);
+    virtual void process_impl(long size);
   };
 }
 

@@ -30,7 +30,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void TriangleGeneratorFilter<DataType_>::process_impl(int size)
+  void TriangleGeneratorFilter<DataType_>::process_impl(long size)
   {
     if(outputs_size[0] < size)
     {
@@ -40,7 +40,7 @@ namespace ATK
     
     double real_increment = 2. / output_sampling_rate * frequency;
     
-    for(int i = 0; i < size; ++i)
+    for(long i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
       if(state >= 1)

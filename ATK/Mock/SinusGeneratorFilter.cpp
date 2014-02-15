@@ -34,7 +34,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void SinusGeneratorFilter<DataType_>::process_impl(int size)
+  void SinusGeneratorFilter<DataType_>::process_impl(long size)
   {
     if(outputs_size[0] < size)
     {
@@ -44,7 +44,7 @@ namespace ATK
     
     double real_increment = 2. / output_sampling_rate * frequency;
     
-    for(int i = 0; i < size; ++i)
+    for(long i = 0; i < size; ++i)
     {
       state += real_increment;
       outputs[0][i] = amplitude * std::sin(state * boost::math::constants::pi<double>());

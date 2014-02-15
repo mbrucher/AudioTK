@@ -45,7 +45,7 @@ namespace ATK
       }
     }
     
-    virtual void process_impl(int size)
+    virtual void process_impl(long size)
     {
       assert(input_sampling_rate == output_sampling_rate);
       if(outputs_size[0] < size)
@@ -54,7 +54,7 @@ namespace ATK
         outputs_size[0] = size;
       }
       
-      for(int i = 0; i < size; ++i)
+      for(long i = 0; i < size; ++i)
       {
         outputs[0][i] = coefficients_in[in_order] * converted_inputs[0][i];
 

@@ -50,6 +50,10 @@ namespace ATK
   void BaseFilter::set_input_sampling_rate(int rate)
   {
     input_sampling_rate = rate;
+    if(output_sampling_rate == 0)
+    {
+      output_sampling_rate = rate;
+    }
     setup();
   }
   
@@ -69,7 +73,7 @@ namespace ATK
     return output_sampling_rate;
   }
 
-  void BaseFilter::process(int size)
+  void BaseFilter::process(long size)
   {
     if(!is_reset)
     {
@@ -81,9 +85,9 @@ namespace ATK
       {
         throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
       }
-      it->second->process(size);
+      it->second->process(size * input_sampling_rate / output_sampling_rate);
     }
-    prepare_process(size);
+    prepare_process(size * input_sampling_rate / output_sampling_rate);
     process_impl(size);
     is_reset = false;
   }

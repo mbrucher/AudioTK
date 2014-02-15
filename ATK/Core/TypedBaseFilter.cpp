@@ -59,12 +59,12 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(int size)
+  void TypedBaseFilter<DataType>::process_impl(long size)
   {
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_process(int size)
+  void TypedBaseFilter<DataType>::prepare_process(long size)
   {
     convert_inputs(size);
   }

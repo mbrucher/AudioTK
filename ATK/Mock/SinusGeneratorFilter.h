@@ -26,7 +26,7 @@ namespace ATK
     void set_frequency(int frequency);
     
   protected:
-    virtual void process_impl(int size);
+    virtual void process_impl(long size);
     
     double state;
     DataType_ amplitude;

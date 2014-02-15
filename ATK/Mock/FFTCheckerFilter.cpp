@@ -59,10 +59,10 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFTCheckerFilter<DataType_>::process_impl(int size)
+  void FFTCheckerFilter<DataType_>::process_impl(long size)
   {
     double factor = input_sampling_rate;
-    for(int i = 0; i < size/input_sampling_rate; ++i)
+    for(long i = 0; i < size/input_sampling_rate; ++i)
     {
       vDSP_ctozD(reinterpret_cast<DOUBLE_COMPLEX*>(&converted_inputs[0][i * input_sampling_rate]), 2, &splitData, 1, input_sampling_rate/2);
       vDSP_fft_zripD(fftSetup, &splitData, 1, log2n, FFT_FORWARD);
