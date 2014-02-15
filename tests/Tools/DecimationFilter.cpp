@@ -2,7 +2,6 @@
  * \file DecimationFilter.cpp
  */
 
-
 #include <ATK/Tools/DecimationFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
@@ -11,7 +10,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+#define PROCESSSIZE (1024*1024)
 
 BOOST_AUTO_TEST_CASE( DecimationFilter_sinus_2_test )
 {

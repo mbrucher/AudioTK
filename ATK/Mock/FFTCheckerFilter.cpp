@@ -79,7 +79,7 @@ namespace ATK
         }
         else
         {
-          BOOST_REQUIRE_CLOSE(amp, amp_check, 0.001);
+          BOOST_REQUIRE_CLOSE(amp, amp_check, 0.01);
         }
       }
     }
