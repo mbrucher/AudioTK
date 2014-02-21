@@ -64,7 +64,6 @@ namespace ATK
   template<class DataType_>
   void TriangleCheckerFilter<DataType_>::process_impl(long size)
   {
-    
     double real_increment = 2. / input_sampling_rate * frequency;
     
     for(long i = 0; i < size; ++i)

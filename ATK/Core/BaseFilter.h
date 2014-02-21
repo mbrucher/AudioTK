@@ -39,6 +39,8 @@ namespace ATK
     void virtual process_impl(long size) = 0;
     /// Prepares the filter by retrieving the inputs arrays
     void virtual prepare_process(long size) = 0;
+    /// Prepares the filter by resizing the outputs arrays
+    void virtual prepare_outputs(long size) = 0;
     /// Returns the type that the filter processes
     int virtual get_type() const = 0;
     bool is_reset;

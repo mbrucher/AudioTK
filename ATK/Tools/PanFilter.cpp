@@ -37,17 +37,6 @@ namespace ATK
   template<typename DataType_>
   void PanFilter<DataType_>::process_impl(long size)
   {
-    if(outputs_size[0] < size)
-    {
-      outputs[0].reset(new DataType[size]);
-      outputs_size[0] = size;
-    }
-    if(outputs_size[1] < size)
-    {
-      outputs[1].reset(new DataType[size]);
-      outputs_size[1] = size;
-    }
-    
     double left_coeff = 1;
     double right_coeff = 1;
     

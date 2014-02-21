@@ -32,16 +32,7 @@ namespace ATK
   
   template<class DataType>
   void DecimationFilter<DataType>::process_impl(long size)
-  {
-    for(int j = 0; j < outputs_size.size(); ++j)
-    {
-      if(outputs_size[j] < size)
-      {
-        outputs[j].reset(new DataType[size]);
-        outputs_size[j] = size;
-      }
-    }
-    
+  {    
     for(int j = 0; j < outputs_size.size(); ++j)
     {
       for(long i = 0; i < size; ++i)
