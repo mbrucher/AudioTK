@@ -34,11 +34,13 @@ namespace ATK
     /// This implementation retrieves inputs from other filters and converts it accordingly
     virtual void process_impl(long size);
     /// Prepares the filter by retrieving the inputs arrays
-    void virtual prepare_process(long size);
+    virtual void prepare_process(long size);
+    /// Prepares the filter by resizing the outputs arrays
+    virtual void prepare_outputs(long size);
     virtual int get_type() const;
     
     /// Used to convert other filter outputs to DataType*
-    void convert_inputs(int size);
+    void convert_inputs(long size);
     
     std::vector<boost::scoped_array<DataType> > converted_inputs;
     std::vector<int> converted_inputs_size;

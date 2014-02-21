@@ -80,9 +80,9 @@ namespace ATK
   {
     return outputs[port].get();
   }
-  
+
   template<typename DataType>
-  void TypedBaseFilter<DataType>::convert_inputs(int size)
+  void TypedBaseFilter<DataType>::convert_inputs(long size)
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
@@ -92,6 +92,19 @@ namespace ATK
         converted_inputs_size[i] = size;
       }
       convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i].get(), size, get_type());
+    }
+  }
+  
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::prepare_outputs(long size)
+  {
+    for(int i = 0; i < nb_output_ports; ++i)
+    {
+      if(outputs_size[i] < size)
+      {
+        outputs[i].reset(new DataType[size]);
+        outputs_size[i] = size;
+      }
     }
   }
 

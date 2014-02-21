@@ -135,11 +135,6 @@ namespace ATK
   void OversamplingFilter<DataType, Coefficients>::process_impl(long size)
   {
     assert(input_sampling_rate * Coefficients::oversampling_factor == output_sampling_rate);
-    if(outputs_size[0] < size)
-    {
-      outputs[0].reset(new DataType[size]);
-      outputs_size[0] = size;
-    }
     
     for(int i = 0; i < size / Coefficients::oversampling_factor; ++i)
     {

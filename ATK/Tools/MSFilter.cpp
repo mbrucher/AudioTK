@@ -24,23 +24,11 @@ namespace ATK
   template<typename DataType_>
   void MiddleSideFilter<DataType_>::process_impl(long size)
   {
-    if(outputs_size[0] < size)
-    {
-      outputs[0].reset(new DataType[size]);
-      outputs_size[0] = size;
-    }
-    if(outputs_size[1] < size)
-    {
-      outputs[1].reset(new DataType[size]);
-      outputs_size[1] = size;
-    }
-    
     for(long i = 0; i < size; ++i)
     {
       outputs[0][i] = static_cast<DataType>((converted_inputs[0][i] + converted_inputs[1][i]) / 2);
       outputs[1][i] = static_cast<DataType>((converted_inputs[0][i] - converted_inputs[1][i]) / 2);
     }
-    
   }
   
   template class MiddleSideFilter<std::int16_t>;

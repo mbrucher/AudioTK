@@ -88,6 +88,7 @@ namespace ATK
       it->second->process(size * input_sampling_rate / output_sampling_rate);
     }
     prepare_process(size * input_sampling_rate / output_sampling_rate);
+    prepare_outputs(size);
     process_impl(size);
     is_reset = false;
   }
