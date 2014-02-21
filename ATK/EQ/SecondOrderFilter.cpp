@@ -24,6 +24,12 @@ namespace ATK
     this->cut_frequency = cut_frequency;
     setup();
   }
+  
+  template <typename DataType>
+  typename BaseSecondOrderCoefficients<DataType>::DataType BaseSecondOrderCoefficients<DataType>::get_cut_frequency() const
+  {
+    return cut_frequency;
+  }
 
   template <typename DataType>
   void BandPassCoefficients<DataType>::setup()
@@ -44,6 +50,12 @@ namespace ATK
   {
     this->Q = Q;
     setup();
+  }
+
+  template <typename DataType>
+  typename BandPassCoefficients<DataType>::DataType BandPassCoefficients<DataType>::get_Q() const
+  {
+    return Q;
   }
 
   template <typename DataType>
@@ -109,10 +121,22 @@ namespace ATK
   }
 
   template <typename DataType>
+  typename BandPassPeakCoefficients<DataType>::DataType BandPassPeakCoefficients<DataType>::get_Q() const
+  {
+    return Q;
+  }
+
+  template <typename DataType>
   void BandPassPeakCoefficients<DataType>::set_gain(DataType gain)
   {
     this->gain = gain;
     setup();
+  }
+
+  template <typename DataType>
+  typename BandPassPeakCoefficients<DataType>::DataType BandPassPeakCoefficients<DataType>::get_gain() const
+  {
+    return gain;
   }
 
   template <typename DataType>
@@ -150,6 +174,12 @@ namespace ATK
   }
 
   template <typename DataType>
+  typename LowShelvingCoefficients<DataType>::DataType LowShelvingCoefficients<DataType>::get_gain() const
+  {
+    return gain;
+  }
+
+  template <typename DataType>
   void HighShelvingCoefficients<DataType>::setup()
   {
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
@@ -182,7 +212,13 @@ namespace ATK
     this->gain = gain;
     setup();
   }
-  
+
+  template <typename DataType>
+  typename HighShelvingCoefficients<DataType>::DataType HighShelvingCoefficients<DataType>::get_gain() const
+  {
+    return gain;
+  }
+
   template class BaseSecondOrderCoefficients<float>;
   template class BaseSecondOrderCoefficients<double>;
   

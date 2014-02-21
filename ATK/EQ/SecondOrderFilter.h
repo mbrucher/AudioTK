@@ -25,6 +25,7 @@ namespace ATK
   public:
     BaseSecondOrderCoefficients();
     void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency() const;
   };
 
   /**
@@ -35,7 +36,7 @@ namespace ATK
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
-    typedef DataType_ DataType;
+    using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -51,6 +52,7 @@ namespace ATK
     
   public:
     void set_Q(DataType Q);
+    DataType get_Q() const;
   };
   
   /**
@@ -61,7 +63,7 @@ namespace ATK
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
-    typedef DataType_ DataType;
+    using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -82,7 +84,7 @@ namespace ATK
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
-    typedef DataType_ DataType;
+    using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -103,7 +105,7 @@ namespace ATK
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
-    typedef DataType_ DataType;
+    using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -120,7 +122,9 @@ namespace ATK
     
   public:
     void set_Q(DataType Q);
+    DataType get_Q() const;
     void set_gain(DataType gain);
+    DataType get_gain() const;
   };
   
   /**
@@ -131,7 +135,7 @@ namespace ATK
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
-    typedef DataType_ DataType;
+    using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -146,6 +150,7 @@ namespace ATK
     
   public:
     void set_gain(DataType gain);
+    DataType get_gain() const;
   };
   
   /**
@@ -156,7 +161,7 @@ namespace ATK
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
-    typedef DataType_ DataType;
+    using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -171,6 +176,7 @@ namespace ATK
     
   public:
     void set_gain(DataType gain);
+    DataType get_gain() const;
   };
 }
 
