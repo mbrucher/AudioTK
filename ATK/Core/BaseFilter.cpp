@@ -92,4 +92,25 @@ namespace ATK
     process_impl(size);
     is_reset = false;
   }
+
+  int BaseFilter::get_nb_input_ports() const
+  {
+    return nb_input_ports;
+  }
+
+  void BaseFilter::set_nb_input_ports(int nb_ports)
+  {
+    connections.resize(nb_ports, std::make_pair(-1, std::nullptr_t()));
+    nb_input_ports = nb_ports;
+  }
+  
+  int BaseFilter::get_nb_output_ports() const
+  {
+    return nb_output_ports;
+  }
+  
+  void BaseFilter::set_nb_output_ports(int nb_ports)
+  {
+    nb_output_ports = nb_ports;
+  }
 }
