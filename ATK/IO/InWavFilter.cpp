@@ -75,6 +75,9 @@ namespace ATK
       case 16:
         convert<DataType, std::int16_t>(temp_arrays, buffer);
         break;
+      case 24:
+        convert<DataType, char[3]>(temp_arrays, buffer);
+        break;
       case 32:
         convert<DataType, float>(temp_arrays, buffer);
         break;

@@ -5,10 +5,11 @@
 #ifndef ATK_CORE_TYPETRAITS_H
 #define ATK_CORE_TYPETRAITS_H
 
+#include <cstdint>
 #include <limits>
 
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace ATK
@@ -26,7 +27,22 @@ namespace ATK
       return static_cast<DataType>(-el * std::numeric_limits<DataType>::min());
     }
   };
-  
+
+  template<>
+  struct IntegralTypeTraits<char[3]>
+  {
+    static double to_double(const char el[3])
+    {
+      std::int64_t data = 0;
+      char* temp = reinterpret_cast<char*>(&data);
+      for(int i = 0; i < 3; ++i)
+      {
+        temp[i] = el[i];
+      }
+      return -static_cast<double>(data) / (((1 << 8) * std::numeric_limits<std::int32_t>::min()));
+    }
+  };
+
   template<typename DataType>
   struct RealTypeTraits
   {
@@ -42,9 +58,8 @@ namespace ATK
   };
 
   template<typename DataType>
-  struct TypeTraits : public boost::mpl::if_<typename boost::is_integral<DataType>::type, IntegralTypeTraits<DataType>, RealTypeTraits<DataType> >::type
+  struct TypeTraits : public boost::mpl::if_<typename boost::is_floating_point<DataType>::type, RealTypeTraits<DataType>, IntegralTypeTraits<DataType> >::type
   {
-    //using typename boost::mpl::if_<typename boost::is_integral<DataType>::type, IntegralTypeTraits<DataType>, RealTypeTraits<DataType> >::type;
   };
 
 }

@@ -46,7 +46,7 @@ namespace ATK
     }
     convert_to_array(input_array, output_array, size, offset);
   }
-  
+
   template struct ConversionUtilities<std::int8_t, std::int16_t>;
   template struct ConversionUtilities<std::int8_t, std::int32_t>;
   template struct ConversionUtilities<std::int8_t, std::int64_t>;
@@ -77,4 +77,9 @@ namespace ATK
   template struct ConversionUtilities<double, std::int64_t>;
   template struct ConversionUtilities<double, float>;
   template struct ConversionUtilities<double, double>;
+  template struct ConversionUtilities<char[3], std::int16_t>;
+  template struct ConversionUtilities<char[3], std::int32_t>;
+  template struct ConversionUtilities<char[3], std::int64_t>;
+  template struct ConversionUtilities<char[3], float>;
+  template struct ConversionUtilities<char[3], double>;
 }
