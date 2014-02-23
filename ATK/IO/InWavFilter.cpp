@@ -6,6 +6,8 @@
 
 #include <boost/lexical_cast.hpp>
 
+#include <ATK/Core/Utilities.h>
+
 namespace
 {
   template<typename DataType1, typename DataType2>
@@ -13,12 +15,9 @@ namespace
   {
     int nbChannels = outputs.size();
     long size = outputs[0].size();
-    for(long i = 0; i < size; ++i)
+    for(int j = 0; j < nbChannels; ++j)
     {
-      for(int j = 0; j < nbChannels; ++j)
-      { // Not the best for the moment...
-        outputs[j][i] = static_cast<DataType1>(*(reinterpret_cast<const DataType2*>(inputs.data() + sizeof(DataType2) * (j + i * nbChannels))));
-      }
+      ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data() + j * sizeof(DataType2)), outputs[j].data(), size, nbChannels);
     }
   }
 }
