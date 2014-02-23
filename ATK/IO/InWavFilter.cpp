@@ -17,20 +17,43 @@ namespace ATK
     }
     wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
     set_nb_output_ports(format.NbrCanaux);
+    temp_arrays.resize(format.NbrCanaux);
   }
 
   template<typename DataType>
   void InWavFilter<DataType>::process_impl(long size)
   {
     assert(output_sampling_rate == format.Frequence);
-    std::vector<char> buffer(size * format.NbrCanaux * format.BitsPerSample / 8);
-    wavstream.read(buffer.data(), buffer.size());
+    read_from_file(size);
 
     for(long i = 0; i < size; ++i)
     {
       for(int j = 0; j < format.NbrCanaux; ++j)
       {
-        outputs[j][i] = *(reinterpret_cast<float*>(buffer.data() + format.BitsPerSample / 8 * (j + i * format.NbrCanaux)));
+        outputs[j][i] = temp_arrays[j][i];
+      }
+    }
+  }
+  
+  template<typename DataType>
+  void InWavFilter<DataType>::read_from_file(long size)
+  {
+    std::vector<char> buffer(size * format.NbrCanaux * format.BitsPerSample / 8);
+    wavstream.read(buffer.data(), buffer.size());
+    
+    if(temp_arrays[0].size() < size)
+    {
+      for(int j = 0; j < format.NbrCanaux; ++j)
+      {
+        temp_arrays[j].resize(size);
+      }
+    }
+    
+    for(long i = 0; i < size; ++i)
+    {
+      for(int j = 0; j < format.NbrCanaux; ++j)
+      {
+        temp_arrays[j][i] = *(reinterpret_cast<float*>(buffer.data() + format.BitsPerSample / 8 * (j + i * format.NbrCanaux)));
       }
     }
   }

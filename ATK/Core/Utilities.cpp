@@ -15,7 +15,7 @@
 namespace
 {
   template<typename DataType>
-  void convert_to_array(const DataType* input_array, DataType* output_array, int size)
+  void convert_to_array(const DataType* input_array, DataType* output_array, long size)
   {
     for(int i = 0; i < size; ++i)
     {
@@ -25,7 +25,7 @@ namespace
   
   template<typename DataType1, typename DataType2>
   typename boost::disable_if<typename boost::mpl::equal<typename boost::mpl::vector<DataType1>::type, typename boost::mpl::vector<DataType2>::type>::type, void>::type
-      convert_to_array(const DataType1* input_array, DataType2* output_array, int size)
+      convert_to_array(const DataType1* input_array, DataType2* output_array, long size)
   {
     for(int i = 0; i < size; ++i)
     {
@@ -38,7 +38,7 @@ namespace
 namespace ATK
 {
   template<typename DataType1, typename DataType2>
-  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, int size)
+  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, long size)
   {
     convert_to_array(input_array, output_array, size);
   }

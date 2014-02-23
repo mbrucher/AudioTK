@@ -31,6 +31,10 @@ namespace ATK
     WavFormat format;
     WavData data;
     
+    std::vector<std::vector<DataType> > temp_arrays;
+    
+    void read_from_file(long size);
+
   public:
     InWavFilter(const std::string& filename);
     
