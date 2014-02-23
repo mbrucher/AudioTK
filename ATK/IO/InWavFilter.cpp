@@ -23,7 +23,16 @@ namespace ATK
   void InWavFilter<DataType>::process_impl(long size)
   {
     assert(output_sampling_rate == format.Frequence);
-    
+    std::vector<char> buffer(size * format.NbrCanaux * format.BitsPerSample / 8);
+    wavstream.read(buffer.data(), buffer.size());
+
+    for(long i = 0; i < size; ++i)
+    {
+      for(int j = 0; j < format.NbrCanaux; ++j)
+      {
+        outputs[j][i] = *(reinterpret_cast<float*>(buffer.data() + format.BitsPerSample / 8 * (j + i * format.NbrCanaux)));
+      }
+    }
   }
   
   template class InWavFilter<std::int16_t>;
