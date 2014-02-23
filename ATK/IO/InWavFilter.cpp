@@ -10,12 +10,19 @@ namespace ATK
   InWavFilter<DataType>::InWavFilter(const std::string& filename)
   :TypedBaseFilter<DataType>(0, 0)
   {
-    
+    wavstream.open(filename.c_str());
+    if(!wavstream.good())
+    {
+      throw std::runtime_error("Could not WAV file " + filename);
+    }
+    wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
+    set_nb_output_ports(format.NbrCanaux);
   }
 
   template<typename DataType>
   void InWavFilter<DataType>::process_impl(long size)
   {
+    assert(output_sampling_rate == format.Frequence);
     
   }
   
