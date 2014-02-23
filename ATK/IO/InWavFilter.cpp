@@ -4,6 +4,25 @@
 
 #include "InWavFilter.h"
 
+#include <boost/lexical_cast.hpp>
+
+namespace
+{
+  template<typename DataType1, typename DataType2>
+  void convert(std::vector<std::vector<DataType1> >& outputs, const std::vector<char>& inputs)
+  {
+    int nbChannels = outputs.size();
+    long size = outputs[0].size();
+    for(long i = 0; i < size; ++i)
+    {
+      for(int j = 0; j < nbChannels; ++j)
+      { // Not the best for the moment...
+        outputs[j][i] = static_cast<DataType1>(*(reinterpret_cast<const DataType2*>(inputs.data() + sizeof(DataType2) * (j + i * nbChannels))));
+      }
+    }
+  }
+}
+
 namespace ATK
 {
   template<typename DataType>
@@ -16,8 +35,8 @@ namespace ATK
       throw std::runtime_error("Could not WAV file " + filename);
     }
     wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
-    set_nb_output_ports(format.NbrCanaux);
-    temp_arrays.resize(format.NbrCanaux);
+    set_nb_output_ports(format.NbChannels);
+    temp_arrays.resize(format.NbChannels);
   }
 
   template<typename DataType>
@@ -28,7 +47,7 @@ namespace ATK
 
     for(long i = 0; i < size; ++i)
     {
-      for(int j = 0; j < format.NbrCanaux; ++j)
+      for(int j = 0; j < format.NbChannels; ++j)
       {
         outputs[j][i] = temp_arrays[j][i];
       }
@@ -38,23 +57,33 @@ namespace ATK
   template<typename DataType>
   void InWavFilter<DataType>::read_from_file(long size)
   {
-    std::vector<char> buffer(size * format.NbrCanaux * format.BitsPerSample / 8);
+    std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
     wavstream.read(buffer.data(), buffer.size());
     
     if(temp_arrays[0].size() < size)
     {
-      for(int j = 0; j < format.NbrCanaux; ++j)
+      for(int j = 0; j < format.NbChannels; ++j)
       {
         temp_arrays[j].resize(size);
       }
     }
     
-    for(long i = 0; i < size; ++i)
+    switch(format.BitsPerSample)
     {
-      for(int j = 0; j < format.NbrCanaux; ++j)
-      {
-        temp_arrays[j][i] = *(reinterpret_cast<float*>(buffer.data() + format.BitsPerSample / 8 * (j + i * format.NbrCanaux)));
-      }
+      case 8:
+        convert<DataType, std::int8_t>(temp_arrays, buffer);
+        break;
+      case 16:
+        convert<DataType, std::int16_t>(temp_arrays, buffer);
+        break;
+      case 32:
+        convert<DataType, float>(temp_arrays, buffer);
+        break;
+      case 64:
+        convert<DataType, double>(temp_arrays, buffer);
+        break;
+      default:
+        throw std::runtime_error("Don't know how to process bits per sample=" + boost::lexical_cast<std::string>(format.BitsPerSample));
     }
   }
   

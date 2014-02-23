@@ -21,7 +21,7 @@ namespace ATK
     char FormatBlocID[4];
     std::int32_t BlocSize;
     std::int16_t AudioFormat;
-    std::int16_t NbrCanaux;
+    std::int16_t NbChannels;
     std::int32_t Frequence;
     std::int32_t BytePerSec;
     std::int16_t BytePerBloc;
