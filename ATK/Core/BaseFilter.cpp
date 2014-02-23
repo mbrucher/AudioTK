@@ -37,6 +37,10 @@ namespace ATK
 
   void BaseFilter::set_input_port(int input_port, BaseFilter* filter, int output_port)
   {
+    if(output_port < 0 || output_port >= filter->nb_output_ports)
+    {
+      throw std::runtime_error("Output port does not exist for this filter");
+    }
     if(input_port >= 0 && input_port < nb_input_ports)
     {
       connections[input_port] = std::make_pair(output_port, filter);
@@ -44,6 +48,10 @@ namespace ATK
       {
         throw std::runtime_error("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
       }
+    }
+    else
+    {
+      throw std::runtime_error("Input port doesn't exist for this filter");
     }
   }
   
