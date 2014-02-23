@@ -30,6 +30,9 @@ namespace ATK
      */
     DataType* get_output_array(int port);
     
+    virtual void set_nb_input_ports(int nb_ports);
+    virtual void set_nb_output_ports(int nb_ports);
+
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
     virtual void process_impl(long size);

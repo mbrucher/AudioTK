@@ -50,7 +50,7 @@ namespace ATK
   :Parent(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports), outputs(nb_output_ports)
   {
     converted_inputs_size.assign(nb_input_ports, 0);
-    outputs_size.resize(nb_output_ports, 0);
+    outputs_size.assign(nb_output_ports, 0);
   }
 
   template<typename DataType>
@@ -58,6 +58,24 @@ namespace ATK
   {
   }
   
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::set_nb_input_ports(int nb_ports)
+  {
+    Parent::set_nb_input_ports(nb_ports);
+    std::vector<boost::scoped_array<DataType> > temp(nb_ports);
+    converted_inputs.swap(temp);
+    converted_inputs_size.resize(nb_ports, 0);
+  }
+  
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::set_nb_output_ports(int nb_ports)
+  {
+    Parent::set_nb_output_ports(nb_ports);
+    std::vector<boost::scoped_array<DataType> > temp(nb_ports);
+    outputs.swap(temp);
+    outputs_size.resize(nb_ports, 0);
+  }
+
   template<typename DataType>
   void TypedBaseFilter<DataType>::process_impl(long size)
   {
