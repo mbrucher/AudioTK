@@ -48,7 +48,7 @@ namespace ATK
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {
-        outputs[j][i] = temp_arrays[j][i];
+        outputs[j][i] = temp_arrays[j][i]; // FIXME add interpolation + there will be lag
       }
     }
   }

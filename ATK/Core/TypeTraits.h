@@ -41,6 +41,11 @@ namespace ATK
       }
       return -static_cast<double>(data) / (((1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
+
+    static std::int64_t from_double(double el)
+    {
+      return static_cast<std::int64_t>(-el * ((1 << 8) * std::numeric_limits<std::int32_t>::min()));
+    }
   };
 
   template<typename DataType>
