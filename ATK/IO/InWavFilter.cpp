@@ -31,7 +31,7 @@ namespace ATK
     wavstream.open(filename.c_str());
     if(!wavstream.good())
     {
-      throw std::runtime_error("Could not WAV file " + filename);
+      throw std::runtime_error("Could not open WAV file " + filename);
     }
     wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
     set_nb_output_ports(format.NbChannels);
