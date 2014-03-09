@@ -8,8 +8,9 @@
 #include <ATK/Mock/TriangleGeneratorFilter.h>
 
 #define BOOST_TEST_NO_MAIN
-#define BOOST_TEST_MODULE ATKCore_test
 #include <boost/test/unit_test.hpp>
+
+#define PROCESSSIZE (1024*1024)
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_int16_t )
 {
@@ -42,6 +43,8 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int16_t )
   filter.set_input_sampling_rate(44100);
   BOOST_CHECK_EQUAL(filter.get_input_sampling_rate(), 44100);
   BOOST_CHECK_NE(filter.get_output_sampling_rate(), 44100);
+  BOOST_CHECK_EQUAL(filter.get_nb_input_ports(), 0);
+  BOOST_CHECK_EQUAL(filter.get_nb_output_ports(), 0);
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int32_t )
@@ -129,7 +132,7 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_triangle_test )
   checker.set_frequency(1000);
   
   checker.set_input_port(0, &generator, 0);
-  checker.process(1024*1024);
+  checker.process(PROCESSSIZE);
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_throw_triangle_test )
@@ -139,5 +142,5 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_throw_triangle_test )
   checker.set_amplitude(1000000);
   checker.set_frequency(1000);
   
-  BOOST_CHECK_THROW(checker.process(1024*1024), std::runtime_error);
+  BOOST_CHECK_THROW(checker.process(PROCESSSIZE), std::runtime_error);
 }

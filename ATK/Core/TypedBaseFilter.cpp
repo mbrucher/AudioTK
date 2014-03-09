@@ -50,7 +50,7 @@ namespace ATK
   :Parent(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports), outputs(nb_output_ports)
   {
     converted_inputs_size.assign(nb_input_ports, 0);
-    outputs_size.resize(nb_output_ports, 0);
+    outputs_size.assign(nb_output_ports, 0);
   }
 
   template<typename DataType>
@@ -59,12 +59,30 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(int size)
+  void TypedBaseFilter<DataType>::set_nb_input_ports(int nb_ports)
+  {
+    Parent::set_nb_input_ports(nb_ports);
+    std::vector<boost::scoped_array<DataType> > temp(nb_ports);
+    converted_inputs.swap(temp);
+    converted_inputs_size.resize(nb_ports, 0);
+  }
+  
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::set_nb_output_ports(int nb_ports)
+  {
+    Parent::set_nb_output_ports(nb_ports);
+    std::vector<boost::scoped_array<DataType> > temp(nb_ports);
+    outputs.swap(temp);
+    outputs_size.resize(nb_ports, 0);
+  }
+
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::process_impl(long size)
   {
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_process(int size)
+  void TypedBaseFilter<DataType>::prepare_process(long size)
   {
     convert_inputs(size);
   }
@@ -80,9 +98,9 @@ namespace ATK
   {
     return outputs[port].get();
   }
-  
+
   template<typename DataType>
-  void TypedBaseFilter<DataType>::convert_inputs(int size)
+  void TypedBaseFilter<DataType>::convert_inputs(long size)
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
@@ -91,7 +109,20 @@ namespace ATK
         converted_inputs[i].reset(new DataType[size]);
         converted_inputs_size[i] = size;
       }
-      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i].get(), size, get_type());
+      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i].get(), size, connections[i].second->get_type());
+    }
+  }
+  
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::prepare_outputs(long size)
+  {
+    for(int i = 0; i < nb_output_ports; ++i)
+    {
+      if(outputs_size[i] < size)
+      {
+        outputs[i].reset(new DataType[size]);
+        outputs_size[i] = size;
+      }
     }
   }
 

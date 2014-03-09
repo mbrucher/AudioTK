@@ -30,15 +30,20 @@ namespace ATK
      */
     DataType* get_output_array(int port);
     
+    virtual void set_nb_input_ports(int nb_ports);
+    virtual void set_nb_output_ports(int nb_ports);
+    virtual int get_type() const;
+
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(int size);
+    virtual void process_impl(long size);
     /// Prepares the filter by retrieving the inputs arrays
-    void virtual prepare_process(int size);
-    virtual int get_type() const;
+    virtual void prepare_process(long size);
+    /// Prepares the filter by resizing the outputs arrays
+    virtual void prepare_outputs(long size);
     
     /// Used to convert other filter outputs to DataType*
-    void convert_inputs(int size);
+    void convert_inputs(long size);
     
     std::vector<boost::scoped_array<DataType> > converted_inputs;
     std::vector<int> converted_inputs_size;

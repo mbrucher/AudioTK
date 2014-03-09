@@ -37,7 +37,7 @@ namespace ATK
     void set_pan(double pan);
     
   protected:
-    virtual void process_impl(int size);
+    virtual void process_impl(long size);
 
   private:
     PAN_LAWS law;

@@ -24,24 +24,33 @@ namespace ATK
     void set_input_port(int input_port, BaseFilter* filter, int output_port);
     
     /// Starts processing if reset
-    void process(int size);
+    void process(long size);
     
     void set_input_sampling_rate(int rate);
     int get_input_sampling_rate() const;
     void set_output_sampling_rate(int rate);
     int get_output_sampling_rate() const;
     
+    int get_nb_input_ports() const;
+    virtual void set_nb_input_ports(int nb_ports);
+    int get_nb_output_ports() const;
+    virtual void set_nb_output_ports(int nb_ports);
+
     /// Resets the filter so that it will process something if needed
     void reset();
-    
-  protected:
-    /// The actual filter processing part
-    void virtual process_impl(int size) = 0;
-    /// Prepares the filter by retrieving the inputs arrays
-    void virtual prepare_process(int size) = 0;
     /// Returns the type that the filter processes
     int virtual get_type() const = 0;
+  
+  protected:
+    /// The actual filter processing part
+    void virtual process_impl(long size) = 0;
+    /// Prepares the filter by retrieving the inputs arrays
+    void virtual prepare_process(long size) = 0;
+    /// Prepares the filter by resizing the outputs arrays
+    void virtual prepare_outputs(long size) = 0;
     bool is_reset;
+    
+    virtual void setup();
     
     int nb_input_ports;
     int nb_output_ports;

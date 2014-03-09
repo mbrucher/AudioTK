@@ -18,10 +18,10 @@ namespace
   template<class DataType>
   typename boost::enable_if<typename boost::is_floating_point<DataType>::type>::type compare(DataType v1, DataType v2)
   {
-    if(std::abs(v1) < 1e-10 || std::abs(v2) < 1e-10)
+    if(std::abs(v1) < 1e-6 || std::abs(v2) < 1e-5)
     {
-      BOOST_REQUIRE_SMALL(v1, static_cast<DataType>(1e-10));
-      BOOST_REQUIRE_SMALL(v2, static_cast<DataType>(1e-10));
+      BOOST_REQUIRE_SMALL(v1, static_cast<DataType>(1e-5));
+      BOOST_REQUIRE_SMALL(v2, static_cast<DataType>(1e-5));
     }
     else
     {
@@ -62,12 +62,11 @@ namespace ATK
   }
 
   template<class DataType_>
-  void TriangleCheckerFilter<DataType_>::process_impl(int size)
+  void TriangleCheckerFilter<DataType_>::process_impl(long size)
   {
-    
     double real_increment = 2. / input_sampling_rate * frequency;
     
-    for(int i = 0; i < size; ++i)
+    for(long i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
       if(state >= 1)

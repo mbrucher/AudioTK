@@ -28,7 +28,7 @@ namespace ATK
     void set_volume_db(double volume_db);
     
   protected:
-    virtual void process_impl(int size);
+    virtual void process_impl(long size);
     
   private:
     double volume;

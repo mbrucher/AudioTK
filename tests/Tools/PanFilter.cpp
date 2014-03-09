@@ -10,7 +10,6 @@
 #include <ATK/Mock/TriangleGeneratorFilter.h>
 
 #define BOOST_TEST_NO_MAIN
-#define BOOST_TEST_MODULE ATKTools_test
 #include <boost/test/unit_test.hpp>
 
 #define PROCESSSIZE (1024*1024)

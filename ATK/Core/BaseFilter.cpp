@@ -30,16 +30,39 @@ namespace ATK
     }
     is_reset = true;
   }
+  
+  void BaseFilter::setup()
+  {
+  }
 
   void BaseFilter::set_input_port(int input_port, BaseFilter* filter, int output_port)
   {
+    if(output_port < 0 || output_port >= filter->nb_output_ports)
+    {
+      throw std::runtime_error("Output port does not exist for this filter");
+    }
     if(input_port >= 0 && input_port < nb_input_ports)
+    {
       connections[input_port] = std::make_pair(output_port, filter);
+      if(filter->get_output_sampling_rate() != get_input_sampling_rate())
+      {
+        throw std::runtime_error("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
+      }
+    }
+    else
+    {
+      throw std::runtime_error("Input port doesn't exist for this filter");
+    }
   }
   
   void BaseFilter::set_input_sampling_rate(int rate)
   {
     input_sampling_rate = rate;
+    if(output_sampling_rate == 0)
+    {
+      output_sampling_rate = rate;
+    }
+    setup();
   }
   
   int BaseFilter::get_input_sampling_rate() const
@@ -50,6 +73,7 @@ namespace ATK
   void BaseFilter::set_output_sampling_rate(int rate)
   {
     output_sampling_rate = rate;
+    setup();
   }
   
   int BaseFilter::get_output_sampling_rate() const
@@ -57,7 +81,7 @@ namespace ATK
     return output_sampling_rate;
   }
 
-  void BaseFilter::process(int size)
+  void BaseFilter::process(long size)
   {
     if(!is_reset)
     {
@@ -69,11 +93,32 @@ namespace ATK
       {
         throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
       }
-      it->second->process(size);
+      it->second->process(size * input_sampling_rate / output_sampling_rate);
     }
-    prepare_process(size);
+    prepare_process(size * input_sampling_rate / output_sampling_rate);
+    prepare_outputs(size);
     process_impl(size);
     is_reset = false;
   }
-}
 
+  int BaseFilter::get_nb_input_ports() const
+  {
+    return nb_input_ports;
+  }
+
+  void BaseFilter::set_nb_input_ports(int nb_ports)
+  {
+    connections.resize(nb_ports, std::make_pair(-1, std::nullptr_t()));
+    nb_input_ports = nb_ports;
+  }
+  
+  int BaseFilter::get_nb_output_ports() const
+  {
+    return nb_output_ports;
+  }
+  
+  void BaseFilter::set_nb_output_ports(int nb_ports)
+  {
+    nb_output_ports = nb_ports;
+  }
+}

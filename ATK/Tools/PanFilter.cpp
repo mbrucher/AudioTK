@@ -35,19 +35,8 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void PanFilter<DataType_>::process_impl(int size)
+  void PanFilter<DataType_>::process_impl(long size)
   {
-    if(outputs_size[0] < size)
-    {
-      outputs[0].reset(new DataType[size]);
-      outputs_size[0] = size;
-    }
-    if(outputs_size[1] < size)
-    {
-      outputs[1].reset(new DataType[size]);
-      outputs_size[1] = size;
-    }
-    
     double left_coeff = 1;
     double right_coeff = 1;
     
@@ -79,7 +68,7 @@ namespace ATK
         break;
     }
     
-    for(int i = 0; i < size; ++i)
+    for(long i = 0; i < size; ++i)
     {
       outputs[0][i] = static_cast<DataType>(left_coeff * converted_inputs[0][i]);
       outputs[1][i] = static_cast<DataType>(right_coeff * converted_inputs[0][i]);

@@ -34,19 +34,12 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void VolumeFilter<DataType_>::process_impl(int size)
+  void VolumeFilter<DataType_>::process_impl(long size)
   {
-    if(outputs_size[0] < size)
-    {
-      outputs[0].reset(new DataType[size]);
-      outputs_size[0] = size;
-    }
-    
-    for(int i = 0; i < size; ++i)
+    for(long i = 0; i < size; ++i)
     {
       outputs[0][i] = static_cast<DataType>(volume * converted_inputs[0][i]);
     }
-    
   }
   
   template class VolumeFilter<std::int16_t>;
