@@ -5,10 +5,18 @@
 #ifndef ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
 #define ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
 
+#include <boost/scoped_ptr.hpp>
+
 #include "../Core/TypedBaseFilter.h"
 
 namespace ATK
 {
+  template<typename Function>
+  class ScalarNewtonRaphson;
+
+  template<typename DataType>
+  class SimpleOverdriveFunction;
+  
   /**
    * First order filter template class
    */
@@ -27,12 +35,15 @@ namespace ATK
     
   public:
     SimpleOverdriveFilter();
+    ~SimpleOverdriveFilter();
     
   protected:
     void setup();
     void process_impl(long size);
     
   private:
+    boost::scoped_ptr<SimpleOverdriveFunction<DataType> > function;
+    boost::scoped_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction<DataType> > > optimizer;
   };
 }
 
