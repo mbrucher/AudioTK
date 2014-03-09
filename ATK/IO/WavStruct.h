@@ -33,6 +33,38 @@ namespace ATK
     char DataBlocID[4];
     std::int32_t DataSize;
   };
+  
+  template<typename DataType>
+  struct WavTraits
+  {
+  };
+  
+  template<>
+  struct WavTraits<std::int16_t>
+  {
+    static int get_wav_type()
+    {
+      return 1;
+    }
+  };
+  
+  template<>
+  struct WavTraits<float>
+  {
+    static int get_wav_type()
+    {
+      return 3;
+    }
+  };
+  
+  template<>
+  struct WavTraits<double>
+  {
+    static int get_wav_type()
+    {
+      return 3;
+    }
+  };
 }
 
 #endif

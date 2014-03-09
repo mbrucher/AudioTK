@@ -35,6 +35,7 @@ namespace ATK
 
   protected:
     void setup();
+    void write_header();
     
   public:
     OutWavFilter(const std::string& filename);
@@ -42,7 +43,6 @@ namespace ATK
     void process_impl(long size);
     
     virtual void set_nb_input_ports(int nb_ports);
-    virtual void set_bits_per_sample(int bits_per_sample);
   };
 }
 #endif

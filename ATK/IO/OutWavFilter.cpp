@@ -40,6 +40,19 @@ namespace ATK
   template<typename DataType>
   void OutWavFilter<DataType>::process_impl(long size)
   {
+    int nb_inputs = converted_inputs.size();
+    std::vector<DataType> buffer(nb_inputs * size);
+    
+    for(long i = 0; i < size; ++i)
+    {
+      for(long j = 0; j < nb_inputs; ++j)
+      {
+        buffer[j + i * nb_inputs] = converted_inputs[j][i];
+      }
+    }
+    
+    wavstream.write(reinterpret_cast<const char*>(buffer.data()), buffer.size() * sizeof(DataType));
+    write_header();
   }
   
   template<typename DataType>
@@ -47,27 +60,41 @@ namespace ATK
   {
     Parent::set_nb_input_ports(nb_ports);
     format.NbChannels = nb_ports;
-  }
-  
-  template<typename DataType>
-  void OutWavFilter<DataType>::set_bits_per_sample(int bits_per_sample)
-  {
-    format.BitsPerSample = bits_per_sample;
+    setup();
   }
   
   template<typename DataType>
   void OutWavFilter<DataType>::setup()
   {
-    format.Frequence = input_sampling_rate;
     std::strncpy(header.FileTypeBlocID, "RIFF", 4);
     std::strncpy(header.FileFormatID, "WAVE", 4);
     std::strncpy(format.FormatBlocID, "fmt ", 4);
     std::strncpy(data.DataBlocID, "data", 4);
+    format.AudioFormat = WavTraits<DataType>::get_wav_type();
+    format.Frequence = input_sampling_rate;
+    format.BitsPerSample = sizeof(DataType) * 8;
+    format.BytePerBloc = format.NbChannels * format.BitsPerSample / 8;
+    format.BytePerSec = format.BytePerBloc * input_sampling_rate;
+    write_header();
+  }
+  
+  template<typename DataType>
+  void OutWavFilter<DataType>::write_header()
+  {
+    std::size_t total_size = wavstream.tellp();
+    std::size_t bloc_size = sizeof(WavFormat);
+    std::size_t data_size = total_size - sizeof(WavFormat) - sizeof(WavHeader) - sizeof(WavData);
+    wavstream.seekp(0);
+    header.FileSize = total_size - 8;
+    format.BlocSize = bloc_size - 8;
+    data.DataSize = data_size;
+    wavstream.write(reinterpret_cast<char*>(&header), sizeof(WavHeader));
+    wavstream.write(reinterpret_cast<char*>(&format), sizeof(WavFormat));
+    wavstream.write(reinterpret_cast<char*>(&data), sizeof(WavData));
+    wavstream.seekp(0, std::ios_base::end);
   }
 
   template class OutWavFilter<std::int16_t>;
-  template class OutWavFilter<std::int32_t>;
-  template class OutWavFilter<std::int64_t>;
   template class OutWavFilter<float>;
   template class OutWavFilter<double>;
 }
