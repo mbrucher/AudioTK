@@ -38,6 +38,8 @@ namespace ATK
 
     /// Resets the filter so that it will process something if needed
     void reset();
+    /// Returns the type that the filter processes
+    int virtual get_type() const = 0;
   
   protected:
     /// The actual filter processing part
@@ -46,8 +48,6 @@ namespace ATK
     void virtual prepare_process(long size) = 0;
     /// Prepares the filter by resizing the outputs arrays
     void virtual prepare_outputs(long size) = 0;
-    /// Returns the type that the filter processes
-    int virtual get_type() const = 0;
     bool is_reset;
     
     virtual void setup();

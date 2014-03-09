@@ -109,7 +109,7 @@ namespace ATK
         converted_inputs[i].reset(new DataType[size]);
         converted_inputs_size[i] = size;
       }
-      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i].get(), size, get_type());
+      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i].get(), size, connections[i].second->get_type());
     }
   }
   

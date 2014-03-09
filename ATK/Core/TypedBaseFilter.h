@@ -32,6 +32,7 @@ namespace ATK
     
     virtual void set_nb_input_ports(int nb_ports);
     virtual void set_nb_output_ports(int nb_ports);
+    virtual int get_type() const;
 
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
@@ -40,7 +41,6 @@ namespace ATK
     virtual void prepare_process(long size);
     /// Prepares the filter by resizing the outputs arrays
     virtual void prepare_outputs(long size);
-    virtual int get_type() const;
     
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(long size);
