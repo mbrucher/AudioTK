@@ -43,6 +43,8 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int16_t )
   filter.set_input_sampling_rate(44100);
   BOOST_CHECK_EQUAL(filter.get_input_sampling_rate(), 44100);
   BOOST_CHECK_NE(filter.get_output_sampling_rate(), 44100);
+  BOOST_CHECK_EQUAL(filter.get_nb_input_ports(), 0);
+  BOOST_CHECK_EQUAL(filter.get_nb_output_ports(), 0);
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int32_t )
