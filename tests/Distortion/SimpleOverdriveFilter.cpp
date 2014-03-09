@@ -17,16 +17,16 @@
 BOOST_AUTO_TEST_CASE( SimpleOverdriveFilter_sin1k_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
-  generator.set_output_sampling_rate(48000);
+  generator.set_output_sampling_rate(96000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
   ATK::SimpleOverdriveFilter<double> filter;
-  filter.set_input_sampling_rate(48000);
-  filter.set_output_sampling_rate(48000);
+  filter.set_input_sampling_rate(96000);
+  filter.set_output_sampling_rate(96000);
   
-  ATK::TriangleCheckerFilter<float> checker;
-  checker.set_input_sampling_rate(48000);
+  ATK::TriangleCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(96000);
   checker.set_amplitude(0);
   checker.set_frequency(1000);
 

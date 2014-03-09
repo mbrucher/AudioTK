@@ -30,9 +30,22 @@ namespace ATK
     
     DataType optimize(DataType x1)
     {
+      if(x0 == x1)
+      {
+        return y0;
+      }
+      y0 = optimize_impl(x1);
+      x0 = x1;
+      return y0;
+    }
+    
+  protected:
+    DataType optimize_impl(DataType x1)
+    {
       DataType y1 = y0;
+      int i;
       
-      for(int i = 0; i < max_iterations; ++i)
+      for(i = 0; i < max_iterations; ++i)
       {
         std::pair<DataType, DataType> all = (*function)(x0, x1, y0, y1);
         if(std::abs(all.second) < std::numeric_limits<DataType>::epsilon() )
@@ -45,6 +58,10 @@ namespace ATK
           return yk;
         }
         y1 = yk;
+      }
+      if(i == max_iterations)
+      {
+        std::cout << "Failed to converge for " << x0 << "," << x1 << "," << y0 << std::endl;
       }
       return y1;
     }

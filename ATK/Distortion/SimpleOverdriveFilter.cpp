@@ -36,8 +36,7 @@ namespace ATK
       DataType expdiode_y0_m = std::exp(-y0 / vt);
       std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p - expdiode_y1_m) / vt);
       
-      return std::make_pair(diode.first + 1/A * (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), diode.second + 1/A);
-    }
+      return std::make_pair(diode.first + 1/A * (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), diode.second + 1/A);    }
   };
   
   
@@ -56,7 +55,7 @@ namespace ATK
   template <typename DataType>
   void SimpleOverdriveFilter<DataType>::setup()
   {
-    function.reset(new SimpleOverdriveFunction<DataType>(1/input_sampling_rate, 10000, 22e-9, 1e-12, 26e-3));
+    function.reset(new SimpleOverdriveFunction<DataType>(1./input_sampling_rate, 10000, 22e-9, 1e-12, 26e-3));
   }
 
   template <typename DataType>
