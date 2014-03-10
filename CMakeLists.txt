@@ -9,6 +9,13 @@ enable_testing()
 find_package(Git REQUIRED)
 find_package(Boost REQUIRED unit_test_framework)
 
+find_package(libsndfile)
+if(LIBSNDFILE_FOUND)
+  set(USE_LIBSNDFILE 1)
+else(LIBSNDFILE_FOUND)
+  set(USE_LIBSNDFILE 0)
+endif(LIBSNDFILE_FOUND)
+
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
 
 # configure a header file to pass some of the CMake settings
