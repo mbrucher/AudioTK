@@ -9,10 +9,28 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+if(LIBSNDFILE_FOUND)
+FILE(GLOB_RECURSE
+    ATK_IO_LIBSNDFILE_SRC
+    libsndfile/*.cpp
+)
+
+FILE(GLOB_RECURSE
+    ATK_IO_LIBSNDFILE_HEADERS
+    libsndfile/*.h
+)
+endif(LIBSNDFILE_FOUND)
+
 include_directories(${PROJECT_SOURCE_DIR})
 add_library(ATKIO
     SHARED
     ${ATK_IO_SRC} ${ATK_IO_HEADERS}
+    ${ATK_IO_LIBSNDFILE_SRC} ${ATK_IO_LIBSNDFILE_HEADERS}
 )
-target_link_libraries(ATKIO ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+target_link_libraries(ATKIO ATKCore)
+
+if(LIBSNDFILE_FOUND)
+target_link_libraries(ATKIO ${LIBSNDFILE_LIBRARY})
+endif(LIBSNDFILE_FOUND)
+
 
