@@ -31,12 +31,12 @@ namespace ATK
     std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
     {
       DataType expdiode_y1_p = std::exp(y1 / vt);
-      DataType expdiode_y1_m = std::exp(-y1 / vt);
+      DataType expdiode_y1_m = 1/expdiode_y1_p;
       DataType expdiode_y0_p = std::exp(y0 / vt);
-      DataType expdiode_y0_m = std::exp(-y0 / vt);
-      std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p - expdiode_y1_m) / vt);
+      DataType expdiode_y0_m = 1/expdiode_y0_p;
+      std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p + expdiode_y1_m) / vt);
       
-      return std::make_pair(diode.first + 1/A * (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), diode.second + 1/A);    }
+      return std::make_pair(A * diode.first  * (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);    }
   };
   
   
