@@ -15,7 +15,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+#define PROCESSSIZE (1024)
 
 BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
 {

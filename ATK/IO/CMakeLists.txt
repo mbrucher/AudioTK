@@ -21,16 +21,12 @@ FILE(GLOB_RECURSE
 )
 endif(LIBSNDFILE_FOUND)
 
-include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR} ${LIBSNDFILE_INCLUDE_DIR})
 add_library(ATKIO
     SHARED
     ${ATK_IO_SRC} ${ATK_IO_HEADERS}
     ${ATK_IO_LIBSNDFILE_SRC} ${ATK_IO_LIBSNDFILE_HEADERS}
 )
-target_link_libraries(ATKIO ATKCore)
-
-if(LIBSNDFILE_FOUND)
-target_link_libraries(ATKIO ${LIBSNDFILE_LIBRARY})
-endif(LIBSNDFILE_FOUND)
+target_link_libraries(ATKIO ATKCore ${LIBSNDFILE_LIBRARY})
 
 

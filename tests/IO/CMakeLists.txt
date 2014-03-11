@@ -29,10 +29,5 @@ add_executable(ATKIO_test
 )
 target_link_libraries (ATKIO_test ATKIO ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
-if(LIBSNDFILE_FOUND)
-target_link_libraries (ATKIO_test ${LIBSNDFILE_LIBRARY})
-endif(LIBSNDFILE_FOUND)
-
-
 add_test(AudioTKIO ATKIO_test --log_level=message)
 
