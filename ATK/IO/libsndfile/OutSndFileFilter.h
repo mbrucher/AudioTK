@@ -5,10 +5,11 @@
 #ifndef ATK_IO_OUTSNDFILEFILTER_H
 #define ATK_IO_OUTSNDFILEFILTER_H
 
-#include <sndfile.hh>
 #include <boost/scoped_ptr.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>
+
+class SndfileHandle;
 
 namespace ATK
 {
@@ -21,16 +22,17 @@ namespace ATK
     using Parent::converted_inputs_size;
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;
-    using Parent::set_nb_output_ports;
+    using Parent::set_nb_input_ports;
     
   private:
     boost::scoped_ptr<SndfileHandle> stream;
+    std::string filename;
   public:
-    OutSndFileFilter(const std::string& filename);
+    OutSndFileFilter(const std::string& filename, int ports);
+    ~OutSndFileFilter();
     
     void process_impl(long size);
-    
-    virtual void set_nb_input_ports(int nb_ports);
+    void setup();
   };
 }
 #endif
