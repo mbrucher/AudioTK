@@ -17,7 +17,7 @@ namespace
     long size = outputs[0].size();
     for(int j = 0; j < nbChannels; ++j)
     {
-      ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data() + j * sizeof(DataType2)), outputs[j].data(), size, nbChannels);
+      ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, nbChannels);
     }
   }
 }
@@ -35,6 +35,7 @@ namespace ATK
     }
     wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
     set_nb_output_ports(format.NbChannels);
+    set_output_sampling_rate(format.Frequence);
     temp_arrays.resize(format.NbChannels);
   }
 
@@ -48,7 +49,7 @@ namespace ATK
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {
-        outputs[j][i] = temp_arrays[j][i]; // FIXME add interpolation + there will be lag
+        outputs[j][i] = temp_arrays[j][i];
       }
     }
   }

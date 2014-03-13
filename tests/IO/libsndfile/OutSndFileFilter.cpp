@@ -2,8 +2,8 @@
  * \ file OutWavFilter.cpp
  */
 
-#include <ATK/IO/InWavFilter.h>
-#include <ATK/IO/OutWavFilter.h>
+#include <ATK/IO/libsndfile/InSndFileFilter.h>
+#include <ATK/IO/libsndfile/OutSndFileFilter.h>
 
 #include <ATK/config.h>
 
@@ -17,7 +17,7 @@
 
 #define PROCESSSIZE (1024)
 
-BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
+BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k_test )
 {
   {// setup
     ATK::SinusGeneratorFilter<float> generator;
@@ -25,9 +25,8 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
     generator.set_amplitude(1);
     generator.set_frequency(1000);
     
-    ATK::OutWavFilter<float> filter("outsinus1k.wav");
+    ATK::OutSndFileFilter<float> filter("outsinus1k.wav", 1);
     filter.set_input_sampling_rate(48000);
-    filter.set_nb_input_ports(1);
     filter.set_input_port(0, &generator, 0);
     
     filter.process(PROCESSSIZE);
@@ -38,8 +37,7 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
   generator.set_amplitude(-1);
   generator.set_frequency(1000);
   
-  ATK::InWavFilter<float> filter("outsinus1k.wav");
-  filter.set_output_sampling_rate(48000);
+  ATK::InSndFileFilter<float> filter("outsinus1k.wav");
   
   ATK::SumFilter<float> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
@@ -57,7 +55,7 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k2k_test )
+BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k2k_test )
 {
   {
     ATK::SinusGeneratorFilter<float> generator1k;
@@ -69,9 +67,8 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k2k_test )
     generator2k.set_amplitude(1);
     generator2k.set_frequency(2000);
     
-    ATK::OutWavFilter<float> filter("outsinus1k2k.wav");
+    ATK::OutSndFileFilter<float> filter("outsinus1k2k.wav", 2);
     filter.set_input_sampling_rate(48000);
-    filter.set_nb_input_ports(2);
     filter.set_input_port(0, &generator1k, 0);
     filter.set_input_port(1, &generator2k, 0);
     
@@ -87,8 +84,7 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k2k_test )
   generator2k.set_amplitude(-1);
   generator2k.set_frequency(2000);
   
-  ATK::InWavFilter<float> filter("outsinus1k2k.wav");
-  filter.set_output_sampling_rate(48000);
+  ATK::InSndFileFilter<float> filter("outsinus1k2k.wav");
   
   ATK::SumFilter<float> sumfilter1;
   sumfilter1.set_input_sampling_rate(48000);

@@ -1,21 +1,22 @@
 /**
- * \file InWavFilter.h
+ * \file InSndFileFilter.h
  */
 
-#ifndef ATK_IO_INWAVFILTER_H
-#define ATK_IO_INWAVFILTER_H
+#ifndef ATK_IO_INSNDFILEFILTER_H
+#define ATK_IO_INSNDFILEFILTER_H
 
-#include <fstream>
 #include <string>
+
+#include <boost/scoped_ptr.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>
 
-#include "WavStruct.h"
+class SndfileHandle;
 
 namespace ATK
 {
   template<typename DataType_>
-  class InWavFilter: public TypedBaseFilter<DataType_>
+  class InSndFileFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -25,19 +26,12 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::set_output_sampling_rate;
     using Parent::set_nb_output_ports;
-
+    
   private:
-    std::ifstream wavstream;
-    WavHeader header;
-    WavFormat format;
-    WavData data;
-    
-    std::vector<std::vector<DataType> > temp_arrays;
-    
-    void read_from_file(long size);
-
+    boost::scoped_ptr<SndfileHandle> stream;
   public:
-    InWavFilter(const std::string& filename);
+    InSndFileFilter(const std::string& filename);
+    ~InSndFileFilter();
     
     void process_impl(long size);
   };

@@ -1,30 +1,33 @@
 /**
- * \ file InWavFilter.cpp
+ * \ file InSndFilter.cpp
  */
 
+#include <ATK/IO/libsndfile/InSndFileFilter.h>
 #include <ATK/IO/InWavFilter.h>
 
 #include <ATK/config.h>
 
-#include <ATK/Mock/SinusGeneratorFilter.h>
-#include <ATK/Mock/TriangleCheckerFilter.h>
-
+#include <ATK/Tools/VolumeFilter.h>
 #include <ATK/Tools/SumFilter.h>
+
+#include <ATK/Mock/TriangleCheckerFilter.h>
 
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
 #define PROCESSSIZE (1024)
 
-BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k_test )
+BOOST_AUTO_TEST_CASE( InSndFileFilter_InFloat_1k_test )
 {
-  ATK::SinusGeneratorFilter<float> generator;
-  generator.set_output_sampling_rate(48000);
-  generator.set_amplitude(-1);
-  generator.set_frequency(1000);
+  ATK::InSndFileFilter<float> generator(ATK_SOURCE_TREE "/tests/data/sinus1k.wav");
   
   ATK::InWavFilter<float> filter(ATK_SOURCE_TREE "/tests/data/sinus1k.wav");
-  
+  filter.set_output_sampling_rate(48000);
+
+  ATK::VolumeFilter<float> gainfilter;
+  gainfilter.set_input_sampling_rate(48000);
+  gainfilter.set_volume(-1);
+
   ATK::SumFilter<float> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
   
@@ -33,7 +36,8 @@ BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k_test )
   checker.set_amplitude(0);
   checker.set_frequency(1000);
   
-  sumfilter.set_input_port(0, &generator, 0);
+  gainfilter.set_input_port(0, &generator, 0);
+  sumfilter.set_input_port(0, &gainfilter, 0);
   sumfilter.set_input_port(1, &filter, 0);
   
   checker.set_input_port(0, &sumfilter, 0);
@@ -41,28 +45,31 @@ BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k2k_test )
+BOOST_AUTO_TEST_CASE( InSndFileFilter_InFloat_1k2k_test )
 {
-  ATK::SinusGeneratorFilter<float> generator1k;
-  generator1k.set_output_sampling_rate(48000);
-  generator1k.set_amplitude(-1);
-  generator1k.set_frequency(1000);
-  ATK::SinusGeneratorFilter<float> generator2k;
-  generator2k.set_output_sampling_rate(48000);
-  generator2k.set_amplitude(-1);
-  generator2k.set_frequency(2000);
+  ATK::InSndFileFilter<float> generator(ATK_SOURCE_TREE "/tests/data/sinus1k2k.wav");
   
+  ATK::VolumeFilter<float> gainfilter1;
+  gainfilter1.set_input_sampling_rate(48000);
+  gainfilter1.set_volume(-1);
+  gainfilter1.set_input_port(0, &generator, 0);
+
+  ATK::VolumeFilter<float> gainfilter2;
+  gainfilter2.set_input_sampling_rate(48000);
+  gainfilter2.set_volume(-1);
+  gainfilter2.set_input_port(0, &generator, 1);
+
   ATK::InWavFilter<float> filter(ATK_SOURCE_TREE "/tests/data/sinus1k2k.wav");
   filter.set_output_sampling_rate(48000);
   
   ATK::SumFilter<float> sumfilter1;
   sumfilter1.set_input_sampling_rate(48000);
-  sumfilter1.set_input_port(0, &generator1k, 0);
+  sumfilter1.set_input_port(0, &gainfilter1, 0);
   sumfilter1.set_input_port(1, &filter, 0);
   
   ATK::SumFilter<float> sumfilter2;
   sumfilter2.set_input_sampling_rate(48000);
-  sumfilter2.set_input_port(0, &generator2k, 0);
+  sumfilter2.set_input_port(0, &gainfilter2, 0);
   sumfilter2.set_input_port(1, &filter, 1);
   
   ATK::SumFilter<float> sumfilter3;
@@ -80,15 +87,16 @@ BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k2k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( InWavFilter_InDouble_1k_test )
+BOOST_AUTO_TEST_CASE( InSndFileFilter_InDouble_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
-  generator.set_output_sampling_rate(48000);
-  generator.set_amplitude(-1);
-  generator.set_frequency(1000);
+  ATK::InSndFileFilter<double> generator(ATK_SOURCE_TREE "/tests/data/sinus1k.wav");
   
   ATK::InWavFilter<double> filter(ATK_SOURCE_TREE "/tests/data/sinus1k.wav");
   filter.set_output_sampling_rate(48000);
+  
+  ATK::VolumeFilter<double> gainfilter;
+  gainfilter.set_input_sampling_rate(48000);
+  gainfilter.set_volume(-1);
   
   ATK::SumFilter<double> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
@@ -98,7 +106,8 @@ BOOST_AUTO_TEST_CASE( InWavFilter_InDouble_1k_test )
   checker.set_amplitude(0);
   checker.set_frequency(1000);
   
-  sumfilter.set_input_port(0, &generator, 0);
+  gainfilter.set_input_port(0, &generator, 0);
+  sumfilter.set_input_port(0, &gainfilter, 0);
   sumfilter.set_input_port(1, &filter, 0);
   
   checker.set_input_port(0, &sumfilter, 0);
@@ -106,28 +115,31 @@ BOOST_AUTO_TEST_CASE( InWavFilter_InDouble_1k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( InWavFilter_InDouble_1k2k_test )
+BOOST_AUTO_TEST_CASE( InSndFileFilter_InDouble_1k2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator1k;
-  generator1k.set_output_sampling_rate(48000);
-  generator1k.set_amplitude(-1);
-  generator1k.set_frequency(1000);
-  ATK::SinusGeneratorFilter<double> generator2k;
-  generator2k.set_output_sampling_rate(48000);
-  generator2k.set_amplitude(-1);
-  generator2k.set_frequency(2000);
+  ATK::InSndFileFilter<double> generator(ATK_SOURCE_TREE "/tests/data/sinus1k2k.wav");
+  
+  ATK::VolumeFilter<double> gainfilter1;
+  gainfilter1.set_input_sampling_rate(48000);
+  gainfilter1.set_volume(-1);
+  gainfilter1.set_input_port(0, &generator, 0);
+  
+  ATK::VolumeFilter<double> gainfilter2;
+  gainfilter2.set_input_sampling_rate(48000);
+  gainfilter2.set_volume(-1);
+  gainfilter2.set_input_port(0, &generator, 1);
   
   ATK::InWavFilter<double> filter(ATK_SOURCE_TREE "/tests/data/sinus1k2k.wav");
   filter.set_output_sampling_rate(48000);
   
   ATK::SumFilter<double> sumfilter1;
   sumfilter1.set_input_sampling_rate(48000);
-  sumfilter1.set_input_port(0, &generator1k, 0);
+  sumfilter1.set_input_port(0, &gainfilter1, 0);
   sumfilter1.set_input_port(1, &filter, 0);
   
   ATK::SumFilter<double> sumfilter2;
   sumfilter2.set_input_sampling_rate(48000);
-  sumfilter2.set_input_port(0, &generator2k, 0);
+  sumfilter2.set_input_port(0, &gainfilter2, 0);
   sumfilter2.set_input_port(1, &filter, 1);
   
   ATK::SumFilter<double> sumfilter3;
