@@ -2,7 +2,7 @@
  * \ file OutWavFilter.cpp
  */
 
-#include <ATK/IO/InWavFilter.h>
+#include <ATK/IO/libsndfile/InSndFileFilter.h>
 #include <ATK/IO/libsndfile/OutSndFileFilter.h>
 
 #include <ATK/config.h>
@@ -37,8 +37,7 @@ BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k_test )
   generator.set_amplitude(-1);
   generator.set_frequency(1000);
   
-  ATK::InWavFilter<float> filter("outsinus1k.wav");
-  filter.set_output_sampling_rate(48000);
+  ATK::InSndFileFilter<float> filter("outsinus1k.wav");
   
   ATK::SumFilter<float> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
@@ -85,8 +84,7 @@ BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k2k_test )
   generator2k.set_amplitude(-1);
   generator2k.set_frequency(2000);
   
-  ATK::InWavFilter<float> filter("outsinus1k2k.wav");
-  filter.set_output_sampling_rate(48000);
+  ATK::InSndFileFilter<float> filter("outsinus1k2k.wav");
   
   ATK::SumFilter<float> sumfilter1;
   sumfilter1.set_input_sampling_rate(48000);
