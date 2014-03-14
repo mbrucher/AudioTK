@@ -16,6 +16,10 @@ else(LIBSNDFILE_FOUND)
   set(USE_LIBSNDFILE 0)
 endif(LIBSNDFILE_FOUND)
 
+if(ATK_BUILD_PYTHON)
+  find_package(swig REQUIRED)
+endif(ATK_BUILD_PYTHON)
+
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
 
 # configure a header file to pass some of the CMake settings
@@ -34,4 +38,8 @@ endif(APPLE)
 
 add_subdirectory(ATK)
 add_subdirectory(tests)
+
+if(ATK_BUILD_PYTHON)
+  add_subdirectory(Python)
+endif(ATK_BUILD_PYTHON)
 

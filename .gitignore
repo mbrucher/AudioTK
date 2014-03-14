@@ -24,3 +24,6 @@ config.h
 Testing
 *.wav
 
+Python/*/*.py
+Python/*/*wrap.cxx
+
