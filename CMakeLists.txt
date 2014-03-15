@@ -18,6 +18,7 @@ endif(LIBSNDFILE_FOUND)
 
 if(ATK_BUILD_PYTHON)
   find_package(swig REQUIRED)
+  find_package(Numpy REQUIRED)
 endif(ATK_BUILD_PYTHON)
 
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)

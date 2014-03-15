@@ -6,5 +6,6 @@ INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH})
 
 SET(CMAKE_SWIG_FLAGS "")
 
+add_subdirectory(Core)
 add_subdirectory(EQ)
 
