@@ -17,10 +17,11 @@ namespace ATK
   class TypedBaseFilter : public BaseFilter
   {
   protected:
-    typedef DataType_ DataType;
     typedef BaseFilter Parent;
 
   public:
+    typedef DataType_ DataType;
+
     TypedBaseFilter(int nb_input_ports, int nb_output_ports);
     virtual ~TypedBaseFilter();
     

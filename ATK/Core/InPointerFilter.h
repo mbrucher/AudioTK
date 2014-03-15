@@ -1,0 +1,45 @@
+/**
+ * \file InPointerFilter.h
+ */
+
+#ifndef ATK_CORE_INPOINTERFILTER_H
+#define ATK_CORE_INPOINTERFILTER_H
+
+#include "TypedBaseFilter.h"
+
+namespace ATK
+{
+  template<typename DataType_>
+  class InPointerFilter : public TypedBaseFilter<DataType_>
+  {
+  public:
+    typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::outputs_size;
+    using Parent::outputs;
+    using Parent::output_sampling_rate;
+    using Parent::set_output_sampling_rate;
+    using Parent::set_nb_output_ports;
+    
+  public:
+    /**
+     * @param array is the pointer to the data that will be reused during all the processing
+     * @param size in the size of the data for one channel
+     * @param channels is the number of total channels
+     * @param interleaved indicates if the data is interleaved (Wav/Fortran order) or not (C order)
+     */
+    InPointerFilter(const DataType* array, long size, int channels, bool interleaved);
+    virtual ~InPointerFilter();
+    
+  protected:
+    /// This implementation retrieves inputs from other filters and converts it accordingly
+    virtual void process_impl(long size);
+    long offset;
+    const DataType* array;
+    long mysize;
+    int channels;
+    bool interleaved;
+  };
+}
+
+#endif
