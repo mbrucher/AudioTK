@@ -6,8 +6,6 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#include <ATK/config.h>
-
 #include <ATK/Core/InPointerFilter.h>
 
 #include <ATK/Mock/SinusGeneratorFilter.h>
