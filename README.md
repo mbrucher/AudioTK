@@ -11,7 +11,20 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
-0.1
+0.0.3
+* Audio files input/output filters based on libsndfile
+
+0.0.2
+* Midddle Side separator filter for stereo channels
+* Sinus generator filter for Mock tests
+* Frequency tester based on Accelerate FFT for Mock tests
+* Second order EQ filters
+* Decimation filters
+* Oversampling filters
+* Basic Wav input/output filters
+* Overdrive filter implementation
+
+0.0.1
 * Base filter with automatic type conversion to help assemble plugins with different processing types
 * Mock filters for generating and checking some signals
 * Pan filters with different laws
