@@ -30,6 +30,7 @@ configure_file (
   "ATK/config.h"
   )
 
+include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 if(APPLE)
