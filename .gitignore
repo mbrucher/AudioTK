@@ -26,4 +26,5 @@ Testing
 
 Python/*/*.py
 Python/*/*wrap.cxx
+*.pyc
 
