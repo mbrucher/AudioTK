@@ -13,7 +13,8 @@ SWIG_LINK_LIBRARIES(Core ATKCore ${PYTHON_LIBRARIES})
 
 FILE(GLOB_RECURSE
     ATK_CORE_PYTHON_SRC
-    *.pyi ${PROJECT_SOURCE_DIR}/*/_Core*}
+    *.py ${PROJECT_BINARY_DIR}/Python/Core/*.py
+    ${PROJECT_BINARY_DIR}/Python/Core/${CMAKE_BUILD_TYPE}/_Core.so
 )
 
 
