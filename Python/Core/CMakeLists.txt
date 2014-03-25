@@ -13,7 +13,7 @@ SWIG_LINK_LIBRARIES(Core ATKCore ${PYTHON_LIBRARIES})
 
 FILE(GLOB_RECURSE
     ATK_CORE_PYTHON_SRC
-    *.py _Core*
+    *.pyi ${PROJECT_SOURCE_DIR}/*/_Core*}
 )
 
 

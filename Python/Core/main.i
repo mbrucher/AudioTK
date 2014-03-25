@@ -6,12 +6,10 @@
 %}
 %include "numpy.i"
 %fragment("NumPy_Fragments");
+
+%init
 %{
-  const int DataTypeKind = NPY_FLOAT;
-  const int CheckTypeKind = NPY_INT;
-%}
-%init %{
-  import_array();
+import_array();
 %}
 
 
