@@ -4,10 +4,10 @@
 #include <ATK/Core/InPointerFilter.h>
 %}
 
-%apply (int* INPLACE_ARRAY2, int DIM1, int DIM2) {(int* array, long size, int channels)}
-%apply (long long* INPLACE_ARRAY2, int DIM1, int DIM2) {(long long* array, long size, int channels)}
-%apply (float* INPLACE_ARRAY2, int DIM1, int DIM2) {(float* array, long size, int channels)}
-%apply (double* INPLACE_ARRAY2, int DIM1, int DIM2) {(double* array, long size, int channels)}
+%apply (int* INPLACE_ARRAY2, int DIM1, int DIM2) {(int* array, int channels, long size)}
+%apply (long long* INPLACE_ARRAY2, int DIM1, int DIM2) {(long long* array, int channels, long size)}
+%apply (float* INPLACE_ARRAY2, int DIM1, int DIM2) {(float* array, int channels, long size)}
+%apply (double* INPLACE_ARRAY2, int DIM1, int DIM2) {(double* array, int channels, long size)}
 
 namespace ATK
 {
@@ -15,7 +15,7 @@ namespace ATK
   class InPointerFilter
   {
   public:
-    InPointerFilter(DataType* array, long size, int channels, bool interleaved);
+    InPointerFilter(DataType* array, int channels, long size, bool interleaved);
     ~InPointerFilter();
     void process(long size);
     int get_nb_output_ports();

@@ -7,7 +7,7 @@
 namespace ATK
 {
   template<typename DataType>
-  OutPointerFilter<DataType>::OutPointerFilter(DataType* array, long size, int channels, bool interleaved)
+  OutPointerFilter<DataType>::OutPointerFilter(DataType* array, int channels, long size, bool interleaved)
   :TypedBaseFilter<DataType>(channels, 0), offset(0), array(array), mysize(size), channels(channels), interleaved(interleaved)
   {
   }

@@ -28,7 +28,7 @@ namespace ATK
      * @param channels is the number of total channels
      * @param interleaved indicates if the data is interleaved (Wav/Fortran order) or not (C order)
      */
-    InPointerFilter(const DataType* array, long size, int channels, bool interleaved);
+    InPointerFilter(const DataType* array, int channels, long size, bool interleaved);
     virtual ~InPointerFilter();
     
   protected:

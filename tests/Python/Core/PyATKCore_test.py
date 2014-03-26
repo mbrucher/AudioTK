@@ -6,7 +6,6 @@ def Int32PointerFilter_new_test():
   import numpy as np
   from ATK.Core import Int32InPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.int32)[None,:])
-  print d.shape
   filter = Int32InPointerFilter(d, False)
   assert filter.get_nb_output_ports() == 1
 
@@ -30,6 +29,13 @@ def DoubleInPointerFilter_new_test():
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
   filter = DoubleInPointerFilter(d, False)
   assert filter.get_nb_output_ports() == 1
+
+def DoubleIn2PointerFilter_new_test():
+  import numpy as np
+  from ATK.Core import DoubleInPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2, 500))
+  filter = DoubleInPointerFilter(d, False)
+  assert filter.get_nb_output_ports() == 2
 
 @raises(TypeError)
 def Int32PointerFilter_new_fail_test():

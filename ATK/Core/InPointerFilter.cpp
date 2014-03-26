@@ -7,7 +7,7 @@
 namespace ATK
 {
   template<typename DataType>
-  InPointerFilter<DataType>::InPointerFilter(const DataType* array, long size, int channels, bool interleaved)
+  InPointerFilter<DataType>::InPointerFilter(const DataType* array, int channels, long size, bool interleaved)
   :TypedBaseFilter<DataType>(0, channels), offset(0), array(array), mysize(size), channels(channels), interleaved(interleaved)
   {
   }
