@@ -2,6 +2,7 @@
 %{
 #include <cstdint>
 #include <ATK/Core/InPointerFilter.h>
+#include <ATK/Core/OutPointerFilter.h>
 %}
 
 %apply (int* INPLACE_ARRAY2, int DIM1, int DIM2) {(int* array, int channels, long size)}
@@ -26,3 +27,21 @@ namespace ATK
 %template(Int64InPointerFilter) ATK::InPointerFilter<long long>;
 %template(FloatInPointerFilter) ATK::InPointerFilter<float>;
 %template(DoubleInPointerFilter) ATK::InPointerFilter<double>;
+
+namespace ATK
+{
+  template<class DataType>
+  class OutPointerFilter
+  {
+  public:
+    OutPointerFilter(DataType* array, int channels, long size, bool interleaved);
+    ~OutPointerFilter();
+    void process(long size);
+    int get_nb_input_ports();
+  };
+}
+
+%template(Int32OutPointerFilter) ATK::OutPointerFilter<int>;
+%template(Int64OutPointerFilter) ATK::OutPointerFilter<long long>;
+%template(FloatOutPointerFilter) ATK::OutPointerFilter<float>;
+%template(DoubleOutPointerFilter) ATK::OutPointerFilter<double>;
