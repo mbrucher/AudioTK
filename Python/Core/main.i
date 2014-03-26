@@ -18,6 +18,7 @@ import_array();
 %nodefaultdtor;
 %nodefaultctor;
 
+%include "BaseFilter.i"
 %include "PointerFilter.i"
 
 #endif

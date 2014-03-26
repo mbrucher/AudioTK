@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<class DataType>
-  class InPointerFilter
+  class InPointerFilter: public BaseFilter
   {
   public:
     InPointerFilter(DataType* array, int channels, long size, bool interleaved);
@@ -31,7 +31,7 @@ namespace ATK
 namespace ATK
 {
   template<class DataType>
-  class OutPointerFilter
+  class OutPointerFilter: public BaseFilter
   {
   public:
     OutPointerFilter(DataType* array, int channels, long size, bool interleaved);

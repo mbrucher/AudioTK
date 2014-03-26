@@ -127,3 +127,18 @@ def DoubleOutPointerFilter_new_fail_test():
   from ATK.Core import DoubleOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.int32)[None,:])
   filter = DoubleOutPointerFilter(d, False)
+
+def DoublePointerFilter_new_test():
+  import numpy as np
+  from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
+  from numpy.testing import assert_equal
+  input = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
+  output = np.ascontiguousarray(np.zeros(1000, dtype=np.float64)[None,:])
+  inputfilter = DoubleInPointerFilter(input, False)
+  outputfilter = DoubleOutPointerFilter(output, False)
+  outputfilter.set_input_port(0, inputfilter, 0)
+  inputfilter.set_output_sampling_rate(48000)
+  outputfilter.set_input_sampling_rate(48000)
+  outputfilter.process(1000)
+  assert_equal(input, output)
+
