@@ -5,3 +5,5 @@ add_subdirectory(EQ)
 add_subdirectory(Distortion)
 add_subdirectory(IO)
 
+add_subdirectory(Python)
+

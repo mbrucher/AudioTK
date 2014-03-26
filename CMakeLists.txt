@@ -18,6 +18,7 @@ endif(LIBSNDFILE_FOUND)
 
 if(ATK_BUILD_PYTHON)
   find_package(swig REQUIRED)
+  find_package(Numpy REQUIRED)
 endif(ATK_BUILD_PYTHON)
 
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
@@ -29,6 +30,7 @@ configure_file (
   "ATK/config.h"
   )
 
+include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 if(APPLE)
