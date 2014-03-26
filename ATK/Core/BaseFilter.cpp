@@ -83,6 +83,10 @@ namespace ATK
 
   void BaseFilter::process(long size)
   {
+    if(output_sampling_rate == 0)
+    {
+      throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
+    }
     if(!is_reset)
     {
       return;
