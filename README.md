@@ -13,6 +13,8 @@ Changelog
 
 0.0.3
 * Audio files input/output filters based on libsndfile
+* Input and output filters based on pointers
+* Python wrappers for Core filters
 
 0.0.2
 * Midddle Side separator filter for stereo channels
