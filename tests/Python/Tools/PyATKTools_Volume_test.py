@@ -18,7 +18,7 @@ def Volume_test():
 
   inputfilter.set_output_sampling_rate(48000)
   volumefilter.set_input_sampling_rate(48000)
-  volumefilter.set_volume(1)
+  volumefilter.set_volume(.5)
   outputfilter.set_input_sampling_rate(48000)
 
   volumefilter.set_input_port(0, inputfilter, 0)
@@ -26,5 +26,5 @@ def Volume_test():
 
   outputfilter.process(1000)
 
-  assert_almost_equal(input, output)
+  assert_almost_equal(.5 * input, output)
 

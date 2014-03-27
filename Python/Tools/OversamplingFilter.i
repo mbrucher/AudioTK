@@ -5,18 +5,59 @@
 
 namespace ATK
 {
-/*  template<class DataType>
-  class PanFilter: public BaseFilter
+  template<class DataType_>
+  class Oversampling6points5order_2
+  {
+  };
+  
+  template<class DataType_>
+  class Oversampling6points5order_4
+  {
+  };
+  
+  template<class DataType_>
+  class Oversampling6points5order_8
+  {
+  };
+  
+  template<class DataType_>
+  class Oversampling6points5order_16
+  {
+  };
+  
+  template<class DataType_>
+  class Oversampling6points5order_32
+  {
+  };
+  
+  template<class DataType_, class Coefficients>
+  class OversamplingFilter : public BaseFilter
   {
   public:
-    PanFilter();
-    ~PanFilter();
-  };*/
+    OversamplingFilter();
+    ~OversamplingFilter();
+    virtual void process_impl(long size);
+  };
 }
-/*
-%template(Int16PanFilter) ATK::PanFilter<std::int16_t>;
-%template(Int32PanFilter) ATK::PanFilter<std::int32_t>;
-%template(Int64PanFilter) ATK::PanFilter<std::int64_t>;
-%template(FloatPanFilter) ATK::PanFilter<float>;
-%template(DoublePanFilter) ATK::PanFilter<double>;
-*/
+
+%template(FloatOversampling6points5order_2) ATK::Oversampling6points5order_2<float>;
+%template(DoubleOversampling6points5order_2) ATK::Oversampling6points5order_2<double>;
+%template(FloatOversampling6points5order_4) ATK::Oversampling6points5order_4<float>;
+%template(DoubleOversampling6points5order_4) ATK::Oversampling6points5order_4<double>;
+%template(FloatOversampling6points5order_8) ATK::Oversampling6points5order_8<float>;
+%template(DoubleOversampling6points5order_8) ATK::Oversampling6points5order_8<double>;
+%template(FloatOversampling6points5order_16) ATK::Oversampling6points5order_16<float>;
+%template(DoubleOversampling6points5order_16) ATK::Oversampling6points5order_16<double>;
+%template(FloatOversampling6points5order_32) ATK::Oversampling6points5order_32<float>;
+%template(DoubleOversampling6points5order_32) ATK::Oversampling6points5order_32<double>;
+
+%template(FloatOversampling6points5order_2Filter) ATK::OversamplingFilter<float, ATK::Oversampling6points5order_2<float> >;
+%template(DoubleOversampling6points5order_2Filter) ATK::OversamplingFilter<double, ATK::Oversampling6points5order_2<double> >;
+%template(FloatOversampling6points5order_4Filter) ATK::OversamplingFilter<float, ATK::Oversampling6points5order_4<float> >;
+%template(DoubleOversampling6points5order_4Filter) ATK::OversamplingFilter<double, ATK::Oversampling6points5order_4<double> >;
+%template(FloatOversampling6points5order_8Filter) ATK::OversamplingFilter<float, ATK::Oversampling6points5order_8<float> >;
+%template(DoubleOversampling6points5order_8Filter) ATK::OversamplingFilter<double, ATK::Oversampling6points5order_8<double> >;
+%template(FloatOversampling6points5order_16Filter) ATK::OversamplingFilter<float, ATK::Oversampling6points5order_16<float> >;
+%template(DoubleOversampling6points5order_16Filter) ATK::OversamplingFilter<double, ATK::Oversampling6points5order_16<double> >;
+%template(FloatOversampling6points5order_32Filter) ATK::OversamplingFilter<float, ATK::Oversampling6points5order_32<float> >;
+%template(DoubleOversampling6points5order_32Filter) ATK::OversamplingFilter<double, ATK::Oversampling6points5order_32<double> >;
