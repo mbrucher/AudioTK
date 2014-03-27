@@ -2,6 +2,13 @@
 
 from nose.tools import raises
 
+def Int16OutPointerFilter_new_test():
+  import numpy as np
+  from ATK.Core import Int16InPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.int16)[None,:])
+  filter = Int16InPointerFilter(d, False)
+  assert filter.get_nb_output_ports() == 1
+
 def Int32OutPointerFilter_new_test():
   import numpy as np
   from ATK.Core import Int32InPointerFilter
@@ -38,6 +45,13 @@ def DoubleIn2PointerFilter_new_test():
   assert filter.get_nb_output_ports() == 2
 
 @raises(TypeError)
+def Int16InPointerFilter_new_fail_test():
+  import numpy as np
+  from ATK.Core import Int16InPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.int64)[None,:])
+  filter = Int16InPointerFilter(d, False)
+
+@raises(TypeError)
 def Int32InPointerFilter_new_fail_test():
   import numpy as np
   from ATK.Core import Int32InPointerFilter
@@ -64,6 +78,13 @@ def DoubleInPointerFilter_new_fail_test():
   from ATK.Core import DoubleInPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.int32)[None,:])
   filter = DoubleInPointerFilter(d, False)
+
+def Int16OutPointerFilter_new_test():
+  import numpy as np
+  from ATK.Core import Int16OutPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.int16)[None,:])
+  filter = Int16OutPointerFilter(d, False)
+  assert filter.get_nb_input_ports() == 1
 
 def Int32OutPointerFilter_new_test():
   import numpy as np
@@ -99,6 +120,13 @@ def DoubleOut2PointerFilter_new_test():
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2, 500))
   filter = DoubleOutPointerFilter(d, False)
   assert filter.get_nb_input_ports() == 2
+
+@raises(TypeError)
+def Int16OutPointerFilter_new_fail_test():
+  import numpy as np
+  from ATK.Core import Int16OutPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.int64)[None,:])
+  filter = Int16OutPointerFilter(d, False)
 
 @raises(TypeError)
 def Int32OutPointerFilter_new_fail_test():
