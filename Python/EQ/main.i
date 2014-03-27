@@ -20,6 +20,7 @@
 %nodefaultdtor;
 %nodefaultctor;
 
+%include "../Core/BaseFilter.i"
 %include "SecondOrderFilter.i"
 
 #endif
