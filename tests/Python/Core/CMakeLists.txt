@@ -1,4 +1,4 @@
 
 
-add_test(PyAudioTKCore python PyATKCore_test.py)
+add_test(PyAudioTKCore nosetests PyATKCore_test.py)
 
