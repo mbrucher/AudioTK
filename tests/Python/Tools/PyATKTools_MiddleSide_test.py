@@ -2,7 +2,7 @@
 
 from nose.tools import raises
 
-def Decimation_test():
+def MiddleSide_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
   from ATK.Tools import DoubleMiddleSideFilter
