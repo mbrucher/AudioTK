@@ -27,5 +27,5 @@ def Oversampling_2_test():
 
   outputfilter.process(2000)
 
-  assert_almost_equal(ref[:,500:], output[:,500:])
+  assert_almost_equal(ref[:,1495:-5], output[:,1500:], decimal=1)
 
