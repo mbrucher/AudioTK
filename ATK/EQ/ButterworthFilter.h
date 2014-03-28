@@ -15,7 +15,7 @@ namespace ATK
   public:
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::setup;
+    using Parent::input_sampling_rate;
   protected:
     DataType cut_frequency;
     
