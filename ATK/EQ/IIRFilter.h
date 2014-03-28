@@ -28,12 +28,13 @@ namespace ATK
     
     using Parent::in_order;
     using Parent::out_order;
+    using Parent::setup;
   private:
     DataType buffer_in[in_order];
     DataType buffer_out[out_order];
     
   public:
-    IIRFilter()
+    void setup()
     {
       for(int i = 0; i < in_order; ++i)
       {
@@ -43,6 +44,7 @@ namespace ATK
       {
         buffer_out[i] = 0;
       }
+      Parent::setup();
     }
     
     virtual void process_impl(long size)

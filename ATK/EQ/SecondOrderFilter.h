@@ -44,9 +44,9 @@ namespace ATK
   private:
     DataType Q;
     
+  protected:
     void setup();
     
-  protected:
     DataType coefficients_in[3];
     DataType coefficients_out[2];
     
@@ -68,10 +68,8 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
     void setup();
     
-  protected:
     DataType coefficients_in[3];
     DataType coefficients_out[2];
   };
@@ -89,10 +87,8 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
     void setup();
     
-  protected:
     DataType coefficients_in[3];
     DataType coefficients_out[2];
   };
@@ -110,12 +106,10 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
     DataType Q;
     
     void setup();
     
-  protected:
     DataType coefficients_in[3];
     DataType coefficients_out[2];
     DataType gain;
@@ -140,10 +134,8 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
     void setup();
     
-  protected:
     DataType coefficients_in[3];
     DataType coefficients_out[2];
     DataType gain;
@@ -166,10 +158,8 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
     void setup();
     
-  protected:
     DataType coefficients_in[3];
     DataType coefficients_out[2];
     DataType gain;

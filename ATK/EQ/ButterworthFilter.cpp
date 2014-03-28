@@ -68,6 +68,7 @@ namespace ATK
     {
       coefficients_in[i] /= poly[0];
     }
+    Parent::setup();
   }
 
   template class ButterworthLowPassCoefficients<float>;
