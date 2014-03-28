@@ -19,6 +19,15 @@ namespace ATK
   }
 
   template <typename DataType>
+  void BaseSecondOrderCoefficients<DataType>::setup()
+  {
+    Parent::setup();
+
+    coefficients_in.assign(in_order+1, 0);
+    coefficients_out.assign(out_order, 0);
+  }
+
+  template <typename DataType>
   void BaseSecondOrderCoefficients<DataType>::set_cut_frequency(DataType cut_frequency)
   {
     this->cut_frequency = cut_frequency;
@@ -34,6 +43,8 @@ namespace ATK
   template <typename DataType>
   void BandPassCoefficients<DataType>::setup()
   {
+    Parent::setup();
+    
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
     DataType d = (1 + std::sqrt(2.) * c + c * c);
     DataType Q_inv = 1 / Q;
@@ -61,6 +72,8 @@ namespace ATK
   template <typename DataType>
   void LowPassCoefficients<DataType>::setup()
   {
+    Parent::setup();
+
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
     DataType d = (1 + std::sqrt(2.) * c + c * c);
     
@@ -74,6 +87,8 @@ namespace ATK
   template <typename DataType>
   void HighPassCoefficients<DataType>::setup()
   {
+    Parent::setup();
+
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
     DataType d = (1 + std::sqrt(2.) * c + c * c);
     
@@ -87,6 +102,8 @@ namespace ATK
   template <typename DataType>
   void BandPassPeakCoefficients<DataType>::setup()
   {
+    Parent::setup();
+
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
     DataType Q_inv = 1 / Q;
     if(gain <= 1)
@@ -142,6 +159,8 @@ namespace ATK
   template <typename DataType>
   void LowShelvingCoefficients<DataType>::setup()
   {
+    Parent::setup();
+
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
     if(gain <= 1)
     {
@@ -182,6 +201,8 @@ namespace ATK
   template <typename DataType>
   void HighShelvingCoefficients<DataType>::setup()
   {
+    Parent::setup();
+
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
     if(gain <= 1)
     {

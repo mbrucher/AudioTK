@@ -30,21 +30,15 @@ namespace ATK
     using Parent::out_order;
     using Parent::setup;
   private:
-    DataType buffer_in[in_order];
-    DataType buffer_out[out_order];
+    std::vector<DataType> buffer_in;
+    std::vector<DataType> buffer_out;
     
   public:
     void setup()
     {
-      for(int i = 0; i < in_order; ++i)
-      {
-        buffer_in[i] = 0;
-      }
-      for(int i = 0; i < out_order; ++i)
-      {
-        buffer_out[i] = 0;
-      }
       Parent::setup();
+      buffer_in.assign(in_order, 0);
+      buffer_out.assign(out_order, 0);
     }
     
     virtual void process_impl(long size)
@@ -63,7 +57,7 @@ namespace ATK
         {
           outputs[0][i] += coefficients_out[j] * buffer_out[j];
         }
-        //std::cout << outputs[0][i] << std::endl;
+
         for(int j = 1; j < in_order; ++j)
         {
           buffer_in[j-1] = buffer_in[j];

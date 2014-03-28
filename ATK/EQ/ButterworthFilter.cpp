@@ -33,6 +33,8 @@ namespace ATK
   template <typename DataType>
   void ButterworthLowPassCoefficients<DataType>::setup()
   {
+    Parent::setup();
+
     DataType coeff = input_sampling_rate / (boost::math::constants::pi<DataType>() * cut_frequency);
     DataType temp1[2] = {1,-1};
     DataType temp2[2] = {1,+1};
@@ -68,7 +70,6 @@ namespace ATK
     {
       coefficients_in[i] /= poly[0];
     }
-    Parent::setup();
   }
 
   template class ButterworthLowPassCoefficients<float>;
