@@ -59,10 +59,10 @@ namespace ATK
       
       poly *= polytemp;
     }
-    
-    for (int i = 0; i < poly.size(); ++i)
+
+    for (int i = 1; i < poly.size(); ++i)
     {
-      coefficients_out[out_order - i] = poly[i] / poly[0];
+      coefficients_out[out_order - i] = - poly[i] / poly[0];
     }
     for (int i = 0; i < in_order+1; ++i)
     {

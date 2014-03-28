@@ -61,9 +61,7 @@ namespace ATK
         {
           outputs[0][i] += coefficients_out[j] * buffer_out[j];
         }
-
-        outputs[0][i] = coefficients_in[2] * converted_inputs[0][i] + coefficients_in[1] * buffer_in[1] + coefficients_in[0] * buffer_in[0] + coefficients_out[1] * buffer_out[1] + coefficients_out[0] * buffer_out[0];
-       
+        //std::cout << outputs[0][i] << std::endl;
         for(int j = 1; j < in_order; ++j)
         {
           buffer_in[j-1] = buffer_in[j];

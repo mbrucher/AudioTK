@@ -19,13 +19,13 @@ namespace ATK
   protected:
     DataType cut_frequency;
     
-    const static int in_order=2;
-    const static int out_order=2;
+    const static int in_order=3;
+    const static int out_order=3;
     
     void setup();
     
-    DataType coefficients_in[3];
-    DataType coefficients_out[2];
+    DataType coefficients_in[4];
+    DataType coefficients_out[3];
     
   public:
     ButterworthLowPassCoefficients();
