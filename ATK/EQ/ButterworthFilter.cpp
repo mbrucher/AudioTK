@@ -29,11 +29,20 @@ namespace ATK
   {
     return cut_frequency;
   }
+
+  template <typename DataType>
+  void ButterworthLowPassCoefficients<DataType>::set_order(int order)
+  {
+    in_order = out_order = order;
+    setup();
+  }
   
   template <typename DataType>
   void ButterworthLowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
+    coefficients_in.assign(in_order+1, 0);
+    coefficients_out.assign(out_order, 0);
 
     DataType coeff = input_sampling_rate / (boost::math::constants::pi<DataType>() * cut_frequency);
     DataType temp1[2] = {1,-1};
@@ -68,7 +77,7 @@ namespace ATK
     }
     for (int i = 0; i < in_order+1; ++i)
     {
-      coefficients_in[i] /= poly[0];
+      coefficients_in[in_order - i] /= poly[0];
     }
   }
 

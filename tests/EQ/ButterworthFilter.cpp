@@ -24,6 +24,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_1k_test )
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
+  filter.set_order(3);
   
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
@@ -52,6 +53,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_100_test )
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
+  filter.set_order(3);
   
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
@@ -80,7 +82,8 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_2k_test )
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
-  
+  filter.set_order(3);
+
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
@@ -108,7 +111,8 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_200_test )
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
-  
+  filter.set_order(3);
+
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
