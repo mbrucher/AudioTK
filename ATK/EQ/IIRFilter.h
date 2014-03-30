@@ -70,7 +70,16 @@ namespace ATK
         buffer_out[out_order-1] = outputs[0][i];
       }
     }
-
+    
+    const std::vector<DataType>& get_coefficients_in() const
+    {
+      return coefficients_in;
+    }
+    
+    const std::vector<DataType>& get_coefficients_out() const
+    {
+      return coefficients_out;
+    }
   };
 
 }
