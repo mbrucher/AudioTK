@@ -21,7 +21,11 @@ namespace ATK
 
     const static int in_order=2;
     const static int out_order=2;
-    
+    std::vector<DataType> coefficients_in;
+    std::vector<DataType> coefficients_out;
+
+    void setup();
+
   public:
     BaseSecondOrderCoefficients();
     void set_cut_frequency(DataType cut_frequency);
@@ -41,14 +45,13 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
   private:
     DataType Q;
     
-    void setup();
-    
   protected:
-    DataType coefficients_in[3];
-    DataType coefficients_out[2];
+    void setup();
     
   public:
     void set_Q(DataType Q);
@@ -68,12 +71,9 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
     void setup();
-    
-  protected:
-    DataType coefficients_in[3];
-    DataType coefficients_out[2];
   };
   
   /**
@@ -89,12 +89,9 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
     void setup();
-    
-  protected:
-    DataType coefficients_in[3];
-    DataType coefficients_out[2];
   };
   
   /**
@@ -110,15 +107,13 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
   private:
     DataType Q;
-    
-    void setup();
-    
-  protected:
-    DataType coefficients_in[3];
-    DataType coefficients_out[2];
     DataType gain;
+  protected:
+    void setup();
     
   public:
     void set_Q(DataType Q);
@@ -140,12 +135,10 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
     void setup();
-    
-  protected:
-    DataType coefficients_in[3];
-    DataType coefficients_out[2];
+  private:
     DataType gain;
     
   public:
@@ -166,12 +159,10 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
-  private:
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
     void setup();
-    
-  protected:
-    DataType coefficients_in[3];
-    DataType coefficients_out[2];
+  private:
     DataType gain;
     
   public:
