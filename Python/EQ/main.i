@@ -11,6 +11,8 @@
 %nodefaultctor;
 
 %include "../Core/BaseFilter.i"
+%include "IIRFilter.i"
 %include "SecondOrderFilter.i"
+%include "ButterworthFilter.i"
 
 #endif

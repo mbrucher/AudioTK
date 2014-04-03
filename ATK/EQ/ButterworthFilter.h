@@ -19,8 +19,8 @@ namespace ATK
   protected:
     DataType cut_frequency;
     
-    int in_order=3;
-    int out_order=3;
+    int in_order;
+    int out_order;
     
     void setup();
     
