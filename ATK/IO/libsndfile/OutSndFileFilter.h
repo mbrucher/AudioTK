@@ -5,6 +5,8 @@
 #ifndef ATK_IO_OUTSNDFILEFILTER_H
 #define ATK_IO_OUTSNDFILEFILTER_H
 
+#include <string>
+
 #include <boost/scoped_ptr.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>

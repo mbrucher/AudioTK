@@ -5,6 +5,8 @@
 #ifndef ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
 #define ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
 
+#include <iostream>
+
 #include <boost/scoped_ptr.hpp>
 
 namespace ATK
