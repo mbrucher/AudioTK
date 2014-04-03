@@ -14,7 +14,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+#define PROCESSSIZE (1024)
 
 BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k_test )
 {
@@ -24,7 +24,6 @@ BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k_test )
   generator.set_frequency(1000);
   
   ATK::InWavFilter<float> filter(ATK_SOURCE_TREE "/tests/data/sinus1k.wav");
-  filter.set_output_sampling_rate(48000);
   
   ATK::SumFilter<float> sumfilter;
   sumfilter.set_input_sampling_rate(48000);

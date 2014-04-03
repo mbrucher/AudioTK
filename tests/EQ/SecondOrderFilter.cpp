@@ -112,12 +112,13 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_1k_test )
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
   filter.set_cut_frequency(100);
+  filter.set_gain(2);
   
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 1.0073611894736352));
+  frequency_checks.push_back(std::make_pair(1000, 1.0074946766389419));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -141,12 +142,13 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_100_test )
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
   filter.set_cut_frequency(100);
+  filter.set_gain(2);
   
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 1.4082974166172235));
+  frequency_checks.push_back(std::make_pair(100, 1.413087701586034));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -170,6 +172,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_2k_test )
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
   filter.set_cut_frequency(100);
+  filter.set_gain(2);
   
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);

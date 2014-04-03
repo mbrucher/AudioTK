@@ -22,3 +22,9 @@ config.h
 
 **_test
 Testing
+*.wav
+
+Python/*/*.py
+Python/*/*wrap.cxx
+*.pyc
+

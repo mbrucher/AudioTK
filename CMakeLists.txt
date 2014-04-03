@@ -9,6 +9,18 @@ enable_testing()
 find_package(Git REQUIRED)
 find_package(Boost REQUIRED unit_test_framework)
 
+find_package(libsndfile)
+if(LIBSNDFILE_FOUND)
+  set(USE_LIBSNDFILE 1)
+else(LIBSNDFILE_FOUND)
+  set(USE_LIBSNDFILE 0)
+endif(LIBSNDFILE_FOUND)
+
+if(ATK_BUILD_PYTHON)
+  find_package(swig REQUIRED)
+  find_package(Numpy REQUIRED)
+endif(ATK_BUILD_PYTHON)
+
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
 
 # configure a header file to pass some of the CMake settings
@@ -18,6 +30,7 @@ configure_file (
   "ATK/config.h"
   )
 
+include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 if(APPLE)
@@ -27,4 +40,8 @@ endif(APPLE)
 
 add_subdirectory(ATK)
 add_subdirectory(tests)
+
+if(ATK_BUILD_PYTHON)
+  add_subdirectory(Python)
+endif(ATK_BUILD_PYTHON)
 

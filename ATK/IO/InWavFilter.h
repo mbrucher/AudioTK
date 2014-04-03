@@ -23,6 +23,7 @@ namespace ATK
     using Parent::outputs_size;
     using Parent::outputs;
     using Parent::output_sampling_rate;
+    using Parent::set_output_sampling_rate;
     using Parent::set_nb_output_ports;
 
   private:

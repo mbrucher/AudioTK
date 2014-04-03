@@ -11,7 +11,7 @@ FILE(GLOB_RECURSE
 
 include_directories(${PROJECT_SOURCE_DIR})
 add_executable(ATKCore_test ${ATK_CORE_TEST_SRC} ${ATK_CORE_TEST_HEADERS})
-target_link_libraries (ATKCore_test ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+target_link_libraries (ATKCore_test ATKMock ATKTools ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 add_test(AudioTKCore ATKCore_test --log_level=message)
 

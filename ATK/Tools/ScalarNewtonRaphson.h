@@ -5,6 +5,8 @@
 #ifndef ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
 #define ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
 
+#include <iostream>
+
 #include <boost/scoped_ptr.hpp>
 
 namespace ATK
@@ -12,7 +14,7 @@ namespace ATK
   template<typename Function>
   class ScalarNewtonRaphson
   {
-    static const int max_iterations = 100;
+    static const int max_iterations = 10;
     
     typedef typename Function::DataType DataType;
     
@@ -23,7 +25,7 @@ namespace ATK
     
   public:
     ScalarNewtonRaphson(const boost::scoped_ptr<Function>& function)
-    :function(function), x0(0), y0(0), precision(0.00001)
+    :function(function), x0(0), y0(0), precision(1e3 * std::numeric_limits<DataType>::epsilon())
     {
       
     }
@@ -35,6 +37,7 @@ namespace ATK
         return y0;
       }
       y0 = optimize_impl(x1);
+
       x0 = x1;
       return y0;
     }
