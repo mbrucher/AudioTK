@@ -11,6 +11,13 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.1.1
+* Padding/delay support
+
+0.1.0
+* Butterworth low pass filter
+* Python wrappers for Distortion filters
+
 0.0.3
 * Audio files input/output filters based on libsndfile
 * Input and output filters based on pointers
