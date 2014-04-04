@@ -13,7 +13,7 @@ namespace ATK
 {
   template <typename DataType>
   ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients()
-  :Parent(1, 1)
+  :Parent(1, 1), in_order(1), out_order(1)
   {
   }
   
