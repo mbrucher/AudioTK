@@ -49,8 +49,6 @@ namespace ATK
   TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
   :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), outputs_size(nb_output_ports, 0), input_delay(0), output_delay(0)
   {
-    converted_inputs_size.assign(nb_input_ports, 0);
-    outputs_size.assign(nb_output_ports, 0);
   }
 
   template<typename DataType>
