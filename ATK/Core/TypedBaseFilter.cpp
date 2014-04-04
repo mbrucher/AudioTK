@@ -47,7 +47,7 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), input_delay(0), output_delay(0)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), outputs_size(nb_output_ports, 0), input_delay(0), output_delay(0)
   {
     converted_inputs_size.assign(nb_input_ports, 0);
     outputs_size.assign(nb_output_ports, 0);
@@ -107,10 +107,34 @@ namespace ATK
     for(int i = 0; i < nb_input_ports; ++i)
     {
       if(converted_inputs_size[i] < size)
-      { // Add input delay support
+      {
+        boost::scoped_array<DataType> temp(new DataType[input_delay + size]);
+        if(converted_inputs_size[i] == 0)
+        {
+          for(int j = 0; j < input_delay; ++j)
+          {
+            temp[j] = 0;
+          }
+        }
+        else
+        {
+          for(int j = 0; j < input_delay; ++j)
+          {
+            temp[j] = converted_inputs[i][converted_inputs_size[i] + j - input_delay];
+          }
+        }
+        
+        converted_inputs_delay[i].swap(temp);
         converted_inputs_delay[i].reset(new DataType[input_delay + size]);
         converted_inputs[i] = converted_inputs_delay[i].get() + input_delay;
         converted_inputs_size[i] = size;
+      }
+      else
+      {
+        for(int j = 0; j < output_delay; ++j)
+        {
+          converted_inputs[i][j - input_delay] = converted_inputs[i][converted_inputs_size[i] + j - input_delay];
+        }
       }
       convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
     }
@@ -122,10 +146,33 @@ namespace ATK
     for(int i = 0; i < nb_output_ports; ++i)
     {
       if(outputs_size[i] < size)
-      { // Add output delay support
-        outputs_delay[i].reset(new DataType[output_delay + size]);
+      {
+        boost::scoped_array<DataType> temp(new DataType[output_delay + size]);
+        if(outputs_size[i] == 0)
+        {
+          for(int j = 0; j < output_delay; ++j)
+          {
+            temp[j] = 0;
+          }
+        }
+        else
+        {
+          for(int j = 0; j < output_delay; ++j)
+          {
+            temp[j] = outputs[i][outputs_size[i] + j - output_delay];
+          }
+        }
+        
+        outputs_delay[i].swap(temp);
         outputs[i] = outputs_delay[i].get() + output_delay;
         outputs_size[i] = size;
+      }
+      else
+      {
+        for(int j = 0; j < output_delay; ++j)
+        {
+          outputs[i][j - output_delay] = outputs[i][outputs_size[i] + j - output_delay];
+        }
       }
     }
   }
