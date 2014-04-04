@@ -47,7 +47,7 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports), outputs(nb_output_ports)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), input_delay(0), output_delay(0)
   {
     converted_inputs_size.assign(nb_input_ports, 0);
     outputs_size.assign(nb_output_ports, 0);
@@ -63,7 +63,8 @@ namespace ATK
   {
     Parent::set_nb_input_ports(nb_ports);
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
-    converted_inputs.swap(temp);
+    converted_inputs_delay.swap(temp);
+    converted_inputs.assign(nb_ports, NULL);
     converted_inputs_size.resize(nb_ports, 0);
   }
   
@@ -72,7 +73,8 @@ namespace ATK
   {
     Parent::set_nb_output_ports(nb_ports);
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
-    outputs.swap(temp);
+    outputs_delay.swap(temp);
+    outputs.assign(nb_ports, NULL);
     outputs_size.resize(nb_ports, 0);
   }
 
@@ -96,7 +98,7 @@ namespace ATK
   template<typename DataType>
   DataType* TypedBaseFilter<DataType>::get_output_array(int port)
   {
-    return outputs[port].get();
+    return outputs[port];
   }
 
   template<typename DataType>
@@ -105,11 +107,12 @@ namespace ATK
     for(int i = 0; i < nb_input_ports; ++i)
     {
       if(converted_inputs_size[i] < size)
-      {
-        converted_inputs[i].reset(new DataType[size]);
+      { // Add input delay support
+        converted_inputs_delay[i].reset(new DataType[input_delay + size]);
+        converted_inputs[i] = converted_inputs_delay[i].get() + input_delay;
         converted_inputs_size[i] = size;
       }
-      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i].get(), size, connections[i].second->get_type());
+      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
     }
   }
   
@@ -119,8 +122,9 @@ namespace ATK
     for(int i = 0; i < nb_output_ports; ++i)
     {
       if(outputs_size[i] < size)
-      {
-        outputs[i].reset(new DataType[size]);
+      { // Add output delay support
+        outputs_delay[i].reset(new DataType[output_delay + size]);
+        outputs[i] = outputs_delay[i].get() + output_delay;
         outputs_size[i] = size;
       }
     }
