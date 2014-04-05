@@ -26,7 +26,7 @@ Changelog
 * Python wrappers for Tools filters
 
 0.0.2
-* Midddle Side separator filter for stereo channels
+* Middle Side separator filter for stereo channels
 * Sinus generator filter for Mock tests
 * Frequency tester based on Accelerate FFT for Mock tests
 * Second order EQ filters
