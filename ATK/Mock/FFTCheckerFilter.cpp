@@ -103,6 +103,7 @@ namespace ATK
 #if ATK_USE_FFTW == 1
         DataType amp = output_freqs[frequency_checks[j].first][0] * output_freqs[frequency_checks[j].first][0];
         amp += output_freqs[frequency_checks[j].first][1] * output_freqs[frequency_checks[j].first][1];
+        amp = std::sqrt(amp);
 #endif
 #if ATK_USE_ACCELERATE == 1
         DataType amp = output_freqs[frequency_checks[j].first];
