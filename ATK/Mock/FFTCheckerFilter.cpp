@@ -53,15 +53,14 @@ namespace ATK
   void FFTCheckerFilter<DataType_>::setup()
   {
 #if ATK_USE_FFTW == 1
-    delete[] input_data;
-    delete[] output_freqs;
+    free(input_data);
+    free(output_freqs);
     fftw_destroy_plan(fft_plan);
 
-    input_data = new fftw_complex[input_sampling_rate];
-    output_freqs = new fftw_complex[input_sampling_rate];
+    input_data = fftw_alloc_complex(input_sampling_rate);
+    output_freqs = fftw_alloc_complex(input_sampling_rate);
     
     fft_plan = fftw_plan_dft_1d(input_sampling_rate, input_data, output_freqs, FFTW_FORWARD, FFTW_ESTIMATE);
-
 #endif
 #if ATK_USE_ACCELERATE == 1
     delete[] splitData.realp;
@@ -82,10 +81,12 @@ namespace ATK
     for(long i = 0; i < size/input_sampling_rate; ++i)
     {
 #if ATK_USE_FFTW == 1
+      int log2n = std::log2(input_sampling_rate);
+      double factor = 1 << (log2n - 1);
       for(int j = 0; j < input_sampling_rate; ++j)
       {
-        input_data[j][0] = converted_inputs[0][i * input_sampling_rate + j];
-        input_data[j][1] =0;
+        input_data[j][0] = converted_inputs[0][i * input_sampling_rate + j] / factor;
+        input_data[j][1] = 0;
       }
       fftw_execute(fft_plan);
 #endif
