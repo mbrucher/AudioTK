@@ -55,6 +55,7 @@ namespace ATK
   template <typename DataType>
   void SimpleOverdriveFilter<DataType>::setup()
   {
+    Parent::setup();
     function.reset(new SimpleOverdriveFunction<DataType>(1./input_sampling_rate, 10000, 22e-9, 1e-12, 26e-3));
   }
 

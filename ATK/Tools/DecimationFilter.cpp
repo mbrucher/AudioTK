@@ -20,6 +20,7 @@ namespace ATK
   template<class DataType>
   void DecimationFilter<DataType>::setup()
   {
+    Parent::setup();
     if(output_sampling_rate == 0 || input_sampling_rate % output_sampling_rate != 0)
     {
       decimation = 0;
