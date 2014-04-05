@@ -3,6 +3,9 @@
 #include <ATK/EQ/ButterworthFilter.h>
 %}
 
+%template(FloatVector) std::vector<float>;
+%template(DoubleVector) std::vector<double>;
+
 namespace ATK
 {
   template<class DataType>
@@ -24,3 +27,6 @@ namespace ATK
 
 %template(FloatButterworthLowPassFilter) ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<float> >;
 %template(DoubleButterworthLowPassFilter) ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> >;
+
+IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> >, double);
