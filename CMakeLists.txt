@@ -6,7 +6,12 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
 enable_testing()
 
-option(ENABLE_INTERNAL_PROFILING "Enable the internal perf counter" OFF)
+option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
+if(ENABLE_PROFILING)
+  set(ENABLE_INTERNAL_PROFILING 1)
+else(ENABLE_PROFILING)
+  set(ENABLE_INTERNAL_PROFILING 0)
+endif(ENABLE_PROFILING)
 
 find_package(Git REQUIRED)
 find_package(Boost REQUIRED unit_test_framework timer system)

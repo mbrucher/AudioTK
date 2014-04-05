@@ -16,7 +16,7 @@ namespace ATK
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, std::nullptr_t()))
   {
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     input_conversion_time = 0;
     output_conversion_time = 0;
     process_time = 0;
@@ -25,7 +25,7 @@ namespace ATK
 
   BaseFilter::~BaseFilter()
   {
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     std::cerr << "Object of type " << class_name << std::endl;
     std::cerr << "Input conversion time " << input_conversion_time / 1e9 << "s" << std::endl;
     std::cerr << "Output conversion time " << output_conversion_time / 1e9 << "s" << std::endl;
@@ -44,7 +44,7 @@ namespace ATK
   
   void BaseFilter::setup()
   {
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     class_name = typeid(*this).name();
 #endif
   }
@@ -113,21 +113,21 @@ namespace ATK
       }
       it->second->process(size * input_sampling_rate / output_sampling_rate);
     }
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     boost::timer::cpu_timer timer;
 #endif
     prepare_process(size * input_sampling_rate / output_sampling_rate);
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     boost::timer::cpu_times const input_elapsed_times(timer.elapsed());
     input_conversion_time += (input_elapsed_times.system + input_elapsed_times.user);
 #endif
     prepare_outputs(size);
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     boost::timer::cpu_times const output_elapsed_times(timer.elapsed());
     output_conversion_time += (output_elapsed_times.system + output_elapsed_times.user);
 #endif
     process_impl(size);
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     boost::timer::cpu_times const process_elapsed_times(timer.elapsed());
     process_time += (process_elapsed_times.system + process_elapsed_times.user);
 #endif

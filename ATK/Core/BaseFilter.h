@@ -10,7 +10,7 @@
 
 #include <ATK/config.h>
 
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
 #include <boost/timer/timer.hpp>
 #endif
 
@@ -67,7 +67,7 @@ namespace ATK
     std::vector<std::pair<int, BaseFilter*> > connections;
 
   private:
-#if ATK_PROFILING == ON
+#if ATK_PROFILING == 1
     std::string class_name;
     boost::timer::nanosecond_type input_conversion_time;
     boost::timer::nanosecond_type output_conversion_time;
