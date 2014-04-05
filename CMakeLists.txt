@@ -23,6 +23,25 @@ endif(ATK_BUILD_PYTHON)
 
 GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
 
+find_package(FFTW)
+
+SET(USE_FFTW 0)
+SET(USE_ACCELERATE 0)
+
+if(FFTW_FOUND)
+  SET(USE_FFTW 1)
+  include_directories(${FFTW_INCLUDES})
+  SET(FFTLIBRARIES ${FFTW_LIBRARIES})
+else(FFTW_FOUND)
+  if(APPLE)
+    if(ACCELERATE_FRAMEWORK_FOUND)
+      FIND_PACKAGE(Accelerate REQUIRED)
+      SET(FFTLIBRARIES ${ACCELERATE_FRAMEWORK_LINK_FLAGS})
+      SET(USE_ACCELERATE 1)
+    endif(ACCELERATE_FRAMEWORK_FOUND)
+  endif(APPLE)
+endif(FFTW_FOUND)
+
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
@@ -32,11 +51,6 @@ configure_file (
 
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
-
-if(APPLE)
-  FIND_PACKAGE(Accelerate REQUIRED)
-  SET(FFTLIBRARIES ${ACCELERATE_FRAMEWORK_LINK_FLAGS})
-endif(APPLE)
 
 add_subdirectory(ATK)
 add_subdirectory(tests)
