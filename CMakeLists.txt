@@ -6,8 +6,10 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
 enable_testing()
 
+option(ENABLE_INTERNAL_PROFILING "Enable the internal perf counter" OFF)
+
 find_package(Git REQUIRED)
-find_package(Boost REQUIRED unit_test_framework)
+find_package(Boost REQUIRED unit_test_framework timer system)
 
 find_package(libsndfile)
 if(LIBSNDFILE_FOUND)

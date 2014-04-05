@@ -5,7 +5,14 @@
 #ifndef ATK_CORE_BASEFILTER_H
 #define ATK_CORE_BASEFILTER_H
 
+#include <string>
 #include <vector>
+
+#include <ATK/config.h>
+
+#if ATK_PROFILING == ON
+#include <boost/timer/timer.hpp>
+#endif
 
 namespace ATK
 {
@@ -58,6 +65,15 @@ namespace ATK
     int output_sampling_rate;
     /// The connections to the output pins of some filters
     std::vector<std::pair<int, BaseFilter*> > connections;
+
+  private:
+#if ATK_PROFILING == ON
+    std::string class_name;
+    boost::timer::nanosecond_type input_conversion_time;
+    boost::timer::nanosecond_type output_conversion_time;
+    boost::timer::nanosecond_type process_time;
+#endif
+
   };
 }
 
