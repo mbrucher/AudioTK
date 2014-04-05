@@ -13,6 +13,8 @@ Changelog
 
 0.1.1
 * Padding/delay support
+* FFTW support
+* Profiling facilities
 
 0.1.0
 * Butterworth low pass filter
