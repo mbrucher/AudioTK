@@ -44,18 +44,21 @@ namespace ATK
     {
       assert(input_sampling_rate == output_sampling_rate);
       
+      DataType tempout = 0;
+      
       for(long i = 0; i < size; ++i)
       {
-        outputs[0][i] = coefficients_in[in_order] * converted_inputs[0][i];
+        tempout = coefficients_in[in_order] * converted_inputs[0][i];
 
         for(int j = 0; j < in_order; ++j)
         {
-          outputs[0][i] += coefficients_in[j] * converted_inputs[0][i - in_order + j];
+          tempout += coefficients_in[j] * converted_inputs[0][i - in_order + j];
         }
         for(int j = 0; j < out_order; ++j)
         {
-          outputs[0][i] += coefficients_out[j] * outputs[0][i - out_order + j];
+          tempout += coefficients_out[j] * outputs[0][i - out_order + j];
         }
+        outputs[0][i] = tempout;
       }
     }
     
