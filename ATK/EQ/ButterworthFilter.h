@@ -85,6 +85,7 @@ namespace ATK
     ButterworthBandPassCoefficients();
     
     void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
+    void set_cut_frequencies(DataType f0, DataType f1);
     std::pair<DataType, DataType> get_cut_frequencies() const;
     
     void set_order(int order);

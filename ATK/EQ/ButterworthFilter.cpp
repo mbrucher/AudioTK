@@ -171,6 +171,13 @@ namespace ATK
   }
   
   template <typename DataType>
+  void ButterworthBandPassCoefficients<DataType>::set_cut_frequencies(DataType f0, DataType f1)
+  {
+    this->cut_frequencies = std::make_pair(f0, f1);
+    setup();
+  }
+
+  template <typename DataType>
   std::pair<typename ButterworthBandPassCoefficients<DataType>::DataType, typename ButterworthBandPassCoefficients<DataType>::DataType> ButterworthBandPassCoefficients<DataType>::get_cut_frequencies() const
   {
     return cut_frequencies;
@@ -197,10 +204,14 @@ namespace ATK
   template class ButterworthLowPassCoefficients<double>;
   template class ButterworthHighPassCoefficients<float>;
   template class ButterworthHighPassCoefficients<double>;
+  template class ButterworthBandPassCoefficients<float>;
+  template class ButterworthBandPassCoefficients<double>;
   
   template class IIRFilter<ButterworthLowPassCoefficients<float> >;
   template class IIRFilter<ButterworthLowPassCoefficients<double> >;
   template class IIRFilter<ButterworthHighPassCoefficients<float> >;
   template class IIRFilter<ButterworthHighPassCoefficients<double> >;
+  template class IIRFilter<ButterworthBandPassCoefficients<float> >;
+  template class IIRFilter<ButterworthBandPassCoefficients<double> >;
 
 }

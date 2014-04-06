@@ -20,7 +20,7 @@ namespace ATK
     
     void set_order(int order);
   };
-
+  
   template<class DataType>
   class ButterworthHighPassCoefficients: public BaseFilter
   {
@@ -33,19 +33,38 @@ namespace ATK
     
     void set_order(int order);
   };
+  
+  template<class DataType>
+  class ButterworthBandPassCoefficients: public BaseFilter
+  {
+  public:
+    ButterworthBandPassCoefficients();
+    ~ButterworthBandPassCoefficients();
+    
+    void set_cut_frequencies(DataType f0, DataType f1);
+    std::pair<DataType, DataType> get_cut_frequencies() const;
+    
+    void set_order(int order);
+  };
 }
 
 %template(FloatButterworthLowPassCoefficients) ATK::ButterworthLowPassCoefficients<float>;
 %template(DoubleButterworthLowPassCoefficients) ATK::ButterworthLowPassCoefficients<double>;
 %template(FloatButterworthHighPassCoefficients) ATK::ButterworthHighPassCoefficients<float>;
 %template(DoubleButterworthHighPassCoefficients) ATK::ButterworthHighPassCoefficients<double>;
+%template(FloatButterworthBzndPassCoefficients) ATK::ButterworthBandPassCoefficients<float>;
+%template(DoubleButterworthBandPassCoefficients) ATK::ButterworthBandPassCoefficients<double>;
 
 %template(FloatButterworthLowPassFilter) ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<float> >;
 %template(DoubleButterworthLowPassFilter) ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> >;
 %template(FloatButterworthHighPassFilter) ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<float> >;
 %template(DoubleButterworthHighPassFilter) ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<double> >;
+%template(FloatButterworthBandPassFilter) ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<float> >;
+%template(DoubleButterworthBandPassFilter) ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<double> >;
 
 IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<float> >, float);
 IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> >, double);
 IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<float> >, float);
 IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<double> >, double);

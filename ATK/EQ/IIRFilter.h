@@ -51,13 +51,13 @@ namespace
 
     for(int i = 0; i < z.size(); ++i)
     {
-      zbp.pushback(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
-      zbp.pushback(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
+      zbp.push_back(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
+      zbp.push_back(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
     }
     for(int i = 0; i < p.size(); ++i)
     {
-      pbp.pushback(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
-      pbp.pushback(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
+      pbp.push_back(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
+      pbp.push_back(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
     }
 
     zbp.resize(zbp.size() + relative_degree, -1);
