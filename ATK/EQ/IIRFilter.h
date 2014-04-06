@@ -31,7 +31,7 @@ namespace
     
     k *= std::pow(Wn, relative_degree);
   }
-  
+
   /// Transform the Wn=1 low pass analog filter in a Wn=Wn, bw=bw band pass filter
   template<typename DataType>
   void zpk_lp2bp(DataType Wn, DataType bw, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
@@ -67,13 +67,59 @@ namespace
     
     k *= std::pow(bw, relative_degree);
   }
+  
+  /// Transform the Wn=1 low pass analog filter in a Wn=Wn, bw=bw band stop filter
+  template<typename DataType>
+  void zpk_lp2bs(DataType Wn, DataType bw, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  {
+    int relative_degree = p.size() - z.size();
+  
+    std::complex<DataType> f = 1;
+    for(int i = 0; i < z.size(); ++i)
+    {
+      f *= - z[i];
+    }
+    for(int i = 0; i < p.size(); ++i)
+    {
+      f /= - p[i];
+    }
+    k *= f.real();
+
+    for(int i = 0; i < z.size(); ++i)
+    {
+      z[i] = bw / 2 / z[i];
+    }
+    for(int i = 0; i < p.size(); ++i)
+    {
+      p[i] = bw / 2 / p[i];
+    }
+    
+    std::vector<std::complex<DataType> > zbs;
+    std::vector<std::complex<DataType> > pbs;
+    
+    for(int i = 0; i < z.size(); ++i)
+    {
+      zbs.push_back(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
+      zbs.push_back(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
+    }
+    for(int i = 0; i < p.size(); ++i)
+    {
+      pbs.push_back(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
+      pbs.push_back(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
+    }
+    
+    zbs.resize(zbs.size() + relative_degree, std::complex<DataType>(0, Wn));
+    zbs.resize(zbs.size() + relative_degree, std::complex<DataType>(0, -Wn));
+    z.swap(zbs);
+    p.swap(pbs);
+  }
 
   /// Apply a bilinear transform on z, p, k
   template<typename DataType>
   void zpk_bilinear(int fs, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
     DataType fs2 = 2*fs;
-    
+  
     std::complex<DataType> f = 1;
     for(int i = 0; i < z.size(); ++i)
     {
@@ -96,7 +142,7 @@ namespace
     
     z.resize(p.size(), -1);
   }
-  
+
   /// Transforms the z, p, k coefficients in b, a form
   template<typename DataType>
   void zpk2ba(int fs, const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, boost::math::tools::polynomial<DataType>& b, boost::math::tools::polynomial<DataType>& a)
