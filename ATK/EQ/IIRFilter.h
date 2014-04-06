@@ -6,6 +6,7 @@
 #define ATK_EQ_IIRFILTER_H
 
 #include <cmath>
+#include <iostream>
 #include <vector>
 
 #include <boost/math/tools/polynomial.hpp>
@@ -60,7 +61,7 @@ namespace
       pbp.push_back(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
     }
 
-    zbp.resize(zbp.size() + relative_degree, -1);
+    zbp.resize(zbp.size() + relative_degree, 0);
     z.swap(zbp);
     p.swap(pbp);
     

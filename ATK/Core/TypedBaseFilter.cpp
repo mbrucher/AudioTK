@@ -123,13 +123,12 @@ namespace ATK
         }
         
         converted_inputs_delay[i].swap(temp);
-        converted_inputs_delay[i].reset(new DataType[input_delay + size]);
         converted_inputs[i] = converted_inputs_delay[i].get() + input_delay;
         converted_inputs_size[i] = size;
       }
       else
       {
-        for(int j = 0; j < output_delay; ++j)
+        for(int j = 0; j < input_delay; ++j)
         {
           converted_inputs[i][j - input_delay] = converted_inputs[i][converted_inputs_size[i] + j - input_delay];
         }

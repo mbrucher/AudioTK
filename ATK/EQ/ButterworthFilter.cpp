@@ -51,7 +51,7 @@ namespace
   }
   
   template<typename DataType>
-  void create_bp_coeffs(int order, DataType bp, DataType Wn, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  void create_bp_coeffs(int order, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -59,7 +59,10 @@ namespace
     
     int fs = 2;
     create_butterworth_analog_coefficients(order/2, z, p, k);
-    zpk_lp2bp(Wn, bp, z, p, k);
+    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
+    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
+    
+    zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
     boost::math::tools::polynomial<DataType> b;
@@ -197,7 +200,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_bp_coeffs(in_order, 2 * (cut_frequencies.second - cut_frequencies.first) / input_sampling_rate, 2 * std::sqrt(cut_frequencies.second * cut_frequencies.first) / input_sampling_rate, coefficients_in, coefficients_out);
+    create_bp_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
   }
 
   template class ButterworthLowPassCoefficients<float>;
