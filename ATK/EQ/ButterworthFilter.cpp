@@ -46,7 +46,34 @@ namespace
     }
     for(int i = 0; i < order; ++i)
     {
-      coefficients_out[i] = a[i];
+      coefficients_out[i] = -a[i];
+    }
+  }
+  
+  template<typename DataType>
+  void create_bp_coeffs(int order, DataType bp, DataType Wn, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  {
+    std::vector<std::complex<DataType> > z;
+    std::vector<std::complex<DataType> > p;
+    DataType k;
+    
+    int fs = 2;
+    create_butterworth_analog_coefficients(order/2, z, p, k);
+    zpk_lp2bp(Wn, bp, z, p, k);
+    zpk_bilinear(fs, z, p, k);
+    
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
+    
+    zpk2ba(fs, z, p, k, b, a);
+    
+    for(int i = 0; i < order + 1; ++i)
+    {
+      coefficients_in[i] = b[i];
+    }
+    for(int i = 0; i < order; ++i)
+    {
+      coefficients_out[i] = -a[i];
     }
   }
 }
@@ -86,7 +113,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_default_coeffs(in_order, 2 * DataType(cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
+    create_default_coeffs(in_order, 2 * cut_frequency / input_sampling_rate, coefficients_in, coefficients_out);
   }
 
   template <typename DataType>
@@ -122,12 +149,48 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_default_coeffs(in_order, (input_sampling_rate - 2 * DataType(cut_frequency)) / input_sampling_rate, coefficients_in, coefficients_out);
+    create_default_coeffs(in_order, (input_sampling_rate - 2 * cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
     for(int i = in_order - 1; i >= 0; i -= 2)
     {
       coefficients_in[i] = - coefficients_in[i];
       coefficients_out[i] = - coefficients_out[i];
     }
+  }
+  
+  template <typename DataType>
+  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients()
+  :Parent(1, 1), in_order(1), out_order(1)
+  {
+  }
+  
+  template <typename DataType>
+  void ButterworthBandPassCoefficients<DataType>::set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies)
+  {
+    this->cut_frequencies = cut_frequencies;
+    setup();
+  }
+  
+  template <typename DataType>
+  std::pair<typename ButterworthBandPassCoefficients<DataType>::DataType, typename ButterworthBandPassCoefficients<DataType>::DataType> ButterworthBandPassCoefficients<DataType>::get_cut_frequencies() const
+  {
+    return cut_frequencies;
+  }
+  
+  template <typename DataType>
+  void ButterworthBandPassCoefficients<DataType>::set_order(int order)
+  {
+    in_order = out_order = 2 * order;
+    setup();
+  }
+  
+  template <typename DataType>
+  void ButterworthBandPassCoefficients<DataType>::setup()
+  {
+    Parent::setup();
+    coefficients_in.assign(in_order+1, 0);
+    coefficients_out.assign(out_order, 0);
+    
+    create_bp_coeffs(in_order, 2 * (cut_frequencies.second - cut_frequencies.first) / input_sampling_rate, 2 * std::sqrt(cut_frequencies.second * cut_frequencies.first) / input_sampling_rate, coefficients_in, coefficients_out);
   }
 
   template class ButterworthLowPassCoefficients<float>;

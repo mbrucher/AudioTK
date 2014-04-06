@@ -62,6 +62,33 @@ namespace ATK
     
     void set_order(int order);
   };
+  
+  template<typename DataType_>
+  class ButterworthBandPassCoefficients: public TypedBaseFilter<DataType_>
+  {
+  public:
+    typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::input_sampling_rate;
+  protected:
+    std::pair<DataType, DataType> cut_frequencies;
+    
+    int in_order;
+    int out_order;
+    
+    void setup();
+    
+    std::vector<DataType> coefficients_in;
+    std::vector<DataType> coefficients_out;
+    
+  public:
+    ButterworthBandPassCoefficients();
+    
+    void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
+    std::pair<DataType, DataType> get_cut_frequencies() const;
+    
+    void set_order(int order);
+  };
 }
 
 #endif

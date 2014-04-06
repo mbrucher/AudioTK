@@ -10,7 +10,7 @@
 
 #include <boost/math/tools/polynomial.hpp>
 
-/// NAmespace to build filters based on their zpk description
+/// Namespace to build filters based on their zpk description
 namespace
 {
   /// Transform the Wn=1 low pass analog filter in a Wn=Wn low pass filter
@@ -31,6 +31,42 @@ namespace
     k *= std::pow(Wn, relative_degree);
   }
   
+  /// Transform the Wn=1 low pass analog filter in a Wn=Wn, bw=bw band pass filter
+  template<typename DataType>
+  void zpk_lp2bp(DataType Wn, DataType bw, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  {
+    int relative_degree = p.size() - z.size();
+    
+    for(int i = 0; i < z.size(); ++i)
+    {
+      z[i] *= bw/2;
+    }
+    for(int i = 0; i < p.size(); ++i)
+    {
+      p[i] *= bw/2;
+    }
+    
+    std::vector<std::complex<DataType> > zbp;
+    std::vector<std::complex<DataType> > pbp;
+
+    for(int i = 0; i < z.size(); ++i)
+    {
+      zbp.pushback(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
+      zbp.pushback(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
+    }
+    for(int i = 0; i < p.size(); ++i)
+    {
+      pbp.pushback(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
+      pbp.pushback(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
+    }
+
+    zbp.resize(zbp.size() + relative_degree, -1);
+    z.swap(zbp);
+    p.swap(pbp);
+    
+    k *= std::pow(bw, relative_degree);
+  }
+
   /// Apply a bilinear transform on z, p, k
   template<typename DataType>
   void zpk_bilinear(int fs, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
