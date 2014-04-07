@@ -1,6 +1,6 @@
 
 %{
-#include <ATK/Core/BAseFilter.h>
+#include <ATK/Core/BaseFilter.h>
 %}
 
 namespace ATK

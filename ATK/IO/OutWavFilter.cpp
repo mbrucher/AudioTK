@@ -5,6 +5,7 @@
 #include "OutWavFilter.h"
 
 #include <cstring>
+#include <stdexcept>
 
 #include <boost/lexical_cast.hpp>
 

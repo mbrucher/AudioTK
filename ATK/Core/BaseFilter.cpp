@@ -14,7 +14,7 @@ namespace ATK
   BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
   :is_reset(true), nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
-   connections(nb_input_ports, std::make_pair(-1, std::nullptr_t()))
+   connections(nb_input_ports, std::make_pair(-1, nullptr))
   {
 #if ATK_PROFILING == 1
     input_conversion_time = 0;
@@ -107,7 +107,7 @@ namespace ATK
     }
     for(auto it = connections.begin(); it != connections.end(); ++it)
     {
-      if(it->second == std::nullptr_t(0))
+      if(it->second == nullptr)
       {
         throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
       }
@@ -141,7 +141,7 @@ namespace ATK
 
   void BaseFilter::set_nb_input_ports(int nb_ports)
   {
-    connections.resize(nb_ports, std::make_pair(-1, std::nullptr_t()));
+    connections.resize(nb_ports, std::make_pair(-1, nullptr));
     nb_input_ports = nb_ports;
   }
   

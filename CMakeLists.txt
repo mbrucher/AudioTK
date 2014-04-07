@@ -7,6 +7,8 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 enable_testing()
 
 option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
+option(ENABLE_PYTHON "Enable the Python wrappers" OFF)
+
 if(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 1)
 else(ENABLE_PROFILING)
@@ -62,7 +64,7 @@ include_directories(${Boost_INCLUDE_DIR})
 add_subdirectory(ATK)
 add_subdirectory(tests)
 
-if(ATK_BUILD_PYTHON)
+if(ENABLE_PYTHON)
   add_subdirectory(Python)
-endif(ATK_BUILD_PYTHON)
+endif(ENABLE_PYTHON)
 

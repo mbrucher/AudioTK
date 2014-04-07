@@ -4,6 +4,8 @@
 
 #include "InWavFilter.h"
 
+#include <stdexcept>
+
 #include <boost/lexical_cast.hpp>
 
 #include <ATK/Core/Utilities.h>
