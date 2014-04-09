@@ -14,5 +14,6 @@
 %include "IIRFilter.i"
 %include "SecondOrderFilter.i"
 %include "ButterworthFilter.i"
+%include "BesselFilter.i"
 
 #endif
