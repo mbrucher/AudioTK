@@ -40,29 +40,10 @@ namespace ATK
     
     std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
     {
-      DataType expdiode_y1_p;
-      DataType expdiode_y1_m;
+      DataType expdiode_y1_p = std::exp(y1 / vt);
+      DataType expdiode_y1_m = 1 / expdiode_y1_p;
       DataType expdiode_y0_p;
       DataType expdiode_y0_m;
-
-      if(y1 == oldy0)
-      {
-        expdiode_y1_p = oldexpy0;
-        expdiode_y1_m = oldinvexpy0;
-      }
-      else if(y1 == oldy1)
-      {
-        expdiode_y1_p = oldexpy1;
-        expdiode_y1_m = oldinvexpy1;
-      }
-      else
-      {
-        expdiode_y1_p = std::exp(y1 / vt);
-        expdiode_y1_m = 1 / expdiode_y1_p;
-        oldy1 = y1;
-        oldexpy1 = expdiode_y1_p;
-        oldinvexpy1 = expdiode_y1_m;
-      }
 
       if(y0 == oldy0)
       {
@@ -82,7 +63,11 @@ namespace ATK
         oldexpy0 = expdiode_y0_p;
         oldinvexpy0 = expdiode_y0_m;
       }
-      
+
+      oldy1 = y1;
+      oldexpy1 = expdiode_y1_p;
+      oldinvexpy1 = expdiode_y1_m;
+
       std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p + expdiode_y1_m) / vt);
       return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
     }
