@@ -17,6 +17,7 @@ Changelog
 * Profiling facilities
 * Butterworth high pass, band pass and band stop filters
 * Python wrappers for all Butterworth filters
+* Bessel filters
 
 0.1.0
 * Butterworth low pass filter
