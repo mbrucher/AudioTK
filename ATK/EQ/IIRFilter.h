@@ -11,6 +11,8 @@
 
 #include <boost/math/tools/polynomial.hpp>
 
+#include "config.h"
+
 /// Namespace to build filters based on their zpk description
 namespace
 {
@@ -190,7 +192,7 @@ namespace ATK
    * IIR filter template class
    */
   template<class Coefficients >
-  class IIRFilter: public Coefficients
+  class ATK_EQ_EXPORT IIRFilter: public Coefficients
   {
   public:
     typedef Coefficients Parent;

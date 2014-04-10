@@ -6,11 +6,12 @@
 #define ATK_TOOLS_PANFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include "config.h"
 
 namespace ATK
 {
   template<typename DataType_>
-  class PanFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT PanFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;

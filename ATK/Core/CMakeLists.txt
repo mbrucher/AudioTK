@@ -9,10 +9,13 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+add_definitions(-DBUILD_ATK_CORE)
+
 add_library(ATKCore
     SHARED
     ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
 )
+
 if(ENABLE_INTERNAL_PROFILING)
 target_link_libraries(ATKCore ${Boost_TIMER_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 endif(ENABLE_INTERNAL_PROFILING)

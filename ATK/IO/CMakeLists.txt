@@ -19,10 +19,13 @@ FILE(GLOB_RECURSE
     ATK_IO_LIBSNDFILE_HEADERS
     libsndfile/*.h
 )
+
 include_directories(${PROJECT_SOURCE_DIR} ${LIBSNDFILE_INCLUDE_DIR})
 else(LIBSNDFILE_FOUND)
 include_directories(${PROJECT_SOURCE_DIR})
 endif(LIBSNDFILE_FOUND)
+
+add_definitions(-DBUILD_ATK_IO)
 
 add_library(ATKIO
     SHARED

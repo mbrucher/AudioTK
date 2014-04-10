@@ -9,6 +9,8 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+add_definitions(-DBUILD_ATK_EQ)
+
 include_directories(${PROJECT_SOURCE_DIR})
 add_library(ATKEQ
     SHARED

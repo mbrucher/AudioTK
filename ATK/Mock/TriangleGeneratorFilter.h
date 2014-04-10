@@ -7,10 +7,12 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#include "config.h"
+
 namespace ATK
 {
   template<class DataType_>
-  class TriangleGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT TriangleGeneratorFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;

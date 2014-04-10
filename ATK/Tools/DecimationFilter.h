@@ -6,11 +6,12 @@
 #define ATK_TOOLS_DECIMATIONFILTER_H
 
 #include "../Core/TypedBaseFilter.h"
+#include "config.h"
 
 namespace ATK
 {
   template<class DataType_>
-  class DecimationFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT DecimationFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;

@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  class OutPointerFilter : public TypedBaseFilter<DataType_>
+  class ATK_CORE_EXPORT OutPointerFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;

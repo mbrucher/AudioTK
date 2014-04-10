@@ -6,11 +6,12 @@
 #define ATK_TOOLS_MSFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include "config.h"
 
 namespace ATK
 {
   template<typename DataType_>
-  class MiddleSideFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT MiddleSideFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;

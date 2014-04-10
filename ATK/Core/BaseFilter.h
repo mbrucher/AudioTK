@@ -9,6 +9,7 @@
 #include <vector>
 
 #include <ATK/config.h>
+#include "config.h"
 
 #if ATK_PROFILING == 1
 #include <boost/timer/timer.hpp>
@@ -16,7 +17,7 @@
 
 namespace ATK
 {
-  class BaseFilter
+  class ATK_CORE_EXPORT BaseFilter
   {
   public:
     BaseFilter(int nb_input_ports, int nb_output_ports);

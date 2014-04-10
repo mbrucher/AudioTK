@@ -10,12 +10,13 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#include "config.h"
 #include "WavStruct.h"
 
 namespace ATK
 {
   template<typename DataType_>
-  class InWavFilter: public TypedBaseFilter<DataType_>
+  class ATK_IO_EXPORT InWavFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;

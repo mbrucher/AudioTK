@@ -9,6 +9,8 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+add_definitions(-DBUILD_ATK_MOCK)
+
 include_directories(${PROJECT_SOURCE_DIR})
 add_library(ATKMock
     SHARED

@@ -20,7 +20,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  class TypedBaseFilter : public BaseFilter
+  class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter
   {
   protected:
     typedef BaseFilter Parent;

@@ -6,6 +6,7 @@
 #define ATK_MOCK_FFTCHECKERFILTER_H
 
 #include <ATK/config.h>
+#include "config.h"
 
 #if ATK_USE_FFTW == 1
 #include <fftw3.h>
@@ -19,7 +20,7 @@
 namespace ATK
 {
   template<class DataType_>
-  class FFTCheckerFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT FFTCheckerFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
