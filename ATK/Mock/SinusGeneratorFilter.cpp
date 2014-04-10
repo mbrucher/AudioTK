@@ -5,6 +5,7 @@
 #include "SinusGeneratorFilter.h"
 
 #include <cmath>
+#include <cstdint>
 
 #include <boost/math/constants/constants.hpp>
 

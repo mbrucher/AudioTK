@@ -11,6 +11,12 @@
 
 #include <boost/scoped_array.hpp>
 
+#define UGLYHACK
+#ifdef UGLYHACK
+#include <boost/shared_array.hpp>
+#define scoped_array shared_array
+#endif
+
 namespace ATK
 {
   template<typename DataType_>

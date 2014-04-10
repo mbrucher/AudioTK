@@ -4,6 +4,8 @@
 
 #include "TriangleGeneratorFilter.h"
 
+#include <cstdint>
+
 namespace ATK
 {
   template<class DataType_>

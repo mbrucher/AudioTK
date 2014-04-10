@@ -81,7 +81,7 @@ namespace ATK
     for(long i = 0; i < size/input_sampling_rate; ++i)
     {
 #if ATK_USE_FFTW == 1
-      int log2n = std::log2(input_sampling_rate);
+      int log2n = std::log(input_sampling_rate) / std::log(2.);
       double factor = 1 << (log2n - 1);
       for(int j = 0; j < input_sampling_rate; ++j)
       {

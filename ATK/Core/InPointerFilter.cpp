@@ -4,6 +4,8 @@
 
 #include "InPointerFilter.h"
 
+#include <cstdint>
+
 namespace ATK
 {
   template<typename DataType>

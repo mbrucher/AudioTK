@@ -5,6 +5,7 @@
 #include "MSFilter.h"
 
 #include <cmath>
+#include <cstdint>
 
 namespace ATK
 {

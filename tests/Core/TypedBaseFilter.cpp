@@ -2,6 +2,8 @@
  * \file TypedBaseFilter.cpp
  */
 
+#include <cstdint>
+
 #include <ATK/Core/TypedBaseFilter.h>
 
 #include <ATK/Mock/TriangleCheckerFilter.h>

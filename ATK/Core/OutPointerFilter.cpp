@@ -4,6 +4,8 @@
 
 #include "OutPointerFilter.h"
 
+#include <cstdint>
+
 namespace ATK
 {
   template<typename DataType>

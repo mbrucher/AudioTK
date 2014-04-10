@@ -5,6 +5,8 @@
 #include "PanFilter.h"
 
 #include <cmath>
+#include <cstdint>
+
 #include <boost/math/constants/constants.hpp>
 
 namespace ATK

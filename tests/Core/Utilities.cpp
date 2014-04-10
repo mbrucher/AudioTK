@@ -4,6 +4,7 @@
 
 #include <ATK/Core/Utilities.h>
 
+#include <cstdint>
 #include <vector>
 
 #define BOOST_TEST_NO_MAIN

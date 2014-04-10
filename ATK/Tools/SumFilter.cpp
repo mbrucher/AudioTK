@@ -5,6 +5,7 @@
 #include "SumFilter.h"
 
 #include <cmath>
+#include <cstdint>
 
 namespace ATK
 {

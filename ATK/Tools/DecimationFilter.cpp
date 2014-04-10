@@ -4,6 +4,8 @@
 
 #include "DecimationFilter.h"
 
+#include <cstdint>
+
 namespace ATK
 {
   template<class DataType>

@@ -5,6 +5,7 @@
 #include "TriangleCheckerFilter.h"
 
 #include <cmath>
+#include <cstdint>
 #include <cstdlib>
 
 #include <boost/type_traits/is_floating_point.hpp>

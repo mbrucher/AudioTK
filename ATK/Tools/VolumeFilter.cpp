@@ -5,6 +5,7 @@
 #include "VolumeFilter.h"
 
 #include <cmath>
+#include <cstdint>
 
 namespace ATK
 {
