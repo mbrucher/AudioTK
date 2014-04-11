@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1LowPassCoefficients_1k_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.03150874916131525));
+  frequency_checks.push_back(std::make_pair(1000, 0.01587182644655375));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1LowPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.6970934951279604));
+  frequency_checks.push_back(std::make_pair(100, 0.8381526756247699));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -92,7 +92,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1LowPassCoefficients_2k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(2000, 0.01112234417159909));
+  frequency_checks.push_back(std::make_pair(2000, 0.005576397202690614));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1LowPassCoefficients_200_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.3285828399406346));
+  frequency_checks.push_back(std::make_pair(200, 0.1962613670420864));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1HighPassCoefficients_1k_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.9969240497367295));
+  frequency_checks.push_back(std::make_pair(1000, 0.9792933050029933));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1HighPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.6976485955169588));
+  frequency_checks.push_back(std::make_pair(100, 0.8378857690525952));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1HighPassCoefficients_2k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(2000, 0.9992346889783681));
+  frequency_checks.push_back(std::make_pair(2000, 0.994533852735074));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
@@ -241,7 +241,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1HighPassCoefficients_200_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.9218503604866757));
+  frequency_checks.push_back(std::make_pair(200, 0.841014519725825));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -271,7 +271,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1BandPassCoefficients_1k_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.6982307944678048));
+  frequency_checks.push_back(std::make_pair(1000, 0.840901090032031));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -301,7 +301,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1BandPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.2597481478627114));
+  frequency_checks.push_back(std::make_pair(100, 0.14682528623369445));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -332,7 +332,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1BandPassCoefficients_2k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(2000, 0.25916093406445906));
+  frequency_checks.push_back(std::make_pair(2000, 0.1462850319776135));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
@@ -361,7 +361,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev1BandPassCoefficients_200_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.6977710595590545));
+  frequency_checks.push_back(std::make_pair(200, 0.8387964924902226));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   

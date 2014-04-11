@@ -32,7 +32,7 @@ namespace
     
     for(int i = 0; i < p.size(); ++i)
     {
-      f /= p[i];
+      f *= -p[i];
     }
     k = f.real();
     if(order % 2 == 0)
