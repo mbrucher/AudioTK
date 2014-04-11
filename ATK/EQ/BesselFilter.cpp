@@ -233,7 +233,7 @@ namespace ATK
 {
   template <typename DataType>
   BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients()
-  :Parent(1, 1), in_order(1), out_order(1)
+  :Parent(1, 1), cut_frequency(0), in_order(1), out_order(1)
   {
   }
   
@@ -269,7 +269,7 @@ namespace ATK
   
   template <typename DataType>
   BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients()
-  :Parent(1, 1), in_order(1), out_order(1)
+  :Parent(1, 1), cut_frequency(0), in_order(1), out_order(1)
   {
   }
   
@@ -310,7 +310,7 @@ namespace ATK
   
   template <typename DataType>
   BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients()
-  :Parent(1, 1), in_order(1), out_order(1)
+  :Parent(1, 1), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
   
@@ -353,7 +353,7 @@ namespace ATK
   
   template <typename DataType>
   BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients()
-  :Parent(1, 1), in_order(1), out_order(1)
+  :Parent(1, 1), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
   
