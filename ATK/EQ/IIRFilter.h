@@ -120,7 +120,7 @@ namespace
   template<typename DataType>
   void zpk_bilinear(int fs, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
-    DataType fs2 = 2*fs;
+    DataType fs2 = 2 * fs;
   
     std::complex<DataType> f = 1;
     for(int i = 0; i < z.size(); ++i)
