@@ -6,7 +6,6 @@
 #define ATK_EQ_IIRFILTER_H
 
 #include <cmath>
-#include <iostream>
 #include <vector>
 
 #include <boost/math/tools/polynomial.hpp>
