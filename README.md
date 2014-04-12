@@ -19,6 +19,8 @@ Changelog
 * Python wrappers for all Butterworth filters
 * Bessel filters
 * Python wrappers for all Bessel filters
+* Chebyshev type 1 and 2 filters
+* Python wrappers for all Chebyshev type 1 and 2 filters
 
 0.1.0
 * Butterworth low pass filter
