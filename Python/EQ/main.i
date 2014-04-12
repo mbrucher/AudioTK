@@ -13,7 +13,9 @@
 %include "../Core/BaseFilter.i"
 %include "IIRFilter.i"
 %include "SecondOrderFilter.i"
-%include "ButterworthFilter.i"
 %include "BesselFilter.i"
+%include "ButterworthFilter.i"
+%include "Chebyshev1Filter.i"
+%include "Chebyshev2Filter.i"
 
 #endif
