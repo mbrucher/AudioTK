@@ -5,6 +5,9 @@
 #ifndef ATK_EQ_FIRFILTER_H
 #define ATK_EQ_FIRFILTER_H
 
+#include <cassert>
+#include <vector>
+
 #include "config.h"
 
 namespace ATK
