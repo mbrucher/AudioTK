@@ -2,8 +2,32 @@
  * \file RemezBasedFilter.cpp
  */
 
+#include <vector>
+
+#include <boost/math/constants/constants.hpp>
+
 #include "FIRFilter.h"
 #include "RemezBasedFilter.h"
+
+namespace
+{
+  template<class DataType>
+  class RemezBuilder
+  {
+    const static int grid_size = 1000;
+    
+    std::vector<DataType> grid;
+  public:
+    RemezBuilder()
+    {
+      grid.resize(grid_size);
+      for(int i = 0; i < grid_size; ++i)
+      {
+        grid[i] = i * boost::math::constants::pi<DataType>() / grid_size;
+      }
+    }
+  };
+}
 
 namespace ATK
 {
@@ -38,6 +62,9 @@ namespace ATK
   void RemezBasedCoefficients<DataType>::setup()
   {
     Parent::setup();
+    
+    RemezBuilder<DataType> builder;
+    
   }
   
   template class RemezBasedCoefficients<float>;
