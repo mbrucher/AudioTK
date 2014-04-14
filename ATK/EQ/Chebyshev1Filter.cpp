@@ -2,9 +2,10 @@
  * \file Chebyshev1Filter.cpp
  */
 
+#include <boost/math/special_functions/asinh.hpp>
+
 #include "Chebyshev1Filter.h"
 #include "IIRFilter.h"
-
 
 namespace
 {
@@ -20,7 +21,7 @@ namespace
     }
     
     DataType eps = std::sqrt(std::pow(10, (0.1 * ripple)) - 1.0);
-    DataType mu = 1.0 / order * std::asinh(1 / eps);
+    DataType mu = 1.0 / order * boost::math::asinh(1 / eps);
     
     for(int i = -order+1; i < order; i += 2)
     {
