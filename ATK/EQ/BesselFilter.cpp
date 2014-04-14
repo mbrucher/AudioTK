@@ -2,9 +2,10 @@
  * \file BesselFilter.cpp
  */
 
+#include <boost/math/constants/constants.hpp>
+
 #include "BesselFilter.h"
 #include "IIRFilter.h"
-
 
 namespace
 {

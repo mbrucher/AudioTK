@@ -2,9 +2,10 @@
  * \file Chebyshev2Filter.cpp
  */
 
+#include <boost/math/constants/constants.hpp>
+
 #include "Chebyshev2Filter.h"
 #include "IIRFilter.h"
-
 
 namespace
 {
