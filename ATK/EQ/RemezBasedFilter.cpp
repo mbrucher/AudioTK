@@ -14,11 +14,14 @@ namespace
   template<class DataType>
   class RemezBuilder
   {
-    const static int grid_size = 1000;
+    const static int grid_size = 1024; // grid size, power of two better for FFT
     
+    int M;
     std::vector<DataType> grid;
+    std::vector<std::pair<std::pair<DataType, DataType>, DataType> > target;
   public:
-    RemezBuilder()
+    RemezBuilder(int order, const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
+    :M((order - 1) / 2), target(target)
     {
       grid.resize(grid_size);
       for(int i = 0; i < grid_size; ++i)
@@ -26,6 +29,15 @@ namespace
         grid[i] = i * boost::math::constants::pi<DataType>() / grid_size;
       }
     }
+    
+    std::vector<DataType> build()
+    {
+      std::vector<DataType> coeffs;
+      
+      return coeffs;
+    }
+    
+    
   };
 }
 
@@ -54,6 +66,10 @@ namespace ATK
   template<class DataType>
   void RemezBasedCoefficients<DataType>::set_order(int order)
   {
+    if(order % 2 == 0)
+    {
+      throw std::range_error("Need an even filter order");
+    }
     in_order = order;
     setup();
   }
@@ -63,8 +79,8 @@ namespace ATK
   {
     Parent::setup();
     
-    RemezBuilder<DataType> builder;
-    
+    RemezBuilder<DataType> builder(in_order, target);
+    coefficients_in = builder.build();
   }
   
   template class RemezBasedCoefficients<float>;
