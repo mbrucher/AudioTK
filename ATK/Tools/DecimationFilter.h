@@ -30,7 +30,7 @@ namespace ATK
     ~DecimationFilter();
     
   protected:
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
     void setup();
   };
 }

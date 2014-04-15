@@ -129,7 +129,7 @@ namespace ATK
   }
 
   template<class DataType, class Coefficients>
-  void OversamplingFilter<DataType, Coefficients>::process_impl(long size)
+  void OversamplingFilter<DataType, Coefficients>::process_impl(std::int64_t size)
   {
     assert(input_sampling_rate * Coefficients::oversampling_factor == output_sampling_rate);
     

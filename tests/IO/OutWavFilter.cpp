@@ -12,6 +12,7 @@
 
 #include <ATK/Tools/SumFilter.h>
 
+#define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 

@@ -77,12 +77,12 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(long size)
+  void TypedBaseFilter<DataType>::process_impl(std::int64_t size)
   {
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_process(long size)
+  void TypedBaseFilter<DataType>::prepare_process(std::int64_t size)
   {
     convert_inputs(size);
   }
@@ -100,7 +100,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::convert_inputs(long size)
+  void TypedBaseFilter<DataType>::convert_inputs(std::int64_t size)
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
@@ -138,7 +138,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_outputs(long size)
+  void TypedBaseFilter<DataType>::prepare_outputs(std::int64_t size)
   {
     for(int i = 0; i < nb_output_ports; ++i)
     {

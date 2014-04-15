@@ -17,7 +17,7 @@ namespace
   void convert(std::vector<std::vector<DataType1> >& outputs, const std::vector<char>& inputs)
   {
     int nbChannels = outputs.size();
-    long size = outputs[0].size();
+    std::int64_t size = outputs[0].size();
     for(int j = 0; j < nbChannels; ++j)
     {
       ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data() + j * sizeof(DataType2)), outputs[j].data(), size, nbChannels);
@@ -39,14 +39,14 @@ namespace ATK
   }
 
   template<typename DataType>
-  void OutWavFilter<DataType>::process_impl(long size)
+  void OutWavFilter<DataType>::process_impl(std::int64_t size)
   {
     int nb_inputs = converted_inputs.size();
     std::vector<DataType> buffer(nb_inputs * size);
     
-    for(long i = 0; i < size; ++i)
+    for(std::int64_t i = 0; i < size; ++i)
     {
-      for(long j = 0; j < nb_inputs; ++j)
+      for(std::int64_t j = 0; j < nb_inputs; ++j)
       {
         buffer[j + i * nb_inputs] = converted_inputs[j][i];
       }

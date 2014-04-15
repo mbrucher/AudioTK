@@ -219,13 +219,13 @@ namespace ATK
       output_delay = out_order;
     }
     
-    virtual void process_impl(long size)
+    virtual void process_impl(std::int64_t size)
     {
       assert(input_sampling_rate == output_sampling_rate);
       
       DataType tempout = 0;
       
-      for(long i = 0; i < size; ++i)
+      for(std::int64_t i = 0; i < size; ++i)
       {
         tempout = coefficients_in[in_order] * converted_inputs[0][i];
 

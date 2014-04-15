@@ -48,7 +48,7 @@ namespace ATK
     
   protected:
     void setup();
-    void process_impl(long size);
+    void process_impl(std::int64_t size);
     
     int selected;
     DataType attenuation;

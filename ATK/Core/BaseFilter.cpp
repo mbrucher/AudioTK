@@ -95,7 +95,7 @@ namespace ATK
     return output_sampling_rate;
   }
 
-  void BaseFilter::process(long size)
+  void BaseFilter::process(std::int64_t size)
   {
     if(output_sampling_rate == 0)
     {

@@ -77,9 +77,9 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFTCheckerFilter<DataType_>::process_impl(long size)
+  void FFTCheckerFilter<DataType_>::process_impl(std::int64_t size)
   {
-    for(long i = 0; i < size/input_sampling_rate; ++i)
+    for(std::int64_t i = 0; i < size/input_sampling_rate; ++i)
     {
 #if ATK_USE_FFTW == 1
       int log2n = std::log(input_sampling_rate) / std::log(2.);

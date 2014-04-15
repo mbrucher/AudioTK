@@ -35,7 +35,7 @@ namespace ATK
     void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
     virtual void setup();
     
     std::vector<std::pair<int, DataType> > frequency_checks;
