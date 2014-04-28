@@ -16,7 +16,7 @@ add_library(ATKTools
     SHARED
     ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
 )
-target_link_libraries(ATKTools ATKCore)
+target_link_libraries(ATKTools ATKCore ${FFTLIBRARIES})
 
 INSTALL(TARGETS ATKTools
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries

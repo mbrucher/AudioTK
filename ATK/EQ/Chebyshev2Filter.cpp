@@ -3,6 +3,7 @@
  */
 
 #include <boost/math/constants/constants.hpp>
+#include <boost/math/special_functions/asinh.hpp>
 
 #include "Chebyshev2Filter.h"
 #include "IIRFilter.h"
@@ -16,7 +17,7 @@ namespace
     p.clear();
     
     DataType de = 1.0 / std::sqrt(std::pow(10, (0.1 * ripple)) - 1);
-    DataType mu = std::asinh(1.0 / de) / order;
+    DataType mu = boost::math::asinh(1.0 / de) / order;
     
     for(int i = -order+1; i < order; i += 2)
     {

@@ -63,7 +63,7 @@ namespace ATK
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     converted_inputs_delay.swap(temp);
     converted_inputs.assign(nb_ports, NULL);
-    converted_inputs_size.resize(nb_ports, 0);
+    converted_inputs_size.assign(nb_ports, 0);
   }
   
   template<typename DataType>
@@ -73,16 +73,16 @@ namespace ATK
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     outputs_delay.swap(temp);
     outputs.assign(nb_ports, NULL);
-    outputs_size.resize(nb_ports, 0);
+    outputs_size.assign(nb_ports, 0);
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(long size)
+  void TypedBaseFilter<DataType>::process_impl(std::int64_t size)
   {
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_process(long size)
+  void TypedBaseFilter<DataType>::prepare_process(std::int64_t size)
   {
     convert_inputs(size);
   }
@@ -100,7 +100,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::convert_inputs(long size)
+  void TypedBaseFilter<DataType>::convert_inputs(std::int64_t size)
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
@@ -138,7 +138,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_outputs(long size)
+  void TypedBaseFilter<DataType>::prepare_outputs(std::int64_t size)
   {
     for(int i = 0; i < nb_output_ports; ++i)
     {

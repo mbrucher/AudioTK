@@ -40,7 +40,7 @@ namespace ATK
     
   protected:
     void setup();
-    void process_impl(long size);
+    void process_impl(std::int64_t size);
     
   private:
     boost::scoped_ptr<SimpleOverdriveFunction<DataType> > function;

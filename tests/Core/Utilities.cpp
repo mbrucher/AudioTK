@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <vector>
 
+#define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
@@ -166,7 +167,7 @@ BOOST_AUTO_TEST_CASE( Utilities_test_convert_array_int64_t_int16_t )
   std::vector<std::int16_t> output(3);
   input[0] = std::numeric_limits<std::int64_t>::min();
   input[1] = 0;
-  input[2] = std::numeric_limits<std::int64_t>::max() - (1L << 32);
+  input[2] = std::numeric_limits<std::int64_t>::max() - (static_cast<std::int64_t>(1) << 48);
   
   ATK::ConversionUtilities<std::int64_t, std::int16_t>::convert_array(&input[0], &output[0], 3);
   

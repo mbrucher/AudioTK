@@ -43,14 +43,14 @@ namespace ATK
 
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
     /// Prepares the filter by retrieving the inputs arrays
-    virtual void prepare_process(long size);
+    virtual void prepare_process(std::int64_t size);
     /// Prepares the filter by resizing the outputs arrays
-    virtual void prepare_outputs(long size);
+    virtual void prepare_outputs(std::int64_t size);
     
     /// Used to convert other filter outputs to DataType*
-    void convert_inputs(long size);
+    void convert_inputs(std::int64_t size);
 
     std::vector<boost::scoped_array<DataType> > converted_inputs_delay;
     std::vector<DataType *> converted_inputs;

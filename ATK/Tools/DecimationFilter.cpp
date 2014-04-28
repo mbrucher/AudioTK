@@ -34,11 +34,11 @@ namespace ATK
   }
   
   template<class DataType>
-  void DecimationFilter<DataType>::process_impl(long size)
+  void DecimationFilter<DataType>::process_impl(std::int64_t size)
   {    
     for(int j = 0; j < outputs_size.size(); ++j)
     {
-      for(long i = 0; i < size; ++i)
+      for(std::int64_t i = 0; i < size; ++i)
       {
         outputs[j][i] = converted_inputs[j][i * decimation];
       }

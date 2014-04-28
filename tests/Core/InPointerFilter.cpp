@@ -13,6 +13,7 @@
 
 #include <ATK/Tools/SumFilter.h>
 
+#define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
@@ -21,7 +22,7 @@
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(long i = 0; i < PROCESSSIZE; ++i)
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -51,7 +52,7 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
 BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
 {
   boost::scoped_array<double> data(new double[PROCESSSIZE]);
-  for(long i = 0; i < PROCESSSIZE; ++i)
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -81,7 +82,7 @@ BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
 {
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(long i = 0; i < PROCESSSIZE; ++i)
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[2*i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
     data[2*i+1] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
@@ -125,11 +126,11 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
 {
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(long i = 0; i < PROCESSSIZE; ++i)
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
-  for(long i = 0; i < PROCESSSIZE; ++i)
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i+PROCESSSIZE] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
   }
