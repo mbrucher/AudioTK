@@ -5,17 +5,10 @@
 #ifndef ATK_MOCK_FFTCHECKERFILTER_H
 #define ATK_MOCK_FFTCHECKERFILTER_H
 
-#include <ATK/config.h>
 #include "config.h"
 
-#if ATK_USE_FFTW == 1
-#include <fftw3.h>
-#endif
-#if ATK_USE_ACCELERATE == 1
-#include <Accelerate/Accelerate.h>
-#endif
-
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Tools/FFT.h>
 
 namespace ATK
 {
@@ -39,19 +32,7 @@ namespace ATK
     virtual void setup();
     
     std::vector<std::pair<int, DataType> > frequency_checks;
-
-#if ATK_USE_FFTW == 1
-    fftw_plan fft_plan;
-    fftw_complex* input_data;
-    fftw_complex* output_freqs;
-#endif
-
-#if ATK_USE_ACCELERATE == 1
-    int log2n;
-    FFTSetupD fftSetup;
-    DSPDoubleSplitComplex splitData;
-    double* output_freqs;
-#endif
+    std::unique_ptr<FFT<DataType> > FFTimpl;
   };
 }
 
