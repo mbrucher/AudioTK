@@ -16,7 +16,7 @@ add_library(ATKEQ
     SHARED
     ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
 )
-target_link_libraries(ATKEQ ATKCore)
+target_link_libraries(ATKEQ ATKTools ATKCore)
 
 INSTALL(TARGETS ATKEQ
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries

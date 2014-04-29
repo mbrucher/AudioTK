@@ -51,14 +51,14 @@ namespace ATK
   }
   
   template<class DataType>
-  void RemezBasedCoefficients<DataType>::set_target(const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
+  void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
   {
     this->target = target;
     setup();
   }
   
   template<class DataType>
-  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType>, typename RemezBasedCoefficients<DataType>::DataType> >& RemezBasedCoefficients<DataType>::get_target() const
+  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType>, typename RemezBasedCoefficients<DataType>::DataType> >& RemezBasedCoefficients<DataType>::get_template() const
   {
     return target;
   }
@@ -78,6 +78,16 @@ namespace ATK
   void RemezBasedCoefficients<DataType>::setup()
   {
     Parent::setup();
+    
+    std::sort(target.begin(), target.end());
+    for(std::size_t i = 0; i < target.size() - 1; ++i)
+    {
+      if(target[i].first.second > target[i + 1].first.first)
+      {
+        target.clear();
+        throw std::runtime_error("Bad template");
+      }
+    }
     
     RemezBuilder<DataType> builder(in_order, target);
     coefficients_in = builder.build();

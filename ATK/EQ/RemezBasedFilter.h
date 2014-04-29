@@ -31,9 +31,9 @@ namespace ATK
   public:
     RemezBasedCoefficients();
     
-    /// Sets the targets for the algorithm, pair of range of reduced frequencies + amplitude
-    void set_target(const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target);
-    const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& get_target() const;
+    /// Sets the template for the algorithm, pair of range of reduced frequencies + amplitude
+    void set_template(const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target);
+    const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& get_template() const;
     
     /// Order of the FIR filter
     void set_order(int order);
