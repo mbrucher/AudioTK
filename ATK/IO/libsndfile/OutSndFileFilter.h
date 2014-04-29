@@ -33,7 +33,7 @@ namespace ATK
     OutSndFileFilter(const std::string& filename, int ports);
     ~OutSndFileFilter();
     
-    void process_impl(long size);
+    void process_impl(std::int64_t size);
     void setup();
   };
 }

@@ -33,7 +33,7 @@ namespace ATK
     InSndFileFilter(const std::string& filename);
     ~InSndFileFilter();
     
-    void process_impl(long size);
+    void process_impl(std::int64_t size);
   };
 }
 #endif
