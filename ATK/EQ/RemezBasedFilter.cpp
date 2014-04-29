@@ -5,6 +5,8 @@
 #include <vector>
 
 #include <boost/math/constants/constants.hpp>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int_distribution.hpp>
 
 #include "FIRFilter.h"
 #include "RemezBasedFilter.h"
@@ -15,13 +17,16 @@ namespace
   class RemezBuilder
   {
     const static int grid_size = 1024; // grid size, power of two better for FFT
-    
+
+    boost::random::mt19937 gen;
+    boost::random::uniform_int_distribution<> dist;
+
     int M;
     std::vector<DataType> grid;
     std::vector<std::pair<std::pair<DataType, DataType>, DataType> > target;
   public:
     RemezBuilder(int order, const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
-    :M((order - 1) / 2), target(target)
+    :dist(0, grid_size - 1), M((order - 1) / 2), target(target)
     {
       grid.resize(grid_size);
       for(int i = 0; i < grid_size; ++i)
@@ -32,9 +37,37 @@ namespace
     
     std::vector<DataType> build()
     {
-      std::vector<DataType> coeffs;
+      
+      std::vector<DataType> coeffs(M + 2, 0);
+      std::vector<int> indices(M + 2, -1);
+      
+      for(std::size_t i = 0; i < indices.size(); ++i)
+      {
+        indices[i] = pickup_new_indice(indices);
+      }
       
       return coeffs;
+    }
+    
+  protected:
+    int pickup_new_indice(const std::vector<int>& indices)
+    {
+      while(true)
+      {
+        int trial = dist(gen);
+        if(std::find(indices.begin(), indices.end(), trial) == indices.end()) // not already used
+        {
+          DataType relative_freq = grid[trial] / boost::math::constants::pi<DataType>();
+          for(std::size_t j = 0; j < target.size() - 1; ++j)
+          {
+            if(relative_freq > target[j].first.second && relative_freq < target[j + 1].first.first)
+            {
+              continue;
+            }
+          }
+          return trial;
+        }
+      }
     }
     
     
