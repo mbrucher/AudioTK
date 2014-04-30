@@ -66,7 +66,7 @@ namespace
         if(std::find(indices.begin(), indices.end(), trial) == indices.end()) // not already used
         {
           DataType relative_freq = grid[trial] / boost::math::constants::pi<DataType>();
-          for(std::size_t j = 0; j < target.size() - 1; ++j)
+          for(std::size_t j = 0; j + 1 < target.size(); ++j)
           {
             if(relative_freq > target[j].first.second && relative_freq < target[j + 1].first.first)
             {
@@ -121,7 +121,7 @@ namespace ATK
     Parent::setup();
     
     std::sort(target.begin(), target.end());
-    for(std::size_t i = 0; i < target.size() - 1; ++i)
+    for(std::size_t i = 0; i + 1 < target.size(); ++i)
     {
       if(target[i].first.second > target[i + 1].first.first)
       {
