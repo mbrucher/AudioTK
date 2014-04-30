@@ -19,6 +19,8 @@ find_package(Git REQUIRED)
 find_package(Boost REQUIRED unit_test_framework timer system)
 find_package(Eigen REQUIRED)
 
+include_directories(${EIGEN3_INCLUDE_DIR})
+
 find_package(libsndfile)
 if(LIBSNDFILE_FOUND)
   set(USE_LIBSNDFILE 1)

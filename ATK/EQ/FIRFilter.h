@@ -40,7 +40,7 @@ namespace ATK
       input_delay = in_order;
     }
     
-    virtual void process_impl(long size)
+    virtual void process_impl(std::int64_t size)
     {
       assert(input_sampling_rate == output_sampling_rate);
       

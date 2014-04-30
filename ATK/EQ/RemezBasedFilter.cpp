@@ -2,11 +2,14 @@
  * \file RemezBasedFilter.cpp
  */
 
+#include <iostream>
 #include <vector>
 
 #include <boost/math/constants/constants.hpp>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
+
+#include <Eigen/Dense>
 
 #include "FIRFilter.h"
 #include "RemezBasedFilter.h"
@@ -46,6 +49,11 @@ namespace
         indices[i] = pickup_new_indice(indices);
       }
       
+      Eigen::Matrix<DataType, Eigen::Dynamic, Eigen::Dynamic> A(M+2, M+2);
+      Eigen::Matrix<DataType, Eigen::Dynamic, 1> b(M+2, 1);
+      std::cout << "Here is the matrix A:\n" << A << std::endl;
+      std::cout << "Here is the vector b:\n" << b << std::endl;
+      Eigen::Matrix<DataType, Eigen::Dynamic, 1> x = A.colPivHouseholderQr().solve(b);
       return coeffs;
     }
     
