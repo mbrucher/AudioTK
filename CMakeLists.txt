@@ -17,6 +17,7 @@ endif(ENABLE_PROFILING)
 
 find_package(Git REQUIRED)
 find_package(Boost REQUIRED unit_test_framework timer system)
+find_package(Eigen REQUIRED)
 
 find_package(libsndfile)
 if(LIBSNDFILE_FOUND)
