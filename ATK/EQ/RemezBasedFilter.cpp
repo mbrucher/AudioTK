@@ -27,6 +27,16 @@ namespace
     int M;
     std::vector<DataType> grid;
     std::vector<std::pair<std::pair<DataType, DataType>, DataType> > target;
+    
+    /// Computed coefficients
+    std::vector<DataType> coeffs;
+    /// Selected indices
+    std::vector<int> indices;
+    /// Weight function on the grid
+    std::vector<DataType> weights;
+    /// Objective function on the grid
+    std::vector<DataType> objective;
+
   public:
     RemezBuilder(int order, const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
     :dist(0, grid_size - 1), M((order - 1) / 2), target(target)
@@ -38,22 +48,64 @@ namespace
       }
     }
     
-    std::vector<DataType> build()
+    void init()
     {
-      
-      std::vector<DataType> coeffs(M + 2, 0);
-      std::vector<int> indices(M + 2, -1);
+      coeffs.assign(M + 2, 0);
+      indices.assign(M + 2, -1);
       
       for(std::size_t i = 0; i < indices.size(); ++i)
       {
         indices[i] = pickup_new_indice(indices);
       }
       
+      weights.assign(grid_size, 0);
+      objective.assign(grid_size, 0);
+
+      int current_template = 0;
+      for(int i = 0; i < grid_size; ++i)
+      {
+        if(grid[i] / boost::math::constants::pi<DataType>() > target[current_template].first.second && current_template + 1 < target.size())
+        {
+          ++current_template;
+        }
+        weights[i] = 1; //to update once we have weights for template
+        objective[i] = target[current_template].second;
+      }
+    }
+    
+    std::vector<DataType> build()
+    {
+      if(target.empty())
+      {
+        coeffs.clear();
+        return coeffs;
+      }
+      init();
+      
       Eigen::Matrix<DataType, Eigen::Dynamic, Eigen::Dynamic> A(M+2, M+2);
+      for(int i = 0; i < M+2; ++i)
+      {
+        for(int j = 0; j < M+1; ++j)
+        {
+          A(i, j) = std::cos(grid[indices[i]] * j);
+        }
+      }
+      int flag = -1;
+      for(int i = 0; i < M+2; ++i)
+      {
+        A(i, M+1) = flag / weights[indices[i]];
+        flag = -flag;
+      }
+      
       Eigen::Matrix<DataType, Eigen::Dynamic, 1> b(M+2, 1);
+      for(int i = 0; i < M+2; ++i)
+      {
+        b(i) = objective[indices[i]];
+      }
       std::cout << "Here is the matrix A:\n" << A << std::endl;
       std::cout << "Here is the vector b:\n" << b << std::endl;
       Eigen::Matrix<DataType, Eigen::Dynamic, 1> x = A.colPivHouseholderQr().solve(b);
+      std::cout << "Here is the result vector x:\n" << x << std::endl;
       return coeffs;
     }
     

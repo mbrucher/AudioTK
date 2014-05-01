@@ -24,6 +24,7 @@ BOOST_AUTO_TEST_CASE( FIRFilter_Remez_LowPassCoefficients_16k_test )
   ATK::FIRFilter<ATK::RemezBasedCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
+  filter.set_order(15);
   std::vector<std::pair<std::pair<double, double>, double> > target;
   target.push_back(std::make_pair(std::make_pair(0, 0.4), 1));
   target.push_back(std::make_pair(std::make_pair(0.5, 1), 0));
