@@ -69,11 +69,11 @@ namespace ATK
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process(const DataType_* input)
+  void FFT<DataType_>::process(const DataType_* input, std::int64_t input_size)
   {
 #if ATK_USE_FFTW == 1
     double factor = 1 << (log2n - 1);
-    for(int j = 0; j < size; ++j)
+    for(int j = 0; j < std::min(input_size, size); ++j)
     {
       input_data[j][0] = input[j] / factor;
       input_data[j][1] = 0;
@@ -82,7 +82,7 @@ namespace ATK
 #endif
 #if ATK_USE_ACCELERATE == 1
     double factor = input_sampling_rate;
-    vDSP_ctozD(reinterpret_cast<DOUBLE_COMPLEX*>(input.data()), 2, &splitData, 1, size/2);
+    vDSP_ctozD(reinterpret_cast<DOUBLE_COMPLEX*>(input.data()), 2, &splitData, 1, std::min(input_size, size)/2);
     vDSP_fft_zripD(fftSetup, &splitData, 1, log2n, FFT_FORWARD);
     vDSP_zvabsD(&splitData, 1, output_freqs, 1, input_sampling_rate/2);
     vDSP_vsdivD(output_freqs, 1, &factor, output_freqs, 1, input_sampling_rate/2);

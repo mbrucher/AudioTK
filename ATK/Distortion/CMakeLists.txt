@@ -12,10 +12,17 @@ FILE(GLOB_RECURSE
 add_definitions(-DBUILD_ATK_DISTORTION)
 
 include_directories(${PROJECT_SOURCE_DIR})
+
 add_library(ATKDistortion
     SHARED
     ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
 )
+
+add_library(ATKDistortion_static
+    STATIC
+    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
+)
+
 target_link_libraries(ATKDistortion ATKCore)
 
 INSTALL(TARGETS ATKDistortion

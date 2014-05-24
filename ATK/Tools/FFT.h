@@ -28,7 +28,7 @@ namespace ATK
     ~FFT();
     
     void set_size(std::int64_t size);
-    void process(const DataType_* input);
+    void process(const DataType_* input, std::int64_t input_size);
     void get_amp(std::vector<DataType_>& amp) const;
     void get_angle(std::vector<DataType_>& angle) const;
 

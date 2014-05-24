@@ -12,10 +12,17 @@ FILE(GLOB_RECURSE
 add_definitions(-DBUILD_ATK_EQ)
 
 include_directories(${PROJECT_SOURCE_DIR})
+
 add_library(ATKEQ
     SHARED
     ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
 )
+
+add_library(ATKEQ_static
+    STATIC
+    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
+)
+
 target_link_libraries(ATKEQ ATKTools ATKCore)
 
 INSTALL(TARGETS ATKEQ

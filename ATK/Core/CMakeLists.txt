@@ -16,6 +16,11 @@ add_library(ATKCore
     ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
 )
 
+add_library(ATKCore_static
+    STATIC
+    ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
+)
+
 if(ENABLE_INTERNAL_PROFILING)
 target_link_libraries(ATKCore ${Boost_TIMER_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 endif(ENABLE_INTERNAL_PROFILING)

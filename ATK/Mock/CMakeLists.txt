@@ -12,10 +12,17 @@ FILE(GLOB_RECURSE
 add_definitions(-DBUILD_ATK_MOCK)
 
 include_directories(${PROJECT_SOURCE_DIR})
+
 add_library(ATKMock
     SHARED
     ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
 )
+
+add_library(ATKMock_static
+    STATIC
+    ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
+)
+
 target_link_libraries(ATKMock ATKTools ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${FFTLIBRARIES})
 
 INSTALL(TARGETS ATKMock
