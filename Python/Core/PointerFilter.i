@@ -26,7 +26,7 @@ namespace ATK
 
 %template(Int16InPointerFilter) ATK::InPointerFilter<short>;
 %template(Int32InPointerFilter) ATK::InPointerFilter<int>;
-%template(Int64InPointerFilter) ATK::InPointerFilter<long long>;
+%template(Int64InPointerFilter) ATK::InPointerFilter<long>;
 %template(FloatInPointerFilter) ATK::InPointerFilter<float>;
 %template(DoubleInPointerFilter) ATK::InPointerFilter<double>;
 
@@ -45,6 +45,6 @@ namespace ATK
 
 %template(Int16OutPointerFilter) ATK::OutPointerFilter<short>;
 %template(Int32OutPointerFilter) ATK::OutPointerFilter<int>;
-%template(Int64OutPointerFilter) ATK::OutPointerFilter<long long>;
+%template(Int64OutPointerFilter) ATK::OutPointerFilter<long>;
 %template(FloatOutPointerFilter) ATK::OutPointerFilter<float>;
 %template(DoubleOutPointerFilter) ATK::OutPointerFilter<double>;

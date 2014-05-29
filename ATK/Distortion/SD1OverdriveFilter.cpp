@@ -1,8 +1,8 @@
 /**
- * \file SimpleOverdriveFilter.cpp
+ * \file SD1OverdriveFilter.cpp
  */
 
-#include "SimpleOverdriveFilter.h"
+#include "SD1OverdriveFilter.h"
 
 #include <boost/math/special_functions/sign.hpp>
 
@@ -11,13 +11,16 @@
 namespace ATK
 {
   template<typename DataType_>
-  class SimpleOverdriveFunction
+  class SD1OverdriveFunction
   {
   public:
     typedef DataType_ DataType;
   protected:
     DataType A;
     DataType B;
+    DataType R1;
+    DataType Q;
+    DataType drive;
     DataType is;
     DataType vt;
 
@@ -27,21 +30,27 @@ namespace ATK
     DataType oldy1;
     DataType oldexpy1;
     DataType oldinvexpy1;
+
   public:
-    SimpleOverdriveFunction(DataType dt, DataType R, DataType C, DataType is, DataType vt)
-    :is(is), vt(vt)
+    SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
+    :is(is), vt(vt), R1(R1), Q(Q), drive(0.5)
     {
       A = dt / (2 * C) + R;
       B = dt / (2 * C) - R;
-
       oldy0 = oldy1 = 0;
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
+    }
+    
+    void set_drive(DataType drive)
+    {
+      this->drive = drive;
     }
     
     std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
     {
       DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
+      
       DataType expdiode_y0_p;
       DataType expdiode_y0_m;
 	  
@@ -68,41 +77,48 @@ namespace ATK
       oldy1 = y1;
       oldexpy1 = expdiode_y1_p;
       oldinvexpy1 = expdiode_y1_m;
-
-      std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p + expdiode_y1_m) / vt);
-      return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
+  
+      std::pair<DataType, DataType> diode1 = std::make_pair(is * (expdiode_y1_p - 2 * expdiode_y1_m + 1), is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt);
+      DataType diode0 = is * (expdiode_y0_p - 2 * expdiode_y0_m + 1);
+      return std::make_pair(x0 - x1 + y1 * (A / (R1 + drive * Q)) + y0 * (B / (R1 + drive * Q)) + A * diode1.first + B * diode0, (A / (R1 + drive * Q)) + A * diode1.second);
     }
   };
   
   
   template <typename DataType>
-  SimpleOverdriveFilter<DataType>::SimpleOverdriveFilter()
+  SD1OverdriveFilter<DataType>::SD1OverdriveFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
-    optimizer.reset(new ScalarNewtonRaphson<SimpleOverdriveFunction<DataType> >(function));
+    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction<DataType> >(function));
   }
 
   template <typename DataType>
-  SimpleOverdriveFilter<DataType>::~SimpleOverdriveFilter()
+  SD1OverdriveFilter<DataType>::~SD1OverdriveFilter()
   {
   }
 
   template <typename DataType>
-  void SimpleOverdriveFilter<DataType>::setup()
+  void SD1OverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    function.reset(new SimpleOverdriveFunction<DataType>(1./input_sampling_rate, 10000, 22e-9, 1e-12, 26e-3));
+    function.reset(new SD1OverdriveFunction<DataType>(1./input_sampling_rate, 100e3, 0.047e-6, 33e3, 1e6, 1e-12, 26e-3));
   }
 
   template <typename DataType>
-  void SimpleOverdriveFilter<DataType>::process_impl(std::int64_t size)
+  void SD1OverdriveFilter<DataType>::set_drive(DataType drive)
   {
-    for(std::int64_t i = 0; i < size; ++i)
+    function->set_drive(drive);
+  }
+
+  template <typename DataType>
+  void SD1OverdriveFilter<DataType>::process_impl(long size)
+  {
+    for(long i = 0; i < size; ++i)
     {
       outputs[0][i] = optimizer->optimize(converted_inputs[0][i]);
     }
   }
 
-  template class SimpleOverdriveFilter<float>;
-  template class SimpleOverdriveFilter<double>;
+  template class SD1OverdriveFilter<float>;
+  template class SD1OverdriveFilter<double>;
 }

@@ -3,7 +3,7 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Tools import DoubleOversampling6points5order_32Filter, DoubleOversampling6points5order_16Filter, DoubleOversampling6points5order_8Filter, DoubleOversampling6points5order_4Filter, DoubleDecimationFilter
 from ATK.EQ import DoubleButterworthLowPassFilter
-from ATK.Distortion import DoubleSimpleOverdriveFilter
+from ATK.Distortion import DoubleSD1OverdriveFilter
 
 def filter_32(input):
   import numpy as np
@@ -15,9 +15,10 @@ def filter_32(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 32)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleSimpleOverdriveFilter()
+  overdrivefilter = DoubleSD1OverdriveFilter()
   overdrivefilter.set_input_sampling_rate(48000 * 32)
   overdrivefilter.set_input_port(0, overfilter, 0)
+  overdrivefilter.set_drive(0.9)
   lowpassfilter = DoubleButterworthLowPassFilter()
   lowpassfilter.set_input_sampling_rate(48000 * 32)
   lowpassfilter.set_cut_frequency(48000)
@@ -43,9 +44,10 @@ def filter_16(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 16)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleSimpleOverdriveFilter()
+  overdrivefilter = DoubleSD1OverdriveFilter()
   overdrivefilter.set_input_sampling_rate(48000 * 16)
   overdrivefilter.set_input_port(0, overfilter, 0)
+  overdrivefilter.set_drive(0.9)
   lowpassfilter = DoubleButterworthLowPassFilter()
   lowpassfilter.set_input_sampling_rate(48000 * 16)
   lowpassfilter.set_cut_frequency(48000)
@@ -71,9 +73,10 @@ def filter_8(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 8)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleSimpleOverdriveFilter()
+  overdrivefilter = DoubleSD1OverdriveFilter()
   overdrivefilter.set_input_sampling_rate(48000 * 8)
   overdrivefilter.set_input_port(0, overfilter, 0)
+  overdrivefilter.set_drive(0.9)
   lowpassfilter = DoubleButterworthLowPassFilter()
   lowpassfilter.set_input_sampling_rate(48000 * 8)
   lowpassfilter.set_cut_frequency(48000)
@@ -99,9 +102,10 @@ def filter_4(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 4)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleSimpleOverdriveFilter()
+  overdrivefilter = DoubleSD1OverdriveFilter()
   overdrivefilter.set_input_sampling_rate(48000 * 4)
   overdrivefilter.set_input_port(0, overfilter, 0)
+  overdrivefilter.set_drive(0.9)
   lowpassfilter = DoubleButterworthLowPassFilter()
   lowpassfilter.set_input_sampling_rate(48000 * 4)
   lowpassfilter.set_cut_frequency(48000)
@@ -119,10 +123,10 @@ def filter_4(input):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 100000
+  size = 1000
   
   d = np.arange(size).reshape(1, -1)
-  d = np.sin(d * 2 * np.pi * 1000 / 48000)
+  d = np.sin(d * 2 * np.pi * 100 / 48000)
   np.savetxt("input.txt", d)
   out = filter_32(d)
   np.savetxt("output32.txt", out)

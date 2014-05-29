@@ -12,5 +12,6 @@
 
 %include "../Core/BaseFilter.i"
 %include "SimpleOverdriveFilter.i"
+%include "SD1OverdriveFilter.i"
 
 #endif
