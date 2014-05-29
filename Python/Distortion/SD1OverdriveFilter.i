@@ -11,6 +11,7 @@ namespace ATK
   public:
     SD1OverdriveFilter();
     ~SD1OverdriveFilter();
+    void set_drive(DataType drive);
   };
 }
 

@@ -80,7 +80,7 @@ namespace ATK
   
       std::pair<DataType, DataType> diode1 = std::make_pair(is * (expdiode_y1_p - 2 * expdiode_y1_m + 1), is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt);
       DataType diode0 = is * (expdiode_y0_p - 2 * expdiode_y0_m + 1);
-      return std::make_pair(x0 - x1 + y1 * (A / (R1 + drive * Q)) - y0 * (B / (R1 + drive * Q)) + A * diode1.first - B * diode0, (A / (R1 + drive * Q)) + A * diode1.second);
+      return std::make_pair(x0 - x1 + y1 * (A / (R1 + drive * Q)) + y0 * (B / (R1 + drive * Q)) + A * diode1.first + B * diode0, (A / (R1 + drive * Q)) + A * diode1.second);
     }
   };
   
