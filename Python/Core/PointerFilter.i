@@ -19,14 +19,13 @@ namespace ATK
   public:
     InPointerFilter(DataType* array, int channels, long size, bool interleaved);
     ~InPointerFilter();
-    void process(long size);
     int get_nb_output_ports();
   };
 }
 
 %template(Int16InPointerFilter) ATK::InPointerFilter<short>;
 %template(Int32InPointerFilter) ATK::InPointerFilter<int>;
-%template(Int64InPointerFilter) ATK::InPointerFilter<long>;
+%template(Int64InPointerFilter) ATK::InPointerFilter<long long>;
 %template(FloatInPointerFilter) ATK::InPointerFilter<float>;
 %template(DoubleInPointerFilter) ATK::InPointerFilter<double>;
 
@@ -38,13 +37,12 @@ namespace ATK
   public:
     OutPointerFilter(DataType* array, int channels, long size, bool interleaved);
     ~OutPointerFilter();
-    void process(long size);
     int get_nb_input_ports();
   };
 }
 
 %template(Int16OutPointerFilter) ATK::OutPointerFilter<short>;
 %template(Int32OutPointerFilter) ATK::OutPointerFilter<int>;
-%template(Int64OutPointerFilter) ATK::OutPointerFilter<long>;
+%template(Int64OutPointerFilter) ATK::OutPointerFilter<long long>;
 %template(FloatOutPointerFilter) ATK::OutPointerFilter<float>;
 %template(DoubleOutPointerFilter) ATK::OutPointerFilter<double>;
