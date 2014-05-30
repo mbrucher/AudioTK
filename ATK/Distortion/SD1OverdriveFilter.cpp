@@ -33,7 +33,7 @@ namespace ATK
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-    :is(is), vt(vt), R1(R1), Q(Q), drive(0.5)
+    :R1(R1), Q(Q), drive(0.5), is(is), vt(vt)
     {
       A = dt / (2 * C) + R;
       B = dt / (2 * C) - R;
@@ -43,11 +43,13 @@ namespace ATK
     
     void set_drive(DataType drive)
     {
-      this->drive = drive;
+      this->drive = (R1 + drive * Q);
     }
     
     std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
     {
+      y0 -= x0;
+      y1 -= x1;
       DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       
@@ -80,7 +82,7 @@ namespace ATK
   
       std::pair<DataType, DataType> diode1 = std::make_pair(is * (expdiode_y1_p - 2 * expdiode_y1_m + 1), is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt);
       DataType diode0 = is * (expdiode_y0_p - 2 * expdiode_y0_m + 1);
-      return std::make_pair(x0 - x1 + y1 * (A / (R1 + drive * Q)) + y0 * (B / (R1 + drive * Q)) + A * diode1.first + B * diode0, (A / (R1 + drive * Q)) + A * diode1.second);
+      return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1.first + B * diode0, (A / drive) + A * diode1.second);
     }
   };
   
@@ -111,7 +113,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void SD1OverdriveFilter<DataType>::process_impl(long size)
+  void SD1OverdriveFilter<DataType>::process_impl(std::int64_t size)
   {
     for(long i = 0; i < size; ++i)
     {
