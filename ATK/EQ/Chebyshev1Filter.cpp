@@ -14,6 +14,10 @@ namespace
   {
     z.clear(); // no zeros for this filter type
     p.clear();
+    if(ripple == 0)
+    {
+      return;
+    }
     if(order == 0)
     {
       k = std::pow(10, (-ripple / 20));
