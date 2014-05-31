@@ -47,10 +47,8 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), input_delay(0), output_delay(0)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), outputs_size(nb_output_ports, 0), input_delay(0), output_delay(0)
   {
-    converted_inputs_size.assign(nb_input_ports, 0);
-    outputs_size.assign(nb_output_ports, 0);
   }
 
   template<typename DataType>
@@ -65,7 +63,7 @@ namespace ATK
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     converted_inputs_delay.swap(temp);
     converted_inputs.assign(nb_ports, NULL);
-    converted_inputs_size.resize(nb_ports, 0);
+    converted_inputs_size.assign(nb_ports, 0);
   }
   
   template<typename DataType>
@@ -75,16 +73,16 @@ namespace ATK
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     outputs_delay.swap(temp);
     outputs.assign(nb_ports, NULL);
-    outputs_size.resize(nb_ports, 0);
+    outputs_size.assign(nb_ports, 0);
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(long size)
+  void TypedBaseFilter<DataType>::process_impl(std::int64_t size)
   {
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_process(long size)
+  void TypedBaseFilter<DataType>::prepare_process(std::int64_t size)
   {
     convert_inputs(size);
   }
@@ -102,30 +100,76 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::convert_inputs(long size)
+  void TypedBaseFilter<DataType>::convert_inputs(std::int64_t size)
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
       if(converted_inputs_size[i] < size)
-      { // Add input delay support
-        converted_inputs_delay[i].reset(new DataType[input_delay + size]);
+      {
+        boost::scoped_array<DataType> temp(new DataType[input_delay + size]);
+        if(converted_inputs_size[i] == 0)
+        {
+          for(int j = 0; j < input_delay; ++j)
+          {
+            temp[j] = 0;
+          }
+        }
+        else
+        {
+          for(int j = 0; j < input_delay; ++j)
+          {
+            temp[j] = converted_inputs[i][converted_inputs_size[i] + j - input_delay];
+          }
+        }
+        
+        converted_inputs_delay[i].swap(temp);
         converted_inputs[i] = converted_inputs_delay[i].get() + input_delay;
         converted_inputs_size[i] = size;
+      }
+      else
+      {
+        for(int j = 0; j < input_delay; ++j)
+        {
+          converted_inputs[i][j - input_delay] = converted_inputs[i][converted_inputs_size[i] + j - input_delay];
+        }
       }
       convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
     }
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_outputs(long size)
+  void TypedBaseFilter<DataType>::prepare_outputs(std::int64_t size)
   {
     for(int i = 0; i < nb_output_ports; ++i)
     {
       if(outputs_size[i] < size)
-      { // Add output delay support
-        outputs_delay[i].reset(new DataType[output_delay + size]);
+      {
+        boost::scoped_array<DataType> temp(new DataType[output_delay + size]);
+        if(outputs_size[i] == 0)
+        {
+          for(int j = 0; j < output_delay; ++j)
+          {
+            temp[j] = 0;
+          }
+        }
+        else
+        {
+          for(int j = 0; j < output_delay; ++j)
+          {
+            temp[j] = outputs[i][outputs_size[i] + j - output_delay];
+          }
+        }
+        
+        outputs_delay[i].swap(temp);
         outputs[i] = outputs_delay[i].get() + output_delay;
         outputs_size[i] = size;
+      }
+      else
+      {
+        for(int j = 0; j < output_delay; ++j)
+        {
+          outputs[i][j - output_delay] = outputs[i][outputs_size[i] + j - output_delay];
+        }
       }
     }
   }

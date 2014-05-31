@@ -5,16 +5,15 @@
 #ifndef ATK_MOCK_FFTCHECKERFILTER_H
 #define ATK_MOCK_FFTCHECKERFILTER_H
 
-#ifdef __APPLE__
-#include <Accelerate/Accelerate.h>
-#endif
+#include "config.h"
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Tools/FFT.h>
 
 namespace ATK
 {
   template<class DataType_>
-  class FFTCheckerFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT FFTCheckerFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -29,17 +28,11 @@ namespace ATK
     void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
     virtual void setup();
     
     std::vector<std::pair<int, DataType> > frequency_checks;
-    
-#ifdef __APPLE__
-    int log2n;
-    FFTSetupD fftSetup;
-    DSPDoubleSplitComplex splitData;
-    double* output_freqs;
-#endif
+    std::unique_ptr<FFT<DataType> > FFTimpl;
   };
 }
 

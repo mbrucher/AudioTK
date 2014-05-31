@@ -5,6 +5,8 @@
 #include "PanFilter.h"
 
 #include <cmath>
+#include <cstdint>
+
 #include <boost/math/constants/constants.hpp>
 
 namespace ATK
@@ -35,7 +37,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void PanFilter<DataType_>::process_impl(long size)
+  void PanFilter<DataType_>::process_impl(std::int64_t size)
   {
     double left_coeff = 1;
     double right_coeff = 1;
@@ -68,7 +70,7 @@ namespace ATK
         break;
     }
     
-    for(long i = 0; i < size; ++i)
+    for(std::int64_t i = 0; i < size; ++i)
     {
       outputs[0][i] = static_cast<DataType>(left_coeff * converted_inputs[0][i]);
       outputs[1][i] = static_cast<DataType>(right_coeff * converted_inputs[0][i]);

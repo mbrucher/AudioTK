@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  class OutPointerFilter : public TypedBaseFilter<DataType_>
+  class ATK_CORE_EXPORT OutPointerFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -27,15 +27,15 @@ namespace ATK
      * @param channels is the number of total channels
      * @param interleaved indicates if the data is interleaved (Wav/Fortran order) or not (C order)
      */
-    OutPointerFilter(DataType* array, int channels, long size, bool interleaved);
+    OutPointerFilter(DataType* array, int channels, std::int64_t size, bool interleaved);
     virtual ~OutPointerFilter();
     
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(long size);
-    long offset;
+    virtual void process_impl(std::int64_t size);
+    std::int64_t offset;
     DataType* array;
-    long mysize;
+    std::int64_t mysize;
     int channels;
     bool interleaved;
   };

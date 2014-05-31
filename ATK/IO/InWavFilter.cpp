@@ -4,6 +4,8 @@
 
 #include "InWavFilter.h"
 
+#include <stdexcept>
+
 #include <boost/lexical_cast.hpp>
 
 #include <ATK/Core/Utilities.h>
@@ -14,7 +16,7 @@ namespace
   void convert(std::vector<std::vector<DataType1> >& outputs, const std::vector<char>& inputs)
   {
     int nbChannels = outputs.size();
-    long size = outputs[0].size();
+    std::int64_t size = outputs[0].size();
     for(int j = 0; j < nbChannels; ++j)
     {
       ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, nbChannels);
@@ -40,12 +42,12 @@ namespace ATK
   }
 
   template<typename DataType>
-  void InWavFilter<DataType>::process_impl(long size)
+  void InWavFilter<DataType>::process_impl(std::int64_t size)
   {
     assert(output_sampling_rate == format.Frequence);
     read_from_file(size);
 
-    for(long i = 0; i < size; ++i)
+    for(std::int64_t i = 0; i < size; ++i)
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {
@@ -55,7 +57,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void InWavFilter<DataType>::read_from_file(long size)
+  void InWavFilter<DataType>::read_from_file(std::int64_t size)
   {
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
     wavstream.read(buffer.data(), buffer.size());

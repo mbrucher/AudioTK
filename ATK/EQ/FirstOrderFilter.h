@@ -5,6 +5,7 @@
 #ifndef ATK_EQ_FIRSTORDERFILTER_H
 #define ATK_EQ_FIRSTORDERFILTER_H
 
+#include "config.h"
 #include "../Core/TypedBaseFilter.h"
 
 namespace ATK
@@ -13,7 +14,7 @@ namespace ATK
    * First order filter template class
    */
   template<typename DataType_>
-  class FirstOrderFilter: public TypedBaseFilter<DataType_>
+  class ATK_EQ_EXPORT FirstOrderFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -47,7 +48,7 @@ namespace ATK
     
   protected:
     void setup();
-    void process_impl(long size);
+    void process_impl(std::int64_t size);
     
     int selected;
     DataType attenuation;

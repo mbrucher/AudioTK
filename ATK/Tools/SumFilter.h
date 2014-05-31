@@ -6,11 +6,12 @@
 #define ATK_TOOLS_SUMFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include "config.h"
 
 namespace ATK
 {
   template<typename DataType_>
-  class SumFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT SumFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -25,7 +26,7 @@ namespace ATK
     ~SumFilter();
     
   protected:
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
   };
 }
 

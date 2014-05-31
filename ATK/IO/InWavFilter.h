@@ -10,12 +10,13 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#include "config.h"
 #include "WavStruct.h"
 
 namespace ATK
 {
   template<typename DataType_>
-  class InWavFilter: public TypedBaseFilter<DataType_>
+  class ATK_IO_EXPORT InWavFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -34,12 +35,12 @@ namespace ATK
     
     std::vector<std::vector<DataType> > temp_arrays;
     
-    void read_from_file(long size);
+    void read_from_file(std::int64_t size);
 
   public:
     InWavFilter(const std::string& filename);
     
-    void process_impl(long size);
+    void process_impl(std::int64_t size);
   };
 }
 #endif

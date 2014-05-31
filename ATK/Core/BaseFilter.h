@@ -5,11 +5,20 @@
 #ifndef ATK_CORE_BASEFILTER_H
 #define ATK_CORE_BASEFILTER_H
 
+#include <cstdint>
+#include <string>
 #include <vector>
+
+#include <ATK/config.h>
+#include "config.h"
+
+#if ATK_PROFILING == 1
+#include <boost/timer/timer.hpp>
+#endif
 
 namespace ATK
 {
-  class BaseFilter
+  class ATK_CORE_EXPORT BaseFilter
   {
   public:
     BaseFilter(int nb_input_ports, int nb_output_ports);
@@ -24,7 +33,7 @@ namespace ATK
     void set_input_port(int input_port, BaseFilter* filter, int output_port);
     
     /// Starts processing if reset
-    void process(long size);
+    void process(std::int64_t size);
     
     void set_input_sampling_rate(int rate);
     int get_input_sampling_rate() const;
@@ -43,11 +52,11 @@ namespace ATK
   
   protected:
     /// The actual filter processing part
-    void virtual process_impl(long size) = 0;
+    void virtual process_impl(std::int64_t size) = 0;
     /// Prepares the filter by retrieving the inputs arrays
-    void virtual prepare_process(long size) = 0;
+    void virtual prepare_process(std::int64_t size) = 0;
     /// Prepares the filter by resizing the outputs arrays
-    void virtual prepare_outputs(long size) = 0;
+    void virtual prepare_outputs(std::int64_t size) = 0;
     bool is_reset;
     
     virtual void setup();
@@ -58,6 +67,15 @@ namespace ATK
     int output_sampling_rate;
     /// The connections to the output pins of some filters
     std::vector<std::pair<int, BaseFilter*> > connections;
+
+  private:
+#if ATK_PROFILING == 1
+    std::string class_name;
+    boost::timer::nanosecond_type input_conversion_time;
+    boost::timer::nanosecond_type output_conversion_time;
+    boost::timer::nanosecond_type process_time;
+#endif
+
   };
 }
 

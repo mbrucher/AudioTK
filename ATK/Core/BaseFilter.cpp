@@ -14,12 +14,23 @@ namespace ATK
   BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
   :is_reset(true), nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
-   connections(nb_input_ports, std::make_pair(-1, std::nullptr_t()))
+   connections(nb_input_ports, std::make_pair(-1, nullptr))
   {
+#if ATK_PROFILING == 1
+    input_conversion_time = 0;
+    output_conversion_time = 0;
+    process_time = 0;
+#endif
   }
 
   BaseFilter::~BaseFilter()
   {
+#if ATK_PROFILING == 1
+    std::cerr << "Object of type " << class_name << std::endl;
+    std::cerr << "Input conversion time " << input_conversion_time / 1e9 << "s" << std::endl;
+    std::cerr << "Output conversion time " << output_conversion_time / 1e9 << "s" << std::endl;
+    std::cerr << "Process time " << process_time / 1e9 << "s" << std::endl;
+#endif
   }
   
   void BaseFilter::reset()
@@ -33,6 +44,9 @@ namespace ATK
   
   void BaseFilter::setup()
   {
+#if ATK_PROFILING == 1
+    class_name = typeid(*this).name();
+#endif
   }
 
   void BaseFilter::set_input_port(int input_port, BaseFilter* filter, int output_port)
@@ -81,7 +95,7 @@ namespace ATK
     return output_sampling_rate;
   }
 
-  void BaseFilter::process(long size)
+  void BaseFilter::process(std::int64_t size)
   {
     if(output_sampling_rate == 0)
     {
@@ -93,15 +107,30 @@ namespace ATK
     }
     for(auto it = connections.begin(); it != connections.end(); ++it)
     {
-      if(it->second == std::nullptr_t(0))
+      if(it->second == nullptr)
       {
         throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
       }
       it->second->process(size * input_sampling_rate / output_sampling_rate);
     }
+#if ATK_PROFILING == 1
+    boost::timer::cpu_timer timer;
+#endif
     prepare_process(size * input_sampling_rate / output_sampling_rate);
+#if ATK_PROFILING == 1
+    boost::timer::cpu_times const input_elapsed_times(timer.elapsed());
+    input_conversion_time += (input_elapsed_times.system + input_elapsed_times.user);
+#endif
     prepare_outputs(size);
+#if ATK_PROFILING == 1
+    boost::timer::cpu_times const output_elapsed_times(timer.elapsed());
+    output_conversion_time += (output_elapsed_times.system + output_elapsed_times.user);
+#endif
     process_impl(size);
+#if ATK_PROFILING == 1
+    boost::timer::cpu_times const process_elapsed_times(timer.elapsed());
+    process_time += (process_elapsed_times.system + process_elapsed_times.user);
+#endif
     is_reset = false;
   }
 
@@ -112,7 +141,7 @@ namespace ATK
 
   void BaseFilter::set_nb_input_ports(int nb_ports)
   {
-    connections.resize(nb_ports, std::make_pair(-1, std::nullptr_t()));
+    connections.resize(nb_ports, std::make_pair(-1, nullptr));
     nb_input_ports = nb_ports;
   }
   

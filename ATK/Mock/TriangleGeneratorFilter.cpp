@@ -4,6 +4,8 @@
 
 #include "TriangleGeneratorFilter.h"
 
+#include <cstdint>
+
 namespace ATK
 {
   template<class DataType_>
@@ -30,11 +32,11 @@ namespace ATK
   }
   
   template<class DataType_>
-  void TriangleGeneratorFilter<DataType_>::process_impl(long size)
+  void TriangleGeneratorFilter<DataType_>::process_impl(std::int64_t size)
   {    
     double real_increment = 2. / output_sampling_rate * frequency;
     
-    for(long i = 0; i < size; ++i)
+    for(std::int64_t i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
       if(state >= 1)

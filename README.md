@@ -11,6 +11,22 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.1.1
+* Padding/delay support
+* FFTW support
+* Profiling facilities
+* Butterworth high pass, band pass and band stop filters
+* Python wrappers for all Butterworth filters
+* Bessel filters
+* Python wrappers for all Bessel filters
+* Chebyshev type 1 and 2 filters
+* Python wrappers for all Chebyshev type 1 and 2 filters
+* SD1 overdrive filter and Python wrappers
+
+0.1.0
+* Butterworth low pass filter
+* Python wrappers for Distortion filters
+
 0.0.3
 * Audio files input/output filters based on libsndfile
 * Input and output filters based on pointers
@@ -19,7 +35,7 @@ Changelog
 * Python wrappers for Tools filters
 
 0.0.2
-* Midddle Side separator filter for stereo channels
+* Middle Side separator filter for stereo channels
 * Sinus generator filter for Mock tests
 * Frequency tester based on Accelerate FFT for Mock tests
 * Second order EQ filters

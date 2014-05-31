@@ -6,6 +6,7 @@
 #define ATK_TOOLS_OVERSAMPLINGFILTER_H
 
 #include "../Core/TypedBaseFilter.h"
+#include "config.h"
 
 namespace ATK
 {
@@ -95,7 +96,7 @@ namespace ATK
   };
 
   template<class DataType_, class Coefficients>
-  class OversamplingFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT OversamplingFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -104,15 +105,15 @@ namespace ATK
     using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
+    using Parent::input_delay;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   private:
     Coefficients coeffs;
-    DataType_ buffer[Coefficients::points];
   public:
     OversamplingFilter();
     
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
   };
 }
 

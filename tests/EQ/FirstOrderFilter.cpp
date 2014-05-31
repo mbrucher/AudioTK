@@ -7,6 +7,7 @@
 #include <ATK/Mock/FFTCheckerFilter.h>
 #include <ATK/Mock/SinusGeneratorFilter.h>
 
+#define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 

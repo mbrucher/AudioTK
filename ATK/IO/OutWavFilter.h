@@ -10,12 +10,13 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#include "config.h"
 #include "WavStruct.h"
 
 namespace ATK
 {
   template<typename DataType_>
-  class OutWavFilter: public TypedBaseFilter<DataType_>
+  class ATK_IO_EXPORT OutWavFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -40,7 +41,7 @@ namespace ATK
   public:
     OutWavFilter(const std::string& filename);
     
-    void process_impl(long size);
+    void process_impl(std::int64_t size);
     
     virtual void set_nb_input_ports(int nb_ports);
   };

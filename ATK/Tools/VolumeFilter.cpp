@@ -5,6 +5,7 @@
 #include "VolumeFilter.h"
 
 #include <cmath>
+#include <cstdint>
 
 namespace ATK
 {
@@ -34,9 +35,9 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void VolumeFilter<DataType_>::process_impl(long size)
+  void VolumeFilter<DataType_>::process_impl(std::int64_t size)
   {
-    for(long i = 0; i < size; ++i)
+    for(std::int64_t i = 0; i < size; ++i)
     {
       outputs[0][i] = static_cast<DataType>(volume * converted_inputs[0][i]);
     }

@@ -7,10 +7,12 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#include "config.h"
+
 namespace ATK
 {
   template<class DataType_>
-  class TriangleCheckerFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT TriangleCheckerFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -26,7 +28,7 @@ namespace ATK
     void set_frequency(int frequency);
 
   protected:
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
     
     double state;
     bool ascending;

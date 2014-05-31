@@ -125,34 +125,25 @@ namespace ATK
   OversamplingFilter<DataType, Coefficients>::OversamplingFilter()
     :TypedBaseFilter<DataType>(1, 1)
   {
-    for(int i = 0; i < Coefficients::points; ++i)
-    {
-      buffer[i] = 0;
-    }
+    input_delay = Coefficients::points;
   }
 
   template<class DataType, class Coefficients>
-  void OversamplingFilter<DataType, Coefficients>::process_impl(long size)
+  void OversamplingFilter<DataType, Coefficients>::process_impl(std::int64_t size)
   {
     assert(input_sampling_rate * Coefficients::oversampling_factor == output_sampling_rate);
     
     for(int i = 0; i < size / Coefficients::oversampling_factor; ++i)
     {
-      for(int j = 0; j < Coefficients::points - 1; ++j)
-      {
-        buffer[j] = buffer[j + 1];
-      }
-      buffer[Coefficients::points - 1] = converted_inputs[0][i];
-      
       DataType even[Coefficients::points / 2];
       for(int j = 0; j < Coefficients::points / 2; ++j)
       {
-        even[j] = buffer[Coefficients::points / 2 + j] + buffer[Coefficients::points / 2 - 1 - j];
+        even[j] = converted_inputs[0][i - input_delay + Coefficients::points / 2 + j] + converted_inputs[0][i - input_delay + Coefficients::points / 2 - 1 - j];
       }
       DataType odd[Coefficients::points / 2];
       for(int j = 0; j < Coefficients::points / 2; ++j)
       {
-        odd[j] = buffer[Coefficients::points / 2 + j] - buffer[Coefficients::points / 2 - 1 - j];
+        odd[j] = converted_inputs[0][i - input_delay + Coefficients::points / 2 + j] - converted_inputs[0][i - input_delay + Coefficients::points / 2 - 1 - j];
       }
       
       DataType c[Coefficients::order + 1];

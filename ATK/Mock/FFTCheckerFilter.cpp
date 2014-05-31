@@ -6,6 +6,7 @@
 
 #include <cmath>
 
+#define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
@@ -14,26 +15,13 @@ namespace ATK
   template<class DataType_>
   FFTCheckerFilter<DataType_>::FFTCheckerFilter()
   :TypedBaseFilter<DataType_>(1, 0)
-#ifdef __APPLE__
-  , fftSetup(NULL)
-#endif
-  ,output_freqs(NULL)
   {
-#ifdef __APPLE__
-    splitData.realp = NULL;
-    splitData.imagp = NULL;
-#endif
+    FFTimpl.reset(new FFT<DataType_>);
   }
   
   template<class DataType_>
   FFTCheckerFilter<DataType_>::~FFTCheckerFilter()
   {
-#ifdef __APPLE__
-    delete[] splitData.realp;
-    delete[] splitData.imagp;
-    vDSP_destroy_fftsetupD(fftSetup);
-#endif
-    delete[] output_freqs;
   }
   
   template<class DataType_>
@@ -45,29 +33,17 @@ namespace ATK
   template<class DataType_>
   void FFTCheckerFilter<DataType_>::setup()
   {
-#ifdef __APPLE__
-    delete[] splitData.realp;
-    delete[] splitData.imagp;
-    vDSP_destroy_fftsetupD(fftSetup);
-    splitData.realp = new double[input_sampling_rate/2];
-    splitData.imagp = new double[input_sampling_rate/2];
-    log2n = std::log2(input_sampling_rate);
-    fftSetup = vDSP_create_fftsetupD(log2n, FFT_RADIX2);
-#endif
-    delete[] output_freqs;
-    output_freqs = new double[input_sampling_rate/2];
+    FFTimpl->set_size(input_sampling_rate);
   }
   
   template<class DataType_>
-  void FFTCheckerFilter<DataType_>::process_impl(long size)
+  void FFTCheckerFilter<DataType_>::process_impl(std::int64_t size)
   {
-    double factor = input_sampling_rate;
-    for(long i = 0; i < size/input_sampling_rate; ++i)
+    for(std::int64_t i = 0; i < size/input_sampling_rate; ++i)
     {
-      vDSP_ctozD(reinterpret_cast<DOUBLE_COMPLEX*>(&converted_inputs[0][i * input_sampling_rate]), 2, &splitData, 1, input_sampling_rate/2);
-      vDSP_fft_zripD(fftSetup, &splitData, 1, log2n, FFT_FORWARD);
-      vDSP_zvabsD(&splitData, 1, output_freqs, 1, input_sampling_rate/2);
-      vDSP_vsdivD(output_freqs, 1, &factor, output_freqs, 1, input_sampling_rate/2);
+      FFTimpl->process(converted_inputs[0] + i * input_sampling_rate, input_sampling_rate);
+      std::vector<DataType_> output_freqs;
+      FFTimpl->get_amp(output_freqs);
       
       for(int j = 0; j < frequency_checks.size(); ++j)
       {

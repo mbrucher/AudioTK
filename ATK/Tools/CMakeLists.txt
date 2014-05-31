@@ -9,14 +9,29 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+add_definitions(-DBUILD_ATK_TOOLS)
+
 include_directories(${PROJECT_SOURCE_DIR})
+
 add_library(ATKTools
     SHARED
     ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
 )
-target_link_libraries(ATKTools ATKCore)
+
+target_link_libraries(ATKTools ATKCore ${FFTLIBRARIES})
 
 INSTALL(TARGETS ATKTools
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    )
+
+add_library(ATKTools_static
+    STATIC
+    ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
+)
+
+INSTALL(TARGETS ATKTools_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
     ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries

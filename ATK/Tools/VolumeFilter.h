@@ -6,11 +6,12 @@
 #define ATK_TOOLS_VOLUMEFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include "config.h"
 
 namespace ATK
 {
   template<typename DataType_>
-  class VolumeFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT VolumeFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -28,7 +29,7 @@ namespace ATK
     void set_volume_db(double volume_db);
     
   protected:
-    virtual void process_impl(long size);
+    virtual void process_impl(std::int64_t size);
     
   private:
     double volume;

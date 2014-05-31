@@ -19,7 +19,6 @@ namespace ATK
   public:
     InPointerFilter(DataType* array, int channels, long size, bool interleaved);
     ~InPointerFilter();
-    void process(long size);
     int get_nb_output_ports();
   };
 }
@@ -38,7 +37,6 @@ namespace ATK
   public:
     OutPointerFilter(DataType* array, int channels, long size, bool interleaved);
     ~OutPointerFilter();
-    void process(long size);
     int get_nb_input_ports();
   };
 }
