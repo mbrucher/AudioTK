@@ -22,7 +22,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
 
-    DataType tempm[2] = {2 * input_sampling_rate, -2 * input_sampling_rate};
+    DataType tempm[2] = {-2 * input_sampling_rate, 2 * input_sampling_rate};
     DataType tempp[2] = {1, 1};
     boost::math::tools::polynomial<DataType> poly1(tempm, 1);
     boost::math::tools::polynomial<DataType> poly2(tempp, 1);
@@ -51,6 +51,10 @@ namespace ATK
   template<typename DataType>
   void SD1ToneCoefficients<DataType>::set_tone(DataType alpha)
   {
+    if(alpha < 0 || alpha > 1)
+    {
+      throw std::range_error("Tone is outside the interval [0,1]");
+    }
     this->alpha = alpha;
 
     setup();
