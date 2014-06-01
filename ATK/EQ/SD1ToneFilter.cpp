@@ -2,6 +2,8 @@
  * \file SD1ToneFilter.cpp
  */
 
+#include <iostream>
+
 #include "SD1ToneFilter.h"
 #include "IIRFilter.h"
 
@@ -9,8 +11,8 @@ namespace ATK
 {
   template<typename DataType>
   SD1ToneCoefficients<DataType>::SD1ToneCoefficients()
-  :TypedBaseFilter<DataType>(1, 1), R1(1000), R2(22000), R3(470), R4(10000),
-    C1(0.000000018), C2(0.000000027), C3(0.00000001), alpha(1), in_order(2), out_order(2)
+  :TypedBaseFilter<DataType>(1, 1), R1(10000), R2(22000), R3(470), R4(10000),
+    C1(0.018e-6), C2(0.027e-6), C3(0.01e-6), alpha(1), in_order(2), out_order(2)
   {
   }
 
@@ -40,11 +42,11 @@ namespace ATK
 
     for(int i = 0; i < in_order + 1; ++i)
     {
-      coefficients_in[i] = b[i];
+      coefficients_in[i] = b[i] / a[out_order];
     }
     for(int i = 0; i < out_order; ++i)
     {
-      coefficients_out[i] = -a[i];
+      coefficients_out[i] = -a[i] / a[out_order];
     }
   }
 
