@@ -11,8 +11,8 @@ namespace ATK
 {
   template<typename DataType>
   SD1ToneCoefficients<DataType>::SD1ToneCoefficients()
-  :TypedBaseFilter<DataType>(1, 1), R1(10000), R2(22000), R3(470), R4(10000),
-    C1(0.018e-6), C2(0.027e-6), C3(0.01e-6), alpha(1), in_order(2), out_order(2)
+  :TypedBaseFilter<DataType>(1, 1), R1(10e3), R2(22e3), R3(470), R4(10e3),
+    C1(0.018e-6), C2(0.027e-6), C3(0.01e-6), alpha(1)
   {
   }
 

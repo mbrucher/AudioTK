@@ -19,8 +19,8 @@ namespace ATK
   protected:
     DataType R1, R2, R3, R4, C1, C2, C3, alpha;
     
-    int in_order;
-    int out_order;
+    static const int in_order = 2;
+    static const int out_order = 2;
     
     void setup();
     

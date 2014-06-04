@@ -13,7 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #define PROCESSSIZE (1024*1024)
-/*
+
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_100_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
@@ -97,7 +97,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_10k_test )
   
   checker.process(PROCESSSIZE);
 }
-*/
+
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_100_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*1024);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 0.24849356625414518));
+  frequency_checks.push_back(std::make_pair(100, 0.21866707240547373));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_1k_test )
   checker.set_input_sampling_rate(1024*1024);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.2372881019675525));
+  frequency_checks.push_back(std::make_pair(1000, 0.9101780576686395));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.2142359339618558));
+  frequency_checks.push_back(std::make_pair(10000, 0.23236933665054216));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_10k_test )
   
   checker.process(PROCESSSIZE);
 }
-/*
+
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_100_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
@@ -265,4 +265,3 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_10k_test )
   
   checker.process(PROCESSSIZE);
 }
-*/
