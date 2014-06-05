@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_LowPassCoefficients_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 0.706567249726119));
+  frequency_checks.push_back(std::make_pair(100, 0.7070507157689713));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(2000, 0));
   checker.set_checks(frequency_checks);
