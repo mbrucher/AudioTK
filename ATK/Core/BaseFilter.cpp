@@ -97,6 +97,12 @@ namespace ATK
 
   void BaseFilter::process(std::int64_t size)
   {
+    reset();
+    process_conditionnally(size);
+  }
+
+  void BaseFilter::process_conditionnally(std::int64_t size)
+  {
     if(output_sampling_rate == 0)
     {
       throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
@@ -111,7 +117,7 @@ namespace ATK
       {
         throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
       }
-      it->second->process(size * input_sampling_rate / output_sampling_rate);
+      it->second->process_conditionnally(size * input_sampling_rate / output_sampling_rate);
     }
 #if ATK_PROFILING == 1
     boost::timer::cpu_timer timer;
