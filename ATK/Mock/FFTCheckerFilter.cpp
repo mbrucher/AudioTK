@@ -51,11 +51,11 @@ namespace ATK
         DataType amp_check = frequency_checks[j].second * frequency_checks[j].second;
         if(amp_check == 0)
         {
-          BOOST_REQUIRE_SMALL(amp, 0.01);
+          BOOST_REQUIRE_SMALL(amp, 0.1);
         }
         else
         {
-          BOOST_REQUIRE_CLOSE(amp, amp_check, 0.01);
+          BOOST_REQUIRE_CLOSE(amp, amp_check, 0.1);
         }
       }
     }
