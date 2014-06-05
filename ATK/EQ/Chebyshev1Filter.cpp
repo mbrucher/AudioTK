@@ -10,7 +10,7 @@
 namespace
 {
   template<typename DataType>
-  void create_chebyshev1_analog_coefficients(size_t order, DataType ripple, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void create_chebyshev1_analog_coefficients(int order, DataType ripple, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
     z.clear(); // no zeros for this filter type
     p.clear();

@@ -11,7 +11,7 @@
 namespace
 {
   template<typename DataType>
-  void create_butterworth_analog_coefficients(size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void create_butterworth_analog_coefficients(int order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
     k = 1;
     z.clear(); // no zeros for this filter type
@@ -39,7 +39,6 @@ namespace
     boost::math::tools::polynomial<DataType> a;
     
     zpk2ba(fs, z, p, k, b, a);
-    
     for(int i = 0; i < std::min(order + 1, b.size()); ++i)
     {
       coefficients_in[i] = b[i];
