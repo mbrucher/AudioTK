@@ -13,7 +13,7 @@ def create_coeffs(alpha):
   C3 = 0.01e-6
   R4 = 10e3
   
-  return (C3*R4*(R3*C2-alpha*(1-alpha)*R2*C2), C2*R3+R4*C3-alpha*(1-alpha)*R2*C2-alpha*C2*R4, 1), (C1*R1*(R3*C2-alpha*(1-alpha)*R2*C2), C2*R3+R1*C1-alpha*(1-alpha)*R2*C2-(1-alpha)*C2*R1, 1)
+  return (C3*R4*(R3*C2+alpha*(1-alpha)*R2*C2), C2*R3+R4*C3+alpha*(1-alpha)*R2*C2+alpha*C2*R4, 1), (C1*R1*(R3*C2+alpha*(1-alpha)*R2*C2), C2*R3+R1*C1+alpha*(1-alpha)*R2*C2+(1-alpha)*C2*R1, 1)
 
 b0, a0 = create_coeffs(0)
 b1, a1 = create_coeffs(1)
@@ -52,7 +52,6 @@ plt.loglog(sd1d[0], np.abs(sd1d[1]), 'r', label="alpha=0.5")
 plt.xlabel("Frequency (rad/sample)")
 plt.ylabel("Amplitude (dB)")
 plt.legend()
-
 
 b0d, a0d = signal.bilinear(b0, a0, 44100*2)
 b1d, a1d = signal.bilinear(b1, a1, 44100*2)

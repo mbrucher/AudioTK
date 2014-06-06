@@ -33,12 +33,12 @@ namespace ATK
     boost::math::tools::polynomial<DataType> a;
     
     b += poly2 * poly2;
-    b += poly2 * poly1 * (C2*R3+R4*C3-alpha*(1-alpha)*R2*C2-alpha*C2*R4);
-    b += poly1 * poly1 * (C3*R4*(R3*C2-alpha*(1-alpha)*R2*C2));
+    b += poly2 * poly1 * (C2*R3+R4*C3+alpha*(1-alpha)*R2*C2+alpha*C2*R4);
+    b += poly1 * poly1 * (C3*R4*(R3*C2+alpha*(1-alpha)*R2*C2));
 
     a += poly2 * poly2;
-    a += poly2 * poly1 * (C2*R3+R1*C1-alpha*(1-alpha)*R2*C2-(1-alpha)*C2*R1);
-    a += poly1 * poly1 * (C1*R1*(R3*C2-alpha*(1-alpha)*R2*C2));
+    a += poly2 * poly1 * (C2*R3+R1*C1+alpha*(1-alpha)*R2*C2+(1-alpha)*C2*R1);
+    a += poly1 * poly1 * (C1*R1*(R3*C2+alpha*(1-alpha)*R2*C2));
 
     for(int i = 0; i < in_order + 1; ++i)
     {
