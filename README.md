@@ -11,6 +11,11 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.2.0
+* SD1 tone circuit with Python wrappers
+* Changed the main process method behavior, no needed to call reset each time
+* Added methods to *PointerFilter to enable use in audio plugins as sinks/sources
+
 0.1.1
 * Padding/delay support
 * FFTW support
