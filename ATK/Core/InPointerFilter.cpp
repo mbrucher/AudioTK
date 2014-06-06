@@ -20,6 +20,14 @@ namespace ATK
   }
   
   template<typename DataType>
+  void InPointerFilter<DataType>::set_pointer(const DataType* array, std::int64_t size)
+  {
+    this->array = array;
+    mysize = size;
+    offset = 0;
+  }
+  
+  template<typename DataType>
   void InPointerFilter<DataType>::process_impl(std::int64_t size)
   {
     std::int64_t i;

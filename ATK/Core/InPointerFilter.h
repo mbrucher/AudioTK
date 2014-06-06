@@ -31,6 +31,13 @@ namespace ATK
     InPointerFilter(const DataType* array, int channels, std::int64_t size, bool interleaved);
     virtual ~InPointerFilter();
     
+    /**
+     * Resets the pointer and the internal offset
+     * @param array is the pointer to the new array
+     * @param size is the allocated size of the array
+     */
+    void set_pointer(const DataType* array, std::int64_t size);
+    
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
     virtual void process_impl(std::int64_t size);

@@ -12,7 +12,7 @@ namespace ATK
     void set_input_sampling_rate(int rate);
     void set_output_sampling_rate(int rate);
     
-    void process(long long size);
+    void process(long size);
   };
 
 }

@@ -32,7 +32,7 @@ namespace ATK
      */
     void set_input_port(int input_port, BaseFilter* filter, int output_port);
     
-    /// Starts processing if reset
+    /// Starts processing after calling reset
     void process(std::int64_t size);
     
     void set_input_sampling_rate(int rate);
@@ -51,6 +51,8 @@ namespace ATK
     int virtual get_type() const = 0;
   
   protected:
+    /// Starts processing without calling reset
+    void process_conditionnally(std::int64_t size);
     /// The actual filter processing part
     void virtual process_impl(std::int64_t size) = 0;
     /// Prepares the filter by retrieving the inputs arrays

@@ -20,6 +20,14 @@ namespace ATK
   }
   
   template<typename DataType>
+  void OutPointerFilter<DataType>::set_pointer(DataType* array, std::int64_t size)
+  {
+    this->array = array;
+    mysize = size;
+    offset = 0;
+  }
+
+  template<typename DataType>
   void OutPointerFilter<DataType>::process_impl(std::int64_t size)
   {
     std::int64_t i;

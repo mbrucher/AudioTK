@@ -23,7 +23,7 @@ namespace
   }
   
   template<typename DataType>
-  void create_default_coeffs(int order, DataType Wn, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  void create_default_coeffs(size_t order, DataType Wn, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -39,19 +39,18 @@ namespace
     boost::math::tools::polynomial<DataType> a;
     
     zpk2ba(fs, z, p, k, b, a);
-    
-    for(int i = 0; i < order + 1; ++i)
+    for(int i = 0; i < std::min(order + 1, b.size()); ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < order; ++i)
+    for(int i = 0; i < std::min(order, a.size()-1); ++i)
     {
       coefficients_out[i] = -a[i];
     }
   }
 
   template<typename DataType>
-  void create_bp_coeffs(int order, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  void create_bp_coeffs(size_t order, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -70,18 +69,18 @@ namespace
     
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < order + 1; ++i)
+    for(size_t i = 0; i < std::min(order + 1, b.size()); ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < order; ++i)
+    for(size_t i = 0; i < std::min(order, a.size()-1); ++i)
     {
       coefficients_out[i] = -a[i];
     }
   }
   
   template<typename DataType>
-  void create_bs_coeffs(int order, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  void create_bs_coeffs(size_t order, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -100,11 +99,11 @@ namespace
     
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < order + 1; ++i)
+    for(size_t i = 0; i < std::min(order + 1, b.size()); ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < order; ++i)
+    for(size_t i = 0; i < std::min(order, a.size()-1); ++i)
     {
       coefficients_out[i] = -a[i];
     }
