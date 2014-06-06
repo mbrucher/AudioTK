@@ -18,4 +18,6 @@
 %include "Chebyshev1Filter.i"
 %include "Chebyshev2Filter.i"
 
+%include "SD1ToneFilter.i"
+
 #endif

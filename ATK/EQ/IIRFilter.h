@@ -19,13 +19,13 @@ namespace
   template<typename DataType>
   void zpk_lp2lp(DataType Wn, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
-    int relative_degree = p.size() - z.size();
+    size_t relative_degree = p.size() - z.size();
     
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       z[i] *= Wn;
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       p[i] *= Wn;
     }
@@ -37,13 +37,13 @@ namespace
   template<typename DataType>
   void zpk_lp2bp(DataType Wn, DataType bw, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
-    int relative_degree = p.size() - z.size();
+    size_t relative_degree = p.size() - z.size();
     
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       z[i] *= bw/2;
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       p[i] *= bw/2;
     }
@@ -51,12 +51,12 @@ namespace
     std::vector<std::complex<DataType> > zbp;
     std::vector<std::complex<DataType> > pbp;
 
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       zbp.push_back(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
       zbp.push_back(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       pbp.push_back(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
       pbp.push_back(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
@@ -76,21 +76,21 @@ namespace
     int relative_degree = p.size() - z.size();
   
     std::complex<DataType> f = 1;
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       f *= - z[i];
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       f /= - p[i];
     }
     k *= f.real();
 
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       z[i] = bw / 2 / z[i];
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       p[i] = bw / 2 / p[i];
     }
@@ -98,12 +98,12 @@ namespace
     std::vector<std::complex<DataType> > zbs;
     std::vector<std::complex<DataType> > pbs;
     
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       zbs.push_back(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
       zbs.push_back(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       pbs.push_back(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
       pbs.push_back(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
@@ -119,24 +119,24 @@ namespace
   template<typename DataType>
   void zpk_bilinear(int fs, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
-    DataType fs2 = 2 * fs;
+    DataType fs2 = 2 * static_cast<DataType>(fs);
   
     std::complex<DataType> f = 1;
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       f *= fs2 - z[i];
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       f /= fs2 - p[i];
     }
     k *= f.real();
     
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       z[i] = (fs2 + z[i]) / (fs2 - z[i]);
     }
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       p[i] = (fs2 + p[i]) / (fs2 - p[i]);
     }
@@ -167,7 +167,7 @@ namespace
     }
     
     a = boost::math::tools::polynomial<DataType>(1);
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       if(p[i].imag() == 0)
       {

@@ -13,7 +13,7 @@ namespace ATK
   template<class DataType_>
   FFT<DataType_>::FFT()
 #if ATK_USE_FFTW == 1
-  :fft_plan(NULL), input_data(NULL), output_freqs(NULL)
+  :size(0), fft_plan(NULL), input_data(NULL), output_freqs(NULL)
 #endif
 #if ATK_USE_ACCELERATE == 1
   :fftSetup(NULL), output_freqs(NULL)
@@ -29,8 +29,8 @@ namespace ATK
   FFT<DataType_>::~FFT()
   {
 #if ATK_USE_FFTW == 1
-    delete[] input_data;
-    delete[] output_freqs;
+    fftw_free(input_data);
+    fftw_free(output_freqs);
     fftw_destroy_plan(fft_plan);
 #endif
 #if ATK_USE_ACCELERATE == 1
@@ -44,11 +44,13 @@ namespace ATK
   template<class DataType_>
   void FFT<DataType_>::set_size(std::int64_t size)
   {
+    if(this->size == size)
+      return;
     this->size = size;
     log2n = std::log(size) / std::log(2.);
 #if ATK_USE_FFTW == 1
-    free(input_data);
-    free(output_freqs);
+    fftw_free(input_data);
+    fftw_free(output_freqs);
     fftw_destroy_plan(fft_plan);
     
     input_data = fftw_alloc_complex(size);
