@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.5194677682439061));
+  frequency_checks.push_back(std::make_pair(10000, 0.525581554888129));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 1.2955939582340452));
+  frequency_checks.push_back(std::make_pair(10000, 1.2770732276129428));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.757632035535571));
+  frequency_checks.push_back(std::make_pair(10000, 0.7559110473244306));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
