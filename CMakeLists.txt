@@ -58,6 +58,10 @@ configure_file (
   "ATK/config.h"
   )
 
+INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK/config.h
+   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK
+    )
+
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
