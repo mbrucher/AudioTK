@@ -1,5 +1,6 @@
 /**
  * \file OversamplingFilter.h
+ * Inspired by http://yehar.com/blog/wp-content/uploads/2009/08/deip.pdf
  */
 
 #ifndef ATK_TOOLS_OVERSAMPLINGFILTER_H
