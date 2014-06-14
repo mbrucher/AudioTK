@@ -11,6 +11,7 @@
 %nodefaultctor;
 
 %include "../Core/BaseFilter.i"
+%include "FirstOrderFilter.i"
 %include "IIRFilter.i"
 %include "SecondOrderFilter.i"
 %include "BesselFilter.i"
