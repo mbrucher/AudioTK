@@ -1,5 +1,7 @@
 /**
  * \file SimpleOverdriveFilter.h
+ * Inspired by http://simulanalog.org/statevariable.pdf
+ * See https://ccrma.stanford.edu/~dtyeh/papers/yeh07_dafx_clipode.pdf as well
  */
 
 #ifndef ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
