@@ -14,7 +14,7 @@ namespace ATK
   template<typename Function>
   class ScalarNewtonRaphson
   {
-    static const int max_iterations = 10;
+    static const int max_iterations = 50;
     
     typedef typename Function::DataType DataType;
     
