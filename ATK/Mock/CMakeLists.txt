@@ -10,6 +10,7 @@ FILE(GLOB_RECURSE
 )
 
 add_definitions(-DBUILD_ATK_MOCK)
+add_definitions(-DBOOST_ALL_NO_LIB)
 
 include_directories(${PROJECT_SOURCE_DIR})
 
