@@ -2,8 +2,6 @@
  * \file SD1ToneFilter.cpp
  */
 
-#include <iostream>
-
 #include "SD1ToneFilter.h"
 #include "IIRFilter.h"
 
