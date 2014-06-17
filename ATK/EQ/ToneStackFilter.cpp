@@ -29,7 +29,7 @@ namespace ATK
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
     
-    b += poly2 * poly2 * poly1 * (high*C1*R1 + middle*C3*R3 + low*(C1*R2+C2*R2) + (C1*R3 + C2*R3));
+    b = poly2 * poly2 * poly1 * (high*C1*R1 + middle*C3*R3 + low*(C1*R2+C2*R2) + (C1*R3 + C2*R3));
     b += poly2 * poly1 * poly1 * (high*(C1*C2*R1*R4 + C1*C3*R1*R4) - middle*middle*(C1*C3*R3*R3 + C2*C3*R3*R3) + middle*(C1*C3*R1*R3 + C1*C3*R3*R3 + C2*C3*R3*R3)
       + low*(C1*C2*R1*R2 + C1*C2*R2*R4 + C1*C3*R2*R4) + low*middle*(C1*C3*R2*R3 + C2*C3*R2*R3)
       + (C1*C2*R1*R3 + C1*C2*R3*R4 + C1*C3*R3*R4));
@@ -37,7 +37,7 @@ namespace ATK
       + middle*(C1*C2*C3*R1*R3*R3 + C1*C2*C3*R3*R3*R4) + high*C1*C2*C3*R1*R3*R4 - high*middle*C1*C2*C3*R1*R3*R4
       + high*low*C1*C2*C3*R1*R2*R4);
 
-    a += poly2 * poly2 * poly2;
+    a = poly2 * poly2 * poly2;
     a += poly2 * poly2 * poly1 * (C1*R1 + C1*R3 + C2*R3 + C2*R4 + C3*R4) + middle*C3*R3 + low*(C1*R2 + C2*R2);
     a += poly2 * poly1 * poly1 * (middle*(C1*C3*R1*R3 - C2*C3*R3*R4 + C1*C3*R3*R3 + C2*C3*R3*R3)
       + low*middle*(C1*C3*R2*R3 + C2*C3*R2*R3) - middle*(C1*C3*R3*R3 + C2*C3*R3*R3) + low*(C1*C2*R2*R4 + C1*C2*R1*R2 + C1*C3*R2*R4 + C2*C3*R2*R4)
