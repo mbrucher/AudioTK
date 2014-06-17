@@ -44,19 +44,6 @@ namespace ATK
   protected:
     void set_coefficients(DataType R1, DataType R2, DataType R3, DataType R4, DataType C1, DataType C2, DataType C3);
   };
-
-  template<typename DataType_>
-  void ToneStackFilterCoefficients<DataType_>::set_coefficients( DataType R1, DataType R2, DataType R3, DataType R4, DataType C1, DataType C2, DataType C3 )
-  {
-    this->R1 = R1;
-    this->R2 = R2;
-    this->R3 = R3;
-    this->R4 = R4;
-    this->C1 = C1;
-    this->C2 = C2;
-    this->C3 = C3;
-  }
-
 }
 
 #endif

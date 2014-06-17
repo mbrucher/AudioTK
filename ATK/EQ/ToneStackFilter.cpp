@@ -29,7 +29,7 @@ namespace ATK
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
     
-    b = poly2 * poly2 * poly1 * (high*C1*R1 + middle*C3*R3 + low*(C1*R2+C2*R2) + (C1*R3 + C2*R3));
+    b = poly2 * poly2 * poly1 * (high*C1*R1 + middle*C3*R3 + low*(C1*R2 + C2*R2) + (C1*R3 + C2*R3));
     b += poly2 * poly1 * poly1 * (high*(C1*C2*R1*R4 + C1*C3*R1*R4) - middle*middle*(C1*C3*R3*R3 + C2*C3*R3*R3) + middle*(C1*C3*R1*R3 + C1*C3*R3*R3 + C2*C3*R3*R3)
       + low*(C1*C2*R1*R2 + C1*C2*R2*R4 + C1*C3*R2*R4) + low*middle*(C1*C3*R2*R3 + C2*C3*R2*R3)
       + (C1*C2*R1*R3 + C1*C2*R3*R4 + C1*C3*R3*R4));
@@ -38,9 +38,9 @@ namespace ATK
       + high*low*C1*C2*C3*R1*R2*R4);
 
     a = poly2 * poly2 * poly2;
-    a += poly2 * poly2 * poly1 * (C1*R1 + C1*R3 + C2*R3 + C2*R4 + C3*R4) + middle*C3*R3 + low*(C1*R2 + C2*R2);
+    a += poly2 * poly2 * poly1 * ((C1*R1 + C1*R3 + C2*R3 + C2*R4 + C3*R4) + middle*C3*R3 + low*(C1*R2 + C2*R2));
     a += poly2 * poly1 * poly1 * (middle*(C1*C3*R1*R3 - C2*C3*R3*R4 + C1*C3*R3*R3 + C2*C3*R3*R3)
-      + low*middle*(C1*C3*R2*R3 + C2*C3*R2*R3) - middle*(C1*C3*R3*R3 + C2*C3*R3*R3) + low*(C1*C2*R2*R4 + C1*C2*R1*R2 + C1*C3*R2*R4 + C2*C3*R2*R4)
+      + low*middle*(C1*C3*R2*R3 + C2*C3*R2*R3) - middle*middle*(C1*C3*R3*R3 + C2*C3*R3*R3) + low*(C1*C2*R2*R4 + C1*C2*R1*R2 + C1*C3*R2*R4 + C2*C3*R2*R4)
       + (C1*C2*R1*R4 + C1*C3*R1*R4 + C1*C2*R3*R4 + C1*C2*R1*R3 + C1*C3*R3*R4 + C2*C3*R3*R4));
     a += poly1 * poly1 * poly1 * (low*middle*(C1*C2*C3*R1*R2*R3 + C1*C2*C3*R2*R3*R4) - middle*middle*(C1*C2*C3*R1*R3*R3 + C1*C2*C3*R3*R3*R4)
       + middle*(C1*C2*C3*R3*R3*R4 + C1*C2*C3*R1*R3*R3 - C1*C2*C3*R1*R3*R4)
@@ -75,7 +75,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void ToneStackFilterCoefficients<DataType>::set_middle(DataType low)
+  void ToneStackFilterCoefficients<DataType>::set_middle(DataType middle)
   {
     if(middle < 0 || middle > 1)
     {
@@ -94,7 +94,7 @@ namespace ATK
 
 
   template<typename DataType>
-  void ToneStackFilterCoefficients<DataType>::set_high(DataType low)
+  void ToneStackFilterCoefficients<DataType>::set_high(DataType high)
   {
     if(high < 0 || high > 1)
     {
@@ -126,6 +126,18 @@ namespace ATK
     ToneStackFilterCoefficients<DataType>* filter = new IIRFilter<ToneStackFilterCoefficients<DataType> >;
     filter->set_coefficients(220e3, 1e6, 22e3, 33e3, 470e-12, 22e-9, 22e-9);
     return filter;
+  }
+
+  template<typename DataType_>
+  void ToneStackFilterCoefficients<DataType_>::set_coefficients( DataType R1, DataType R2, DataType R3, DataType R4, DataType C1, DataType C2, DataType C3 )
+  {
+    this->R1 = R1;
+    this->R2 = R2;
+    this->R3 = R3;
+    this->R4 = R4;
+    this->C1 = C1;
+    this->C2 = C2;
+    this->C3 = C3;
   }
 
   template class ToneStackFilterCoefficients<float>;

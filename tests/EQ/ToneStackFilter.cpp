@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 0.539546227384));
+  frequency_checks.push_back(std::make_pair(100, 0.520546902788));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.639908258891));
+  frequency_checks.push_back(std::make_pair(1000, 0.592829286291));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.785483116609));
+  frequency_checks.push_back(std::make_pair(10000, 0.780334219515));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, filter.get(), 0);
@@ -114,7 +114,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.21437059728));
+  frequency_checks.push_back(std::make_pair(100, 0.893700657602));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.526240477328));
+  frequency_checks.push_back(std::make_pair(1000, 0.535008479213));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -172,7 +172,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778758646157));
+  frequency_checks.push_back(std::make_pair(10000, 0.779778536574));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, filter.get(), 0);
@@ -198,7 +198,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.27317612576));
+  frequency_checks.push_back(std::make_pair(100, 0.883754524105));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -227,7 +227,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.528928508155));
+  frequency_checks.push_back(std::make_pair(1000, 0.536676386406));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778820213842));
+  frequency_checks.push_back(std::make_pair(10000, 0.779785204548));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, filter.get(), 0);
@@ -282,7 +282,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.27317612576));
+  frequency_checks.push_back(std::make_pair(100, 0.893445607385));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -311,7 +311,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.528928508155));
+  frequency_checks.push_back(std::make_pair(1000, 0.3301713376543));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
 
@@ -340,7 +340,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778820213842));
+  frequency_checks.push_back(std::make_pair(10000, 0.694818332337));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, filter.get(), 0);
@@ -366,7 +366,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.27317612576));
+  frequency_checks.push_back(std::make_pair(100, 0.880607047186));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -395,7 +395,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.528928508155));
+  frequency_checks.push_back(std::make_pair(1000, 0.645182601381));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
 
@@ -424,7 +424,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778758646157));
+  frequency_checks.push_back(std::make_pair(10000, 0.827511818981));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, filter.get(), 0);
@@ -450,7 +450,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.27317612576));
+  frequency_checks.push_back(std::make_pair(100, 0.883754524105));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -479,7 +479,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.528928508155));
+  frequency_checks.push_back(std::make_pair(1000, 0.536676386406));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
 
@@ -508,7 +508,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778820213842));
+  frequency_checks.push_back(std::make_pair(10000, 0.779785204548));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, filter.get(), 0);
@@ -534,7 +534,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.27317612576));
+  frequency_checks.push_back(std::make_pair(100, 0.886723470765));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -563,7 +563,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.528928508155));
+  frequency_checks.push_back(std::make_pair(1000, 0.519869436363));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
 
@@ -592,7 +592,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778820213842));
+  frequency_checks.push_back(std::make_pair(10000, 0.496368627553));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, filter.get(), 0);
@@ -618,7 +618,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.27317612576));
+  frequency_checks.push_back(std::make_pair(100, 0.880785350602));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -647,7 +647,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.528928508155));
+  frequency_checks.push_back(std::make_pair(1000, 0.60150892675));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
 
@@ -676,7 +676,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778758646157));
+  frequency_checks.push_back(std::make_pair(10000, 0.98673661586));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, filter.get(), 0);
@@ -702,7 +702,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 1.27317612576));
+  frequency_checks.push_back(std::make_pair(100, 0.883754524105));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
@@ -731,7 +731,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.528928508155));
+  frequency_checks.push_back(std::make_pair(1000, 0.536676386406));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
 
@@ -760,7 +760,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_10k_test )
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(10000, 0.778820213842));
+  frequency_checks.push_back(std::make_pair(10000, 0.779785204548));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, filter.get(), 0);
