@@ -31,7 +31,7 @@ namespace ATK
   void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_out( const std::vector<DataType>& coefficients_out )
   {
     this->coefficients_out = coefficients_out;
-    out_order = coefficients_out.size() - 1;
+    out_order = coefficients_out.size();
 
     setup();
   }
