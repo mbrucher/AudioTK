@@ -29,3 +29,5 @@ Python/*/*.py
 Python/*/*wrap.cxx
 *.pyc
 
+doc/build
+

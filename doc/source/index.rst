@@ -10,8 +10,17 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
+   
+   tutorials
+   extending
+   documentation
 
+.. include tutorials.rst
+.. include extending.rst
+.. include documentation.rst
 
+The Audio ToolKit is a set of libraries geared at creating an audio pipeline.
+This is achieved by connecting filters inputs to other filters outputs.
 
 Indices and tables
 ==================
