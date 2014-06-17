@@ -5,7 +5,6 @@
 #include "BesselFilter.h"
 #include "IIRFilter.h"
 
-
 namespace
 {
   template<typename DataType>

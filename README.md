@@ -11,6 +11,10 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.2.1
+* Fix some issues with deploying ATK
+* Tone stacks (Bassman and JCM800) with Python wrappers
+
 0.2.0
 * SD1 tone circuit with Python wrappers
 * Changed the main process method behavior, no needed to call reset each time
