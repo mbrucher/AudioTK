@@ -14,6 +14,7 @@ Changelog
 0.2.1
 * Fix some issues with deploying ATK
 * Tone stacks (Bassman and JCM800) with Python wrappers
+* Updated filters C++ interface when then can process several channels at the same time
 
 0.2.0
 * SD1 tone circuit with Python wrappers
