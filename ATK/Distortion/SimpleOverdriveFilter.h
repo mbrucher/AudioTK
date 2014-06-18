@@ -39,7 +39,7 @@ namespace ATK
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
   public:
-    SimpleOverdriveFilter(int nb_channels);
+    SimpleOverdriveFilter(int nb_channels = 1);
     ~SimpleOverdriveFilter();
     
   protected:

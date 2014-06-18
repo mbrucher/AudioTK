@@ -37,7 +37,7 @@ namespace ATK
     using Parent::nb_output_ports;
 
   public:
-    SD1OverdriveFilter(int nb_channels);
+    SD1OverdriveFilter(int nb_channels = 1);
     ~SD1OverdriveFilter();
 
     void set_drive(DataType drive);
