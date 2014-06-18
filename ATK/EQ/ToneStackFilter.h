@@ -10,6 +10,9 @@
 namespace ATK
 {
   template<typename DataType_>
+  class IIRFilter;
+
+  template<typename DataType_>
   class ToneStackFilterCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
@@ -38,8 +41,8 @@ namespace ATK
     void set_high(DataType alpha);
     DataType get_high() const;
     
-    static ToneStackFilterCoefficients<DataType_>* buildBassmanStack();
-    static ToneStackFilterCoefficients<DataType_>* buildJCM800Stack();
+    static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildBassmanStack();
+    static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildJCM800Stack();
 
   protected:
     void set_coefficients(DataType R1, DataType R2, DataType R3, DataType R4, DataType C1, DataType C2, DataType C3);
