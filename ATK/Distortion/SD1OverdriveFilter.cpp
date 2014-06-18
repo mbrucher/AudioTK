@@ -88,8 +88,8 @@ namespace ATK
   
   
   template <typename DataType>
-  SD1OverdriveFilter<DataType>::SD1OverdriveFilter()
-  :TypedBaseFilter<DataType>(1, 1)
+  SD1OverdriveFilter<DataType>::SD1OverdriveFilter(int nb_channels)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
     optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction<DataType> >(function));
   }
@@ -115,9 +115,14 @@ namespace ATK
   template <typename DataType>
   void SD1OverdriveFilter<DataType>::process_impl(std::int64_t size)
   {
-    for(long i = 0; i < size; ++i)
+    assert(nb_input_ports == nb_output_ports);
+
+    for(int channel = 0; channel < nb_input_ports; ++channel)
     {
-      outputs[0][i] = optimizer->optimize(converted_inputs[0][i]);
+      for(std::int64_t i = 0; i < size; ++i)
+      {
+        outputs[channel][i] = optimizer->optimize(converted_inputs[channel][i]);
+      }
     }
   }
 

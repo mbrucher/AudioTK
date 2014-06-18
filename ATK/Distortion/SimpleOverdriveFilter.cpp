@@ -76,8 +76,8 @@ namespace ATK
   
   
   template <typename DataType>
-  SimpleOverdriveFilter<DataType>::SimpleOverdriveFilter()
-  :TypedBaseFilter<DataType>(1, 1)
+  SimpleOverdriveFilter<DataType>::SimpleOverdriveFilter(int nb_channels)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
     optimizer.reset(new ScalarNewtonRaphson<SimpleOverdriveFunction<DataType> >(function));
   }
@@ -97,9 +97,14 @@ namespace ATK
   template <typename DataType>
   void SimpleOverdriveFilter<DataType>::process_impl(std::int64_t size)
   {
-    for(std::int64_t i = 0; i < size; ++i)
+    assert(nb_input_ports == nb_output_ports);
+
+    for(int channel = 0; channel < nb_input_ports; ++channel)
     {
-      outputs[0][i] = optimizer->optimize(converted_inputs[0][i]);
+      for(std::int64_t i = 0; i < size; ++i)
+      {
+        outputs[channel][i] = optimizer->optimize(converted_inputs[channel][i]);
+      }
     }
   }
 
