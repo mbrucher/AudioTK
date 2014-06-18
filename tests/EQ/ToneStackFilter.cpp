@@ -311,7 +311,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_1k_test )
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.3301713376543));
+  frequency_checks.push_back(std::make_pair(1000, 0.3017133765430397));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
 
