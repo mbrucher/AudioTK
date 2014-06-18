@@ -5,7 +5,6 @@
 #include "BesselFilter.h"
 #include "IIRFilter.h"
 
-
 namespace
 {
   template<typename DataType>
@@ -232,8 +231,8 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients()
-  :Parent(1, 1), cut_frequency(0), in_order(1), out_order(1)
+  BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients(int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
   
@@ -268,8 +267,8 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients()
-  :Parent(1, 1), cut_frequency(0), in_order(1), out_order(1)
+  BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients(int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
   
@@ -309,8 +308,8 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients()
-  :Parent(1, 1), cut_frequencies(0, 0), in_order(1), out_order(1)
+  BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients(int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
   
@@ -352,8 +351,8 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients()
-  :Parent(1, 1), cut_frequencies(0, 0), in_order(1), out_order(1)
+  BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients(int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
   

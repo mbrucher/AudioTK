@@ -26,7 +26,7 @@ namespace ATK
     int decimation;
 
   public:
-    DecimationFilter(int ports = 1);
+    DecimationFilter(int nb_channels = 1);
     ~DecimationFilter();
     
   protected:

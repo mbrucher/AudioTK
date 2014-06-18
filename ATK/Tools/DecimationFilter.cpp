@@ -35,12 +35,14 @@ namespace ATK
   
   template<class DataType>
   void DecimationFilter<DataType>::process_impl(std::int64_t size)
-  {    
-    for(int j = 0; j < outputs_size.size(); ++j)
+  {
+    assert(nb_input_ports == nb_output_ports);
+
+    for(int channel = 0; channel < nb_input_ports; ++channel)
     {
       for(std::int64_t i = 0; i < size; ++i)
       {
-        outputs[j][i] = converted_inputs[j][i * decimation];
+        outputs[channel][i] = converted_inputs[channel][i * decimation];
       }
     }
   }

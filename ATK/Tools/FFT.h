@@ -33,17 +33,16 @@ namespace ATK
     void get_angle(std::vector<DataType_>& angle) const;
 
   protected:
-    
+	std::int64_t size;
+	int log2n;
+
 #if ATK_USE_FFTW == 1
-    int log2n;
-    std::int64_t size;
     fftw_plan fft_plan;
     fftw_complex* input_data;
     fftw_complex* output_freqs;
 #endif
     
 #if ATK_USE_ACCELERATE == 1
-    int log2n;
     FFTSetupD fftSetup;
     DSPDoubleSplitComplex splitData;
     double* output_freqs;

@@ -28,7 +28,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    SD1ToneCoefficients();
+    SD1ToneCoefficients(int nb_channels);
     
     void set_tone(DataType alpha);
     DataType get_tone() const;
