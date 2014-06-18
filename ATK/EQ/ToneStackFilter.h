@@ -32,7 +32,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    ToneStackFilterCoefficients();
+    ToneStackFilterCoefficients(int nb_channels);
 
     void set_low(DataType alpha);
     DataType get_low() const;

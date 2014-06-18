@@ -22,7 +22,7 @@ namespace ATK
     std::vector<DataType> coefficients_in;
 
   public:
-    CustomFIRCoefficients();
+    CustomFIRCoefficients(int nb_channels);
 
     void set_coefficients_in(const std::vector<DataType>& coefficients_in);
   };

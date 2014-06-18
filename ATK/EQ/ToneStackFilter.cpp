@@ -8,8 +8,8 @@
 namespace ATK
 {
   template<typename DataType>
-  ToneStackFilterCoefficients<DataType>::ToneStackFilterCoefficients()
-  :TypedBaseFilter<DataType>(1, 1), R1(0), R2(0), R3(0), R4(0), C1(0), C2(0), C3(0), low(.5), middle(.5), high(.5)
+  ToneStackFilterCoefficients<DataType>::ToneStackFilterCoefficients(int nb_channels)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(0), R2(0), R3(0), R4(0), C1(0), C2(0), C3(0), low(.5), middle(.5), high(.5)
   {
   }
 

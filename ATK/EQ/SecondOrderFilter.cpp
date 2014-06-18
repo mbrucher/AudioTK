@@ -13,8 +13,8 @@
 namespace ATK
 {
   template <typename DataType>
-  BaseSecondOrderCoefficients<DataType>::BaseSecondOrderCoefficients()
-    :Parent(1, 1)
+  BaseSecondOrderCoefficients<DataType>::BaseSecondOrderCoefficients(int nb_channels)
+    :Parent(nb_channels, nb_channels)
   {
   }
 
@@ -38,6 +38,12 @@ namespace ATK
   typename BaseSecondOrderCoefficients<DataType>::DataType BaseSecondOrderCoefficients<DataType>::get_cut_frequency() const
   {
     return cut_frequency;
+  }
+
+  template<typename DataType_>
+  BandPassCoefficients<DataType_>::BandPassCoefficients(int nb_channels)
+    :Parent(nb_channels)
+  {
   }
 
   template <typename DataType>
@@ -69,6 +75,12 @@ namespace ATK
     return Q;
   }
 
+  template<typename DataType_>
+  LowPassCoefficients<DataType_>::LowPassCoefficients(int nb_channels)
+    :Parent(nb_channels)
+  {
+  }
+
   template <typename DataType>
   void LowPassCoefficients<DataType>::setup()
   {
@@ -84,6 +96,12 @@ namespace ATK
     coefficients_out[0] = - (1 - std::sqrt(2.) * c + c * c) / d;
   }
 
+  template<typename DataType_>
+  HighPassCoefficients<DataType_>::HighPassCoefficients(int nb_channels)
+    :Parent(nb_channels)
+  {
+  }
+
   template <typename DataType>
   void HighPassCoefficients<DataType>::setup()
   {
@@ -97,6 +115,12 @@ namespace ATK
     coefficients_in[0] = 1;
     coefficients_out[1] = - 2 * (c * c - 1) / d;
     coefficients_out[0] = - (1 - std::sqrt(2.) * c + c * c) / d;
+  }
+
+  template<typename DataType_>
+  BandPassPeakCoefficients<DataType_>::BandPassPeakCoefficients(int nb_channels)
+    :Parent(nb_channels)
+  {
   }
 
   template <typename DataType>
@@ -156,6 +180,12 @@ namespace ATK
     return gain;
   }
 
+  template<typename DataType_>
+  LowShelvingCoefficients<DataType_>::LowShelvingCoefficients(int nb_channels)
+    :Parent(nb_channels)
+  {
+  }
+
   template <typename DataType>
   void LowShelvingCoefficients<DataType>::setup()
   {
@@ -196,6 +226,12 @@ namespace ATK
   typename LowShelvingCoefficients<DataType>::DataType LowShelvingCoefficients<DataType>::get_gain() const
   {
     return gain;
+  }
+
+  template<typename DataType_>
+  HighShelvingCoefficients<DataType_>::HighShelvingCoefficients(int nb_channels)
+    :Parent(nb_channels)
+  {
   }
 
   template <typename DataType>

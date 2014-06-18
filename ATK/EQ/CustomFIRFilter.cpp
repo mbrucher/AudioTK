@@ -13,8 +13,8 @@
 namespace ATK
 {
   template <typename DataType>
-  CustomFIRCoefficients<DataType>::CustomFIRCoefficients()
-    :Parent(1, 1)
+  CustomFIRCoefficients<DataType>::CustomFIRCoefficients(int nb_channels)
+    :Parent(nb_channels, nb_channels)
   {
   }
 
