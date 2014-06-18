@@ -8,6 +8,16 @@ option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 
+message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
+message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
+message(INFO " Build tests: ${ENABLE_TESTS}")
+
+if(${ENABLE_TESTS} STREQUAL "ON")
+ if(${ENABLE_SHARED_LIBRARIES} STREQUAL "OFF")
+  message (ERROR " Tests depend on shared libraries to run")
+ endif(${ENABLE_SHARED_LIBRARIES} STREQUAL "OFF")
+endif(${ENABLE_TESTS} STREQUAL "ON")
+
 if(WIN32)
 set(MSVC_RUNTIME "Dynamic" CACHE STRING "Set up MSVC Runtime (Dynamic/Static)")
 
