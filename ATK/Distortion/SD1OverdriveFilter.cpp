@@ -6,6 +6,7 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
+#include "../Tools/exp.h"
 #include "../Tools/ScalarNewtonRaphson.h"
 
 namespace ATK
@@ -30,10 +31,12 @@ namespace ATK
     DataType oldy1;
     DataType oldexpy1;
     DataType oldinvexpy1;
+    
+    Exp<DataType> exp;
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-    :R1(R1), Q(Q), drive(0.5), is(is), vt(vt)
+    :R1(R1), Q(Q), drive(0.5), is(is), vt(vt), exp(32, 1024*1024)
     {
       A = dt / (2 * C) + R;
       B = dt / (2 * C) - R;
@@ -50,7 +53,7 @@ namespace ATK
     {
       y0 -= x0;
       y1 -= x1;
-      DataType expdiode_y1_p = std::exp(y1 / vt);
+      DataType expdiode_y1_p = exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       
       DataType expdiode_y0_p;
@@ -68,7 +71,7 @@ namespace ATK
 	    }
 	    else
 	    {
-	      expdiode_y0_p = std::exp(y0 / vt);
+	      expdiode_y0_p = exp(y0 / vt);
 	      expdiode_y0_m = 1 / expdiode_y0_p;
 	    }
 	  

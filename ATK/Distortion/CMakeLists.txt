@@ -37,7 +37,7 @@ add_library(ATKDistortion
     ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
 )
 
-target_link_libraries(ATKDistortion ATKCore)
+target_link_libraries(ATKDistortion ATKCore ATKTools)
 
 INSTALL(TARGETS ATKDistortion
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
