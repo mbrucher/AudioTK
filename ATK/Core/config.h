@@ -6,13 +6,17 @@
 #define ATK_CORE_CONFIG_H
 
 #ifdef _MSC_VER
-# ifdef BUILD_ATK_CORE
-#  define ATK_CORE_EXPORT __declspec( dllexport )
+# ifdef ATK_SHARED
+#  ifdef BUILD_ATK_CORE
+#   define ATK_CORE_EXPORT __declspec( dllexport )
+#  else
+#   define ATK_CORE_EXPORT __declspec( dllimport )
+#  endif
 # else
-#  define ATK_CORE_EXPORT __declspec( dllimport )
+#  define ATK_CORE_EXPORT
 # endif
 #else
-#define ATK_CORE_EXPORT
+# define ATK_CORE_EXPORT
 #endif
 
 #endif

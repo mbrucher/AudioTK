@@ -28,7 +28,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    ButterworthLowPassCoefficients();
+    ButterworthLowPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequency(DataType cut_frequency);
     DataType get_cut_frequency() const;
@@ -55,7 +55,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    ButterworthHighPassCoefficients();
+    ButterworthHighPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequency(DataType cut_frequency);
     DataType get_cut_frequency() const;
@@ -82,7 +82,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    ButterworthBandPassCoefficients();
+    ButterworthBandPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
     void set_cut_frequencies(DataType f0, DataType f1);
@@ -110,7 +110,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    ButterworthBandStopCoefficients();
+    ButterworthBandStopCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
     void set_cut_frequencies(DataType f0, DataType f1);

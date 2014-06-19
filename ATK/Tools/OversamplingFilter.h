@@ -1,5 +1,6 @@
 /**
  * \file OversamplingFilter.h
+ * Inspired by http://yehar.com/blog/wp-content/uploads/2009/08/deip.pdf
  */
 
 #ifndef ATK_TOOLS_OVERSAMPLINGFILTER_H
@@ -108,10 +109,13 @@ namespace ATK
     using Parent::input_delay;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
+
   private:
     Coefficients coeffs;
   public:
-    OversamplingFilter();
+    OversamplingFilter(int nb_channels = 1);
     
     virtual void process_impl(std::int64_t size);
   };

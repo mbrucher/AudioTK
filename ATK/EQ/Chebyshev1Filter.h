@@ -29,7 +29,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    Chebyshev1LowPassCoefficients();
+    Chebyshev1LowPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequency(DataType cut_frequency);
     DataType get_cut_frequency() const;
@@ -59,7 +59,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    Chebyshev1HighPassCoefficients();
+    Chebyshev1HighPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequency(DataType cut_frequency);
     DataType get_cut_frequency() const;
@@ -89,7 +89,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    Chebyshev1BandPassCoefficients();
+    Chebyshev1BandPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
     void set_cut_frequencies(DataType f0, DataType f1);
@@ -120,7 +120,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    Chebyshev1BandStopCoefficients();
+    Chebyshev1BandStopCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
     void set_cut_frequencies(DataType f0, DataType f1);

@@ -22,11 +22,13 @@ namespace ATK
     using Parent::outputs;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
 
     int decimation;
 
   public:
-    DecimationFilter(int ports = 1);
+    DecimationFilter(int nb_channels = 1);
     ~DecimationFilter();
     
   protected:

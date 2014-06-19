@@ -204,6 +204,8 @@ namespace ATK
     using Parent::coefficients_out;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
     
     using Parent::in_order;
     using Parent::out_order;
@@ -212,6 +214,11 @@ namespace ATK
     using Parent::setup;
     
   public:
+    IIRFilter(int nb_channels = 1)
+      :Parent(nb_channels)
+    {
+    }
+
     void setup()
     {
       Parent::setup();
@@ -222,22 +229,26 @@ namespace ATK
     virtual void process_impl(std::int64_t size)
     {
       assert(input_sampling_rate == output_sampling_rate);
+      assert(nb_input_ports == nb_output_ports);
       
       DataType tempout = 0;
       
-      for(std::int64_t i = 0; i < size; ++i)
+      for(int channel = 0; channel < nb_input_ports; ++channel)
       {
-        tempout = coefficients_in[in_order] * converted_inputs[0][i];
+        for(std::int64_t i = 0; i < size; ++i)
+        {
+          tempout = coefficients_in[in_order] * converted_inputs[channel][i];
 
-        for(int j = 0; j < in_order; ++j)
-        {
-          tempout += coefficients_in[j] * converted_inputs[0][i - in_order + j];
+          for(int j = 0; j < in_order; ++j)
+          {
+            tempout += coefficients_in[j] * converted_inputs[channel][i - in_order + j];
+          }
+          for(int j = 0; j < out_order; ++j)
+          {
+            tempout += coefficients_out[j] * outputs[channel][i - out_order + j];
+          }
+          outputs[channel][i] = tempout;
         }
-        for(int j = 0; j < out_order; ++j)
-        {
-          tempout += coefficients_out[j] * outputs[0][i - out_order + j];
-        }
-        outputs[0][i] = tempout;
       }
     }
     

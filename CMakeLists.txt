@@ -4,6 +4,38 @@ project(AudioTK)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
+option(ENABLE_TESTS "Enable tests generation" ON)
+option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
+option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
+
+message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
+message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
+message(INFO " Build tests: ${ENABLE_TESTS}")
+
+if(${ENABLE_TESTS} STREQUAL "ON")
+ if(${ENABLE_SHARED_LIBRARIES} STREQUAL "OFF")
+  message (ERROR " Tests depend on shared libraries to run")
+ endif(${ENABLE_SHARED_LIBRARIES} STREQUAL "OFF")
+endif(${ENABLE_TESTS} STREQUAL "ON")
+
+if(WIN32)
+set(MSVC_RUNTIME "Dynamic" CACHE STRING "Set up MSVC Runtime (Dynamic/Static)")
+
+if("${MSVC_RUNTIME}" STREQUAL "Static")
+  set(CompilerFlags
+        CMAKE_CXX_FLAGS
+        CMAKE_CXX_FLAGS_DEBUG
+        CMAKE_CXX_FLAGS_RELEASE
+        CMAKE_C_FLAGS
+        CMAKE_C_FLAGS_DEBUG
+        CMAKE_C_FLAGS_RELEASE
+        )
+  foreach(CompilerFlag ${CompilerFlags})
+    string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+  endforeach()
+endif()
+endif(WIN32)
+
 enable_testing()
 
 option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
@@ -58,11 +90,17 @@ configure_file (
   "ATK/config.h"
   )
 
+INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK/config.h
+   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK
+    )
+
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 add_subdirectory(ATK)
-add_subdirectory(tests)
+if(ENABLE_TESTS)
+  add_subdirectory(tests)
+endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
   add_subdirectory(Python)

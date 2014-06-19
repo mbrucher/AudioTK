@@ -6,6 +6,7 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
+#include "../Tools/exp.h"
 #include "../Tools/ScalarNewtonRaphson.h"
 
 namespace ATK
@@ -30,10 +31,12 @@ namespace ATK
     DataType oldy1;
     DataType oldexpy1;
     DataType oldinvexpy1;
+    
+    Exp<DataType> exp;
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-    :R1(R1), Q(Q), drive(0.5), is(is), vt(vt)
+    :R1(R1), Q(Q), drive(0.5), is(is), vt(vt), exp(32, 1024*1024)
     {
       A = dt / (2 * C) + R;
       B = dt / (2 * C) - R;
@@ -50,7 +53,7 @@ namespace ATK
     {
       y0 -= x0;
       y1 -= x1;
-      DataType expdiode_y1_p = std::exp(y1 / vt);
+      DataType expdiode_y1_p = exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       
       DataType expdiode_y0_p;
@@ -68,7 +71,7 @@ namespace ATK
 	    }
 	    else
 	    {
-	      expdiode_y0_p = std::exp(y0 / vt);
+	      expdiode_y0_p = exp(y0 / vt);
 	      expdiode_y0_m = 1 / expdiode_y0_p;
 	    }
 	  
@@ -88,8 +91,8 @@ namespace ATK
   
   
   template <typename DataType>
-  SD1OverdriveFilter<DataType>::SD1OverdriveFilter()
-  :TypedBaseFilter<DataType>(1, 1)
+  SD1OverdriveFilter<DataType>::SD1OverdriveFilter(int nb_channels)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
     optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction<DataType> >(function));
   }
@@ -115,9 +118,14 @@ namespace ATK
   template <typename DataType>
   void SD1OverdriveFilter<DataType>::process_impl(std::int64_t size)
   {
-    for(long i = 0; i < size; ++i)
+    assert(nb_input_ports == nb_output_ports);
+
+    for(int channel = 0; channel < nb_input_ports; ++channel)
     {
-      outputs[0][i] = optimizer->optimize(converted_inputs[0][i]);
+      for(std::int64_t i = 0; i < size; ++i)
+      {
+        outputs[channel][i] = optimizer->optimize(converted_inputs[channel][i]);
+      }
     }
   }
 

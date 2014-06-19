@@ -1,5 +1,7 @@
 /**
  * \file SimpleOverdriveFilter.h
+ * Inspired by http://simulanalog.org/statevariable.pdf
+ * See https://ccrma.stanford.edu/~dtyeh/papers/yeh07_dafx_clipode.pdf as well
  */
 
 #ifndef ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
@@ -34,8 +36,10 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
   public:
-    SimpleOverdriveFilter();
+    SimpleOverdriveFilter(int nb_channels = 1);
     ~SimpleOverdriveFilter();
     
   protected:
