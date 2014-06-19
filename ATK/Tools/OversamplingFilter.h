@@ -109,6 +109,9 @@ namespace ATK
     using Parent::input_delay;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
+
   private:
     Coefficients coeffs;
   public:

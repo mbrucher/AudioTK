@@ -6,11 +6,11 @@
 namespace ATK
 {
   template<class DataType>
-  class ToneStackFilter: public BaseFilter
+  class ToneStackFilterCoefficients: public BaseFilter
   {
   public:
-    ToneStackFilter();
-    ~ToneStackFilter();
+    ToneStackFilterCoefficients();
+    ~ToneStackFilterCoefficients();
     
     void set_low(DataType low);
     DataType get_low() const;
@@ -23,11 +23,11 @@ namespace ATK
   };
 }
 
-%template(FloatSD1ToneCoefficients) ATK::ToneStackFilter<float>;
-%template(DoubleSD1ToneCoefficients) ATK::ToneStackFilter<double>;
+%template(FloatToneStackCoefficients) ATK::ToneStackFilterCoefficients<float>;
+%template(DoubleToneStackCoefficients) ATK::ToneStackFilterCoefficients<double>;
 
-%template(FloatSD1ToneFilter) ATK::IIRFilter<ATK::ToneStackFilter<float> >;
-%template(DoubleSD1ToneFilter) ATK::IIRFilter<ATK::ToneStackFilter<double> >;
+%template(FloatToneStackFilter) ATK::IIRFilter<ATK::ToneStackFilterCoefficients<float> >;
+%template(DoubleToneStackFilter) ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> >;
 
-IIRFilterExtend(ATK::IIRFilter<ATK::ToneStackFilter<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::ToneStackFilter<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::ToneStackFilterCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> >, double);
