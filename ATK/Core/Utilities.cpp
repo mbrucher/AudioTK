@@ -5,6 +5,7 @@
 #include "Utilities.h"
 
 #include <cstdint>
+#include <cstring>
 
 #include <boost/mpl/equal.hpp>
 #include <boost/mpl/vector.hpp>
@@ -17,9 +18,16 @@ namespace
   template<typename DataType>
   void convert_to_array(const DataType* input_array, DataType* output_array, std::int64_t size, int offset, int ports)
   {
-    for(int i = 0; i < size; ++i)
+    if(ports == 1)
     {
-      output_array[i] = input_array[i * ports + offset];
+      memcpy(reinterpret_cast<void*>(output_array), reinterpret_cast<const void*>(input_array + offset), size * sizeof(DataType));
+    }
+    else
+    {
+      for(int i = 0; i < size; ++i)
+      {
+        output_array[i] = input_array[i * ports + offset];
+      }
     }
   }
   
