@@ -47,6 +47,7 @@ namespace ATK
     void process_impl(std::int64_t size);
     
   private:
+    DataType drive;
     boost::scoped_ptr<SD1OverdriveFunction<DataType> > function;
     boost::scoped_ptr<ScalarNewtonRaphson<SD1OverdriveFunction<DataType> > > optimizer;
   };
