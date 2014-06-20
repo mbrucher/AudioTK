@@ -24,7 +24,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
 
   public:
-    CustomIIRCoefficients(int nb_channels);
+    CustomIIRCoefficients(int nb_channels = 1);
 
     /**
      * Set custom coefficients for the IIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)

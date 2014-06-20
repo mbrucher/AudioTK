@@ -27,7 +27,7 @@ namespace ATK
     void setup();
 
   public:
-    BaseSecondOrderCoefficients(int nb_channels);
+    BaseSecondOrderCoefficients(int nb_channels = 1);
     void set_cut_frequency(DataType cut_frequency);
     DataType get_cut_frequency() const;
   };
@@ -54,7 +54,7 @@ namespace ATK
     void setup();
     
   public:
-    BandPassCoefficients(int nb_channels);
+    BandPassCoefficients(int nb_channels = 1);
 
     void set_Q(DataType Q);
     DataType get_Q() const;
@@ -97,7 +97,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup();
   public:
-    HighPassCoefficients(int nb_channels);
+    HighPassCoefficients(int nb_channels = 1);
   };
   
   /**
@@ -122,7 +122,7 @@ namespace ATK
     void setup();
     
   public:
-    BandPassPeakCoefficients(int nb_channels);
+    BandPassPeakCoefficients(int nb_channels = 1);
 
     void set_Q(DataType Q);
     DataType get_Q() const;
@@ -150,7 +150,7 @@ namespace ATK
     DataType gain;
     
   public:
-    LowShelvingCoefficients(int nb_channels);
+    LowShelvingCoefficients(int nb_channels = 1);
 
     void set_gain(DataType gain);
     DataType get_gain() const;
@@ -176,7 +176,7 @@ namespace ATK
     DataType gain;
     
   public:
-    HighShelvingCoefficients(int nb_channels);
+    HighShelvingCoefficients(int nb_channels = 1);
 
     void set_gain(DataType gain);
     DataType get_gain() const;

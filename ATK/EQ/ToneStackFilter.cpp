@@ -113,7 +113,7 @@ namespace ATK
 
 
   template<typename DataType>
-  IIRFilter<ToneStackFilterCoefficients<typename ToneStackFilterCoefficients<DataType>::DataType> >* ToneStackFilterCoefficients<DataType>::buildBassmanStack()
+  IIRFilter<ToneStackFilterCoefficients<DataType> >* ToneStackFilterCoefficients<DataType>::buildBassmanStack()
   {
     IIRFilter<ToneStackFilterCoefficients<DataType> >* filter = new IIRFilter<ToneStackFilterCoefficients<DataType> >;
     filter->set_coefficients(250e3, 1e6, 25e3, 45e3, 250e-12, 20e-9, 20e-9);
@@ -121,7 +121,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  IIRFilter<ToneStackFilterCoefficients<typename ToneStackFilterCoefficients<DataType>::DataType> >* ToneStackFilterCoefficients<DataType>::buildJCM800Stack()
+  IIRFilter<ToneStackFilterCoefficients<DataType> >* ToneStackFilterCoefficients<DataType>::buildJCM800Stack()
   {
     IIRFilter<ToneStackFilterCoefficients<DataType> >* filter = new IIRFilter<ToneStackFilterCoefficients<DataType> >;
     filter->set_coefficients(220e3, 1e6, 22e3, 33e3, 470e-12, 22e-9, 22e-9);

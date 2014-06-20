@@ -28,7 +28,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    BesselLowPassCoefficients(int nb_channels);
+    BesselLowPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequency(DataType cut_frequency);
     DataType get_cut_frequency() const;
@@ -55,7 +55,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    BesselHighPassCoefficients(int nb_channels);
+    BesselHighPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequency(DataType cut_frequency);
     DataType get_cut_frequency() const;
@@ -82,7 +82,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    BesselBandPassCoefficients(int nb_channels);
+    BesselBandPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
     void set_cut_frequencies(DataType f0, DataType f1);
@@ -110,7 +110,7 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
-    BesselBandStopCoefficients(int nb_channels);
+    BesselBandStopCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
     void set_cut_frequencies(DataType f0, DataType f1);
