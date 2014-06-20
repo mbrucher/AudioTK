@@ -30,4 +30,6 @@ Python/*/*wrap.cxx
 *.pyc
 
 doc/build
+Examples/*.txt
+*.sh
 

@@ -24,7 +24,7 @@ namespace ATK
     using Parent::nb_output_ports;
 
   public:
-    VolumeFilter(int nb_channels);
+    VolumeFilter(int nb_channels = 1);
     ~VolumeFilter();
 
     void set_volume(double volume);

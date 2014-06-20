@@ -9,7 +9,7 @@ namespace ATK
   class DecimationFilter: public BaseFilter
   {
   public:
-    DecimationFilter(int ports);
+    DecimationFilter(int nb_channels);
     ~DecimationFilter();
   };
 }
