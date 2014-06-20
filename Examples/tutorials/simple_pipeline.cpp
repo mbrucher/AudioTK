@@ -29,6 +29,7 @@
     volumefilter2.set_input_sampling_rate(sampling_rate);
     volumefilter2.set_input_port(0, &msmergefilter, 0);
     volumefilter2.set_input_port(1, &msmergefilter, 1);
+    volumefilter2.set_volume(2);
 
     ATK::OutSndFileFilter<std::int16_t> sink("stereofile2.wav", 2);
     sink.set_input_sampling_rate(sampling_rate);
