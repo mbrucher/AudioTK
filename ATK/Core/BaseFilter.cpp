@@ -14,7 +14,7 @@ namespace ATK
   BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
   :is_reset(true), nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
-   connections(nb_input_ports, std::make_pair(-1, nullptr))
+   connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0)
   {
 #if ATK_PROFILING == 1
     input_conversion_time = 0;
@@ -96,6 +96,16 @@ namespace ATK
   int BaseFilter::get_output_sampling_rate() const
   {
     return output_sampling_rate;
+  }
+
+  int BaseFilter::get_input_delay() const
+  {
+    return input_delay;
+  }
+
+  int BaseFilter::get_output_delay() const
+  {
+    return output_delay;
   }
 
   void BaseFilter::process(std::int64_t size)

@@ -58,9 +58,6 @@ namespace ATK
     std::vector<boost::scoped_array<DataType> > outputs_delay;
     std::vector<DataType *> outputs;
     std::vector<int> outputs_size;
-    
-    int input_delay;
-    int output_delay;
   };
 }
 

@@ -47,7 +47,7 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), outputs_size(nb_output_ports, 0), input_delay(0), output_delay(0)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), outputs_size(nb_output_ports, 0)
   {
   }
 
@@ -104,7 +104,7 @@ namespace ATK
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
-      if(input_delay == 0 && connections[i].second->get_type() == get_type())
+      if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
       {
         converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataType>* >(connections[i].second)->get_output_array(connections[i].first);
         continue;
