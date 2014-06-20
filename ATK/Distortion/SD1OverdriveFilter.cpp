@@ -107,6 +107,7 @@ namespace ATK
   {
     Parent::setup();
     function.reset(new SD1OverdriveFunction<DataType>(1./input_sampling_rate, 100e3, 0.047e-6, 33e3, 1e6, 1e-12, 26e-3));
+    function->set_drive(drive);
   }
 
   template <typename DataType>
