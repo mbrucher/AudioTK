@@ -104,6 +104,11 @@ namespace ATK
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
+      if(input_delay == 0 && connections[i].second->get_type() == get_type())
+      {
+        converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataType>* >(connections[i].second)->get_output_array(connections[i].first);
+        continue;
+      }
       if(converted_inputs_size[i] < size)
       {
         boost::scoped_array<DataType> temp(new DataType[input_delay + size]);
