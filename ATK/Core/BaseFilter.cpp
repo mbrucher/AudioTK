@@ -37,7 +37,10 @@ namespace ATK
   {
     for(auto it = connections.begin(); it != connections.end(); ++it)
     {
-      it->second->reset();
+      if(it->second)
+      {
+        it->second->reset();
+      }
     }
     is_reset = true;
   }
