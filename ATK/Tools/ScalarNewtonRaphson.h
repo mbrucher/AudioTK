@@ -24,10 +24,13 @@ namespace ATK
     DataType precision;
     
   public:
-    ScalarNewtonRaphson(const boost::scoped_ptr<Function>& function)
-    :function(function), x0(0), y0(0), precision(1e3 * std::numeric_limits<DataType>::epsilon())
+    ScalarNewtonRaphson(const boost::scoped_ptr<Function>& function, DataType precision = 0)
+    :function(function), x0(0), y0(0), precision(precision)
     {
-      
+      if(precision == 0)
+      {
+        this->precision = std::sqrt(std::numeric_limits<DataType>::epsilon());
+      }
     }
     
     DataType optimize(DataType x1)
