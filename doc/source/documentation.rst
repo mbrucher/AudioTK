@@ -51,6 +51,7 @@ The *Tools* has two kind of classes: filters and general purpose classes.
 * **VolumeFilter** multiplies input signal by a certain amount
 
 The general purpose classes are:
+
 * **Exp**, an exponential approcimation with a LUT and a 2-order Taylor expansion
 * **FFT**, a class that exposes a FFT
 * **SclarNewtonRaphson**, an optimization class for scalar ODEs
@@ -60,8 +61,20 @@ EQ module
 
 The *EQ* module contains a lot of different filter types.
 
-
+* **BesselFilter** is an implementation of Bessel filters
+* **ButterworthFilter** is an implementation of Butterworth filters
+* **Chebyshev1Filter** is an implementation of Chebyshev type 1 filters
+* **Chebyshev2Filter** is an implementation of Chebyshev type 2 filters
+* **SecondOrderFilter** is an implementation of second order filters
+* **IIRFilter** is the base class for IIR filters
+* **FirstOrderFilter** is an implementation of the Chamberlin filter
+* **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
+* **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
 
 Distortion module
 #################
 
+The Distortion module contains filters simulation distortion circuits.
+
+* **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
+* **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
