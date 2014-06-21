@@ -1,6 +1,10 @@
 Tutorials
 =========
 
+Audio Toolkit is about creating pipelines. Each filter offers a number of input
+ports and another number of output ports. All inputs have to be connected to
+another filter, and then the pipeline is used by calling **process**.
+
 Creating a basic pipeline
 #########################
 
