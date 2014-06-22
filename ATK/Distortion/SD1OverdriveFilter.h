@@ -45,6 +45,7 @@ namespace ATK
   protected:
     void setup();
     void process_impl(std::int64_t size);
+    DataType drive;
     
   private:
     boost::scoped_ptr<SD1OverdriveFunction<DataType> > function;

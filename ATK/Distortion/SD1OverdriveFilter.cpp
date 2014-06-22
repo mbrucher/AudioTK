@@ -113,6 +113,7 @@ namespace ATK
   template <typename DataType>
   void SD1OverdriveFilter<DataType>::set_drive(DataType drive)
   {
+    this->drive = drive;
     function->set_drive(drive);
   }
 
