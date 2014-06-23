@@ -42,7 +42,7 @@ namespace ATK
     for(std::int64_t i = 0; i < size; ++i)
     {
       state += real_increment;
-      outputs[0][i] = amplitude * std::sin(state * boost::math::constants::pi<double>());
+      outputs[0][i] = static_cast<DataType_>(amplitude * std::sin(state * boost::math::constants::pi<double>()));
     }
   }
   

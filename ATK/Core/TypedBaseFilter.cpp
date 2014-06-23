@@ -22,13 +22,13 @@ namespace
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-  convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int size, int type)
+  convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, std::int64_t size, int type)
   {
   }
 
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
-      convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int size, int type)
+      convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, std::int64_t size, int type)
   {
     if(type != 0)
     {

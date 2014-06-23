@@ -22,7 +22,7 @@ namespace ATK
   void ATK::CustomFIRCoefficients<DataType_>::set_coefficients_in( const std::vector<DataType>& coefficients_in )
   {
     this->coefficients_in = coefficients_in;
-    in_order = coefficients_in.size() - 1;
+    in_order = static_cast<int>(coefficients_in.size() - 1);
 
     setup();
   }

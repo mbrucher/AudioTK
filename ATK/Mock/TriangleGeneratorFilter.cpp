@@ -49,7 +49,7 @@ namespace ATK
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      outputs[0][i] = amplitude * state;
+      outputs[0][i] = static_cast<DataType_>(amplitude * state);
     }
   }
   

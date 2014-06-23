@@ -59,7 +59,7 @@ namespace ATK
     coefficients_in[1] = 0;
     coefficients_in[0] = -Q_inv * c / d;
     coefficients_out[1] = - 2 * (c * c - 1) / d;
-    coefficients_out[0] = - (1 - std::sqrt(2.) * c + c * c) / d;
+    coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
   }
   
   template <typename DataType>
@@ -93,7 +93,7 @@ namespace ATK
     coefficients_in[1] = 2 * c * c / d;
     coefficients_in[0] = c * c / d;
     coefficients_out[1] = - 2 * (c * c - 1) / d;
-    coefficients_out[0] = - (1 - std::sqrt(2.) * c + c * c) / d;
+    coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
   }
 
   template<typename DataType_>
@@ -114,7 +114,7 @@ namespace ATK
     coefficients_in[1] = -2;
     coefficients_in[0] = 1;
     coefficients_out[1] = - 2 * (c * c - 1) / d;
-    coefficients_out[0] = - (1 - std::sqrt(2.) * c + c * c) / d;
+    coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
   }
 
   template<typename DataType_>
@@ -197,21 +197,21 @@ namespace ATK
       DataType V0 = 1 / gain;
       DataType d = (1 + std::sqrt(2. * V0) * c + V0 * c * c);
       
-      coefficients_in[2] = (1 + std::sqrt(2.) * c + c * c) / d;
+      coefficients_in[2] = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
       coefficients_in[1] = 2 * (c * c - 1) / d;
-      coefficients_in[0] = (1 - std::sqrt(2.) * c + c * c) / d;
+      coefficients_in[0] = (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
       coefficients_out[1] = - 2 * (V0 * c * c - 1) / d;
-      coefficients_out[0] = - (1 - std::sqrt(2. * V0) * c + V0 * c * c) / d;
+      coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.) * V0) * c + V0 * c * c) / d;
     }
     else
     {
       DataType d = (1 + std::sqrt(2.) * c + c * c);
       
-      coefficients_in[2] = (1 + std::sqrt(2. * gain) * c + gain * c * c) / d;
+      coefficients_in[2] = (1 + std::sqrt(static_cast<DataType>(2.) * gain) * c + gain * c * c) / d;
       coefficients_in[1] = 2 * (gain * c * c - 1) / d;
-      coefficients_in[0] = (1 - std::sqrt(2. * gain) * c + gain * c * c) / d;
+      coefficients_in[0] = (1 - std::sqrt(static_cast<DataType>(2.) * gain) * c + gain * c * c) / d;
       coefficients_out[1] = - 2 * (c * c - 1) / d;
-      coefficients_out[0] = - (1 - std::sqrt(2.) * c + c * c) / d;
+      coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
     }
   }
 
@@ -245,21 +245,21 @@ namespace ATK
       DataType V0 = 1 / gain;
       DataType d = (V0 + std::sqrt(2. * V0) * c + c * c);
       
-      coefficients_in[2] = -(1 + std::sqrt(2.) * c + c * c) / d;
+      coefficients_in[2] = -(1 + std::sqrt(static_cast<DataType>(2.0)) * c + c * c) / d;
       coefficients_in[1] = -2 * (c * c - 1) / d;
-      coefficients_in[0] = -(1 - std::sqrt(2.) * c + c * c) / d;
+      coefficients_in[0] = -(1 - std::sqrt(static_cast<DataType>(2.0)) * c + c * c) / d;
       coefficients_out[1] = - 2 * (c * c - V0) / d;
-      coefficients_out[0] = - (V0 - std::sqrt(2. * V0) * c + c * c) / d;
+      coefficients_out[0] = - (V0 - std::sqrt(static_cast<DataType>(2.0) * V0) * c + c * c) / d;
     }
     else
     {
       DataType d = (1 + std::sqrt(2.) * c + c * c);
       
-      coefficients_in[2] = -(gain + std::sqrt(2. * gain) * c + c * c) / d;
+      coefficients_in[2] = -(gain + std::sqrt(static_cast<DataType>(2.0) * gain) * c + c * c) / d;
       coefficients_in[1] = -2 * (c * c - gain) / d;
-      coefficients_in[0] = -(gain - std::sqrt(2. * gain) * c + c * c) / d;
+      coefficients_in[0] = -(gain - std::sqrt(static_cast<DataType>(2.0) * gain) * c + c * c) / d;
       coefficients_out[1] = - 2 * (c * c - 1) / d;
-      coefficients_out[0] = - (1 - std::sqrt(2.) * c + c * c) / d;
+      coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.0)) * c + c * c) / d;
     }
   }
   

@@ -15,8 +15,8 @@ namespace
     z.clear(); // no zeros for this filter type
     p.clear();
     
-    DataType de = 1.0 / std::sqrt(std::pow(10, (0.1 * ripple)) - 1);
-    DataType mu = boost::math::asinh(1.0 / de) / order;
+    DataType de = static_cast<DataType>(1.0 / std::sqrt(std::pow(10, (0.1 * ripple)) - 1));
+    DataType mu = static_cast<DataType>(boost::math::asinh(1.0 / de) / order);
     
     for(int i = -order+1; i < order; i += 2)
     {
@@ -53,7 +53,7 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_chebyshev2_analog_coefficients(order, ripple, z, p, k);
+    create_chebyshev2_analog_coefficients(static_cast<int>(order), ripple, z, p, k);
     DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
     zpk_lp2lp(warped, z, p, k);
     zpk_bilinear(fs, z, p, k);
@@ -81,7 +81,7 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_chebyshev2_analog_coefficients(order/2, ripple, z, p, k);
+    create_chebyshev2_analog_coefficients(static_cast<int>(order/2), ripple, z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
@@ -111,7 +111,7 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_chebyshev2_analog_coefficients(order/2, ripple, z, p, k);
+    create_chebyshev2_analog_coefficients(static_cast<int>(order/2), ripple, z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     

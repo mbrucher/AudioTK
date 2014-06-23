@@ -20,9 +20,11 @@ namespace ATK
     using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
-    
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
+
   public:
-    VolumeFilter();
+    VolumeFilter(int nb_channels = 1);
     ~VolumeFilter();
 
     void set_volume(double volume);

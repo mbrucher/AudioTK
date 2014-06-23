@@ -34,6 +34,9 @@ namespace ATK
     ~InSndFileFilter();
     
     void process_impl(std::int64_t size);
+    
+    /// Returns the number of frames/samples in the opened file
+    std::int64_t get_frames() const;
   };
 }
 #endif
