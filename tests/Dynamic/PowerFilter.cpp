@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE( PowerFilter_RMS_09_1k_test )
   frequency_checks.push_back(std::make_pair(0, 2.236067977499789697));
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(2000, 1.098070570944812));
+  frequency_checks.push_back(std::make_pair(2000, 1.098070570944812)); // cos power=1/(1+memory**2-2*memory*cos(2*pi*f/fs))
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, &filter, 0);
