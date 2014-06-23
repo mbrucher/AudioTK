@@ -27,7 +27,7 @@ namespace ATK
   {
     if(memory_factor < 0 || memory_factor >= 1)
     {
-      throw std::range_error("Memory factor must be a positive value less than 1 (so that it doesn't diverge)");
+      throw std::out_of_range("Memory factor must be a positive value less than 1 (so that it doesn't diverge)");
     }
     this->memory_factor = memory_factor;
   }
