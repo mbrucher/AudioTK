@@ -61,7 +61,7 @@ namespace ATK
   {
     if(low < 0 || low > 1)
     {
-      throw std::range_error("Low is outside the interval [0,1]");
+      throw std::out_of_range("Low is outside the interval [0,1]");
     }
     this->low = low;
 
@@ -79,7 +79,7 @@ namespace ATK
   {
     if(middle < 0 || middle > 1)
     {
-      throw std::range_error("Middle is outside the interval [0,1]");
+      throw std::out_of_range("Middle is outside the interval [0,1]");
     }
     this->middle = middle;
 
@@ -98,7 +98,7 @@ namespace ATK
   {
     if(high < 0 || high > 1)
     {
-      throw std::range_error("high is outside the interval [0,1]");
+      throw std::out_of_range("high is outside the interval [0,1]");
     }
     this->high = high;
 

@@ -113,6 +113,10 @@ namespace ATK
   template <typename DataType>
   void SD1OverdriveFilter<DataType>::set_drive(DataType drive)
   {
+    if(drive < 0 || drive > 1)
+    {
+      throw std::out_of_range("Drive must be a value between 0 and 1");
+    }
     this->drive = drive;
     function->set_drive(drive);
   }

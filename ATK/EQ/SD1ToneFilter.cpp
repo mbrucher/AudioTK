@@ -53,7 +53,7 @@ namespace ATK
   {
     if(alpha < 0 || alpha > 1)
     {
-      throw std::range_error("Tone is outside the interval [0,1]");
+      throw std::out_of_range("Tone is outside the interval [0,1]");
     }
     this->alpha = alpha;
 
