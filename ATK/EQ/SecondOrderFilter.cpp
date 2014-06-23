@@ -52,7 +52,7 @@ namespace ATK
     Parent::setup();
     
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
-    DataType d = (1 + std::sqrt(2.) * c + c * c);
+    DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
     DataType Q_inv = 1 / Q;
     
     coefficients_in[2] = Q_inv * c / d;
@@ -87,7 +87,7 @@ namespace ATK
     Parent::setup();
 
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
-    DataType d = (1 + std::sqrt(2.) * c + c * c);
+    DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
     
     coefficients_in[2] = c * c / d;
     coefficients_in[1] = 2 * c * c / d;
@@ -108,7 +108,7 @@ namespace ATK
     Parent::setup();
 
     DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
-    DataType d = (1 + std::sqrt(2.) * c + c * c);
+    DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
     
     coefficients_in[2] = 1;
     coefficients_in[1] = -2;
@@ -195,7 +195,7 @@ namespace ATK
     if(gain <= 1)
     {
       DataType V0 = 1 / gain;
-      DataType d = (1 + std::sqrt(2. * V0) * c + V0 * c * c);
+      DataType d = (1 + std::sqrt(static_cast<DataType>(2.) * V0) * c + V0 * c * c);
       
       coefficients_in[2] = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
       coefficients_in[1] = 2 * (c * c - 1) / d;
@@ -205,7 +205,7 @@ namespace ATK
     }
     else
     {
-      DataType d = (1 + std::sqrt(2.) * c + c * c);
+      DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
       
       coefficients_in[2] = (1 + std::sqrt(static_cast<DataType>(2.) * gain) * c + gain * c * c) / d;
       coefficients_in[1] = 2 * (gain * c * c - 1) / d;
@@ -243,7 +243,7 @@ namespace ATK
     if(gain <= 1)
     {
       DataType V0 = 1 / gain;
-      DataType d = (V0 + std::sqrt(2. * V0) * c + c * c);
+      DataType d = (V0 + std::sqrt(static_cast<DataType>(2.) * V0) * c + c * c);
       
       coefficients_in[2] = -(1 + std::sqrt(static_cast<DataType>(2.0)) * c + c * c) / d;
       coefficients_in[1] = -2 * (c * c - 1) / d;
@@ -253,7 +253,7 @@ namespace ATK
     }
     else
     {
-      DataType d = (1 + std::sqrt(2.) * c + c * c);
+      DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
       
       coefficients_in[2] = -(gain + std::sqrt(static_cast<DataType>(2.0) * gain) * c + c * c) / d;
       coefficients_in[1] = -2 * (c * c - gain) / d;
