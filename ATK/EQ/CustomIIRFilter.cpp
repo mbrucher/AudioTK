@@ -22,7 +22,7 @@ namespace ATK
   void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_in( const std::vector<DataType>& coefficients_in )
   {
     this->coefficients_in = coefficients_in;
-    in_order = coefficients_in.size() - 1;
+    in_order = static_cast<int>(coefficients_in.size() - 1);
 
     setup();
   }
@@ -31,7 +31,7 @@ namespace ATK
   void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_out( const std::vector<DataType>& coefficients_out )
   {
     this->coefficients_out = coefficients_out;
-    out_order = coefficients_out.size();
+    out_order = static_cast<int>(coefficients_out.size());
 
     setup();
   }

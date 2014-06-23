@@ -30,7 +30,7 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_butterworth_analog_coefficients(order, z, p, k);
+    create_butterworth_analog_coefficients(static_cast<int>(order), z, p, k);
     DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
     zpk_lp2lp(warped, z, p, k);
     zpk_bilinear(fs, z, p, k);
@@ -57,7 +57,7 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_butterworth_analog_coefficients(order/2, z, p, k);
+    create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
@@ -87,7 +87,7 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_butterworth_analog_coefficients(order/2, z, p, k);
+    create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     

@@ -44,6 +44,8 @@ namespace ATK
     virtual void set_nb_input_ports(int nb_ports);
     int get_nb_output_ports() const;
     virtual void set_nb_output_ports(int nb_ports);
+    int get_input_delay() const;
+    int get_output_delay() const;
 
     /// Resets the filter so that it will process something if needed
     void reset();
@@ -69,6 +71,9 @@ namespace ATK
     int output_sampling_rate;
     /// The connections to the output pins of some filters
     std::vector<std::pair<int, BaseFilter*> > connections;
+
+    int input_delay;
+    int output_delay;
 
   private:
 #if ATK_PROFILING == 1

@@ -36,12 +36,12 @@ namespace ATK
      * @param port is the port that the next plugin listens to
      */
     DataType* get_output_array(int port);
-    
+
     virtual void set_nb_input_ports(int nb_ports);
     virtual void set_nb_output_ports(int nb_ports);
-    virtual int get_type() const;
 
   protected:
+    virtual int get_type() const;
     /// This implementation retrieves inputs from other filters and converts it accordingly
     virtual void process_impl(std::int64_t size);
     /// Prepares the filter by retrieving the inputs arrays
@@ -54,13 +54,10 @@ namespace ATK
 
     std::vector<boost::scoped_array<DataType> > converted_inputs_delay;
     std::vector<DataType *> converted_inputs;
-    std::vector<int> converted_inputs_size;
+    std::vector<std::int64_t> converted_inputs_size;
     std::vector<boost::scoped_array<DataType> > outputs_delay;
     std::vector<DataType *> outputs;
-    std::vector<int> outputs_size;
-    
-    int input_delay;
-    int output_delay;
+    std::vector<std::int64_t> outputs_size;
   };
 }
 

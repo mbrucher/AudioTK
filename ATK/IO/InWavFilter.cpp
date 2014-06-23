@@ -15,9 +15,9 @@ namespace
   template<typename DataType1, typename DataType2>
   void convert(std::vector<std::vector<DataType1> >& outputs, const std::vector<char>& inputs)
   {
-    int nbChannels = outputs.size();
+    std::size_t nbChannels = outputs.size();
     std::int64_t size = outputs[0].size();
-    for(int j = 0; j < nbChannels; ++j)
+    for(std::size_t j = 0; j < nbChannels; ++j)
     {
       ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, nbChannels);
     }
@@ -62,7 +62,7 @@ namespace ATK
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
     wavstream.read(buffer.data(), buffer.size());
     
-    if(temp_arrays[0].size() < size)
+    if(temp_arrays[0].size() < static_cast<std::size_t>(size))
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {

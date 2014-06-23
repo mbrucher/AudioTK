@@ -11,6 +11,12 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.3.0
+* Enhanced the ScalarNewtonRaphson algorithm to accept different precision. Used a more relaxed one by default
+* Fixed a bug in SD1OverdriveFilter
+* Optimized array copies between filters
+* Added documentation
+
 0.2.1
 * Fix some issues with deploying ATK
 * Tone stacks (Bassman and JCM800) with Python wrappers

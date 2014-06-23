@@ -10,8 +10,8 @@
 namespace ATK
 {
   template<typename DataType_>
-  VolumeFilter<DataType_>::VolumeFilter()
-  :Parent(1, 1), volume(1)
+  VolumeFilter<DataType_>::VolumeFilter(int nb_channels)
+  :Parent(nb_channels, nb_channels), volume(1)
   {
     
   }
@@ -37,9 +37,12 @@ namespace ATK
   template<typename DataType_>
   void VolumeFilter<DataType_>::process_impl(std::int64_t size)
   {
-    for(std::int64_t i = 0; i < size; ++i)
+    for(int channel = 0; channel < nb_input_ports; ++channel)
     {
-      outputs[0][i] = static_cast<DataType>(volume * converted_inputs[0][i]);
+      for(std::int64_t i = 0; i < size; ++i)
+      {
+        outputs[channel][i] = static_cast<DataType>(volume * converted_inputs[channel][i]);
+      }
     }
   }
   

@@ -30,7 +30,7 @@ namespace
       p[i] *= Wn;
     }
     
-    k *= std::pow(Wn, relative_degree);
+    k *= static_cast<DataType>(std::pow(Wn, relative_degree));
   }
 
   /// Transform the Wn=1 low pass analog filter in a Wn=Wn, bw=bw band pass filter
@@ -66,14 +66,14 @@ namespace
     z.swap(zbp);
     p.swap(pbp);
     
-    k *= std::pow(bw, relative_degree);
+    k *= static_cast<DataType>(std::pow(bw, relative_degree));
   }
   
   /// Transform the Wn=1 low pass analog filter in a Wn=Wn, bw=bw band stop filter
   template<typename DataType>
   void zpk_lp2bs(DataType Wn, DataType bw, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
-    int relative_degree = p.size() - z.size();
+    int relative_degree = static_cast<int>(p.size()) - static_cast<int>(z.size());
   
     std::complex<DataType> f = 1;
     for(size_t i = 0; i < z.size(); ++i)

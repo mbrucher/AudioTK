@@ -41,12 +41,12 @@ namespace ATK
   template<typename DataType>
   void OutWavFilter<DataType>::process_impl(std::int64_t size)
   {
-    int nb_inputs = converted_inputs.size();
+    std::size_t nb_inputs = converted_inputs.size();
     std::vector<DataType> buffer(nb_inputs * size);
     
     for(std::int64_t i = 0; i < size; ++i)
     {
-      for(std::int64_t j = 0; j < nb_inputs; ++j)
+      for(std::size_t j = 0; j < nb_inputs; ++j)
       {
         buffer[j + i * nb_inputs] = converted_inputs[j][i];
       }
@@ -86,9 +86,9 @@ namespace ATK
     std::size_t bloc_size = sizeof(WavFormat);
     std::size_t data_size = total_size - sizeof(WavFormat) - sizeof(WavHeader) - sizeof(WavData);
     wavstream.seekp(0);
-    header.FileSize = total_size - 8;
-    format.BlocSize = bloc_size - 8;
-    data.DataSize = data_size;
+    header.FileSize = static_cast<std::int32_t>(total_size - 8);
+    format.BlocSize = static_cast<std::int32_t>(bloc_size - 8);
+    data.DataSize = static_cast<std::int32_t>(data_size);
     wavstream.write(reinterpret_cast<char*>(&header), sizeof(WavHeader));
     wavstream.write(reinterpret_cast<char*>(&format), sizeof(WavFormat));
     wavstream.write(reinterpret_cast<char*>(&data), sizeof(WavData));

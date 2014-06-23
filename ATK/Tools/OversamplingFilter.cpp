@@ -170,7 +170,7 @@ namespace ATK
 
         for (int j = 0; j < Coefficients::oversampling_factor; ++j)
         {
-          DataType z = static_cast<DataType>(j) / Coefficients::oversampling_factor - 1 / 2.;
+          DataType z = static_cast<DataType>(j) / Coefficients::oversampling_factor - static_cast<DataType>(1 / 2.);
 
           DataType temp = 0;
           for(int k = Coefficients::order; k >= 0; --k)
