@@ -1,8 +1,8 @@
 /**
- * \file ARCompressorFilter.cpp
+ * \file GainCompressorFilter.cpp
  */
 
-#include "ARCompressorFilter.h"
+#include "GainCompressorFilter.h"
 
 #include <cmath>
 #include <cstdint>
@@ -10,20 +10,20 @@
 namespace ATK
 {
   template<typename DataType_>
-  ARCompressorFilter<DataType_>::ARCompressorFilter(int nb_channels)
+  GainCompressorFilter<DataType_>::GainCompressorFilter(int nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
     output_delay = 1;
   }
   
   template<typename DataType_>
-  ARCompressorFilter<DataType_>::~ARCompressorFilter()
+  GainCompressorFilter<DataType_>::~GainCompressorFilter()
   {
     
   }
 
   template<typename DataType_>
-  void ARCompressorFilter<DataType_>::process_impl(std::int64_t size)
+  void GainCompressorFilter<DataType_>::process_impl(std::int64_t size)
   {
     for(int channel = 0; channel < nb_output_ports; ++channel)
     {
@@ -34,6 +34,6 @@ namespace ATK
     }
   }
   
-  template class ARCompressorFilter<float>;
-  template class ARCompressorFilter<double>;
+  template class GainCompressorFilter<float>;
+  template class GainCompressorFilter<double>;
 }
