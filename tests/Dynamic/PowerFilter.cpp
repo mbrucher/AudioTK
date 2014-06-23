@@ -40,10 +40,10 @@ BOOST_AUTO_TEST_CASE( PowerFilter_RMS_0_1k_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 0.7071067811865475244));
+  frequency_checks.push_back(std::make_pair(0, 1));
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(2000, 0.5)); // Power will multiple frequency by 2
+  frequency_checks.push_back(std::make_pair(2000, 0.7071067811865475244)); // Power will multiple frequency by 2
   frequency_checks.push_back(std::make_pair(4000, 0));
   checker.set_checks(frequency_checks);
 
@@ -100,10 +100,10 @@ BOOST_AUTO_TEST_CASE( PowerFilter_RMS_09_1k_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 2.236067977499789697));
+  frequency_checks.push_back(std::make_pair(0, 1));
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(2000, 1.098070570944812)); // cos power=1/(1+memory**2-2*memory*cos(2*pi*f/fs))
+  frequency_checks.push_back(std::make_pair(2000, 0.49107208814492116)); // cos power=1/(1+memory**2-2*memory*cos(2*pi*f/fs))
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, &filter, 0);
@@ -129,9 +129,9 @@ BOOST_AUTO_TEST_CASE( PowerFilter_RMS_0_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 0.7071067811865475244));
+  frequency_checks.push_back(std::make_pair(0, 1));
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.5)); // Power will multiple frequency by 2
+  frequency_checks.push_back(std::make_pair(200, 0.7071067811865475244)); // Power will multiple frequency by 2
   frequency_checks.push_back(std::make_pair(400, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
@@ -189,10 +189,10 @@ BOOST_AUTO_TEST_CASE( PowerFilter_RMS_09_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 2.236067977499789697));
+  frequency_checks.push_back(std::make_pair(0, 1));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 1.568323054019139));
+  frequency_checks.push_back(std::make_pair(200, 0.7013753920393636));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, &filter, 0);
@@ -218,10 +218,10 @@ BOOST_AUTO_TEST_CASE( PowerFilter_RMS_0_10k_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 0.7071067811865475244));
+  frequency_checks.push_back(std::make_pair(0, 1));
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
-  frequency_checks.push_back(std::make_pair(20000, 0.5)); // Power will multiple frequency by 2
+  frequency_checks.push_back(std::make_pair(20000, 0.7071067811865475244)); // Power will multiple frequency by 2
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, &filter, 0);
@@ -276,10 +276,10 @@ BOOST_AUTO_TEST_CASE( PowerFilter_RMS_09_10k_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 2.236067977499789697));
+  frequency_checks.push_back(std::make_pair(0, 1));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
-  frequency_checks.push_back(std::make_pair(20000, 0.4008154691677741));
+  frequency_checks.push_back(std::make_pair(20000, 0.1792501270985228));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, &filter, 0);

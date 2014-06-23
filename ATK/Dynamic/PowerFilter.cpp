@@ -45,7 +45,7 @@ namespace ATK
     {
       for(std::int64_t i = 0; i < size; ++i)
       {
-        outputs[channel][i] = converted_inputs[channel][i] * converted_inputs[channel][i] / 2 + memory_factor * outputs[channel][i-1];
+        outputs[channel][i] = (1 - memory_factor) * converted_inputs[channel][i] * converted_inputs[channel][i] + memory_factor * outputs[channel][i-1];
       }
     }
   }
