@@ -11,8 +11,7 @@
 namespace ATK
 {
   /**
-   * Gain "compressor". Has twice as many inputs channels as it has output channels
-   * Even channels are signal, odd channels are gains, results is the product of both
+   * Gain "compressor". Computes a new gain based on threshold and slope
    */
   template<typename DataType_>
   class ATK_DYNAMIC_EXPORT GainCompressorFilter : public TypedBaseFilter<DataType_>
@@ -31,9 +30,23 @@ namespace ATK
     GainCompressorFilter(int nb_channels = 1);
     ~GainCompressorFilter();
     
+    void set_threshold(DataType_ threshold);
+    void set_threshold_db(DataType_ threshold);
+    DataType_ get_threshold() const;
+    /**
+     * 1:slope is defined as the reduction factor. 1:1 is a reduction of 0, 1:2 is a reduction by a factor of 2...
+     */
+    void set_slope(DataType_ slope);
+    DataType_ get_slope() const;
+    void set_softness(DataType_ softness);
+    DataType_ get_softness() const;
+
   protected:
     virtual void process_impl(std::int64_t size);
     
+    DataType_ threshold;
+    DataType_ slope;
+    DataType_ softness;
   };
 }
 

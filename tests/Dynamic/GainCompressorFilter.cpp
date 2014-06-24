@@ -13,14 +13,14 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024*64)
+#define PROCESSSIZE (64)
 
-BOOST_AUTO_TEST_CASE( GainCompressorFilter_sinus_test )
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
+    data[i] = 1;
   }
   
   ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
@@ -31,7 +31,6 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_sinus_test )
   ATK::GainCompressorFilter<float> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
-  filter.set_input_port(1, &generator, 0);
 
   ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
@@ -41,6 +40,99 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_sinus_test )
   
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_EQUAL(data[i] * data[i], outdata[i]);
+    BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1);
+  }
+}
+
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_0_test )
+{
+  boost::scoped_array<float> data(new float[PROCESSSIZE]);
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    data[i] = 0;
+  }
+
+  ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
+  generator.set_output_sampling_rate(48000);
+
+  boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
+
+  ATK::GainCompressorFilter<float> filter(1);
+  filter.set_input_sampling_rate(48000);
+  filter.set_input_port(0, &generator, 0);
+
+  ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
+  output.set_input_sampling_rate(48000);
+  output.set_input_port(0, &filter, 0);
+
+  output.process(PROCESSSIZE);
+
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    BOOST_REQUIRE_EQUAL(0, outdata[i]);
+  }
+}
+
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_slope_2_test )
+{
+  boost::scoped_array<float> data(new float[PROCESSSIZE]);
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    data[i] = 1;
+  }
+
+  ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
+  generator.set_output_sampling_rate(48000);
+
+  boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
+
+  ATK::GainCompressorFilter<float> filter(1);
+  filter.set_input_sampling_rate(48000);
+  filter.set_input_port(0, &generator, 0);
+  filter.set_threshold(0.5);
+  filter.set_slope(2);
+  filter.set_softness(1);
+
+  ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
+  output.set_input_sampling_rate(48000);
+  output.set_input_port(0, &filter, 0);
+
+  output.process(PROCESSSIZE);
+
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    BOOST_REQUIRE_CLOSE(0.7, outdata[i], 0.1);
+  }
+}
+
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_slope_4_test )
+{
+  boost::scoped_array<float> data(new float[PROCESSSIZE]);
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    data[i] = 1;
+  }
+
+  ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
+  generator.set_output_sampling_rate(48000);
+
+  boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
+
+  ATK::GainCompressorFilter<float> filter(1);
+  filter.set_input_sampling_rate(48000);
+  filter.set_input_port(0, &generator, 0);
+  filter.set_threshold(0.5);
+  filter.set_slope(4);
+  filter.set_softness(1);
+
+  ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
+  output.set_input_sampling_rate(48000);
+  output.set_input_port(0, &filter, 0);
+
+  output.process(PROCESSSIZE);
+
+  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    BOOST_REQUIRE_CLOSE(0.58635664, outdata[i], 0.1);
   }
 }
