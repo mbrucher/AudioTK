@@ -16,5 +16,5 @@ add_subdirectory(EQ)
 add_subdirectory(Distortion)
 add_subdirectory(Dynamic)
 
-INSTALL(FILES __init__.py DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${PYTHON_FOLDER}/site-packages/ATK)
+INSTALL(FILES __init__.py DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK)
 
