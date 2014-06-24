@@ -30,7 +30,7 @@ def filter(input):
   powerfilter = DoublePowerFilter(1)
   powerfilter.set_input_sampling_rate(sample_rate)
   powerfilter.set_input_port(0, infilter, 0)
-  powerfilter.set_memory(np.exp(-1/(sample_rate*50e-3)))
+  powerfilter.set_memory(np.exp(-1/(sample_rate*5e-3)))
 
   attackreleasefilter = DoubleAttackReleaseFilter(1)
   attackreleasefilter.set_input_sampling_rate(sample_rate)
@@ -45,9 +45,14 @@ def filter(input):
   gainfilter.set_slope(4)
   gainfilter.set_softness(1)
 
+  applygainfilter = DoubleApplyGainFilter(1)
+  applygainfilter.set_input_sampling_rate(sample_rate)
+  applygainfilter.set_input_port(0, gainfilter, 0)
+  applygainfilter.set_input_port(1, infilter, 0)
+
   outfilter = DoubleOutPointerFilter(output, False)
   outfilter.set_input_sampling_rate(sample_rate)
-  outfilter.set_input_port(0, gainfilter, 0)
+  outfilter.set_input_port(0, applygainfilter, 0)
   outfilter.process(input.shape[1])
 
   return output
