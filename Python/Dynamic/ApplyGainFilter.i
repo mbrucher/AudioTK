@@ -14,5 +14,5 @@ namespace ATK
   };
 }
 
-%template(FloatSimpleOverdriveFilter) ATK::ApplyGainFilter<float>;
-%template(DoubleSimpleOverdriveFilter) ATK::ApplyGainFilter<double>;
+%template(FloatApplyGainFilter) ATK::ApplyGainFilter<float>;
+%template(DoubleApplyGainFilter) ATK::ApplyGainFilter<double>;

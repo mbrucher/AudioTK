@@ -12,10 +12,10 @@ namespace ATK
     AttackReleaseFilter(int nb_channels);
     ~AttackReleaseFilter();
 
-    void set_attack(DataType_ attack);
-    DataType_ get_attack() const;
-    void set_release(DataType_ release);
-    DataType_ get_release() const;
+    void set_attack(DataType attack);
+    DataType get_attack() const;
+    void set_release(DataType release);
+    DataType get_release() const;
   };
 }
 

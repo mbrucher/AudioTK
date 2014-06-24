@@ -1,6 +1,6 @@
 
 %{
-#include <ATK/Dynamic/SD1OverdriveFilter.h>
+#include <ATK/Dynamic/PowerFilter.h>
 %}
 
 namespace ATK
