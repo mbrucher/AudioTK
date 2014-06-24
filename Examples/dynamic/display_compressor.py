@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 
 sample_rate = 96000
 
-
 def plot_me(signal, MySampleRate, NFFT = 8192, noverlap = 1024):
   a = plt.subplot(2, 1, 1)
   plt.title("Original signal")
@@ -30,7 +29,7 @@ def filter(input):
   powerfilter = DoublePowerFilter(1)
   powerfilter.set_input_sampling_rate(sample_rate)
   powerfilter.set_input_port(0, infilter, 0)
-  powerfilter.set_memory(np.exp(-1/(sample_rate*5e-3)))
+  powerfilter.set_memory(np.exp(-1/(sample_rate*1e-3)))
 
   attackreleasefilter = DoubleAttackReleaseFilter(1)
   attackreleasefilter.set_input_sampling_rate(sample_rate)
@@ -41,7 +40,7 @@ def filter(input):
   gainfilter = DoubleGainCompressorFilter(1)
   gainfilter.set_input_sampling_rate(sample_rate)
   gainfilter.set_input_port(0, attackreleasefilter, 0)
-  gainfilter.set_threshold(0.1)
+  gainfilter.set_threshold(0.5)
   gainfilter.set_slope(4)
   gainfilter.set_softness(1)
 
@@ -59,17 +58,16 @@ def filter(input):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 100000
+  size = 2400
 
-  samples = 2000000
-  freq_max = 20000
-
-  t = np.arange(samples, dtype=np.float64).reshape(1, -1) / sample_rate
-  d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t)
+  x = np.arange(size, dtype=np.float64).reshape(1, -1) / sample_rate
+  d = np.sin(x * 2 * np.pi * 1000)
 
   np.savetxt("input.txt", d)
   out = filter(d)
   plt.figure()
-  plt.title("Oversampling 32")
-  plot_me((d[0], out[0]), sample_rate)
+  plt.plot(x[0], d[0], label="input")
+  plt.plot(x[0], out[0], label="output")
+  plt.title("Compressor")
+  plt.legend()
   plt.show()
