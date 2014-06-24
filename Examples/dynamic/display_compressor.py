@@ -58,16 +58,17 @@ def filter(input):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 2400
+  size = 960000
 
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / sample_rate
   d = np.sin(x * 2 * np.pi * 1000)
 
   np.savetxt("input.txt", d)
   out = filter(d)
-  plt.figure()
-  plt.plot(x[0], d[0], label="input")
-  plt.plot(x[0], out[0], label="output")
-  plt.title("Compressor")
-  plt.legend()
-  plt.show()
+  np.savetxt("output.txt", d)
+  #plt.figure()
+  #plt.plot(x[0], d[0], label="input")
+  #plt.plot(x[0], out[0], label="output")
+  #plt.title("Compressor")
+  #plt.legend()
+  #plt.show()
