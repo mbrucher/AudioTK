@@ -23,6 +23,7 @@ namespace ATK
     using Parent::outputs;
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
+    using Parent::output_delay;
 
   public:
     AttackReleaseFilter(int nb_channels = 1);

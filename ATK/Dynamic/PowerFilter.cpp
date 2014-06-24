@@ -4,8 +4,8 @@
 
 #include "PowerFilter.h"
 
-#include <cmath>
 #include <cstdint>
+#include <stdexcept>
 
 namespace ATK
 {
@@ -41,6 +41,8 @@ namespace ATK
   template<typename DataType_>
   void PowerFilter<DataType_>::process_impl(std::int64_t size)
   {
+    assert(nb_input_ports == nb_output_ports);
+
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
       for(std::int64_t i = 0; i < size; ++i)

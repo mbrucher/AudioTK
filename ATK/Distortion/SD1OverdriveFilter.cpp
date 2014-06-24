@@ -4,6 +4,8 @@
 
 #include "SD1OverdriveFilter.h"
 
+#include <stdexcept>
+
 #include <boost/math/special_functions/sign.hpp>
 
 #include "../Tools/exp.h"
