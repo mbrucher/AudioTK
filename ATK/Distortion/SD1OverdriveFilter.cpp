@@ -92,7 +92,7 @@ namespace ATK
   
   template <typename DataType>
   SD1OverdriveFilter<DataType>::SD1OverdriveFilter(int nb_channels)
-  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
+    :TypedBaseFilter<DataType>(nb_channels, nb_channels), drive(0)
   {
     optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction<DataType> >(function));
   }
