@@ -5,6 +5,8 @@
 #ifndef ATK_DYNAMIC_GAINCOMPRESSORFILTER_H
 #define ATK_DYNAMIC_GAINCOMPRESSORFILTER_H
 
+#include <vector>
+
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
 
@@ -31,7 +33,7 @@ namespace ATK
     ~GainCompressorFilter();
     
     void set_threshold(DataType_ threshold);
-    void set_threshold_db(DataType_ threshold);
+    void set_threshold_db(DataType_ threshold_db);
     DataType_ get_threshold() const;
     /**
      * 1:slope is defined as the reduction factor. 1:1 is a reduction of 0, 1:2 is a reduction by a factor of 2...
@@ -43,10 +45,14 @@ namespace ATK
 
   protected:
     virtual void process_impl(std::int64_t size);
+
+    void recomputeLUT();
     
     DataType_ threshold;
     DataType_ slope;
     DataType_ softness;
+
+    std::vector<DataType_> gainLUT;
   };
 }
 
