@@ -8,6 +8,7 @@
 #include <boost/scoped_ptr.hpp>
 
 #include "../Core/TypedBaseFilter.h"
+#include "config.h"
 
 namespace ATK
 {
@@ -21,7 +22,7 @@ namespace ATK
    * First order filter template class
    */
   template<typename DataType_>
-  class SD1OverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT SD1OverdriveFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;

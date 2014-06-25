@@ -11,6 +11,8 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+* Adding compressor elements and the Python wrappers
+
 0.3.0
 * Enhanced the ScalarNewtonRaphson algorithm to accept different precision. Used a more relaxed one by default
 * Fixed a bug in SD1OverdriveFilter

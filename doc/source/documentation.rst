@@ -74,7 +74,17 @@ The *EQ* module contains a lot of different filter types.
 Distortion module
 #################
 
-The Distortion module contains filters simulation distortion circuits.
+The *Distortion* module contains filters simulation distortion circuits.
 
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
+
+Dynamic module
+##############
+
+The Dynamic module contains filters enabling compressor construction.
+
+* **ApplyGainFilter** is a filter that multiplies two input signals together
+* **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
+* **GainCompressorFilter** is a filter that changes an input signal (a gain) with like a compressor does
+* **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal

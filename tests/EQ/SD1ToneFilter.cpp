@@ -15,6 +15,18 @@
 #define PROCESSSIZE (1024*1024)
 #define SAMPLINGRATE (1024*64)
 
+BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_throw_1_test )
+{
+  ATK::IIRFilter<ATK::SD1ToneCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_tone(1.001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_throw_0_test )
+{
+  ATK::IIRFilter<ATK::SD1ToneCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_tone(-0.001), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_100_test )
 {
   ATK::SinusGeneratorFilter<double> generator;

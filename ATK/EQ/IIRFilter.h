@@ -235,19 +235,21 @@ namespace ATK
       
       for(int channel = 0; channel < nb_input_ports; ++channel)
       {
+        const DataType* ATK_RESTRICT input = converted_inputs[channel];
+        DataType* ATK_RESTRICT output = outputs[channel];
         for(std::int64_t i = 0; i < size; ++i)
         {
-          tempout = coefficients_in[in_order] * converted_inputs[channel][i];
+          tempout = coefficients_in[in_order] * input[i];
 
           for(int j = 0; j < in_order; ++j)
           {
-            tempout += coefficients_in[j] * converted_inputs[channel][i - in_order + j];
+            tempout += coefficients_in[j] * input[i - in_order + j];
           }
           for(int j = 0; j < out_order; ++j)
           {
-            tempout += coefficients_out[j] * outputs[channel][i - out_order + j];
+            tempout += coefficients_out[j] * output[i - out_order + j];
           }
-          outputs[channel][i] = tempout;
+          output[i] = tempout;
         }
       }
     }

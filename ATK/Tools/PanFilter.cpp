@@ -70,10 +70,13 @@ namespace ATK
         break;
     }
     
+    const DataType* ATK_RESTRICT input = converted_inputs[0];
+    DataType* ATK_RESTRICT output0 = outputs[0];
+    DataType* ATK_RESTRICT output1 = outputs[1];
     for(std::int64_t i = 0; i < size; ++i)
     {
-      outputs[0][i] = static_cast<DataType>(left_coeff * converted_inputs[0][i]);
-      outputs[1][i] = static_cast<DataType>(right_coeff * converted_inputs[0][i]);
+      output0[i] = static_cast<DataType>(left_coeff * input[i]);
+      output1[i] = static_cast<DataType>(right_coeff * input[i]);
     }
     
   }

@@ -4,6 +4,8 @@
 
 #include "SD1OverdriveFilter.h"
 
+#include <stdexcept>
+
 #include <boost/math/special_functions/sign.hpp>
 
 #include "../Tools/exp.h"
@@ -113,6 +115,10 @@ namespace ATK
   template <typename DataType>
   void SD1OverdriveFilter<DataType>::set_drive(DataType drive)
   {
+    if(drive < 0 || drive > 1)
+    {
+      throw std::out_of_range("Drive must be a value between 0 and 1");
+    }
     this->drive = drive;
     function->set_drive(drive);
   }
@@ -124,9 +130,11 @@ namespace ATK
 
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
-        outputs[channel][i] = optimizer->optimize(converted_inputs[channel][i]);
+        output[i] = optimizer->optimize(input[i]);
       }
     }
   }
