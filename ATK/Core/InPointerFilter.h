@@ -26,7 +26,7 @@ namespace ATK
      * @param array is the pointer to the data that will be reused during all the processing
      * @param size in the size of the data for one channel
      * @param channels is the number of total channels
-     * @param interleaved indicates if the data is interleaved (Wav/Fortran order) or not (C order)
+     * @param interleaved indicates if the data is interleaved (Wav/Fortran order) or not (C order). If interleaved, size and channels switch position.
      */
     InPointerFilter(const DataType* array, int channels, std::int64_t size, bool interleaved);
     virtual ~InPointerFilter();

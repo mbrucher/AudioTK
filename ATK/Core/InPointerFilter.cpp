@@ -5,6 +5,7 @@
 #include "InPointerFilter.h"
 
 #include <cstdint>
+#include <cstring>
 
 namespace ATK
 {
@@ -30,12 +31,23 @@ namespace ATK
   template<typename DataType>
   void InPointerFilter<DataType>::process_impl(std::int64_t size)
   {
-    std::int64_t i;
-    for(i = 0; i < size && (i + offset < mysize); ++i)
+    std::int64_t i = 0;
+    if(!interleaved)
     {
+      i = std::min(size, mysize - offset);
       for(int j = 0; j < channels; ++j)
       {
-        outputs[j][i] = array[channels * offset + (interleaved ? (j + i * channels) : (j * mysize + i))];
+        memcpy(reinterpret_cast<void*>(outputs[j]), reinterpret_cast<const void*>(&array[channels * offset + (j * mysize)]), i * sizeof(DataType));
+      }
+    }
+    else
+    {
+      for(i = 0; i < size && (i + offset < mysize); ++i)
+      {
+        for(int j = 0; j < channels; ++j)
+        {
+          outputs[j][i] = array[channels * offset + (j + i * channels)];
+        }
       }
     }
     for(; i < size; ++i)
