@@ -8,13 +8,19 @@
 #include <cstdint>
 #include <stdexcept>
 
+namespace
+{
+  static const int LUTsize = 128*1024;
+  static const int LUTprecision = 1000;
+}
+
 namespace ATK
 {
   template<typename DataType_>
   GainCompressorFilter<DataType_>::GainCompressorFilter(int nb_channels)
-  :Parent(nb_channels, nb_channels), threshold(0), slope(1), softness(.000000001)
+  :Parent(nb_channels, nb_channels), threshold(0), slope(1), softness(.0001)
   {
-    gainLUT.reserve(64*1024);
+    gainLUT.reserve(LUTsize);
   }
   
   template<typename DataType_>
@@ -31,13 +37,14 @@ namespace ATK
     {
       for(std::int64_t i = 0; i < size; ++i)
       {
-        int step = static_cast<int>(converted_inputs[channel][i] * threshold / 1000);
+        DataType_ value = converted_inputs[channel][i] * threshold;
+        int step = static_cast<int>(value * LUTprecision);
         if(step >= gainLUT.size())
         {
           step = gainLUT.size() - 1;
         }
-        DataType delta = converted_inputs[channel][i] * threshold - step * 1000;
-        outputs[channel][i] = converted_inputs[channel][i] * gainLUT[step];
+        DataType delta = value - step / LUTprecision;
+        outputs[channel][i] = gainLUT[step];
       }
     }
   }
@@ -50,14 +57,12 @@ namespace ATK
       throw std::out_of_range("Threshold factor must be strictly positive value");
     }
     this->threshold = 1 / threshold;
-    recomputeLUT();
   }
 
   template<typename DataType_>
   void GainCompressorFilter<DataType_>::set_threshold_db(DataType_ threshold_db)
   {
     this->threshold = std::pow(10, - threshold_db / 10);
-    recomputeLUT();
   }
 
   template<typename DataType_>
@@ -106,10 +111,10 @@ namespace ATK
     gainLUT.clear();
     gainLUT.push_back(1); // gain of 1 at input = 0
 
-    for(int i = 1; i < 64*1024; ++i)
+    for(int i = 1; i < LUTsize; ++i)
     {
-      DataType diff = 10 * std::log10(static_cast<DataType>(i) / 1000);
-      gainLUT.push_back(std::pow(10, -((std::sqrt(diff*diff + softness) + diff) / 2) / 10 * (slope - 1) / slope));
+      DataType diff = 10 * std::log10(static_cast<DataType>(i) / LUTprecision);
+      gainLUT.push_back(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 20 * (slope - 1) / slope));
     }
   }
 
