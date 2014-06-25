@@ -35,16 +35,18 @@ namespace ATK
 
     for(int channel = 0; channel < nb_output_ports; ++channel)
     {
+      const DataType* input = converted_inputs[channel];
+      DataType* output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
-        DataType_ value = converted_inputs[channel][i] * threshold;
+        DataType_ value = input[i] * threshold;
         int step = static_cast<int>(value * LUTprecision);
         if(step >= gainLUT.size())
         {
           step = gainLUT.size() - 1;
         }
         DataType delta = value - step / LUTprecision;
-        outputs[channel][i] = gainLUT[step];
+        output[i] = gainLUT[step];
       }
     }
   }

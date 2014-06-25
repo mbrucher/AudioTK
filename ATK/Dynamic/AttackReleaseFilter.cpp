@@ -59,15 +59,17 @@ namespace ATK
     assert(nb_input_ports == nb_output_ports);
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
+      const DataType* input = converted_inputs[channel];
+      DataType* output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
-        if(outputs[channel][i-1] > converted_inputs[channel][i])
+        if(output[i-1] > input[i])
         {
-          outputs[channel][i] = (1 - release) * converted_inputs[channel][i] + release * outputs[channel][i-1];//release phase
+          output[i] = (1 - release) * input[i] + release * output[i-1];//release phase
         }
         else
         {
-          outputs[channel][i] = (1 - attack) * converted_inputs[channel][i] + attack * outputs[channel][i-1];//attack phase
+          output[i] = (1 - attack) * input[i] + attack * output[i-1];//attack phase
         }
       }
     }

@@ -45,9 +45,11 @@ namespace ATK
 
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
+      const DataType* input = converted_inputs[channel];
+      DataType* output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
-        outputs[channel][i] = (1 - memory_factor) * converted_inputs[channel][i] * converted_inputs[channel][i] + memory_factor * outputs[channel][i-1];
+        output[i] = (1 - memory_factor) * input[i] * input[i] + memory_factor * output[i-1];
       }
     }
   }
