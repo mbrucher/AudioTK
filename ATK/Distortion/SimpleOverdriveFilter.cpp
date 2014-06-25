@@ -101,9 +101,11 @@ namespace ATK
 
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
-        outputs[channel][i] = optimizer->optimize(converted_inputs[channel][i]);
+        output[i] = optimizer->optimize(input[i]);
       }
     }
   }

@@ -62,22 +62,24 @@ namespace ATK
   template<typename DataType>
   void FirstOrderFilter<DataType>::process_impl(std::int64_t size)
   {
+    const DataType* ATK_RESTRICT input = converted_inputs[0];
+    DataType* ATK_RESTRICT output = outputs[0];
     for(std::int64_t i = 0; i < size; ++i)
     {
-      yh = converted_inputs[0][i] - yl - numerical_attenuation * yb;
+      yh = input[i] - yl - numerical_attenuation * yb;
       yb = numerical_frequency * yh + yb;
       yl = numerical_frequency * yb + yl;
       if(selected == 0)
       {
-        outputs[0][i] = yl;
+        output[i] = yl;
       }
       else if(selected == 1)
       {
-        outputs[0][i] = yb;
+        output[i] = yb;
       }
       else
       {
-        outputs[0][i] = yh;
+        output[i] = yh;
       }
     }
   }

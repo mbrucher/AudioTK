@@ -59,8 +59,8 @@ namespace ATK
     assert(nb_input_ports == nb_output_ports);
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
-      const DataType* input = converted_inputs[channel];
-      DataType* output = outputs[channel];
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
         if(output[i-1] > input[i])
