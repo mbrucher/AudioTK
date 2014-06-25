@@ -7,10 +7,17 @@ import matplotlib.pyplot as plt
 
 sample_rate = 96000
 
-import sys
-print __file__
-sys.path.append(__file__+"/../..")
-from display.compare_spec import plot_me
+def plot_me(signal, MySampleRate, NFFT = 8192, noverlap = 1024):
+  a = plt.subplot(2, 1, 1)
+  plt.title("Original signal")
+  plt.xlabel("s")
+  plt.ylabel("Hz")
+  plt.specgram(signal[0], NFFT = NFFT, Fs = MySampleRate, noverlap = noverlap )
+  a = plt.subplot(2, 1, 2)
+  plt.title("Processed signal")
+  plt.xlabel("s")
+  plt.ylabel("Hz")
+  plt.specgram(signal[1], NFFT = NFFT, Fs = MySampleRate, noverlap = noverlap )
 
 def filter(input):
   import numpy as np
@@ -22,7 +29,7 @@ def filter(input):
   powerfilter = DoublePowerFilter(1)
   powerfilter.set_input_sampling_rate(sample_rate)
   powerfilter.set_input_port(0, infilter, 0)
-  powerfilter.set_memory(np.exp(-1/(sample_rate*.1e-3)))
+  powerfilter.set_memory(np.exp(-1/(sample_rate*1e-3)))
 
   attackreleasefilter = DoubleAttackReleaseFilter(1)
   attackreleasefilter.set_input_sampling_rate(sample_rate)
@@ -51,17 +58,11 @@ def filter(input):
 
 if __name__ == "__main__":
   import numpy as np
-  samples = 2000000
-  freq_max = 20000
+  size = 960000
 
-  t = np.arange(samples, dtype=np.float64).reshape(1, -1) / sample_rate
-  d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t)
+  x = np.arange(size, dtype=np.float64).reshape(1, -1) / sample_rate
+  d = np.sin(x * 2 * np.pi * 1000)
 
   np.savetxt("input.txt", d)
   out = filter(d)
   np.savetxt("output.txt", d)
-  plt.figure()
-  plot_me((d[0], out[0]), sample_rate)
-  plt.gcf().suptitle("Compressor")
-  plt.legend()
-  plt.show()

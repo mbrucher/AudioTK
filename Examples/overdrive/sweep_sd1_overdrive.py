@@ -7,19 +7,12 @@ from ATK.Distortion import DoubleSD1OverdriveFilter
 
 import matplotlib.pyplot as plt
 
-sample_rate = 96000
+import sys
+print __file__
+sys.path.append(__file__+"/../..")
+from display.compare_spec import plot_me
 
-def plot_me(signal, MySampleRate, NFFT = 8192, noverlap = 1024):
-  a = plt.subplot(2, 1, 1)
-  plt.title("Original signal")
-  plt.xlabel("s")
-  plt.ylabel("Hz")
-  plt.specgram(signal[0], NFFT = NFFT, Fs = MySampleRate, noverlap = noverlap )
-  a = plt.subplot(2, 1, 2)
-  plt.title("Processed signal")
-  plt.xlabel("s")
-  plt.ylabel("Hz")
-  plt.specgram(signal[1], NFFT = NFFT, Fs = MySampleRate, noverlap = noverlap )
+sample_rate = 96000
 
 def filter_32(input):
   import numpy as np
@@ -205,15 +198,13 @@ if __name__ == "__main__":
   np.savetxt("input.txt", d)
   out = filter_32(d)
   plt.figure()
-  plt.title("Oversampling 32")
   plot_me((d[0], out[0]), sample_rate)
-  plt.colorbar()
+  plt.gcf().suptitle("Oversampling 32")
   np.savetxt("output32.txt", out)
   out = filter_16(d)
   plt.figure()
-  plt.title("Oversampling 16")
   plot_me((d[0], out[0]), sample_rate)
-  plt.colorbar()
+  plt.gcf().suptitle("Oversampling 16")
   np.savetxt("output16.txt", out)
   #out = filter_8(d)
   #plt.figure()
