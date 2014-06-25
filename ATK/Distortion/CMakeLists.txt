@@ -9,6 +9,8 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+include_directories(${PROJECT_SOURCE_DIR})
+
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDistortion_static
     STATIC
@@ -25,8 +27,6 @@ endif(ENABLE_STATIC_LIBRARIES)
 if(ENABLE_SHARED_LIBRARIES)
 add_definitions(-DBUILD_ATK_DISTORTION)
 add_definitions(-DATK_SHARED)
-
-include_directories(${PROJECT_SOURCE_DIR})
 
 add_library(ATKDistortion
     SHARED

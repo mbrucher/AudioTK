@@ -9,7 +9,7 @@
 
 #include <boost/scoped_ptr.hpp>
 
-#include "../Core/TypedBaseFilter.h"
+#include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
 
 namespace ATK
