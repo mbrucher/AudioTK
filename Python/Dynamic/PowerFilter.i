@@ -9,7 +9,7 @@ namespace ATK
   class PowerFilter: public BaseFilter
   {
   public:
-    PowerFilter(int nb_channels);
+    PowerFilter(int nb_channels = 1);
     ~PowerFilter();
 
     void set_memory(DataType memory_factor);

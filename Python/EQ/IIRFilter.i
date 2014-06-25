@@ -11,7 +11,7 @@ namespace ATK
   class IIRFilter: public Coefficients
   {
   public:
-    IIRFilter(int nb_channels);
+    IIRFilter(int nb_channels = 1);
     ~IIRFilter();
     void process(long size);
     

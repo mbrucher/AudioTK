@@ -9,7 +9,7 @@ namespace ATK
   class ApplyGainFilter: public BaseFilter
   {
   public:
-    ApplyGainFilter(int nb_channels);
+    ApplyGainFilter(int nb_channels = 1);
     ~ApplyGainFilter();
   };
 }

@@ -9,7 +9,7 @@ namespace ATK
   class AttackReleaseFilter: public BaseFilter
   {
   public:
-    AttackReleaseFilter(int nb_channels);
+    AttackReleaseFilter(int nb_channels = 1);
     ~AttackReleaseFilter();
 
     void set_attack(DataType attack);

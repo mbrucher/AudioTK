@@ -9,7 +9,7 @@ namespace ATK
   class GainCompressorFilter: public BaseFilter
   {
   public:
-    GainCompressorFilter(int nb_channels);
+    GainCompressorFilter(int nb_channels = 1);
     ~GainCompressorFilter();
 
     void set_threshold(DataType threshold);
