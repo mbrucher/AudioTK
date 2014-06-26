@@ -5,15 +5,21 @@
 #ifndef ATK_CONFIG_H
 #define ATK_CONFIG_H
 
-#define ATK_VERSION_NAME @ATK_WC_REVISION_NAME@
-#define ATK_VERSION_REV @ATK_WC_REVISION_HASH@
-#define ATK_SOURCE_TREE "@PROJECT_SOURCE_DIR@"
-
 #define ATK_PROFILING @ENABLE_INTERNAL_PROFILING@
 
 #define ATK_USE_LIBSNDFILE @USE_LIBSNDFILE@
 
 #define ATK_USE_FFTW @USE_FFTW@
 #define ATK_USE_ACCELERATE @USE_ACCELERATE@
+
+#if defined __INTEL_COMPILER
+# define ATK_RESTRICT restrict
+#elif defined _MSC_VER
+# define ATK_RESTRICT __restrict
+#elif defined __GNUC__
+# define ATK_RESTRICT __restrict__
+#else
+# define ATK_RESTRICT
+#endif
 
 #endif

@@ -18,6 +18,10 @@ if(${ENABLE_TESTS} STREQUAL "ON")
  endif(${ENABLE_SHARED_LIBRARIES} STREQUAL "OFF")
 endif(${ENABLE_TESTS} STREQUAL "ON")
 
+IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
+  set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
+ENDIF(NOT DEFINED PYTHON_INSTALL_FOLDER)
+
 if(WIN32)
 set(MSVC_RUNTIME "Dynamic" CACHE STRING "Set up MSVC Runtime (Dynamic/Static)")
 
@@ -62,8 +66,6 @@ if(ATK_BUILD_PYTHON)
   find_package(Numpy REQUIRED)
 endif(ATK_BUILD_PYTHON)
 
-GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
-
 find_package(FFTW)
 
 SET(USE_FFTW 0)
@@ -90,9 +92,11 @@ configure_file (
   "ATK/config.h"
   )
 
-INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK/config.h
-   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK
-    )
+GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
+configure_file (
+  "ATK/git.h.in"
+  "ATK/git.h"
+  )
 
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})

@@ -15,6 +15,42 @@
 #define PROCESSSIZE (1024*1024)
 #define SAMPLINGRATE (1024*64)
 
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_low_1_test )
+{
+  ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_low(1.001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_low_0_test )
+{
+  ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_low(-0.001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_middle_1_test )
+{
+  ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_middle(1.001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_middle_0_test )
+{
+  ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_middle(-0.001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_high_1_test )
+{
+  ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_high(1.001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_high_0_test )
+{
+  ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_high(-0.001), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_100_test )
 {
   ATK::SinusGeneratorFilter<double> generator;

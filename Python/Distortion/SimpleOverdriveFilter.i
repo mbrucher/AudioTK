@@ -9,7 +9,7 @@ namespace ATK
   class SimpleOverdriveFilter: public BaseFilter
   {
   public:
-    SimpleOverdriveFilter();
+    SimpleOverdriveFilter(int nb_channels = 1);
     ~SimpleOverdriveFilter();
   };
 }

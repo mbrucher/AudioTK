@@ -136,17 +136,19 @@ namespace ATK
 
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
       for(int i = 0; i < size / Coefficients::oversampling_factor; ++i)
       {
         DataType even[Coefficients::points / 2];
         for(int j = 0; j < Coefficients::points / 2; ++j)
         {
-          even[j] = converted_inputs[channel][i - input_delay + Coefficients::points / 2 + j] + converted_inputs[channel][i - input_delay + Coefficients::points / 2 - 1 - j];
+          even[j] = input[i - input_delay + Coefficients::points / 2 + j] + input[i - input_delay + Coefficients::points / 2 - 1 - j];
         }
         DataType odd[Coefficients::points / 2];
         for(int j = 0; j < Coefficients::points / 2; ++j)
         {
-          odd[j] = converted_inputs[channel][i - input_delay + Coefficients::points / 2 + j] - converted_inputs[channel][i - input_delay + Coefficients::points / 2 - 1 - j];
+          odd[j] = input[i - input_delay + Coefficients::points / 2 + j] - input[i - input_delay + Coefficients::points / 2 - 1 - j];
         }
 
         DataType c[Coefficients::order + 1];
@@ -177,7 +179,7 @@ namespace ATK
           {
             temp = temp * z + c[k];
           }
-          outputs[channel][Coefficients::oversampling_factor * i + j] = temp;
+          output[Coefficients::oversampling_factor * i + j] = temp;
         }
       }
     }

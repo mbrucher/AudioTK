@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
     data[2*i+1] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
   }
   
-  ATK::InPointerFilter<float> generator(data.get(), 2, PROCESSSIZE, true);
+  ATK::InPointerFilter<float> generator(data.get(), PROCESSSIZE, 2, true);
   generator.set_output_sampling_rate(48000);
   
   ATK::SinusGeneratorFilter<float> check1;

@@ -39,9 +39,11 @@ namespace ATK
   {
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
-        outputs[channel][i] = static_cast<DataType>(volume * converted_inputs[channel][i]);
+        output[i] = static_cast<DataType>(volume * input[i]);
       }
     }
   }
