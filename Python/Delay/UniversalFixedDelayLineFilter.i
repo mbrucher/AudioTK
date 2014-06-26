@@ -12,8 +12,8 @@ namespace ATK
     UniversalFixedDelayLineFilter(int max_delay);
     ~UniversalFixedDelayLineFilter();
     
-    void set_delay(std::int64_t delay);
-    std::int64_t get_delay() const;
+    void set_delay(int delay);
+    int get_delay() const;
 
     void set_blend(DataType blend);
     DataType get_blend() const;
