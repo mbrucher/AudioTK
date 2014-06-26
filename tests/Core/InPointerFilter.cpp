@@ -45,8 +45,9 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
   checker.set_amplitude(0);
   checker.set_frequency(1000);
   checker.set_input_port(0, &sum, 0);
-  
-  checker.process(PROCESSSIZE);
+
+  checker.process(2);
+  checker.process(PROCESSSIZE - 2);
 }
 
 BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
@@ -76,7 +77,8 @@ BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
   checker.set_frequency(1000);
   checker.set_input_port(0, &sum, 0);
   
-  checker.process(PROCESSSIZE);
+  checker.process(2);
+  checker.process(PROCESSSIZE - 2);
 }
 
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
@@ -120,7 +122,8 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
   checker.set_frequency(1000);
   checker.set_input_port(0, &sum, 0);
   
-  checker.process(PROCESSSIZE);
+  checker.process(2);
+  checker.process(PROCESSSIZE - 2);
 }
 
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
@@ -167,5 +170,6 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
   checker.set_frequency(1000);
   checker.set_input_port(0, &sum, 0);
   
-  checker.process(PROCESSSIZE);
+  checker.process(2);
+  checker.process(PROCESSSIZE - 2);
 }
