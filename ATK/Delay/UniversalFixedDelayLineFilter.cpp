@@ -4,6 +4,7 @@
 
 #include "UniversalFixedDelayLineFilter.h"
 
+#include <cmath>
 #include <cstdint>
 #include <cstring>
 #include <stdexcept>
@@ -44,7 +45,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::set_blend(DataType blend)
+  void UniversalFixedDelayLineFilter<DataType_>::set_blend(DataType_ blend)
   {
     this->blend = blend;
   }
@@ -56,7 +57,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::set_feedback(DataType feedback)
+  void UniversalFixedDelayLineFilter<DataType_>::set_feedback(DataType_ feedback)
   {
     if(std::abs(feedback) > 1)
     {
@@ -72,7 +73,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::set_feedforward(DataType feedforward)
+  void UniversalFixedDelayLineFilter<DataType_>::set_feedforward(DataType_ feedforward)
   {
     this->feedforward = feedforward;
   }
