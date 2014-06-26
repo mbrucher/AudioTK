@@ -11,7 +11,9 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.3.1
 * Adding compressor elements and the Python wrappers
+* Fixed Python wrappers by adding default number of port/channels
 
 0.3.0
 * Enhanced the ScalarNewtonRaphson algorithm to accept different precision. Used a more relaxed one by default

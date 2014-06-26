@@ -43,6 +43,7 @@ Tools module
 
 The *Tools* has two kind of classes: filters and general purpose classes.
 
+* **ApplyGainFilter** is a filter that multiplies two input signals together
 * **DecimationFilter** modifies the number of samples in the signal based on the ratio of input/output sampling rates
 * **OversamplingFilter** is actually a set of oversampling filters that will multiply the number of samples from the input.
 * **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**.
@@ -84,7 +85,6 @@ Dynamic module
 
 The Dynamic module contains filters enabling compressor construction.
 
-* **ApplyGainFilter** is a filter that multiplies two input signals together
 * **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
 * **GainCompressorFilter** is a filter that changes an input signal (a gain) with like a compressor does
 * **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal
