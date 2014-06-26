@@ -2,7 +2,7 @@
  * \ file ApplyGainFilter.cpp
  */
 
-#include <ATK/Dynamic/ApplyGainFilter.h>
+#include <ATK/Tools/ApplyGainFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>

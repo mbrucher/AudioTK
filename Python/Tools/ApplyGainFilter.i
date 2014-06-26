@@ -1,6 +1,6 @@
 
 %{
-#include <ATK/Dynamic/ApplyGainFilter.h>
+#include <ATK/Tools/ApplyGainFilter.h>
 %}
 
 namespace ATK

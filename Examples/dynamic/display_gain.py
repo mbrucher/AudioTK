@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
-from ATK.Dynamic import DoubleApplyGainFilter, DoubleGainCompressorFilter
+from ATK.Dynamic import DoubleGainCompressorFilter
+from ATK.Tools import DoubleApplyGainFilter
 
 import matplotlib.pyplot as plt
 

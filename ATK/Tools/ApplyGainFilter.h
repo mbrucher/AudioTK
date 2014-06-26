@@ -2,8 +2,8 @@
  * \file ApplyGainFilter.h
  */
 
-#ifndef ATK_DYNAMIC_APPLYGAINFILTER_H
-#define ATK_DYNAMIC_APPLYGAINFILTER_H
+#ifndef ATK_TOOLS_APPLYGAINFILTER_H
+#define ATK_TOOLS_APPLYGAINFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
@@ -15,7 +15,7 @@ namespace ATK
    * Even channels are signal, odd channels are gains, results is the product of both
    */
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT ApplyGainFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT ApplyGainFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;

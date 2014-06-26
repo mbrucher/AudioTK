@@ -11,6 +11,7 @@
 %nodefaultctor;
 
 %include "../Core/BaseFilter.i"
+%include "ApplyGainFilter.i"
 %include "DecimationFilter.i"
 %include "MSFilter.i"
 %include "OversamplingFilter.i"
