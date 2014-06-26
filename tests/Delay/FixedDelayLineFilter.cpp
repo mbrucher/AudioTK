@@ -32,9 +32,9 @@ BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_sinus_line100_delay50_test )
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    data[i] = i / 48000;
+    data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
-  
+
   ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 

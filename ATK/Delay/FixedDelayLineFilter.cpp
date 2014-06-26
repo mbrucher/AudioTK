@@ -53,7 +53,7 @@ namespace ATK
 
     for(std::int64_t i = 0; i < delay_line_usage; ++i)
     {
-      output[i] = delay_line[delay_line.size() - 1 - i];
+      output[i] = delay_line[delay_line.size() + i - delay];
     }
     for(std::int64_t i = delay; i < size; ++i)
     {
@@ -67,7 +67,7 @@ namespace ATK
     std::int64_t minimum = std::max(std::int64_t(0), std::int64_t(delay_line.size()) - size);
     for(std::int64_t i = minimum; i < delay_line.size(); ++i)
     {
-      delay_line[i] = input[i - minimum];
+      delay_line[i] = input[size + i - delay_line.size()];
     }
   }
   
