@@ -11,6 +11,9 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.3.2
+* Added a fixed delay line filter
+
 0.3.1
 * Adding compressor elements and the Python wrappers
 * Fixed Python wrappers by adding default number of port/channels

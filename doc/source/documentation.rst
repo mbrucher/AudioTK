@@ -72,6 +72,22 @@ The *EQ* module contains a lot of different filter types.
 * **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
 * **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
 
+Delay module
+##############
+
+The *Delay* module contains filters enabling delays construction.
+
+* **FixedDelayLineFilter** is a filter that delays the input by a fixed value
+
+Dynamic module
+##############
+
+The *Dynamic* module contains filters enabling compressor construction.
+
+* **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
+* **GainCompressorFilter** is a filter that changes an input signal (a gain) with like a compressor does
+* **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal
+
 Distortion module
 #################
 
@@ -79,12 +95,3 @@ The *Distortion* module contains filters simulation distortion circuits.
 
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
-
-Dynamic module
-##############
-
-The Dynamic module contains filters enabling compressor construction.
-
-* **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
-* **GainCompressorFilter** is a filter that changes an input signal (a gain) with like a compressor does
-* **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal

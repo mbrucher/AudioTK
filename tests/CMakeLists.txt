@@ -5,8 +5,9 @@ add_subdirectory(Tools)
 add_subdirectory(IO)
 
 add_subdirectory(EQ)
-add_subdirectory(Distortion)
+add_subdirectory(Delay)
 add_subdirectory(Dynamic)
+add_subdirectory(Distortion)
 
 add_subdirectory(Python)
 
