@@ -15,6 +15,18 @@
 
 #define PROCESSSIZE (1024*64)
 
+BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_line100_delay_1_test )
+{
+  ATK::FixedDelayLineFilter<float> filter(100);
+  BOOST_CHECK_THROW(filter.set_delay(-1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_line100_delay_100_test )
+{
+  ATK::FixedDelayLineFilter<float> filter(100);
+  BOOST_CHECK_THROW(filter.set_delay(100), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_sinus_line100_delay50_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);

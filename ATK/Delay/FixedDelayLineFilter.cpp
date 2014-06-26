@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   FixedDelayLineFilter<DataType_>::FixedDelayLineFilter(int max_delay)
-  :Parent(1, 1), delay_line(max_delay, 0)
+  :Parent(1, 1), delay_line(max_delay, 0), delay(0)
   {
   }
   
@@ -28,6 +28,10 @@ namespace ATK
     if(delay < 0)
     {
       throw std::out_of_range("Delay must be positive");
+    }
+    if(delay >= delay_line.size())
+    {
+      throw std::out_of_range("Delay must be less than delay line size");
     }
 
     this->delay = delay;
