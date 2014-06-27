@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   CachedSinusGeneratorFilter<DataType_>::CachedSinusGeneratorFilter(int periods, int seconds)
-  :Parent(0, 1), indice(0), periods(periods), seconds(seconds), volume(1), offset(0)
+  :Parent(0, 1), indice(1), periods(periods), seconds(seconds), volume(1), offset(0)
   {
     
   }
@@ -51,10 +51,10 @@ namespace ATK
   template<typename DataType_>
   void CachedSinusGeneratorFilter<DataType_>::setup()
   {
-    cache.resize(input_sampling_rate * seconds);
+    cache.resize(output_sampling_rate * seconds);
     for(int i = 0; i < cache.size(); ++i)
     {
-      cache[i] = std::sin(2 * boost::math::constants::pi<double>() * i * periods / seconds / input_sampling_rate);
+      cache[i] = std::sin(2 * boost::math::constants::pi<double>() * i * periods / seconds / output_sampling_rate);
     }
   }
   

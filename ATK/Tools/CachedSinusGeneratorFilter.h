@@ -21,11 +21,8 @@ namespace ATK
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
     using Parent::outputs_size;
-    using Parent::converted_inputs;
     using Parent::outputs;
-    using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
 
   public:
