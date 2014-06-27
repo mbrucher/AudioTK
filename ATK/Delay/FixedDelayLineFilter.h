@@ -13,8 +13,7 @@
 namespace ATK
 {
   /**
-   * Gain "compressor". Has twice as many inputs channels as it has output channels
-   * Even channels are signal, odd channels are gains, results is the product of both
+   * Fixed delay line, max_delay should always be higher than the actual delay
    */
   template<typename DataType_>
   class ATK_DELAY_EXPORT FixedDelayLineFilter : public TypedBaseFilter<DataType_>
