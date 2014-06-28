@@ -4,6 +4,7 @@
 
 #include "UniversalVariableDelayLineFilter.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdint>
 #include <cstring>
@@ -84,6 +85,8 @@ namespace ATK
     for(std::int64_t i = 0; i < size; ++i)
     {
       integer_delay[i] = static_cast<std::int64_t>(input2[i]);
+      assert(integer_delay[i] > 0);
+      assert(integer_delay[i] < (max_delay - 1));
       fractional_delay[i] = input2[i] - integer_delay[i];
     }
 
