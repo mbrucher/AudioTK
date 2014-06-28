@@ -77,7 +77,10 @@ Delay module
 
 The *Delay* module contains filters enabling delays construction.
 
-* **FixedDelayLineFilter** is a filter that delays the input by a fixed value
+* **FixedDelayLineFilter** is a FIR filter that delays the input by a fixed value
+* **UniversalFixedDelayLineFilter** is a filter that delays the input by a fixed value. It can be parametrized  to be a FIR, IIR or all pass, or any combination
+* **UniversalVariableDelayLineFilter** is a filter that delays the input by a variable value, on a second port. It can be parametrized  to be a FIR, IIR or all pass, or any combination
+* **VariableDelayLineFilter** is a FIR filter that delays the input by a variable value, on a second port.
 
 Dynamic module
 ##############
