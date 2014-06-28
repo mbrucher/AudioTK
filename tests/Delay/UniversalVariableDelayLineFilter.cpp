@@ -1,10 +1,10 @@
 /**
- * \ file VariableDelayLineFilter.cpp
+ * \ file UniversalVariableDelayLineFilter.cpp
  */
 
 #include <iostream>
 
-#include <ATK/Delay/VariableDelayLineFilter.h>
+#include <ATK/Delay/UniversalVariableDelayLineFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
@@ -17,7 +17,7 @@
 
 #define PROCESSSIZE (1024*64)
 
-BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
+BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_line16000_delaysinus_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
   boost::scoped_array<float> datadelay(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    datadelay[i] = i * .25f;
+    datadelay[i] = 1 + i * .25f;
   }
 
   ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
@@ -37,7 +37,7 @@ BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::VariableDelayLineFilter<float> filter(16000);
+  ATK::UniversalVariableDelayLineFilter<float> filter(16000);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_input_port(1, &generatordelay, 0);
@@ -51,23 +51,23 @@ BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
   
-  for(std::int64_t i = 0; i < PROCESSSIZE/4; ++i)
+  for(std::int64_t i = 1; i < PROCESSSIZE/4; ++i)
   {
-    BOOST_REQUIRE_EQUAL(data[i*4 - i], outdata[i*4]);
+    BOOST_REQUIRE_EQUAL(data[i*4 - i - 1], outdata[i*4]);
   }
   for(std::int64_t i = 0; i < PROCESSSIZE/4; ++i)
   {
     std::int64_t current = 4*i+1;
-    BOOST_REQUIRE_EQUAL((data[current - i]*3 + data[current - i-1])/4, outdata[current]);
+    BOOST_REQUIRE_EQUAL((data[current - i-1]*3 + data[current - i-2])/4, outdata[current]);
   }
   for(std::int64_t i = 0; i < PROCESSSIZE/4; ++i)
   {
     std::int64_t current = 4*i+2;
-    BOOST_REQUIRE_EQUAL((data[current - i] + data[current - i-1])/2, outdata[current]);
+    BOOST_REQUIRE_EQUAL((data[current - i-1] + data[current - i-2])/2, outdata[current]);
   }
   for(std::int64_t i = 0; i < PROCESSSIZE/4; ++i)
   {
     std::int64_t current = 4*i+3;
-    BOOST_REQUIRE_EQUAL((data[current - i] + data[current - i-1]*3)/4, outdata[current]);
+    BOOST_REQUIRE_EQUAL((data[current - i-1] + data[current - i-2]*3)/4, outdata[current]);
   }
 }
