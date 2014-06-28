@@ -13,5 +13,7 @@
 %include "../Core/BaseFilter.i"
 %include "FixedDelayLineFilter.i"
 %include "UniversalFixedDelayLineFilter.i"
+%include "UniversalVariableDelayLineFilter.i"
+%include "VariableDelayLineFilter.i"
 
 #endif
