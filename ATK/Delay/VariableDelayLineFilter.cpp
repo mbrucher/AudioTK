@@ -47,7 +47,7 @@ namespace ATK
 
     for(std::int64_t i = 0; i < size; ++i)
     {
-      output[0] = delay_line[i + max_delay - integer_delay[i]] * fractional_delay[i] + delay_line[i + max_delay - integer_delay[i] - 1] * (1 - fractional_delay[i]);
+      output[i] = delay_line[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + delay_line[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
     }
   }
   
