@@ -8,9 +8,8 @@ import matplotlib.pyplot as plt
 
 sample_rate = 96000
 
-import sys
-print __file__
-sys.path.append(__file__+"/../..")
+import sys, os
+sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/..")
 from display.compare_spec import plot_me
 
 def filter(input):

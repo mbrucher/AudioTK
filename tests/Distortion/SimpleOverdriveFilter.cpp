@@ -3,6 +3,7 @@
  */
 
 #include <ATK/config.h>
+#include <ATK/git.h>
 
 #include <ATK/Distortion/SimpleOverdriveFilter.h>
 

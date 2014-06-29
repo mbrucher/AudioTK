@@ -18,9 +18,10 @@ namespace ATK
 {
   template<typename DataType_>
   GainCompressorFilter<DataType_>::GainCompressorFilter(int nb_channels)
-  :Parent(nb_channels, nb_channels), threshold(0), slope(1), softness(.0001)
+  :Parent(nb_channels, nb_channels), threshold(1), slope(1), softness(.0001)
   {
     gainLUT.reserve(LUTsize);
+    recomputeLUT();
   }
   
   template<typename DataType_>

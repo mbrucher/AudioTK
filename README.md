@@ -11,9 +11,15 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.3.2
+* Added a fixed delay line filter (FIR filter) with Python wrappers
+* Added an universal fixed delay line filter (FIR, IIR and all-pass filter + combinations) with Python wrappers
+* Added variable delay filters (delay is given on an additional port)
+
 0.3.1
 * Adding compressor elements and the Python wrappers
 * Fixed Python wrappers by adding default number of port/channels
+* Added restrict pointer support in all filter that can benefit from this
 
 0.3.0
 * Enhanced the ScalarNewtonRaphson algorithm to accept different precision. Used a more relaxed one by default

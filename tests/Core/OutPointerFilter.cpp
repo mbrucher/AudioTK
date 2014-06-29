@@ -13,7 +13,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024)
+#define PROCESSSIZE (10)
 
 BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k_test )
 {
@@ -32,7 +32,8 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k_test )
   output.set_input_sampling_rate(48000);
   output.set_input_port(0, &generator, 0);
 
-  output.process(PROCESSSIZE);
+  output.process(2);
+  output.process(PROCESSSIZE - 2);
   
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
@@ -57,7 +58,8 @@ BOOST_AUTO_TEST_CASE( OutPointerDouble_sin1k_test )
   output.set_input_sampling_rate(48000);
   output.set_input_port(0, &generator, 0);
   
-  output.process(PROCESSSIZE);
+  output.process(2);
+  output.process(PROCESSSIZE - 2);
   
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
@@ -84,7 +86,8 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_interleaved_test )
   output.set_input_port(0, &generator, 0);
   output.set_input_port(1, &generator, 1);
   
-  output.process(PROCESSSIZE);
+  output.process(2);
+  output.process(PROCESSSIZE - 2);
   
   for(std::int64_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
@@ -114,7 +117,8 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_noninterleaved_test )
   output.set_input_port(0, &generator, 0);
   output.set_input_port(1, &generator, 1);
 
-  output.process(PROCESSSIZE);
+  output.process(2);
+  output.process(PROCESSSIZE - 2);
   
   for(std::int64_t i = 0; i < 2*PROCESSSIZE; ++i)
   {

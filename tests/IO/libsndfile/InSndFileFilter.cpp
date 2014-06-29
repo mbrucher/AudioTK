@@ -6,6 +6,7 @@
 #include <ATK/IO/InWavFilter.h>
 
 #include <ATK/config.h>
+#include <ATK/git.h>
 
 #include <ATK/Tools/VolumeFilter.h>
 #include <ATK/Tools/SumFilter.h>
