@@ -51,13 +51,10 @@ namespace ATK
 
     std::int64_t delay_line_usage = std::min(delay, size);
 
-    for(std::int64_t i = 0; i < delay_line_usage; ++i)
+    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line.data() + delay_line.size() - delay), delay_line_usage * sizeof(DataType_));
+    if(size - delay > 0)
     {
-      output[i] = delay_line[delay_line.size() + i - delay];
-    }
-    for(std::int64_t i = delay; i < size; ++i)
-    {
-      output[i] = input[i - delay];
+      memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), (size - delay) * sizeof(DataType_));
     }
 
     for(std::int64_t i = 0; i < std::int64_t(delay_line.size()) - size; ++i)
@@ -65,9 +62,9 @@ namespace ATK
       delay_line[i] = delay_line[i + size];
     }
     std::int64_t minimum = std::max(std::int64_t(0), std::int64_t(delay_line.size()) - size);
-    for(std::int64_t i = minimum; i < delay_line.size(); ++i)
+    if(delay_line.size() > minimum)
     {
-      delay_line[i] = input[size + i - delay_line.size()];
+      memcpy(reinterpret_cast<void*>(delay_line.data() + minimum), reinterpret_cast<const void*>(input + size + minimum - delay_line.size()), (delay_line.size() - minimum) * sizeof(DataType_));
     }
   }
   
