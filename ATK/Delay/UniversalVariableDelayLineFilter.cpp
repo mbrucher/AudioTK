@@ -76,7 +76,7 @@ namespace ATK
     {
       processed_input[i] = processed_input[processed_input.size() + i - max_delay];
     }
-    delay_line.resize(max_delay);
+    delay_line.resize(size);
     processed_input.resize(size + max_delay);
 
     // Update the delay line
