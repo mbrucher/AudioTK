@@ -96,10 +96,6 @@ namespace ATK
     {
       delay_line_ptr[i] = processed_input_ptr[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + processed_input_ptr[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
       processed_input_ptr[max_delay + i] = input1[i] + feedback * delay_line_ptr[i];
-    }
-    
-    for(std::int64_t i = 0; i < size; ++i)
-    {
       output[i] = blend * input1[i] + feedforward * delay_line_ptr[i];
     }
   }
