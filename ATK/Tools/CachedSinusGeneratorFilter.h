@@ -40,7 +40,7 @@ namespace ATK
     virtual void setup();
     
   private:
-    int indice;
+    std::int64_t indice;
     int periods;
     int seconds;
     double volume;
