@@ -44,12 +44,14 @@ Tools module
 The *Tools* has two kind of classes: filters and general purpose classes.
 
 * **ApplyGainFilter** is a filter that multiplies two input signals together
+* **CachedSinusGeneratorFilter** is a filter that outputs a cached sinus
 * **DecimationFilter** modifies the number of samples in the signal based on the ratio of input/output sampling rates
 * **OversamplingFilter** is actually a set of oversampling filters that will multiply the number of samples from the input.
 * **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**.
 * **PanFilter** pans a single input signal on a stereo output
 * **SumFilter** sums two input signals in one
 * **VolumeFilter** multiplies input signal by a certain amount
+* **WhitenoiseGeneratorFilter** is a filter that outputs a white noise
 
 The general purpose classes are:
 

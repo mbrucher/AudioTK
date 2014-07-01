@@ -1,11 +1,12 @@
 /**
- * \file CachedSinusGeneratorFilter.h
+ * \file WhiteNoiseGeneratorFilter.h
  */
 
-#ifndef ATK_TOOLS_CACHEDSINUSGENERATORFILTER_H
-#define ATK_TOOLS_CACHEDSINUSGENERATORFILTER_H
+#ifndef ATK_TOOLS_WHITENOISEGENERATORFILTER_H
+#define ATK_TOOLS_WHITENOISEGENERATORFILTER_H
 
-#include <vector>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
@@ -16,7 +17,7 @@ namespace ATK
    *
    */
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT CachedSinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT WhiteNoiseGeneratorFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -26,8 +27,8 @@ namespace ATK
     using Parent::output_sampling_rate;
 
   public:
-    CachedSinusGeneratorFilter(int periods, int seconds = 1);
-    ~CachedSinusGeneratorFilter();
+    WhiteNoiseGeneratorFilter();
+    ~WhiteNoiseGeneratorFilter();
 
     void set_volume(double volume);
     double get_volume() const;
@@ -37,15 +38,13 @@ namespace ATK
 
   protected:
     virtual void process_impl(std::int64_t size);
-    virtual void setup();
     
   private:
-    std::int64_t indice;
-    int periods;
-    int seconds;
     double volume;
     double offset;
-    std::vector<DataType_> cache;
+    
+    boost::random::mt19937 gen; // Should use a random123 when they will be in Boost
+    boost::random::uniform_real_distribution<DataType_> dist;
   };
 }
 

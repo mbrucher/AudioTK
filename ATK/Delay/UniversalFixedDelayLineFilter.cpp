@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(int max_delay)
-  :Parent(1, 1), delay_line(max_delay, 0), delay(0), blend(0), feedback(0), feedforward(1)
+    :Parent(1, 1), delay_line(max_delay, 0), delay(0), blend(0), feedback(0), feedforward(1)
   {
   }
   

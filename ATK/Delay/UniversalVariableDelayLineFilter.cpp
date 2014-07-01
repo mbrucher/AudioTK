@@ -76,8 +76,10 @@ namespace ATK
     {
       processed_input[i] = processed_input[processed_input.size() + i - max_delay];
     }
-    delay_line.resize(max_delay);
+    delay_line.resize(size);
     processed_input.resize(size + max_delay);
+    DataType* ATK_RESTRICT delay_line_ptr = delay_line.data();
+    DataType* ATK_RESTRICT processed_input_ptr = processed_input.data();
 
     // Update the delay line
     integer_delay.resize(size);
@@ -92,13 +94,9 @@ namespace ATK
 
     for(std::int64_t i = 0; i < size; ++i)
     {
-      delay_line[i] = processed_input[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
-      processed_input[max_delay + i] = input1[i] + feedback * delay_line[i];
-    }
-    
-    for(std::int64_t i = 0; i < size; ++i)
-    {
-      output[i] = blend * input1[i] + feedforward * delay_line[i];
+      delay_line_ptr[i] = processed_input_ptr[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + processed_input_ptr[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
+      processed_input_ptr[max_delay + i] = input1[i] + feedback * delay_line_ptr[i];
+      output[i] = blend * input1[i] + feedforward * delay_line_ptr[i];
     }
   }
   

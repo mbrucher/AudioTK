@@ -22,19 +22,19 @@ namespace ATK
   };
   
   template<class DataType>
-  class LowPassCoefficients: public BaseFilter
+  class LowPassCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   public:
   };
   
   template<class DataType>
-  class HighPassCoefficients: public BaseFilter
+  class HighPassCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   public:
   };
   
   template<class DataType>
-  class BandPassPeakCoefficients: public BaseFilter
+  class BandPassPeakCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -44,7 +44,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class LowShelvingCoefficients: public BaseFilter
+  class LowShelvingCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   public:
     void set_gain(DataType gain);
@@ -52,7 +52,7 @@ namespace ATK
   };
 
   template<class DataType>
-  class HighShelvingCoefficients: public BaseFilter
+  class HighShelvingCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   public:
     void set_gain(DataType gain);
