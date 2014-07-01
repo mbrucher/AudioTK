@@ -11,6 +11,11 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+0.4.0
+* Added a white noise generator filter
+* Fixed the delay line filters
+* Fixed second order EQ Python wrappers
+
 0.3.2
 * Added a fixed delay line filter (FIR filter) with Python wrappers
 * Added an universal fixed delay line filter (FIR, IIR and all-pass filter + combinations) with Python wrappers

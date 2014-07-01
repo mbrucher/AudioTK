@@ -19,5 +19,6 @@
 %include "PanFilter.i"
 %include "SumFilter.i"
 %include "VolumeFilter.i"
+%include "WhiteNoiseGeneratorFilter.i"
 
 #endif
