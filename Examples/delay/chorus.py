@@ -19,7 +19,7 @@ def filter(input, blend=0, feedback=0, feedforward=1):
   noisefilter = DoubleWhiteNoiseGeneratorFilter()
   noisefilter.set_input_sampling_rate(sample_rate)
   noisefilter.set_offset(50e-3 * sample_rate)
-  noisefilter.set_volume(5e-3 * sample_rate)
+  noisefilter.set_volume(25e-3 * sample_rate)
     
   lownoisefilter = DoubleLowPassCoefficientsIIRFilter()
   lownoisefilter.set_input_sampling_rate(sample_rate)
@@ -49,5 +49,5 @@ if __name__ == "__main__":
   d = np.sin(x * 2 * np.pi * 1000)
 
   np.savetxt("input.txt", d)
-  out = filter(d, feedforward=-1, blend=1, feedback=-.5)
+  out = filter(d, feedforward=1, blend=0.7, feedback=-0.7)
   np.savetxt("output.txt", d)

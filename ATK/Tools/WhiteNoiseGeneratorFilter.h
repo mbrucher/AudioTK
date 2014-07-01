@@ -6,7 +6,7 @@
 #define ATK_TOOLS_WHITENOISEGENERATORFILTER_H
 
 #include <boost/random/mersenne_twister.hpp>
-#include <boost/random/normal_distribution.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
@@ -44,7 +44,7 @@ namespace ATK
     double offset;
     
     boost::random::mt19937 gen; // Should use a random123 when they will be in Boost
-    boost::random::normal_distribution<DataType_> dist;
+    boost::random::uniform_real_distribution<DataType_> dist;
   };
 }
 

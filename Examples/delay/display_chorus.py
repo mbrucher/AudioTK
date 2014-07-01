@@ -23,11 +23,11 @@ def filter(input, blend=0, feedback=0, feedforward=1):
   noisefilter = DoubleWhiteNoiseGeneratorFilter()
   noisefilter.set_input_sampling_rate(sample_rate)
   noisefilter.set_offset(50e-3 * sample_rate)
-  noisefilter.set_volume(5e-3 * sample_rate)
+  noisefilter.set_volume(25e-3 * sample_rate)
   
   lownoisefilter = DoubleLowPassCoefficientsIIRFilter()
   lownoisefilter.set_input_sampling_rate(sample_rate)
-  lownoisefilter.set_cut_frequency(10)
+  lownoisefilter.set_cut_frequency(5)
   lownoisefilter.set_input_port(0, noisefilter, 0)
   
   delayfilter = DoubleUniversalVariableDelayLineFilter(5000)
@@ -54,7 +54,7 @@ if __name__ == "__main__":
   d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t)
 
   np.savetxt("input.txt", d)
-  out = filter(d, feedforward=-1, blend=1, feedback=-.5)
+  out = filter(d, feedforward=1, blend=0.7, feedback=-0.7)
   np.savetxt("output.txt", d)
   plt.figure()
   plot_me((d[0], out[0]), sample_rate)
