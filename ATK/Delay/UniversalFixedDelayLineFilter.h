@@ -51,7 +51,6 @@ namespace ATK
 
     std::vector<DataType> delay_line;
     std::vector<DataType> processed_input;
-    std::int64_t max_delay;
     std::int64_t delay;
     DataType_ blend;
     DataType_ feedback;
