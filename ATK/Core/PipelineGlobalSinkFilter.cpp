@@ -49,7 +49,7 @@ namespace ATK
   {
     for(std::vector<BaseFilter*>::iterator it = filters.begin(); it != filters.end(); ++it)
     {
-      (*it)->process_conditionnally(size);
+      (*it)->process_conditionnally(size * (*it)->get_output_sampling_rate() / input_sampling_rate);
     }
   }
 

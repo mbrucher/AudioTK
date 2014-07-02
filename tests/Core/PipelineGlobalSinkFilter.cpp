@@ -40,6 +40,7 @@ BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_2sinks_test )
   checker2.set_input_port(0, &generator, 0);
 
   ATK::PipelineGlobalSinkFilter globalsink;
+  globalsink.set_input_sampling_rate(48000);
   globalsink.add_filter(&checker1);
   globalsink.add_filter(&checker2);
   globalsink.process(PROCESSSIZE);
