@@ -10,6 +10,9 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+0.4.1
+* Added a PipelineGlobalSinkFilter 
+* Changed the MiddleSideFilter scale (no more dividing by 2 in the code)
 
 0.4.0
 * Added a white noise generator filter

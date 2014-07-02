@@ -27,8 +27,8 @@ namespace ATK
   {
     for(std::int64_t i = 0; i < size; ++i)
     {
-      outputs[0][i] = static_cast<DataType>((converted_inputs[0][i] + converted_inputs[1][i]) / 2);
-      outputs[1][i] = static_cast<DataType>((converted_inputs[0][i] - converted_inputs[1][i]) / 2);
+      outputs[0][i] = static_cast<DataType>((converted_inputs[0][i] + converted_inputs[1][i]));
+      outputs[1][i] = static_cast<DataType>((converted_inputs[0][i] - converted_inputs[1][i]));
     }
   }
   
