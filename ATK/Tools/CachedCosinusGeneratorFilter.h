@@ -1,9 +1,9 @@
 /**
- * \file CachedSinusGeneratorFilter.h
+ * \file CachedCosinusGeneratorFilter.h
  */
 
-#ifndef ATK_TOOLS_CACHEDSINUSGENERATORFILTER_H
-#define ATK_TOOLS_CACHEDSINUSGENERATORFILTER_H
+#ifndef ATK_TOOLS_CACHEDCOSINUSGENERATORFILTER_H
+#define ATK_TOOLS_CACHEDCOSINUSGENERATORFILTER_H
 
 #include <vector>
 
@@ -16,7 +16,7 @@ namespace ATK
    *
    */
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT CachedSinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT CachedCosinusGeneratorFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -26,8 +26,8 @@ namespace ATK
     using Parent::output_sampling_rate;
 
   public:
-    CachedSinusGeneratorFilter(int periods, int seconds = 1);
-    ~CachedSinusGeneratorFilter();
+    CachedCosinusGeneratorFilter(int periods, int seconds = 1);
+    ~CachedCosinusGeneratorFilter();
 
     void set_frequency(int periods, int seconds = 1);
     std::pair<int, int> set_frequency() const;
