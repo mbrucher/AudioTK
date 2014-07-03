@@ -75,6 +75,7 @@ namespace ATK
   {
     DataType* ATK_RESTRICT output = outputs[0];
     std::int64_t processed = 0;
+
     while(processed < size)
     {
       std::int64_t to_copy = std::min(size - processed, std::int64_t(cache.size()) - indice);
