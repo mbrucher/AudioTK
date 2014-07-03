@@ -1,5 +1,7 @@
 /**
  * \file SecondOrderFilter.cpp
+ * @see http://abvolt.com/research/publications2.htm
+ * @see http://www.music.mcgill.ca/~ich/classes/FiltersChap2.pdf for the allpass filter
  */
 
 #include "SecondOrderFilter.h"
@@ -40,8 +42,8 @@ namespace ATK
     return cut_frequency;
   }
 
-  template<typename DataType_>
-  BandPassCoefficients<DataType_>::BandPassCoefficients(int nb_channels)
+  template<typename DataType>
+  BandPassCoefficients<DataType>::BandPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -75,8 +77,8 @@ namespace ATK
     return Q;
   }
 
-  template<typename DataType_>
-  LowPassCoefficients<DataType_>::LowPassCoefficients(int nb_channels)
+  template<typename DataType>
+  LowPassCoefficients<DataType>::LowPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -96,8 +98,8 @@ namespace ATK
     coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
   }
 
-  template<typename DataType_>
-  HighPassCoefficients<DataType_>::HighPassCoefficients(int nb_channels)
+  template<typename DataType>
+  HighPassCoefficients<DataType>::HighPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -117,8 +119,8 @@ namespace ATK
     coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
   }
 
-  template<typename DataType_>
-  BandPassPeakCoefficients<DataType_>::BandPassPeakCoefficients(int nb_channels)
+  template<typename DataType>
+  BandPassPeakCoefficients<DataType>::BandPassPeakCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -180,8 +182,42 @@ namespace ATK
     return gain;
   }
 
-  template<typename DataType_>
-  LowShelvingCoefficients<DataType_>::LowShelvingCoefficients(int nb_channels)
+  template<typename DataType>
+  AllPassCoefficients<DataType>::AllPassCoefficients(int nb_channels)
+    :Parent(nb_channels)
+  {
+  }
+
+  template <typename DataType>
+  void AllPassCoefficients<DataType>::setup()
+  {
+    Parent::setup();
+
+    DataType c = std::tan(boost::math::constants::pi<DataType>() * Q);
+    DataType d = -std::cos(2 * boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+
+    coefficients_in[2] = -c;
+    coefficients_in[1] = d * (1 - c);
+    coefficients_in[0] = 1;
+    coefficients_out[1] = -d * (1 - c);
+    coefficients_out[0] = c;
+  }
+
+  template <typename DataType>
+  void AllPassCoefficients<DataType>::set_Q(DataType Q)
+  {
+    this->Q = Q;
+    setup();
+  }
+
+  template <typename DataType>
+  typename AllPassCoefficients<DataType>::DataType AllPassCoefficients<DataType>::get_Q() const
+  {
+    return Q;
+  }
+
+  template<typename DataType>
+  LowShelvingCoefficients<DataType>::LowShelvingCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -228,8 +264,8 @@ namespace ATK
     return gain;
   }
 
-  template<typename DataType_>
-  HighShelvingCoefficients<DataType_>::HighShelvingCoefficients(int nb_channels)
+  template<typename DataType>
+  HighShelvingCoefficients<DataType>::HighShelvingCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -287,6 +323,8 @@ namespace ATK
   template class HighPassCoefficients<double>;
   template class BandPassPeakCoefficients<float>;
   template class BandPassPeakCoefficients<double>;
+  template class AllPassCoefficients<float>;
+  template class AllPassCoefficients<double>;
   template class LowShelvingCoefficients<float>;
   template class LowShelvingCoefficients<double>;
   template class HighShelvingCoefficients<float>;
@@ -300,6 +338,8 @@ namespace ATK
   template class IIRFilter<HighPassCoefficients<double> >;
   template class IIRFilter<BandPassPeakCoefficients<float> >;
   template class IIRFilter<BandPassPeakCoefficients<double> >;
+  template class IIRFilter<AllPassCoefficients<float> >;
+  template class IIRFilter<AllPassCoefficients<double> >;
   template class IIRFilter<LowShelvingCoefficients<float> >;
   template class IIRFilter<LowShelvingCoefficients<double> >;
   template class IIRFilter<HighShelvingCoefficients<float> >;
