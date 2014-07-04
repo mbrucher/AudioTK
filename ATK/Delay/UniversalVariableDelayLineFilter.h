@@ -58,6 +58,7 @@ namespace ATK
     DataType_ blend;
     DataType_ feedback;
     DataType_ feedforward;
+    DataType_ last_delay;
   };
 }
 
