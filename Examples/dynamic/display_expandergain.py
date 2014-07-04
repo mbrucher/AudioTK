@@ -54,7 +54,7 @@ if __name__ == "__main__":
   plt.loglog(x[0], out_10_01_001[0], label="slope(10), threshold(0.1), softness(1e-2)")
   plt.loglog(x[0], out_10_01_1[0], label="slope(10), threshold(0.1), softness(1)")
   plt.loglog(x[0], out_10_01_10[0], label="slope(10), threshold(0.1), softness(10)")
-  plt.title("Compressor gain")
+  plt.title("Expander gain")
   plt.legend(loc=4)
   plt.grid()
   plt.show()
