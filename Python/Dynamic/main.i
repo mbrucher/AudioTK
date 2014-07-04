@@ -13,6 +13,7 @@
 %include "../Core/BaseFilter.i"
 %include "AttackReleaseFilter.i"
 %include "GainCompressorFilter.i"
+%include "GainExpanderFilter.i"
 %include "PowerFilter.i"
 
 #endif
