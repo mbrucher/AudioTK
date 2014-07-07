@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_slope_2_test )
 
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(0.7, outdata[i], 0.1);
+    BOOST_REQUIRE_CLOSE(0.490775019, outdata[i], 0.1);
   }
 }
 
@@ -134,6 +134,6 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_slope_4_test )
 
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(0.58635664, outdata[i], 0.1);
+    BOOST_REQUIRE_CLOSE(0.118208125, outdata[i], 0.1);
   }
 }
