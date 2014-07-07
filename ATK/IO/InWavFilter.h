@@ -28,13 +28,13 @@ namespace ATK
     using Parent::set_nb_output_ports;
 
   private:
+    std::vector<std::vector<DataType> > temp_arrays;
     std::ifstream wavstream;
+    std::string filename;
     WavHeader header;
     WavFormat format;
     WavData data;
-    
-    std::vector<std::vector<DataType> > temp_arrays;
-    
+        
     void read_from_file(std::int64_t size);
 
   public:

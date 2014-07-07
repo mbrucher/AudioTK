@@ -28,14 +28,16 @@ namespace ATK
 {
   template<typename DataType>
   InWavFilter<DataType>::InWavFilter(const std::string& filename)
-  :TypedBaseFilter<DataType>(0, 0)
+  :TypedBaseFilter<DataType>(0, 0), filename(filename)
   {
-    wavstream.open(filename.c_str());
+    wavstream.open(filename.c_str(), std::ios_base::binary);
     if(!wavstream.good())
     {
       throw std::runtime_error("Could not open WAV file " + filename);
     }
     wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
+    wavstream.close();
+
     set_nb_output_ports(format.NbChannels);
     set_output_sampling_rate(format.Frequence);
     temp_arrays.resize(format.NbChannels);
@@ -59,10 +61,15 @@ namespace ATK
   template<typename DataType>
   void InWavFilter<DataType>::read_from_file(std::int64_t size)
   {
+    if(!wavstream.is_open())
+    {
+      wavstream.open(filename.c_str(), std::ios_base::binary);
+      wavstream.seekg(sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
+    }
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
     wavstream.read(buffer.data(), buffer.size());
-    
-    if(temp_arrays[0].size() < static_cast<std::size_t>(size))
+
+    if(temp_arrays[0].size() != static_cast<std::size_t>(size))
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {
