@@ -6,7 +6,6 @@
 
 namespace ATK
 {
-  template<class DataType>
   class PipelineGlobalSinkFilter: public BaseFilter
   {
   public:
