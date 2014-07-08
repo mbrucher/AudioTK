@@ -46,7 +46,6 @@ namespace ATK
         {
           step = gainLUT.size() - 1;
         }
-        DataType delta = value - step / LUTprecision;
         output[i] = gainLUT[step];
       }
     }
