@@ -31,7 +31,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  std::pair<int, int> CachedSinusGeneratorFilter<DataType_>::set_frequency() const
+  std::pair<int, int> CachedSinusGeneratorFilter<DataType_>::get_frequency() const
   {
     return std::make_pair(periods, seconds);
   }

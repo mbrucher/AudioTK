@@ -77,7 +77,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup();
   public:
-    LowPassCoefficients(int nb_channels);
+    LowPassCoefficients(int nb_channels = 1);
   };
   
   /**
