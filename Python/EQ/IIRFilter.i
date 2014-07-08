@@ -14,8 +14,6 @@ namespace ATK
     IIRFilter(int nb_channels = 1);
     ~IIRFilter();
     void process(long size);
-    
-    
   };
 }
 
