@@ -47,7 +47,14 @@ namespace ATK
 
   void PipelineGlobalSinkFilter::process_impl( std::int64_t size )
   {
-    for(std::vector<BaseFilter*>::iterator it = filters.begin(); it != filters.end(); ++it)
+    for (auto it = filters.begin(); it != filters.end(); ++it)
+    {
+      if ((*it) != NULL)
+      {
+        (*it)->reset();
+      }
+    }
+    for (auto it = filters.begin(); it != filters.end(); ++it)
     {
       (*it)->process_conditionnally(size * (*it)->get_output_sampling_rate() / input_sampling_rate);
     }
