@@ -23,7 +23,7 @@ namespace ATK
   }
     
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::set_frequency(int periods, int seconds = 1)
+  void CachedSinusGeneratorFilter<DataType_>::set_frequency(int periods, int seconds)
   {
     this->periods = periods;
     this->seconds = seconds;
