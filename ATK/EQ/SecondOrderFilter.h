@@ -77,7 +77,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup();
   public:
-    LowPassCoefficients(int nb_channels);
+    LowPassCoefficients(int nb_channels = 1);
   };
   
   /**
@@ -99,9 +99,9 @@ namespace ATK
   public:
     HighPassCoefficients(int nb_channels = 1);
   };
-  
+
   /**
-   * Coefficients for a second order allpass peak filter
+   * Coefficients for a second order bandpass peak filter
    */
   template<typename DataType_>
   class BandPassPeakCoefficients: public BaseSecondOrderCoefficients<DataType_>
@@ -129,9 +129,38 @@ namespace ATK
     void set_gain(DataType gain);
     DataType get_gain() const;
   };
+
   
   /**
-   * Coefficients for a second order lowpass filter
+   * Coefficients for a second order allpass filter
+   */
+  template<typename DataType_>
+  class AllPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  {
+  public:
+    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::input_sampling_rate;
+    using Parent::output_sampling_rate;
+  protected:
+    using Parent::cut_frequency;
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
+  private:
+    DataType Q;
+  protected:
+    void setup();
+    
+  public:
+    AllPassCoefficients(int nb_channels = 1);
+
+    /// Q is the allpass relative width (to the sampling rate)
+    void set_Q(DataType Q);
+    DataType get_Q() const;
+  };
+
+  /**
+   * Coefficients for a second order low-pass shelving filter
    */
   template<typename DataType_>
   class LowShelvingCoefficients: public BaseSecondOrderCoefficients<DataType_>
@@ -157,7 +186,7 @@ namespace ATK
   };
   
   /**
-   * Coefficients for a second order high pass shelving filter
+   * Coefficients for a second order high-pass shelving filter
    */
   template<typename DataType_>
   class HighShelvingCoefficients: public BaseSecondOrderCoefficients<DataType_>

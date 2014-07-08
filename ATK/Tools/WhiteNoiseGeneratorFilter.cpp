@@ -54,7 +54,6 @@ namespace ATK
   void WhiteNoiseGeneratorFilter<DataType_>::process_impl(std::int64_t size)
   {
     DataType* ATK_RESTRICT output = outputs[0];
-    std::int64_t processed = 0;
     for(std::int64_t i = 0; i < size; ++i)
     {
       output[i] = dist(gen);

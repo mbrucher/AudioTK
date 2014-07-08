@@ -3,20 +3,20 @@ from sympy import Symbol, log, sqrt, series, exp
 
 K = Symbol("K")
 S = Symbol("S")
-slope = Symbol("slope")
+softness = Symbol("softness")
 x = Symbol("x")
 
 def f(x):
     return 10 * log (K * (1 + x)) / log(10)
 
-print series(f(x), x)
-
 def g(x):
-    return -(S-1)/(20*S) * (sqrt(f(x)**2 + slope**2) + f(x))
+    return -(S-1)/(20*S) * (sqrt(f(x)**2 + softness**2) + f(x))
     
-print series(g(x), x)
-
 def h(x):
     return exp(g(x) * log(10))
 
-print series(h(x), x)
+poly = series(h(x), x, n=2)
+
+print poly
+print poly.coeff(1)
+print poly.coeff(x)

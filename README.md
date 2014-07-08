@@ -11,6 +11,12 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 
+### 0.4.1
+* Added a PipelineGlobalSinkFilter with Python wrapper
+* Changed the MiddleSideFilter scale (no more dividing by 2 in the code)
+* Additional tools additions (cos generator, offset+volume filter)
+* Added a second order all pass filter with Python wrappers
+
 ### 0.4.0
 * Added a white noise generator filter
 * Fixed the delay line filters

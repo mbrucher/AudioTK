@@ -50,4 +50,4 @@ if __name__ == "__main__":
 
   np.savetxt("input.txt", d)
   out = filter(d, feedforward=1, blend=0.7, feedback=-0.7)
-  np.savetxt("output.txt", d)
+  np.savetxt("output.txt", out)

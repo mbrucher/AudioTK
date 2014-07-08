@@ -44,6 +44,14 @@ namespace ATK
   };
   
   template<class DataType>
+  class AllPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  {
+  public:
+    void set_Q(DataType Q);
+    DataType get_Q();
+  };
+  
+  template<class DataType>
   class LowShelvingCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   public:
@@ -71,6 +79,8 @@ namespace ATK
 %template(DoubleHighPassCoefficients) ATK::HighPassCoefficients<double>;
 %template(FloatBandPassPeakCoefficients) ATK::BandPassPeakCoefficients<float>;
 %template(DoubleBandPassPeakCoefficients) ATK::BandPassPeakCoefficients<double>;
+%template(FloatAllPassCoefficients) ATK::AllPassCoefficients<float>;
+%template(DoubleAllPassCoefficients) ATK::AllPassCoefficients<double>;
 %template(FloatLowShelvingCoefficients) ATK::LowShelvingCoefficients<float>;
 %template(DoubleLowShelvingCoefficients) ATK::LowShelvingCoefficients<double>;
 %template(FloatHighShelvingCoefficients) ATK::HighShelvingCoefficients<float>;
@@ -85,6 +95,8 @@ namespace ATK
 %template(DoubleHighPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighPassCoefficients<double> >;
 %template(FloatBandPassPeakCoefficientsIIRFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<float> >;
 %template(DoubleBandPassPeakCoefficientsIIRFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> >;
+%template(FloatAllPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::AllPassCoefficients<float> >;
+%template(DoubleAllPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::AllPassCoefficients<double> >;
 %template(FloatLowShelvingCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<float> >;
 %template(DoubleLowShelvingCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<double> >;
 %template(FloatHighShelvingCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighShelvingCoefficients<float> >;

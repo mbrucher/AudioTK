@@ -33,7 +33,7 @@ volumefilter2 = FloatVolumeFilter(2)
 volumefilter2.set_input_sampling_rate(sampling_rate)
 volumefilter2.set_input_port(0, msmergefilter, 0)
 volumefilter2.set_input_port(1, msmergefilter, 1)
-volumefilter2.set_volume(2)
+volumefilter2.set_volume(.5) # Account for MS gain
 
 outdata = np.zeros(data.shape, dtype=np.int16)
 outfilter = Int16OutPointerFilter(outdata, True)

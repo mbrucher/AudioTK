@@ -55,7 +55,8 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
   
   checker.set_input_port(0, &sumfilter, 0);
   
-  checker.process(PROCESSSIZE);
+  checker.process(PROCESSSIZE/2);
+  checker.process(PROCESSSIZE/2);
 }
 
 BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k2k_test )

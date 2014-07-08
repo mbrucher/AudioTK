@@ -31,7 +31,7 @@ namespace ATK
   OutWavFilter<DataType>::OutWavFilter(const std::string& filename)
   :TypedBaseFilter<DataType>(0, 0)
   {
-    wavstream.open(filename.c_str());
+    wavstream.open(filename.c_str(), std::ios_base::binary);
     if(!wavstream.good())
     {
       throw std::runtime_error("Could not WAV file " + filename);

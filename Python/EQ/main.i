@@ -18,6 +18,7 @@
 %include "ButterworthFilter.i"
 %include "Chebyshev1Filter.i"
 %include "Chebyshev2Filter.i"
+%include "CustomIIRFilter.i"
 
 %include "SD1ToneFilter.i"
 %include "ToneStackFilter.i"

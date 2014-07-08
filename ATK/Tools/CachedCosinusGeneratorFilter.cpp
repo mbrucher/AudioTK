@@ -1,8 +1,8 @@
 /**
- * \file CachedSinusGeneratorFilter.cpp
+ * \file CachedCosinusGeneratorFilter.cpp
  */
 
-#include "CachedSinusGeneratorFilter.h"
+#include "CachedCosinusGeneratorFilter.h"
 
 #include <cmath>
 #include <cstdint>
@@ -12,18 +12,18 @@
 namespace ATK
 {
   template<typename DataType_>
-  CachedSinusGeneratorFilter<DataType_>::CachedSinusGeneratorFilter(int periods, int seconds)
+  CachedCosinusGeneratorFilter<DataType_>::CachedCosinusGeneratorFilter(int periods, int seconds)
   :Parent(0, 1), indice(1), periods(periods), seconds(seconds), volume(1), offset(0)
   {
   }
   
   template<typename DataType_>
-  CachedSinusGeneratorFilter<DataType_>::~CachedSinusGeneratorFilter()
+  CachedCosinusGeneratorFilter<DataType_>::~CachedCosinusGeneratorFilter()
   {
   }
-    
+  
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::set_frequency(int periods, int seconds)
+  void CachedCosinusGeneratorFilter<DataType_>::set_frequency(int periods, int seconds)
   {
     this->periods = periods;
     this->seconds = seconds;
@@ -31,51 +31,50 @@ namespace ATK
   }
   
   template<typename DataType_>
-  std::pair<int, int> CachedSinusGeneratorFilter<DataType_>::get_frequency() const
+  std::pair<int, int> CachedCosinusGeneratorFilter<DataType_>::get_frequency() const
   {
     return std::make_pair(periods, seconds);
   }
 
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::set_volume(double volume)
+  void CachedCosinusGeneratorFilter<DataType_>::set_volume(double volume)
   {
     this->volume = volume;
   }
   
   template<typename DataType_>
-  double CachedSinusGeneratorFilter<DataType_>::get_volume() const
+  double CachedCosinusGeneratorFilter<DataType_>::get_volume() const
   {
     return volume;
   }
   
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::set_offset(double offset)
+  void CachedCosinusGeneratorFilter<DataType_>::set_offset(double offset)
   {
     this->offset = offset;
   }
   
   template<typename DataType_>
-  double CachedSinusGeneratorFilter<DataType_>::get_offset() const
+  double CachedCosinusGeneratorFilter<DataType_>::get_offset() const
   {
     return offset;
   }
 
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::setup()
+  void CachedCosinusGeneratorFilter<DataType_>::setup()
   {
     cache.resize(output_sampling_rate * seconds);
     for(int i = 0; i < cache.size(); ++i)
     {
-      cache[i] = std::sin(2 * boost::math::constants::pi<double>() * i * periods / seconds / output_sampling_rate);
+      cache[i] = std::cos(2 * boost::math::constants::pi<double>() * i * periods / seconds / output_sampling_rate);
     }
   }
 
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::process_impl(std::int64_t size)
+  void CachedCosinusGeneratorFilter<DataType_>::process_impl(std::int64_t size)
   {
     DataType* ATK_RESTRICT output = outputs[0];
     std::int64_t processed = 0;
-
     while(processed < size)
     {
       std::int64_t to_copy = std::min(size - processed, std::int64_t(cache.size()) - indice);
@@ -93,9 +92,9 @@ namespace ATK
     }
   }
   
-  template class CachedSinusGeneratorFilter<std::int16_t>;
-  template class CachedSinusGeneratorFilter<std::int32_t>;
-  template class CachedSinusGeneratorFilter<std::int64_t>;
-  template class CachedSinusGeneratorFilter<float>;
-  template class CachedSinusGeneratorFilter<double>;
+  template class CachedCosinusGeneratorFilter<std::int16_t>;
+  template class CachedCosinusGeneratorFilter<std::int32_t>;
+  template class CachedCosinusGeneratorFilter<std::int64_t>;
+  template class CachedCosinusGeneratorFilter<float>;
+  template class CachedCosinusGeneratorFilter<double>;
 }

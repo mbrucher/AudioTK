@@ -33,6 +33,9 @@ namespace ATK
     UniversalVariableDelayLineFilter(int max_delay);
     ~UniversalVariableDelayLineFilter();
 
+    void set_central_delay(int central_delay);
+    int get_central_delay() const;
+
     void set_blend(DataType_ blend);
     DataType_ get_blend() const;
     
@@ -55,9 +58,11 @@ namespace ATK
     
     /// Max delay for the delay line
     std::int64_t max_delay;
+    int central_delay;
     DataType_ blend;
     DataType_ feedback;
     DataType_ feedforward;
+    DataType_ last_delay;
   };
 }
 

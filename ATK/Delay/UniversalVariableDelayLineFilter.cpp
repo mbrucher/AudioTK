@@ -14,7 +14,7 @@ namespace ATK
 {
   template<typename DataType_>
   UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(int max_delay)
-  :Parent(2, 1), processed_input(max_delay, 0), max_delay(max_delay), blend(0), feedback(0), feedforward(1)
+    :Parent(2, 1), processed_input(max_delay, 0), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1), last_delay(0)
   {
   }
   
@@ -22,6 +22,18 @@ namespace ATK
   UniversalVariableDelayLineFilter<DataType_>::~UniversalVariableDelayLineFilter()
   {
     
+  }
+
+  template<typename DataType_>
+  void UniversalVariableDelayLineFilter<DataType_>::set_central_delay(int central_delay)
+  {
+    this->central_delay = central_delay;
+  }
+
+  template<typename DataType_>
+  int UniversalVariableDelayLineFilter<DataType_>::get_central_delay() const
+  {
+    return central_delay;
   }
 
   template<typename DataType_>
@@ -76,6 +88,7 @@ namespace ATK
     {
       processed_input[i] = processed_input[processed_input.size() + i - max_delay];
     }
+
     delay_line.resize(size);
     processed_input.resize(size + max_delay);
     DataType* ATK_RESTRICT delay_line_ptr = delay_line.data();
@@ -94,9 +107,10 @@ namespace ATK
 
     for(std::int64_t i = 0; i < size; ++i)
     {
-      delay_line_ptr[i] = processed_input_ptr[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + processed_input_ptr[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
-      processed_input_ptr[max_delay + i] = input1[i] + feedback * delay_line_ptr[i];
-      output[i] = blend * input1[i] + feedforward * delay_line_ptr[i];
+      delay_line_ptr[i] = (processed_input_ptr[i + max_delay - integer_delay[i]] - last_delay) * (1 - fractional_delay[i]) + processed_input_ptr[i + max_delay - integer_delay[i] - 1];
+      processed_input_ptr[max_delay + i] = input1[i] + feedback * processed_input_ptr[max_delay + i - central_delay];
+      output[i] = blend * processed_input_ptr[max_delay + i] + feedforward * delay_line_ptr[i];
+      last_delay = delay_line_ptr[i]; // the reason why the test is not that simple!
     }
   }
   

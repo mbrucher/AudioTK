@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
   np.savetxt("input.txt", d)
   out = filter(d, feedforward=-1, blend=1, feedback=-.5)
-  np.savetxt("output.txt", d)
+  np.savetxt("output.txt", out)
   plt.figure()
   plot_me((d[0], out[0]), sample_rate)
   plt.gcf().suptitle("Delay")
