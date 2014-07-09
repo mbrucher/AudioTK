@@ -13,6 +13,7 @@ meant to manage the pipeline.
 * **TypedBaseFilter** is the class that you will actually use.
 * **InPointerFilter** is a class without input ports that will be a source for new data
 * **OutPointerFilter** is a class without output ports that will behave as a sink for the data
+* **PipelineGlobalSinkFilter** is a special class without inputs or outputs, but that can several sinks process simultaneously (not possible without this special class)
 
 Mock module
 ###########
@@ -44,8 +45,10 @@ Tools module
 The *Tools* has two kind of classes: filters and general purpose classes.
 
 * **ApplyGainFilter** is a filter that multiplies two input signals together
+* **CachedCosinusGeneratorFilter** is a filter that outputs a cached cosinus
 * **CachedSinusGeneratorFilter** is a filter that outputs a cached sinus
 * **DecimationFilter** modifies the number of samples in the signal based on the ratio of input/output sampling rates
+* **OffsetVolumeFilter** multiplies input signal by a certain amount and adds a constant offset
 * **OversamplingFilter** is actually a set of oversampling filters that will multiply the number of samples from the input.
 * **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**.
 * **PanFilter** pans a single input signal on a stereo output
@@ -68,6 +71,7 @@ The *EQ* module contains a lot of different filter types.
 * **ButterworthFilter** is an implementation of Butterworth filters
 * **Chebyshev1Filter** is an implementation of Chebyshev type 1 filters
 * **Chebyshev2Filter** is an implementation of Chebyshev type 2 filters
+* **CustomIIRFilter** helps designing custom IIR filters
 * **SecondOrderFilter** is an implementation of second order filters
 * **IIRFilter** is the base class for IIR filters
 * **FirstOrderFilter** is an implementation of the Chamberlin filter
@@ -90,7 +94,8 @@ Dynamic module
 The *Dynamic* module contains filters enabling compressor construction.
 
 * **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
-* **GainCompressorFilter** is a filter that changes an input signal (a gain) with like a compressor does
+* **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor/limiter does
+* **GainExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does
 * **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal
 
 Distortion module
