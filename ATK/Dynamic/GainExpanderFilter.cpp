@@ -10,8 +10,8 @@
 
 namespace
 {
-  static const int LUTsize = 128*1024;
-  static const int LUTprecision = 512;
+  static const int LUTsize = 64*1024;
+  static const int LUTprecision = 1024;
 }
 
 namespace ATK
