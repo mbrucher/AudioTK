@@ -14,9 +14,10 @@
 
 namespace ATK
 {
+  /// Time varying coefficient base class. Two input ports, the first is the data, the second one is the central frequency
   template <typename DataType>
   TimeVaryingBaseSecondOrderCoefficients<DataType>::TimeVaryingBaseSecondOrderCoefficients()
-    :Parent(2, 1) // two input ports, the first is the data, the second one is the central frequency
+    :Parent(2, 1), min_frequency(1), max_frequency(10), memory(.5), number_of_steps(10)
   {
   }
 
@@ -68,6 +69,22 @@ namespace ATK
   int TimeVaryingBaseSecondOrderCoefficients<DataType>::get_number_of_steps() const
   {
     return number_of_steps;
+  }
+
+  template <typename DataType>
+  void TimeVaryingBaseSecondOrderCoefficients<DataType>::set_memory(double memory)
+  {
+    if(memory < 0 || memory >= 1)
+    {
+      throw std::out_of_range("Memory for time varying EQ had to be int he range [0, 1[");
+    }
+    this->memory = memory;
+  }
+
+  template <typename DataType>
+  double TimeVaryingBaseSecondOrderCoefficients<DataType>::get_memory() const
+  {
+    return memory;
   }
 
   template<typename DataType>

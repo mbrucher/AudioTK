@@ -40,8 +40,11 @@ namespace ATK
 
     using Parent::min_frequency;
     using Parent::max_frequency;
+    using Parent::memory;
     using Parent::number_of_steps;
-
+  protected:
+    std::vector<DataType> current_coeffs_in;
+    std::vector<DataType> current_coeffs_out;
   public:
     TimeVaryingIIRFilter()
       :Parent()
@@ -59,6 +62,9 @@ namespace ATK
     {
       assert(input_sampling_rate == output_sampling_rate);
       
+      current_coeffs_in.resize(in_order+1, 0);
+      current_coeffs_out.resize(out_order, 0);
+
       DataType scale = (number_of_steps - 1) / (max_frequency - min_frequency);
       DataType tempout = 0;
       
@@ -77,15 +83,24 @@ namespace ATK
           frequency_index = number_of_steps - 1;
         }
 
-        tempout = coefficients_in[frequency_index * (in_order+1) + in_order] * input[i];
-
-        for(int j = 0; j < in_order; ++j)
+        for(int j = 0; j < in_order+1; ++j)
         {
-          tempout += coefficients_in[frequency_index * (in_order+1) + j] * input[i - in_order + j];
+          current_coeffs_in[j] = current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory);
         }
         for(int j = 0; j < out_order; ++j)
         {
-          tempout += coefficients_out[frequency_index * (out_order) + j] * output[i - out_order + j];
+          coefficients_out[j] = coefficients_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory);
+        }
+
+        tempout = current_coeffs_in[in_order] * input[i];
+
+        for(int j = 0; j < in_order; ++j)
+        {
+          tempout += current_coeffs_in[j] * input[i - in_order + j];
+        }
+        for(int j = 0; j < out_order; ++j)
+        {
+          tempout += coefficients_out[j] * output[i - out_order + j];
         }
         output[i] = tempout;
       }

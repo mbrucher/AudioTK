@@ -25,6 +25,7 @@ namespace ATK
 
     double min_frequency;
     double max_frequency;
+    double memory;
     int number_of_steps;
 
     void setup();
@@ -38,6 +39,8 @@ namespace ATK
     double get_max_frequency() const;
     void set_number_of_steps(int number_of_steps);
     int get_number_of_steps() const;
+    void set_memory(double memory);
+    double get_memory() const;
   };
 
   /**
