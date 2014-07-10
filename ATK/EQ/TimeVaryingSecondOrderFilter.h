@@ -55,6 +55,9 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    using Parent::min_frequency;
+    using Parent::max_frequency;
+    using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
@@ -82,6 +85,9 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    using Parent::min_frequency;
+    using Parent::max_frequency;
+    using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
     void setup();
@@ -101,6 +107,9 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    using Parent::min_frequency;
+    using Parent::max_frequency;
+    using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
     void setup();
@@ -120,6 +129,9 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    using Parent::min_frequency;
+    using Parent::max_frequency;
+    using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
@@ -150,6 +162,9 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    using Parent::min_frequency;
+    using Parent::max_frequency;
+    using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
@@ -177,6 +192,9 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    using Parent::min_frequency;
+    using Parent::max_frequency;
+    using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
     void setup();
@@ -202,6 +220,9 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    using Parent::min_frequency;
+    using Parent::max_frequency;
+    using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
     void setup();

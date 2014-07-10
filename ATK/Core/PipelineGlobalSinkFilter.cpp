@@ -4,6 +4,8 @@
 
 #include "PipelineGlobalSinkFilter.h"
 
+#include <algorithm>
+
 namespace ATK
 {
   PipelineGlobalSinkFilter::PipelineGlobalSinkFilter()
