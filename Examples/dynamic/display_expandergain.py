@@ -12,12 +12,16 @@ def filter(input, slope=4, threshold=1, softness=1):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
 
+  input2 = input**2
+  in2filter = DoubleInPointerFilter(input2, False)
+  in2filter.set_input_sampling_rate(sample_rate)
+
   infilter = DoubleInPointerFilter(input, False)
   infilter.set_input_sampling_rate(sample_rate)
 
   gainfilter = DoubleGainExpanderFilter(1)
   gainfilter.set_input_sampling_rate(sample_rate)
-  gainfilter.set_input_port(0, infilter, 0)
+  gainfilter.set_input_port(0, in2filter, 0)
   gainfilter.set_threshold(threshold)
   gainfilter.set_slope(slope)
   gainfilter.set_softness(softness)
