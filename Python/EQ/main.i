@@ -20,6 +20,9 @@
 %include "Chebyshev2Filter.i"
 %include "CustomIIRFilter.i"
 
+%include "TimeVaryingIIRFilter.i"
+%include "TimeVaryingSecondOrderFilter.i"
+
 %include "SD1ToneFilter.i"
 %include "ToneStackFilter.i"
 
