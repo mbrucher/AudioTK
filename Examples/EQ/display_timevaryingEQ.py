@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
-from ATK.EQ import DoubleTimeVaryingLowPassCoefficientsIIRFilter
+from ATK.EQ import DoubleTimeVaryingBandPassCoefficientsIIRFilter
 from ATK.Tools import DoubleCachedSinusGeneratorFilter
 
 import matplotlib.pyplot as plt
@@ -22,12 +22,13 @@ def filter(input, blend=0, feedback=0, feedforward=1):
   noisefilter = DoubleCachedSinusGeneratorFilter(1, 2)
   noisefilter.set_input_sampling_rate(sample_rate)
   noisefilter.set_offset(10000)
-  noisefilter.set_volume(5000)
+  noisefilter.set_volume(2000)
   
-  lowfilter = DoubleTimeVaryingLowPassCoefficientsIIRFilter()
+  lowfilter = DoubleTimeVaryingBandPassCoefficientsIIRFilter()
   lowfilter.set_input_sampling_rate(sample_rate)
-  lowfilter.set_min_frequency(1000)
-  lowfilter.set_max_frequency(19000)
+  lowfilter.set_Q(1)
+  lowfilter.set_min_frequency(8000)
+  lowfilter.set_max_frequency(12000)
   lowfilter.set_number_of_steps(10001)
   lowfilter.set_input_port(0, infilter, 0)
   lowfilter.set_input_port(1, noisefilter, 0)
@@ -52,7 +53,9 @@ if __name__ == "__main__":
   np.savetxt("output.txt", out)
   plt.figure()
   plot_me((d[0], out[0]), sample_rate)
-  plt.clim(-50,-45)
-  plt.gcf().suptitle("Delay")
+  plt.clim(-55,-45)
+  a = plt.subplot(2, 1, 1)
+  plt.clim(-55,-45)
+  plt.gcf().suptitle("Amplitude for a time-varying filter")
   plt.legend()
   plt.show()
