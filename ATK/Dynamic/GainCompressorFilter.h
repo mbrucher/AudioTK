@@ -36,10 +36,10 @@ namespace ATK
     void set_threshold_db(DataType_ threshold_db);
     DataType_ get_threshold() const;
     /**
-     * 1:slope is defined as the reduction factor. 1:1 is a reduction of 0, 1:2 is a reduction by a factor of 2...
+     * 1:ratio is defined as the reduction factor. 1:1 is a reduction of 0, 1:2 is a reduction by a factor of 2...
      */
-    void set_slope(DataType_ slope);
-    DataType_ get_slope() const;
+    void set_ratio(DataType_ ratio);
+    DataType_ get_ratio() const;
     void set_softness(DataType_ softness);
     DataType_ get_softness() const;
 
@@ -49,7 +49,7 @@ namespace ATK
     void recomputeLUT();
     
     DataType_ threshold;
-    DataType_ slope;
+    DataType_ ratio;
     DataType_ softness;
 
     std::vector<DataType_> gainLUT;
