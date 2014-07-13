@@ -13,7 +13,7 @@ namespace ATK
     ~CachedSinusGeneratorFilter();
     
     void set_frequency(int periods, int seconds = 1);
-    std::pair<int, int> set_frequency() const;
+    std::pair<int, int> get_frequency() const;
     void set_volume(double volume);
     double get_volume();
     void set_offset(double offset);

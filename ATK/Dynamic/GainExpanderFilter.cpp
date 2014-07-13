@@ -10,8 +10,8 @@
 
 namespace
 {
-  static const int LUTsize = 128*1024;
-  static const int LUTprecision = 1000;
+  static const int LUTsize = 64*1024;
+  static const int LUTprecision = 1024;
 }
 
 namespace ATK
@@ -116,7 +116,7 @@ namespace ATK
     for(int i = 1; i < LUTsize; ++i)
     {
       DataType diff = -10 * std::log10(static_cast<DataType>(i) / LUTprecision);
-      gainLUT.push_back(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 20 * (slope - 1)));
+      gainLUT.push_back(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (slope - 1)));
     }
   }
 
