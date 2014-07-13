@@ -77,6 +77,8 @@ The *EQ* module contains a lot of different filter types.
 * **FirstOrderFilter** is an implementation of the Chamberlin filter
 * **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
 * **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
+* **TimeVaryingIIRFilter** is the base class for time varying IIR filters
+* **TimeVaryingSecondOrderFilter** is an implementation of time varying second order filters
 
 Delay module
 ##############
