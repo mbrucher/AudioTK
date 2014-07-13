@@ -14,6 +14,9 @@ Changelog
 ### 0.5.0
 * Renamed slope attribute to ratio for Gain Compressor and Expander Filters
 
+### 0.4.2
+* Bug fixes
+
 ### 0.4.1
 * Added a PipelineGlobalSinkFilter with Python wrapper
 * Changed the MiddleSideFilter scale (no more dividing by 2 in the code)
