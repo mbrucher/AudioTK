@@ -14,7 +14,7 @@ namespace ATK
   template<typename Function>
   class ScalarNewtonRaphson
   {
-    static const int max_iterations = 50;
+    static const int max_iterations = 10;
     
     typedef typename Function::DataType DataType;
     
@@ -22,10 +22,11 @@ namespace ATK
     
     DataType x0, y0;
     DataType precision;
+    DataType maxstep;
     
   public:
     ScalarNewtonRaphson(const boost::scoped_ptr<Function>& function, DataType precision = 0)
-    :function(function), x0(0), y0(0), precision(precision)
+    :function(function), x0(0), y0(0), precision(precision), maxstep(.1)
     {
       if(precision == 0)
       {
@@ -58,7 +59,16 @@ namespace ATK
         {
           return y1;
         }
-        DataType yk = y1 - all.first / all.second;
+        DataType cx = all.first / all.second;
+        if(cx < -maxstep)
+        {
+          cx = -maxstep;
+        }
+        if(cx > maxstep)
+        {
+          cx = maxstep;
+        }
+        DataType yk = y1 - cx;
         if( std::abs(yk - y1) < precision )
         {
           return yk;
