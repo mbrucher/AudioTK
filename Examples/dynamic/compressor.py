@@ -54,4 +54,4 @@ if __name__ == "__main__":
 
   np.savetxt("input.txt", d)
   out = filter(d)
-  np.savetxt("output.txt", d)
+  np.savetxt("output.txt", out)
