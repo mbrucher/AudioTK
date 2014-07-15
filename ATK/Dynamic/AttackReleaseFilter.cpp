@@ -24,9 +24,9 @@ namespace ATK
   template<typename DataType_>
   void AttackReleaseFilter<DataType_>::set_attack(DataType_ attack)
   {
-    if(attack <= 0)
+    if(attack < 0)
     {
-      throw std::out_of_range("Attack factor must be strictly positive value");
+      throw std::out_of_range("Attack factor must be positive value");
     }
     this->attack = attack;
   }
@@ -40,9 +40,9 @@ namespace ATK
   template<typename DataType_>
   void AttackReleaseFilter<DataType_>::set_release(DataType_ release)
   {
-    if(release <= 0)
+    if(release < 0)
     {
-      throw std::out_of_range("Release factor must be strictly positive value");
+      throw std::out_of_range("Release factor must be positive value");
     }
     this->release = release;
   }
