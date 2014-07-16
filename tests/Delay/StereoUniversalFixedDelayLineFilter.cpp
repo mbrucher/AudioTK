@@ -1,8 +1,8 @@
 /**
- * \ file UniversalFixedDelayLineFilter.cpp
+ * \ file StereoUniversalFixedDelayLineFilter.cpp
  */
 
-#include <ATK/Delay/UniversalFixedDelayLineFilter.h>
+#include <ATK/Delay/StereoUniversalFixedDelayLineFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
@@ -15,7 +15,7 @@
 
 #define PROCESSSIZE (1024*64)
 
-BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line100_delay50_test )
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_line100_delay50_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -28,10 +28,10 @@ BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line100_delay50_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::UniversalFixedDelayLineFilter<float> filter(100);
+  ATK::StereoUniversalFixedDelayLineFilter<float> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
-  filter.set_delay(50);
+  filter.set_delay_ch1(50);
 
   ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line100_delay50_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_1_feedforward_1_feedback_0_test )
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_line25_delay24_blend_1_feedforward_1_feedback_0_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -66,13 +66,13 @@ BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_1
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::UniversalFixedDelayLineFilter<float> filter(25);
+  ATK::StereoUniversalFixedDelayLineFilter<float> filter(25);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
-  filter.set_delay(24);
-  filter.set_blend(1);
-  filter.set_feedback(0);
-  filter.set_feedforward(1);
+  filter.set_delay_ch1(24);
+  filter.set_blend_ch1(1);
+  filter.set_feedback_ch1_ch1(0);
+  filter.set_feedforward_ch1_ch1(1);
 
   ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_1
   }
 }
 
-BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_0_feedforward_0_feedback_1_test )
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_line25_delay24_blend_0_feedforward_0_feedback_1_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -102,13 +102,13 @@ BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_0
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::UniversalFixedDelayLineFilter<float> filter(25);
+  ATK::StereoUniversalFixedDelayLineFilter<float> filter(25);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
-  filter.set_delay(24);
-  filter.set_blend(0);
-  filter.set_feedback(1);
-  filter.set_feedforward(0);
+  filter.set_delay_ch1(24);
+  filter.set_blend_ch1(0);
+  filter.set_feedback_ch1_ch1(1);
+  filter.set_feedforward_ch1_ch1(0);
 
   ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
