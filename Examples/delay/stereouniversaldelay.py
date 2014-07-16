@@ -17,7 +17,7 @@ def filter(inputl, inputr, blend_ch1=0, blend_ch2=0,
   infilterR = DoubleInPointerFilter(inputr, False)
   infilterR.set_input_sampling_rate(sample_rate)
 
-  delayfilter = DoubleStereoUniversalFixedDelayLineFilter(5000)
+  delayfilter = DoubleStereoUniversalFixedDelayLineFilter(100000)
   delayfilter.set_input_sampling_rate(sample_rate)
   delayfilter.set_input_port(0, infilterL, 0)
   delayfilter.set_input_port(1, infilterR, 0)

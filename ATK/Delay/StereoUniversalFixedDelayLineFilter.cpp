@@ -221,17 +221,22 @@ namespace ATK
     DataType* ATK_RESTRICT outputl = outputs[0];
     DataType* ATK_RESTRICT outputr = outputs[1];
 
+    DataType* ATK_RESTRICT delay_line_l_ptr = delay_line_l.data();
+    DataType* ATK_RESTRICT delay_line_r_ptr = delay_line_r.data();
+    DataType* ATK_RESTRICT processed_input_l_ptr = processed_input_l.data();
+    DataType* ATK_RESTRICT processed_input_r_ptr = processed_input_r.data();
+
     std::int64_t delay_line_usage_l = std::min(delay_l, size);
     std::int64_t delay_line_usage_r = std::min(delay_r, size);
 
     for(std::int64_t i = 0; i < size; ++i)
     {
-      delay_line_l[i] = processed_input_l[i + max_delay - delay_l];
-      delay_line_r[i] = processed_input_r[i + max_delay - delay_r];
-      processed_input_l[max_delay + i] = inputl[i] + feedback_l_l * processed_input_l[max_delay + i - delay_l] + feedback_r_l * processed_input_r[max_delay + i - delay_r];
-      processed_input_r[max_delay + i] = inputr[i] + feedback_l_r * processed_input_l[max_delay + i - delay_l] + feedback_r_r * processed_input_r[max_delay + i - delay_r];
-      outputl[i] = blend_l * processed_input_l[max_delay + i] + feedforward_l_l * delay_line_l[i] + feedforward_r_l * delay_line_r[i];
-      outputr[i] = blend_r * processed_input_r[max_delay + i] + feedforward_l_r * delay_line_l[i] + feedforward_r_r * delay_line_r[i];
+      delay_line_l_ptr[i] = processed_input_l_ptr[i + max_delay - delay_l];
+      delay_line_r_ptr[i] = processed_input_r_ptr[i + max_delay - delay_r];
+      processed_input_l_ptr[max_delay + i] = inputl[i] + feedback_l_l * processed_input_l_ptr[max_delay + i - delay_l] + feedback_r_l * processed_input_r_ptr[max_delay + i - delay_r];
+      processed_input_r_ptr[max_delay + i] = inputr[i] + feedback_l_r * processed_input_l_ptr[max_delay + i - delay_l] + feedback_r_r * processed_input_r_ptr[max_delay + i - delay_r];
+      outputl[i] = blend_l * processed_input_l_ptr[max_delay + i] + feedforward_l_l * delay_line_l_ptr[i] + feedforward_r_l * delay_line_r_ptr[i];
+      outputr[i] = blend_r * processed_input_r_ptr[max_delay + i] + feedforward_l_r * delay_line_l_ptr[i] + feedforward_r_r * delay_line_r_ptr[i];
     }
   }
   
