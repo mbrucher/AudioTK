@@ -7,6 +7,8 @@ from ATK.Tools import DoubleApplyGainFilter, DoubleVolumeFilter, DoubleMiddleSid
 import matplotlib.pyplot as plt
 
 sample_rate = 96000
+ratios = 2
+thresholds = 1
 
 import sys, os
 sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/..")
@@ -27,9 +29,15 @@ def filter(inputl, inputr):
   mssplitfilter.set_input_port(0, infilterL, 0)
   mssplitfilter.set_input_port(1, infilterR, 0)
 
+  adaptgainfilter = DoubleVolumeFilter(2)
+  adaptgainfilter.set_input_sampling_rate(sample_rate)
+  adaptgainfilter.set_input_port(0, mssplitfilter, 0)
+  adaptgainfilter.set_input_port(1, mssplitfilter, 1)
+  adaptgainfilter.set_volume(.5)
+
   powerfilter1 = DoublePowerFilter()
   powerfilter1.set_input_sampling_rate(sample_rate)
-  powerfilter1.set_input_port(0, mssplitfilter, 0)
+  powerfilter1.set_input_port(0, adaptgainfilter, 0)
   powerfilter1.set_memory(np.exp(-1/(sample_rate*.1e-3)))
 
   attackreleasefilter1 = DoubleAttackReleaseFilter()
@@ -41,18 +49,18 @@ def filter(inputl, inputr):
   gainfilter1 = DoubleGainCompressorFilter()
   gainfilter1.set_input_sampling_rate(sample_rate)
   gainfilter1.set_input_port(0, attackreleasefilter1, 0)
-  gainfilter1.set_threshold(.5)
-  gainfilter1.set_ratio(4)
+  gainfilter1.set_threshold(thresholds)
+  gainfilter1.set_ratio(ratios)
   gainfilter1.set_softness(1)
 
-  applygainfilter1 = DoubleApplyGainFilter()
-  applygainfilter1.set_input_sampling_rate(sample_rate)
-  applygainfilter1.set_input_port(0, gainfilter1, 0)
-  applygainfilter1.set_input_port(1, mssplitfilter, 0)
+  applygainfilter = DoubleApplyGainFilter(2)
+  applygainfilter.set_input_sampling_rate(sample_rate)
+  applygainfilter.set_input_port(0, gainfilter1, 0)
+  applygainfilter.set_input_port(1, mssplitfilter, 0)
 
   powerfilter2 = DoublePowerFilter(1)
   powerfilter2.set_input_sampling_rate(sample_rate)
-  powerfilter2.set_input_port(0, mssplitfilter, 1)
+  powerfilter2.set_input_port(0, adaptgainfilter, 1)
   powerfilter2.set_memory(np.exp(-1/(sample_rate*.1e-3)))
 
   attackreleasefilter2 = DoubleAttackReleaseFilter()
@@ -64,19 +72,17 @@ def filter(inputl, inputr):
   gainfilter2 = DoubleGainCompressorFilter()
   gainfilter2.set_input_sampling_rate(sample_rate)
   gainfilter2.set_input_port(0, attackreleasefilter2, 0)
-  gainfilter2.set_threshold(.5)
-  gainfilter2.set_ratio(4)
+  gainfilter2.set_threshold(thresholds)
+  gainfilter2.set_ratio(ratios)
   gainfilter2.set_softness(1)
 
-  applygainfilter2 = DoubleApplyGainFilter()
-  applygainfilter2.set_input_sampling_rate(sample_rate)
-  applygainfilter2.set_input_port(0, gainfilter2, 0)
-  applygainfilter2.set_input_port(1, mssplitfilter, 1)
+  applygainfilter.set_input_port(2, gainfilter2, 0)
+  applygainfilter.set_input_port(3, mssplitfilter, 1)
 
   msmergefilter = DoubleMiddleSideFilter()
   msmergefilter.set_input_sampling_rate(sample_rate)
-  msmergefilter.set_input_port(0, applygainfilter1, 0)
-  msmergefilter.set_input_port(1, applygainfilter2, 0)
+  msmergefilter.set_input_port(0, applygainfilter, 0)
+  msmergefilter.set_input_port(1, applygainfilter, 1)
 
   volumefilter = DoubleVolumeFilter(2)
   volumefilter.set_input_sampling_rate(sample_rate)
@@ -119,4 +125,10 @@ if __name__ == "__main__":
   plt.figure()
   plot_me((dr[0], outr[0]), sample_rate)
   plt.gcf().suptitle("Compressor channel R")
+  plt.figure()
+  plt.plot(t[0,0:1000], d[0,0:1000])
+  plt.plot(t[0,0:1000], outl[0,0:1000])
+  plt.figure()
+  plt.plot(t[0,0:1000], dr[0,0:1000])
+  plt.plot(t[0,0:1000], outr[0,0:1000])
   plt.show()
