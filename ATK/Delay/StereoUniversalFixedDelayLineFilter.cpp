@@ -226,9 +226,6 @@ namespace ATK
     DataType* ATK_RESTRICT processed_input_l_ptr = processed_input_l.data();
     DataType* ATK_RESTRICT processed_input_r_ptr = processed_input_r.data();
 
-    std::int64_t delay_line_usage_l = std::min(delay_l, size);
-    std::int64_t delay_line_usage_r = std::min(delay_r, size);
-
     for(std::int64_t i = 0; i < size; ++i)
     {
       delay_line_l_ptr[i] = processed_input_l_ptr[i + max_delay - delay_l];
