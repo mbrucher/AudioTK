@@ -14,6 +14,8 @@ Changelog
 ### 0.5.0
 * Renamed slope attribute to ratio for Gain Compressor and Expander Filters
 * Added a StereoUniversalFixedDelayLineFilter that can make mix two channels together with different delay for each channel with Python wrappers
+* Added a GainLimiterFilter (maximum ratio) with Python wrappers
+* Added a MaxFilter with Python wrappers
 
 ### 0.4.2
 * Bug fixes
