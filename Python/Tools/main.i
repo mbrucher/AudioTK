@@ -15,6 +15,7 @@
 %include "CachedCosinusGeneratorFilter.i"
 %include "CachedSinusGeneratorFilter.i"
 %include "DecimationFilter.i"
+%include "MaxFilter.i"
 %include "MSFilter.i"
 %include "OffsetVolumeFilter.i"
 %include "OversamplingFilter.i"
