@@ -5,7 +5,8 @@
 #include <cmath>
 
 #include <ATK/Tools/MaxFilter.h>
-#include <ATK/Tools/VolumeFilter.h>
+#include <ATK/Tools/OffsetVolumeFilter.h>
+#include <ATK/Tools/SumFilter.h>
 
 #include <ATK/Mock/TriangleCheckerFilter.h>
 #include <ATK/Mock/TriangleGeneratorFilter.h>
@@ -22,50 +23,29 @@ BOOST_AUTO_TEST_CASE( MaxFilter_test )
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
-  ATK::TriangleGeneratorFilter<double> generator2;
-  generator2.set_output_sampling_rate(48000);
-  generator2.set_amplitude(2);
-  generator2.set_frequency(1000);
+  ATK::OffsetVolumeFilter<double> inversefilter;
+  inversefilter.set_input_sampling_rate(48000);
+  inversefilter.set_volume(-1);
   
-  ATK::MaxFilter<double> MaxFilter;
-  MaxFilter.set_input_sampling_rate(48000);
-  MaxFilter.set_output_sampling_rate(48000);
-  
-  ATK::TriangleCheckerFilter<double> checker;
-  checker.set_input_sampling_rate(48000);
-  checker.set_amplitude(3);
-  checker.set_frequency(1000);
-  
-  MaxFilter.set_input_port(0, &generator, 0);
-  MaxFilter.set_input_port(1, &generator2, 0);
-  checker.set_input_port(0, &MaxFilter, 0);
-  checker.process(PROCESSSIZE);
-}
+  ATK::MaxFilter<double> maxfilter;
+  maxfilter.set_input_sampling_rate(48000);
+  maxfilter.set_output_sampling_rate(48000);
 
-BOOST_AUTO_TEST_CASE( MaxFilter_VolumeFilter_test )
-{
-  ATK::TriangleGeneratorFilter<double> generator;
-  generator.set_output_sampling_rate(48000);
-  generator.set_amplitude(1);
-  generator.set_frequency(1000);
-  
-  ATK::VolumeFilter<double> volumefilter;
+  ATK::OffsetVolumeFilter<double> volumefilter;
   volumefilter.set_input_sampling_rate(48000);
-  volumefilter.set_output_sampling_rate(48000);
   volumefilter.set_volume(2);
-  
-  ATK::MaxFilter<double> MaxFilter;
-  MaxFilter.set_input_sampling_rate(48000);
-  MaxFilter.set_output_sampling_rate(48000);
-  
+  volumefilter.set_offset(-1);
+
   ATK::TriangleCheckerFilter<double> checker;
   checker.set_input_sampling_rate(48000);
-  checker.set_amplitude(3);
-  checker.set_frequency(1000);
+  checker.set_amplitude(1);
+  checker.set_frequency(2000);
   
-  MaxFilter.set_input_port(0, &generator, 0);
-  volumefilter.set_input_port(0, &generator, 0);
-  MaxFilter.set_input_port(1, &volumefilter, 0);
-  checker.set_input_port(0, &MaxFilter, 0);
-  checker.process(PROCESSSIZE);
+  inversefilter.set_input_port(0, &generator, 0);
+  maxfilter.set_input_port(0, &inversefilter, 0);
+  maxfilter.set_input_port(1, &generator, 0);
+  volumefilter.set_input_port(0, &maxfilter, 0);
+  checker.set_input_port(0, &volumefilter, 0);
+  volumefilter.process(48000/1000/4);
+  checker.process(12);
 }
