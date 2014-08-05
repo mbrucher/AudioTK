@@ -59,6 +59,8 @@ namespace ATK
   template<typename DataType>
   void TypedBaseFilter<DataType>::set_nb_input_ports(int nb_ports)
   {
+    if(nb_ports == nb_input_ports)
+      return;
     Parent::set_nb_input_ports(nb_ports);
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     converted_inputs_delay.swap(temp);
@@ -69,6 +71,8 @@ namespace ATK
   template<typename DataType>
   void TypedBaseFilter<DataType>::set_nb_output_ports(int nb_ports)
   {
+    if(nb_ports == nb_output_ports)
+      return;
     Parent::set_nb_output_ports(nb_ports);
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     outputs_delay.swap(temp);
@@ -177,6 +181,24 @@ namespace ATK
         }
       }
     }
+  }
+
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::full_setup()
+  {
+    // Reset input arrays
+    std::vector<boost::scoped_array<DataType> > temp_in(nb_input_ports);
+    converted_inputs_delay.swap(temp_in);
+    converted_inputs.assign(nb_input_ports, NULL);
+    converted_inputs_size.assign(nb_input_ports, 0);
+
+    // Reset output arrays
+    std::vector<boost::scoped_array<DataType> > temp_out(nb_output_ports);
+    outputs_delay.swap(temp_out);
+    outputs.assign(nb_output_ports, NULL);
+    outputs_size.assign(nb_output_ports, 0);
+
+    Parent::full_setup();
   }
 
   template class TypedBaseFilter<std::int16_t>;

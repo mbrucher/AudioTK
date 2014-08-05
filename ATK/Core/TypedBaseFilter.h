@@ -51,6 +51,7 @@ namespace ATK
     
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(std::int64_t size);
+    void full_setup();
 
     std::vector<boost::scoped_array<DataType> > converted_inputs_delay;
     std::vector<DataType *> converted_inputs;

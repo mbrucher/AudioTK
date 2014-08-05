@@ -47,5 +47,5 @@ BOOST_AUTO_TEST_CASE( MaxFilter_test )
   volumefilter.set_input_port(0, &maxfilter, 0);
   checker.set_input_port(0, &volumefilter, 0);
   volumefilter.process(48000/1000/4);
-  checker.process(12);
+  checker.process(11);
 }
