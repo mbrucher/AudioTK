@@ -1,8 +1,8 @@
 /**
- * \ file FirstOrderFilter.cpp
+ * \ file ChamberlinFilter.cpp
  */
 
-#include <ATK/EQ/FirstOrderFilter.h>
+#include <ATK/EQ/ChamberlinFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
 #include <ATK/Mock/SinusGeneratorFilter.h>
@@ -13,14 +13,14 @@
 
 #define PROCESSSIZE (1024*64)
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_BandPassCoefficients_1k_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_1k_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -42,14 +42,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_BandPassCoefficients_1k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_BandPassCoefficients_100_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_100_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(1);
@@ -71,14 +71,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_BandPassCoefficients_100_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_BandPassCoefficients_2k_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_2k_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(1);
@@ -100,14 +100,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_BandPassCoefficients_2k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_LowPassCoefficients_1k_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_1k_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(0);
@@ -129,14 +129,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_LowPassCoefficients_1k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_LowPassCoefficients_100_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_100_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(0);
@@ -158,14 +158,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_LowPassCoefficients_100_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_LowPassCoefficients_2k_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_2k_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
 
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(0);
@@ -187,14 +187,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_LowPassCoefficients_2k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_HighPassCoefficients_1k_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_1k_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(2);
@@ -216,14 +216,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_HighPassCoefficients_1k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_HighPassCoefficients_2k_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_2k_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(2);
@@ -245,14 +245,14 @@ BOOST_AUTO_TEST_CASE( FirstOrderFilter_HighPassCoefficients_2k_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( FirstOrderFilter_HighPassCoefficients_500_test )
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_500_test )
 {
   ATK::SinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(500);
   
-  ATK::FirstOrderFilter<double> filter;
+  ATK::ChamberlinFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.select(2);

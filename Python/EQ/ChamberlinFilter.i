@@ -1,16 +1,16 @@
 
 %{
-#include <ATK/EQ/FirstOrderFilter.h>
+#include <ATK/EQ/ChamberlinFilter.h>
 %}
 
 namespace ATK
 {
   template<class DataType>
-  class FirstOrderFilter: public BaseFilter
+  class ChamberlinFilter: public BaseFilter
   {
   public:
-    FirstOrderFilter();
-    ~FirstOrderFilter();
+    ChamberlinFilter();
+    ~ChamberlinFilter();
     
     void set_cut_frequency(DataType cutoff_frequency);
     DataType get_cut_frequency() const;
@@ -23,5 +23,5 @@ namespace ATK
   };
 }
 
-%template(FloatFirstOrderFilter) ATK::FirstOrderFilter<float>;
-%template(DoubleFirstOrderFilter) ATK::FirstOrderFilter<double>;
+%template(FloatChamberlinFilter) ATK::ChamberlinFilter<float>;
+%template(DoubleChamberlinFilter) ATK::ChamberlinFilter<double>;
