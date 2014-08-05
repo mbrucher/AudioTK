@@ -64,7 +64,8 @@ namespace ATK
     bool is_reset;
     
     ATK_CORE_EXPORT virtual void setup();
-    
+    ATK_CORE_EXPORT virtual void full_setup();
+
     int nb_input_ports;
     int nb_output_ports;
     int input_sampling_rate;

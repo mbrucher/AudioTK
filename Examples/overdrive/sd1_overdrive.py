@@ -2,7 +2,7 @@
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Tools import DoubleOversampling6points5order_32Filter, DoubleOversampling6points5order_16Filter, DoubleOversampling6points5order_8Filter, DoubleOversampling6points5order_4Filter, DoubleDecimationFilter
-from ATK.EQ import DoubleButterworthLowPassFilter, DoubleSD1ToneFilter, DoubleFirstOrderFilter
+from ATK.EQ import DoubleButterworthLowPassFilter, DoubleSD1ToneFilter, DoubleChamberlinFilter
 from ATK.Distortion import DoubleSD1OverdriveFilter
 
 sample_rate = 48000
@@ -44,7 +44,7 @@ def filter_32(input):
   tonefilter.set_input_sampling_rate(sample_rate)
   tonefilter.set_input_port(0, decimationfilter, 0)
   tonefilter.set_tone(1)
-  highpassfilter = DoubleFirstOrderFilter()
+  highpassfilter = DoubleChamberlinFilter()
   highpassfilter.set_input_sampling_rate(sample_rate)
   highpassfilter.set_input_port(0, tonefilter, 0)
   highpassfilter.select(2)
@@ -83,7 +83,7 @@ def filter_16(input):
   tonefilter.set_input_sampling_rate(sample_rate)
   tonefilter.set_input_port(0, decimationfilter, 0)
   tonefilter.set_tone(1)
-  highpassfilter = DoubleFirstOrderFilter()
+  highpassfilter = DoubleChamberlinFilter()
   highpassfilter.set_input_sampling_rate(sample_rate)
   highpassfilter.set_input_port(0, tonefilter, 0)
   highpassfilter.select(2)
@@ -122,7 +122,7 @@ def filter_8(input):
   tonefilter.set_input_sampling_rate(sample_rate)
   tonefilter.set_input_port(0, decimationfilter, 0)
   tonefilter.set_tone(1)
-  highpassfilter = DoubleFirstOrderFilter()
+  highpassfilter = DoubleChamberlinFilter()
   highpassfilter.set_input_sampling_rate(sample_rate)
   highpassfilter.set_input_port(0, tonefilter, 0)
   highpassfilter.select(2)
@@ -161,7 +161,7 @@ def filter_4(input):
   tonefilter.set_input_sampling_rate(sample_rate)
   tonefilter.set_input_port(0, decimationfilter, 0)
   tonefilter.set_tone(1)
-  highpassfilter = DoubleFirstOrderFilter()
+  highpassfilter = DoubleChamberlinFilter()
   highpassfilter.set_input_sampling_rate(sample_rate)
   highpassfilter.set_input_port(0, tonefilter, 0)
   highpassfilter.select(2)

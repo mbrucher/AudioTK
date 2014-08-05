@@ -33,6 +33,10 @@ namespace ATK
   template<typename DataType_>
   void PanFilter<DataType_>::set_pan(double pan)
   {
+    if(pan < -1 || pan > 1)
+    {
+      throw std::out_of_range("Pan must be a value between -1 and 1");
+    }
     this->pan = pan;
   }
 

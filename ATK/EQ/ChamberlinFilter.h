@@ -1,9 +1,9 @@
 /**
- * \file FirstOrderFilter.h
+ * \file ChamberlinFilter.h
  */
 
-#ifndef ATK_EQ_FIRSTORDERFILTER_H
-#define ATK_EQ_FIRSTORDERFILTER_H
+#ifndef ATK_EQ_CHAMBERLINFILTER_H
+#define ATK_EQ_CHAMBERLINFILTER_H
 
 #include "config.h"
 #include "../Core/TypedBaseFilter.h"
@@ -14,7 +14,7 @@ namespace ATK
    * First order filter template class
    */
   template<typename DataType_>
-  class ATK_EQ_EXPORT FirstOrderFilter: public TypedBaseFilter<DataType_>
+  class ATK_EQ_EXPORT ChamberlinFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -35,7 +35,7 @@ namespace ATK
     DataType yl;
     
   public:
-    FirstOrderFilter();
+    ChamberlinFilter();
     
     void set_cut_frequency(DataType cutoff_frequency);
     DataType get_cut_frequency() const;

@@ -14,6 +14,7 @@
 %include "AttackReleaseFilter.i"
 %include "GainCompressorFilter.i"
 %include "GainExpanderFilter.i"
+%include "GainLimiterFilter.i"
 %include "PowerFilter.i"
 
 #endif

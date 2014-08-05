@@ -48,9 +48,10 @@ The *Tools* has two kind of classes: filters and general purpose classes.
 * **CachedCosinusGeneratorFilter** is a filter that outputs a cached cosinus
 * **CachedSinusGeneratorFilter** is a filter that outputs a cached sinus
 * **DecimationFilter** modifies the number of samples in the signal based on the ratio of input/output sampling rates
+* **MaxFilter** is a filter computing the maximum of two input arrays
+* **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**.
 * **OffsetVolumeFilter** multiplies input signal by a certain amount and adds a constant offset
 * **OversamplingFilter** is actually a set of oversampling filters that will multiply the number of samples from the input.
-* **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**.
 * **PanFilter** pans a single input signal on a stereo output
 * **SumFilter** sums two input signals in one
 * **VolumeFilter** multiplies input signal by a certain amount
@@ -69,14 +70,16 @@ The *EQ* module contains a lot of different filter types.
 
 * **BesselFilter** is an implementation of Bessel filters
 * **ButterworthFilter** is an implementation of Butterworth filters
+* **ChamberlinFilter** is an implementation of the Chamberlin state filter
 * **Chebyshev1Filter** is an implementation of Chebyshev type 1 filters
 * **Chebyshev2Filter** is an implementation of Chebyshev type 2 filters
 * **CustomIIRFilter** helps designing custom IIR filters
-* **SecondOrderFilter** is an implementation of second order filters
-* **IIRFilter** is the base class for IIR filters
-* **FirstOrderFilter** is an implementation of the Chamberlin filter
+* **IIRFilter** is the base class for IIR filters (Direct Form 1)
 * **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
+* **SecondOrderFilter** is an implementation of second order filters
 * **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
+* **TimeVaryingIIRFilter** is the base class for time varying IIR filters
+* **TimeVaryingSecondOrderFilter** is an implementation of time varying second order filters
 
 Delay module
 ##############
@@ -84,6 +87,7 @@ Delay module
 The *Delay* module contains filters enabling delays construction.
 
 * **FixedDelayLineFilter** is a FIR filter that delays the input by a fixed value
+* **StereoUniversalFixedDelayLineFilter** is a stereo filter that implements two concurrent delay lines that can be mixed together
 * **UniversalFixedDelayLineFilter** is a filter that delays the input by a fixed value. It can be parametrized  to be a FIR, IIR or all pass, or any combination
 * **UniversalVariableDelayLineFilter** is a filter that delays the input by a variable value, on a second port. It can be parametrized  to be a FIR, IIR or all pass, or any combination
 * **VariableDelayLineFilter** is a FIR filter that delays the input by a variable value, on a second port.
@@ -94,8 +98,9 @@ Dynamic module
 The *Dynamic* module contains filters enabling compressor construction.
 
 * **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
-* **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor/limiter does
+* **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
 * **GainExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does
+* **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
 * **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal
 
 Distortion module
@@ -105,3 +110,4 @@ The *Distortion* module contains filters simulation distortion circuits.
 
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
+

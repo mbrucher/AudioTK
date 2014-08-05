@@ -1,8 +1,8 @@
 /**
- * \file GainCompressorFilter.cpp
+ * \file GainLimiterFilter.cpp
  */
 
-#include "GainCompressorFilter.h"
+#include "GainLimiterFilter.h"
 
 #include <cmath>
 #include <cstdint>
@@ -17,20 +17,20 @@ namespace
 namespace ATK
 {
   template<typename DataType_>
-  GainCompressorFilter<DataType_>::GainCompressorFilter(int nb_channels)
-  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), softness(.0001)
+  GainLimiterFilter<DataType_>::GainLimiterFilter(int nb_channels)
+  :Parent(nb_channels, nb_channels), threshold(1), softness(.0001)
   {
     gainLUT.reserve(LUTsize);
     recomputeLUT();
   }
   
   template<typename DataType_>
-  GainCompressorFilter<DataType_>::~GainCompressorFilter()
+  GainLimiterFilter<DataType_>::~GainLimiterFilter()
   {
   }
 
   template<typename DataType_>
-  void GainCompressorFilter<DataType_>::process_impl(std::int64_t size)
+  void GainLimiterFilter<DataType_>::process_impl(std::int64_t size)
   {
     assert(nb_input_ports == nb_output_ports);
 
@@ -52,7 +52,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void GainCompressorFilter<DataType_>::set_threshold(DataType_ threshold)
+  void GainLimiterFilter<DataType_>::set_threshold(DataType_ threshold)
   {
     if(threshold <= 0)
     {
@@ -62,36 +62,19 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void GainCompressorFilter<DataType_>::set_threshold_db(DataType_ threshold_db)
+  void GainLimiterFilter<DataType_>::set_threshold_db(DataType_ threshold_db)
   {
     this->threshold = std::pow(10, - threshold_db / 10);
   }
 
   template<typename DataType_>
-  DataType_ GainCompressorFilter<DataType_>::get_threshold() const
+  DataType_ GainLimiterFilter<DataType_>::get_threshold() const
   {
     return 1 / threshold;
   }
 
   template<typename DataType_>
-  void GainCompressorFilter<DataType_>::set_ratio(DataType_ ratio)
-  {
-    if(ratio < 1)
-    {
-      throw std::out_of_range("Ratio factor must be higher than or equal to 1");
-    }
-    this->ratio = ratio;
-    recomputeLUT();
-  }
-
-  template<typename DataType_>
-  DataType_ GainCompressorFilter<DataType_>::get_ratio() const
-  {
-    return ratio;
-  }
-
-  template<typename DataType_>
-  void GainCompressorFilter<DataType_>::set_softness(DataType_ softness)
+  void GainLimiterFilter<DataType_>::set_softness(DataType_ softness)
   {
     if(softness <= 0)
     {
@@ -102,13 +85,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ GainCompressorFilter<DataType_>::get_softness() const
+  DataType_ GainLimiterFilter<DataType_>::get_softness() const
   {
     return softness;
   }
 
   template<typename DataType_>
-  void GainCompressorFilter<DataType_>::recomputeLUT()
+  void GainLimiterFilter<DataType_>::recomputeLUT()
   {
     gainLUT.clear();
     gainLUT.push_back(1); // gain of 1 at input = 0
@@ -116,10 +99,10 @@ namespace ATK
     for(int i = 1; i < LUTsize; ++i)
     {
       DataType diff = 10 * std::log10(static_cast<DataType>(i) / LUTprecision);
-      gainLUT.push_back(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio));
+      gainLUT.push_back(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40));
     }
   }
 
-  template class GainCompressorFilter<float>;
-  template class GainCompressorFilter<double>;
+  template class GainLimiterFilter<float>;
+  template class GainLimiterFilter<double>;
 }

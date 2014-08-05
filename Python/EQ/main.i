@@ -11,7 +11,7 @@
 %nodefaultctor;
 
 %include "../Core/BaseFilter.i"
-%include "FirstOrderFilter.i"
+%include "ChamberlinFilter.i"
 %include "IIRFilter.i"
 %include "SecondOrderFilter.i"
 %include "BesselFilter.i"
@@ -19,6 +19,9 @@
 %include "Chebyshev1Filter.i"
 %include "Chebyshev2Filter.i"
 %include "CustomIIRFilter.i"
+
+%include "TimeVaryingIIRFilter.i"
+%include "TimeVaryingSecondOrderFilter.i"
 
 %include "SD1ToneFilter.i"
 %include "ToneStackFilter.i"

@@ -188,7 +188,7 @@ namespace
 namespace ATK
 {
   /**
-   * IIR filter template class
+   * IIR filter template class (Direct Form I)
    */
   template<class Coefficients >
   class ATK_EQ_EXPORT IIRFilter: public Coefficients

@@ -1,8 +1,8 @@
 /**
- * \ file GainCompressorFilter.cpp
+ * \ file GainLimiterFilter.cpp
  */
 
-#include <ATK/Dynamic/GainCompressorFilter.h>
+#include <ATK/Dynamic/GainLimiterFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
@@ -15,7 +15,7 @@
 
 #define PROCESSSIZE (64)
 
-BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
+BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainCompressorFilter<float> filter(1);
+  ATK::GainLimiterFilter<float> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(10);
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_0_test )
+BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_0_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_0_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainCompressorFilter<float> filter(1);
+  ATK::GainLimiterFilter<float> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
 
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_0_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_2_test )
+BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_threshold_05_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -87,11 +87,10 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_2_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainCompressorFilter<float> filter(1);
+  ATK::GainLimiterFilter<float> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(0.5);
-  filter.set_ratio(2);
   filter.set_softness(1);
 
   ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
@@ -102,38 +101,6 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_2_test )
 
   for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(0.836990654, outdata[i], 0.1);
-  }
-}
-
-BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_4_test )
-{
-  boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
-  {
-    data[i] = 1;
-  }
-
-  ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
-  generator.set_output_sampling_rate(48000);
-
-  boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
-
-  ATK::GainCompressorFilter<float> filter(1);
-  filter.set_input_sampling_rate(48000);
-  filter.set_input_port(0, &generator, 0);
-  filter.set_threshold(0.5);
-  filter.set_ratio(4);
-  filter.set_softness(1);
-
-  ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
-  output.set_input_sampling_rate(48000);
-  output.set_input_port(0, &filter, 0);
-
-  output.process(PROCESSSIZE);
-
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
-  {
-    BOOST_REQUIRE_CLOSE(0.765739262, outdata[i], 0.1);
+    BOOST_REQUIRE_CLOSE(0.700553358, outdata[i], 0.1);
   }
 }

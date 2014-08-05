@@ -30,7 +30,7 @@ def filter(input):
   gainfilter.set_input_sampling_rate(sample_rate)
   gainfilter.set_input_port(0, attackreleasefilter, 0)
   gainfilter.set_threshold(0.5)
-  gainfilter.set_slope(4)
+  gainfilter.set_ratio(4)
   gainfilter.set_softness(1)
 
   applygainfilter = DoubleApplyGainFilter(1)
@@ -54,4 +54,4 @@ if __name__ == "__main__":
 
   np.savetxt("input.txt", d)
   out = filter(d)
-  np.savetxt("output.txt", d)
+  np.savetxt("output.txt", out)

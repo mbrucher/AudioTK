@@ -1,9 +1,9 @@
 /**
- * \file GainExpanderFilter.h
+ * \file GainLimiterFilter.h
  */
 
-#ifndef ATK_DYNAMIC_GAINEXPANDERFILTER_H
-#define ATK_DYNAMIC_GAINEXPANDERFILTER_H
+#ifndef ATK_DYNAMIC_GAINLIMITERFILTER_H
+#define ATK_DYNAMIC_GAINLIMITERFILTER_H
 
 #include <vector>
 
@@ -13,10 +13,10 @@
 namespace ATK
 {
   /**
-   * Gain "expander". Computes a new amplitude/volume gain based on threshold, slope and the power of the input signal
+   * Gain "compressor". Computes a new amplitude/volume gain based on threshold, slope and the power of the input signal
    */
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT GainExpanderFilter : public TypedBaseFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT GainLimiterFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -29,17 +29,12 @@ namespace ATK
     using Parent::nb_output_ports;
 
   public:
-    GainExpanderFilter(int nb_channels = 1);
-    ~GainExpanderFilter();
+    GainLimiterFilter(int nb_channels = 1);
+    ~GainLimiterFilter();
     
     void set_threshold(DataType_ threshold);
     void set_threshold_db(DataType_ threshold_db);
     DataType_ get_threshold() const;
-    /**
-     * 1:ratio is defined as the reduction factor. 1:1 is a reduction of 0, 1:2 is a reduction by a factor of 2...
-     */
-    void set_ratio(DataType_ ratio);
-    DataType_ get_ratio() const;
     void set_softness(DataType_ softness);
     DataType_ get_softness() const;
 
@@ -49,7 +44,6 @@ namespace ATK
     void recomputeLUT();
     
     DataType_ threshold;
-    DataType_ ratio;
     DataType_ softness;
 
     std::vector<DataType_> gainLUT;

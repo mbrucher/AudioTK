@@ -18,7 +18,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainExpanderFilter<DataType_>::GainExpanderFilter(int nb_channels)
-  :Parent(nb_channels, nb_channels), threshold(1), slope(1), softness(.0001)
+  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), softness(.0001)
   {
     gainLUT.reserve(LUTsize);
     recomputeLUT();
@@ -74,20 +74,20 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void GainExpanderFilter<DataType_>::set_slope(DataType_ slope)
+  void GainExpanderFilter<DataType_>::set_ratio(DataType_ ratio)
   {
-    if(slope < 1)
+    if(ratio < 1)
     {
-      throw std::out_of_range("Slope factor must be higher than or equal to 1");
+      throw std::out_of_range("Ratio factor must be higher than or equal to 1");
     }
-    this->slope = slope;
+    this->ratio = ratio;
     recomputeLUT();
   }
 
   template<typename DataType_>
-  DataType_ GainExpanderFilter<DataType_>::get_slope() const
+  DataType_ GainExpanderFilter<DataType_>::get_ratio() const
   {
-    return slope;
+    return ratio;
   }
 
   template<typename DataType_>
@@ -116,7 +116,7 @@ namespace ATK
     for(int i = 1; i < LUTsize; ++i)
     {
       DataType diff = -10 * std::log10(static_cast<DataType>(i) / LUTprecision);
-      gainLUT.push_back(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (slope - 1)));
+      gainLUT.push_back(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1)));
     }
   }
 

@@ -47,9 +47,14 @@ namespace ATK
   
   void BaseFilter::setup()
   {
+  }
+
+  void BaseFilter::full_setup()
+  {
 #if ATK_PROFILING == 1
     class_name = typeid(*this).name();
 #endif
+    setup();
   }
 
   void BaseFilter::set_input_port(int input_port, BaseFilter* filter, int output_port)
@@ -79,7 +84,7 @@ namespace ATK
     {
       output_sampling_rate = rate;
     }
-    setup();
+    full_setup();
   }
   
   int BaseFilter::get_input_sampling_rate() const
@@ -90,7 +95,7 @@ namespace ATK
   void BaseFilter::set_output_sampling_rate(int rate)
   {
     output_sampling_rate = rate;
-    setup();
+    full_setup();
   }
   
   int BaseFilter::get_output_sampling_rate() const
