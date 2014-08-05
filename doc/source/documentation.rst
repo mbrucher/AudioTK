@@ -74,8 +74,8 @@ The *EQ* module contains a lot of different filter types.
 * **Chebyshev2Filter** is an implementation of Chebyshev type 2 filters
 * **CustomIIRFilter** helps designing custom IIR filters
 * **SecondOrderFilter** is an implementation of second order filters
-* **IIRFilter** is the base class for IIR filters
-* **FirstOrderFilter** is an implementation of the Chamberlin filter
+* **IIRFilter** is the base class for IIR filters (Direct Form 1)
+* **FirstOrderFilter** is an implementation of the Chamberlin filter (state filter, actually not order 1...)
 * **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
 * **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
 * **TimeVaryingIIRFilter** is the base class for time varying IIR filters
