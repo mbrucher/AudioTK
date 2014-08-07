@@ -105,7 +105,7 @@ namespace ATK
         }
         for(int j = 0; j < out_order; ++j)
         {
-          state[j] -= output[i] * current_coeffs_out[out_order - j - 1];
+          state[j] += output[i] * current_coeffs_out[out_order - j - 1];
         }
       }
     }
