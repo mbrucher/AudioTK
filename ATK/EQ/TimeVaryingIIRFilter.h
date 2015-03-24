@@ -57,7 +57,7 @@ namespace ATK
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
-      state.resize(std::max(in_order, out_order), 0);
+      state.resize(std::max(input_delay, output_delay), 0);
     }
     
     virtual void process_impl(std::int64_t size)

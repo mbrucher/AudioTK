@@ -16,5 +16,6 @@
 %include "GainExpanderFilter.i"
 %include "GainLimiterFilter.i"
 %include "PowerFilter.i"
+%include "RelativePowerFilter.i"
 
 #endif
