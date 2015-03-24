@@ -102,6 +102,7 @@ The *Dynamic* module contains filters enabling compressor construction.
 * **GainExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does
 * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
 * **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal
+* **RelativePowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal divided by the squared input signal
 
 Distortion module
 #################
