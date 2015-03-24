@@ -49,8 +49,15 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::int64_t i = 0; i < size; ++i)
       {
-        temp_output = (1 - memory_factor) * input[i] * input[i] + memory_factor * output[i-1];
-        output[i] = temp_output / (input[i] * input[i]);
+        temp_output = (1 - memory_factor) * input[i] * input[i] + memory_factor * temp_output;
+        if(input[i] * input[i] > std::numeric_limits<DataType_>::epsilon())
+        {
+          output[i] = temp_output / (input[i] * input[i]);
+        }
+        else
+        {
+          output[i] = output[i-1];
+        }
       }
     }
   }

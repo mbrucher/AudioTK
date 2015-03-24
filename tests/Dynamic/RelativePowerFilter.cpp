@@ -11,7 +11,8 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+//#define PROCESSSIZE (1024*64)
+#define PROCESSSIZE (64)
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_throw_memory_0_test )
 {
@@ -40,17 +41,17 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_1k_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 1));
+  frequency_checks.push_back(std::make_pair(0, 1.414));
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  frequency_checks.push_back(std::make_pair(2000, 0.7071067811865475244)); // Power will multiple frequency by 2
+  frequency_checks.push_back(std::make_pair(2000, 0)); // Power will multiple frequency by 2
   frequency_checks.push_back(std::make_pair(4000, 0));
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -80,7 +81,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_1k_test )
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -109,7 +110,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_1k_test )
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -129,9 +130,9 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 1));
+  frequency_checks.push_back(std::make_pair(0, 1.414));
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.7071067811865475244)); // Power will multiple frequency by 2
+  frequency_checks.push_back(std::make_pair(200, 0)); // Power will multiple frequency by 2
   frequency_checks.push_back(std::make_pair(400, 0));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
@@ -139,7 +140,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_100_test )
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -169,7 +170,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_100_test )
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -198,7 +199,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_100_test )
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -218,16 +219,16 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_10k_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(0, 1));
+  frequency_checks.push_back(std::make_pair(0, 1.414));
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
-  frequency_checks.push_back(std::make_pair(20000, 0.7071067811865475244)); // Power will multiple frequency by 2
+  frequency_checks.push_back(std::make_pair(20000, 0)); // Power will multiple frequency by 2
   checker.set_checks(frequency_checks);
 
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -256,7 +257,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_10k_test )
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
@@ -285,7 +286,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_10k_test )
   checker.set_input_port(0, &filter, 0);
   filter.set_input_port(0, &generator, 0);
 
-  filter.process(1024*64);
+  filter.process(PROCESSSIZE);
 
   checker.process(PROCESSSIZE);
 }
