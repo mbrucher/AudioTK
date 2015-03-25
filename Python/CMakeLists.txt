@@ -12,6 +12,7 @@ string(REGEX REPLACE ".*/(python[0-9]\\.[0-9])" "\\1" PYTHON_FOLDER ${PYTHON_INC
 
 add_subdirectory(Core)
 add_subdirectory(Tools)
+add_subdirectory(IO)
 add_subdirectory(EQ)
 add_subdirectory(Delay)
 add_subdirectory(Dynamic)
