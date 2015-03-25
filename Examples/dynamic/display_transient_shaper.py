@@ -4,36 +4,36 @@ import numpy as np
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
 
-from ATK.Core import Int32InPointerFilter, FloatOutPointerFilter, PipelineGlobalSinkFilter
+from ATK.Core import Int16InPointerFilter, FloatOutPointerFilter, PipelineGlobalSinkFilter
 
 from ATK.Dynamic import DoubleAttackReleaseFilter, DoubleGainCompressorFilter, DoubleRelativePowerFilter
 from ATK.Tools import DoubleApplyGainFilter
 
 # get from http://www.telefunken-elektroakustik.com/download/brew/
 
-filename = "DRUM ROOM - U47  - BAE 1073.wav"
+filename = "Boom-Kick.wav"
 sampling_rate, data = wavfile.read(filename)
 processsize = len(data)
 
 data = data.reshape(-1, 1)
-infilter = Int32InPointerFilter(data, True)
+infilter = Int16InPointerFilter(data, True)
 infilter.set_output_sampling_rate(sampling_rate)
 
 powerfilter = DoubleRelativePowerFilter(1)
 powerfilter.set_input_sampling_rate(sampling_rate)
 powerfilter.set_input_port(0, infilter, 0)
-powerfilter.set_memory(np.exp(-1/(sampling_rate*.1e-3)))
+powerfilter.set_memory(np.exp(-1/(sampling_rate*1e-3)))
 
 attackreleasefilter = DoubleAttackReleaseFilter(1)
 attackreleasefilter.set_input_sampling_rate(sampling_rate)
 attackreleasefilter.set_input_port(0, powerfilter, 0)
-attackreleasefilter.set_attack(np.exp(-1/(sampling_rate*.01e-3)))
-attackreleasefilter.set_release(np.exp(-1/(sampling_rate*1.e-3)))
+attackreleasefilter.set_attack(np.exp(-1/(sampling_rate*.1e-3)))
+attackreleasefilter.set_release(np.exp(-1/(sampling_rate*10.e-3)))
 
 gainfilter = DoubleGainCompressorFilter(1)
 gainfilter.set_input_sampling_rate(sampling_rate)
 gainfilter.set_input_port(0, attackreleasefilter, 0)
-gainfilter.set_threshold(.5)
+gainfilter.set_threshold(1)
 gainfilter.set_ratio(.5)
 gainfilter.set_softness(1)
 
@@ -70,8 +70,8 @@ pipelineend.add_filter(outfilter_power)
 pipelineend.add_filter(outfilter_gain)
 pipelineend.process(processsize)
 
-start = 90000
-stop = 100000
+start = 0
+stop = processsize
 
 x = np.arange(stop, dtype=np.float32) / sampling_rate
 
