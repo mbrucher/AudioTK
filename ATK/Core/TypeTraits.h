@@ -37,14 +37,14 @@ namespace ATK
       char* temp = reinterpret_cast<char*>(&data);
       for(int i = 0; i < 3; ++i)
       {
-        temp[i] = el[i];
+        temp[3-i] = el[i];
       }
-      return -static_cast<double>(data) / (((1 << 8) * std::numeric_limits<std::int32_t>::min()));
+      return -static_cast<double>(data) / ((static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
 
     static std::int64_t from_double(double el)
     {
-      return static_cast<std::int64_t>(-el * ((1 << 8) * std::numeric_limits<std::int32_t>::min()));
+      return static_cast<std::int64_t>(-el * (static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
   };
 
@@ -57,14 +57,14 @@ namespace ATK
       char* temp = reinterpret_cast<char*>(&data);
       for(int i = 0; i < 3; ++i)
       {
-        temp[i] = el[i];
+        temp[3-i] = el[i];
       }
-      return -static_cast<double>(data) / (((1 << 8) * std::numeric_limits<std::int32_t>::min()));
+      return -static_cast<double>(data) / ((static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
 
     static std::int64_t from_double(double el)
     {
-      return static_cast<std::int64_t>(-el * ((1 << 8) * std::numeric_limits<std::int32_t>::min()));
+      return static_cast<std::int64_t>(-el * (static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
   };
 
