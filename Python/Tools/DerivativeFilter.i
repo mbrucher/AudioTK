@@ -9,7 +9,7 @@ namespace ATK
   class DerivativeFilter: public BaseFilter
   {
   public:
-    DerivativeFilter();
+    DerivativeFilter(int nb_channels = 1);
     ~DerivativeFilter();
   };
 }

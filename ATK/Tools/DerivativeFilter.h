@@ -22,7 +22,7 @@ namespace ATK
     using Parent::outputs;
     
   public:
-    DerivativeFilter();
+    DerivativeFilter(int nb_channels = 1);
     ~DerivativeFilter();
     
   protected:
