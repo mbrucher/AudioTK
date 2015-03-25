@@ -50,9 +50,9 @@ namespace ATK
       for(std::int64_t i = 0; i < size; ++i)
       {
         temp_output = (1 - memory_factor) * input[i] * input[i] + memory_factor * temp_output;
-        if(input[i] * input[i] > std::numeric_limits<DataType_>::epsilon())
+        if(temp_output > std::numeric_limits<DataType_>::epsilon())
         {
-          output[i] = temp_output / (input[i] * input[i]);
+          output[i] = (input[i] * input[i]) / temp_output;
         }
         else
         {
