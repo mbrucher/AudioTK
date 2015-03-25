@@ -76,9 +76,9 @@ namespace ATK
   template<typename DataType_>
   void GainExpanderFilter<DataType_>::set_ratio(DataType_ ratio)
   {
-    if(ratio < 1)
+    if(ratio <= 0)
     {
-      throw std::out_of_range("Ratio factor must be higher than or equal to 1");
+      throw std::out_of_range("Ratio factor must be higher than 0");
     }
     this->ratio = ratio;
     recomputeLUT();
