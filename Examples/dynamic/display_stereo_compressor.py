@@ -10,6 +10,8 @@ from ATK.Tools import FloatMiddleSideFilter, FloatVolumeFilter
 from ATK.Dynamic import DoubleAttackReleaseFilter, DoubleGainCompressorFilter, DoublePowerFilter
 from ATK.Tools import DoubleApplyGainFilter
 
+# get from http://www.telefunken-elektroakustik.com/download/brew/
+
 sampling_ratel, datal = wavfile.read("KEYS LEFT - DI - LaChappel 992.wav")
 sampling_rater, datar = wavfile.read("KEYS RIGHT - DI - LaChappel 992.wav")
 
