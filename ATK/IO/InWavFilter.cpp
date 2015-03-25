@@ -35,7 +35,30 @@ namespace ATK
     {
       throw std::runtime_error("Could not open WAV file " + filename);
     }
-    wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
+    // Read wave header
+    wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader));
+
+    // Get the format block
+    wavstream.read(reinterpret_cast<char*>(&format), 4+4);
+    if(format.FormatBlocID[0] != 'f') // OK, assume we have bext instead
+    {
+      wavstream.seekg(static_cast<int32_t>(wavstream.tellg()) + format.BlocSize);
+      wavstream.read(reinterpret_cast<char*>(&format), sizeof(WavFormat));
+    }
+    else
+    {
+      wavstream.read(reinterpret_cast<char*>(&format) + 4 + 4, sizeof(WavFormat) - 4 - 4);
+    }
+
+    // Get the data block
+    wavstream.read(reinterpret_cast<char*>(&data), sizeof(WavData));
+    while(data.DataBlocID[0] != 'd')
+    {
+      wavstream.seekg(static_cast<int32_t>(wavstream.tellg()) + data.DataSize);
+      wavstream.read(reinterpret_cast<char*>(&data), sizeof(WavData));
+    }
+
+    offset = wavstream.tellg();
     wavstream.close();
 
     set_nb_output_ports(format.NbChannels);
@@ -64,7 +87,7 @@ namespace ATK
     if(!wavstream.is_open())
     {
       wavstream.open(filename.c_str(), std::ios_base::binary);
-      wavstream.seekg(sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
+      wavstream.seekg(offset);
     }
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
     wavstream.read(buffer.data(), buffer.size());
