@@ -37,7 +37,7 @@ namespace ATK
       char* temp = reinterpret_cast<char*>(&data);
       for(int i = 0; i < 3; ++i)
       {
-        temp[3-i] = el[i];
+        temp[i] = el[i];
       }
       return -static_cast<double>(data) / ((static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
@@ -57,7 +57,7 @@ namespace ATK
       char* temp = reinterpret_cast<char*>(&data);
       for(int i = 0; i < 3; ++i)
       {
-        temp[3-i] = el[i];
+        temp[i] = el[i];
       }
       return -static_cast<double>(data) / ((static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
