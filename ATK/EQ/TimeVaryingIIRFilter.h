@@ -67,7 +67,7 @@ namespace ATK
       current_coeffs_in.resize(in_order+1, 0);
       current_coeffs_out.resize(out_order, 0);
 
-      DataType scale = (number_of_steps - 1) / (max_frequency - min_frequency);
+      DataType scale = static_cast<DataType>((number_of_steps - 1) / (max_frequency - min_frequency));
 
       const DataType* ATK_RESTRICT input = converted_inputs[0];
       const DataType* ATK_RESTRICT cut_frequencies = converted_inputs[1];
@@ -85,11 +85,11 @@ namespace ATK
         }
         for(int j = 0; j < in_order+1; ++j)
         {
-          current_coeffs_in[j] = current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory);
+          current_coeffs_in[j] = static_cast<DataType>(static_cast<DataType>(current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory)));
         }
         for(int j = 0; j < out_order; ++j)
         {
-          current_coeffs_out[j] = current_coeffs_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory);
+          current_coeffs_out[j] = static_cast<DataType>(static_cast<DataType>(current_coeffs_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory)));
         }
 
         output[i] = current_coeffs_in[in_order] * input[i] + state[0];

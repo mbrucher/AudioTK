@@ -66,7 +66,7 @@ namespace ATK
     cache.resize(output_sampling_rate * seconds);
     for(int i = 0; i < cache.size(); ++i)
     {
-      cache[i] = std::cos(2 * boost::math::constants::pi<double>() * i * periods / seconds / output_sampling_rate);
+      cache[i] = static_cast<DataType>(std::cos(2 * boost::math::constants::pi<double>() * i * periods / seconds / output_sampling_rate));
     }
   }
 
@@ -81,7 +81,7 @@ namespace ATK
       memcpy(reinterpret_cast<void*>(output + processed), reinterpret_cast<const void*>(cache.data() + indice), to_copy * sizeof(DataType_));
       indice += to_copy;
       processed += to_copy;
-      if(indice >= cache.size())
+      if(indice >= static_cast<int64_t>(cache.size()))
       {
         indice = 0;
       }
@@ -92,9 +92,6 @@ namespace ATK
     }
   }
   
-  template class CachedCosinusGeneratorFilter<std::int16_t>;
-  template class CachedCosinusGeneratorFilter<std::int32_t>;
-  template class CachedCosinusGeneratorFilter<std::int64_t>;
   template class CachedCosinusGeneratorFilter<float>;
   template class CachedCosinusGeneratorFilter<double>;
 }

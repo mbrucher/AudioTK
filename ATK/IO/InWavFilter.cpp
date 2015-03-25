@@ -19,7 +19,7 @@ namespace
     std::int64_t size = outputs[0].size();
     for(std::size_t j = 0; j < nbChannels; ++j)
     {
-      ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, nbChannels);
+      ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, static_cast<int>(nbChannels));
     }
   }
 }

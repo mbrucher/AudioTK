@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   WhiteNoiseGeneratorFilter<DataType_>::WhiteNoiseGeneratorFilter()
-  :Parent(0, 1), volume(1), offset(0), dist(1e-3, 2e-3)
+  :Parent(0, 1), volume(1), offset(0), dist(static_cast<DataType>(1e-3), static_cast<DataType>(2e-3))
   {
     
   }
@@ -28,7 +28,7 @@ namespace ATK
   void WhiteNoiseGeneratorFilter<DataType_>::set_volume(double volume)
   {
     this->volume = volume;
-    dist.param(typename boost::random::uniform_real_distribution<DataType_>::param_type(offset - volume, offset + volume));
+    dist.param(typename boost::random::uniform_real_distribution<DataType_>::param_type(static_cast<DataType>(offset - volume), static_cast<DataType>(offset + volume)));
   }
   
   template<typename DataType_>
@@ -41,7 +41,7 @@ namespace ATK
   void WhiteNoiseGeneratorFilter<DataType_>::set_offset(double offset)
   {
     this->offset = offset;
-    dist.param(typename boost::random::uniform_real_distribution<DataType_>::param_type(offset - volume, offset + volume));
+    dist.param(typename boost::random::uniform_real_distribution<DataType_>::param_type(static_cast<DataType>(offset - volume), static_cast<DataType>(offset + volume)));
   }
   
   template<typename DataType_>

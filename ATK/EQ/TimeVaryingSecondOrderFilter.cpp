@@ -100,7 +100,7 @@ namespace ATK
     
     for(int i = 0; i < number_of_steps; ++i)
     {
-      DataType cut_frequency = (max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency;
+      DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
       DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
       DataType Q_inv = 1 / Q;
@@ -139,7 +139,7 @@ namespace ATK
 
     for(int i = 0; i < number_of_steps; ++i)
     {
-      DataType cut_frequency = (max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency;
+      DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
       DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
     
@@ -164,7 +164,7 @@ namespace ATK
 
     for(int i = 0; i < number_of_steps; ++i)
     {
-      DataType cut_frequency = (max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency;
+      DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
       DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
 
@@ -189,7 +189,7 @@ namespace ATK
 
     for(int i = 0; i < number_of_steps; ++i)
     {
-      DataType cut_frequency = (max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency;
+      DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
       DataType Q_inv = 1 / Q;
       if(gain <= 1)
@@ -256,7 +256,7 @@ namespace ATK
 
     for(int i = 0; i < number_of_steps; ++i)
     {
-      DataType cut_frequency = (max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency;
+      DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * Q);
       DataType d = -std::cos(2 * boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
 
@@ -294,7 +294,7 @@ namespace ATK
 
     for(int i = 0; i < number_of_steps; ++i)
     {
-      DataType cut_frequency = (max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency;
+      DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
       if(gain <= 1)
       {
@@ -346,7 +346,7 @@ namespace ATK
 
     for(int i = 0; i < number_of_steps; ++i)
     {
-      DataType cut_frequency = (max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency;
+      DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
       if(gain <= 1)
       {

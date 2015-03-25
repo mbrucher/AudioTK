@@ -116,7 +116,8 @@ namespace ATK
   IIRFilter<ToneStackFilterCoefficients<DataType> >* ToneStackFilterCoefficients<DataType>::buildBassmanStack()
   {
     IIRFilter<ToneStackFilterCoefficients<DataType> >* filter = new IIRFilter<ToneStackFilterCoefficients<DataType> >;
-    filter->set_coefficients(250e3, 1e6, 25e3, 45e3, 250e-12, 20e-9, 20e-9);
+    filter->set_coefficients(static_cast<DataType>(250e3), static_cast<DataType>(1e6), static_cast<DataType>(25e3), static_cast<DataType>(45e3),
+      static_cast<DataType>(250e-12), static_cast<DataType>(20e-9), static_cast<DataType>(20e-9));
     return filter;
   }
 
@@ -124,7 +125,8 @@ namespace ATK
   IIRFilter<ToneStackFilterCoefficients<DataType> >* ToneStackFilterCoefficients<DataType>::buildJCM800Stack()
   {
     IIRFilter<ToneStackFilterCoefficients<DataType> >* filter = new IIRFilter<ToneStackFilterCoefficients<DataType> >;
-    filter->set_coefficients(220e3, 1e6, 22e3, 33e3, 470e-12, 22e-9, 22e-9);
+    filter->set_coefficients(static_cast<DataType>(220e3), static_cast<DataType>(1e6), static_cast<DataType>(22e3), static_cast<DataType>(33e3),
+      static_cast<DataType>(470e-12), static_cast<DataType>(22e-9), static_cast<DataType>(22e-9));
     return filter;
   }
 
