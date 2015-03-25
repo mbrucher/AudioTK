@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from ATK.Core import Int16InPointerFilter, FloatOutPointerFilter, PipelineGlobalSinkFilter
 
 from ATK.Dynamic import DoubleAttackReleaseFilter, DoubleGainCompressorFilter, DoubleRelativePowerFilter
-from ATK.Tools import DoubleApplyGainFilter
+from ATK.Tools import DoubleApplyGainFilter, DoubleDerivativeFilter
 
 # get from http://www.telefunken-elektroakustik.com/download/brew/
 
@@ -19,9 +19,13 @@ data = data.reshape(-1, 1)
 infilter = Int16InPointerFilter(data, True)
 infilter.set_output_sampling_rate(sampling_rate)
 
+derivativefilter = DoubleDerivativeFilter()
+derivativefilter.set_input_sampling_rate(sampling_rate)
+derivativefilter.set_input_port(0, infilter, 0)
+
 powerfilter = DoubleRelativePowerFilter(1)
 powerfilter.set_input_sampling_rate(sampling_rate)
-powerfilter.set_input_port(0, infilter, 0)
+powerfilter.set_input_port(0, derivativefilter, 0)
 powerfilter.set_memory(np.exp(-1/(sampling_rate*1e-3)))
 
 attackreleasefilter = DoubleAttackReleaseFilter(1)
@@ -76,7 +80,7 @@ stop = 1000
 x = np.arange(stop, dtype=np.float32) / sampling_rate
 
 plt.figure()
-plt.suptitle("Transient Shaper")
+plt.suptitle("Transient Shaper (derivative-based)")
 plt.subplot(4, 1, 1)
 plt.title("Input")
 plt.plot(x[start:], indata[start:stop, 0])
