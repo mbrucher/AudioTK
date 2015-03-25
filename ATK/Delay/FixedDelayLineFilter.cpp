@@ -29,7 +29,7 @@ namespace ATK
     {
       throw std::out_of_range("Delay must be positive");
     }
-    if(delay >= delay_line.size())
+    if(delay >= static_cast<std::int64_t>(delay_line.size()))
     {
       throw std::out_of_range("Delay must be less than delay line size");
     }
@@ -62,7 +62,7 @@ namespace ATK
       delay_line[i] = delay_line[i + size];
     }
     std::int64_t minimum = std::max(std::int64_t(0), std::int64_t(delay_line.size()) - size);
-    if(delay_line.size() > minimum)
+    if(static_cast<std::int64_t>(delay_line.size()) > minimum)
     {
       memcpy(reinterpret_cast<void*>(delay_line.data() + minimum), reinterpret_cast<const void*>(input + size + minimum - delay_line.size()), (delay_line.size() - minimum) * sizeof(DataType_));
     }

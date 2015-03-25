@@ -13,7 +13,7 @@
 namespace ATK
 {
   /**
-   * IIR filter template class
+   * IIR filter template class for time varying frequencies. Transposed Direct Form II
    */
   template<class Coefficients >
   class ATK_EQ_EXPORT TimeVaryingIIRFilter: public Coefficients
@@ -45,6 +45,7 @@ namespace ATK
   protected:
     std::vector<DataType> current_coeffs_in;
     std::vector<DataType> current_coeffs_out;
+    std::vector<DataType> state;
   public:
     TimeVaryingIIRFilter()
       :Parent()
@@ -56,6 +57,7 @@ namespace ATK
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
+      state.resize(std::max(input_delay, output_delay), 0);
     }
     
     virtual void process_impl(std::int64_t size)
@@ -65,9 +67,8 @@ namespace ATK
       current_coeffs_in.resize(in_order+1, 0);
       current_coeffs_out.resize(out_order, 0);
 
-      DataType scale = (number_of_steps - 1) / (max_frequency - min_frequency);
-      DataType tempout = 0;
-      
+      DataType scale = static_cast<DataType>((number_of_steps - 1) / (max_frequency - min_frequency));
+
       const DataType* ATK_RESTRICT input = converted_inputs[0];
       const DataType* ATK_RESTRICT cut_frequencies = converted_inputs[1];
       DataType* ATK_RESTRICT output = outputs[0];
@@ -82,27 +83,30 @@ namespace ATK
         {
           frequency_index = number_of_steps - 1;
         }
-
         for(int j = 0; j < in_order+1; ++j)
         {
-          current_coeffs_in[j] = current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory);
+          current_coeffs_in[j] = static_cast<DataType>(static_cast<DataType>(current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory)));
         }
         for(int j = 0; j < out_order; ++j)
         {
-          coefficients_out[j] = coefficients_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory);
+          current_coeffs_out[j] = static_cast<DataType>(static_cast<DataType>(current_coeffs_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory)));
         }
 
-        tempout = current_coeffs_in[in_order] * input[i];
+        output[i] = current_coeffs_in[in_order] * input[i] + state[0];
+        for(int j = 0; j < state.size() - 1; ++j)
+        {
+          state[j] = state[j + 1];
+        }
+        state[state.size() - 1] = 0;
 
         for(int j = 0; j < in_order; ++j)
         {
-          tempout += current_coeffs_in[j] * input[i - in_order + j];
+          state[j] += input[i] * current_coeffs_in[in_order - j - 1];
         }
         for(int j = 0; j < out_order; ++j)
         {
-          tempout += coefficients_out[j] * output[i - out_order + j];
+          state[j] += output[i] * current_coeffs_out[out_order - j - 1];
         }
-        output[i] = tempout;
       }
     }
   };

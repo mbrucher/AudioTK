@@ -33,3 +33,6 @@ doc/build
 Examples/*.txt
 *.sh
 
+*.png
+*.txt
+*.bundle

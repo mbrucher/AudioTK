@@ -48,6 +48,7 @@ The *Tools* has two kind of classes: filters and general purpose classes.
 * **CachedCosinusGeneratorFilter** is a filter that outputs a cached cosinus
 * **CachedSinusGeneratorFilter** is a filter that outputs a cached sinus
 * **DecimationFilter** modifies the number of samples in the signal based on the ratio of input/output sampling rates
+* **DerivativeFilter** is a filter computing the derivative of an input signal
 * **MaxFilter** is a filter computing the maximum of two input arrays
 * **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**.
 * **OffsetVolumeFilter** multiplies input signal by a certain amount and adds a constant offset
@@ -101,7 +102,8 @@ The *Dynamic* module contains filters enabling compressor construction.
 * **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
 * **GainExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does
 * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
-* **PowerFilter** is a filter that outputs a AR(1)-filtered version of the squared input signal
+* **PowerFilter** is a filter that outputs an AR(1)-filtered version of the squared input signal
+* **RelativePowerFilter** is a filter that outputs the squared input signal divided by an AR(1)-filtered version of the squared input signal
 
 Distortion module
 #################

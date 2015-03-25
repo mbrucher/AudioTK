@@ -45,6 +45,7 @@ if __name__ == "__main__":
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / 100
 
   np.savetxt("input.txt", x)
+  out_0_5_1_1 = filter(x, .5, 1, 1)
   out_2_1_1 = filter(x, 2, 1, 1)
   out_4_1_1 = filter(x, 4, 1, 1)
   out_8_1_1 = filter(x, 8, 1, 1)
@@ -52,6 +53,7 @@ if __name__ == "__main__":
   out_10_01_1 = filter(x, 10, .1, 1)
   out_10_01_10 = filter(x, 10, .1, 10)
   plt.figure()
+  plt.loglog(x[0], out_0_5_1_1[0], label="ratio(.5), threshold(1), softness(1)")
   plt.loglog(x[0], out_2_1_1[0], label="ratio(2), threshold(1), softness(1)")
   plt.loglog(x[0], out_4_1_1[0], label="ratio(4), threshold(1), softness(1)")
   plt.loglog(x[0], out_8_1_1[0], label="ratio(8), threshold(1), softness(1)")

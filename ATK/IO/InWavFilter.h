@@ -34,6 +34,7 @@ namespace ATK
     WavHeader header;
     WavFormat format;
     WavData data;
+    int offset;
         
     void read_from_file(std::int64_t size);
 

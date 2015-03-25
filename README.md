@@ -10,9 +10,17 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 0.5.1
+* Added time-varying IIR filters (variable frequency, coded as transposed direct form II)
+* Added second order time varying filter implementations
+* Added a RelativePowerFilter with Python wrappers
+* Added a DerivativeFilter with Python wrappers
+* Added Python wrappers for the InWavFilter
+* Fixed some warnings during compilation
 
 ### 0.5.0
 * Renamed slope attribute to ratio for Gain Compressor and Expander Filters
+* Renamed the Chamberlin filter
 * Added a StereoUniversalFixedDelayLineFilter that can make mix two channels together with different delay for each channel with Python wrappers
 * Added a GainLimiterFilter (maximum ratio) with Python wrappers
 * Added a MaxFilter with Python wrappers
