@@ -5,9 +5,9 @@ from scipy.io import wavfile
 import matplotlib.pyplot as plt
 
 from ATK.Core import Int16InPointerFilter, FloatOutPointerFilter, PipelineGlobalSinkFilter
-
+from ATK.EQ import DoubleButterworthBandPassFilter
 from ATK.Dynamic import DoubleAttackReleaseFilter, DoubleGainCompressorFilter, DoubleRelativePowerFilter
-from ATK.Tools import DoubleApplyGainFilter
+from ATK.Tools import DoubleApplyGainFilter, DoubleDerivativeFilter
 
 # get from http://www.telefunken-elektroakustik.com/download/brew/
 
@@ -19,9 +19,19 @@ data = data.reshape(-1, 1)
 infilter = Int16InPointerFilter(data, True)
 infilter.set_output_sampling_rate(sampling_rate)
 
+hffilter = DoubleButterworthBandPassFilter()
+hffilter.set_input_sampling_rate(sampling_rate)
+hffilter.set_cut_frequencies(5000, 10000)
+hffilter.set_order(5)
+hffilter.set_input_port(0, infilter, 0)
+
+derivativefilter = DoubleDerivativeFilter()
+derivativefilter.set_input_sampling_rate(sampling_rate)
+derivativefilter.set_input_port(0, hffilter, 0)
+
 powerfilter = DoubleRelativePowerFilter(1)
 powerfilter.set_input_sampling_rate(sampling_rate)
-powerfilter.set_input_port(0, infilter, 0)
+powerfilter.set_input_port(0, derivativefilter, 0)
 powerfilter.set_memory(np.exp(-1/(sampling_rate*.1e-3)))
 
 attackreleasefilter = DoubleAttackReleaseFilter(1)
@@ -47,6 +57,11 @@ inputfilter = FloatOutPointerFilter(indata, True)
 inputfilter.set_input_sampling_rate(sampling_rate)
 inputfilter.set_input_port(0, infilter, 0)
 
+inhfdata = np.zeros((processsize, 1), dtype=np.float32)
+inputhffilter = FloatOutPointerFilter(inhfdata, True)
+inputhffilter.set_input_sampling_rate(sampling_rate)
+inputhffilter.set_input_port(0, hffilter, 0)
+
 outdata = np.zeros((processsize, 1), dtype=np.float32)
 outfilter = FloatOutPointerFilter(outdata, True)
 outfilter.set_input_sampling_rate(sampling_rate)
@@ -65,6 +80,7 @@ outfilter_gain.set_input_port(0, gainfilter, 0)
 pipelineend = PipelineGlobalSinkFilter()
 pipelineend.set_input_sampling_rate(sampling_rate)
 pipelineend.add_filter(inputfilter)
+pipelineend.add_filter(inputhffilter)
 pipelineend.add_filter(outfilter)
 pipelineend.add_filter(outfilter_power)
 pipelineend.add_filter(outfilter_gain)
@@ -76,21 +92,27 @@ stop = 1000
 x = np.arange(stop, dtype=np.float32) / sampling_rate
 
 plt.figure()
-plt.suptitle("Transient Shaper")
-plt.subplot(4, 1, 1)
+plt.suptitle("Transient Shaper (BP filtered derivative-based)")
+plt.subplot(5, 1, 1)
 plt.title("Input")
 plt.plot(x[start:], indata[start:stop, 0])
 
-plt.subplot(4, 1, 2)
+plt.subplot(5, 1, 2)
+plt.title("Filtered input")
+plt.plot(x[start:], inhfdata[start:stop, 0])
+
+plt.subplot(5, 1, 3)
 plt.title("Relative Power")
 plt.plot(x[start:], outdata_power[start:stop, 0])
 
-plt.subplot(4, 1, 3)
+plt.subplot(5, 1, 4)
 plt.title("Gain")
 plt.plot(x[start:], outdata_gain[start:stop, 0])
 
-plt.subplot(4, 1, 4)
+plt.subplot(5, 1, 5)
 plt.title("Output")
 plt.plot(x[start:], outdata[start:stop, 0])
+
+plt.show()
 
 plt.show()
