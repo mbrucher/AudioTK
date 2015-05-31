@@ -63,6 +63,7 @@ namespace ATK
   template<typename DataType_>
   void CachedCosinusGeneratorFilter<DataType_>::setup()
   {
+    indice = 0;
     cache.resize(output_sampling_rate * seconds);
     for(int i = 0; i < cache.size(); ++i)
     {
