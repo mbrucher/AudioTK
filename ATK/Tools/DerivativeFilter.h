@@ -20,6 +20,9 @@ namespace ATK
     using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
+    using Parent::output_delay;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
     
   public:
     DerivativeFilter(int nb_channels = 1);
