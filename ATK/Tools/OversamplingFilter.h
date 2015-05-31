@@ -117,7 +117,7 @@ namespace ATK
   public:
     OversamplingFilter(int nb_channels = 1);
     
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) override final;
   };
 }
 

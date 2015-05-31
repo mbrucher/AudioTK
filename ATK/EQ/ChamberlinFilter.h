@@ -47,8 +47,8 @@ namespace ATK
     int get_selected() const;
     
   protected:
-    void setup();
-    void process_impl(std::int64_t size);
+    void setup() override final;
+    void process_impl(std::int64_t size) override final;
     
     int selected;
     DataType attenuation;

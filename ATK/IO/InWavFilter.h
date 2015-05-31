@@ -40,8 +40,8 @@ namespace ATK
 
   public:
     InWavFilter(const std::string& filename);
-    
-    void process_impl(std::int64_t size);
+  protected:
+    void process_impl(std::int64_t size) override final;
   };
 }
 #endif

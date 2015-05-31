@@ -34,7 +34,7 @@ namespace ATK
     double get_offset() const;
     
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) override final;
     
   private:
     double offset;

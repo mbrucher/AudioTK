@@ -37,7 +37,7 @@ namespace ATK
     std::int64_t get_delay() const;
 
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) override final;
     
     std::vector<DataType> delay_line;
     std::int64_t delay;

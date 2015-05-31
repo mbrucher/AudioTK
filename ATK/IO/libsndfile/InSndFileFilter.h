@@ -29,11 +29,11 @@ namespace ATK
     
   private:
     boost::scoped_ptr<SndfileHandle> stream;
+  protected:
+    void process_impl(std::int64_t size) override final;
   public:
     InSndFileFilter(const std::string& filename);
     ~InSndFileFilter();
-    
-    void process_impl(std::int64_t size);
     
     /// Returns the number of frames/samples in the opened file
     std::int64_t get_frames() const;

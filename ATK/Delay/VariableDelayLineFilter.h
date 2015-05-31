@@ -34,7 +34,7 @@ namespace ATK
     ~VariableDelayLineFilter();
 
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) override final;
     
     /// Delay line contains the last size elements + max_delay of the last delay line
     std::vector<DataType> delay_line;

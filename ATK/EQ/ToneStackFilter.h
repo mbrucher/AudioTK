@@ -26,7 +26,7 @@ namespace ATK
     static const int in_order = 3;
     static const int out_order = 3;
     
-    void setup();
+    void setup() override;
     
     std::vector<DataType> coefficients_in;
     std::vector<DataType> coefficients_out;

@@ -219,14 +219,14 @@ namespace ATK
     {
     }
 
-    void setup()
+    void setup() override final
     {
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
     }
     
-    virtual void process_impl(std::int64_t size)
+    virtual void process_impl(std::int64_t size) override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);

@@ -44,8 +44,8 @@ namespace ATK
     void set_drive(DataType drive);
 
   protected:
-    void setup();
-    void process_impl(std::int64_t size);
+    void setup() override final;
+    void process_impl(std::int64_t size) override final;
     DataType drive;
     
   private:

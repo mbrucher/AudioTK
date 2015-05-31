@@ -35,15 +35,14 @@ namespace ATK
     std::vector<std::vector<DataType> > temp_arrays;
 
   protected:
-    void setup();
+    void setup()  override final;
     void write_header();
-    
+    void process_impl(std::int64_t size) override final;
+
   public:
     OutWavFilter(const std::string& filename);
     
-    void process_impl(std::int64_t size);
-    
-    virtual void set_nb_input_ports(int nb_ports);
+    virtual void set_nb_input_ports(int nb_ports) override final;
   };
 }
 #endif

@@ -22,7 +22,7 @@ namespace ATK
     int in_order;
     int out_order;
     
-    void setup();
+    void setup() override;
     
     std::vector<DataType> coefficients_in;
     std::vector<DataType> coefficients_out;
@@ -49,7 +49,7 @@ namespace ATK
     int in_order;
     int out_order;
     
-    void setup();
+    void setup() override;
     
     std::vector<DataType> coefficients_in;
     std::vector<DataType> coefficients_out;
@@ -76,7 +76,7 @@ namespace ATK
     int in_order;
     int out_order;
     
-    void setup();
+    void setup() override;
     
     std::vector<DataType> coefficients_in;
     std::vector<DataType> coefficients_out;
@@ -104,7 +104,7 @@ namespace ATK
     int in_order;
     int out_order;
     
-    void setup();
+    void setup() override;
     
     std::vector<DataType> coefficients_in;
     std::vector<DataType> coefficients_out;

@@ -69,7 +69,7 @@ namespace ATK
     DataType_ get_feedforward_ch2_ch2() const;
 
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) override final;
 
     std::vector<DataType> delay_line_l;
     std::vector<DataType> delay_line_r;
