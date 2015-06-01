@@ -10,6 +10,9 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 0.6.0
+* Added LinkWitz-Riley second order low and high path filters
+
 ### 0.5.1
 * Added time-varying IIR filters (variable frequency, coded as transposed direct form II)
 * Added second order time varying filter implementations
