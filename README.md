@@ -11,6 +11,7 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 ### 0.6.0
+* Added override and final keywords in virtual calls
 * Added LinkWitz-Riley second order low and high path filters
 
 ### 0.5.1
