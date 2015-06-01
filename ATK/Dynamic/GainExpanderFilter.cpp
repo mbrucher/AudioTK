@@ -111,7 +111,7 @@ namespace ATK
   void GainExpanderFilter<DataType_>::recomputeLUT()
   {
     gainLUT.clear();
-    gainLUT.push_back(0); // gain of 1 at input = 0
+    gainLUT.push_back(0); // gain of 0 at input = 0
 
     for(int i = 1; i < LUTsize; ++i)
     {
