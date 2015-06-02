@@ -67,7 +67,7 @@ namespace ATK
     cache.resize(output_sampling_rate * seconds);
     for(int i = 0; i < cache.size(); ++i)
     {
-      cache[i] = static_cast<DataType>(std::sin(2 * boost::math::constants::pi<double>() * i * periods / seconds / output_sampling_rate));
+      cache[i] = static_cast<DataType>(std::sin(2 * boost::math::constants::pi<double>() * (i+1) * periods / seconds / output_sampling_rate));
     }
   }
 
