@@ -6,23 +6,23 @@
 namespace ATK
 {
   template<class DataType>
-  class LowPassLinkwitzRileyFilterCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class LinkwitzRileyLowPassCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   };
   
   template<class DataType>
-  class HighPassLinkwitzRileyFilterCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class LinkwitzRileyHighPassCoefficients: public BaseSecondOrderCoefficients<DataType>
   {
   };
 }
 
-%template(FloatLowPassLinkwitzRileyFilterCoefficients) ATK::LowPassLinkwitzRileyFilterCoefficients<float>;
-%template(DoubleLowPassLinkwitzRileyFilterCoefficients) ATK::LowPassLinkwitzRileyFilterCoefficients<double>;
-%template(FloatHighPassLinkwitzRileyFilterCoefficients) ATK::HighPassLinkwitzRileyFilterCoefficients<float>;
-%template(DoubleHighPassLinkwitzRileyFilterCoefficients) ATK::HighPassLinkwitzRileyFilterCoefficients<double>;
+%template(FloatLinkwitzRileyLowPassFilterCoefficients) ATK::LinkwitzRileyLowPassCoefficients<float>;
+%template(DoubleLinkwitzRileyLowPassFilterCoefficients) ATK::LinkwitzRileyLowPassCoefficients<double>;
+%template(FloatLinkwitzRileyHighPassFilterCoefficients) ATK::LinkwitzRileyHighPassCoefficients<float>;
+%template(DoubleLinkwitzRileyHighPassFilterCoefficients) ATK::LinkwitzRileyHighPassCoefficients<double>;
 
 
-%template(FloatLowPassLinkwitzRileyFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowPassLinkwitzRileyFilterCoefficients<float> >;
-%template(DoubleLowPassLinkwitzRileyFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowPassLinkwitzRileyFilterCoefficients<double> >;
-%template(FloatHighPassLinkwitzRileyFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighPassLinkwitzRileyFilterCoefficients<float> >;
-%template(DoubleHighPassLinkwitzRileyFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighPassLinkwitzRileyFilterCoefficients<double> >;
+%template(FloatLinkwitzRileyLowPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<float> >;
+%template(DoubleLinkwitzRileyLowPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<double> >;
+%template(FloatLinkwitzRileyHighPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<float> >;
+%template(DoubleLinkwitzRileyHighPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<double> >;

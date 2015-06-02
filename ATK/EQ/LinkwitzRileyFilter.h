@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  class LowPassLinkwitzRileyFilterCoefficients : public BaseSecondOrderCoefficients<DataType_>
+  class LinkwitzRileyLowPassCoefficients : public BaseSecondOrderCoefficients<DataType_>
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
@@ -25,11 +25,11 @@ namespace ATK
     void setup() override;
         
   public:
-    LowPassLinkwitzRileyFilterCoefficients(int nb_channels = 1);
+    LinkwitzRileyLowPassCoefficients(int nb_channels = 1);
   };
 
   template<typename DataType_>
-  class HighPassLinkwitzRileyFilterCoefficients : public BaseSecondOrderCoefficients<DataType_>
+  class LinkwitzRileyHighPassCoefficients : public BaseSecondOrderCoefficients<DataType_>
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
@@ -44,7 +44,7 @@ namespace ATK
     void setup() override;
 
   public:
-    HighPassLinkwitzRileyFilterCoefficients(int nb_channels = 1);
+    LinkwitzRileyHighPassCoefficients(int nb_channels = 1);
   };
 }
 

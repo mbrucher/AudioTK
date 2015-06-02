@@ -8,13 +8,13 @@
 namespace ATK
 {
   template<typename DataType>
-  LowPassLinkwitzRileyFilterCoefficients<DataType>::LowPassLinkwitzRileyFilterCoefficients(int nb_channels)
+  LinkwitzRileyLowPassCoefficients<DataType>::LinkwitzRileyLowPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void LowPassLinkwitzRileyFilterCoefficients<DataType>::setup()
+  void LinkwitzRileyLowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -30,13 +30,13 @@ namespace ATK
   }
 
   template<typename DataType>
-  HighPassLinkwitzRileyFilterCoefficients<DataType>::HighPassLinkwitzRileyFilterCoefficients(int nb_channels)
+  LinkwitzRileyHighPassCoefficients<DataType>::LinkwitzRileyHighPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void HighPassLinkwitzRileyFilterCoefficients<DataType>::setup()
+  void LinkwitzRileyHighPassCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -51,13 +51,13 @@ namespace ATK
     coefficients_out[0] = -(omega * omega + kappa * kappa - 2 * kappa * omega) / delta;
   }
 
-  template class LowPassLinkwitzRileyFilterCoefficients<float>;
-  template class LowPassLinkwitzRileyFilterCoefficients<double>;
-  template class HighPassLinkwitzRileyFilterCoefficients<float>;
-  template class HighPassLinkwitzRileyFilterCoefficients<double>;
+  template class LinkwitzRileyLowPassCoefficients<float>;
+  template class LinkwitzRileyLowPassCoefficients<double>;
+  template class LinkwitzRileyHighPassCoefficients<float>;
+  template class LinkwitzRileyHighPassCoefficients<double>;
   
-  template class IIRFilter<LowPassLinkwitzRileyFilterCoefficients<float> >;
-  template class IIRFilter<LowPassLinkwitzRileyFilterCoefficients<double> >;
-  template class IIRFilter<HighPassLinkwitzRileyFilterCoefficients<float> >;
-  template class IIRFilter<HighPassLinkwitzRileyFilterCoefficients<double> >;
+  template class IIRFilter<LinkwitzRileyLowPassCoefficients<float> >;
+  template class IIRFilter<LinkwitzRileyLowPassCoefficients<double> >;
+  template class IIRFilter<LinkwitzRileyHighPassCoefficients<float> >;
+  template class IIRFilter<LinkwitzRileyHighPassCoefficients<double> >;
 }
