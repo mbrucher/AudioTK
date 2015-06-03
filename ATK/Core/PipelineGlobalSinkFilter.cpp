@@ -51,7 +51,7 @@ namespace ATK
   {
     for (auto it = filters.begin(); it != filters.end(); ++it)
     {
-      if ((*it) != NULL)
+      if ((*it) != nullptr)
       {
         (*it)->reset();
       }

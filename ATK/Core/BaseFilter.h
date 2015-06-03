@@ -53,6 +53,8 @@ namespace ATK
     virtual int get_type() const = 0;
     /// Starts processing without calling reset
     void process_conditionnally(std::int64_t size);
+    /// Resets the internal state of the filter (mandatory before processing a new clip in a DAW for instance)
+    ATK_CORE_EXPORT virtual void full_setup();
   
   protected:
     /// The actual filter processing part
@@ -63,8 +65,8 @@ namespace ATK
     virtual void prepare_outputs(std::int64_t size) = 0;
     bool is_reset;
     
+    /// Use this call to recompute internal parameters
     ATK_CORE_EXPORT virtual void setup();
-    ATK_CORE_EXPORT virtual void full_setup();
 
     int nb_input_ports;
     int nb_output_ports;

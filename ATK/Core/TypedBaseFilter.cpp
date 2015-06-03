@@ -47,7 +47,7 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, NULL), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, NULL), outputs_size(nb_output_ports, 0)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0)
   {
   }
 
@@ -64,7 +64,7 @@ namespace ATK
     Parent::set_nb_input_ports(nb_ports);
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     converted_inputs_delay.swap(temp);
-    converted_inputs.assign(nb_ports, NULL);
+    converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
   }
   
@@ -76,7 +76,7 @@ namespace ATK
     Parent::set_nb_output_ports(nb_ports);
     std::vector<boost::scoped_array<DataType> > temp(nb_ports);
     outputs_delay.swap(temp);
-    outputs.assign(nb_ports, NULL);
+    outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
   }
 
@@ -189,7 +189,7 @@ namespace ATK
     // Reset input arrays
     std::vector<boost::scoped_array<DataType> > temp_in(nb_input_ports);
     converted_inputs_delay.swap(temp_in);
-    converted_inputs.assign(nb_input_ports, NULL);
+    converted_inputs.assign(nb_input_ports, nullptr);
     converted_inputs_size.assign(nb_input_ports, 0);
 
     // Reset output arrays
