@@ -11,26 +11,38 @@
 
 namespace ATK
 {
+  template<typename DataType>
+  class UFDLF_Impl
+  {
+  public:
+    std::vector<DataType> delay_line;
+    std::vector<DataType> processed_input;
+
+    UFDLF_Impl(int64_t max_delay)
+      :delay_line(max_delay, 0)
+    {
+    }
+  };
+
   template<typename DataType_>
   UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(int max_delay)
-    :Parent(1, 1), delay_line(max_delay, 0), delay(0), blend(0), feedback(0), feedforward(1)
+    :Parent(1, 1), impl(new UFDLF_Impl<DataType_>(max_delay)), delay(0), blend(0), feedback(0), feedforward(1)
   {
   }
   
   template<typename DataType_>
   UniversalFixedDelayLineFilter<DataType_>::~UniversalFixedDelayLineFilter()
   {
-    
   }
   
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::set_delay(std::int64_t delay)
+  void UniversalFixedDelayLineFilter<DataType_>::set_delay(int64_t delay)
   {
     if(delay < 0)
     {
       throw std::out_of_range("Delay must be positive");
     }
-    if(delay >= static_cast<std::int64_t>(delay_line.size()))
+    if(delay >= static_cast<int64_t>(impl->delay_line.size()))
     {
       throw std::out_of_range("Delay must be less than delay line size");
     }
@@ -39,7 +51,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::int64_t UniversalFixedDelayLineFilter<DataType_>::get_delay() const
+  int64_t UniversalFixedDelayLineFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -87,15 +99,21 @@ namespace ATK
   template<typename DataType_>
   void UniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
+    impl->processed_input.resize(size);
+
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
+
+    DataType* ATK_RESTRICT processed_input = impl->processed_input.data();
+    DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
+    auto delay_line_size = impl->delay_line.size();
 
     std::int64_t delay_line_usage = std::min(delay, size);
 
     // Update intermediate input
     for(std::int64_t i = 0; i < delay_line_usage; ++i)
     {
-      processed_input[i] = input[i] + feedback * delay_line[delay_line.size() + i - delay];
+      processed_input[i] = input[i] + feedback * delay_line[delay_line_size + i - delay];
     }
     for(std::int64_t i = delay; i < size; ++i)
     {
@@ -105,7 +123,7 @@ namespace ATK
     //update output
     for(std::int64_t i = 0; i < delay_line_usage; ++i)
     {
-      output[i] = blend * processed_input[i] + feedforward *  delay_line[delay_line.size() + i - delay];
+      output[i] = blend * processed_input[i] + feedforward *  delay_line[delay_line_size + i - delay];
     }
     for(std::int64_t i = delay; i < size; ++i)
     {
@@ -113,23 +131,15 @@ namespace ATK
     }
 
     // Update delay line
-    for(std::int64_t i = 0; i < std::int64_t(delay_line.size()) - size; ++i)
+    for (std::int64_t i = 0; i < std::int64_t(delay_line_size) - size; ++i)
     {
       delay_line[i] = delay_line[i + size];
     }
-    std::int64_t minimum = std::max(std::int64_t(0), std::int64_t(delay_line.size()) - size);
-    for(std::int64_t i = minimum; i < static_cast<std::int64_t>(delay_line.size()); ++i)
+    std::int64_t minimum = std::max(std::int64_t(0), std::int64_t(delay_line_size) - size);
+    for (std::int64_t i = minimum; i < static_cast<std::int64_t>(delay_line_size); ++i)
     {
-      delay_line[i] = processed_input[size + i - delay_line.size()];
+      delay_line[i] = processed_input[size + i - delay_line_size];
     }
-  }
-
-  template<typename DataType_>
-  void ATK::UniversalFixedDelayLineFilter<DataType_>::prepare_process(std::int64_t size)
-  {
-    Parent::prepare_process(size);
-
-    processed_input.resize(size);
   }
 
   template class UniversalFixedDelayLineFilter<float>;

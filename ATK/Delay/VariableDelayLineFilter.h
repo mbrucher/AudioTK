@@ -12,6 +12,9 @@
 
 namespace ATK
 {
+  template<typename DataType>
+  class VDLF_Impl;
+
   /**
    * Variable delay line. Second port drives the delay. This delay must always be lower than max_delay
    */
@@ -36,13 +39,7 @@ namespace ATK
   protected:
     virtual void process_impl(std::int64_t size) const override final;
     
-    /// Delay line contains the last size elements + max_delay of the last delay line
-    mutable std::vector<DataType> delay_line;
-    
-    /// Integer portion of the delay for the last processed chunk
-    mutable std::vector<int64_t> integer_delay;
-    /// Fractional portion of the delay for the last processed chunk, used for the interpolation
-    mutable std::vector<DataType> fractional_delay;
+    std::unique_ptr<VDLF_Impl<DataType_> > impl;
     
     /// Max delay for the delay line
     std::int64_t max_delay;

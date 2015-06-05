@@ -11,9 +11,34 @@
 
 namespace ATK
 {
+  template<typename DataType>
+  class SUFDLF_Impl
+  {
+  public:
+    std::vector<DataType> delay_line_l;
+    std::vector<DataType> delay_line_r;
+    std::vector<DataType> processed_input_l;
+    std::vector<DataType> processed_input_r;
+
+    SUFDLF_Impl(int max_delay)
+      :processed_input_l(max_delay, 0), processed_input_r(max_delay, 0)
+    {
+    }
+
+    void update_delay_line(int max_delay)
+    {
+      // Update delay line
+      for (std::int64_t i = 0; i < max_delay; ++i)
+      {
+        processed_input_l[i] = processed_input_l[processed_input_l.size() + i - max_delay];
+        processed_input_r[i] = processed_input_r[processed_input_r.size() + i - max_delay];
+      }
+    }
+  };
+
   template<typename DataType_>
   StereoUniversalFixedDelayLineFilter<DataType_>::StereoUniversalFixedDelayLineFilter(int max_delay)
-    :Parent(2, 2), processed_input_l(max_delay, 0), processed_input_r(max_delay, 0), delay_l(0), delay_r(0), max_delay(max_delay), blend_l(0), blend_r(0),
+    :Parent(2, 2), impl(new SUFDLF_Impl<DataType_>(max_delay)), delay_l(0), delay_r(0), max_delay(max_delay), blend_l(0), blend_r(0),
     feedback_l_l(0), feedback_l_r(0), feedback_r_l(0), feedback_r_r(0), feedforward_l_l(1), feedforward_l_r(0), feedforward_r_l(0), feedforward_r_r(1)
   {
   }
@@ -21,7 +46,6 @@ namespace ATK
   template<typename DataType_>
   StereoUniversalFixedDelayLineFilter<DataType_>::~StereoUniversalFixedDelayLineFilter()
   {
-    
   }
   
   template<typename DataType_>
@@ -204,45 +228,34 @@ namespace ATK
   template<typename DataType_>
   void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
+    impl->update_delay_line(max_delay);
+
+    impl->delay_line_l.resize(size);
+    impl->delay_line_r.resize(size);
+    impl->processed_input_l.resize(max_delay + size);
+    impl->processed_input_r.resize(max_delay + size);
+
     const DataType* ATK_RESTRICT inputl = converted_inputs[0];
     const DataType* ATK_RESTRICT inputr = converted_inputs[1];
     DataType* ATK_RESTRICT outputl = outputs[0];
     DataType* ATK_RESTRICT outputr = outputs[1];
 
-    DataType* ATK_RESTRICT delay_line_l_ptr = delay_line_l.data();
-    DataType* ATK_RESTRICT delay_line_r_ptr = delay_line_r.data();
-    DataType* ATK_RESTRICT processed_input_l_ptr = processed_input_l.data();
-    DataType* ATK_RESTRICT processed_input_r_ptr = processed_input_r.data();
+    DataType* ATK_RESTRICT delay_line_l = impl->delay_line_l.data();
+    DataType* ATK_RESTRICT delay_line_r = impl->delay_line_r.data();
+    DataType* ATK_RESTRICT processed_input_l = impl->processed_input_l.data();
+    DataType* ATK_RESTRICT processed_input_r = impl->processed_input_r.data();
 
     for(std::int64_t i = 0; i < size; ++i)
     {
-      delay_line_l_ptr[i] = processed_input_l_ptr[i + max_delay - delay_l];
-      delay_line_r_ptr[i] = processed_input_r_ptr[i + max_delay - delay_r];
-      processed_input_l_ptr[max_delay + i] = inputl[i] + feedback_l_l * processed_input_l_ptr[max_delay + i - delay_l] + feedback_r_l * processed_input_r_ptr[max_delay + i - delay_r];
-      processed_input_r_ptr[max_delay + i] = inputr[i] + feedback_l_r * processed_input_l_ptr[max_delay + i - delay_l] + feedback_r_r * processed_input_r_ptr[max_delay + i - delay_r];
-      outputl[i] = blend_l * processed_input_l_ptr[max_delay + i] + feedforward_l_l * delay_line_l_ptr[i] + feedforward_r_l * delay_line_r_ptr[i];
-      outputr[i] = blend_r * processed_input_r_ptr[max_delay + i] + feedforward_l_r * delay_line_l_ptr[i] + feedforward_r_r * delay_line_r_ptr[i];
+      delay_line_l[i] = processed_input_l[i + max_delay - delay_l];
+      delay_line_r[i] = processed_input_r[i + max_delay - delay_r];
+      processed_input_l[max_delay + i] = inputl[i] + feedback_l_l * processed_input_l[max_delay + i - delay_l] + feedback_r_l * processed_input_r[max_delay + i - delay_r];
+      processed_input_r[max_delay + i] = inputr[i] + feedback_l_r * processed_input_l[max_delay + i - delay_l] + feedback_r_r * processed_input_r[max_delay + i - delay_r];
+      outputl[i] = blend_l * processed_input_l[max_delay + i] + feedforward_l_l * delay_line_l[i] + feedforward_r_l * delay_line_r[i];
+      outputr[i] = blend_r * processed_input_r[max_delay + i] + feedforward_l_r * delay_line_l[i] + feedforward_r_r * delay_line_r[i];
     }
   }
   
-  template<typename DataType_>
-  void ATK::StereoUniversalFixedDelayLineFilter<DataType_>::prepare_process(std::int64_t size)
-  {
-    Parent::prepare_process(size);
-
-    // Update delay line
-    for(std::int64_t i = 0; i < max_delay; ++i)
-    {
-      processed_input_l[i] = processed_input_l[processed_input_l.size() + i - max_delay];
-      processed_input_r[i] = processed_input_r[processed_input_r.size() + i - max_delay];
-    }
-
-    delay_line_l.resize(size);
-    delay_line_r.resize(size);
-    processed_input_l.resize(max_delay + size);
-    processed_input_r.resize(max_delay + size);
-  }
-
   template class StereoUniversalFixedDelayLineFilter<float>;
   template class StereoUniversalFixedDelayLineFilter<double>;
 }
