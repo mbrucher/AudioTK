@@ -125,7 +125,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void SD1OverdriveFilter<DataType>::process_impl(std::int64_t size)
+  void SD1OverdriveFilter<DataType>::process_impl(std::int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
 

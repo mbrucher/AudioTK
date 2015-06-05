@@ -44,7 +44,7 @@ namespace ATK
     DataType_ get_softness() const;
 
   protected:
-    virtual void process_impl(std::int64_t size) override final;
+    virtual void process_impl(std::int64_t size) const override final;
 
     void recomputeLUT();
     

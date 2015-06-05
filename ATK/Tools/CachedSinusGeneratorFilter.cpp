@@ -72,7 +72,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::process_impl(std::int64_t size)
+  void CachedSinusGeneratorFilter<DataType_>::process_impl(std::int64_t size) const
   {
     DataType* ATK_RESTRICT output = outputs[0];
     std::int64_t processed = 0;

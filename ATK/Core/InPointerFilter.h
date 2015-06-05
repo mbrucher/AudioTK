@@ -40,8 +40,8 @@ namespace ATK
     
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(std::int64_t size) override final;
-    std::int64_t offset;
+    virtual void process_impl(std::int64_t size) const override final;
+    mutable std::int64_t offset;
     const DataType* array;
     std::int64_t mysize;
     int channels;

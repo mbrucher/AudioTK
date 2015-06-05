@@ -47,7 +47,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void OffsetVolumeFilter<DataType_>::process_impl(std::int64_t size)
+  void OffsetVolumeFilter<DataType_>::process_impl(std::int64_t size) const
   {
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {

@@ -64,7 +64,7 @@ namespace ATK
   }
 
   template<class DataType_>
-  void TriangleCheckerFilter<DataType_>::process_impl(std::int64_t size)
+  void TriangleCheckerFilter<DataType_>::process_impl(std::int64_t size) const
   {
     double real_increment = 2. / input_sampling_rate * frequency;
     

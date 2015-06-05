@@ -23,7 +23,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void MiddleSideFilter<DataType_>::process_impl(std::int64_t size)
+  void MiddleSideFilter<DataType_>::process_impl(std::int64_t size) const
   {
     for(std::int64_t i = 0; i < size; ++i)
     {

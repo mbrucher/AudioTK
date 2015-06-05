@@ -34,15 +34,15 @@ namespace ATK
     ~VariableDelayLineFilter();
 
   protected:
-    virtual void process_impl(std::int64_t size) override final;
+    virtual void process_impl(std::int64_t size) const override final;
     
     /// Delay line contains the last size elements + max_delay of the last delay line
-    std::vector<DataType> delay_line;
+    mutable std::vector<DataType> delay_line;
     
     /// Integer portion of the delay for the last processed chunk
-    std::vector<int64_t> integer_delay;
+    mutable std::vector<int64_t> integer_delay;
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
-    std::vector<DataType> fractional_delay;
+    mutable std::vector<DataType> fractional_delay;
     
     /// Max delay for the delay line
     std::int64_t max_delay;

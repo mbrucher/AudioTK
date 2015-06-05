@@ -41,7 +41,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void PanFilter<DataType_>::process_impl(std::int64_t size)
+  void PanFilter<DataType_>::process_impl(std::int64_t size) const
   {
     double left_coeff = 1;
     double right_coeff = 1;

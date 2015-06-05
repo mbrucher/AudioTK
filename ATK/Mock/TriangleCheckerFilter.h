@@ -28,10 +28,10 @@ namespace ATK
     void set_frequency(int frequency);
 
   protected:
-    virtual void process_impl(std::int64_t size) override final;
+    virtual void process_impl(std::int64_t size) const override final;
     
-    double state;
-    bool ascending;
+    mutable double state;
+    mutable bool ascending;
     DataType amplitude;
     int frequency;
   };

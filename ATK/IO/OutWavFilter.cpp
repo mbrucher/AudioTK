@@ -39,7 +39,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void OutWavFilter<DataType>::process_impl(std::int64_t size)
+  void OutWavFilter<DataType>::process_impl(std::int64_t size) const
   {
     std::size_t nb_inputs = converted_inputs.size();
     std::vector<DataType> buffer(nb_inputs * size);
@@ -80,7 +80,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void OutWavFilter<DataType>::write_header()
+  void OutWavFilter<DataType>::write_header() const
   {
     std::size_t total_size = wavstream.tellp();
     std::size_t bloc_size = sizeof(WavFormat);

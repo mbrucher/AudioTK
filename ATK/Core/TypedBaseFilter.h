@@ -43,7 +43,7 @@ namespace ATK
   protected:
     virtual int get_type() const;
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(std::int64_t size) override;
+    virtual void process_impl(std::int64_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays
     virtual void prepare_process(std::int64_t size) override;
     /// Prepares the filter by resizing the outputs arrays

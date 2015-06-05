@@ -33,7 +33,7 @@ namespace ATK
     DataType_ get_memory() const;
     
   protected:
-    virtual void process_impl(std::int64_t size) override final;
+    virtual void process_impl(std::int64_t size) const override final;
     
   private:
     DataType_ memory_factor;

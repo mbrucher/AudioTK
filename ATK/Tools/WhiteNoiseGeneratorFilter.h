@@ -37,14 +37,14 @@ namespace ATK
     double get_offset() const;
 
   protected:
-    virtual void process_impl(std::int64_t size) override final;
+    virtual void process_impl(std::int64_t size) const override final;
     
   private:
     double volume;
     double offset;
     
-    boost::random::mt19937 gen; // Should use a random123 when they will be in Boost
-    boost::random::uniform_real_distribution<DataType_> dist;
+    mutable boost::random::mt19937 gen; // Should use a random123 when they will be in Boost
+    mutable boost::random::uniform_real_distribution<DataType_> dist;
   };
 }
 

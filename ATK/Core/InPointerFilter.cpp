@@ -29,7 +29,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void InPointerFilter<DataType>::process_impl(std::int64_t size)
+  void InPointerFilter<DataType>::process_impl(std::int64_t size) const
   {
     if(!interleaved)
     {

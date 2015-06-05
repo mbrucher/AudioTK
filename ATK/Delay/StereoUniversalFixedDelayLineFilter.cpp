@@ -202,20 +202,8 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size)
+  void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
-    // Update delay line
-    for(std::int64_t i = 0; i < max_delay; ++i)
-    {
-      processed_input_l[i] = processed_input_l[processed_input_l.size() + i - max_delay];
-      processed_input_r[i] = processed_input_r[processed_input_r.size() + i - max_delay];
-    }
-
-    delay_line_l.resize(size);
-    delay_line_r.resize(size);
-    processed_input_l.resize(max_delay + size);
-    processed_input_r.resize(max_delay + size);
-
     const DataType* ATK_RESTRICT inputl = converted_inputs[0];
     const DataType* ATK_RESTRICT inputr = converted_inputs[1];
     DataType* ATK_RESTRICT outputl = outputs[0];
@@ -237,6 +225,24 @@ namespace ATK
     }
   }
   
+  template<typename DataType_>
+  void ATK::StereoUniversalFixedDelayLineFilter<DataType_>::prepare_process(std::int64_t size)
+  {
+    Parent::prepare_process(size);
+
+    // Update delay line
+    for(std::int64_t i = 0; i < max_delay; ++i)
+    {
+      processed_input_l[i] = processed_input_l[processed_input_l.size() + i - max_delay];
+      processed_input_r[i] = processed_input_r[processed_input_r.size() + i - max_delay];
+    }
+
+    delay_line_l.resize(size);
+    delay_line_r.resize(size);
+    processed_input_l.resize(max_delay + size);
+    processed_input_r.resize(max_delay + size);
+  }
+
   template class StereoUniversalFixedDelayLineFilter<float>;
   template class StereoUniversalFixedDelayLineFilter<double>;
 }

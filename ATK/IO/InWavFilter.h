@@ -28,20 +28,20 @@ namespace ATK
     using Parent::set_nb_output_ports;
 
   private:
-    std::vector<std::vector<DataType> > temp_arrays;
-    std::ifstream wavstream;
+    mutable std::vector<std::vector<DataType> > temp_arrays;
+    mutable std::ifstream wavstream;
     std::string filename;
     WavHeader header;
     WavFormat format;
     WavData data;
     int offset;
         
-    void read_from_file(std::int64_t size);
+    void read_from_file(std::int64_t size) const;
 
   public:
     InWavFilter(const std::string& filename);
   protected:
-    void process_impl(std::int64_t size) override final;
+    void process_impl(std::int64_t size) const override final;
   };
 }
 #endif

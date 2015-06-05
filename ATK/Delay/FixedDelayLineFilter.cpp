@@ -44,7 +44,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void FixedDelayLineFilter<DataType_>::process_impl(std::int64_t size)
+  void FixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

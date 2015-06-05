@@ -85,10 +85,8 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size)
+  void UniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
-    processed_input.resize(size);
-
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
 
@@ -125,7 +123,15 @@ namespace ATK
       delay_line[i] = processed_input[size + i - delay_line.size()];
     }
   }
-  
+
+  template<typename DataType_>
+  void ATK::UniversalFixedDelayLineFilter<DataType_>::prepare_process(std::int64_t size)
+  {
+    Parent::prepare_process(size);
+
+    processed_input.resize(size);
+  }
+
   template class UniversalFixedDelayLineFilter<float>;
   template class UniversalFixedDelayLineFilter<double>;
 }

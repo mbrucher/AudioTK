@@ -226,7 +226,7 @@ namespace ATK
       output_delay = out_order;
     }
     
-    virtual void process_impl(std::int64_t size) override final
+    virtual void process_impl(std::int64_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);

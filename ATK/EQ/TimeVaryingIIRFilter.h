@@ -43,9 +43,9 @@ namespace ATK
     using Parent::memory;
     using Parent::number_of_steps;
   protected:
-    std::vector<DataType> current_coeffs_in;
-    std::vector<DataType> current_coeffs_out;
-    std::vector<DataType> state;
+    mutable std::vector<DataType> current_coeffs_in;
+    mutable std::vector<DataType> current_coeffs_out;
+    mutable std::vector<DataType> state;
   public:
     TimeVaryingIIRFilter()
       :Parent()
@@ -60,7 +60,7 @@ namespace ATK
       state.resize(std::max(input_delay, output_delay), 0);
     }
     
-    virtual void process_impl(std::int64_t size) override final
+    virtual void process_impl(std::int64_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       

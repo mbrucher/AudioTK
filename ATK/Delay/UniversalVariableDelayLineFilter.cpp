@@ -77,7 +77,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalVariableDelayLineFilter<DataType_>::process_impl(std::int64_t size)
+  void UniversalVariableDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
     const DataType* ATK_RESTRICT input1 = converted_inputs[0]; // samples
     const DataType* ATK_RESTRICT input2 = converted_inputs[1]; // delay

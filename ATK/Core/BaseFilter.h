@@ -58,7 +58,7 @@ namespace ATK
   
   protected:
     /// The actual filter processing part
-    virtual void process_impl(std::int64_t size) = 0;
+    virtual void process_impl(std::int64_t size) const = 0;
     /// Prepares the filter by retrieving the inputs arrays
     virtual void prepare_process(std::int64_t size) = 0;
     /// Prepares the filter by resizing the outputs arrays

@@ -47,10 +47,11 @@ namespace ATK
     DataType_ get_feedforward() const;
 
   protected:
-    virtual void process_impl(std::int64_t size) override final;
+    virtual void process_impl(std::int64_t size) const override final;
+    virtual void prepare_process(std::int64_t size) override;
 
-    std::vector<DataType> delay_line;
-    std::vector<DataType> processed_input;
+    mutable std::vector<DataType> delay_line;
+    mutable std::vector<DataType> processed_input;
     std::int64_t delay;
     DataType_ blend;
     DataType_ feedback;

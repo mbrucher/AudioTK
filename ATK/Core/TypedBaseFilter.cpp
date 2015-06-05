@@ -81,7 +81,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(std::int64_t size)
+  void TypedBaseFilter<DataType>::process_impl(std::int64_t size) const
   {
   }
 
