@@ -25,12 +25,10 @@ namespace ATK
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;
     using Parent::set_nb_output_ports;
+    using Parent::nb_output_ports;
 
   private:
     mutable std::ofstream wavstream;
-    mutable WavHeader header;
-    mutable WavFormat format;
-    mutable WavData data;
     
     std::vector<std::vector<DataType> > temp_arrays;
 
