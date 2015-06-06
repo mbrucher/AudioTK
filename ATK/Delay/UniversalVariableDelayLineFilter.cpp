@@ -47,7 +47,7 @@ namespace ATK
 
   template<typename DataType_>
   UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(int max_delay)
-    :Parent(2, 1), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
+    :Parent(2, 1), impl(new UVDLF_Impl<DataType_>(max_delay)), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
   {
   }
   
