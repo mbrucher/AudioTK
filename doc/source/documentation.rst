@@ -18,7 +18,7 @@ meant to manage the pipeline.
 
 * **InPointerFilter** is a class without input ports that will be a source for new data
 * **OutPointerFilter** is a class without output ports that will behave as a sink for the data
-* **PipelineGlobalSinkFilter** is a special class without inputs or outputs, but that can several sinks process simultaneously (not possible without this special class)
+* **PipelineGlobalSinkFilter** is a special class without inputs or outputs, but that can process several sinks simultaneously (not possible without this special class)
 
 Mock module
 ###########
