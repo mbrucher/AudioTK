@@ -3,7 +3,7 @@
  */
 
 #include "CustomFIRFilter.h"
-//#include "FIRFilter.h"
+#include "IIRFilter.h"
 
 #include <cassert>
 #include <cmath>
@@ -30,6 +30,6 @@ namespace ATK
   template class CustomFIRCoefficients<float>;
   template class CustomFIRCoefficients<double>;
   
-//  template class FIRFilter<CustomFIRCoefficients<float> >;
-//  template class FIRFilter<CustomFIRCoefficients<double> >;
+  template class IIRFilter<CustomFIRCoefficients<float> >;
+  template class IIRFilter<CustomFIRCoefficients<double> >;
 }
