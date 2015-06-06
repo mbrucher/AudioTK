@@ -12,7 +12,10 @@ Changelog
 ---------
 ### 0.6.0
 * Added override and final keywords in virtual calls
+* Changed the API so that process_impl is now const
+* Exposed full_setup to the user (direct reset of the internal state, already called when changing sample rate)
 * Added LinkWitz-Riley second order low and high path filters
+* Fix resetting the internal state of all delays by using full_setup
 
 ### 0.5.1
 * Added time-varying IIR filters (variable frequency, coded as transposed direct form II)
