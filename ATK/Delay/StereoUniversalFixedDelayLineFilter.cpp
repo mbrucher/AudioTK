@@ -226,6 +226,14 @@ namespace ATK
   }
 
   template<typename DataType_>
+  void StereoUniversalFixedDelayLineFilter<DataType_>::full_setup()
+  {
+    // reset the delay line
+    impl->processed_input_l.assign(max_delay, 0);
+    impl->processed_input_r.assign(max_delay, 0);
+  }
+
+  template<typename DataType_>
   void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
     impl->update_delay_line(max_delay);

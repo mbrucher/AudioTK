@@ -46,6 +46,8 @@ namespace ATK
     
     void set_feedforward(DataType_ feedforward);
     DataType_ get_feedforward() const;
+
+    virtual void full_setup() override final;
   protected:
     virtual void process_impl(std::int64_t size) const override final;
     
@@ -57,7 +59,6 @@ namespace ATK
     DataType_ blend;
     DataType_ feedback;
     DataType_ feedforward;
-    mutable DataType_ last_delay;
   };
 }
 

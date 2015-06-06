@@ -36,6 +36,7 @@ namespace ATK
     VariableDelayLineFilter(int max_delay);
     ~VariableDelayLineFilter();
 
+    virtual void full_setup() override final;
   protected:
     virtual void process_impl(std::int64_t size) const override final;
     

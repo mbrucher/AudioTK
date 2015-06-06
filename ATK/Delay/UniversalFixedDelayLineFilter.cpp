@@ -97,6 +97,13 @@ namespace ATK
   }
 
   template<typename DataType_>
+  void UniversalFixedDelayLineFilter<DataType_>::full_setup()
+  {
+    // reset the delay line
+    impl->delay_line.assign(impl->delay_line.size(), 0);
+  }
+
+  template<typename DataType_>
   void UniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
     impl->processed_input.resize(size);

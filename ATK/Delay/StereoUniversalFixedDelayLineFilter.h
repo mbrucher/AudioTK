@@ -70,6 +70,7 @@ namespace ATK
     void set_feedforward_ch2_ch2(DataType_ feedforward);
     DataType_ get_feedforward_ch2_ch2() const;
 
+    virtual void full_setup() override final;
   protected:
     virtual void process_impl(std::int64_t size) const override final;
 

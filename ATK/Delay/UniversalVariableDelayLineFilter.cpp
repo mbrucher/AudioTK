@@ -24,9 +24,10 @@ namespace ATK
     std::vector<int64_t> integer_delay;
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
-  
+    DataType last_delay;
+
     UVDLF_Impl(int max_delay)
-      :processed_input(max_delay, 0)
+      :processed_input(max_delay, 0), last_delay(0)
     {
     }
 
@@ -46,7 +47,7 @@ namespace ATK
 
   template<typename DataType_>
   UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(int max_delay)
-    :Parent(2, 1), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1), last_delay(0)
+    :Parent(2, 1), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
   {
   }
   
@@ -109,6 +110,14 @@ namespace ATK
   }
 
   template<typename DataType_>
+  void UniversalVariableDelayLineFilter<DataType_>::full_setup()
+  {
+    // reset the delay line
+    impl->processed_input.assign(max_delay, 0);
+    impl->last_delay = 0;
+  }
+
+  template<typename DataType_>
   void UniversalVariableDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
     impl->update_delay_line(max_delay, size);
@@ -132,10 +141,10 @@ namespace ATK
 
     for(std::int64_t i = 0; i < size; ++i)
     {
-      delay_line[i] = (processed_input[i + max_delay - integer_delay[i]] - last_delay) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1];
+      delay_line[i] = (processed_input[i + max_delay - integer_delay[i]] - impl->last_delay) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1];
       processed_input[max_delay + i] = input1[i] + feedback * processed_input[max_delay + i - central_delay]; // FB only uses the central delay and is not varying
       output[i] = blend * processed_input[max_delay + i] + feedforward * delay_line[i];
-      last_delay = delay_line[i]; // the reason why the test is not that simple!
+      impl->last_delay = delay_line[i]; // the reason why the test is not that simple!
     }
   }
   

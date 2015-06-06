@@ -55,6 +55,13 @@ namespace ATK
   }
 
   template<typename DataType_>
+  void VariableDelayLineFilter<DataType_>::full_setup()
+  {
+    // reset the delay line
+    impl->delay_line.assign(max_delay, 0);
+  }
+
+  template<typename DataType_>
   void VariableDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
   {
     impl->update_delay_line(max_delay, size);
