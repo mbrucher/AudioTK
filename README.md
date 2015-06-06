@@ -16,6 +16,7 @@ Changelog
 * Exposed full_setup to the user (direct reset of the internal state, already called when changing sample rate)
 * Added LinkWitz-Riley second order low and high path filters
 * Fix resetting the internal state of all delays by using full_setup
+* Added a CustomFIRFilter with Python wrapper
 
 ### 0.5.1
 * Added time-varying IIR filters (variable frequency, coded as transposed direct form II)

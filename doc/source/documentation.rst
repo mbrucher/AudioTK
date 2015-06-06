@@ -9,8 +9,13 @@ Core module
 The *Core* module doesn't implement fancy signal processing algorithm. It is only
 meant to manage the pipeline.
 
-* **BaseFilter** is the base filter of the pipeline. It is untyped.
-* **TypedBaseFilter** is the class that you will actually use.
+* **BaseFilter** is the base filter of the pipeline. It is untyped
+* **TypedBaseFilter** is the class that you will actually use.. The following methods can be implemented:
+
+  * **process_impl** is the main (const) processing function
+  * **setup** is called for parameter changes
+  * **full_setup** is called for internal state reset
+
 * **InPointerFilter** is a class without input ports that will be a source for new data
 * **OutPointerFilter** is a class without output ports that will behave as a sink for the data
 * **PipelineGlobalSinkFilter** is a special class without inputs or outputs, but that can several sinks process simultaneously (not possible without this special class)
@@ -75,6 +80,7 @@ The *EQ* module contains a lot of different filter types.
 * **Chebyshev1Filter** is an implementation of Chebyshev type 1 filters
 * **Chebyshev2Filter** is an implementation of Chebyshev type 2 filters
 * **CustomIIRFilter** helps designing custom IIR filters
+* **CustomFIRFilter** helps designing custom FIR filters
 * **IIRFilter** is the base class for IIR filters (Direct Form 1)
 * **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
 * **SecondOrderFilter** is an implementation of second order filters
