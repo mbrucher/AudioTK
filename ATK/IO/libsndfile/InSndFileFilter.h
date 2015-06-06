@@ -30,7 +30,7 @@ namespace ATK
   private:
     boost::scoped_ptr<SndfileHandle> stream;
   protected:
-    void process_impl(std::int64_t size) override final;
+    void process_impl(std::int64_t size) const override final;
   public:
     InSndFileFilter(const std::string& filename);
     ~InSndFileFilter();

@@ -31,7 +31,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void OutSndFileFilter<DataType>::process_impl(std::int64_t size)
+  void OutSndFileFilter<DataType>::process_impl(std::int64_t size) const
   {
     std::vector<DataType> temp(size * converted_inputs.size());
     
