@@ -29,7 +29,7 @@ namespace ATK
     using Parent::nb_output_ports;
 
   public:
-    GainLimiterFilter(int nb_channels = 1);
+    GainLimiterFilter(int nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     ~GainLimiterFilter();
     
     void set_threshold(DataType_ threshold);
@@ -45,6 +45,8 @@ namespace ATK
     
     DataType_ threshold;
     DataType_ softness;
+    size_t LUTsize;
+    size_t LUTprecision;
 
     std::vector<DataType_> gainLUT;
   };

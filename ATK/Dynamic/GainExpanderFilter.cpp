@@ -17,8 +17,8 @@ namespace
 namespace ATK
 {
   template<typename DataType_>
-  GainExpanderFilter<DataType_>::GainExpanderFilter(int nb_channels)
-  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), softness(static_cast<DataType_>(.0001))
+  GainExpanderFilter<DataType_>::GainExpanderFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
+  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), softness(static_cast<DataType_>(.0001)), LUTsize(LUTsize), LUTprecision(LUTprecision)
   {
     gainLUT.reserve(LUTsize);
     recomputeLUT();
@@ -42,9 +42,9 @@ namespace ATK
       {
         DataType_ value = input[i] * threshold;
         int step = static_cast<int>(value * LUTprecision);
-        if(step >= gainLUT.size())
+        if(step >= LUTsize)
         {
-          step = static_cast<int>(gainLUT.size()) - 1;
+          step = static_cast<int>(LUTsize) - 1;
         }
         output[i] = gainLUT[step];
       }
