@@ -12,6 +12,8 @@
 
 namespace ATK
 {
+  template<typename DataType>
+  class UVDLF_Impl;
   /**
    * Variable delay line. Second port drives the delay. This delay must always be lower than max_delay-1, superior to 1
    */
@@ -44,25 +46,19 @@ namespace ATK
     
     void set_feedforward(DataType_ feedforward);
     DataType_ get_feedforward() const;
+
+    virtual void full_setup() override final;
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) const override final;
     
-    /// Delay line contains the last size elements + max_delay of the last delay line
-    std::vector<DataType> delay_line;
-    std::vector<DataType> processed_input;
-    
-    /// Integer portion of the delay for the last processed chunk
-    std::vector<int64_t> integer_delay;
-    /// Fractional portion of the delay for the last processed chunk, used for the interpolation
-    std::vector<DataType> fractional_delay;
-    
+    std::unique_ptr<UVDLF_Impl<DataType_> > impl;
+
     /// Max delay for the delay line
     std::int64_t max_delay;
     int central_delay;
     DataType_ blend;
     DataType_ feedback;
     DataType_ feedforward;
-    DataType_ last_delay;
   };
 }
 

@@ -20,13 +20,16 @@ namespace ATK
     using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
+    using Parent::output_delay;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
     
   public:
     DerivativeFilter(int nb_channels = 1);
     ~DerivativeFilter();
     
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) const override final;
   };
 }
 

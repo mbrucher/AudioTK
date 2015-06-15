@@ -12,6 +12,9 @@
 
 namespace ATK
 {
+  template<typename DataType>
+  class FDLF_Impl;
+
   /**
    * Fixed delay line, max_delay should always be higher than the actual delay
    */
@@ -36,10 +39,13 @@ namespace ATK
     void set_delay(std::int64_t delay);
     std::int64_t get_delay() const;
 
+    virtual void full_setup() override final;
   protected:
-    virtual void process_impl(std::int64_t size);
-    
-    std::vector<DataType> delay_line;
+    virtual void process_impl(std::int64_t size) const override final;
+
+    // internal state
+    std::unique_ptr<FDLF_Impl<DataType_> > impl;
+
     std::int64_t delay;
   };
 }

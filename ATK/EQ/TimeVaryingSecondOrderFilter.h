@@ -28,7 +28,7 @@ namespace ATK
     double memory;
     int number_of_steps;
 
-    void setup();
+    void setup() override;
 
   public:
     TimeVaryingBaseSecondOrderCoefficients();
@@ -64,7 +64,7 @@ namespace ATK
     DataType Q;
     
   protected:
-    void setup();
+    void setup() override;
     
   public:
     TimeVaryingBandPassCoefficients();
@@ -90,7 +90,7 @@ namespace ATK
     using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   public:
     TimeVaryingLowPassCoefficients();
   };
@@ -112,7 +112,7 @@ namespace ATK
     using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   public:
     TimeVaryingHighPassCoefficients();
   };
@@ -138,7 +138,7 @@ namespace ATK
     DataType Q;
     DataType gain;
   protected:
-    void setup();
+    void setup() override;
     
   public:
     TimeVaryingBandPassPeakCoefficients();
@@ -170,7 +170,7 @@ namespace ATK
   private:
     DataType Q;
   protected:
-    void setup();
+    void setup() override;
     
   public:
     TimeVaryingAllPassCoefficients();
@@ -197,7 +197,7 @@ namespace ATK
     using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   private:
     DataType gain;
     
@@ -225,7 +225,7 @@ namespace ATK
     using Parent::number_of_steps;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   private:
     DataType gain;
     

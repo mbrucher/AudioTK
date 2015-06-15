@@ -33,7 +33,7 @@ namespace ATK
     ~ApplyGainFilter();
     
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) const override final;
     
   };
 }

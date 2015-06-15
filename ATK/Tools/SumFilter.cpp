@@ -23,7 +23,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SumFilter<DataType_>::process_impl(std::int64_t size)
+  void SumFilter<DataType_>::process_impl(std::int64_t size) const
   {
     const DataType* ATK_RESTRICT input0 = converted_inputs[0];
     const DataType* ATK_RESTRICT input1 = converted_inputs[1];

@@ -37,7 +37,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFTCheckerFilter<DataType_>::process_impl(std::int64_t size)
+  void FFTCheckerFilter<DataType_>::process_impl(std::int64_t size) const
   {
     for(std::int64_t i = 0; i < size/input_sampling_rate; ++i)
     {

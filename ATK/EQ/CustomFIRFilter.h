@@ -18,11 +18,14 @@ namespace ATK
     using Parent::setup;
   protected:
     int in_order;
+    const static int out_order = 0;
 
     std::vector<DataType> coefficients_in;
+    // There only to use IIRFilter, but won't actually be used, as out_order in always 0
+    std::vector<DataType> coefficients_out;
 
   public:
-    CustomFIRCoefficients(int nb_channels);
+    CustomFIRCoefficients(int nb_channels = 1);
 
     void set_coefficients_in(const std::vector<DataType>& coefficients_in);
   };

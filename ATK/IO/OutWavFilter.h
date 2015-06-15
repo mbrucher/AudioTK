@@ -25,25 +25,22 @@ namespace ATK
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;
     using Parent::set_nb_output_ports;
+    using Parent::nb_output_ports;
 
   private:
-    std::ofstream wavstream;
-    WavHeader header;
-    WavFormat format;
-    WavData data;
+    mutable std::ofstream wavstream;
     
     std::vector<std::vector<DataType> > temp_arrays;
 
   protected:
-    void setup();
-    void write_header();
-    
+    void setup() override final;
+    void write_header() const;
+    void process_impl(std::int64_t size) const override final;
+
   public:
     OutWavFilter(const std::string& filename);
     
-    void process_impl(std::int64_t size);
-    
-    virtual void set_nb_input_ports(int nb_ports);
+    virtual void set_nb_input_ports(int nb_ports) override final;
   };
 }
 #endif

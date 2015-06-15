@@ -67,7 +67,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void InWavFilter<DataType>::process_impl(std::int64_t size)
+  void InWavFilter<DataType>::process_impl(std::int64_t size) const
   {
     assert(output_sampling_rate == format.Frequence);
     read_from_file(size);
@@ -82,7 +82,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void InWavFilter<DataType>::read_from_file(std::int64_t size)
+  void InWavFilter<DataType>::read_from_file(std::int64_t size) const
   {
     if(!wavstream.is_open())
     {

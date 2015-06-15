@@ -39,7 +39,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void PowerFilter<DataType_>::process_impl(std::int64_t size)
+  void PowerFilter<DataType_>::process_impl(std::int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
 

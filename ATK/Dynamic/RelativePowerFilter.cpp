@@ -39,7 +39,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void RelativePowerFilter<DataType_>::process_impl(std::int64_t size)
+  void RelativePowerFilter<DataType_>::process_impl(std::int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
 
@@ -52,7 +52,7 @@ namespace ATK
         temp_output = (1 - memory_factor) * input[i] * input[i] + memory_factor * temp_output;
         if(temp_output > std::numeric_limits<DataType_>::epsilon())
         {
-          output[i] = (input[i] * input[i]) / temp_output;
+          output[i] = (input[i] * input[i]) / (temp_output + std::numeric_limits<DataType_>::epsilon());
         }
         else
         {

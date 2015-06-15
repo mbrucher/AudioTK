@@ -29,3 +29,12 @@ namespace ATK
   }
 }
 %enddef
+
+%define FIRFilterExtend(name, T)
+%extend name {
+  std::vector<T> get_coefficients_in()
+  {
+    return (*self).get_coefficients_in();
+  }
+}
+%enddef

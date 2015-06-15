@@ -40,7 +40,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void DryWetFilter<DataType_>::process_impl(std::int64_t size)
+  void DryWetFilter<DataType_>::process_impl(std::int64_t size) const
   {
     assert(nb_input_ports == 2 * nb_output_ports);
     

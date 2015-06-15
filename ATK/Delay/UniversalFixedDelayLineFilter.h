@@ -12,6 +12,8 @@
 
 namespace ATK
 {
+  template<typename DataType>
+  class UFDLF_Impl;
   /**
    * Gain "compressor". Has twice as many inputs channels as it has output channels
    * Even channels are signal, odd channels are gains, results is the product of both
@@ -46,11 +48,12 @@ namespace ATK
     void set_feedforward(DataType_ feedforward);
     DataType_ get_feedforward() const;
 
+    virtual void full_setup() override final;
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::int64_t size) const override final;
 
-    std::vector<DataType> delay_line;
-    std::vector<DataType> processed_input;
+    // internal state
+    std::unique_ptr<UFDLF_Impl<DataType_> > impl;
     std::int64_t delay;
     DataType_ blend;
     DataType_ feedback;

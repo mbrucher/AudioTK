@@ -63,15 +63,16 @@ namespace ATK
   template<typename DataType_>
   void CachedSinusGeneratorFilter<DataType_>::setup()
   {
+    indice = 0;
     cache.resize(output_sampling_rate * seconds);
     for(int i = 0; i < cache.size(); ++i)
     {
-      cache[i] = static_cast<DataType>(std::sin(2 * boost::math::constants::pi<double>() * i * periods / seconds / output_sampling_rate));
+      cache[i] = static_cast<DataType>(std::sin(2 * boost::math::constants::pi<double>() * (i+1) * periods / seconds / output_sampling_rate));
     }
   }
 
   template<typename DataType_>
-  void CachedSinusGeneratorFilter<DataType_>::process_impl(std::int64_t size)
+  void CachedSinusGeneratorFilter<DataType_>::process_impl(std::int64_t size) const
   {
     DataType* ATK_RESTRICT output = outputs[0];
     std::int64_t processed = 0;

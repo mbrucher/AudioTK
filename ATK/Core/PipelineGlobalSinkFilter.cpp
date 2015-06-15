@@ -47,11 +47,11 @@ namespace ATK
   {
   }
 
-  void PipelineGlobalSinkFilter::process_impl( std::int64_t size )
+  void PipelineGlobalSinkFilter::process_impl( std::int64_t size ) const
   {
     for (auto it = filters.begin(); it != filters.end(); ++it)
     {
-      if ((*it) != NULL)
+      if ((*it) != nullptr)
       {
         (*it)->reset();
       }

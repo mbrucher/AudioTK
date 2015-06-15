@@ -219,19 +219,17 @@ namespace ATK
     {
     }
 
-    void setup()
+    void setup() override final
     {
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
     }
     
-    virtual void process_impl(std::int64_t size)
+    virtual void process_impl(std::int64_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
-      
-      DataType tempout = 0;
       
       for(int channel = 0; channel < nb_input_ports; ++channel)
       {
@@ -239,7 +237,7 @@ namespace ATK
         DataType* ATK_RESTRICT output = outputs[channel];
         for(std::int64_t i = 0; i < size; ++i)
         {
-          tempout = coefficients_in[in_order] * input[i];
+          DataType tempout = coefficients_in[in_order] * input[i];
 
           for(int j = 0; j < in_order; ++j)
           {

@@ -60,7 +60,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void ChamberlinFilter<DataType>::process_impl(std::int64_t size)
+  void ChamberlinFilter<DataType>::process_impl(std::int64_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

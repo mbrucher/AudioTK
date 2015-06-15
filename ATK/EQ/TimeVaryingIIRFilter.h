@@ -43,16 +43,16 @@ namespace ATK
     using Parent::memory;
     using Parent::number_of_steps;
   protected:
-    std::vector<DataType> current_coeffs_in;
-    std::vector<DataType> current_coeffs_out;
-    std::vector<DataType> state;
+    mutable std::vector<DataType> current_coeffs_in;
+    mutable std::vector<DataType> current_coeffs_out;
+    mutable std::vector<DataType> state;
   public:
     TimeVaryingIIRFilter()
       :Parent()
     {
     }
 
-    void setup()
+    void setup() override final
     {
       Parent::setup();
       input_delay = in_order;
@@ -60,14 +60,14 @@ namespace ATK
       state.resize(std::max(input_delay, output_delay), 0);
     }
     
-    virtual void process_impl(std::int64_t size)
+    virtual void process_impl(std::int64_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       
       current_coeffs_in.resize(in_order+1, 0);
       current_coeffs_out.resize(out_order, 0);
 
-      DataType scale = static_cast<DataType>((number_of_steps - 1) / (max_frequency - min_frequency));
+      DataType scale = (number_of_steps - 1) / (max_frequency - min_frequency);
 
       const DataType* ATK_RESTRICT input = converted_inputs[0];
       const DataType* ATK_RESTRICT cut_frequencies = converted_inputs[1];
@@ -85,11 +85,11 @@ namespace ATK
         }
         for(int j = 0; j < in_order+1; ++j)
         {
-          current_coeffs_in[j] = static_cast<DataType>(static_cast<DataType>(current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory)));
+          current_coeffs_in[j] = current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory);
         }
         for(int j = 0; j < out_order; ++j)
         {
-          current_coeffs_out[j] = static_cast<DataType>(static_cast<DataType>(current_coeffs_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory)));
+          current_coeffs_out[j] = current_coeffs_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory);
         }
 
         output[i] = current_coeffs_in[in_order] * input[i] + state[0];

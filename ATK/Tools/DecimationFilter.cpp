@@ -34,7 +34,7 @@ namespace ATK
   }
   
   template<class DataType>
-  void DecimationFilter<DataType>::process_impl(std::int64_t size)
+  void DecimationFilter<DataType>::process_impl(std::int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
 

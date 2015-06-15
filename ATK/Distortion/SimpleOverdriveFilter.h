@@ -43,8 +43,8 @@ namespace ATK
     ~SimpleOverdriveFilter();
     
   protected:
-    void setup();
-    void process_impl(std::int64_t size);
+    void setup() override final;
+    void process_impl(std::int64_t size) const override final;
     
   private:
     boost::scoped_ptr<SimpleOverdriveFunction<DataType> > function;

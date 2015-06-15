@@ -24,7 +24,7 @@ namespace ATK
     std::vector<DataType> coefficients_in;
     std::vector<DataType> coefficients_out;
 
-    void setup();
+    void setup() override;
 
   public:
     BaseSecondOrderCoefficients(int nb_channels = 1);
@@ -51,7 +51,7 @@ namespace ATK
     DataType Q;
     
   protected:
-    void setup();
+    void setup() override;
     
   public:
     BandPassCoefficients(int nb_channels = 1);
@@ -75,7 +75,7 @@ namespace ATK
     using Parent::cut_frequency;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   public:
     LowPassCoefficients(int nb_channels = 1);
   };
@@ -95,7 +95,7 @@ namespace ATK
     using Parent::cut_frequency;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   public:
     HighPassCoefficients(int nb_channels = 1);
   };
@@ -119,7 +119,7 @@ namespace ATK
     DataType Q;
     DataType gain;
   protected:
-    void setup();
+    void setup() override;
     
   public:
     BandPassPeakCoefficients(int nb_channels = 1);
@@ -149,7 +149,7 @@ namespace ATK
   private:
     DataType Q;
   protected:
-    void setup();
+    void setup() override;
     
   public:
     AllPassCoefficients(int nb_channels = 1);
@@ -174,7 +174,7 @@ namespace ATK
     using Parent::cut_frequency;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   private:
     DataType gain;
     

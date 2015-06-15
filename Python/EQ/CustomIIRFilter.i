@@ -11,7 +11,7 @@ namespace ATK
   class CustomIIRCoefficients: public BaseFilter
   {
   public:
-    CustomIIRCoefficients();
+    CustomIIRCoefficients(int channels = 1);
     ~CustomIIRCoefficients();
     
     /**

@@ -28,8 +28,8 @@ namespace ATK
     void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
-    virtual void process_impl(std::int64_t size);
-    virtual void setup();
+    virtual void process_impl(std::int64_t size) const override final;
+    virtual void setup() override final;
     
     std::vector<std::pair<int, DataType> > frequency_checks;
     std::unique_ptr<FFT<DataType> > FFTimpl;

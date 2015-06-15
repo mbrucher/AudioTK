@@ -35,7 +35,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void SinusGeneratorFilter<DataType_>::process_impl(std::int64_t size)
+  void SinusGeneratorFilter<DataType_>::process_impl(std::int64_t size) const
   {    
     double real_increment = 2. / output_sampling_rate * frequency;
     

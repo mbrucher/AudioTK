@@ -30,9 +30,9 @@ namespace ATK
     DataType numerical_frequency;
     DataType numerical_attenuation;
     
-    DataType yh;
-    DataType yb;
-    DataType yl;
+    mutable DataType yh;
+    mutable DataType yb;
+    mutable DataType yl;
     
   public:
     ChamberlinFilter();
@@ -47,8 +47,8 @@ namespace ATK
     int get_selected() const;
     
   protected:
-    void setup();
-    void process_impl(std::int64_t size);
+    void setup() override final;
+    void process_impl(std::int64_t size) const override final;
     
     int selected;
     DataType attenuation;

@@ -29,12 +29,13 @@ namespace ATK
   private:
     boost::scoped_ptr<SndfileHandle> stream;
     std::string filename;
+  protected:
+    void process_impl(std::int64_t size) const override final;
+    void setup() override final;
+    
   public:
     OutSndFileFilter(const std::string& filename, int ports);
     ~OutSndFileFilter();
-    
-    void process_impl(std::int64_t size);
-    void setup();
   };
 }
 #endif

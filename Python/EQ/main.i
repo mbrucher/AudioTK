@@ -14,11 +14,13 @@
 %include "ChamberlinFilter.i"
 %include "IIRFilter.i"
 %include "SecondOrderFilter.i"
+%include "LinkwitzRileyFilter.i"
 %include "BesselFilter.i"
 %include "ButterworthFilter.i"
 %include "Chebyshev1Filter.i"
 %include "Chebyshev2Filter.i"
 %include "CustomIIRFilter.i"
+%include "CustomFIRFilter.i"
 
 %include "TimeVaryingIIRFilter.i"
 %include "TimeVaryingSecondOrderFilter.i"
