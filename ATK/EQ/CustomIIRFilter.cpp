@@ -19,19 +19,19 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_in( const std::vector<DataType>& coefficients_in )
+  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_in( std::vector<DataType> coefficients_in )
   {
-    this->coefficients_in = coefficients_in;
     in_order = static_cast<int>(coefficients_in.size() - 1);
+    this->coefficients_in = std::move(coefficients_in);
 
     setup();
   }
 
   template<typename DataType_>
-  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_out( const std::vector<DataType>& coefficients_out )
+  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_out( std::vector<DataType> coefficients_out )
   {
-    this->coefficients_out = coefficients_out;
     out_order = static_cast<int>(coefficients_out.size());
+    this->coefficients_out = std::move(coefficients_out);
 
     setup();
   }
