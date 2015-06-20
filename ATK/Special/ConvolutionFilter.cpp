@@ -40,7 +40,7 @@ namespace ATK
 
     auto nb_splits = (impulse.size() + split_size - 1) / split_size;
     partial_convolutions.assign(nb_splits - 1, std::vector<DataType>(split_size * 2, 0));
-    temp_out_buffer.assign(split_size, 0);
+    temp_out_buffer.assign(split_size * 2, 0);
 
     input_delay = split_size - 1;
     
@@ -77,6 +77,19 @@ namespace ATK
   }
 
   template<typename DataType_>
+  void ConvolutionFilter<DataType_>::process_new_chunk(int64_t position) const
+  {
+    partial_convolutions.pop_back();
+    std::vector<double> chunk(split_size);
+    for(int64_t i = position - split_size, j = 0; i < position; ++i, ++j)
+    {
+      chunk[j] = converted_inputs[0][i];
+    }
+    partial_convolutions.push_front(std::move(chunk));
+    compute_convolutions();
+  }
+
+  template<typename DataType_>
   void ConvolutionFilter<DataType_>::process_impl(int64_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
@@ -90,7 +103,7 @@ namespace ATK
     {
       // We can only process split_size elements at a time, but if we already have some elements in the buffer,
       // we need to take them into account.
-      int64_t size_to_process = std::min(split_size - split_position, size);
+      int64_t size_to_process = std::min(split_size - split_position, size - processed_size);
 
       for(int64_t i = 0; i < size_to_process; ++i)
       {
@@ -106,7 +119,7 @@ namespace ATK
       processed_size += size_to_process;
       if(split_position == split_size)
       {
-        //process_new_chunk();
+        process_new_chunk(processed_size);
         split_position = 0;
       }
     }while(processed_size != size);

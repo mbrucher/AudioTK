@@ -41,7 +41,7 @@ namespace ATK
     /// Compute the partial convolutions
     void compute_convolutions() const;
     /// Create a new chunk and compute the convolution
-    void process_new_chunk() const;
+    void process_new_chunk(int64_t position) const;
     
   public:
     ConvolutionFilter();
