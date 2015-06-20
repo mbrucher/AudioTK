@@ -74,8 +74,8 @@ namespace ATK
   template<class DataType_>
   void FFT<DataType_>::process(const DataType_* input, std::int64_t input_size)
   {
-#if ATK_USE_FFTW == 1
     double factor = 1 << (log2n - 1);
+#if ATK_USE_FFTW == 1
     for(int j = 0; j < std::min(input_size, size); ++j)
     {
       input_data[j][0] = input[j] / factor;
@@ -84,7 +84,6 @@ namespace ATK
     fftw_execute(fft_plan);
 #endif
 #if ATK_USE_ACCELERATE == 1
-    double factor = input_sampling_rate;
     for(int j = 0; j < std::min(input_size, size); ++j)
     {
       splitData.realp[j] = input[j] / factor;
@@ -112,6 +111,35 @@ namespace ATK
 #endif
   }
 
+  template<class DataType_>
+  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, std::int64_t input_size)
+  {
+#if ATK_USE_FFTW == 1
+    for(int j = 0; j < std::min(input_size, size); ++j)
+    {
+      output_freqs[j][0] = input[j].real();
+      output_freqs[j][1] = input[j].imag();
+    }
+    fftw_execute(fft_reverse_plan);
+    for(int j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = input_data[j][0];
+    }
+#endif
+#if ATK_USE_ACCELERATE == 1
+    for(int j = 0; j < std::min(input_size, size); ++j)
+    {
+      splitData.realp[j] = input[j].real();
+      splitData.imagp[j] = input[j].imag();
+    }
+    vDSP_fft_zipD(fftSetup, &splitData, 1, log2n, FFT_BACKWARD);
+    for(int j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = splitData.realp[j];
+    }
+#endif
+  }
+  
   template<class DataType_>
   void FFT<DataType_>::get_amp(std::vector<DataType_>& amp) const
   {
