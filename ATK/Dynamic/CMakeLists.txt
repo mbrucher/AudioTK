@@ -35,7 +35,7 @@ add_library(ATKDynamic
 
 target_link_libraries(ATKDynamic ATKCore)
 
-stagedebug(ATKDelay)
+stagedebug(ATKDynamic)
 
 INSTALL(TARGETS ATKDynamic
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
