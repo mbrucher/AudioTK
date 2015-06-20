@@ -43,22 +43,22 @@ namespace ATK
   protected:
     virtual int get_type() const;
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(std::int64_t size) const override;
+    virtual void process_impl(int64_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays
-    virtual void prepare_process(std::int64_t size) override final;
+    virtual void prepare_process(int64_t size) override final;
     /// Prepares the filter by resizing the outputs arrays
-    virtual void prepare_outputs(std::int64_t size) override final;
+    virtual void prepare_outputs(int64_t size) override final;
     
     /// Used to convert other filter outputs to DataType*
-    void convert_inputs(std::int64_t size);
+    void convert_inputs(int64_t size);
     void full_setup();
 
     std::vector<boost::scoped_array<DataType> > converted_inputs_delay;
     std::vector<DataType *> converted_inputs;
-    std::vector<std::int64_t> converted_inputs_size;
+    std::vector<int64_t> converted_inputs_size;
     std::vector<boost::scoped_array<DataType> > outputs_delay;
     std::vector<DataType *> outputs;
-    std::vector<std::int64_t> outputs_size;
+    std::vector<int64_t> outputs_size;
   };
 }
 

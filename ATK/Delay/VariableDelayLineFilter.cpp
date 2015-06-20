@@ -30,7 +30,7 @@ namespace ATK
     void update_delay_line(int64_t max_delay, int64_t size)
     {
       // Update delay line
-      for (std::int64_t i = 0; i < max_delay; ++i)
+      for (int64_t i = 0; i < max_delay; ++i)
       {
         delay_line[i] = delay_line[delay_line.size() + i - max_delay];
       }
@@ -62,7 +62,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void VariableDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
+  void VariableDelayLineFilter<DataType_>::process_impl(int64_t size) const
   {
     impl->update_delay_line(max_delay, size);
 
@@ -78,11 +78,11 @@ namespace ATK
 
     for(int64_t i = 0; i < size; ++i)
     {
-      integer_delay[i] = static_cast<std::int64_t>(input2[i]);
+      integer_delay[i] = static_cast<int64_t>(input2[i]);
       fractional_delay[i] = input2[i] - integer_delay[i];
     }
 
-    for(std::int64_t i = 0; i < size; ++i)
+    for(int64_t i = 0; i < size; ++i)
     {
       output[i] = delay_line[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + delay_line[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
     }

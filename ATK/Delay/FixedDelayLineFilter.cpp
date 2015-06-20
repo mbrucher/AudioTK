@@ -35,13 +35,13 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void FixedDelayLineFilter<DataType_>::set_delay(std::int64_t delay)
+  void FixedDelayLineFilter<DataType_>::set_delay(int64_t delay)
   {
     if(delay < 0)
     {
       throw std::out_of_range("Delay must be positive");
     }
-    if(delay >= static_cast<std::int64_t>(impl->delay_line.size()))
+    if(delay >= static_cast<int64_t>(impl->delay_line.size()))
     {
       throw std::out_of_range("Delay must be less than delay line size");
     }
@@ -50,7 +50,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::int64_t FixedDelayLineFilter<DataType_>::get_delay() const
+  int64_t FixedDelayLineFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -63,14 +63,14 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void FixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
+  void FixedDelayLineFilter<DataType_>::process_impl(int64_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = impl->delay_line.size();
 
-    std::int64_t delay_line_usage = std::min(delay, size);
+    int64_t delay_line_usage = std::min(delay, size);
 
     memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - delay), delay_line_usage * sizeof(DataType_));
     if(size - delay > 0)
@@ -78,12 +78,12 @@ namespace ATK
       memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), (size - delay) * sizeof(DataType_));
     }
 
-    for (std::int64_t i = 0; i < std::int64_t(delay_line_size) - size; ++i)
+    for (int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
     {
       delay_line[i] = delay_line[i + size];
     }
-    std::int64_t minimum = std::max(std::int64_t(0), std::int64_t(delay_line_size) - size);
-    if (static_cast<std::int64_t>(delay_line_size) > minimum)
+    int64_t minimum = std::max(int64_t(0), int64_t(delay_line_size) - size);
+    if (static_cast<int64_t>(delay_line_size) > minimum)
     {
       memcpy(reinterpret_cast<void*>(delay_line + minimum), reinterpret_cast<const void*>(input + size + minimum - delay_line_size), (delay_line_size - minimum) * sizeof(DataType_));
     }

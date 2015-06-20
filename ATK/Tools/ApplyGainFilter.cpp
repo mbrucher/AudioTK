@@ -23,7 +23,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ApplyGainFilter<DataType_>::process_impl(std::int64_t size) const
+  void ApplyGainFilter<DataType_>::process_impl(int64_t size) const
   {
     assert(nb_input_ports == 2*nb_output_ports);
 
@@ -32,7 +32,7 @@ namespace ATK
       const DataType* ATK_RESTRICT input1 = converted_inputs[2 * channel];
       const DataType* ATK_RESTRICT input2 = converted_inputs[2 * channel + 1];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::int64_t i = 0; i < size; ++i)
+      for(int64_t i = 0; i < size; ++i)
       {
         output[i] = input1[i] * input2[i];
       }

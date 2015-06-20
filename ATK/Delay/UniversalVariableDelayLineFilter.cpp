@@ -34,7 +34,7 @@ namespace ATK
     void update_delay_line(int64_t max_delay, int64_t size)
     {
       // Update delay line
-      for (std::int64_t i = 0; i < max_delay; ++i)
+      for (int64_t i = 0; i < max_delay; ++i)
       {
         processed_input[i] = processed_input[processed_input.size() + i - max_delay];
       }
@@ -118,7 +118,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalVariableDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
+  void UniversalVariableDelayLineFilter<DataType_>::process_impl(int64_t size) const
   {
     impl->update_delay_line(max_delay, size);
     const DataType* ATK_RESTRICT input1 = converted_inputs[0]; // samples
@@ -131,15 +131,15 @@ namespace ATK
     DataType* ATK_RESTRICT fractional_delay = impl->fractional_delay.data();
 
     // Update the delay line
-    for(std::int64_t i = 0; i < size; ++i)
+    for(int64_t i = 0; i < size; ++i)
     {
-      integer_delay[i] = static_cast<std::int64_t>(input2[i]);
+      integer_delay[i] = static_cast<int64_t>(input2[i]);
       assert(integer_delay[i] > 0);
       assert(integer_delay[i] < (max_delay - 1));
       fractional_delay[i] = input2[i] - integer_delay[i];
     }
 
-    for(std::int64_t i = 0; i < size; ++i)
+    for(int64_t i = 0; i < size; ++i)
     {
       delay_line[i] = (processed_input[i + max_delay - integer_delay[i]] - impl->last_delay) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1];
       processed_input[max_delay + i] = input1[i] + feedback * processed_input[max_delay + i - central_delay]; // FB only uses the central delay and is not varying

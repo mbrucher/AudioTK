@@ -60,7 +60,7 @@ namespace ATK
       state.resize(std::max(input_delay, output_delay), 0);
     }
     
-    virtual void process_impl(std::int64_t size) const override final
+    virtual void process_impl(int64_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       
@@ -72,7 +72,7 @@ namespace ATK
       const DataType* ATK_RESTRICT input = converted_inputs[0];
       const DataType* ATK_RESTRICT cut_frequencies = converted_inputs[1];
       DataType* ATK_RESTRICT output = outputs[0];
-      for(std::int64_t i = 0; i < size; ++i)
+      for(int64_t i = 0; i < size; ++i)
       {
         int frequency_index = static_cast<int>((cut_frequencies[i] - min_frequency) * scale);
         if(frequency_index < 0)

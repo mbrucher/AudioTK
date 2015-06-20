@@ -26,11 +26,11 @@ namespace ATK
 
     int get_type() const;
   protected:
-    virtual void process_impl(std::int64_t size) const override final;
+    virtual void process_impl(int64_t size) const override final;
     /// Prepares the filter by retrieving the inputs arrays
-    virtual void prepare_process(std::int64_t size) override final;
+    virtual void prepare_process(int64_t size) override final;
     /// Prepares the filter by resizing the outputs arrays
-    virtual void prepare_outputs(std::int64_t size) override final;
+    virtual void prepare_outputs(int64_t size) override final;
 
     std::vector<BaseFilter*> filters;
   };

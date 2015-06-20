@@ -10,6 +10,11 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 0.6.1
+* Fixed the FFT implementation
+* Added a fast zero latency convolution filter with tests and comparison with a basic FIR implementation
+
+
 ### 0.6.0
 * Added override and final keywords in virtual calls
 * Changed the API so that process_impl is now const

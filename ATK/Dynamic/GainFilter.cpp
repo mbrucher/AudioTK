@@ -23,7 +23,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void GainFilter<DataType_>::process_impl(std::int64_t size) const
+  void GainFilter<DataType_>::process_impl(int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
 
@@ -31,7 +31,7 @@ namespace ATK
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::int64_t i = 0; i < size; ++i)
+      for(int64_t i = 0; i < size; ++i)
       {
         DataType_ value = input[i] * threshold;
         int step = static_cast<int>(value * LUTprecision);

@@ -22,18 +22,18 @@ BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_constructor_test )
 
 BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_2sinks_first_test )
 {
-  ATK::TriangleGeneratorFilter<std::int64_t> generator;
+  ATK::TriangleGeneratorFilter<int64_t> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1000000);
   generator.set_frequency(1000);
 
-  ATK::TriangleCheckerFilter<std::int64_t> checker1;
+  ATK::TriangleCheckerFilter<int64_t> checker1;
   checker1.set_input_sampling_rate(48000);
   checker1.set_amplitude(1000000);
   checker1.set_frequency(1000);
   checker1.set_input_port(0, &generator, 0);
 
-  ATK::TriangleCheckerFilter<std::int64_t> checker2;
+  ATK::TriangleCheckerFilter<int64_t> checker2;
   checker2.set_input_sampling_rate(48000);
   checker2.set_amplitude(1000000);
   checker2.set_frequency(1000);
@@ -49,18 +49,18 @@ BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_2sinks_first_test )
 
 BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_2sinks_second_test )
 {
-  ATK::TriangleGeneratorFilter<std::int64_t> generator;
+  ATK::TriangleGeneratorFilter<int64_t> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1000000);
   generator.set_frequency(1000);
 
-  ATK::TriangleCheckerFilter<std::int64_t> checker1;
+  ATK::TriangleCheckerFilter<int64_t> checker1;
   checker1.set_input_sampling_rate(48000);
   checker1.set_amplitude(1000000);
   checker1.set_frequency(1000);
   checker1.set_input_port(0, &generator, 0);
 
-  ATK::TriangleCheckerFilter<std::int64_t> checker2;
+  ATK::TriangleCheckerFilter<int64_t> checker2;
   checker2.set_input_sampling_rate(48000);
   checker2.set_amplitude(1000000);
   checker2.set_frequency(1000);
