@@ -13,15 +13,15 @@ namespace ATK
   template<class DataType_>
   FFT<DataType_>::FFT()
 #if ATK_USE_FFTW == 1
-  :size(0), fft_plan(NULL), input_data(NULL), output_freqs(NULL)
+  :size(0), fft_plan(nullptr), fft_reverse_plan(nullptr), input_data(nullptr), output_freqs(nullptr)
 #endif
 #if ATK_USE_ACCELERATE == 1
-  :fftSetup(NULL)
+  :fftSetup(nullptr)
 #endif
   {
 #if ATK_USE_ACCELERATE == 1
-    splitData.realp = NULL;
-    splitData.imagp = NULL;
+    splitData.realp = nullptr;
+    splitData.imagp = nullptr;
 #endif
   }
   
@@ -32,6 +32,7 @@ namespace ATK
     fftw_free(input_data);
     fftw_free(output_freqs);
     fftw_destroy_plan(fft_plan);
+    fftw_destroy_plan(fft_reverse_plan);
 #endif
 #if ATK_USE_ACCELERATE == 1
     delete[] splitData.realp;
@@ -52,11 +53,13 @@ namespace ATK
     fftw_free(input_data);
     fftw_free(output_freqs);
     fftw_destroy_plan(fft_plan);
+    fftw_destroy_plan(fft_reverse_plan);
     
     input_data = fftw_alloc_complex(size);
     output_freqs = fftw_alloc_complex(size);
     
     fft_plan = fftw_plan_dft_1d(size, input_data, output_freqs, FFTW_FORWARD, FFTW_ESTIMATE);
+    fft_reverse_plan = fftw_plan_dft_1d(size, input_data, output_freqs, FFTW_BACKWARD, FFTW_ESTIMATE);
 #endif
 #if ATK_USE_ACCELERATE == 1
     delete[] splitData.realp;
@@ -91,6 +94,24 @@ namespace ATK
 #endif
   }
   
+  template<class DataType_>
+  void FFT<DataType_>::process_forward(const DataType_* input, std::complex<DataType_>* output, std::int64_t input_size)
+  {
+    process(input, input_size);
+#if ATK_USE_FFTW == 1
+    for(int j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = std::complex<DataType_>(output_freqs[j][0], output_freqs[j][1]);
+    }
+#endif
+#if ATK_USE_ACCELERATE == 1
+    for(int j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = std::complex<DataType_>(splitData.realp[j], splitData.imagp[j]);
+    }
+#endif
+  }
+
   template<class DataType_>
   void FFT<DataType_>::get_amp(std::vector<DataType_>& amp) const
   {

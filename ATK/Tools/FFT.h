@@ -5,6 +5,7 @@
 #ifndef ATK_TOOLS_FFT_H
 #define ATK_TOOLS_FFT_H
 
+#include <complex>
 #include <cstdint>
 #include <vector>
 
@@ -29,6 +30,8 @@ namespace ATK
     
     void set_size(std::int64_t size);
     void process(const DataType_* input, std::int64_t input_size);
+    void process_forward(const DataType_* input, std::complex<DataType_>* output, std::int64_t input_size);
+    void process_backward(const std::complex<DataType_>* input, DataType_* output, std::int64_t input_size);
     void get_amp(std::vector<DataType_>& amp) const;
     void get_angle(std::vector<DataType_>& angle) const;
 
@@ -38,6 +41,7 @@ namespace ATK
 
 #if ATK_USE_FFTW == 1
     fftw_plan fft_plan;
+    fftw_plan fft_reverse_plan;
     fftw_complex* input_data;
     fftw_complex* output_freqs;
 #endif
