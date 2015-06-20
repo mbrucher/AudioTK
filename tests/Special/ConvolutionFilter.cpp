@@ -30,17 +30,18 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
   generator.process(48000/1000/4);
   
   std::vector<double> impulse;
-  for(int i = 0; i < 10000; ++i)
+  for(int i = 1; i < 10000; ++i)
   {
     impulse.push_back(i / 10000.);
   }
   
   ATK::IIRFilter<ATK::CustomFIRCoefficients<double> > filter;
   filter.set_input_sampling_rate(48000);
-  filter.set_coefficients_in(impulse);
+  filter.set_coefficients_in(std::vector<double>(impulse.rbegin(), impulse.rend()));
 
   ATK::ConvolutionFilter<double> convolution;
   convolution.set_input_sampling_rate(48000);
+  convolution.set_split_size(64);
   convolution.set_impulse(impulse);
 
   ATK::VolumeFilter<double> gainfilter;
@@ -65,6 +66,6 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
   
   checker.set_input_port(0, &sumfilter, 0);
 
-  for(int i= 0; i < PROCESSSIZE; ++i)
+  for(int i= 1; i < PROCESSSIZE; ++i)
     checker.process(i);
 }
