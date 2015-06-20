@@ -94,8 +94,8 @@ namespace ATK
   template<class DataType_>
   void FFT<DataType_>::get_amp(std::vector<DataType_>& amp) const
   {
-    amp.assign(size / 2, 0);
-    for(std::int64_t i = 0; i < size / 2; ++i)
+    amp.assign(size / 2 + 1, 0);
+    for(std::int64_t i = 0; i < size / 2 + 1; ++i)
     {
 #if ATK_USE_FFTW == 1
       amp[i] = output_freqs[i][0] * output_freqs[i][0];
@@ -113,8 +113,8 @@ namespace ATK
   template<class DataType_>
   void FFT<DataType_>::get_angle(std::vector<DataType_>& angle) const
   {
-    angle.assign(size / 2, 0);
-    for(std::int64_t i = 0; i < size/2; ++i)
+    angle.assign(size / 2 + 1, 0);
+    for(std::int64_t i = 0; i < size / 2 + 1; ++i)
     {
 #if ATK_USE_FFTW == 1
       angle[i] = std::arg(std::complex<DataType_>(output_freqs[i][0], output_freqs[i][1]));
