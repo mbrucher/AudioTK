@@ -101,6 +101,18 @@ configure_file (
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
+macro(stagedebug target)
+  if(APPLE)
+    add_custom_command(TARGET ${target}
+      POST_BUILD
+      COMMAND dsymutil $<TARGET_FILE_NAME:${target}>
+      MAIN_DEPENDENCY ${target}
+      COMMENT "Staging dSYM for ${target}"
+      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+      VERBATIM)
+  endif()
+endmacro()
+
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
   add_subdirectory(tests)

@@ -42,6 +42,8 @@ INSTALL(TARGETS ATKDistortion
     )
 endif(ENABLE_SHARED_LIBRARIES)
 
+stagedebug(ATKDistortion)
+
 INSTALL(FILES ${ATK_DISTORTION_HEADERS}
    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK/Distortion
     )
