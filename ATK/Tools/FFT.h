@@ -29,9 +29,9 @@ namespace ATK
     ~FFT();
     
     void set_size(int64_t size);
-    void process(const DataType_* input, int64_t input_size);
-    void process_forward(const DataType_* input, std::complex<DataType_>* output, int64_t input_size);
-    void process_backward(const std::complex<DataType_>* input, DataType_* output, int64_t input_size);
+    void process(const DataType_* input, int64_t input_size) const;
+    void process_forward(const DataType_* input, std::complex<DataType_>* output, int64_t input_size) const;
+    void process_backward(const std::complex<DataType_>* input, DataType_* output, int64_t input_size) const;
     void get_amp(std::vector<DataType_>& amp) const;
     void get_angle(std::vector<DataType_>& angle) const;
 

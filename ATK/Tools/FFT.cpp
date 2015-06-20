@@ -72,7 +72,7 @@ namespace ATK
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process(const DataType_* input, int64_t input_size)
+  void FFT<DataType_>::process(const DataType_* input, int64_t input_size) const
   {
     double factor = 1 << (log2n - 1);
 #if ATK_USE_FFTW == 1
@@ -104,7 +104,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFT<DataType_>::process_forward(const DataType_* input, std::complex<DataType_>* output, int64_t input_size)
+  void FFT<DataType_>::process_forward(const DataType_* input, std::complex<DataType_>* output, int64_t input_size) const
   {
     process(input, input_size);
     for(int j = 0; j < size; ++j)
@@ -119,7 +119,7 @@ namespace ATK
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, int64_t input_size)
+  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, int64_t input_size) const
   {
 #if ATK_USE_FFTW == 1
     for(int j = 0; j < std::min(input_size, size); ++j)
