@@ -35,14 +35,14 @@ add_library(ATKSpecial
 
 target_link_libraries(ATKSpecial ATKTools ATKCore)
 
+stagedebug(ATKSpecial)
+
 INSTALL(TARGETS ATKSpecial
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
     ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
     )
 endif(ENABLE_SHARED_LIBRARIES)
-
-stagedebug(ATKSpecial)
 
 INSTALL(FILES ${ATK_SPECIAL_HEADERS}
    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK/Special
