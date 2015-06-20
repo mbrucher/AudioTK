@@ -121,6 +121,10 @@ namespace ATK
 
   void BaseFilter::process_conditionnally(int64_t size)
   {
+    if(size == 0)
+    {
+      return;
+    }
     if(output_sampling_rate == 0)
     {
       throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
