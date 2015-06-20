@@ -19,7 +19,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*1024)
+#define PROCESSSIZE (2048)
 
 BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
 {
@@ -64,6 +64,7 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
   sumfilter.set_input_port(1, &gainfilter, 0);
   
   checker.set_input_port(0, &sumfilter, 0);
-  
-  checker.process(PROCESSSIZE);
+
+  for(int i= 0; i < PROCESSSIZE; ++i)
+    checker.process(i);
 }
