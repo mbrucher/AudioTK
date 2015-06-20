@@ -59,7 +59,7 @@ namespace ATK
     output_freqs = fftw_alloc_complex(size);
     
     fft_plan = fftw_plan_dft_1d(size, input_data, output_freqs, FFTW_FORWARD, FFTW_ESTIMATE);
-    fft_reverse_plan = fftw_plan_dft_1d(size, input_data, output_freqs, FFTW_BACKWARD, FFTW_ESTIMATE);
+    fft_reverse_plan = fftw_plan_dft_1d(size, output_freqs, input_data, FFTW_BACKWARD, FFTW_ESTIMATE);
 #endif
 #if ATK_USE_ACCELERATE == 1
     delete[] splitData.realp;
@@ -74,10 +74,11 @@ namespace ATK
   template<class DataType_>
   void FFT<DataType_>::process(const DataType_* input, int64_t input_size) const
   {
+    double factor = 1 << log2n;
 #if ATK_USE_FFTW == 1
     for(int j = 0; j < std::min(input_size, size); ++j)
     {
-      input_data[j][0] = input[j];
+      input_data[j][0] = input[j] / factor;
       input_data[j][1] = 0;
     }
     for(int j = std::min(input_size, size); j < size; ++j)
@@ -88,7 +89,6 @@ namespace ATK
     fftw_execute(fft_plan);
 #endif
 #if ATK_USE_ACCELERATE == 1
-    double factor = 1 << (log2n - 1);
     for(int j = 0; j < std::min(input_size, size); ++j)
     {
       splitData.realp[j] = input[j] / factor;
@@ -154,10 +154,9 @@ namespace ATK
     for(int64_t i = 0; i < size / 2 + 1; ++i)
     {
 #if ATK_USE_FFTW == 1
-      double factor = 1 << (log2n - 1); // just for legacy purposes/tests!
       amp[i] = output_freqs[i][0] * output_freqs[i][0];
       amp[i] += output_freqs[i][1] * output_freqs[i][1];
-      amp[i] = std::sqrt(amp[i]) / factor;
+      amp[i] = std::sqrt(amp[i]);
 #endif
 #if ATK_USE_ACCELERATE == 1
       amp[i] = splitData.realp[j] * splitData.realp[j];
