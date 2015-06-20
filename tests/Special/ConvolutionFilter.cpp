@@ -21,8 +21,14 @@
 
 #define PROCESSSIZE (2048)
 
+// Original time (FIR time): 20s
+// Split convolution: 7.4s
+
 BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
 {
+  const int impulse_size = 10000;
+  const int split_size = 64;
+  
   ATK::TriangleGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(-1);
@@ -30,7 +36,7 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
   generator.process(48000/1000/4);
   
   std::vector<double> impulse;
-  for(int i = 1; i < 10000; ++i)
+  for(int i = 1; i < impulse_size; ++i)
   {
     impulse.push_back(i / 10000.);
   }
@@ -41,7 +47,7 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
 
   ATK::ConvolutionFilter<double> convolution;
   convolution.set_input_sampling_rate(48000);
-  convolution.set_split_size(64);
+  convolution.set_split_size(split_size);
   convolution.set_impulse(impulse);
 
   ATK::VolumeFilter<double> gainfilter;

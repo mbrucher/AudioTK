@@ -19,8 +19,6 @@ namespace ATK
   {
     this->impulse = std::move(impulse);
     setup();
-    // Pad with zeros so the convolution is easier created.
-    this->impulse.resize((partial_convolutions.size() + 1) * split_size, 0);
   }
   
   template<typename DataType_>
@@ -39,8 +37,19 @@ namespace ATK
     }
 
     auto nb_splits = (impulse.size() + split_size - 1) / split_size;
-    partial_convolutions.assign(nb_splits - 1, std::vector<DataType>(split_size * 2, 0));
+    partial_frequency_input.assign(nb_splits - 1, std::vector<std::complex<DataType> >(split_size * 2, 0));
+    // Pad with zeros so the convolution is easier created.
+    impulse.resize((partial_frequency_input.size() + 1) * split_size, 0);
+
     temp_out_buffer.assign(split_size * 2, 0);
+    processor.set_size(split_size * 2);
+    
+    // The size is twice as big than the impulse, less
+    partial_frequency_impulse.assign(split_size * 2 * (nb_splits - 1), 0);
+    for(int i = 1; i < nb_splits; ++i)
+    {
+      processor.process_forward(impulse.data() + i * split_size, partial_frequency_impulse.data() + (i - 1) * split_size * 2, split_size);
+    }
 
     input_delay = split_size - 1;
     
@@ -68,25 +77,56 @@ namespace ATK
       temp_out_buffer[i] = temp_out_buffer[i + split_size];
       temp_out_buffer[i + split_size] = 0;
     }
-    int64_t offset = split_size; // Where I'll start my convolutions
-    for(const auto& buffer: partial_convolutions)
+    
+    std::vector<std::complex<DataType> > result(2 * split_size, 0);
+    
+    // offset in the impulse frequencies
+    int64_t offset = 0;
+    for(const auto& buffer: partial_frequency_input)
     {
-      compute_convolution(temp_out_buffer.data(), buffer.data(), impulse.data() + offset, split_size);
-      offset += split_size;
+      // Add the frequency result of this partial FFT
+      for(int64_t i = 0; i < 2*split_size; ++i)
+      {
+        result[i] += buffer[i] * partial_frequency_impulse[i + offset];
+      }
+      offset += 2 * split_size;
+    }
+
+    std::vector<DataType> ifft_result(2*split_size, 0);
+    processor.process_backward(result.data(), ifft_result.data(), 2*split_size);
+    for(int i = 0; i < 2*split_size; ++i)
+    {
+      temp_out_buffer[i] += ifft_result[i] * split_size * 2;
     }
   }
 
   template<typename DataType_>
   void ConvolutionFilter<DataType_>::process_new_chunk(int64_t position) const
   {
-    partial_convolutions.pop_back();
-    std::vector<double> chunk(split_size);
-    for(int64_t i = position - split_size, j = 0; i < position; ++i, ++j)
-    {
-      chunk[j] = converted_inputs[0][i];
-    }
-    partial_convolutions.push_front(std::move(chunk));
+    if(partial_frequency_input.empty())
+      return;
+    partial_frequency_input.pop_back();
+    std::vector<std::complex<double> > chunk(2 * split_size);
+    processor.process_forward(converted_inputs[0] + position - split_size, chunk.data(), split_size);
+    
+    partial_frequency_input.push_front(std::move(chunk));
     compute_convolutions();
+  }
+
+  template<typename DataType_>
+  void ConvolutionFilter<DataType_>::process_impulse_beginning(int64_t processed_size, int64_t size_to_process) const
+  {
+    const DataType* ATK_RESTRICT input = converted_inputs[0];
+    DataType* ATK_RESTRICT output = outputs[0];
+    for(int64_t i = 0; i < size_to_process; ++i)
+    {
+      DataType tempout = temp_out_buffer[split_position + i];
+      for(int j = 0; j < input_delay + 1; ++j)
+      {
+        tempout += impulse[j] * input[processed_size + i - j];
+      }
+      output[processed_size + i] = tempout;
+    }
   }
 
   template<typename DataType_>
@@ -95,9 +135,6 @@ namespace ATK
     assert(input_sampling_rate == output_sampling_rate);
     assert(nb_input_ports == nb_output_ports);
     
-    const DataType* ATK_RESTRICT input = converted_inputs[0];
-    DataType* ATK_RESTRICT output = outputs[0];
-    
     int processed_size = 0;
     do
     {
@@ -105,15 +142,7 @@ namespace ATK
       // we need to take them into account.
       int64_t size_to_process = std::min(split_size - split_position, size - processed_size);
 
-      for(int64_t i = 0; i < size_to_process; ++i)
-      {
-        DataType tempout = temp_out_buffer[split_position + i];
-        for(int j = 0; j < input_delay + 1; ++j)
-        {
-          tempout += impulse[j] * input[processed_size + i - j];
-        }
-        output[processed_size + i] = tempout;
-      }
+      process_impulse_beginning(processed_size, size_to_process);
 
       split_position += size_to_process;
       processed_size += size_to_process;
