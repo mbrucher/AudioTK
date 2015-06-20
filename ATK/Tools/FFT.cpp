@@ -16,7 +16,7 @@ namespace ATK
   :size(0), fft_plan(NULL), input_data(NULL), output_freqs(NULL)
 #endif
 #if ATK_USE_ACCELERATE == 1
-  :fftSetup(NULL), output_freqs(NULL)
+  :fftSetup(NULL)
 #endif
   {
 #if ATK_USE_ACCELERATE == 1
@@ -62,11 +62,9 @@ namespace ATK
     delete[] splitData.realp;
     delete[] splitData.imagp;
     vDSP_destroy_fftsetupD(fftSetup);
-    splitData.realp = new double[size/2];
-    splitData.imagp = new double[size/2];
+    splitData.realp = new double[size];
+    splitData.imagp = new double[size];
     fftSetup = vDSP_create_fftsetupD(log2n, FFT_RADIX2);
-    delete[] output_freqs;
-    output_freqs = new double[size/2];
 #endif
   }
 
@@ -84,10 +82,12 @@ namespace ATK
 #endif
 #if ATK_USE_ACCELERATE == 1
     double factor = input_sampling_rate;
-    vDSP_ctozD(reinterpret_cast<DOUBLE_COMPLEX*>(input.data()), 2, &splitData, 1, std::min(input_size, size)/2);
-    vDSP_fft_zripD(fftSetup, &splitData, 1, log2n, FFT_FORWARD);
-    vDSP_zvabsD(&splitData, 1, output_freqs, 1, input_sampling_rate/2);
-    vDSP_vsdivD(output_freqs, 1, &factor, output_freqs, 1, input_sampling_rate/2);
+    for(int j = 0; j < std::min(input_size, size); ++j)
+    {
+      splitData.realp[j] = input[j] / factor;
+      splitData.imagp[j] = 0;
+    }
+    vDSP_fft_zipD(fftSetup, &splitData, 1, log2n, FFT_FORWARD);
 #endif
   }
   
@@ -103,7 +103,9 @@ namespace ATK
       amp[i] = std::sqrt(amp[i]);
 #endif
 #if ATK_USE_ACCELERATE == 1
-      amp[i] = output_freqs[i];
+      amp[i] = splitData.realp[j] * splitData.realp[j];
+      amp[i] += splitData.imagp[j] * splitData.imagp[j];
+      amp[i] = std::sqrt(amp[i]);
 #endif
     }
   }
@@ -116,6 +118,9 @@ namespace ATK
     {
 #if ATK_USE_FFTW == 1
       angle[i] = std::arg(std::complex<DataType_>(output_freqs[i][0], output_freqs[i][1]));
+#endif
+#if ATK_USE_ACCELERATE == 1
+      angle[i] = std::arg(std::complex<DataType_>(splitData.realp[j], splitData.imagp[j]));
 #endif
     }
   }

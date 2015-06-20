@@ -45,7 +45,6 @@ namespace ATK
 #if ATK_USE_ACCELERATE == 1
     FFTSetupD fftSetup;
     DSPDoubleSplitComplex splitData;
-    double* output_freqs;
 #endif
   };
 }
