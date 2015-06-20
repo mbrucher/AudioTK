@@ -39,15 +39,15 @@ namespace ATK
     return 0; // bogus
   }
 
-  void PipelineGlobalSinkFilter::prepare_process( std::int64_t size )
+  void PipelineGlobalSinkFilter::prepare_process( int64_t size )
   {
   }
 
-  void PipelineGlobalSinkFilter::prepare_outputs( std::int64_t size )
+  void PipelineGlobalSinkFilter::prepare_outputs( int64_t size )
   {
   }
 
-  void PipelineGlobalSinkFilter::process_impl( std::int64_t size ) const
+  void PipelineGlobalSinkFilter::process_impl( int64_t size ) const
   {
     for (auto it = filters.begin(); it != filters.end(); ++it)
     {

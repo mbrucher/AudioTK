@@ -36,17 +36,17 @@ namespace ATK
     FixedDelayLineFilter(int max_delay);
     ~FixedDelayLineFilter();
     
-    void set_delay(std::int64_t delay);
-    std::int64_t get_delay() const;
+    void set_delay(int64_t delay);
+    int64_t get_delay() const;
 
     virtual void full_setup() override final;
   protected:
-    virtual void process_impl(std::int64_t size) const override final;
+    virtual void process_impl(int64_t size) const override final;
 
     // internal state
     std::unique_ptr<FDLF_Impl<DataType_> > impl;
 
-    std::int64_t delay;
+    int64_t delay;
   };
 }
 

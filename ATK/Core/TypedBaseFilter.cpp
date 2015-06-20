@@ -18,17 +18,17 @@
 
 namespace
 {
-  typedef boost::mpl::vector<std::int16_t, std::int32_t, std::int64_t, float, double> ConversionTypes;
+  typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double> ConversionTypes;
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-  convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, std::int64_t size, int type)
+  convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int64_t size, int type)
   {
   }
 
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
-      convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, std::int64_t size, int type)
+      convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int64_t size, int type)
   {
     if(type != 0)
     {
@@ -81,12 +81,12 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(std::int64_t size) const
+  void TypedBaseFilter<DataType>::process_impl(int64_t size) const
   {
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_process(std::int64_t size)
+  void TypedBaseFilter<DataType>::prepare_process(int64_t size)
   {
     convert_inputs(size);
   }
@@ -104,7 +104,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::convert_inputs(std::int64_t size)
+  void TypedBaseFilter<DataType>::convert_inputs(int64_t size)
   {
     for(int i = 0; i < nb_input_ports; ++i)
     {
@@ -147,7 +147,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_outputs(std::int64_t size)
+  void TypedBaseFilter<DataType>::prepare_outputs(int64_t size)
   {
     for(int i = 0; i < nb_output_ports; ++i)
     {
@@ -203,7 +203,7 @@ namespace ATK
 
   template class TypedBaseFilter<std::int16_t>;
   template class TypedBaseFilter<std::int32_t>;
-  template class TypedBaseFilter<std::int64_t>;
+  template class TypedBaseFilter<int64_t>;
   template class TypedBaseFilter<float>;
   template class TypedBaseFilter<double>;
 }

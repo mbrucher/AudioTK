@@ -28,7 +28,7 @@ namespace ATK
     void update_delay_line(int max_delay)
     {
       // Update delay line
-      for (std::int64_t i = 0; i < max_delay; ++i)
+      for (int64_t i = 0; i < max_delay; ++i)
       {
         processed_input_l[i] = processed_input_l[processed_input_l.size() + i - max_delay];
         processed_input_r[i] = processed_input_r[processed_input_r.size() + i - max_delay];
@@ -49,7 +49,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch1(std::int64_t delay)
+  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch1(int64_t delay)
   {
     if(delay <= 0)
     {
@@ -64,13 +64,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::int64_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch1() const
+  int64_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch1() const
   {
     return delay_l;
   }
 
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch2(std::int64_t delay)
+  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch2(int64_t delay)
   {
     if(delay <= 0)
     {
@@ -85,7 +85,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::int64_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch2() const
+  int64_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch2() const
   {
     return delay_r;
   }
@@ -234,7 +234,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(std::int64_t size) const
+  void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(int64_t size) const
   {
     impl->update_delay_line(max_delay);
 
@@ -253,7 +253,7 @@ namespace ATK
     DataType* ATK_RESTRICT processed_input_l = impl->processed_input_l.data();
     DataType* ATK_RESTRICT processed_input_r = impl->processed_input_r.data();
 
-    for(std::int64_t i = 0; i < size; ++i)
+    for(int64_t i = 0; i < size; ++i)
     {
       delay_line_l[i] = processed_input_l[i + max_delay - delay_l];
       delay_line_r[i] = processed_input_r[i + max_delay - delay_r];

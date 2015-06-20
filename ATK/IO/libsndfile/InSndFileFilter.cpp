@@ -25,13 +25,13 @@ namespace ATK
   }
 
   template<typename DataType>
-  std::int64_t InSndFileFilter<DataType>::get_frames() const
+  int64_t InSndFileFilter<DataType>::get_frames() const
   {
     return stream->frames();
   }
 
   template<typename DataType>
-  void InSndFileFilter<DataType>::process_impl(std::int64_t size) const
+  void InSndFileFilter<DataType>::process_impl(int64_t size) const
   {
     std::vector<DataType> temp(size * outputs.size());
     stream->read(temp.data(), size * outputs.size());

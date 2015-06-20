@@ -54,14 +54,14 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void AttackReleaseFilter<DataType_>::process_impl(std::int64_t size) const
+  void AttackReleaseFilter<DataType_>::process_impl(int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::int64_t i = 0; i < size; ++i)
+      for(int64_t i = 0; i < size; ++i)
       {
         if(output[i-1] > input[i])
         {

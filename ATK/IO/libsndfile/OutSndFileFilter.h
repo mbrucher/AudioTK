@@ -30,7 +30,7 @@ namespace ATK
     boost::scoped_ptr<SndfileHandle> stream;
     std::string filename;
   protected:
-    void process_impl(std::int64_t size) const override final;
+    void process_impl(int64_t size) const override final;
     void setup() override final;
     
   public:

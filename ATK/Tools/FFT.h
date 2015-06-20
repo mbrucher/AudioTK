@@ -28,15 +28,15 @@ namespace ATK
     FFT();
     ~FFT();
     
-    void set_size(std::int64_t size);
-    void process(const DataType_* input, std::int64_t input_size);
-    void process_forward(const DataType_* input, std::complex<DataType_>* output, std::int64_t input_size);
-    void process_backward(const std::complex<DataType_>* input, DataType_* output, std::int64_t input_size);
+    void set_size(int64_t size);
+    void process(const DataType_* input, int64_t input_size);
+    void process_forward(const DataType_* input, std::complex<DataType_>* output, int64_t input_size);
+    void process_backward(const std::complex<DataType_>* input, DataType_* output, int64_t input_size);
     void get_amp(std::vector<DataType_>& amp) const;
     void get_angle(std::vector<DataType_>& angle) const;
 
   protected:
-	std::int64_t size;
+	int64_t size;
 	int log2n;
 
 #if ATK_USE_FFTW == 1

@@ -16,7 +16,7 @@ namespace
   void convert(std::vector<std::vector<DataType1> >& outputs, const std::vector<char>& inputs)
   {
     std::size_t nbChannels = outputs.size();
-    std::int64_t size = outputs[0].size();
+    int64_t size = outputs[0].size();
     for(std::size_t j = 0; j < nbChannels; ++j)
     {
       ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, static_cast<int>(nbChannels));
@@ -67,12 +67,12 @@ namespace ATK
   }
 
   template<typename DataType>
-  void InWavFilter<DataType>::process_impl(std::int64_t size) const
+  void InWavFilter<DataType>::process_impl(int64_t size) const
   {
     assert(output_sampling_rate == format.Frequence);
     read_from_file(size);
 
-    for(std::int64_t i = 0; i < size; ++i)
+    for(int64_t i = 0; i < size; ++i)
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {
@@ -82,7 +82,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void InWavFilter<DataType>::read_from_file(std::int64_t size) const
+  void InWavFilter<DataType>::read_from_file(int64_t size) const
   {
     if(!wavstream.is_open())
     {
@@ -124,7 +124,7 @@ namespace ATK
   
   template class InWavFilter<std::int16_t>;
   template class InWavFilter<std::int32_t>;
-  template class InWavFilter<std::int64_t>;
+  template class InWavFilter<int64_t>;
   template class InWavFilter<float>;
   template class InWavFilter<double>;
 }

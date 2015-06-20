@@ -38,12 +38,12 @@ namespace ATK
 
     virtual void full_setup() override final;
   protected:
-    virtual void process_impl(std::int64_t size) const override final;
+    virtual void process_impl(int64_t size) const override final;
     
     std::unique_ptr<VDLF_Impl<DataType_> > impl;
     
     /// Max delay for the delay line
-    std::int64_t max_delay;
+    int64_t max_delay;
   };
 }
 

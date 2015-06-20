@@ -36,7 +36,7 @@ namespace ATK
      */
     void set_impulse(std::vector<DataType> impulse);
     
-    void process_impl(std::int64_t size) const override final;
+    void process_impl(int64_t size) const override final;
     
   };
 }

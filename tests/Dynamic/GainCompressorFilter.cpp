@@ -18,7 +18,7 @@
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 
   output.process(PROCESSSIZE);
   
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1);
   }
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_0_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 0;
   }
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_0_test )
 
   output.process(PROCESSSIZE);
 
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1); // if input is zero, we still need a gain of 1 to have a progression of 1 for values < threshold
   }
@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_0_test )
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_2_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_2_test )
 
   output.process(PROCESSSIZE);
 
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.836990654, outdata[i], 0.1);
   }
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_2_test )
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_4_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_threshold_05_ratio_4_test )
 
   output.process(PROCESSSIZE);
 
-  for(std::int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.765739262, outdata[i], 0.1);
   }
