@@ -33,7 +33,7 @@ add_library(ATKSpecial
     ${ATK_SPECIAL_SRC} ${ATK_SPECIAL_HEADERS}
 )
 
-target_link_libraries(ATKSpecial ATKCore)
+target_link_libraries(ATKSpecial ATKTools ATKCore)
 
 INSTALL(TARGETS ATKSpecial
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
