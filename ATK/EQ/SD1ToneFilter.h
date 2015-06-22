@@ -30,8 +30,8 @@ namespace ATK
   public:
     SD1ToneCoefficients(int nb_channels = 1);
     
-    void set_tone(DataType alpha);
-    DataType get_tone() const;
+    void set_tone(DataType_ alpha);
+    DataType_ get_tone() const;
   };
 }
 

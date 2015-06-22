@@ -34,12 +34,12 @@ namespace ATK
   public:
     ToneStackFilterCoefficients(int nb_channels = 1);
 
-    void set_low(DataType alpha);
-    DataType get_low() const;
-    void set_middle(DataType alpha);
-    DataType get_middle() const;
-    void set_high(DataType alpha);
-    DataType get_high() const;
+    void set_low(DataType_ alpha);
+    DataType_ get_low() const;
+    void set_middle(DataType_ alpha);
+    DataType_ get_middle() const;
+    void set_high(DataType_ alpha);
+    DataType_ get_high() const;
     
     static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildBassmanStack();
     static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildJCM800Stack();
