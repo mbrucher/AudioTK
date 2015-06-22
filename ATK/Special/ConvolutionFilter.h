@@ -27,6 +27,8 @@ namespace ATK
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
     using Parent::input_delay;
+    using Parent::input_sampling_rate;
+    using Parent::output_sampling_rate;
   protected:
     mutable int64_t split_position;
     int64_t split_size;
