@@ -105,7 +105,7 @@ macro(stagedebug target)
   if(APPLE)
     add_custom_command(TARGET ${target}
       POST_BUILD
-      COMMAND dsymutil $<TARGET_FILE_NAME:${target}> -o ${CMAKE_INSTALL_PREFIX}/lib/$<TARGET_FILE_NAME:${target}>.dSYM
+      COMMAND dsymutil $<TARGET_FILE_NAME:${target}>
       MAIN_DEPENDENCY ${target}
       COMMENT "Staging dSYM for ${target}"
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
