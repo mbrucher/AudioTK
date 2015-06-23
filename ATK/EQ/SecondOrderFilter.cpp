@@ -29,15 +29,15 @@ namespace ATK
     coefficients_out.assign(out_order, 0);
   }
 
-  template <typename DataType>
-  void BaseSecondOrderCoefficients<DataType>::set_cut_frequency(DataType cut_frequency)
+  template <typename DataType_>
+  void BaseSecondOrderCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
-  template <typename DataType>
-  typename BaseSecondOrderCoefficients<DataType>::DataType BaseSecondOrderCoefficients<DataType>::get_cut_frequency() const
+  template <typename DataType_>
+  DataType_ BaseSecondOrderCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
@@ -64,15 +64,15 @@ namespace ATK
     coefficients_out[0] = - (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d;
   }
   
-  template <typename DataType>
-  void BandPassCoefficients<DataType>::set_Q(DataType Q)
+  template <typename DataType_>
+  void BandPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
-  template <typename DataType>
-  typename BandPassCoefficients<DataType>::DataType BandPassCoefficients<DataType>::get_Q() const
+  template <typename DataType_>
+  DataType_ BandPassCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
@@ -156,28 +156,28 @@ namespace ATK
     }
   }
 
-  template <typename DataType>
-  void BandPassPeakCoefficients<DataType>::set_Q(DataType Q)
+  template <typename DataType_>
+  void BandPassPeakCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
-  template <typename DataType>
-  typename BandPassPeakCoefficients<DataType>::DataType BandPassPeakCoefficients<DataType>::get_Q() const
+  template <typename DataType_>
+  DataType_ BandPassPeakCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
 
-  template <typename DataType>
-  void BandPassPeakCoefficients<DataType>::set_gain(DataType gain)
+  template <typename DataType_>
+  void BandPassPeakCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
-  template <typename DataType>
-  typename BandPassPeakCoefficients<DataType>::DataType BandPassPeakCoefficients<DataType>::get_gain() const
+  template <typename DataType_>
+  DataType_ BandPassPeakCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }
@@ -203,15 +203,15 @@ namespace ATK
     coefficients_out[0] = c;
   }
 
-  template <typename DataType>
-  void AllPassCoefficients<DataType>::set_Q(DataType Q)
+  template <typename DataType_>
+  void AllPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
-  template <typename DataType>
-  typename AllPassCoefficients<DataType>::DataType AllPassCoefficients<DataType>::get_Q() const
+  template <typename DataType_>
+  DataType_ AllPassCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
@@ -251,15 +251,15 @@ namespace ATK
     }
   }
 
-  template <typename DataType>
-  void LowShelvingCoefficients<DataType>::set_gain(DataType gain)
+  template <typename DataType_>
+  void LowShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
-  template <typename DataType>
-  typename LowShelvingCoefficients<DataType>::DataType LowShelvingCoefficients<DataType>::get_gain() const
+  template <typename DataType_>
+  DataType_ LowShelvingCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }
@@ -299,15 +299,15 @@ namespace ATK
     }
   }
   
-  template<typename DataType>
-  void HighShelvingCoefficients<DataType>::set_gain(DataType gain)
+  template<typename DataType_>
+  void HighShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
-  template <typename DataType>
-  typename HighShelvingCoefficients<DataType>::DataType HighShelvingCoefficients<DataType>::get_gain() const
+  template <typename DataType_>
+  DataType_ HighShelvingCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }

@@ -113,15 +113,15 @@ namespace ATK
     }
   }
   
-  template <typename DataType>
-  void TimeVaryingBandPassCoefficients<DataType>::set_Q(DataType Q)
+  template <typename DataType_>
+  void TimeVaryingBandPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
-  template <typename DataType>
-  typename TimeVaryingBandPassCoefficients<DataType>::DataType TimeVaryingBandPassCoefficients<DataType>::get_Q() const
+  template <typename DataType_>
+  DataType_ TimeVaryingBandPassCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
@@ -217,28 +217,28 @@ namespace ATK
     }
   }
 
-  template <typename DataType>
-  void TimeVaryingBandPassPeakCoefficients<DataType>::set_Q(DataType Q)
+  template <typename DataType_>
+  void TimeVaryingBandPassPeakCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
-  template <typename DataType>
-  typename TimeVaryingBandPassPeakCoefficients<DataType>::DataType TimeVaryingBandPassPeakCoefficients<DataType>::get_Q() const
+  template <typename DataType_>
+  DataType_ TimeVaryingBandPassPeakCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
 
-  template <typename DataType>
-  void TimeVaryingBandPassPeakCoefficients<DataType>::set_gain(DataType gain)
+  template <typename DataType_>
+  void TimeVaryingBandPassPeakCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
-  template <typename DataType>
-  typename TimeVaryingBandPassPeakCoefficients<DataType>::DataType TimeVaryingBandPassPeakCoefficients<DataType>::get_gain() const
+  template <typename DataType_>
+  DataType_ TimeVaryingBandPassPeakCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }
@@ -268,15 +268,15 @@ namespace ATK
     }
   }
 
-  template <typename DataType>
-  void TimeVaryingAllPassCoefficients<DataType>::set_Q(DataType Q)
+  template <typename DataType_>
+  void TimeVaryingAllPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
-  template <typename DataType>
-  typename TimeVaryingAllPassCoefficients<DataType>::DataType TimeVaryingAllPassCoefficients<DataType>::get_Q() const
+  template <typename DataType_>
+  DataType_ TimeVaryingAllPassCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
@@ -320,15 +320,15 @@ namespace ATK
     }
   }
 
-  template <typename DataType>
-  void TimeVaryingLowShelvingCoefficients<DataType>::set_gain(DataType gain)
+  template <typename DataType_>
+  void TimeVaryingLowShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
-  template <typename DataType>
-  typename TimeVaryingLowShelvingCoefficients<DataType>::DataType TimeVaryingLowShelvingCoefficients<DataType>::get_gain() const
+  template <typename DataType_>
+  DataType_ TimeVaryingLowShelvingCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }
@@ -372,15 +372,15 @@ namespace ATK
     }
   }
   
-  template<typename DataType>
-  void TimeVaryingHighShelvingCoefficients<DataType>::set_gain(DataType gain)
+  template<typename DataType_>
+  void TimeVaryingHighShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
-  template <typename DataType>
-  typename TimeVaryingHighShelvingCoefficients<DataType>::DataType TimeVaryingHighShelvingCoefficients<DataType>::get_gain() const
+  template <typename DataType_>
+  DataType_ TimeVaryingHighShelvingCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }

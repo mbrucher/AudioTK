@@ -27,7 +27,7 @@
 BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
 {
   const int impulse_size = 10000;
-  const int split_size = 64;
+  const int split_size = 128;
   
   ATK::TriangleGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(48000);

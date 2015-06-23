@@ -37,11 +37,11 @@ namespace ATK
   public:
     ChamberlinFilter();
     
-    void set_cut_frequency(DataType cutoff_frequency);
-    DataType get_cut_frequency() const;
+    void set_cut_frequency(DataType_ cutoff_frequency);
+    DataType_ get_cut_frequency() const;
     
-    void set_attenuation(DataType attenuation);
-    DataType get_attenuation() const;
+    void set_attenuation(DataType_ attenuation);
+    DataType_ get_attenuation() const;
     
     void select(int selected);
     int get_selected() const;

@@ -118,15 +118,15 @@ namespace ATK
   {
   }
   
-  template <typename DataType>
-  void ButterworthLowPassCoefficients<DataType>::set_cut_frequency(DataType cut_frequency)
+  template <typename DataType_>
+  void ButterworthLowPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
 
-  template <typename DataType>
-  typename ButterworthLowPassCoefficients<DataType>::DataType ButterworthLowPassCoefficients<DataType>::get_cut_frequency() const
+  template <typename DataType_>
+  DataType_ ButterworthLowPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
@@ -154,15 +154,15 @@ namespace ATK
   {
   }
   
-  template <typename DataType>
-  void ButterworthHighPassCoefficients<DataType>::set_cut_frequency(DataType cut_frequency)
+  template <typename DataType_>
+  void ButterworthHighPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
-  template <typename DataType>
-  typename ButterworthHighPassCoefficients<DataType>::DataType ButterworthHighPassCoefficients<DataType>::get_cut_frequency() const
+  template <typename DataType_>
+  DataType_ ButterworthHighPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
@@ -195,22 +195,22 @@ namespace ATK
   {
   }
 
-  template <typename DataType>
-  void ButterworthBandPassCoefficients<DataType>::set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies)
+  template <typename DataType_>
+  void ButterworthBandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
 
-  template <typename DataType>
-  void ButterworthBandPassCoefficients<DataType>::set_cut_frequencies(DataType f0, DataType f1)
+  template <typename DataType_>
+  void ButterworthBandPassCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
 
-  template <typename DataType>
-  std::pair<typename ButterworthBandPassCoefficients<DataType>::DataType, typename ButterworthBandPassCoefficients<DataType>::DataType> ButterworthBandPassCoefficients<DataType>::get_cut_frequencies() const
+  template <typename DataType_>
+  std::pair<DataType_, DataType_> ButterworthBandPassCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }
@@ -238,22 +238,22 @@ namespace ATK
   {
   }
   
-  template <typename DataType>
-  void ButterworthBandStopCoefficients<DataType>::set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies)
+  template <typename DataType_>
+  void ButterworthBandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
   
-  template <typename DataType>
-  void ButterworthBandStopCoefficients<DataType>::set_cut_frequencies(DataType f0, DataType f1)
+  template <typename DataType_>
+  void ButterworthBandStopCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
   
-  template <typename DataType>
-  std::pair<typename ButterworthBandStopCoefficients<DataType>::DataType, typename ButterworthBandStopCoefficients<DataType>::DataType> ButterworthBandStopCoefficients<DataType>::get_cut_frequencies() const
+  template <typename DataType_>
+  std::pair<DataType_, DataType_> ButterworthBandStopCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }

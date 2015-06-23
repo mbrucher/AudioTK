@@ -56,8 +56,8 @@ namespace ATK
     }
   }
 
-  template<typename DataType>
-  void ToneStackFilterCoefficients<DataType>::set_low(DataType low)
+  template<typename DataType_>
+  void ToneStackFilterCoefficients<DataType_>::set_low(DataType_ low)
   {
     if(low < 0 || low > 1)
     {
@@ -68,14 +68,14 @@ namespace ATK
     setup();
   }
   
-  template<typename DataType>
-  typename ToneStackFilterCoefficients<DataType>::DataType ToneStackFilterCoefficients<DataType>::get_low() const
+  template<typename DataType_>
+  DataType_ ToneStackFilterCoefficients<DataType_>::get_low() const
   {
     return low;
   }
 
-  template<typename DataType>
-  void ToneStackFilterCoefficients<DataType>::set_middle(DataType middle)
+  template<typename DataType_>
+  void ToneStackFilterCoefficients<DataType_>::set_middle(DataType_ middle)
   {
     if(middle < 0 || middle > 1)
     {
@@ -86,15 +86,15 @@ namespace ATK
     setup();
   }
 
-  template<typename DataType>
-  typename ToneStackFilterCoefficients<DataType>::DataType ToneStackFilterCoefficients<DataType>::get_middle() const
+  template<typename DataType_>
+  DataType_ ToneStackFilterCoefficients<DataType_>::get_middle() const
   {
     return middle;
   }
 
 
-  template<typename DataType>
-  void ToneStackFilterCoefficients<DataType>::set_high(DataType high)
+  template<typename DataType_>
+  void ToneStackFilterCoefficients<DataType_>::set_high(DataType_ high)
   {
     if(high < 0 || high > 1)
     {
@@ -105,8 +105,8 @@ namespace ATK
     setup();
   }
 
-  template<typename DataType>
-  typename ToneStackFilterCoefficients<DataType>::DataType ToneStackFilterCoefficients<DataType>::get_high() const
+  template<typename DataType_>
+  DataType_ ToneStackFilterCoefficients<DataType_>::get_high() const
   {
     return high;
   }

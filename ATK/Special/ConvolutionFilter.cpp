@@ -55,19 +55,6 @@ namespace ATK
     
     Parent::setup();
   }
-  
-  template<typename DataType_>
-  void ConvolutionFilter<DataType_>::compute_convolution(DataType* ATK_RESTRICT output, const DataType* ATK_RESTRICT input1, const DataType* ATK_RESTRICT  input2, int size) const
-  {
-    // Adding this convolution to the previous one, easier.
-    for(int i = 0; i < size; ++i)
-    {
-      for(int j = 0; j < size; ++j)
-      {
-        output[i + j] += input1[i] * input2[j];
-      }
-    }
-  }
 
   template<typename DataType_>
   void ConvolutionFilter<DataType_>::compute_convolutions() const
@@ -78,18 +65,34 @@ namespace ATK
       temp_out_buffer[i + split_size] = 0;
     }
     
-    std::vector<std::complex<DataType> > result(2 * split_size, 0);
-    
+    result.assign(2 * split_size, 0);
+    DataType* ATK_RESTRICT result_ptr_orig = reinterpret_cast<DataType*>(result.data());
+    const DataType* ATK_RESTRICT partial_frequency_impulse_ptr_orig = reinterpret_cast<const DataType*>(partial_frequency_impulse.data());
+
     // offset in the impulse frequencies
     int64_t offset = 0;
     for(const auto& buffer: partial_frequency_input)
     {
+      DataType* ATK_RESTRICT result_ptr = result_ptr_orig;
+      const DataType* ATK_RESTRICT buffer_ptr = reinterpret_cast<const DataType*>(buffer.data());
+      const DataType* ATK_RESTRICT partial_frequency_impulse_ptr = partial_frequency_impulse_ptr_orig + offset;
       // Add the frequency result of this partial FFT
-      for(int64_t i = 0; i < 2*split_size; ++i)
+      for(int64_t i = 0; i < split_size; ++i)
       {
-        result[i] += buffer[i] * partial_frequency_impulse[i + offset];
+        DataType br1 = *(buffer_ptr++);
+        DataType bi1 = *(buffer_ptr++);
+        DataType pr1 = *(partial_frequency_impulse_ptr++);
+        DataType pi1 = *(partial_frequency_impulse_ptr++);
+        DataType br2 = *(buffer_ptr++);
+        DataType bi2 = *(buffer_ptr++);
+        DataType pr2 = *(partial_frequency_impulse_ptr++);
+        DataType pi2 = *(partial_frequency_impulse_ptr++);
+        *(result_ptr++) += br1*pr1-bi1*pi1;
+        *(result_ptr++) += br1*pi1+pr1*bi1;
+        *(result_ptr++) += br2*pr2-bi2*pi2;
+        *(result_ptr++) += br2*pi2+pr2*bi2;
       }
-      offset += 2 * split_size;
+      offset += 4 * split_size;
     }
 
     std::vector<DataType> ifft_result(2*split_size, 0);
@@ -116,16 +119,21 @@ namespace ATK
   template<typename DataType_>
   void ConvolutionFilter<DataType_>::process_impulse_beginning(int64_t processed_size, int64_t size_to_process) const
   {
-    const DataType* ATK_RESTRICT input = converted_inputs[0];
-    DataType* ATK_RESTRICT output = outputs[0];
+    const DataType* ATK_RESTRICT input = converted_inputs[0] + processed_size;
+    const DataType* ATK_RESTRICT impulse_ptr = impulse.data();
+    DataType* ATK_RESTRICT output = outputs[0] + processed_size;
+
     for(int64_t i = 0; i < size_to_process; ++i)
     {
-      DataType tempout = temp_out_buffer[split_position + i];
-      for(int j = 0; j < input_delay + 1; ++j)
+      output[i] = temp_out_buffer[split_position + i];
+    }
+
+    for(int j = 0; j < input_delay + 1; ++j)
+    {
+      for(int64_t i = 0; i < size_to_process; ++i)
       {
-        tempout += impulse[j] * input[processed_size + i - j];
+        output[i] += impulse_ptr[j] * input[i - j];
       }
-      output[processed_size + i] = tempout;
     }
   }
 

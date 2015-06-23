@@ -27,6 +27,8 @@ namespace ATK
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
     using Parent::input_delay;
+    using Parent::input_sampling_rate;
+    using Parent::output_sampling_rate;
   protected:
     mutable int64_t split_position;
     int64_t split_size;
@@ -38,11 +40,12 @@ namespace ATK
     mutable std::vector<DataType> temp_out_buffer;
     /// Called partial convolutions, but actually contains the former temp_in_buffers
     mutable std::list<std::vector<std::complex<DataType> > > partial_frequency_input;
+    /// Copied so that it's not reallocated each time
+    mutable std::vector<std::complex<DataType> > result;
+
     /// The impulse is stored here in a unique vector, split in split_size FFTs, one after the other
     std::vector<std::complex<DataType> > partial_frequency_impulse;
 
-    /// Simple convolution kernel, mandatory to have the same sizes for intput1 and input2
-    void compute_convolution(DataType* ATK_RESTRICT output, const DataType* ATK_RESTRICT input1, const DataType* ATK_RESTRICT  input2, int size) const;
     /// Compute the partial convolutions
     void compute_convolutions() const;
     /// Create a new chunk and compute the convolution
