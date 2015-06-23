@@ -77,14 +77,20 @@ namespace ATK
       const DataType* ATK_RESTRICT buffer_ptr = reinterpret_cast<const DataType*>(buffer.data());
       const DataType* ATK_RESTRICT partial_frequency_impulse_ptr = partial_frequency_impulse_ptr_orig + offset;
       // Add the frequency result of this partial FFT
-      for(int64_t i = 0; i < 2*split_size; ++i)
+      for(int64_t i = 0; i < split_size; ++i)
       {
-        DataType br = *(buffer_ptr++);
-        DataType bi = *(buffer_ptr++);
-        DataType pr = *(partial_frequency_impulse_ptr++);
-        DataType pi = *(partial_frequency_impulse_ptr++);
-        *(result_ptr++) += br*pr-bi*pi;
-        *(result_ptr++) += br*pi+pr*bi;
+        DataType br1 = *(buffer_ptr++);
+        DataType bi1 = *(buffer_ptr++);
+        DataType pr1 = *(partial_frequency_impulse_ptr++);
+        DataType pi1 = *(partial_frequency_impulse_ptr++);
+        DataType br2 = *(buffer_ptr++);
+        DataType bi2 = *(buffer_ptr++);
+        DataType pr2 = *(partial_frequency_impulse_ptr++);
+        DataType pi2 = *(partial_frequency_impulse_ptr++);
+        *(result_ptr++) += br1*pr1-bi1*pi1;
+        *(result_ptr++) += br1*pi1+pr1*bi1;
+        *(result_ptr++) += br2*pr2-bi2*pi2;
+        *(result_ptr++) += br2*pi2+pr2*bi2;
       }
       offset += 4 * split_size;
     }
