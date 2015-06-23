@@ -65,25 +65,28 @@ namespace ATK
       temp_out_buffer[i + split_size] = 0;
     }
     
-    std::vector<std::complex<DataType> > result(2 * split_size, 0);
-    const std::complex<DataType>* ATK_RESTRICT partial_frequency_impulse_ptr = partial_frequency_impulse.data();
-    std::complex<DataType>* ATK_RESTRICT result_ptr = result.data();
-	
+    result.assign(2 * split_size, 0);
+    DataType* ATK_RESTRICT result_ptr_orig = reinterpret_cast<DataType*>(result.data());
+    const DataType* ATK_RESTRICT partial_frequency_impulse_ptr_orig = reinterpret_cast<const DataType*>(partial_frequency_impulse.data());
+
     // offset in the impulse frequencies
     int64_t offset = 0;
     for(const auto& buffer: partial_frequency_input)
     {
-      const std::complex<DataType>* ATK_RESTRICT buffer_ptr = buffer.data();
+      DataType* ATK_RESTRICT result_ptr = result_ptr_orig;
+      const DataType* ATK_RESTRICT buffer_ptr = reinterpret_cast<const DataType*>(buffer.data());
+      const DataType* ATK_RESTRICT partial_frequency_impulse_ptr = partial_frequency_impulse_ptr_orig + offset;
       // Add the frequency result of this partial FFT
       for(int64_t i = 0; i < 2*split_size; ++i)
       {
-        DataType br = buffer_ptr[i].real();
-        DataType bi = buffer_ptr[i].imag();
-        DataType pr = partial_frequency_impulse_ptr[i + offset].real();
-        DataType pi = partial_frequency_impulse_ptr[i + offset].imag();
-        result_ptr[i] += std::complex<DataType>(br*pr-bi*pi, br*pi+pr*bi);
+        DataType br = *(buffer_ptr++);
+        DataType bi = *(buffer_ptr++);
+        DataType pr = *(partial_frequency_impulse_ptr++);
+        DataType pi = *(partial_frequency_impulse_ptr++);
+        *(result_ptr++) += br*pr-bi*pi;
+        *(result_ptr++) += br*pi+pr*bi;
       }
-      offset += 2 * split_size;
+      offset += 4 * split_size;
     }
 
     std::vector<DataType> ifft_result(2*split_size, 0);

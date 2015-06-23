@@ -40,6 +40,9 @@ namespace ATK
     mutable std::vector<DataType> temp_out_buffer;
     /// Called partial convolutions, but actually contains the former temp_in_buffers
     mutable std::list<std::vector<std::complex<DataType> > > partial_frequency_input;
+    /// Copied so that it's not reallocated each time
+    mutable std::vector<std::complex<DataType> > result;
+
     /// The impulse is stored here in a unique vector, split in split_size FFTs, one after the other
     std::vector<std::complex<DataType> > partial_frequency_impulse;
 
