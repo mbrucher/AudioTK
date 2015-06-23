@@ -43,8 +43,6 @@ namespace ATK
     /// The impulse is stored here in a unique vector, split in split_size FFTs, one after the other
     std::vector<std::complex<DataType> > partial_frequency_impulse;
 
-    /// Simple convolution kernel, mandatory to have the same sizes for intput1 and input2
-    void compute_convolution(DataType* ATK_RESTRICT output, const DataType* ATK_RESTRICT input1, const DataType* ATK_RESTRICT  input2, int size) const;
     /// Compute the partial convolutions
     void compute_convolutions() const;
     /// Create a new chunk and compute the convolution

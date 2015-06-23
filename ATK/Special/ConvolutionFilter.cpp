@@ -55,19 +55,6 @@ namespace ATK
     
     Parent::setup();
   }
-  
-  template<typename DataType_>
-  void ConvolutionFilter<DataType_>::compute_convolution(DataType* ATK_RESTRICT output, const DataType* ATK_RESTRICT input1, const DataType* ATK_RESTRICT  input2, int size) const
-  {
-    // Adding this convolution to the previous one, easier.
-    for(int i = 0; i < size; ++i)
-    {
-      for(int j = 0; j < size; ++j)
-      {
-        output[i + j] += input1[i] * input2[j];
-      }
-    }
-  }
 
   template<typename DataType_>
   void ConvolutionFilter<DataType_>::compute_convolutions() const
@@ -79,15 +66,18 @@ namespace ATK
     }
     
     std::vector<std::complex<DataType> > result(2 * split_size, 0);
-    
+    const std::complex<DataType>* ATK_RESTRICT partial_frequency_impulse_ptr = partial_frequency_impulse.data();
+    std::complex<DataType>* ATK_RESTRICT result_ptr = result.data();
+	
     // offset in the impulse frequencies
     int64_t offset = 0;
     for(const auto& buffer: partial_frequency_input)
     {
+      const std::complex<DataType>* ATK_RESTRICT buffer_ptr = buffer.data();
       // Add the frequency result of this partial FFT
       for(int64_t i = 0; i < 2*split_size; ++i)
       {
-        result[i] += buffer[i] * partial_frequency_impulse[i + offset];
+        result_ptr[i] += buffer_ptr[i] * partial_frequency_impulse_ptr[i + offset];
       }
       offset += 2 * split_size;
     }
