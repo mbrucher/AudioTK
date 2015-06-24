@@ -5,6 +5,7 @@
 #ifndef ATK_EQ_TIMEVARYINGIIRFILTER_H
 #define ATK_EQ_TIMEVARYINGIIRFILTER_H
 
+#include <cassert>
 #include <cmath>
 #include <vector>
 
