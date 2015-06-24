@@ -7,15 +7,8 @@
 
 #include "BaseFilter.h"
 
+#include <memory>
 #include <vector>
-
-#include <boost/scoped_array.hpp>
-
-#define UGLYHACK
-#ifdef UGLYHACK
-#include <boost/shared_array.hpp>
-#define scoped_array shared_array
-#endif
 
 namespace ATK
 {
@@ -53,10 +46,18 @@ namespace ATK
     void convert_inputs(int64_t size);
     void full_setup();
 
-    std::vector<boost::scoped_array<DataType> > converted_inputs_delay;
+    struct ArrayDeleter
+    {
+      void operator()(DataType* ptr)
+      {
+        delete[] ptr;
+      }
+    };
+
+    std::vector<std::unique_ptr<DataType, ArrayDeleter > > converted_inputs_delay;
     std::vector<DataType *> converted_inputs;
     std::vector<int64_t> converted_inputs_size;
-    std::vector<boost::scoped_array<DataType> > outputs_delay;
+    std::vector<std::unique_ptr<DataType, ArrayDeleter > > outputs_delay;
     std::vector<DataType *> outputs;
     std::vector<int64_t> outputs_size;
   };

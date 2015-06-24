@@ -20,6 +20,8 @@ namespace ATK
 {
   class BaseFilter
   {
+    BaseFilter(const BaseFilter&);
+    BaseFilter& operator=(const BaseFilter&);
   public:
     ATK_CORE_EXPORT BaseFilter(int nb_input_ports, int nb_output_ports);
     virtual ATK_CORE_EXPORT ~BaseFilter();
