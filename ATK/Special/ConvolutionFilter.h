@@ -8,13 +8,15 @@
 #include <list>
 #include <vector>
 
+#include <ATK/Special/config.h>
+
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Tools/FFT.h>
 
 namespace ATK
 {
   template<typename DataType_>
-  class ConvolutionFilter: public TypedBaseFilter<DataType_>
+  class ATK_SPECIAL_EXPORT ConvolutionFilter: public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;

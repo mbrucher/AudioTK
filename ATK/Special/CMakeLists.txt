@@ -25,7 +25,7 @@ INSTALL(TARGETS ATKSpecial_static
 endif(ENABLE_STATIC_LIBRARIES)
 
 if(ENABLE_SHARED_LIBRARIES)
-add_definitions(-DBUILD_ATK_TOOLS)
+add_definitions(-DBUILD_ATK_SPECIAL)
 add_definitions(-DATK_SHARED)
 
 add_library(ATKSpecial
