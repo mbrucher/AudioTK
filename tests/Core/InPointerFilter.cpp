@@ -5,6 +5,7 @@
 #include <cmath>
 
 #include <boost/math/constants/constants.hpp>
+#include <boost/scoped_array.hpp>
 
 #include <ATK/Core/InPointerFilter.h>
 

@@ -16,6 +16,8 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
+#include <boost/scoped_array.hpp>
+
 #define PROCESSSIZE (1024*1024)
 
 BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_1_0_test )

@@ -14,6 +14,8 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
+#include <boost/scoped_array.hpp>
+
 #define PROCESSSIZE (1024*64)
 
 BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_1k_test )
