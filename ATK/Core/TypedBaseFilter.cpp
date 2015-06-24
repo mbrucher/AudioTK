@@ -124,9 +124,10 @@ namespace ATK
         }
         else
         {
+          const auto input_ptr = converted_inputs[i];
           for(int j = 0; j < input_delay; ++j)
           {
-            ptr[j] = converted_inputs[i][converted_inputs_size[i] + j - input_delay];
+            ptr[j] = input_ptr[converted_inputs_size[i] + j - input_delay];
           }
         }
         
@@ -136,9 +137,10 @@ namespace ATK
       }
       else
       {
+        const auto input_ptr = converted_inputs[i];
         for(int j = 0; j < input_delay; ++j)
         {
-          converted_inputs[i][j - input_delay] = converted_inputs[i][converted_inputs_size[i] + j - input_delay];
+          input_ptr[j - input_delay] = input_ptr[converted_inputs_size[i] + j - input_delay];
         }
       }
       convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
@@ -163,9 +165,10 @@ namespace ATK
         }
         else
         {
+          const auto output_ptr = outputs[i];
           for(int j = 0; j < output_delay; ++j)
           {
-            ptr[j] = outputs[i][outputs_size[i] + j - output_delay];
+            ptr[j] = output_ptr[outputs_size[i] + j - output_delay];
           }
         }
         
@@ -175,9 +178,10 @@ namespace ATK
       }
       else
       {
+        const auto output_ptr = outputs[i];
         for(int j = 0; j < output_delay; ++j)
         {
-          outputs[i][j - output_delay] = outputs[i][outputs_size[i] + j - output_delay];
+          output_ptr[j - output_delay] = output_ptr[outputs_size[i] + j - output_delay];
         }
       }
     }
