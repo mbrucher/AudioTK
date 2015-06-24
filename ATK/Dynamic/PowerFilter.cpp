@@ -4,6 +4,7 @@
 
 #include "PowerFilter.h"
 
+#include <cassert>
 #include <cstdint>
 #include <stdexcept>
 

@@ -4,6 +4,7 @@
 
 #include "RelativePowerFilter.h"
 
+#include <cassert>
 #include <cstdint>
 #include <stdexcept>
 

@@ -4,6 +4,7 @@
 
 #include "DerivativeFilter.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdint>
 

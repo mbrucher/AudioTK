@@ -4,6 +4,8 @@
 
 #include "OversamplingFilter.h"
 
+#include <cassert>
+
 namespace ATK
 {
   template<class DataType_>

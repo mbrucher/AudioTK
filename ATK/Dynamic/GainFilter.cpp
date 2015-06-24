@@ -4,6 +4,7 @@
 
 #include "GainFilter.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdint>
 #include <stdexcept>

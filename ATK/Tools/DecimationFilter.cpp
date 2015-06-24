@@ -4,6 +4,7 @@
 
 #include "DecimationFilter.h"
 
+#include <cassert>
 #include <cstdint>
 
 namespace ATK

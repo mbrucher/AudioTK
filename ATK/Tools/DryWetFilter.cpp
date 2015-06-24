@@ -4,6 +4,7 @@
 
 #include "DryWetFilter.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdint>
 

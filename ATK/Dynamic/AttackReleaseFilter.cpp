@@ -4,6 +4,7 @@
 
 #include "AttackReleaseFilter.h"
 
+#include <cassert>
 #include <cstdint>
 #include <stdexcept>
 

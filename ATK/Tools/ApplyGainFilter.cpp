@@ -4,6 +4,7 @@
 
 #include "ApplyGainFilter.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdint>
 
