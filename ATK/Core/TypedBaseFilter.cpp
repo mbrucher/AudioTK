@@ -62,8 +62,7 @@ namespace ATK
     if(nb_ports == nb_input_ports)
       return;
     Parent::set_nb_input_ports(nb_ports);
-    std::vector<std::unique_ptr<DataType, ArrayDeleter > > temp(nb_ports);
-    converted_inputs_delay.swap(temp);
+    converted_inputs_delay = std::vector<std::unique_ptr<DataType, ArrayDeleter > >(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
   }
@@ -74,8 +73,7 @@ namespace ATK
     if(nb_ports == nb_output_ports)
       return;
     Parent::set_nb_output_ports(nb_ports);
-    std::vector<std::unique_ptr<DataType, ArrayDeleter > > temp(nb_ports);
-    outputs_delay.swap(temp);
+    outputs_delay = std::vector<std::unique_ptr<DataType, ArrayDeleter > >(nb_ports);
     outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
   }
@@ -193,14 +191,12 @@ namespace ATK
   void TypedBaseFilter<DataType>::full_setup()
   {
     // Reset input arrays
-    std::vector<std::unique_ptr<DataType, ArrayDeleter > > temp(nb_input_ports);
-    converted_inputs_delay.swap(temp);
+    converted_inputs_delay = std::vector<std::unique_ptr<DataType, ArrayDeleter > >(nb_input_ports);
     converted_inputs.assign(nb_input_ports, nullptr);
     converted_inputs_size.assign(nb_input_ports, 0);
 
     // Reset output arrays
-    std::vector<std::unique_ptr<DataType, ArrayDeleter > > temp2(nb_output_ports);
-    outputs_delay.swap(temp);
+    outputs_delay = std::vector<std::unique_ptr<DataType, ArrayDeleter > >(nb_output_ports);
     outputs.assign(nb_output_ports, nullptr);
     outputs_size.assign(nb_output_ports, 0);
 

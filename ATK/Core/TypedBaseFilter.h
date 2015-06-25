@@ -57,6 +57,7 @@ namespace ATK
     std::vector<std::unique_ptr<DataType, ArrayDeleter > > converted_inputs_delay;
     std::vector<DataType *> converted_inputs;
     std::vector<int64_t> converted_inputs_size;
+
     std::vector<std::unique_ptr<DataType, ArrayDeleter > > outputs_delay;
     std::vector<DataType *> outputs;
     std::vector<int64_t> outputs_size;
