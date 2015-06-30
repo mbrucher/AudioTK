@@ -5,6 +5,7 @@
 #include "ConvolutionFilter.h"
 
 #include <cassert>
+#include <algorithm>
 
 namespace ATK
 {

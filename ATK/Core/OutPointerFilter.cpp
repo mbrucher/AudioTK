@@ -4,7 +4,7 @@
 
 #include "OutPointerFilter.h"
 
-#include <cstdint>
+#include <algorithm>
 #include <cstring>
 
 namespace ATK

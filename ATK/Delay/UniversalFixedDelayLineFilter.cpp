@@ -4,9 +4,7 @@
 
 #include "UniversalFixedDelayLineFilter.h"
 
-#include <cmath>
-#include <cstdint>
-#include <cstring>
+#include <algorithm>
 #include <stdexcept>
 
 namespace ATK
