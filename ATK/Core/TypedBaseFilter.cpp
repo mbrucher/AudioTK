@@ -111,11 +111,12 @@ namespace ATK
         converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataType>* >(connections[i].second)->get_output_array(connections[i].first);
         continue;
       }
-      if(converted_inputs_size[i] < size)
+      auto input_size = converted_inputs_size[i];
+      if(input_size < size)
       {
         std::unique_ptr<DataType, ArrayDeleter> temp(new DataType[input_delay + size]);
         DataType* ptr = temp.get();
-        if(converted_inputs_size[i] == 0)
+        if(input_size == 0)
         {
           for(int j = 0; j < input_delay; ++j)
           {
@@ -127,7 +128,7 @@ namespace ATK
           const auto input_ptr = converted_inputs[i];
           for(int j = 0; j < input_delay; ++j)
           {
-            ptr[j] = input_ptr[converted_inputs_size[i] + j - input_delay];
+            ptr[j] = input_ptr[input_size + j - input_delay];
           }
         }
         
@@ -140,7 +141,7 @@ namespace ATK
         const auto input_ptr = converted_inputs[i];
         for(int j = 0; j < input_delay; ++j)
         {
-          input_ptr[j - input_delay] = input_ptr[converted_inputs_size[i] + j - input_delay];
+          input_ptr[j - input_delay] = input_ptr[input_size + j - input_delay];
         }
       }
       convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
@@ -152,11 +153,12 @@ namespace ATK
   {
     for(int i = 0; i < nb_output_ports; ++i)
     {
-      if(outputs_size[i] < size)
+      auto output_size = outputs_size[i];
+      if(output_size < size)
       {
         std::unique_ptr<DataType, ArrayDeleter> temp(new DataType[output_delay + size]);
         DataType* ptr = temp.get();
-        if(outputs_size[i] == 0)
+        if(output_size == 0)
         {
           for(int j = 0; j < output_delay; ++j)
           {
@@ -168,7 +170,7 @@ namespace ATK
           const auto output_ptr = outputs[i];
           for(int j = 0; j < output_delay; ++j)
           {
-            ptr[j] = output_ptr[outputs_size[i] + j - output_delay];
+            ptr[j] = output_ptr[output_size + j - output_delay];
           }
         }
         
@@ -181,7 +183,7 @@ namespace ATK
         const auto output_ptr = outputs[i];
         for(int j = 0; j < output_delay; ++j)
         {
-          output_ptr[j - output_delay] = output_ptr[outputs_size[i] + j - output_delay];
+          output_ptr[j - output_delay] = output_ptr[output_size + j - output_delay];
         }
       }
     }
