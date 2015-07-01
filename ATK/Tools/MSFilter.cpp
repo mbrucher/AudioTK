@@ -25,10 +25,15 @@ namespace ATK
   template<typename DataType_>
   void MiddleSideFilter<DataType_>::process_impl(int64_t size) const
   {
+    const DataType* ATK_RESTRICT input0 = converted_inputs[0];
+    const DataType* ATK_RESTRICT input1 = converted_inputs[1];
+    DataType* ATK_RESTRICT output0 = outputs[0];
+    DataType* ATK_RESTRICT output1 = outputs[1];
+
     for(int64_t i = 0; i < size; ++i)
     {
-      outputs[0][i] = static_cast<DataType>((converted_inputs[0][i] + converted_inputs[1][i]));
-      outputs[1][i] = static_cast<DataType>((converted_inputs[0][i] - converted_inputs[1][i]));
+      output0[i] = static_cast<DataType>((input0[i] + input1[i]));
+      output1[i] = static_cast<DataType>((input0[i] - input1[i]));
     }
   }
   
