@@ -4,8 +4,7 @@
 
 #include "MaxFilter.h"
 
-#include <cmath>
-#include <cstdint>
+#include <algorithm>
 
 namespace ATK
 {

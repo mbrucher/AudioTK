@@ -4,6 +4,7 @@
 
 #include "InPointerFilter.h"
 
+#include <algorithm>
 #include <cstdint>
 #include <cstring>
 
