@@ -33,6 +33,8 @@ namespace ATK
     virtual void set_nb_input_ports(int nb_ports) override;
     virtual void set_nb_output_ports(int nb_ports) override;
 
+    virtual void full_setup() override;
+
   protected:
     virtual int get_type() const;
     /// This implementation retrieves inputs from other filters and converts it accordingly
@@ -44,7 +46,6 @@ namespace ATK
     
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(int64_t size);
-    void full_setup();
 
     struct ArrayDeleter
     {
