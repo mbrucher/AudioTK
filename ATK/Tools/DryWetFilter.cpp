@@ -52,7 +52,7 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(int64_t i = 0; i < size; ++i)
       {
-        output[i] = static_cast<DataType>(input0[i] * dry + input1[i] * (1 - dry));
+        *(output++) = static_cast<DataType>(*(input0++) * dry + *(input1++) * (1 - dry));
       }
     }
   }

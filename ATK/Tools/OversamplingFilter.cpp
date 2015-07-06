@@ -181,7 +181,7 @@ namespace ATK
           {
             temp = temp * z + c[k];
           }
-          output[Coefficients::oversampling_factor * i + j] = temp;
+          *(output++) = temp;
         }
       }
     }

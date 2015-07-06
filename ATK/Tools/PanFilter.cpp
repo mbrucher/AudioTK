@@ -79,8 +79,8 @@ namespace ATK
     DataType* ATK_RESTRICT output1 = outputs[1];
     for(int64_t i = 0; i < size; ++i)
     {
-      output0[i] = static_cast<DataType>(left_coeff * input[i]);
-      output1[i] = static_cast<DataType>(right_coeff * input[i]);
+      *(output0++) = static_cast<DataType>(left_coeff * *input);
+      *(output1++) = static_cast<DataType>(right_coeff * *(input++));
     }
     
   }

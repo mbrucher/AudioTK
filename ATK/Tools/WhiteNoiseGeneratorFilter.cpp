@@ -56,7 +56,7 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
     {
-      output[i] = dist(gen);
+      *(output++) = dist(gen);
     }
   }
   

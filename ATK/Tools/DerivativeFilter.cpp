@@ -34,7 +34,8 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(int64_t i = 0; i < size; ++i)
       {
-        output[i] = input[i] - input[i-1];
+        *(output++) = *input - *(input-1);
+        ++input;
       }
     }
   }
