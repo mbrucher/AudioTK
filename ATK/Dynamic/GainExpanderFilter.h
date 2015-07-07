@@ -21,12 +21,10 @@ namespace ATK
   protected:
     typedef GainFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::threshold;
     using Parent::ratio;
     using Parent::softness;
-    using Parent::LUTsize;
-    using Parent::LUTprecision;
-    using Parent::gainLUT;
+    using Parent::recomputeFuture;
+    using Parent::recomputeLUT;
 
   public:
     GainExpanderFilter(int nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
