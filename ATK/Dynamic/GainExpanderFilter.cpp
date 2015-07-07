@@ -35,8 +35,10 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ ATK::GainExpanderFilter<DataType_>::computeGain( DataType_ value )  
+  DataType_ ATK::GainExpanderFilter<DataType_>::computeGain( DataType_ value ) const
   {
+    if(value == 0)
+      return 0;
     DataType diff = -10 * std::log10(value);
     return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1)));
   }

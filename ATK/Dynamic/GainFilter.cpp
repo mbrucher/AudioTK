@@ -27,13 +27,26 @@ namespace ATK
   {
     assert(nb_input_ports == nb_output_ports);
 
+    if(false)
+    {
+      process_impl_LUT(size);
+    }
+    else
+    {
+      process_impl_direct(size);
+    }
+  }
+
+  template<typename DataType_>
+  void GainFilter<DataType_>::process_impl_LUT(int64_t size) const
+  {
     for(int channel = 0; channel < nb_output_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
       for(int64_t i = 0; i < size; ++i)
       {
-        DataType_ value = input[i] * threshold;
+        DataType_ value = *(input++) * threshold;
         int step = static_cast<int>(value * LUTprecision);
         if(step >= LUTsize)
         {
@@ -43,7 +56,21 @@ namespace ATK
       }
     }
   }
-  
+
+  template<typename DataType_>
+  void GainFilter<DataType_>::process_impl_direct(int64_t size) const
+  {
+    for(int channel = 0; channel < nb_output_ports; ++channel)
+    {
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
+      for(int64_t i = 0; i < size; ++i)
+      {
+        *(output++) = computeGain(*(input++) * threshold);
+      }
+    }
+  }
+
   template<typename DataType_>
   void GainFilter<DataType_>::set_threshold(DataType_ threshold)
   {
@@ -98,6 +125,12 @@ namespace ATK
   DataType_ GainFilter<DataType_>::get_softness() const
   {
     return softness;
+  }
+
+  template<typename DataType_>
+  void GainFilter<DataType_>::start_recomputeLUT()
+  {
+
   }
 
   template class GainFilter<float>;

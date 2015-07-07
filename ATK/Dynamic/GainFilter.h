@@ -5,6 +5,8 @@
 #ifndef ATK_DYNAMIC_GAINFILTER_H
 #define ATK_DYNAMIC_GAINFILTER_H
 
+#include <atomic>
+#include <future>
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
@@ -45,10 +47,14 @@ namespace ATK
 
   protected:
     virtual void process_impl(int64_t size) const override final;
+    void process_impl_LUT(int64_t size) const;
+    void process_impl_direct(int64_t size) const;
 
     virtual void recomputeLUT() = 0;
-    virtual DataType_ computeGain(DataType_ value) = 0;
+    virtual DataType_ computeGain(DataType_ value) const = 0;
     
+    void start_recomputeLUT();
+
     DataType_ threshold;
     DataType_ ratio;
     DataType_ softness;
@@ -56,6 +62,9 @@ namespace ATK
     size_t LUTprecision;
 
     std::vector<DataType_> gainLUT;
+
+    std::future<void> recomputeFuture;
+    bool resetRequest;
   };
 }
 
