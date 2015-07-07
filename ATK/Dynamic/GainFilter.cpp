@@ -9,8 +9,6 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include <iostream>
-
 namespace ATK
 {
   template<typename DataType_>
@@ -77,7 +75,7 @@ namespace ATK
   template<typename DataType_>
   void GainFilter<DataType_>::set_threshold(DataType_ threshold)
   {
-    if(threshold <= 0)
+    if (threshold <= 0)
     {
       throw std::out_of_range("Threshold factor must be strictly positive value");
     }
@@ -99,7 +97,7 @@ namespace ATK
   template<typename DataType_>
   void GainFilter<DataType_>::set_ratio(DataType_ ratio)
   {
-    if(ratio <= 0)
+    if (ratio <= 0)
     {
       throw std::out_of_range("Ratio factor must be higher than 0");
     }
@@ -116,7 +114,7 @@ namespace ATK
   template<typename DataType_>
   void GainFilter<DataType_>::set_softness(DataType_ softness)
   {
-    if(softness <= 0)
+    if (softness <= 0)
     {
       throw std::out_of_range("Softness factor must be strictly positive value");
     }
@@ -143,7 +141,7 @@ namespace ATK
         resetRequest = false;
         gainLUT_ptr = gainLUT.data();
       }
-     *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i) / LUTprecision);
+      *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i) / LUTprecision);
     }
     isRunning = false;
   }
