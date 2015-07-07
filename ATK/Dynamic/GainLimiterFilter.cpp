@@ -25,13 +25,13 @@ namespace ATK
   template<typename DataType_>
   void GainLimiterFilter<DataType_>::recomputeLUT()
   {
-    gainLUT.clear();
-    gainLUT.push_back(1); // gain of 1 at input = 0
+    auto gainLUT_ptr = gainLUT.data();
+    *(gainLUT_ptr++) = 1; // gain of 1 at input = 0
 
     for(int i = 1; i < LUTsize; ++i)
     {
       DataType diff = 10 * std::log10(static_cast<DataType>(i) / LUTprecision);
-      gainLUT.push_back(static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40)));
+      *(gainLUT_ptr++) = static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40));
     }
   }
 
