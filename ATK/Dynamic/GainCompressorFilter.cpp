@@ -30,9 +30,15 @@ namespace ATK
 
     for(int i = 1; i < LUTsize; ++i)
     {
-      DataType diff = 10 * std::log10(static_cast<DataType>(i) / LUTprecision);
-      *(gainLUT_ptr++) = static_cast<DataType_>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio));
+      *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i) / LUTprecision);
     }
+  }
+
+  template<typename DataType_>
+  DataType_ ATK::GainCompressorFilter<DataType_>::computeGain( DataType_ value )  
+  {
+    DataType diff = 10 * std::log10(value);
+    return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio));
   }
 
   template class GainCompressorFilter<float>;

@@ -47,6 +47,7 @@ namespace ATK
     virtual void process_impl(int64_t size) const override final;
 
     virtual void recomputeLUT() = 0;
+    virtual DataType_ computeGain(DataType_ value) = 0;
     
     DataType_ threshold;
     DataType_ ratio;
