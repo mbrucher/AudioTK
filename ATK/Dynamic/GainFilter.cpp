@@ -9,11 +9,14 @@
 #include <cstdint>
 #include <stdexcept>
 
+#include <iostream>
+
 namespace ATK
 {
   template<typename DataType_>
   GainFilter<DataType_>::GainFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), softness(static_cast<DataType_>(.0001)), LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0)
+  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), softness(static_cast<DataType_>(.0001)), LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0),
+  isRunning(false), resetRequest(false)
   {
   }
   
@@ -27,13 +30,13 @@ namespace ATK
   {
     assert(nb_input_ports == nb_output_ports);
 
-    if(false)
+    if(isRunning)
     {
-      process_impl_LUT(size);
+      process_impl_direct(size);
     }
     else
     {
-      process_impl_direct(size);
+      process_impl_LUT(size);
     }
   }
 
@@ -101,7 +104,7 @@ namespace ATK
       throw std::out_of_range("Ratio factor must be higher than 0");
     }
     this->ratio = ratio;
-    recomputeLUT();
+    start_recomputeLUT();
   }
 
   template<typename DataType_>
@@ -118,7 +121,7 @@ namespace ATK
       throw std::out_of_range("Softness factor must be strictly positive value");
     }
     this->softness = softness;
-    recomputeLUT();
+    start_recomputeLUT();
   }
 
   template<typename DataType_>
@@ -128,9 +131,35 @@ namespace ATK
   }
 
   template<typename DataType_>
+  void GainFilter<DataType_>::recomputeLUT()
+  {
+    auto gainLUT_ptr = gainLUT.data();
+
+    for(int i = 0; i < LUTsize; ++i)
+    {
+      if(resetRequest)
+      {
+        i = 0;
+        resetRequest = false;
+        gainLUT_ptr = gainLUT.data();
+      }
+     *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i) / LUTprecision);
+    }
+    isRunning = false;
+  }
+
+  template<typename DataType_>
   void GainFilter<DataType_>::start_recomputeLUT()
   {
-
+    if(isRunning)
+    {
+      resetRequest = true; // Tell the thread to start over
+    }
+    else
+    {
+      isRunning = true; // starting a new thread
+      recomputeFuture = std::async(&GainFilter<DataType_>::recomputeLUT, this);
+    }
   }
 
   template class GainFilter<float>;

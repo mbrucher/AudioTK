@@ -33,7 +33,6 @@ namespace ATK
     ~GainCompressorFilter();
 
   protected:
-    void recomputeLUT() override final;
     DataType_ computeGain(DataType_ value) const override final;
   };
 }

@@ -20,17 +20,10 @@ namespace ATK
   template<typename DataType_>
   GainLimiterFilter<DataType_>::~GainLimiterFilter()
   {
-  }
-
-  template<typename DataType_>
-  void GainLimiterFilter<DataType_>::recomputeLUT()
-  {
-    auto gainLUT_ptr = gainLUT.data();
-    *(gainLUT_ptr++) = 1; // gain of 1 at input = 0
-
-    for(int i = 1; i < LUTsize; ++i)
+    //Future has to be deleted in child destructor as it uses computeGain
+    if(recomputeFuture.valid())
     {
-      *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i) / LUTprecision);
+      recomputeFuture.wait();
     }
   }
 

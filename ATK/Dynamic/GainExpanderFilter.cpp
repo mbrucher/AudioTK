@@ -20,17 +20,10 @@ namespace ATK
   template<typename DataType_>
   GainExpanderFilter<DataType_>::~GainExpanderFilter()
   {
-  }
-
-  template<typename DataType_>
-  void GainExpanderFilter<DataType_>::recomputeLUT()
-  {
-    auto gainLUT_ptr = gainLUT.data();
-    *(gainLUT_ptr++) = 0; // gain of 0 at input = 0
-
-    for(int i = 1; i < LUTsize; ++i)
+    //Future has to be deleted in child destructor as it uses computeGain
+    if(recomputeFuture.valid())
     {
-      *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i) / LUTprecision);
+      recomputeFuture.wait();
     }
   }
 

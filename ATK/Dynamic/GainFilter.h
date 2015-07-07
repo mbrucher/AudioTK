@@ -50,7 +50,7 @@ namespace ATK
     void process_impl_LUT(int64_t size) const;
     void process_impl_direct(int64_t size) const;
 
-    virtual void recomputeLUT() = 0;
+    virtual void recomputeLUT();
     virtual DataType_ computeGain(DataType_ value) const = 0;
     
     void start_recomputeLUT();
@@ -64,7 +64,8 @@ namespace ATK
     std::vector<DataType_> gainLUT;
 
     std::future<void> recomputeFuture;
-    bool resetRequest;
+    std::atomic<bool> isRunning;
+    std::atomic<bool> resetRequest;
   };
 }
 
