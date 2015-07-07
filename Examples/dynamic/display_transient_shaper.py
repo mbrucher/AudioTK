@@ -111,9 +111,10 @@ plt.plot(x[start:], indata[start:stop, 0])
 
 plt.subplot(4, 1, 2)
 plt.title("Resulting envelope")
-plt.plot(x[start:], outdata_power[start:stop, 0])
-plt.plot(x[start:], outdata_slow[start:stop, 0])
-plt.plot(x[start:], outdata_fast[start:stop, 0])
+plt.plot(x[start:], outdata_power[start:stop, 0], label="Power difference")
+plt.plot(x[start:], outdata_slow[start:stop, 0], label="Slow attack power")
+plt.plot(x[start:], outdata_fast[start:stop, 0], label="Fast attack power")
+plt.legend()
 
 plt.subplot(4, 1, 3)
 plt.title("Gain")
