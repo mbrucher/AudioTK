@@ -12,17 +12,18 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/math/constants/constants.hpp>
+#include <boost/scoped_array.hpp>
 
 #define PROCESSSIZE (1024*64)
 
 BOOST_AUTO_TEST_CASE( AttackReleaseFilter_sinus_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(std::int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[i] = i / 48000;
   }
-  for(std::int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[PROCESSSIZE/2 + i] = (PROCESSSIZE/2 - i) / 48000;
   }
@@ -44,11 +45,11 @@ BOOST_AUTO_TEST_CASE( AttackReleaseFilter_sinus_test )
 
   output.process(PROCESSSIZE);
   
-  for(std::int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     BOOST_REQUIRE_GE(data[i], outdata[i]);
   }
-  for(std::int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     BOOST_REQUIRE_GE(outdata[PROCESSSIZE/2+i], outdata[PROCESSSIZE/2+i-1]);
   }

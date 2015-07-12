@@ -35,6 +35,8 @@ add_library(ATKDelay
 
 target_link_libraries(ATKDelay ATKCore)
 
+stagedebug(ATKDelay)
+
 INSTALL(TARGETS ATKDelay
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries

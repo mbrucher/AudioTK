@@ -35,7 +35,7 @@ namespace ATK
   protected:
     void setup() override final;
     void write_header() const;
-    void process_impl(std::int64_t size) const override final;
+    void process_impl(int64_t size) const override final;
 
   public:
     OutWavFilter(const std::string& filename);

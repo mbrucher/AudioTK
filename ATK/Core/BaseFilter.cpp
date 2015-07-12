@@ -113,14 +113,18 @@ namespace ATK
     return output_delay;
   }
 
-  void BaseFilter::process(std::int64_t size)
+  void BaseFilter::process(int64_t size)
   {
     reset();
     process_conditionnally(size);
   }
 
-  void BaseFilter::process_conditionnally(std::int64_t size)
+  void BaseFilter::process_conditionnally(int64_t size)
   {
+    if(size == 0)
+    {
+      return;
+    }
     if(output_sampling_rate == 0)
     {
       throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");

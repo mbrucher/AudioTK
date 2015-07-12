@@ -28,8 +28,8 @@ namespace ATK
 
   public:
     BaseSecondOrderCoefficients(int nb_channels = 1);
-    void set_cut_frequency(DataType cut_frequency);
-    DataType get_cut_frequency() const;
+    void set_cut_frequency(DataType_ cut_frequency);
+    DataType_ get_cut_frequency() const;
   };
 
   /**
@@ -56,8 +56,8 @@ namespace ATK
   public:
     BandPassCoefficients(int nb_channels = 1);
 
-    void set_Q(DataType Q);
-    DataType get_Q() const;
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
   };
 
   /**
@@ -124,10 +124,10 @@ namespace ATK
   public:
     BandPassPeakCoefficients(int nb_channels = 1);
 
-    void set_Q(DataType Q);
-    DataType get_Q() const;
-    void set_gain(DataType gain);
-    DataType get_gain() const;
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
+    void set_gain(DataType_ gain);
+    DataType_ get_gain() const;
   };
 
   
@@ -155,8 +155,8 @@ namespace ATK
     AllPassCoefficients(int nb_channels = 1);
 
     /// Q is the allpass relative width (to the sampling rate)
-    void set_Q(DataType Q);
-    DataType get_Q() const;
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
   };
 
   /**
@@ -181,8 +181,8 @@ namespace ATK
   public:
     LowShelvingCoefficients(int nb_channels = 1);
 
-    void set_gain(DataType gain);
-    DataType get_gain() const;
+    void set_gain(DataType_ gain);
+    DataType_ get_gain() const;
   };
   
   /**
@@ -207,8 +207,8 @@ namespace ATK
   public:
     HighShelvingCoefficients(int nb_channels = 1);
 
-    void set_gain(DataType gain);
-    DataType get_gain() const;
+    void set_gain(DataType_ gain);
+    DataType_ get_gain() const;
   };
 }
 

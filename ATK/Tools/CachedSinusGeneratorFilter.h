@@ -39,11 +39,11 @@ namespace ATK
     double get_offset() const;
 
   protected:
-    virtual void process_impl(std::int64_t size) const override final;
+    virtual void process_impl(int64_t size) const override final;
     virtual void setup() override final;
     
   private:
-    mutable std::int64_t indice;
+    mutable int64_t indice;
     int periods;
     int seconds;
     double volume;

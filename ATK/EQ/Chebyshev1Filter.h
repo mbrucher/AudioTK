@@ -1,4 +1,4 @@
-/**
+ /**
  * \file Chebyshev1Filter.h
  */
 
@@ -31,10 +31,10 @@ namespace ATK
   public:
     Chebyshev1LowPassCoefficients(int nb_channels = 1);
     
-    void set_cut_frequency(DataType cut_frequency);
-    DataType get_cut_frequency() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
+    void set_cut_frequency(DataType_ cut_frequency);
+    DataType_ get_cut_frequency() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
     
     void set_order(int order);
   };
@@ -61,10 +61,10 @@ namespace ATK
   public:
     Chebyshev1HighPassCoefficients(int nb_channels = 1);
     
-    void set_cut_frequency(DataType cut_frequency);
-    DataType get_cut_frequency() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
+    void set_cut_frequency(DataType_ cut_frequency);
+    DataType_ get_cut_frequency() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
     
     void set_order(int order);
   };
@@ -91,11 +91,11 @@ namespace ATK
   public:
     Chebyshev1BandPassCoefficients(int nb_channels = 1);
     
-    void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
-    void set_cut_frequencies(DataType f0, DataType f1);
-    std::pair<DataType, DataType> get_cut_frequencies() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
+    void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    std::pair<DataType_, DataType_> get_cut_frequencies() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
 
     void set_order(int order);
   };
@@ -122,11 +122,11 @@ namespace ATK
   public:
     Chebyshev1BandStopCoefficients(int nb_channels = 1);
     
-    void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
-    void set_cut_frequencies(DataType f0, DataType f1);
-    std::pair<DataType, DataType> get_cut_frequencies() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
+    void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    std::pair<DataType_, DataType_> get_cut_frequencies() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
 
     void set_order(int order);
   };

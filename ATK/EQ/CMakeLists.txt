@@ -35,6 +35,8 @@ add_library(ATKEQ
 
 target_link_libraries(ATKEQ ATKTools ATKCore)
 
+stagedebug(ATKEQ)
+
 INSTALL(TARGETS ATKEQ
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries

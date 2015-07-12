@@ -35,22 +35,22 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void VolumeFilter<DataType_>::process_impl(std::int64_t size) const
+  void VolumeFilter<DataType_>::process_impl(int64_t size) const
   {
     for(int channel = 0; channel < nb_input_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::int64_t i = 0; i < size; ++i)
+      for(int64_t i = 0; i < size; ++i)
       {
-        output[i] = static_cast<DataType>(volume * input[i]);
+        *(output++) = static_cast<DataType>(volume * *(input++));
       }
     }
   }
   
   template class VolumeFilter<std::int16_t>;
   template class VolumeFilter<std::int32_t>;
-  template class VolumeFilter<std::int64_t>;
+  template class VolumeFilter<int64_t>;
   template class VolumeFilter<float>;
   template class VolumeFilter<double>;
 }

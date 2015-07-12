@@ -14,3 +14,5 @@ add_subdirectory(EQ)
 add_subdirectory(Delay)
 add_subdirectory(Dynamic)
 add_subdirectory(Distortion)
+
+add_subdirectory(Special)

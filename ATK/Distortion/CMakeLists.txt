@@ -35,6 +35,8 @@ add_library(ATKDistortion
 
 target_link_libraries(ATKDistortion ATKCore ATKTools)
 
+stagedebug(ATKDistortion)
+
 INSTALL(TARGETS ATKDistortion
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries

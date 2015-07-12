@@ -20,20 +20,22 @@ namespace ATK
   template<typename DataType_>
   GainLimiterFilter<DataType_>::~GainLimiterFilter()
   {
+    //Future has to be deleted in child destructor as it uses computeGain
+    if(recomputeFuture.valid())
+    {
+      recomputeFuture.wait();
+    }
   }
 
   template<typename DataType_>
-  void GainLimiterFilter<DataType_>::recomputeLUT()
+  DataType_ GainLimiterFilter<DataType_>::computeGain( DataType_ value ) const
   {
-    gainLUT.clear();
-    gainLUT.push_back(1); // gain of 1 at input = 0
-
-    for(int i = 1; i < LUTsize; ++i)
-    {
-      DataType diff = 10 * std::log10(static_cast<DataType>(i) / LUTprecision);
-      gainLUT.push_back(static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40)));
-    }
+    if(value == 0)
+      return 1;
+    DataType diff = 10 * std::log10(value);
+    return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40));
   }
+
 
   template class GainLimiterFilter<float>;
   template class GainLimiterFilter<double>;

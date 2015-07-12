@@ -4,6 +4,7 @@
 
 #include "DerivativeFilter.h"
 
+#include <cassert>
 #include <cmath>
 #include <cstdint>
 
@@ -23,7 +24,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void DerivativeFilter<DataType_>::process_impl(std::int64_t size) const
+  void DerivativeFilter<DataType_>::process_impl(int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
 
@@ -31,16 +32,17 @@ namespace ATK
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::int64_t i = 0; i < size; ++i)
+      for(int64_t i = 0; i < size; ++i)
       {
-        output[i] = input[i] - input[i-1];
+        *(output++) = *input - *(input-1);
+        ++input;
       }
     }
   }
   
   template class DerivativeFilter<std::int16_t>;
   template class DerivativeFilter<std::int32_t>;
-  template class DerivativeFilter<std::int64_t>;
+  template class DerivativeFilter<int64_t>;
   template class DerivativeFilter<float>;
   template class DerivativeFilter<double>;
 }

@@ -6,6 +6,7 @@
 
 #include <cmath>
 #include <cstdint>
+#include <cstring>
 
 #include <boost/math/constants/constants.hpp>
 
@@ -72,13 +73,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void CachedCosinusGeneratorFilter<DataType_>::process_impl(std::int64_t size) const
+  void CachedCosinusGeneratorFilter<DataType_>::process_impl(int64_t size) const
   {
     DataType* ATK_RESTRICT output = outputs[0];
-    std::int64_t processed = 0;
+    int64_t processed = 0;
     while(processed < size)
     {
-      std::int64_t to_copy = std::min(size - processed, std::int64_t(cache.size()) - indice);
+      int64_t to_copy = std::min(size - processed, int64_t(cache.size()) - indice);
       memcpy(reinterpret_cast<void*>(output + processed), reinterpret_cast<const void*>(cache.data() + indice), to_copy * sizeof(DataType_));
       indice += to_copy;
       processed += to_copy;
@@ -87,7 +88,7 @@ namespace ATK
         indice = 0;
       }
     }
-    for(std::int64_t i = 0; i < size; ++i)
+    for(int64_t i = 0; i < size; ++i)
     {
       output[i] = static_cast<DataType>(offset + volume * output[i]);
     }

@@ -66,7 +66,7 @@ The *Tools* has two kind of classes: filters and general purpose classes.
 The general purpose classes are:
 
 * **Exp**, an exponential approcimation with a LUT and a 2-order Taylor expansion
-* **FFT**, a class that exposes a FFT
+* **FFT**, a class that exposes a FFT and iFFT (if compiled with FFTW)
 * **SclarNewtonRaphson**, an optimization class for scalar ODEs
 
 EQ module
@@ -120,3 +120,10 @@ The *Distortion* module contains filters simulation distortion circuits.
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
 
+
+Special module
+##############
+
+The *Special* module contains specific/special filters.
+
+* **ConvolutionFilter** is a filter based on an FFT implementation with 0 latency

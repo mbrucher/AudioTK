@@ -48,8 +48,8 @@ namespace ATK
     }
   }
 
-  template<typename DataType>
-  void SD1ToneCoefficients<DataType>::set_tone(DataType alpha)
+  template<typename DataType_>
+  void SD1ToneCoefficients<DataType_>::set_tone(DataType_ alpha)
   {
     if(alpha < 0 || alpha > 1)
     {
@@ -60,8 +60,8 @@ namespace ATK
     setup();
   }
   
-  template<typename DataType>
-  typename SD1ToneCoefficients<DataType>::DataType SD1ToneCoefficients<DataType>::get_tone() const
+  template<typename DataType_>
+  DataType_ SD1ToneCoefficients<DataType_>::get_tone() const
   {
     return alpha;
   }

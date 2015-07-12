@@ -4,6 +4,8 @@
 
 #include "OversamplingFilter.h"
 
+#include <cassert>
+
 namespace ATK
 {
   template<class DataType_>
@@ -129,7 +131,7 @@ namespace ATK
   }
 
   template<class DataType, class Coefficients>
-  void OversamplingFilter<DataType, Coefficients>::process_impl(std::int64_t size) const
+  void OversamplingFilter<DataType, Coefficients>::process_impl(int64_t size) const
   {
     assert(input_sampling_rate * Coefficients::oversampling_factor == output_sampling_rate);
     assert(nb_input_ports == nb_output_ports);
@@ -179,7 +181,7 @@ namespace ATK
           {
             temp = temp * z + c[k];
           }
-          output[Coefficients::oversampling_factor * i + j] = temp;
+          *(output++) = temp;
         }
       }
     }
