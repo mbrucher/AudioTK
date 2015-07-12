@@ -23,6 +23,7 @@
 
 // Original time (FIR time): 20s
 // Split convolution: 7.4s
+// fast FFT: 1s
 
 BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
 {
