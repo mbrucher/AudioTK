@@ -27,7 +27,7 @@ namespace ATK
     using Parent::recomputeLUT;
 
   public:
-    GainExpanderFilter(int nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
+    GainExpanderFilter(int nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 1024);
     ~GainExpanderFilter();
 
   protected:
