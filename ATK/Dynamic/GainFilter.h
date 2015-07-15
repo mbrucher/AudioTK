@@ -16,6 +16,7 @@ namespace ATK
 {
   /**
    * Gain generic filter. Based on a LUT table, compute the gain.
+   * Be aware that the threshold is taken as a power measure contrary to the gain (there is a factor 2 in the dB computation)
    */
   template<typename DataType_>
   class ATK_DYNAMIC_EXPORT GainFilter : public TypedBaseFilter<DataType_>
