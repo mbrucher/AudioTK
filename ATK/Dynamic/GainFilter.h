@@ -43,8 +43,6 @@ namespace ATK
      */
     void set_ratio(DataType_ ratio);
     DataType_ get_ratio() const;
-    void set_softness(DataType_ softness);
-    DataType_ get_softness() const;
 
   protected:
     virtual void process_impl(int64_t size) const override final;
@@ -58,7 +56,6 @@ namespace ATK
 
     DataType_ threshold;
     DataType_ ratio;
-    DataType_ softness;
     size_t LUTsize;
     size_t LUTprecision;
 
