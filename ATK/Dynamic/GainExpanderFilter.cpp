@@ -28,7 +28,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ ATK::GainExpanderFilter<DataType_>::computeGain( DataType_ value ) const
+  DataType_ GainExpanderFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
       return 0;
