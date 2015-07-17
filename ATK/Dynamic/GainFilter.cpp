@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainFilter<DataType_>::GainFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), softness(static_cast<DataType_>(.0001)), LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0),
+  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0),
   isRunning(false), resetRequest(false)
   {
   }
@@ -109,23 +109,6 @@ namespace ATK
   DataType_ GainFilter<DataType_>::get_ratio() const
   {
     return ratio;
-  }
-
-  template<typename DataType_>
-  void GainFilter<DataType_>::set_softness(DataType_ softness)
-  {
-    if (softness <= 0)
-    {
-      throw std::out_of_range("Softness factor must be strictly positive value");
-    }
-    this->softness = softness;
-    start_recomputeLUT();
-  }
-
-  template<typename DataType_>
-  DataType_ GainFilter<DataType_>::get_softness() const
-  {
-    return softness;
   }
 
   template<typename DataType_>

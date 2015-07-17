@@ -22,7 +22,6 @@ namespace ATK
     typedef GainFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::ratio;
-    using Parent::softness;
     using Parent::recomputeFuture;
     using Parent::recomputeLUT;
     using Parent::start_recomputeLUT;
