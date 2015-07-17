@@ -41,7 +41,7 @@ def filter(input, ratio=4, threshold=1, softness=1):
 def fractional_filter(input, ratio=4, threshold=1, softness=1):
   input_thres = input/threshold
   input_tr = input_thres**((1.-ratio)/ratio)
-  print input_tr
+
   gain = (input_tr + input_tr * input_tr * input_tr) / (1 + softness/5. * input_tr + input_tr * input_tr * input_tr)
   
   return input * gain
