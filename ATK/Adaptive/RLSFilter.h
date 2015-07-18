@@ -43,13 +43,21 @@ namespace ATK
     Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic> get_P() const;
     void set_w(const Eigen::Matrix<DataType_, Eigen::Dynamic, 1>& w);
     Eigen::Matrix<DataType_, Eigen::Dynamic, 1> get_w() const;
-    
+
+    void set_memory(DataType_ memory);
+    DataType_ get_memory() const;
+
+    void set_learn(bool learn);
+    bool get_learn() const;
+
   protected:
     virtual void process_impl(int64_t size);
     
     int64_t size;
     PType P;
     wType w;
+    DataType memory;
+    bool learn;
   };
 }
 

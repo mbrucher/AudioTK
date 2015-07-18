@@ -12,8 +12,9 @@ namespace ATK
 {
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(int64_t size)
-  :Parent(1, 1), size(size), P(PType::Identity(size, size)), w(size, 1)
+  :Parent(1, 1), size(size), P(PType::Identity(size, size)), w(size, 1), memory(.99), learn(true)
   {
+    input_delay = size;
   }
   
   template<typename DataType_>
@@ -32,6 +33,7 @@ namespace ATK
 
     P = PType::Identity(size, size) / size;
     w = wType(size, 1);
+    input_delay = size;
     this->size = size;
   }
 
@@ -40,12 +42,54 @@ namespace ATK
   {
     return size;
   }
+  
+  template<typename DataType_>
+  void RLSFilter<DataType_>::set_memory(DataType_ memory)
+  {
+    if(memory >= 1)
+    {
+      throw std::out_of_range("Memory must be less than 1");
+    }
+    if(memory <= 0)
+    {
+      throw std::out_of_range("Memory must be strictly positive");
+    }
+    
+    this->memory = memory;
+  }
+  
+  template<typename DataType_>
+  DataType_ RLSFilter<DataType_>::get_memory() const
+  {
+    return memory;
+  }
+  
+  template<typename DataType_>
+  void RLSFilter<DataType_>::set_learn(bool learn)
+  {
+    this->learn = learn;
+  }
+  
+  template<typename DataType_>
+  bool RLSFilter<DataType_>::get_learn() const
+  {
+    return learn;
+  }
 
   template<typename DataType_>
   void RLSFilter<DataType_>::process_impl(int64_t size)
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
+    
+    for(int64_t i = 0; i < size; ++i)
+    {
+      // compute next sample
+      if(learn)
+      {
+        //update w and P
+      }
+    }
   }
   
   template<typename DataType_>
