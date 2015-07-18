@@ -9,7 +9,7 @@ FILE(GLOB_RECURSE
     *.h
 )
 
-include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR} ${EIGEN_INCLUDE_DIR})
 
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKAdaptive_static
