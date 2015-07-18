@@ -67,6 +67,7 @@ if(ATK_BUILD_PYTHON)
 endif(ATK_BUILD_PYTHON)
 
 find_package(FFTW)
+find_package(Eigen)
 
 SET(USE_FFTW 0)
 SET(USE_ACCELERATE 0)
