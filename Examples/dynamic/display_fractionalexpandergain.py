@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
-from ATK.Dynamic import DoubleGainExpanderFilter
+from ATK.Dynamic import DoubleGainExpanderFilter, DoubleGainFractionalExpanderFilter
 from ATK.Tools import DoubleApplyGainFilter
 
 import matplotlib.pyplot as plt
@@ -38,12 +38,35 @@ def filter(input, ratio=4, threshold=1, softness=1):
 
   return output
 
-def fractional_filter(input, ratio=4, threshold=1, softness=1):
-  input_thres = input/threshold
-  input_tr = input_thres**(ratio-1)
-  gain = (input_tr + input_tr * input_tr) / (1 + softness * input_tr + input_tr * input_tr)
+def fractional_filter(input, ratio=4, threshold=1, color=1):
+  import numpy as np
+  output = np.zeros(input.shape, dtype=np.float64)
   
-  return input * gain
+  input2 = input**2
+  in2filter = DoubleInPointerFilter(input2, False)
+  in2filter.set_input_sampling_rate(sample_rate)
+  
+  infilter = DoubleInPointerFilter(input, False)
+  infilter.set_input_sampling_rate(sample_rate)
+  
+  gainfilter = DoubleGainFractionalExpanderFilter(1)
+  gainfilter.set_input_sampling_rate(sample_rate)
+  gainfilter.set_input_port(0, in2filter, 0)
+  gainfilter.set_threshold(threshold)
+  gainfilter.set_ratio(ratio)
+  gainfilter.set_color(color)
+  
+  applygainfilter = DoubleApplyGainFilter(1)
+  applygainfilter.set_input_sampling_rate(sample_rate)
+  applygainfilter.set_input_port(0, gainfilter, 0)
+  applygainfilter.set_input_port(1, infilter, 0)
+  
+  outfilter = DoubleOutPointerFilter(output, False)
+  outfilter.set_input_sampling_rate(sample_rate)
+  outfilter.set_input_port(0, applygainfilter, 0)
+  outfilter.process(input.shape[1])
+  
+  return output
 
 if __name__ == "__main__":
   import numpy as np
@@ -72,10 +95,10 @@ if __name__ == "__main__":
   #plt.loglog(x[0], out_10_01_1[0], label="ratio(10), threshold(0.1), softness(1)")
   #plt.loglog(x[0], out_10_01_10[0], label="ratio(10), threshold(0.1), softness(10)")
 
-  plt.loglog(x[0], max_out_4_1_1[0], label="fractional, ratio(4), threshold(1), softness(1)")
-  plt.loglog(x[0], max_out_4_1_2[0], label="fractional, ratio(4), threshold(1), softness(2)")
-  plt.loglog(x[0], max_out_4_1_0[0], label="fractional, ratio(4), threshold(1), softness(0)")
-  plt.loglog(x[0], max_out_4_1___5[0], label="fractional, ratio(4), threshold(1), softness(-.5)")
+  plt.loglog(x[0], max_out_4_1_1[0], label="fractional, ratio(4), threshold(1), color(1)")
+  plt.loglog(x[0], max_out_4_1_2[0], label="fractional, ratio(4), threshold(1), color(2)")
+  plt.loglog(x[0], max_out_4_1_0[0], label="fractional, ratio(4), threshold(1), color(0)")
+  plt.loglog(x[0], max_out_4_1___5[0], label="fractional, ratio(4), threshold(1), color(-.5)")
   
   plt.title("Expander gain")
   plt.legend(loc=4)
