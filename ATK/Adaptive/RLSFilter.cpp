@@ -30,6 +30,8 @@ namespace ATK
       throw std::out_of_range("Size must be positive");
     }
 
+    P = PType::Identity(size, size) / size;
+    w = wType(size, 1);
     this->size = size;
   }
 
