@@ -8,6 +8,8 @@
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
 
+#include <Eigen/Core>
+
 namespace ATK
 {
   /**
@@ -34,10 +36,20 @@ namespace ATK
     void set_size(int64_t delay);
     int64_t get_size() const;
 
+    typedef Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic> PType;
+    typedef Eigen::Matrix<DataType_, Eigen::Dynamic, 1> wType;
+    
+    void set_P(const Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic>& P);
+    Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic> get_P() const;
+    void set_w(const Eigen::Matrix<DataType_, Eigen::Dynamic, 1>& w);
+    Eigen::Matrix<DataType_, Eigen::Dynamic, 1> get_w() const;
+    
   protected:
     virtual void process_impl(int64_t size);
     
     int64_t size;
+    PType P;
+    wType w;
   };
 }
 

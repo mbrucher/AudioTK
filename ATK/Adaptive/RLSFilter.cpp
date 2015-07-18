@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(int64_t size)
-  :Parent(1, 1)
+  :Parent(1, 1), size(size), P(PType::Identity(size, size)), w(size, 1)
   {
   }
   
@@ -46,6 +46,33 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
   }
   
+  template<typename DataType_>
+  void RLSFilter<DataType_>::set_P(const Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic>& P)
+  {
+    assert(P.rows() == P.cols());
+    assert(P.rows() == size);
+    this->P = P;
+  }
+  
+  template<typename DataType_>
+  Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic> RLSFilter<DataType_>::get_P() const
+  {
+    return P;
+  }
+  
+  template<typename DataType_>
+  void RLSFilter<DataType_>::set_w(const Eigen::Matrix<DataType_, Eigen::Dynamic, 1>& w)
+  {
+    assert(w.rows() == size);
+    this->w = w;
+  }
+  
+  template<typename DataType_>
+  Eigen::Matrix<DataType_, Eigen::Dynamic, 1> RLSFilter<DataType_>::get_w() const
+  {
+    return w;
+  }
+
   template class RLSFilter<float>;
   template class RLSFilter<double>;
 }
