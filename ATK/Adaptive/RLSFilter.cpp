@@ -12,9 +12,9 @@ namespace ATK
 {
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(int64_t size)
-  :Parent(1, 1), size(size), P(PType::Identity(size, size)), w(size, 1), memory(.99), learn(true)
+  :Parent(1, 1), size(size), P(PType::Identity(size, size)), w(size, 1), memory(.99), learning(true)
   {
-    input_delay = size;
+    input_delay = size+1;
   }
   
   template<typename DataType_>
@@ -33,7 +33,7 @@ namespace ATK
 
     P = PType::Identity(size, size) / size;
     w = wType(size, 1);
-    input_delay = size;
+    input_delay = size+1;
     this->size = size;
   }
 
@@ -65,15 +65,15 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void RLSFilter<DataType_>::set_learn(bool learn)
+  void RLSFilter<DataType_>::set_learning(bool learning)
   {
-    this->learn = learn;
+    this->learning = learning;
   }
   
   template<typename DataType_>
-  bool RLSFilter<DataType_>::get_learn() const
+  bool RLSFilter<DataType_>::get_learning() const
   {
-    return learn;
+    return learning;
   }
 
   template<typename DataType_>
@@ -84,12 +84,28 @@ namespace ATK
     
     for(int64_t i = 0; i < size; ++i)
     {
+      xType x(input - size - 1, size, 1);
+      
       // compute next sample
-      if(learn)
+      output[i] = w.transpose() * x.reverse();
+      
+      if(learning)
       {
         //update w and P
+        learn(x, input[i], output[i]);
       }
     }
+  }
+
+  template<typename DataType_>
+  void RLSFilter<DataType_>::learn(const xType& x, DataType_ target, DataType_ actual)
+  {
+    auto alpha = target - actual;
+    auto xreverse = x.reverse();
+    
+    wType g = P * xreverse / (memory + xreverse.transpose() * P * xreverse);
+    P = (P - g * (xreverse.transpose() * P)) / memory;
+    w = w + alpha * g;
   }
   
   template<typename DataType_>

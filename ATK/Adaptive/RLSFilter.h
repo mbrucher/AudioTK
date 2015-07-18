@@ -47,17 +47,21 @@ namespace ATK
     void set_memory(DataType_ memory);
     DataType_ get_memory() const;
 
-    void set_learn(bool learn);
-    bool get_learn() const;
+    void set_learning(bool learning);
+    bool get_learning() const;
 
   protected:
     virtual void process_impl(int64_t size);
+    
+    typedef Eigen::Map<const wType> xType;
+    
+    void learn(const xType& x, DataType_ target, DataType_ actual);
     
     int64_t size;
     PType P;
     wType w;
     DataType memory;
-    bool learn;
+    bool learning;
   };
 }
 
