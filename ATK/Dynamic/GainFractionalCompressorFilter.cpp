@@ -45,7 +45,7 @@ namespace ATK
   {
     if(value == 0)
       return 1;
-    DataType diff = std::pow(value, (1. - ratio) / ratio);
+    DataType diff = std::pow(value, (1. - ratio) / (ratio * 2));
     return (diff + diff * diff * diff) / (1 + color * diff + diff * diff * diff);
   }
 
