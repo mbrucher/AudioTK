@@ -12,3 +12,7 @@ add_subdirectory(Distortion)
 if(ENABLE_PYTHON)
   add_subdirectory(Python)
 endif(ENABLE_PYTHON)
+
+if(EIGEN_FOUND)
+add_subdirectory(Adaptive)
+endif(EIGEN_FOUND)
