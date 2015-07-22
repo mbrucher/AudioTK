@@ -5,6 +5,7 @@
 #include <boost/math/special_functions/asinh.hpp>
 
 #include "Chebyshev2Filter.h"
+#include "helpers.h"
 #include "IIRFilter.h"
 
 namespace

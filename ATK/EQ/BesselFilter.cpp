@@ -3,6 +3,7 @@
  */
 
 #include "BesselFilter.h"
+#include "helpers.h"
 #include "IIRFilter.h"
 
 namespace
