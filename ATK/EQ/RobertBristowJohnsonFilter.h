@@ -118,10 +118,15 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
+    DataType Q;
+
     void setup() override;
 
   public:
     RobertBristowJohnsonBandStopCoefficients(int nb_channels = 1);
+
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
   };
 
   template<typename DataType_>
@@ -188,11 +193,19 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
+    DataType Q;
+    DataType gain;
+
     void setup() override;
 
   public:
     RobertBristowJohnsonLowShelvingCoefficients(int nb_channels = 1);
-  }; 
+
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
+    void set_gain(DataType_ Q);
+    DataType_ get_gain() const;
+};
 
   template<typename DataType_>
   class RobertBristowJohnsonHighShelvingCoefficients : public BaseSecondOrderCoefficients<DataType_>
@@ -207,10 +220,18 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
+    DataType Q;
+    DataType gain;
+
     void setup() override;
 
   public:
     RobertBristowJohnsonHighShelvingCoefficients(int nb_channels = 1);
+
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
+    void set_gain(DataType_ Q);
+    DataType_ get_gain() const;
   };
 }
 
