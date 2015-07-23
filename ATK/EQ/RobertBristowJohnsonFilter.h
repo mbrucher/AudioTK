@@ -70,10 +70,15 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
+    DataType Q;
+
     void setup() override;
 
   public:
     RobertBristowJohnsonBandPassCoefficients(int nb_channels = 1);
+
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
   };
 
   template<typename DataType_>
@@ -89,10 +94,15 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
+    DataType Q;
+
     void setup() override;
 
   public:
     RobertBristowJohnsonBandPass2Coefficients(int nb_channels = 1);
+
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
   };
 
   template<typename DataType_>
@@ -127,14 +137,19 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
+    DataType Q;
+
     void setup() override;
 
   public:
     RobertBristowJohnsonAllPassCoefficients(int nb_channels = 1);
+
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
   };
 
   template<typename DataType_>
-  class RobertBristowJohnsonBandPeakCoefficients : public BaseSecondOrderCoefficients<DataType_>
+  class RobertBristowJohnsonBandPassPeakCoefficients : public BaseSecondOrderCoefficients<DataType_>
   {
   public:
     typedef BaseSecondOrderCoefficients<DataType_> Parent;
@@ -146,10 +161,18 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
+    DataType Q;
+    DataType gain;
+
     void setup() override;
 
   public:
-    RobertBristowJohnsonBandPeakCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonBandPassPeakCoefficients(int nb_channels = 1);
+
+    void set_Q(DataType_ Q);
+    DataType_ get_Q() const;
+    void set_gain(DataType_ Q);
+    DataType_ get_gain() const;
   };
 
   template<typename DataType_>
