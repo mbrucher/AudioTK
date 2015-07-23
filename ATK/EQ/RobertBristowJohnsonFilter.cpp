@@ -204,6 +204,62 @@ namespace ATK
     return Q;
   }
 
+  template<typename DataType>
+  RobertBristowJohnsonBandPassPeakCoefficients<DataType>::RobertBristowJohnsonBandPassPeakCoefficients(int nb_channels)
+    :Parent(nb_channels), Q(1)
+  {
+  }
+
+  template <typename DataType>
+  void RobertBristowJohnsonBandPassPeakCoefficients<DataType>::setup()
+  {
+    Parent::setup();
+
+    DataType w0 = 2 * boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate;
+    DataType cosw0 = std::cos(w0);
+    DataType alpha = std::sin(w0) / (2 * Q);
+
+    coefficients_in[2] = (1 + alpha * gain) / (1 + alpha / gain);
+    coefficients_in[1] = -2 * cosw0 / (1 + alpha / gain);
+    coefficients_in[0] = (1 - alpha * gain) / (1 + alpha / gain);
+    coefficients_out[1] = 2 * cosw0 / (1 + alpha / gain);
+    coefficients_out[0] = (alpha / gain - 1) / (1 + alpha / gain);
+  }
+
+  template <typename DataType_>
+  void RobertBristowJohnsonBandPassPeakCoefficients<DataType_>::set_Q(DataType_ Q)
+  {
+    if (Q <= 0)
+    {
+      throw std::out_of_range("Q must be positive");
+    }
+    this->Q = Q;
+    setup();
+  }
+
+  template <typename DataType_>
+  DataType_ RobertBristowJohnsonBandPassPeakCoefficients<DataType_>::get_Q() const
+  {
+    return Q;
+  }
+
+  template <typename DataType_>
+  void RobertBristowJohnsonBandPassPeakCoefficients<DataType_>::set_gain(DataType_ gain)
+  {
+    if (gain <= 0)
+    {
+      throw std::out_of_range("gain must be positive");
+    }
+    this->gain = gain;
+    setup();
+  }
+
+  template <typename DataType_>
+  DataType_ RobertBristowJohnsonBandPassPeakCoefficients<DataType_>::get_gain() const
+  {
+    return gain;
+  }
+
   template class RobertBristowJohnsonLowPassCoefficients<float>;
   template class RobertBristowJohnsonLowPassCoefficients<double>;
   template class RobertBristowJohnsonHighPassCoefficients<float>;
@@ -214,6 +270,9 @@ namespace ATK
   template class RobertBristowJohnsonBandPass2Coefficients<double>;
   template class RobertBristowJohnsonAllPassCoefficients<float>;
   template class RobertBristowJohnsonAllPassCoefficients<double>;
+  template class RobertBristowJohnsonBandPassPeakCoefficients<float>;
+  template class RobertBristowJohnsonBandPassPeakCoefficients<double>;
+
   template class IIRFilter<RobertBristowJohnsonLowPassCoefficients<float> >;
   template class IIRFilter<RobertBristowJohnsonLowPassCoefficients<double> >;
   template class IIRFilter<RobertBristowJohnsonHighPassCoefficients<float> >;
@@ -224,4 +283,6 @@ namespace ATK
   template class IIRFilter<RobertBristowJohnsonBandPass2Coefficients<double> >;
   template class IIRFilter<RobertBristowJohnsonAllPassCoefficients<float> >;
   template class IIRFilter<RobertBristowJohnsonAllPassCoefficients<double> >;
+  template class IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<float> >;
+  template class IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<double> >;
 }
