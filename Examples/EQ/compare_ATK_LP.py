@@ -20,7 +20,7 @@ def get_low_pass(filter, order=-1, ripple=0, samplingrate=48000):
   a = [1]
   a.extend(a1)
 
-  return signal.freqz(b, a[::-1], worN=samplingrate/2)
+  return signal.freqz(b, a[::-1], worN=1000)
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -39,7 +39,7 @@ lr = get_low_pass(DoubleLinkwitzRileyLowPassFilter)
 rbj = get_low_pass(DoubleRobertBristowJohnsonLowPassFilter)
 
 plt.loglog(bessel[0] / np.pi * 24000, np.abs(bessel[1]), label="Bessel")
-plt.loglog(butter[0] / np.pi * 24000, np.abs(butter[1]), label="Butterworth")
+plt.loglog(butter[0] / np.pi * 24000, np.abs(butter[1]), label="Butterworth", marker="x")
 plt.loglog(cheby1[0] / np.pi * 24000, np.abs(cheby1[1]), label="Chebyshev type 1")
 plt.loglog(cheby2[0] / np.pi * 24000, np.abs(cheby2[1]), label="Chebyshev type 2")
 plt.loglog(second[0] / np.pi * 24000, np.abs(second[1]), label="Second order")
@@ -51,7 +51,7 @@ plt.legend(loc=3)
 
 ax1 = fig.add_subplot(212)
 plt.semilogx(bessel[0] / np.pi * 24000, np.angle(bessel[1]), label="Bessel")
-plt.semilogx(butter[0] / np.pi * 24000, np.angle(butter[1]), label="Butterworth")
+plt.semilogx(butter[0] / np.pi * 24000, np.angle(butter[1]), label="Butterworth", marker="x")
 plt.semilogx(cheby1[0] / np.pi * 24000, np.angle(cheby1[1]), label="Chebyshev type 1")
 plt.semilogx(cheby2[0] / np.pi * 24000, np.angle(cheby2[1]), label="Chebyshev type 2")
 plt.semilogx(second[0] / np.pi * 24000, np.angle(second[1]), label="Second order")
