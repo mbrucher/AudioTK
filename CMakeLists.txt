@@ -47,14 +47,14 @@ option(ENABLE_PYTHON "Enable the Python wrappers" OFF)
 
 if(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 1)
+  find_package(Boost REQUIRED timer)
 else(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 0)
 endif(ENABLE_PROFILING)
 
 find_package(Git REQUIRED)
-find_package(Boost REQUIRED unit_test_framework timer system)
-
 find_package(libsndfile)
+
 if(LIBSNDFILE_FOUND)
   set(USE_LIBSNDFILE 1)
 else(LIBSNDFILE_FOUND)
@@ -115,6 +115,7 @@ endmacro()
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
+  find_package(Boost REQUIRED unit_test_framework system)
   add_subdirectory(tests)
 endif(ENABLE_TESTS)
 
