@@ -22,7 +22,12 @@ namespace ATK
 %template(DoubleLinkwitzRileyHighPassFilterCoefficients) ATK::LinkwitzRileyHighPassCoefficients<double>;
 
 
-%template(FloatLinkwitzRileyLowPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<float> >;
-%template(DoubleLinkwitzRileyLowPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<double> >;
-%template(FloatLinkwitzRileyHighPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<float> >;
-%template(DoubleLinkwitzRileyHighPassFilterCoefficientsIIRFilter) ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<double> >;
+%template(FloatLinkwitzRileyLowPassFilter) ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<float> >;
+%template(DoubleLinkwitzRileyLowPassFilter) ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<double> >;
+%template(FloatLinkwitzRileyHighPassFilter) ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<float> >;
+%template(DoubleLinkwitzRileyHighPassFilter) ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<double> >;
+
+IIRFilterExtend(ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::LinkwitzRileyHighPassCoefficients<double> >, double);

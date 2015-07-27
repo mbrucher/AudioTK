@@ -84,7 +84,8 @@ The *EQ* module contains a lot of different filter types.
 * **IIRFilter** is the base class for IIR filters (Direct Form 1)
 * **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
 * **SecondOrderFilter** is an implementation of second order filters
-* **LinkwitzRileyFilter** is an implementation of filters (low pass and high pass) that can be summed together for a flat response
+* **LinkwitzRileyFilter** is an implementation of filters (low pass and high pass second orders) that can be summed together for a flat response
+* **RobertBristowJohnsonFilter** is an implementation of RBJ second order filters
 * **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
 * **TimeVaryingIIRFilter** is the base class for time varying IIR filters
 * **TimeVaryingSecondOrderFilter** is an implementation of time varying second order filters
