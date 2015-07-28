@@ -5,7 +5,6 @@
 #include <ATK/IO/InWavFilter.h>
 
 #include <ATK/config.h>
-#include <ATK/git.h>
 
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
@@ -17,6 +16,7 @@
 #include <boost/test/unit_test.hpp>
 
 #define PROCESSSIZE (1024)
+#define ATK_SOURCE_TREE
 
 BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k_test )
 {

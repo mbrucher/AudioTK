@@ -52,7 +52,6 @@ else(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 0)
 endif(ENABLE_PROFILING)
 
-find_package(Git REQUIRED)
 find_package(libsndfile)
 
 if(LIBSNDFILE_FOUND)
@@ -90,12 +89,6 @@ endif(FFTW_FOUND)
 configure_file (
   "ATK/config.h.in"
   "ATK/config.h"
-  )
-
-GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
-configure_file (
-  "ATK/git.h.in"
-  "ATK/git.h"
   )
 
 include_directories(${PROJECT_BINARY_DIR})

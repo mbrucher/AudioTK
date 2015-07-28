@@ -3,7 +3,6 @@
  */
 
 #include <ATK/config.h>
-#include <ATK/git.h>
 
 #include <ATK/Mock/TriangleGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>

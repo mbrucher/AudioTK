@@ -78,12 +78,13 @@ namespace ATK
     {
       auto new_cos = cos * frequ_cos - sin * frequ_sin;
       auto new_sin = cos * frequ_sin + sin * frequ_cos;
+      auto norm = (new_cos * new_cos + new_sin * new_sin);
 
-      cos = new_cos / (new_cos * new_cos + new_sin * new_sin);
-      sin = new_sin / (new_cos * new_cos + new_sin * new_sin);
+      cos = new_cos / norm;
+      sin = new_sin / norm;
 
-      output_cos[i] = volume * cos + offset;
-      output_sin[i] = volume * sin + offset;
+      *(output_cos++) = volume * cos + offset;
+      *(output_sin++) = volume * sin + offset;
     }
   }
   
