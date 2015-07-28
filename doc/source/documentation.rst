@@ -27,7 +27,7 @@ The *Mock* module is meant for testing purposes. It only contains sources and
 sinks.
 
 * **FFTCheckerFilter** will check the spectral content for a single port. Its behavior will depend on the backend FFT
-* **SinusGeneratorFilter** generates a sinus signal at a specified frequency.
+* **SimpleSinusGeneratorFilter** generates a sinus signal at a specified frequency.
 * **TriangleCheckerFilter** checks that the signal follows a triangle signal
 * **TriangleGeneratorFilter** generates such a traingle signal.
 
@@ -55,10 +55,11 @@ The *Tools* has two kind of classes: filters and general purpose classes.
 * **DecimationFilter** modifies the number of samples in the signal based on the ratio of input/output sampling rates
 * **DerivativeFilter** is a filter computing the derivative of an input signal
 * **MaxFilter** is a filter computing the maximum of two input arrays
-* **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**.
+* **MiddleSidefilter** split a stereo signal in middle and side signal, according to the formulas **m=(l+r)/2** and **s=(l-r)/2**
 * **OffsetVolumeFilter** multiplies input signal by a certain amount and adds a constant offset
-* **OversamplingFilter** is actually a set of oversampling filters that will multiply the number of samples from the input.
+* **OversamplingFilter** is actually a set of oversampling filters that will multiply the number of samples from the input
 * **PanFilter** pans a single input signal on a stereo output
+* **SinusGeneratorFilter** generates sinus and cosinus signals at a specified frequency
 * **SumFilter** sums two input signals in one
 * **VolumeFilter** multiplies input signal by a certain amount
 * **WhitenoiseGeneratorFilter** is a filter that outputs a white noise
@@ -79,16 +80,20 @@ The *EQ* module contains a lot of different filter types.
 * **ChamberlinFilter** is an implementation of the Chamberlin state filter
 * **Chebyshev1Filter** is an implementation of Chebyshev type 1 filters
 * **Chebyshev2Filter** is an implementation of Chebyshev type 2 filters
-* **CustomIIRFilter** helps designing custom IIR filters
-* **CustomFIRFilter** helps designing custom FIR filters
-* **IIRFilter** is the base class for IIR filters (Direct Form 1)
-* **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
-* **SecondOrderFilter** is an implementation of second order filters
 * **LinkwitzRileyFilter** is an implementation of filters (low pass and high pass second orders) that can be summed together for a flat response
 * **RobertBristowJohnsonFilter** is an implementation of RBJ second order filters
+* **SecondOrderFilter** is an implementation of second order filters
+
+* **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
 * **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
-* **TimeVaryingIIRFilter** is the base class for time varying IIR filters
+
+* **CustomIIRFilter** helps designing custom IIR filters
+* **CustomFIRFilter** helps designing custom FIR filters
+
+* **IIRFilter** is the base class for IIR filters (Direct Form 1)
+
 * **TimeVaryingSecondOrderFilter** is an implementation of time varying second order filters
+* **TimeVaryingIIRFilter** is the base class for time varying IIR filters
 
 Delay module
 ##############
