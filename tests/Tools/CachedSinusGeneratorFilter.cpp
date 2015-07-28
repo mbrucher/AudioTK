@@ -5,7 +5,7 @@
 #include <ATK/config.h>
 #include <ATK/git.h>
 
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
 
 #include <ATK/Tools/SumFilter.h>
@@ -19,7 +19,7 @@
 
 BOOST_AUTO_TEST_CASE( CachedSinusGeneratorFilter_1k_test )
 {
-  ATK::SinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<float> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(-1);
   generator.set_frequency(1000);

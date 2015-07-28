@@ -5,7 +5,7 @@
 #include <ATK/Tools/OversamplingFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -15,7 +15,7 @@
 
 BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_2_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_2_test )
 
 BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_4_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_4_test )
 
 BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_8_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -90,7 +90,7 @@ BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_8_test )
 
 BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_16_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_16_test )
 
 BOOST_AUTO_TEST_CASE( OversamplingFilter_sinus_32_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);

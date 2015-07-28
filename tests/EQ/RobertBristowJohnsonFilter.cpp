@@ -6,7 +6,7 @@
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -16,7 +16,7 @@
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_1k_test 
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_100_test
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_2k_test 
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_200_test
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_1k_test
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_100_tes
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_2k_test
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -240,7 +240,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_200_tes
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassCoefficients_1k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -269,7 +269,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassCoefficients_1k_test)
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassCoefficients_100_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -298,7 +298,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassCoefficients_100_test
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassCoefficients_2k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -327,7 +327,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassCoefficients_2k_test)
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPass2Coefficients_1k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -356,7 +356,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPass2Coefficients_1k_test
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPass2Coefficients_100_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -385,7 +385,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPass2Coefficients_100_tes
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPass2Coefficients_2k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -415,7 +415,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPass2Coefficients_2k_test
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandStopCoefficients_1k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -444,7 +444,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandStopCoefficients_1k_test)
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandStopCoefficients_100_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -473,7 +473,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandStopCoefficients_100_test
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandStopCoefficients_2k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -502,7 +502,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandStopCoefficients_2k_test)
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonAllPassCoefficients_1k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -531,7 +531,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonAllPassCoefficients_1k_test)
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonAllPassCoefficients_100_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -560,7 +560,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonAllPassCoefficients_100_test)
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonAllPassCoefficients_2k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -589,7 +589,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonAllPassCoefficients_2k_test)
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_1k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -619,7 +619,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_1k_t
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_100_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -649,7 +649,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_100_
 
 BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_2k_test)
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024 * 64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -679,7 +679,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_2k_t
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -708,7 +708,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_1k_t
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -737,7 +737,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_100_
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -766,7 +766,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_200_
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -795,7 +795,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_1k_
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -824,7 +824,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_10k
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_500_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(500);

@@ -6,7 +6,7 @@
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -16,7 +16,7 @@
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -74,7 +74,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -103,7 +103,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -161,7 +161,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -190,7 +190,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -219,7 +219,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -248,7 +248,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -277,7 +277,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -306,7 +306,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -335,7 +335,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -364,7 +364,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -393,7 +393,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -422,7 +422,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -451,7 +451,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);

@@ -2,7 +2,7 @@
  * \file SinusGeneratorFilter.cpp
  */
 
-#include "SinusGeneratorFilter.h"
+#include "SimpleSinusGeneratorFilter.h"
 
 #include <cmath>
 #include <cstdint>
@@ -12,30 +12,30 @@
 namespace ATK
 {
   template<class DataType_>
-  SinusGeneratorFilter<DataType_>::SinusGeneratorFilter()
+  SimpleSinusGeneratorFilter<DataType_>::SimpleSinusGeneratorFilter()
   :TypedBaseFilter<DataType_>(0, 1), state(0), amplitude(1), frequency(1)
   {
   }
   
   template<class DataType_>
-  SinusGeneratorFilter<DataType_>::~SinusGeneratorFilter()
+  SimpleSinusGeneratorFilter<DataType_>::~SimpleSinusGeneratorFilter()
   {
   }
   
   template<class DataType_>
-  void SinusGeneratorFilter<DataType_>::set_amplitude(DataType_ amplitude)
+  void SimpleSinusGeneratorFilter<DataType_>::set_amplitude(DataType_ amplitude)
   {
     this->amplitude = amplitude;
   }
   
   template<class DataType_>
-  void SinusGeneratorFilter<DataType_>::set_frequency(int frequency)
+  void SimpleSinusGeneratorFilter<DataType_>::set_frequency(int frequency)
   {
     this->frequency = frequency;
   }
   
   template<class DataType_>
-  void SinusGeneratorFilter<DataType_>::process_impl(int64_t size) const
+  void SimpleSinusGeneratorFilter<DataType_>::process_impl(int64_t size) const
   {    
     double real_increment = 2. / output_sampling_rate * frequency;
     
@@ -46,9 +46,9 @@ namespace ATK
     }
   }
   
-  template class SinusGeneratorFilter<std::int16_t>;
-  template class SinusGeneratorFilter<std::int32_t>;
-  template class SinusGeneratorFilter<int64_t>;
-  template class SinusGeneratorFilter<float>;
-  template class SinusGeneratorFilter<double>;
+  template class SimpleSinusGeneratorFilter<std::int16_t>;
+  template class SimpleSinusGeneratorFilter<std::int32_t>;
+  template class SimpleSinusGeneratorFilter<int64_t>;
+  template class SimpleSinusGeneratorFilter<float>;
+  template class SimpleSinusGeneratorFilter<double>;
 }
