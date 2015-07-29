@@ -7,7 +7,7 @@
 
 #include <ATK/config.h>
 
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
 
 #include <ATK/Tools/SumFilter.h>
@@ -20,7 +20,7 @@
 BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k_test )
 {
   {// setup
-    ATK::SinusGeneratorFilter<float> generator;
+    ATK::SimpleSinusGeneratorFilter<float> generator;
     generator.set_output_sampling_rate(48000);
     generator.set_amplitude(1);
     generator.set_frequency(1000);
@@ -32,7 +32,7 @@ BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k_test )
     filter.process(PROCESSSIZE);
   }
   
-  ATK::SinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<float> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(-1);
   generator.set_frequency(1000);
@@ -58,11 +58,11 @@ BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k_test )
 BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k2k_test )
 {
   {
-    ATK::SinusGeneratorFilter<float> generator1k;
+    ATK::SimpleSinusGeneratorFilter<float> generator1k;
     generator1k.set_output_sampling_rate(48000);
     generator1k.set_amplitude(1);
     generator1k.set_frequency(1000);
-    ATK::SinusGeneratorFilter<float> generator2k;
+    ATK::SimpleSinusGeneratorFilter<float> generator2k;
     generator2k.set_output_sampling_rate(48000);
     generator2k.set_amplitude(1);
     generator2k.set_frequency(2000);
@@ -75,11 +75,11 @@ BOOST_AUTO_TEST_CASE( OutSndFileFilter_OutFloat_1k2k_test )
     filter.process(PROCESSSIZE);
   }
   
-  ATK::SinusGeneratorFilter<float> generator1k;
+  ATK::SimpleSinusGeneratorFilter<float> generator1k;
   generator1k.set_output_sampling_rate(48000);
   generator1k.set_amplitude(-1);
   generator1k.set_frequency(1000);
-  ATK::SinusGeneratorFilter<float> generator2k;
+  ATK::SimpleSinusGeneratorFilter<float> generator2k;
   generator2k.set_output_sampling_rate(48000);
   generator2k.set_amplitude(-1);
   generator2k.set_frequency(2000);
