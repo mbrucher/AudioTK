@@ -6,7 +6,7 @@
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_throw_0_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha0_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -141,7 +141,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha1_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -225,7 +225,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -253,7 +253,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_alpha05_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);

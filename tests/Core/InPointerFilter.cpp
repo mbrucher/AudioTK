@@ -9,7 +9,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
 
 #include <ATK/Tools/SumFilter.h>
@@ -31,7 +31,7 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
   ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
-  ATK::SinusGeneratorFilter<float> check;
+  ATK::SimpleSinusGeneratorFilter<float> check;
   check.set_output_sampling_rate(48000);
   check.set_amplitude(-1);
   check.set_frequency(1000);
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
   ATK::InPointerFilter<double> generator(data.get(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
-  ATK::SinusGeneratorFilter<double> check;
+  ATK::SimpleSinusGeneratorFilter<double> check;
   check.set_output_sampling_rate(48000);
   check.set_amplitude(-1);
   check.set_frequency(1000);
@@ -94,12 +94,12 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
   ATK::InPointerFilter<float> generator(data.get(), PROCESSSIZE, 2, true);
   generator.set_output_sampling_rate(48000);
   
-  ATK::SinusGeneratorFilter<float> check1;
+  ATK::SimpleSinusGeneratorFilter<float> check1;
   check1.set_output_sampling_rate(48000);
   check1.set_amplitude(-1);
   check1.set_frequency(1000);
   
-  ATK::SinusGeneratorFilter<float> check2;
+  ATK::SimpleSinusGeneratorFilter<float> check2;
   check2.set_output_sampling_rate(48000);
   check2.set_amplitude(-1);
   check2.set_frequency(2000);
@@ -142,12 +142,12 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
   ATK::InPointerFilter<float> generator(data.get(), 2, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
-  ATK::SinusGeneratorFilter<float> check1;
+  ATK::SimpleSinusGeneratorFilter<float> check1;
   check1.set_output_sampling_rate(48000);
   check1.set_amplitude(-1);
   check1.set_frequency(1000);
   
-  ATK::SinusGeneratorFilter<float> check2;
+  ATK::SimpleSinusGeneratorFilter<float> check2;
   check2.set_output_sampling_rate(48000);
   check2.set_amplitude(-1);
   check2.set_frequency(2000);

@@ -5,7 +5,7 @@
 #include <ATK/Dynamic/RelativePowerFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_throw_memory_1_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_1k_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_1k_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -117,7 +117,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_1k_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -147,7 +147,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_100_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_100_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_100_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -235,7 +235,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_10k_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -264,7 +264,7 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_05_10k_test )
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_09_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(10000);

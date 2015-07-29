@@ -47,14 +47,13 @@ option(ENABLE_PYTHON "Enable the Python wrappers" OFF)
 
 if(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 1)
+  find_package(Boost REQUIRED timer)
 else(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 0)
 endif(ENABLE_PROFILING)
 
-find_package(Git REQUIRED)
-find_package(Boost REQUIRED unit_test_framework timer system)
-
 find_package(libsndfile)
+
 if(LIBSNDFILE_FOUND)
   set(USE_LIBSNDFILE 1)
 else(LIBSNDFILE_FOUND)
@@ -92,12 +91,6 @@ configure_file (
   "ATK/config.h"
   )
 
-GIT_WC_INFO(${PROJECT_SOURCE_DIR} ATK)
-configure_file (
-  "ATK/git.h.in"
-  "ATK/git.h"
-  )
-
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
@@ -115,6 +108,7 @@ endmacro()
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
+  find_package(Boost REQUIRED unit_test_framework system)
   add_subdirectory(tests)
 endif(ENABLE_TESTS)
 

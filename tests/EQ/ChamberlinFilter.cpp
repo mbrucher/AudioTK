@@ -5,7 +5,7 @@
 #include <ATK/EQ/ChamberlinFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -15,7 +15,7 @@
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -102,7 +102,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -131,7 +131,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -189,7 +189,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_LowPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -218,7 +218,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_HighPassCoefficients_500_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(500);

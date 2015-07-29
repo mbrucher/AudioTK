@@ -6,7 +6,7 @@
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -16,7 +16,7 @@
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -100,7 +100,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyHighPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyHighPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyHighPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyHighPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyHighPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyHighPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyHighPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
