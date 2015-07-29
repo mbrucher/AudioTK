@@ -84,6 +84,10 @@ else(FFTW_FOUND)
   endif(APPLE)
 endif(FFTW_FOUND)
 
+if(ENABLE_TESTS)
+  find_package(Boost REQUIRED unit_test_framework system)
+endif(ENABLE_TESTS)
+
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
@@ -108,7 +112,6 @@ endmacro()
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
-  find_package(Boost REQUIRED unit_test_framework system)
   add_subdirectory(tests)
 endif(ENABLE_TESTS)
 
