@@ -82,6 +82,7 @@ if __name__ == "__main__":
   max_out_4_1__5 = fractional_filter(x, 4, 1, .5)
   max_out_4_1_0 = fractional_filter(x, 4, 1, 0)
   max_out_4_1___5 = fractional_filter(x, 4, 1, -.5)
+  max_out_1_5_1___5 = fractional_filter(x, 1.5, 1, -.5)
 
   plt.figure()
   plt.loglog(x[0], out_4_1_1[0], label="ratio(4), threshold(1), softness(1)")
@@ -91,6 +92,7 @@ if __name__ == "__main__":
   plt.loglog(x[0], max_out_4_1_0[0], label="fractional, ratio(4), threshold(1), color(0)")
   plt.loglog(x[0], max_out_4_1___5[0], label="fractional, ratio(4), threshold(1), color(-.5)")
   plt.loglog(x[0], max_out_3_1___5[0], label="fractional, ratio(3), threshold(1), color(-.5)")
+  plt.loglog(x[0], max_out_1_5_1___5[0], label="fractional, ratio(1.5), threshold(1), color(-.5)")
   
   plt.title("Compressor gain")
   plt.legend(loc=4)
