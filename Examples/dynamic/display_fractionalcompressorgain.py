@@ -70,37 +70,29 @@ def fractional_filter(input, ratio=4, threshold=1, color=1):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 1000
+  size = 10000
 
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / 100
 
   np.savetxt("input.txt", x)
-  out_0_5_1_1 = filter(x, .5, 1, 1)
-  out_2_1_1 = filter(x, 2, 1, 1)
+  out_3_1_1 = filter(x, 3, 1, 1)
   out_4_1_1 = filter(x, 4, 1, 1)
-  out_8_1_1 = filter(x, 8, 1, 1)
-  out_10_01_001 = filter(x, 10, .1, 0.01)
-  out_10_01_1 = filter(x, 10, .1, 1)
-  out_10_01_10 = filter(x, 10, .1, 10)
   
-  max_out_4_1_1 = fractional_filter(x, 4, 1, 1)
-  max_out_4_1_2 = fractional_filter(x, 4, 1, 2)
+  max_out_3_1___5 = fractional_filter(x, 3, 1, -.5)
+  max_out_4_1__5 = fractional_filter(x, 4, 1, .5)
   max_out_4_1_0 = fractional_filter(x, 4, 1, 0)
   max_out_4_1___5 = fractional_filter(x, 4, 1, -.5)
+  max_out_1_5_1___5 = fractional_filter(x, 1.5, 1, -.5)
 
   plt.figure()
-  #plt.loglog(x[0], out_0_5_1_1[0], label="ratio(.5), threshold(1), softness(1)")
-  #plt.loglog(x[0], out_2_1_1[0], label="ratio(2), threshold(1), softness(1)")
   plt.loglog(x[0], out_4_1_1[0], label="ratio(4), threshold(1), softness(1)")
-  #plt.loglog(x[0], out_8_1_1[0], label="ratio(8), threshold(1), softness(1)")
-  #plt.loglog(x[0], out_10_01_001[0], label="ratio(10), threshold(0.1), softness(1e-2)")
-  #plt.loglog(x[0], out_10_01_1[0], label="ratio(10), threshold(0.1), softness(1)")
-  #plt.loglog(x[0], out_10_01_10[0], label="ratio(10), threshold(0.1), softness(10)")
+  plt.loglog(x[0], out_3_1_1[0], label="ratio(3), threshold(1), softness(1)")
   
-  plt.loglog(x[0], max_out_4_1_1[0], label="fractional, ratio(4), threshold(1), color(1)")
-  plt.loglog(x[0], max_out_4_1_2[0], label="fractional, ratio(4), threshold(1), color(2)")
+  plt.loglog(x[0], max_out_4_1__5[0], label="fractional, ratio(4), threshold(1), color(.5)")
   plt.loglog(x[0], max_out_4_1_0[0], label="fractional, ratio(4), threshold(1), color(0)")
   plt.loglog(x[0], max_out_4_1___5[0], label="fractional, ratio(4), threshold(1), color(-.5)")
+  plt.loglog(x[0], max_out_3_1___5[0], label="fractional, ratio(3), threshold(1), color(-.5)")
+  plt.loglog(x[0], max_out_1_5_1___5[0], label="fractional, ratio(1.5), threshold(1), color(-.5)")
   
   plt.title("Compressor gain")
   plt.legend(loc=4)
