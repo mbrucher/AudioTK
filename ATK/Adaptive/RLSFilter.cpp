@@ -46,7 +46,7 @@ namespace ATK
   template<typename DataType_>
   void RLSFilter<DataType_>::set_memory(DataType_ memory)
   {
-    if(memory >= 1)
+    if(memory > 1)
     {
       throw std::out_of_range("Memory must be less than 1");
     }
@@ -103,8 +103,9 @@ namespace ATK
     auto alpha = target - actual;
     auto xreverse = x.reverse();
     
-    wType g = P * xreverse / (memory + xreverse.transpose() * P * xreverse);
-    P = (P - g * (xreverse.transpose() * P)) / memory;
+    wType g = (P * xreverse) / (memory + xreverse.transpose() * P * xreverse);
+    PType pupdate = (g * (xreverse.transpose() * P));
+    P = (P - (pupdate+pupdate.transpose())/2) / memory;
     w = w + alpha * g;
   }
   

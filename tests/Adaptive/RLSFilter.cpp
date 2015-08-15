@@ -92,3 +92,43 @@ BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )
   filter.process(1); // to start everything, the filter is supposed to be one sample late
   checker.process(PROCESSSIZE);
 }
+
+BOOST_AUTO_TEST_CASE( RLSFilter_learning_test )
+{
+  ATK::SinusGeneratorFilter<float> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1);
+  generator.set_frequency(1000);
+  
+  ATK::SinusGeneratorFilter<float> reference;
+  reference.set_output_sampling_rate(48000);
+  reference.set_amplitude(-1);
+  reference.set_frequency(1000);
+  
+  ATK::RLSFilter<float> filter(10);
+  filter.set_input_sampling_rate(48000);
+  filter.set_output_sampling_rate(48000);
+  filter.set_memory(0.9999);
+  filter.set_learning(true);
+  
+  ATK::SumFilter<float> sum;
+  sum.set_input_sampling_rate(48000);
+  sum.set_output_sampling_rate(48000);
+  
+  boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
+  ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
+  output.set_input_sampling_rate(48000);
+  
+  filter.set_input_port(0, &generator, 0);
+  sum.set_input_port(0, &reference, 0);
+  sum.set_input_port(1, &filter, 0);
+  output.set_input_port(0, &sum, 0);
+  
+  output.process(PROCESSSIZE);
+  
+  for(std::int64_t i = 10; i < PROCESSSIZE; ++i) // let the RLS filter start learning first
+  {
+    BOOST_REQUIRE_SMALL(std::abs(outdata[i]), 0.1f);
+  }
+
+}
