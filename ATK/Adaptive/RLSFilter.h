@@ -57,7 +57,7 @@ namespace ATK
     
     void learn(const xType& x, DataType_ target, DataType_ actual);
     
-    int64_t size;
+    int64_t global_size;
     PType P;
     wType w;
     DataType memory;

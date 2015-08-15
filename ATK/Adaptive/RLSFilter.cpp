@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(int64_t size)
-  :Parent(1, 1), size(size), P(PType::Identity(size, size)), w(size, 1), memory(.99), learning(true)
+  :Parent(1, 1), global_size(size), P(PType::Identity(size, size)), w(wType::Zero(size, 1)), memory(.99), learning(false)
   {
     input_delay = size+1;
   }
@@ -34,13 +34,13 @@ namespace ATK
     P = PType::Identity(size, size) / size;
     w = wType(size, 1);
     input_delay = size+1;
-    this->size = size;
+    this->global_size = size;
   }
 
   template<typename DataType_>
   int64_t RLSFilter<DataType_>::get_size() const
   {
-    return size;
+    return global_size;
   }
   
   template<typename DataType_>
@@ -84,7 +84,7 @@ namespace ATK
     
     for(int64_t i = 0; i < size; ++i)
     {
-      xType x(input - size - 1, size, 1);
+      xType x(input - global_size - 1, global_size, 1);
       
       // compute next sample
       output[i] = w.transpose() * x.reverse();
