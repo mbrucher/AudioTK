@@ -34,10 +34,10 @@ BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
 {
   ATK::SinusGeneratorFilter<float> generator;
   generator.set_output_sampling_rate(48000);
-  generator.set_amplitude(0);
+  generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::RLSFilter<float> filter(2);
+  ATK::RLSFilter<float> filter(10);
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   filter.set_memory(.99);

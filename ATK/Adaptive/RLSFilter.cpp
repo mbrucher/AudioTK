@@ -84,7 +84,7 @@ namespace ATK
     
     for(int64_t i = 0; i < size; ++i)
     {
-      xType x(input - global_size - 1, global_size, 1);
+      xType x(input - global_size - 1 + i, global_size, 1);
       
       // compute next sample
       output[i] = w.transpose() * x.reverse();
