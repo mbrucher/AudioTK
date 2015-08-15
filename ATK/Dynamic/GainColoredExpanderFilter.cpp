@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainColoredExpanderFilter<DataType_>::GainColoredExpanderFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
+  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), color(0), quality(0)
   {
     recomputeLUT();
   }
@@ -47,9 +47,9 @@ namespace ATK
   template<typename DataType_>
   void GainColoredExpanderFilter<DataType_>::set_color(DataType_ color)
   {
-    if (color < 0)
+    if (color <= 0)
     {
-      throw std::out_of_range("Color factor must be a positive value");
+      throw std::out_of_range("Color factor must be a strictly positive value");
     }
     this->color = color;
     start_recomputeLUT();
@@ -80,7 +80,8 @@ namespace ATK
     if(value == 0)
       return 0;
     DataType diff = -10 * std::log10(value);
-    return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1)));
+    DataType additional_color = quality * std::exp(- diff * diff * color);
+    return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1))) + additional_color;
   }
 
   template class GainColoredExpanderFilter<float>;
