@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_0_test )
 
   for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(outdata[i], 1.f, 1.f);
+    BOOST_REQUIRE_CLOSE(outdata[i], 0.f, 1.f);
   }
 }
 
@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_4_test )
 
   for(int64_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(0.343814075, outdata[i], 0.1);
+    BOOST_REQUIRE_CLOSE(0.389224231, outdata[i], 0.1);
   }
 }
 
