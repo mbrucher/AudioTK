@@ -26,6 +26,7 @@ namespace ATK
     using Parent::recomputeLUT;
     using Parent::start_recomputeLUT;
 
+    DataType_ softness;
   public:
     GainExpanderFilter(int nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 1024);
     ~GainExpanderFilter();
@@ -35,7 +36,6 @@ namespace ATK
 
   protected:
     DataType_ computeGain(DataType_ value) const override final;
-    DataType_ softness;
   };
 }
 
