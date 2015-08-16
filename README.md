@@ -12,6 +12,7 @@ Changelog
 ---------
 ### 0.7.1
 * Added additional second order filters with Python wrappers (RBJ coefficients)
+* Added GainColoredCompressorFilter and GainColoredExpanderFilter with Python wrappers
 
 ### 0.7.0
 * Fixed the FFT implementation

@@ -117,6 +117,9 @@ The *Dynamic* module contains filters enabling compressor construction.
 * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
 * **PowerFilter** is a filter that outputs an AR(1)-filtered version of the squared input signal
 * **RelativePowerFilter** is a filter that outputs the squared input signal divided by an AR(1)-filtered version of the squared input signal
+* **GainColoredCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does with an additional color component
+* **GainColoredExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with an additional color component
+* **GainMaxExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with a maximum gain reduction
 
 Distortion module
 #################
@@ -125,7 +128,6 @@ The *Distortion* module contains filters simulation distortion circuits.
 
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
-
 
 Special module
 ##############
