@@ -1,11 +1,14 @@
 
-INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK/config.h ${PROJECT_BINARY_DIR}/ATK/git.h
+INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK/config.h
    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK
     )
 
 add_subdirectory(Core)
 
-add_subdirectory(Mock)
+if(ENABLE_TESTS)
+  add_subdirectory(Mock)
+endif(ENABLE_TESTS)
+
 add_subdirectory(Tools)
 
 add_subdirectory(IO)

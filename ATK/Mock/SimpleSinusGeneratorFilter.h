@@ -1,9 +1,9 @@
 /**
- * \file SinusGeneratorFilter.h
+ * \file SimpleSinusGeneratorFilter.h
  */
 
-#ifndef ATK_MOCK_SINUSGENERATORFILTER_H
-#define ATK_MOCK_SINUSGENERATORFILTER_H
+#ifndef ATK_MOCK_SIMPLESINUSGENERATORFILTER_H
+#define ATK_MOCK_SIMPLESINUSGENERATORFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 
@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<class DataType_>
-  class ATK_MOCK_EXPORT SinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT SimpleSinusGeneratorFilter : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -21,8 +21,8 @@ namespace ATK
     using Parent::outputs;
     using Parent::output_sampling_rate;
     
-    SinusGeneratorFilter();
-    virtual ~SinusGeneratorFilter();
+    SimpleSinusGeneratorFilter();
+    virtual ~SimpleSinusGeneratorFilter();
     
     void set_amplitude(DataType_ amplitude);
     void set_frequency(int frequency);

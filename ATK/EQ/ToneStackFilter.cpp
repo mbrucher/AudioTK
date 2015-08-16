@@ -2,6 +2,8 @@
  * \file ToneStackFilter.cpp
  */
 
+#include <boost/math/tools/polynomial.hpp>
+
 #include "ToneStackFilter.h"
 #include "IIRFilter.h"
 

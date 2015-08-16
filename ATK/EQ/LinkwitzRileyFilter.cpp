@@ -2,6 +2,8 @@
  * \file LinkwitzRileyFilter.cpp
  */
 
+#include <boost/math/tools/polynomial.hpp>
+
 #include "LinkwitzRileyFilter.h"
 #include "IIRFilter.h"
 

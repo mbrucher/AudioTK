@@ -6,6 +6,7 @@
 #include <boost/math/tools/polynomial.hpp>
 
 #include "ButterworthFilter.h"
+#include "helpers.h"
 #include "IIRFilter.h"
 
 namespace

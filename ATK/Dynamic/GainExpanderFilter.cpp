@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainExpanderFilter<DataType_>::GainExpanderFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision)
+  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
     recomputeLUT();
   }
@@ -28,7 +28,24 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ ATK::GainExpanderFilter<DataType_>::computeGain( DataType_ value ) const
+  void GainExpanderFilter<DataType_>::set_softness(DataType_ softness)
+  {
+    if (softness <= 0)
+    {
+      throw std::out_of_range("Softness factor must be strictly positive value");
+    }
+    this->softness = softness;
+    start_recomputeLUT();
+  }
+  
+  template<typename DataType_>
+  DataType_ GainExpanderFilter<DataType_>::get_softness() const
+  {
+    return softness;
+  }
+
+  template<typename DataType_>
+  DataType_ GainExpanderFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
       return 0;

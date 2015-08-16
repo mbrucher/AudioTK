@@ -2,7 +2,7 @@
  * \file FFT.cpp
  */
 
-#include <cmath>
+#include <algorithm>
 #include <complex>
 #include <cstdlib>
 

@@ -87,17 +87,32 @@ namespace ATK
 %template(DoubleHighShelvingCoefficients) ATK::HighShelvingCoefficients<double>;
 
 
-%template(FloatBandPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::BandPassCoefficients<float> >;
-%template(DoubleBandPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::BandPassCoefficients<double> >;
-%template(FloatLowPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowPassCoefficients<float> >;
-%template(DoubleLowPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowPassCoefficients<double> >;
-%template(FloatHighPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighPassCoefficients<float> >;
-%template(DoubleHighPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighPassCoefficients<double> >;
-%template(FloatBandPassPeakCoefficientsIIRFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<float> >;
-%template(DoubleBandPassPeakCoefficientsIIRFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> >;
-%template(FloatAllPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::AllPassCoefficients<float> >;
-%template(DoubleAllPassCoefficientsIIRFilter) ATK::IIRFilter<ATK::AllPassCoefficients<double> >;
-%template(FloatLowShelvingCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<float> >;
-%template(DoubleLowShelvingCoefficientsIIRFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<double> >;
-%template(FloatHighShelvingCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighShelvingCoefficients<float> >;
-%template(DoubleHighShelvingCoefficientsIIRFilter) ATK::IIRFilter<ATK::HighShelvingCoefficients<double> >;
+%template(FloatBandPassFilter) ATK::IIRFilter<ATK::BandPassCoefficients<float> >;
+%template(DoubleBandPassFilter) ATK::IIRFilter<ATK::BandPassCoefficients<double> >;
+%template(FloatLowPassFilter) ATK::IIRFilter<ATK::LowPassCoefficients<float> >;
+%template(DoubleLowPassFilter) ATK::IIRFilter<ATK::LowPassCoefficients<double> >;
+%template(FloatHighPassFilter) ATK::IIRFilter<ATK::HighPassCoefficients<float> >;
+%template(DoubleHighPassFilter) ATK::IIRFilter<ATK::HighPassCoefficients<double> >;
+%template(FloatBandPassPeakFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<float> >;
+%template(DoubleBandPassPeakFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> >;
+%template(FloatAllPassFilter) ATK::IIRFilter<ATK::AllPassCoefficients<float> >;
+%template(DoubleAllPassFilter) ATK::IIRFilter<ATK::AllPassCoefficients<double> >;
+%template(FloatLowShelvingFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<float> >;
+%template(DoubleLowShelvingFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<double> >;
+%template(FloatHighShelvingFilter) ATK::IIRFilter<ATK::HighShelvingCoefficients<float> >;
+%template(DoubleHighShelvingFilter) ATK::IIRFilter<ATK::HighShelvingCoefficients<double> >;
+
+IIRFilterExtend(ATK::IIRFilter<ATK::BandPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::BandPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::LowPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::LowPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::HighPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::HighPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::BandPassPeakCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::AllPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::AllPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::LowShelvingCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::LowShelvingCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::HighShelvingCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::HighShelvingCoefficients<double> >, double);

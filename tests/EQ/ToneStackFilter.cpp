@@ -6,7 +6,7 @@
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -53,7 +53,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_high_0_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -109,7 +109,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -137,7 +137,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -193,7 +193,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -221,7 +221,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low1_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -249,7 +249,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -277,7 +277,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -305,7 +305,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low05_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -333,7 +333,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -361,7 +361,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -389,7 +389,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle0_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -417,7 +417,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -445,7 +445,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -473,7 +473,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle1_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -501,7 +501,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -529,7 +529,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -557,7 +557,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_middle05_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -585,7 +585,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -613,7 +613,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -641,7 +641,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high0_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -669,7 +669,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -697,7 +697,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
@@ -725,7 +725,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high1_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -753,7 +753,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -781,7 +781,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLINGRATE);
   generator.set_amplitude(1);
   generator.set_frequency(10000);

@@ -2,6 +2,8 @@
  * \file SD1ToneFilter.cpp
  */
 
+#include <boost/math/tools/polynomial.hpp>
+
 #include "SD1ToneFilter.h"
 #include "IIRFilter.h"
 

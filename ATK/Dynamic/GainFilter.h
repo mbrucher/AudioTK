@@ -16,6 +16,7 @@ namespace ATK
 {
   /**
    * Gain generic filter. Based on a LUT table, compute the gain.
+   * Be aware that the threshold is taken as a power measure contrary to the gain (there is a factor 2 in the dB computation)
    */
   template<typename DataType_>
   class ATK_DYNAMIC_EXPORT GainFilter : public TypedBaseFilter<DataType_>
@@ -42,8 +43,6 @@ namespace ATK
      */
     void set_ratio(DataType_ ratio);
     DataType_ get_ratio() const;
-    void set_softness(DataType_ softness);
-    DataType_ get_softness() const;
 
   protected:
     virtual void process_impl(int64_t size) const override final;
@@ -57,7 +56,6 @@ namespace ATK
 
     DataType_ threshold;
     DataType_ ratio;
-    DataType_ softness;
     size_t LUTsize;
     size_t LUTprecision;
 
