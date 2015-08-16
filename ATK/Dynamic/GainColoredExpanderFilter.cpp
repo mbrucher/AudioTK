@@ -47,10 +47,6 @@ namespace ATK
   template<typename DataType_>
   void GainColoredExpanderFilter<DataType_>::set_color(DataType_ color)
   {
-    if (color <= 0)
-    {
-      throw std::out_of_range("Color factor must be a strictly positive value");
-    }
     this->color = color;
     start_recomputeLUT();
   }
@@ -64,6 +60,10 @@ namespace ATK
   template<typename DataType_>
   void GainColoredExpanderFilter<DataType_>::set_quality(DataType_ quality)
   {
+    if (quality <= 0)
+    {
+      throw std::out_of_range("Quality factor must be a strictly positive value");
+    }
     this->quality = quality;
     start_recomputeLUT();
   }
@@ -80,7 +80,7 @@ namespace ATK
     if(value == 0)
       return 0;
     DataType diff = -10 * std::log10(value);
-    DataType additional_color = quality * std::exp(- diff * diff * color);
+    DataType additional_color = color * std::exp(- diff * diff * quality);
     return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1))) + additional_color;
   }
 

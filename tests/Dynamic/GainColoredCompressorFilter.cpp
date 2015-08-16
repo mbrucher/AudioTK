@@ -188,8 +188,8 @@ BOOST_AUTO_TEST_CASE( GainColoredCompressorFilter_always_less_1_test )
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(1);
-  filter.set_quality(-.1);
-  filter.set_color(.1);
+  filter.set_quality(.1);
+  filter.set_color(-.1);
   
   ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
