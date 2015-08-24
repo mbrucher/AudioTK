@@ -20,6 +20,7 @@
 %include "GainFractionalExpanderFilter.i"
 %include "GainLimiterFilter.i"
 %include "GainMaxExpanderFilter.i"
+%include "GainSwellFilter.i"
 %include "PowerFilter.i"
 %include "RelativePowerFilter.i"
 
