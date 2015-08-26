@@ -17,6 +17,10 @@ add_library(ATKDistortion_static
     ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
 )
 
+set_target_properties (ATKDistortion_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKDistortion_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -31,6 +35,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKDistortion
     SHARED
     ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
+)
+
+set_target_properties (ATKDistortion PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKDistortion ATKCore ATKTools)

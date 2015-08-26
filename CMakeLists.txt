@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 2.8)
 project(AudioTK)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)

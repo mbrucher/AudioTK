@@ -32,6 +32,10 @@ add_library(ATKIO_static
     ${ATK_IO_LIBSNDFILE_SRC} ${ATK_IO_LIBSNDFILE_HEADERS}
 )
 
+set_target_properties (ATKIO_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKIO_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -48,6 +52,10 @@ add_library(ATKIO
     SHARED
     ${ATK_IO_SRC} ${ATK_IO_HEADERS}
     ${ATK_IO_LIBSNDFILE_SRC} ${ATK_IO_LIBSNDFILE_HEADERS}
+)
+
+set_target_properties (ATKIO PROPERTIES
+    FOLDER C++/shared
 )
 
 if(LIBSNDFILE_FOUND)

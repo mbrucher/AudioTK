@@ -15,6 +15,10 @@ add_library(ATKCore_static
     ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
 )
 
+set_target_properties (ATKCore_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKCore_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -29,6 +33,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKCore
     SHARED
     ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
+)
+
+set_target_properties (ATKCore PROPERTIES
+    FOLDER C++/shared
 )
 
 if(ENABLE_INTERNAL_PROFILING)

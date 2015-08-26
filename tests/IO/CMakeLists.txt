@@ -31,3 +31,6 @@ target_link_libraries (ATKIO_test ATKIO ATKTools ATKMock ATKCore ${Boost_UNIT_TE
 
 add_test(AudioTKIO ATKIO_test --log_level=message)
 
+set_target_properties (ATKIO_test PROPERTIES
+    FOLDER Tests
+)

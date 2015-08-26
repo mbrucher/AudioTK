@@ -17,6 +17,10 @@ add_library(ATKDynamic_static
     ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS}
 )
 
+set_target_properties (ATKDynamic_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKDynamic_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -31,6 +35,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKDynamic
     SHARED
     ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS}
+)
+
+set_target_properties (ATKDynamic PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKDynamic ATKCore)

@@ -17,6 +17,10 @@ add_library(ATKEQ_static
     ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
 )
 
+set_target_properties (ATKEQ_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKEQ_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -31,6 +35,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKEQ
     SHARED
     ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
+)
+
+set_target_properties (ATKEQ PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKEQ ATKTools ATKCore)

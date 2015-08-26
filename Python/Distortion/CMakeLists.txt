@@ -23,3 +23,7 @@ INSTALL(FILES ${ATK_DISTORTION_PYTHON_SRC}
 INSTALL(TARGETS ${SWIG_MODULE_Distortion_REAL_NAME}
     DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Distortion
     )
+
+set_target_properties (${SWIG_MODULE_Distortion_REAL_NAME} PROPERTIES
+    FOLDER Python
+)

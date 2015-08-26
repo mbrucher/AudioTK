@@ -17,6 +17,10 @@ add_library(ATKSpecial_static
     ${ATK_SPECIAL_SRC} ${ATK_SPECIAL_HEADERS}
 )
 
+set_target_properties (ATKSpecial_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKSpecial_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -31,6 +35,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKSpecial
     SHARED
     ${ATK_SPECIAL_SRC} ${ATK_SPECIAL_HEADERS}
+)
+
+set_target_properties (ATKSpecial PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKSpecial ATKTools ATKCore)

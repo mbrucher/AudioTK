@@ -19,6 +19,10 @@ add_library(ATKMock_static
     ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
 )
 
+set_target_properties (ATKIO_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKMock_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -33,6 +37,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKMock
     SHARED
     ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
+)
+
+set_target_properties (ATKMock PROPERTIES
+    FOLDER C++/shared
 )
 
 stagedebug(ATKMock)
