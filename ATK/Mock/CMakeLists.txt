@@ -9,6 +9,8 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_MOCK)
+
 add_definitions(-DBOOST_ALL_NO_LIB)
 
 include_directories(${PROJECT_SOURCE_DIR})

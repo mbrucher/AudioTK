@@ -9,6 +9,8 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_CORE)
+
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKCore_static
     STATIC
