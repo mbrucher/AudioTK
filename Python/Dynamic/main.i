@@ -16,8 +16,6 @@
 %include "GainColoredExpanderFilter.i"
 %include "GainCompressorFilter.i"
 %include "GainExpanderFilter.i"
-%include "GainFractionalCompressorFilter.i"
-%include "GainFractionalExpanderFilter.i"
 %include "GainLimiterFilter.i"
 %include "GainMaxColoredExpanderFilter.i"
 %include "GainMaxExpanderFilter.i"
