@@ -11,6 +11,8 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 ### 0.7.2
+* Added a GainMaxColoredExpander filter with Python wrapper
+* Removed the gain fractional filters
 * Added a GainSwellFilter with Python wrapper
 
 ### 0.7.1
