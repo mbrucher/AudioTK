@@ -87,13 +87,14 @@ if __name__ == "__main__":
   plt.figure()
   plt.loglog(x[0], out_4_1_1[0], label="ratio(4), threshold(1), softness(1)")
   
-  plt.loglog(x[0], max_out_4_1_1__5[0], label="fractional, ratio(4), threshold(1), softness(1), quality(1), color(.5)")
-  plt.loglog(x[0], max_out_4_1__1__5[0], label="fractional, ratio(4), threshold(1), softness(1), quality(.1), color(.5)")
-  plt.loglog(x[0], max_out_4_1_1_0[0], label="fractional, ratio(4), threshold(1), softness(1), quality(1), color(0)")
-  plt.loglog(x[0], max_out_4_1_1___5[0], label="fractional, ratio(4), threshold(1), softness(1), quality(1), color(-.5)")
-  plt.loglog(x[0], max_out_4_1__1___5[0], label="fractional, ratio(4), threshold(1), softness(1), quality(.1), color(-.5)")
+  plt.loglog(x[0], max_out_4_1_1__5[0], label="colored, ratio(4), threshold(1), softness(1), quality(1), color(.5)")
+  plt.loglog(x[0], max_out_4_1__1__5[0], label="colored, ratio(4), threshold(1), softness(1), quality(.1), color(.5)")
+  plt.loglog(x[0], max_out_4_1_1_0[0], label="colored, ratio(4), threshold(1), softness(1), quality(1), color(0)")
+  plt.loglog(x[0], max_out_4_1_1___5[0], label="colored, ratio(4), threshold(1), softness(1), quality(1), color(-.5)")
+  plt.loglog(x[0], max_out_4_1__1___5[0], label="colored, ratio(4), threshold(1), softness(1), quality(.1), color(-.5)")
   
-  plt.title("Compressor gain")
+  plt.title("Colored compressor gain")
+
   plt.legend(loc=4)
   plt.grid()
   plt.show()

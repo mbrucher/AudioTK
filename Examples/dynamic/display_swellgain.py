@@ -80,12 +80,12 @@ if __name__ == "__main__":
   max_out_2_1 = colored_filter(x, 2, 1, 1)
 
   plt.figure()
-  plt.loglog(x[0], out_1_1_1[0], label="ratio(1), threshold(1), softness(1)")
+  plt.loglog(x[0], out_1_1_1[0], label="compressor, ratio(1), threshold(1), softness(1)")
   
   plt.loglog(x[0], max_out_1_1[0], label="swell, ratio(1), threshold(1), softness(1)")
   plt.loglog(x[0], max_out_2_1[0], label="swell, ratio(2), threshold(1), softness(1)")
 
-  plt.title("Compressor gain")
+  plt.title("Swell gain")
   plt.legend(loc=4)
   plt.grid()
   plt.show()
