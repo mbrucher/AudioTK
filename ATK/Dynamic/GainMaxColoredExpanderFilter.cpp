@@ -53,12 +53,14 @@ namespace ATK
       throw std::out_of_range("Maximum reduction factor must be strictly positive value");
     }
     this->max_reduction = max_reduction;
+    start_recomputeLUT();
   }
 
   template<typename DataType_>
   void GainMaxColoredExpanderFilter<DataType_>::set_max_reduction_db(DataType_ max_reduction_db)
   {
     this->max_reduction = static_cast<DataType_>(std::pow(10, max_reduction_db / 10));
+    start_recomputeLUT();
   }
 
   template<typename DataType_>
@@ -103,7 +105,7 @@ namespace ATK
     if(value == 0)
       return std::pow(max_reduction, 1./(ratio - 1));
 
-    DataType diff = -10 * std::log10(std::sqrt(value * value + std::pow(max_reduction, 2. / (ratio - 1))));
+    DataType diff = -5 * std::log10(value * value + std::pow(max_reduction, 2. / (ratio - 1)));
     DataType additional_color = color * std::exp(- diff * diff * quality);
 
     return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1))) + additional_color;
