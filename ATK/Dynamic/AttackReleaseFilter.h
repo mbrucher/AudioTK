@@ -2,8 +2,8 @@
  * \file AttackReleaseFilter.h
  */
 
-#ifndef ATK_DYNAMIC_ATTACKREKEASEFILTER_H
-#define ATK_DYNAMIC_ATTACKREKEASEFILTER_H
+#ifndef ATK_DYNAMIC_ATTACKRELEASEFILTER_H
+#define ATK_DYNAMIC_ATTACKRELEASEFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
