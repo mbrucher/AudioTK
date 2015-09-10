@@ -16,7 +16,7 @@
 
 #define PROCESSSIZE (1024*64)
 
-BOOST_AUTO_TEST_CASE( AttackReleaseFilter_sinus_test )
+BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
   for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
