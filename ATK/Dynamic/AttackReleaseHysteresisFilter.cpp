@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   AttackReleaseHysteresisFilter<DataType_>::AttackReleaseHysteresisFilter(int nb_channels)
-  :Parent(nb_channels, nb_channels), attack(1), release(1), hysteresis(1)
+  :Parent(nb_channels, nb_channels), attack(1), release(1), attack_hysteresis(1), release_hysteresis(1)
   {
     output_delay = 1;
   }
@@ -64,35 +64,61 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void AttackReleaseHysteresisFilter<DataType_>::set_hysteresis(DataType_ hysteresis)
+  void AttackReleaseHysteresisFilter<DataType_>::set_attack_hysteresis(DataType_ attack_hysteresis)
   {
-    if(hysteresis < 0)
+    if(attack_hysteresis < 1)
     {
-      throw std::out_of_range("Hysteresis factor must be positive value");
+      throw std::out_of_range("Attack hysteresis factor must be bigger than 1");
     }
-    if(hysteresis > 1)
-    {
-      throw std::out_of_range("Hysteresis factor must be less than 1");
-    }
-    this->hysteresis = hysteresis;
+    this->attack_hysteresis = attack_hysteresis;
   }
 
   template<typename DataType_>
-  void AttackReleaseHysteresisFilter<DataType_>::set_hysteresis_db(DataType_ hysteresis_db)
+  void AttackReleaseHysteresisFilter<DataType_>::set_attack_hysteresis_db(DataType_ attack_hysteresis_db)
   {
-    if(hysteresis_db > 0)
+    if(attack_hysteresis_db > 0)
     {
-      throw std::out_of_range("Hysteresis factor in dB must be less than 0");
+      throw std::out_of_range("Atatch hysteresis factor in dB must be greater than 0");
     }
-    set_hysteresis(std::pow(10., hysteresis_db/20));
+    set_attack_hysteresis(std::pow(10., attack_hysteresis_db/20));
   }
 
   template<typename DataType_>
-  DataType_ AttackReleaseHysteresisFilter<DataType_>::get_hysteresis() const
+  DataType_ AttackReleaseHysteresisFilter<DataType_>::get_attack_hysteresis() const
   {
-    return hysteresis;
+    return attack_hysteresis;
   }
-
+  
+  template<typename DataType_>
+  void AttackReleaseHysteresisFilter<DataType_>::set_release_hysteresis(DataType_ release_hysteresis)
+  {
+    if(release_hysteresis < 0)
+    {
+      throw std::out_of_range("Release hysteresis factor must be positive");
+    }
+    if(release_hysteresis > 1)
+    {
+      throw std::out_of_range("Release hysteresis factor must be smaller than 1");
+    }
+    this->release_hysteresis = release_hysteresis;
+  }
+  
+  template<typename DataType_>
+  void AttackReleaseHysteresisFilter<DataType_>::set_release_hysteresis_db(DataType_ release_hysteresis_db)
+  {
+    if(release_hysteresis_db < 0)
+    {
+      throw std::out_of_range("Release hysteresis factor in dB must be smaller than 0");
+    }
+    set_release_hysteresis(std::pow(10., release_hysteresis_db/20));
+  }
+  
+  template<typename DataType_>
+  DataType_ AttackReleaseHysteresisFilter<DataType_>::get_release_hysteresis() const
+  {
+    return release_hysteresis;
+  }
+  
   template<typename DataType_>
   void AttackReleaseHysteresisFilter<DataType_>::process_impl(int64_t size) const
   {
@@ -103,13 +129,13 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(int64_t i = 0; i < size; ++i)
       {
-        if(output[i-1] < input[i])
+        if(output[i-1] * attack_hysteresis < input[i])
         {
           output[i] = (1 - attack) * input[i] + attack * output[i-1];//attack phase
         }
         else
         {
-          if(output[i-1] * hysteresis > input[i])
+          if(output[i-1] * release_hysteresis > input[i])
           {
             output[i] = (1 - release) * input[i] + release * output[i-1];//release phase
           }

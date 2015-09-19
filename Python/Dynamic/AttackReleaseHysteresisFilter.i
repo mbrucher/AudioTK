@@ -16,9 +16,12 @@ namespace ATK
     DataType get_attack() const;
     void set_release(DataType release);
     DataType get_release() const;
-    void set_hysteresis(DataType hysteresis);
-    void set_hysteresis_db(DataType hysteresis_db);
-    DataType get_hysteresis() const;
+    void set_attack_hysteresis(DataType attack_hysteresis);
+    void set_attack_hysteresis_db(DataType attack_hysteresis_db);
+    DataType get_attack_hysteresis() const;
+    void set_release_hysteresis(DataType release_hysteresis);
+    void set_release_hysteresis_db(DataType release_hysteresis_db);
+    DataType get_release_hysteresis() const;
   };
 }
 

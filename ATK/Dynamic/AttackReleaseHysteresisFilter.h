@@ -33,9 +33,13 @@ namespace ATK
     DataType_ get_attack() const;
     void set_release(DataType_ release);
     DataType_ get_release() const;
-    void set_hysteresis(DataType_ hysteresis);
-    void set_hysteresis_db(DataType_ hysteresis_db);
-    DataType_ get_hysteresis() const;
+
+    void set_attack_hysteresis(DataType_ attack_hysteresis);
+    void set_attack_hysteresis_db(DataType_ attack_hysteresis_db);
+    DataType_ get_attack_hysteresis() const;
+    void set_release_hysteresis(DataType_ release_hysteresis);
+    void set_release_hysteresis_db(DataType_ release_hysteresis_db);
+    DataType_ get_release_hysteresis() const;
     
   protected:
     virtual void process_impl(int64_t size) const override final;
@@ -43,7 +47,8 @@ namespace ATK
   private:
     DataType_ attack;
     DataType_ release;
-    DataType_ hysteresis;
+    DataType_ attack_hysteresis;
+    DataType_ release_hysteresis;
   };
 }
 

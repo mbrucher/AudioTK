@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_triangle_test )
 
 #define CUSTOMPROCESSSIZE 7
 
-BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_custom_test )
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_release_custom_test )
 {
   float data[] = {0., 1., .5, .4, .3, .2, .1};
   float target[] = {0., 1., 1., .46, .46, .226, .1126};
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_custom_test )
   ATK::AttackReleaseHysteresisFilter<float> filter(1);
   filter.set_attack(0);
   filter.set_release(.1);
-  filter.set_hysteresis(.5);
+  filter.set_release_hysteresis(.5);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   
