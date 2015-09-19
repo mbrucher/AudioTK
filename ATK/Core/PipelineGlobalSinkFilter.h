@@ -24,7 +24,7 @@ namespace ATK
     void add_filter(BaseFilter* filter);
     void remove_filter(const BaseFilter* filter);
 
-    int get_type() const;
+    int get_type() const override;
   protected:
     virtual void process_impl(int64_t size) const override final;
     /// Prepares the filter by retrieving the inputs arrays
