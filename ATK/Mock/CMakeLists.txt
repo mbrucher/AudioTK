@@ -9,6 +9,8 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_MOCK)
+
 add_definitions(-DBOOST_ALL_NO_LIB)
 
 include_directories(${PROJECT_SOURCE_DIR})
@@ -17,6 +19,10 @@ if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKMock_static
     STATIC
     ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
+)
+
+set_target_properties (ATKIO_static PROPERTIES
+    FOLDER C++/static
 )
 
 INSTALL(TARGETS ATKMock_static
@@ -33,6 +39,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKMock
     SHARED
     ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
+)
+
+set_target_properties (ATKMock PROPERTIES
+    FOLDER C++/shared
 )
 
 stagedebug(ATKMock)

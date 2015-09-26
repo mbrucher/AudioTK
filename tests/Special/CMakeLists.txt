@@ -15,3 +15,7 @@ target_link_libraries (ATKSpecial_test ATKSpecial ATKEQ ATKMock ATKTools ATKCore
 
 add_test(AudioTKSpecial ATKSpecial_test --log_level=message)
 
+
+set_target_properties (ATKSpecial_test PROPERTIES
+    FOLDER Tests
+)

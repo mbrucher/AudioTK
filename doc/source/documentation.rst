@@ -112,6 +112,7 @@ Dynamic module
 The *Dynamic* module contains filters enabling compressor construction.
 
 * **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
+* **AttackReleaseHysteresisFilter** is a filter modulating an input with an Attack and a Release envelope specification and a hysteresis mode
 * **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
 * **GainExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does
 * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does

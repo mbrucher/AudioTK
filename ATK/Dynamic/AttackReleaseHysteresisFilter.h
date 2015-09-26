@@ -1,9 +1,9 @@
 /**
- * \file AttackReleaseFilter.h
+ * \file AttackReleaseHysteresisFilter.h
  */
 
-#ifndef ATK_DYNAMIC_ATTACKRELEASEFILTER_H
-#define ATK_DYNAMIC_ATTACKRELEASEFILTER_H
+#ifndef ATK_DYNAMIC_ATTACKRELEASEHYSTERESISFILTER_H
+#define ATK_DYNAMIC_ATTACKRELEASEHYSTERESISFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Creates an output signal with the filter power of the input (computed with an AR1)
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT AttackReleaseFilter : public TypedBaseFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT AttackReleaseHysteresisFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -26,13 +26,20 @@ namespace ATK
     using Parent::output_delay;
 
   public:
-    AttackReleaseFilter(int nb_channels = 1);
-    ~AttackReleaseFilter();
+    AttackReleaseHysteresisFilter(int nb_channels = 1);
+    ~AttackReleaseHysteresisFilter();
 
     void set_attack(DataType_ attack);
     DataType_ get_attack() const;
     void set_release(DataType_ release);
     DataType_ get_release() const;
+
+    void set_attack_hysteresis(DataType_ attack_hysteresis);
+    void set_attack_hysteresis_db(DataType_ attack_hysteresis_db);
+    DataType_ get_attack_hysteresis() const;
+    void set_release_hysteresis(DataType_ release_hysteresis);
+    void set_release_hysteresis_db(DataType_ release_hysteresis_db);
+    DataType_ get_release_hysteresis() const;
     
   protected:
     virtual void process_impl(int64_t size) const override final;
@@ -40,6 +47,8 @@ namespace ATK
   private:
     DataType_ attack;
     DataType_ release;
+    DataType_ attack_hysteresis;
+    DataType_ release_hysteresis;
   };
 }
 

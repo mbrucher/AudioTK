@@ -68,7 +68,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ ATK::GainMaxExpanderFilter<DataType_>::computeGain( DataType_ value ) const
+  DataType_ GainMaxExpanderFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
       return std::pow(max_reduction, 1./(ratio - 1));

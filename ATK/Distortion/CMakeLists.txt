@@ -9,12 +9,18 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_DISTORTION)
+
 include_directories(${PROJECT_SOURCE_DIR})
 
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDistortion_static
     STATIC
     ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
+)
+
+set_target_properties (ATKDistortion_static PROPERTIES
+    FOLDER C++/static
 )
 
 INSTALL(TARGETS ATKDistortion_static
@@ -31,6 +37,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKDistortion
     SHARED
     ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
+)
+
+set_target_properties (ATKDistortion PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKDistortion ATKCore ATKTools)

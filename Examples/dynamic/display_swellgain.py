@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
-from ATK.Dynamic import DoubleGainCompressorFilter, DoubleGainFractionalCompressorFilter
+from ATK.Dynamic import DoubleGainCompressorFilter, DoubleGainSwellFilter
 from ATK.Tools import DoubleApplyGainFilter
 
 import matplotlib.pyplot as plt
@@ -38,7 +38,7 @@ def filter(input, ratio=4, threshold=1, softness=1):
 
   return output
 
-def fractional_filter(input, ratio=4, threshold=1, color=1):
+def colored_filter(input, ratio=4, threshold=1, softness=1):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
   
@@ -49,13 +49,13 @@ def fractional_filter(input, ratio=4, threshold=1, color=1):
   infilter = DoubleInPointerFilter(input, False)
   infilter.set_input_sampling_rate(sample_rate)
   
-  gainfilter = DoubleGainFractionalCompressorFilter(1)
+  gainfilter = DoubleGainSwellFilter(1)
   gainfilter.set_input_sampling_rate(sample_rate)
   gainfilter.set_input_port(0, in2filter, 0)
   gainfilter.set_threshold(threshold)
   gainfilter.set_ratio(ratio)
-  gainfilter.set_color(color)
-  
+  gainfilter.set_softness(softness)
+
   applygainfilter = DoubleApplyGainFilter(1)
   applygainfilter.set_input_sampling_rate(sample_rate)
   applygainfilter.set_input_port(0, gainfilter, 0)
@@ -70,31 +70,22 @@ def fractional_filter(input, ratio=4, threshold=1, color=1):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 10000
+  size = 1000
 
-  x = np.arange(size, dtype=np.float64).reshape(1, -1) / 100
+  x = np.arange(10, size, dtype=np.float64).reshape(1, -1) / 100
 
-  np.savetxt("input.txt", x)
-  out_3_1_1 = filter(x, 3, 1, 1)
-  out_4_1_1 = filter(x, 4, 1, 1)
+  out_1_1_1 = filter(x, 1, 1, 1)
   
-  max_out_3_1___5 = fractional_filter(x, 3, 1, -.5)
-  max_out_4_1__5 = fractional_filter(x, 4, 1, .5)
-  max_out_4_1_0 = fractional_filter(x, 4, 1, 0)
-  max_out_4_1___5 = fractional_filter(x, 4, 1, -.5)
-  max_out_1_5_1___5 = fractional_filter(x, 1.5, 1, -.5)
+  max_out_1_1 = colored_filter(x, 1, 1, 1)
+  max_out_2_1 = colored_filter(x, 2, 1, 1)
 
   plt.figure()
-  plt.loglog(x[0], out_4_1_1[0], label="ratio(4), threshold(1), softness(1)")
-  plt.loglog(x[0], out_3_1_1[0], label="ratio(3), threshold(1), softness(1)")
+  plt.loglog(x[0], out_1_1_1[0], label="compressor, ratio(1), threshold(1), softness(1)")
   
-  plt.loglog(x[0], max_out_4_1__5[0], label="fractional, ratio(4), threshold(1), color(.5)")
-  plt.loglog(x[0], max_out_4_1_0[0], label="fractional, ratio(4), threshold(1), color(0)")
-  plt.loglog(x[0], max_out_4_1___5[0], label="fractional, ratio(4), threshold(1), color(-.5)")
-  plt.loglog(x[0], max_out_3_1___5[0], label="fractional, ratio(3), threshold(1), color(-.5)")
-  plt.loglog(x[0], max_out_1_5_1___5[0], label="fractional, ratio(1.5), threshold(1), color(-.5)")
-  
-  plt.title("Compressor gain")
+  plt.loglog(x[0], max_out_1_1[0], label="swell, ratio(1), threshold(1), softness(1)")
+  plt.loglog(x[0], max_out_2_1[0], label="swell, ratio(2), threshold(1), softness(1)")
+
+  plt.title("Swell gain")
   plt.legend(loc=4)
   plt.grid()
   plt.show()

@@ -29,6 +29,10 @@ namespace ATK
     {
       throw std::out_of_range("Attack factor must be positive value");
     }
+    if(attack > 1)
+    {
+      throw std::out_of_range("Attack factor must be less than 1");
+    }
     this->attack = attack;
   }
   
@@ -44,6 +48,10 @@ namespace ATK
     if(release < 0)
     {
       throw std::out_of_range("Release factor must be positive value");
+    }
+    if(release > 1)
+    {
+      throw std::out_of_range("Release factor must be less than 1");
     }
     this->release = release;
   }

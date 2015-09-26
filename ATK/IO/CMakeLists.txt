@@ -20,16 +20,24 @@ FILE(GLOB_RECURSE
     libsndfile/*.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_IO_LIBSNDFILE)
+
 include_directories(${PROJECT_SOURCE_DIR} ${LIBSNDFILE_INCLUDE_DIR})
 else(LIBSNDFILE_FOUND)
 include_directories(${PROJECT_SOURCE_DIR})
 endif(LIBSNDFILE_FOUND)
+
+SOURCE_GROUP_BY_FOLDER(ATK_IO)
 
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKIO_static
     STATIC
     ${ATK_IO_SRC} ${ATK_IO_HEADERS}
     ${ATK_IO_LIBSNDFILE_SRC} ${ATK_IO_LIBSNDFILE_HEADERS}
+)
+
+set_target_properties (ATKIO_static PROPERTIES
+    FOLDER C++/static
 )
 
 INSTALL(TARGETS ATKIO_static
@@ -48,6 +56,10 @@ add_library(ATKIO
     SHARED
     ${ATK_IO_SRC} ${ATK_IO_HEADERS}
     ${ATK_IO_LIBSNDFILE_SRC} ${ATK_IO_LIBSNDFILE_HEADERS}
+)
+
+set_target_properties (ATKIO PROPERTIES
+    FOLDER C++/shared
 )
 
 if(LIBSNDFILE_FOUND)

@@ -36,7 +36,7 @@ namespace ATK
     virtual void full_setup() override;
 
   protected:
-    virtual int get_type() const;
+    virtual int get_type() const override;
     /// This implementation retrieves inputs from other filters and converts it accordingly
     virtual void process_impl(int64_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays

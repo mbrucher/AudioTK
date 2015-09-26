@@ -9,10 +9,16 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_CORE)
+
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKCore_static
     STATIC
     ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
+)
+
+set_target_properties (ATKCore_static PROPERTIES
+    FOLDER C++/static
 )
 
 INSTALL(TARGETS ATKCore_static
@@ -29,6 +35,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKCore
     SHARED
     ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
+)
+
+set_target_properties (ATKCore PROPERTIES
+    FOLDER C++/shared
 )
 
 if(ENABLE_INTERNAL_PROFILING)

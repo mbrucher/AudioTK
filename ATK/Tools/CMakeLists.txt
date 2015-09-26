@@ -9,12 +9,18 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_TOOLS)
+
 include_directories(${PROJECT_SOURCE_DIR})
 
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKTools_static
     STATIC
     ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
+)
+
+set_target_properties (ATKTools_static PROPERTIES
+    FOLDER C++/static
 )
 
 INSTALL(TARGETS ATKTools_static
@@ -31,6 +37,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKTools
     SHARED
     ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
+)
+
+set_target_properties (ATKTools PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKTools ATKCore ${FFTLIBRARIES})

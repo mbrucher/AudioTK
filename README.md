@@ -10,6 +10,12 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 0.7.2
+* Added an AttackReleaseHysteresis filter with Python wrapper
+* Added a GainMaxColoredExpander filter with Python wrapper
+* Removed the gain fractional filters
+* Added a GainSwellFilter with Python wrapper
+
 ### 0.7.1
 * Added additional second order filters with Python wrappers (RBJ coefficients)
 * Added GainColoredCompressorFilter and GainColoredExpanderFilter with Python wrappers

@@ -9,12 +9,18 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_DELAY)
+
 include_directories(${PROJECT_SOURCE_DIR})
 
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDelay_static
     STATIC
     ${ATK_DELAY_SRC} ${ATK_DELAY_HEADERS}
+)
+
+set_target_properties (ATKDelay_static PROPERTIES
+    FOLDER C++/static
 )
 
 INSTALL(TARGETS ATKDelay_static
@@ -31,6 +37,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKDelay
     SHARED
     ${ATK_DELAY_SRC} ${ATK_DELAY_HEADERS}
+)
+
+set_target_properties (ATKDelay PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKDelay ATKCore)

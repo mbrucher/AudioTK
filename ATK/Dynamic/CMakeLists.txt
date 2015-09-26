@@ -9,12 +9,18 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+SOURCE_GROUP_BY_FOLDER(ATK_DYNAMIC)
+
 include_directories(${PROJECT_SOURCE_DIR})
 
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDynamic_static
     STATIC
     ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS}
+)
+
+set_target_properties (ATKDynamic_static PROPERTIES
+    FOLDER C++/static
 )
 
 INSTALL(TARGETS ATKDynamic_static
@@ -31,6 +37,10 @@ add_definitions(-DATK_SHARED)
 add_library(ATKDynamic
     SHARED
     ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS}
+)
+
+set_target_properties (ATKDynamic PROPERTIES
+    FOLDER C++/shared
 )
 
 target_link_libraries(ATKDynamic ATKCore)
