@@ -14,7 +14,8 @@ namespace ATK
   BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
   :is_reset(true), nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
-   connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0)
+   connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
+   latency(0)
   {
 #if ATK_PROFILING == 1
     input_conversion_time = 0;
@@ -182,4 +183,30 @@ namespace ATK
   {
     nb_output_ports = nb_ports;
   }
+  
+  void BaseFilter::set_latency(uint64_t latency)
+  {
+    this->latency = latency;
+  }
+
+  uint64_t BaseFilter::get_latency() const
+  {
+    return latency;
+  }
+
+  uint64_t BaseFilter::get_global_latency() const
+  {
+    uint64_t global_latency = 0;
+    for(auto it = connections.begin(); it != connections.end(); ++it)
+    {
+      if(it->second == nullptr)
+      {
+        throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
+      }
+      
+      global_latency = std::max(global_latency, it->second->get_global_latency());
+    }
+    return global_latency + latency;
+  }
+
 }

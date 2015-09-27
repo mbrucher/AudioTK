@@ -48,6 +48,9 @@ namespace ATK
     ATK_CORE_EXPORT virtual void set_nb_output_ports(int nb_ports);
     ATK_CORE_EXPORT int get_input_delay() const;
     ATK_CORE_EXPORT int get_output_delay() const;
+    ATK_CORE_EXPORT virtual void set_latency(uint64_t latency);
+    ATK_CORE_EXPORT uint64_t get_latency() const;
+    ATK_CORE_EXPORT uint64_t get_global_latency() const;
 
     /// Resets the filter so that it will process something if needed
     void reset();
@@ -79,6 +82,8 @@ namespace ATK
 
     int64_t input_delay;
     int64_t output_delay;
+    
+    uint64_t latency;
 
   private:
 #if ATK_PROFILING == 1
