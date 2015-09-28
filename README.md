@@ -10,6 +10,9 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### x.x.x
+* Added a latency computation
+
 ### 0.7.2
 * Added an AttackReleaseHysteresis filter with Python wrapper
 * Added a GainMaxColoredExpander filter with Python wrapper

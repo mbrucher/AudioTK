@@ -15,6 +15,11 @@ namespace ATK
     int get_output_sampling_rate();
     
     void process(long size);
+    
+    void set_latency(uint64_t latency);
+    uint64_t get_latency() const;
+    uint64_t get_global_latency() const;
+
   };
 
 }

@@ -179,3 +179,24 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_throw_triangle_test )
   
   BOOST_CHECK_THROW(checker.process(PROCESSSIZE), std::runtime_error);
 }
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_latency_set_test )
+{
+  ATK::TriangleCheckerFilter<int64_t> checker;
+  BOOST_CHECK_EQUAL(checker.get_latency(), 0);
+  checker.set_latency(1);
+  BOOST_CHECK_EQUAL(checker.get_latency(), 1);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_global_latency_test )
+{
+  ATK::TriangleGeneratorFilter<std::int32_t> generator;
+  ATK::TriangleCheckerFilter<float> checker;
+  checker.set_input_port(0, &generator, 0);
+
+  BOOST_CHECK_EQUAL(checker.get_global_latency(), 0);
+  checker.set_latency(1);
+  BOOST_CHECK_EQUAL(checker.get_global_latency(), 1);
+  generator.set_latency(2);
+  BOOST_CHECK_EQUAL(checker.get_global_latency(), 3);
+}
