@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainMaxExpanderFilter<DataType_>::GainMaxExpanderFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), max_reduction(0.01)
+  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), max_reduction(static_cast<DataType_>(0.01))
   {
     recomputeLUT();
   }
@@ -71,9 +71,9 @@ namespace ATK
   DataType_ GainMaxExpanderFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
-      return std::pow(max_reduction, 1./(ratio - 1));
+      return static_cast<DataType_>(std::pow(max_reduction, 1./(ratio - 1)));
 
-    DataType diff = -10 * std::log10(std::sqrt(value * value + std::pow(max_reduction, 2. / (ratio - 1))));
+    DataType diff = static_cast<DataType_>(-10 * std::log10(std::sqrt(value * value + std::pow(max_reduction, 2. / (ratio - 1)))));
 
     return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1)));
   }

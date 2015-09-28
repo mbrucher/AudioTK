@@ -76,7 +76,7 @@ namespace ATK
   template<typename DataType_>
   void AttackReleaseHysteresisFilter<DataType_>::set_attack_hysteresis_db(DataType_ attack_hysteresis_db)
   {
-    set_attack_hysteresis(std::pow(10., attack_hysteresis_db/20));
+    set_attack_hysteresis(static_cast<DataType_>(std::pow(10., attack_hysteresis_db/20)));
   }
 
   template<typename DataType_>
@@ -106,7 +106,7 @@ namespace ATK
     {
       throw std::out_of_range("Release hysteresis factor in dB must be smaller than 0");
     }
-    set_release_hysteresis(std::pow(10., release_hysteresis_db/20));
+    set_release_hysteresis(static_cast<DataType_>(std::pow(10., release_hysteresis_db/20)));
   }
   
   template<typename DataType_>

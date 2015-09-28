@@ -80,8 +80,8 @@ namespace ATK
     /// The connections to the output pins of some filters
     std::vector<std::pair<int, BaseFilter*> > connections;
 
-    int64_t input_delay;
-    int64_t output_delay;
+    int input_delay;
+    int output_delay;
     
     uint64_t latency;
 

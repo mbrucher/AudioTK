@@ -26,7 +26,7 @@ namespace ATK
     
   public:
     ScalarNewtonRaphson(const std::unique_ptr<Function>& function, DataType precision = 0)
-    :function(function), x0(0), y0(0), precision(precision), maxstep(.1)
+    :function(function), x0(0), y0(0), precision(precision), maxstep(static_cast<DataType>(.1))
     {
       if(precision == 0)
       {

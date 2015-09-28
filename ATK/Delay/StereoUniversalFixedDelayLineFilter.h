@@ -37,11 +37,11 @@ namespace ATK
     ~StereoUniversalFixedDelayLineFilter();
 
     /// Set the initial delay from channel 1
-    void set_delay_ch1(int64_t delay);
-    int64_t get_delay_ch1() const;
+    void set_delay_ch1(int delay);
+    int get_delay_ch1() const;
     /// Set the initial delay from channel 2
-    void set_delay_ch2(int64_t delay);
-    int64_t get_delay_ch2() const;
+    void set_delay_ch2(int delay);
+    int get_delay_ch2() const;
 
     void set_blend_ch1(DataType_ blend);
     DataType_ get_blend_ch1() const;
@@ -77,10 +77,10 @@ namespace ATK
     // internal state
     std::unique_ptr<SUFDLF_Impl<DataType_> > impl;
 
-    int64_t delay_l;
-    int64_t delay_r;
+    int delay_l;
+    int delay_r;
     /// Max delay for the delay line
-    int64_t max_delay;
+    int max_delay;
     DataType_ blend_l;
     DataType_ blend_r;
     DataType_ feedback_l_l;
