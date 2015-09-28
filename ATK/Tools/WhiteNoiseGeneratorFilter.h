@@ -30,18 +30,18 @@ namespace ATK
     WhiteNoiseGeneratorFilter();
     ~WhiteNoiseGeneratorFilter();
 
-    void set_volume(double volume);
-    double get_volume() const;
+    void set_volume(DataType_ volume);
+    DataType_ get_volume() const;
 
-    void set_offset(double offset);
-    double get_offset() const;
+    void set_offset(DataType_ offset);
+    DataType_ get_offset() const;
 
   protected:
     virtual void process_impl(int64_t size) const override final;
     
   private:
-    double volume;
-    double offset;
+    DataType_ volume;
+    DataType_ offset;
     
     mutable boost::random::mt19937 gen; // Should use a random123 when they will be in Boost
     mutable boost::random::uniform_real_distribution<DataType_> dist;

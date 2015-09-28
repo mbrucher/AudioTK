@@ -38,25 +38,25 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void CachedCosinusGeneratorFilter<DataType_>::set_volume(double volume)
+  void CachedCosinusGeneratorFilter<DataType_>::set_volume(DataType_ volume)
   {
     this->volume = volume;
   }
   
   template<typename DataType_>
-  double CachedCosinusGeneratorFilter<DataType_>::get_volume() const
+  DataType_ CachedCosinusGeneratorFilter<DataType_>::get_volume() const
   {
     return volume;
   }
   
   template<typename DataType_>
-  void CachedCosinusGeneratorFilter<DataType_>::set_offset(double offset)
+  void CachedCosinusGeneratorFilter<DataType_>::set_offset(DataType_ offset)
   {
     this->offset = offset;
   }
   
   template<typename DataType_>
-  double CachedCosinusGeneratorFilter<DataType_>::get_offset() const
+  DataType_ CachedCosinusGeneratorFilter<DataType_>::get_offset() const
   {
     return offset;
   }

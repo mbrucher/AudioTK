@@ -32,11 +32,11 @@ namespace ATK
     void set_frequency(int periods, int seconds = 1);
     std::pair<int, int> get_frequency() const;
 
-    void set_volume(double volume);
-    double get_volume() const;
+    void set_volume(DataType_ volume);
+    DataType_ get_volume() const;
 
-    void set_offset(double offset);
-    double get_offset() const;
+    void set_offset(DataType_ offset);
+    DataType_ get_offset() const;
 
   protected:
     virtual void process_impl(int64_t size) const override final;
@@ -46,8 +46,8 @@ namespace ATK
     mutable int64_t indice;
     int periods;
     int seconds;
-    double volume;
-    double offset;
+    DataType_ volume;
+    DataType_ offset;
     std::vector<DataType_> cache;
   };
 }

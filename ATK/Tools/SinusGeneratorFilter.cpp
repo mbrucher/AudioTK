@@ -37,25 +37,25 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SinusGeneratorFilter<DataType_>::set_volume(double volume)
+  void SinusGeneratorFilter<DataType_>::set_volume(DataType_ volume)
   {
     this->volume = volume;
   }
   
   template<typename DataType_>
-  double SinusGeneratorFilter<DataType_>::get_volume() const
+  DataType_ SinusGeneratorFilter<DataType_>::get_volume() const
   {
     return volume;
   }
   
   template<typename DataType_>
-  void SinusGeneratorFilter<DataType_>::set_offset(double offset)
+  void SinusGeneratorFilter<DataType_>::set_offset(DataType_ offset)
   {
     this->offset = offset;
   }
   
   template<typename DataType_>
-  double SinusGeneratorFilter<DataType_>::get_offset() const
+  DataType_ SinusGeneratorFilter<DataType_>::get_offset() const
   {
     return offset;
   }
