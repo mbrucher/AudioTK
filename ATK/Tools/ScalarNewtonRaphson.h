@@ -87,7 +87,7 @@ namespace ATK
       }
       if(i == max_iterations)
       {
-        std::cout << "Failed to converge for " << x0 << "," << x1 << "," << y0 << "," << y1 << std::endl;
+        return y0; // Stay the same
       }
       return y1;
     }
