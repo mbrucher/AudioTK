@@ -5,7 +5,7 @@
 #ifndef ATK_DISTORTION_SD1OVERDRIVEFILTER_H
 #define ATK_DISTORTION_SD1OVERDRIVEFILTER_H
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
@@ -49,8 +49,8 @@ namespace ATK
     DataType drive;
     
   private:
-    boost::scoped_ptr<SD1OverdriveFunction<DataType> > function;
-    boost::scoped_ptr<ScalarNewtonRaphson<SD1OverdriveFunction<DataType> > > optimizer;
+    std::unique_ptr<SD1OverdriveFunction<DataType> > function;
+    std::unique_ptr<ScalarNewtonRaphson<SD1OverdriveFunction<DataType> > > optimizer;
   };
 }
 

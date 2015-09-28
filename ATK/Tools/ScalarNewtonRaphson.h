@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 namespace ATK
 {
@@ -18,14 +18,14 @@ namespace ATK
     
     typedef typename Function::DataType DataType;
     
-    const boost::scoped_ptr<Function>& function;
+    const std::unique_ptr<Function>& function;
     
     DataType x0, y0;
     DataType precision;
     DataType maxstep;
     
   public:
-    ScalarNewtonRaphson(const boost::scoped_ptr<Function>& function, DataType precision = 0)
+    ScalarNewtonRaphson(const std::unique_ptr<Function>& function, DataType precision = 0)
     :function(function), x0(0), y0(0), precision(precision), maxstep(.1)
     {
       if(precision == 0)
