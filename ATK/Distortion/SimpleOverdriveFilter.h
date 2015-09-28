@@ -47,7 +47,6 @@ namespace ATK
     void process_impl(int64_t size) const override final;
     
   private:
-    std::unique_ptr<SimpleOverdriveFunction<DataType> > function;
     std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction<DataType> > > optimizer;
   };
 }

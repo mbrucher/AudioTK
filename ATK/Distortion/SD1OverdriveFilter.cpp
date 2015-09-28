@@ -96,7 +96,6 @@ namespace ATK
   SD1OverdriveFilter<DataType>::SD1OverdriveFilter(int nb_channels)
     :TypedBaseFilter<DataType>(nb_channels, nb_channels), drive(0)
   {
-    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction<DataType> >(function));
   }
 
   template <typename DataType>
@@ -108,9 +107,11 @@ namespace ATK
   void SD1OverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    function.reset(new SD1OverdriveFunction<DataType>(static_cast<DataType>(1./input_sampling_rate),
-      static_cast<DataType>(100e3), static_cast<DataType>(0.047e-6), static_cast<DataType>(33e3), static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3)));
-    function->set_drive(drive);
+    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction<DataType> >(SD1OverdriveFunction<DataType>(static_cast<DataType>(1. / input_sampling_rate),
+      static_cast<DataType>(100e3), static_cast<DataType>(0.047e-6), static_cast<DataType>(33e3),
+      static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
+
+    optimizer->get_function().set_drive(drive);
   }
 
   template <typename DataType>
@@ -121,7 +122,7 @@ namespace ATK
       throw std::out_of_range("Drive must be a value between 0 and 1");
     }
     this->drive = drive;
-    function->set_drive(drive);
+    optimizer->get_function().set_drive(drive);
   }
 
   template <typename DataType>

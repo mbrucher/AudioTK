@@ -49,7 +49,6 @@ namespace ATK
     DataType drive;
     
   private:
-    std::unique_ptr<SD1OverdriveFunction<DataType> > function;
     std::unique_ptr<ScalarNewtonRaphson<SD1OverdriveFunction<DataType> > > optimizer;
   };
 }
