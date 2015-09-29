@@ -20,8 +20,5 @@ namespace ATK
   };
 }
 
-%template(Int16OffsetVolumeFilter) ATK::OffsetVolumeFilter<std::int16_t>;
-%template(Int32OffsetVolumeFilter) ATK::OffsetVolumeFilter<std::int32_t>;
-%template(Int64OffsetVolumeFilter) ATK::OffsetVolumeFilter<std::int64_t>;
 %template(FloatOffsetVolumeFilter) ATK::OffsetVolumeFilter<float>;
 %template(DoubleOffsetVolumeFilter) ATK::OffsetVolumeFilter<double>;
