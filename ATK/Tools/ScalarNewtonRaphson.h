@@ -36,10 +36,6 @@ namespace ATK
     
     DataType optimize(DataType x1)
     {
-      if(x0 == x1)
-      {
-        return y0;
-      }
       y0 = optimize_impl(x1);
 
       x0 = x1;
