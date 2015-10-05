@@ -8,7 +8,7 @@
 #include "config.h"
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include <ATK/Tools/FFT.h>
+#include <ATK/Utility/FFT.h>
 
 namespace ATK
 {

@@ -2,8 +2,8 @@
  * \file FFT.h
  */
 
-#ifndef ATK_TOOLS_FFT_H
-#define ATK_TOOLS_FFT_H
+#ifndef ATK_UTILITY_FFT_H
+#define ATK_UTILITY_FFT_H
 
 #include <complex>
 #include <cstdint>
@@ -22,7 +22,7 @@
 namespace ATK
 {
   template<class DataType_>
-  class ATK_TOOLS_EXPORT FFT
+  class ATK_UTILITY_EXPORT FFT
   {
   public:
     FFT();
