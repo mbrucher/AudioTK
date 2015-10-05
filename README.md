@@ -10,7 +10,9 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
-### x.x.x
+### 1.0.0
+* Split ATKTools in Tools and Utility modules
+* Allow threaded computation in pipelines
 * Added a latency computation
 
 ### 0.7.2
