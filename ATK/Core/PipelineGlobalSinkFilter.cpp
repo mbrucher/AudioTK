@@ -6,10 +6,14 @@
 
 #include <algorithm>
 
+#if ATK_USE_THREADPOOL == 1
+#include <tbb/task_group.h>
+#endif
+
 namespace ATK
 {
   PipelineGlobalSinkFilter::PipelineGlobalSinkFilter()
-  :Parent(0, 0)
+  :Parent(0, 0), activate_parallel(false)
   {
   }
 
@@ -39,7 +43,12 @@ namespace ATK
     return 0; // bogus
   }
 
-  void PipelineGlobalSinkFilter::prepare_process( int64_t size )
+  void PipelineGlobalSinkFilter::set_parallel(bool parallel)
+  {
+    activate_parallel = parallel;
+  }
+
+  void PipelineGlobalSinkFilter::prepare_process(int64_t size)
   {
   }
 
@@ -56,9 +65,24 @@ namespace ATK
         (*it)->reset();
       }
     }
-    for (auto it = filters.begin(); it != filters.end(); ++it)
+#if ATK_USE_THREADPOOL == 1
+    if (activate_parallel)
     {
-      (*it)->process_conditionnally(size * (*it)->get_output_sampling_rate() / input_sampling_rate);
+      tbb::task_group g;
+      for (auto it = filters.begin(); it != filters.end(); ++it)
+      {
+        auto filter = (*it);
+        g.run([=] {filter->process_conditionnally(size * (*it)->get_output_sampling_rate() / input_sampling_rate); });
+      }
+      g.wait();
+    }
+    else
+#endif
+    {
+      for (auto it = filters.begin(); it != filters.end(); ++it)
+      {
+        (*it)->process_conditionnally(size * (*it)->get_output_sampling_rate() / input_sampling_rate);
+      }
     }
   }
 

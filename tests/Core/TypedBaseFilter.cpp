@@ -8,6 +8,7 @@
 
 #include <ATK/Mock/TriangleCheckerFilter.h>
 #include <ATK/Mock/TriangleGeneratorFilter.h>
+#include <ATK/Tools/SumFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -200,3 +201,31 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_global_latency_test )
   generator.set_latency(2);
   BOOST_CHECK_EQUAL(checker.get_global_latency(), 3);
 }
+
+#if ATK_USE_THREADPOOL == 1
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_parallel)
+{
+  ATK::TriangleGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1);
+  generator.set_frequency(1000);
+  ATK::TriangleGeneratorFilter<double> generator2;
+  generator2.set_output_sampling_rate(48000);
+  generator2.set_amplitude(2);
+  generator2.set_frequency(1000);
+
+  ATK::SumFilter<double> sumfilter;
+  sumfilter.set_input_sampling_rate(48000);
+  sumfilter.set_output_sampling_rate(48000);
+
+  ATK::TriangleCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(3);
+  checker.set_frequency(1000);
+
+  sumfilter.set_input_port(0, &generator, 0);
+  sumfilter.set_input_port(1, &generator2, 0);
+  checker.set_input_port(0, &sumfilter, 0);
+  checker.process_parallel(PROCESSSIZE);
+}
+#endif

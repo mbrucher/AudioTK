@@ -43,7 +43,7 @@ set_target_properties (ATKDistortion PROPERTIES
     FOLDER C++/shared
 )
 
-target_link_libraries(ATKDistortion ATKCore ATKTools)
+target_link_libraries(ATKDistortion ATKCore ATKUtility)
 
 stagedebug(ATKDistortion)
 

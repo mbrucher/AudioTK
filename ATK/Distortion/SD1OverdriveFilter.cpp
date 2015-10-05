@@ -8,8 +8,8 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
-#include "../Tools/exp.h"
-#include "../Tools/ScalarNewtonRaphson.h"
+#include <ATK/Utility/exp.h>
+#include <ATK/Tools/ScalarNewtonRaphson.h>
 
 namespace ATK
 {

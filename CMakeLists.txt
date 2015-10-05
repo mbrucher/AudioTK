@@ -8,6 +8,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
+option(ENABLE_THREADS "Enable thread pool support" ON)
 
 message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
@@ -52,6 +53,19 @@ if(ENABLE_PROFILING)
 else(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 0)
 endif(ENABLE_PROFILING)
+
+if(ENABLE_THREADS)
+  find_package(TBB REQUIRED)
+  set(USE_THREADPOOL 1)
+  if(ENABLE_THREADS)
+    include_directories(${TBB_INCLUDE_DIR})
+  endif(ENABLE_THREADS)
+else(ENABLE_THREADS)
+  set(USE_THREADPOOL 0)
+endif(ENABLE_THREADS)
+
+find_package(Git REQUIRED)
+find_package(Boost REQUIRED unit_test_framework timer system)
 
 find_package(libsndfile)
 

@@ -2,7 +2,7 @@
  * \file exp.cpp
  */
 
-#include "exp.h"
+#include <ATK/Utility/exp.h>
 
 #include <cmath>
 

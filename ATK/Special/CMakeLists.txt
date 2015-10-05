@@ -43,7 +43,7 @@ set_target_properties (ATKSpecial PROPERTIES
     FOLDER C++/shared
 )
 
-target_link_libraries(ATKSpecial ATKTools ATKCore)
+target_link_libraries(ATKSpecial ATKUtility ATKCore)
 
 stagedebug(ATKSpecial)
 

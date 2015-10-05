@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-#include <ATK/Tools/FFT.h>
+#include <ATK/Utility/FFT.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN

@@ -25,6 +25,7 @@ namespace ATK
     void remove_filter(const BaseFilter* filter);
 
     int get_type() const override;
+    void set_parallel(bool parallel);
   protected:
     virtual void process_impl(int64_t size) const override final;
     /// Prepares the filter by retrieving the inputs arrays
@@ -33,6 +34,7 @@ namespace ATK
     virtual void prepare_outputs(int64_t size) override final;
 
     std::vector<BaseFilter*> filters;
+    bool activate_parallel;
   };
 }
 

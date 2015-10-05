@@ -47,7 +47,7 @@ set_target_properties (ATKMock PROPERTIES
 
 stagedebug(ATKMock)
 
-target_link_libraries(ATKMock ATKTools ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${FFTLIBRARIES})
+target_link_libraries(ATKMock ATKUtility ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${FFTLIBRARIES})
 
 INSTALL(TARGETS ATKMock
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
