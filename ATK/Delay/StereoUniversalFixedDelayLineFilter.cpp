@@ -49,7 +49,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch1(int64_t delay)
+  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch1(int delay)
   {
     if(delay <= 0)
     {
@@ -64,13 +64,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int64_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch1() const
+  int StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch1() const
   {
     return delay_l;
   }
 
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch2(int64_t delay)
+  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch2(int delay)
   {
     if(delay <= 0)
     {
@@ -85,7 +85,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int64_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch2() const
+  int StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch2() const
   {
     return delay_r;
   }

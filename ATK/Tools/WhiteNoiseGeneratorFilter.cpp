@@ -25,27 +25,27 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void WhiteNoiseGeneratorFilter<DataType_>::set_volume(double volume)
+  void WhiteNoiseGeneratorFilter<DataType_>::set_volume(DataType_ volume)
   {
     this->volume = volume;
     dist.param(typename boost::random::uniform_real_distribution<DataType_>::param_type(static_cast<DataType>(offset - volume), static_cast<DataType>(offset + volume)));
   }
   
   template<typename DataType_>
-  double WhiteNoiseGeneratorFilter<DataType_>::get_volume() const
+  DataType_ WhiteNoiseGeneratorFilter<DataType_>::get_volume() const
   {
     return volume;
   }
   
   template<typename DataType_>
-  void WhiteNoiseGeneratorFilter<DataType_>::set_offset(double offset)
+  void WhiteNoiseGeneratorFilter<DataType_>::set_offset(DataType_ offset)
   {
     this->offset = offset;
     dist.param(typename boost::random::uniform_real_distribution<DataType_>::param_type(static_cast<DataType>(offset - volume), static_cast<DataType>(offset + volume)));
   }
   
   template<typename DataType_>
-  double WhiteNoiseGeneratorFilter<DataType_>::get_offset() const
+  DataType_ WhiteNoiseGeneratorFilter<DataType_>::get_offset() const
   {
     return offset;
   }

@@ -23,25 +23,25 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void OffsetVolumeFilter<DataType_>::set_volume(double volume)
+  void OffsetVolumeFilter<DataType_>::set_volume(DataType_ volume)
   {
     this->volume = volume;
   }
 
   template<typename DataType_>
-  double OffsetVolumeFilter<DataType_>::get_volume() const
+  DataType_ OffsetVolumeFilter<DataType_>::get_volume() const
   {
     return volume;
   }
     
   template<typename DataType_>
-  void OffsetVolumeFilter<DataType_>::set_offset(double offset)
+  void OffsetVolumeFilter<DataType_>::set_offset(DataType_ offset)
   {
     this->offset = offset;
   }
 
   template<typename DataType_>
-  double OffsetVolumeFilter<DataType_>::get_offset() const
+  DataType_ OffsetVolumeFilter<DataType_>::get_offset() const
   {
     return offset;
   }
@@ -60,9 +60,6 @@ namespace ATK
     }
   }
   
-  template class OffsetVolumeFilter<std::int16_t>;
-  template class OffsetVolumeFilter<std::int32_t>;
-  template class OffsetVolumeFilter<int64_t>;
   template class OffsetVolumeFilter<float>;
   template class OffsetVolumeFilter<double>;
 }

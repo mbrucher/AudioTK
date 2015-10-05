@@ -3,6 +3,7 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK/config.h
    DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK
     )
 
+add_subdirectory(Utility)
 add_subdirectory(Core)
 
 if(ENABLE_TESTS)

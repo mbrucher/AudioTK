@@ -9,12 +9,17 @@
 
 #include <boost/lexical_cast.hpp>
 
+#if ATK_USE_THREADPOOL == 1
+#include <tbb/task_group.h>
+#endif
+
 namespace ATK
 {
   BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
   :is_reset(true), nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
-   connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0)
+   connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
+   latency(0)
   {
 #if ATK_PROFILING == 1
     input_conversion_time = 0;
@@ -35,14 +40,17 @@ namespace ATK
   
   void BaseFilter::reset()
   {
-    for(auto it = connections.begin(); it != connections.end(); ++it)
+    if (!is_reset)
     {
-      if(it->second)
+      for (auto it = connections.begin(); it != connections.end(); ++it)
       {
-        it->second->reset();
+        if (it->second)
+        {
+          it->second->reset();
+        }
       }
+      is_reset = true;
     }
-    is_reset = true;
   }
   
   void BaseFilter::setup()
@@ -119,6 +127,14 @@ namespace ATK
     process_conditionnally(size);
   }
 
+#if ATK_USE_THREADPOOL == 1
+  void BaseFilter::process_parallel(int64_t size)
+  {
+    reset();
+    process_conditionnally_parallel(size);
+  }
+#endif
+
   void BaseFilter::process_conditionnally(int64_t size)
   {
     if(size == 0)
@@ -162,6 +178,57 @@ namespace ATK
     is_reset = false;
   }
 
+#if ATK_USE_THREADPOOL == 1
+  void BaseFilter::process_conditionnally_parallel(int64_t size)
+  {
+    if (size == 0)
+    {
+      return;
+    }
+    if (output_sampling_rate == 0)
+    {
+      throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
+    }
+    { // lock this entire loop, as we only want to do the processing if we are not reseted
+      tbb::queuing_mutex::scoped_lock lock(mutex);
+      if (!is_reset)
+      {
+        return;
+      }
+      tbb::task_group g;
+      for (auto it = connections.begin(); it != connections.end(); ++it)
+      {
+        if (it->second == nullptr)
+        {
+          throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
+        }
+        auto filter = it->second;
+        g.run([=]{filter->process_conditionnally_parallel(size * input_sampling_rate / output_sampling_rate); });
+      }
+      g.wait();
+#if ATK_PROFILING == 1
+      boost::timer::cpu_timer timer;
+#endif
+      prepare_process(size * input_sampling_rate / output_sampling_rate);
+#if ATK_PROFILING == 1
+      boost::timer::cpu_times const input_elapsed_times(timer.elapsed());
+      input_conversion_time += (input_elapsed_times.system + input_elapsed_times.user);
+#endif
+      prepare_outputs(size);
+#if ATK_PROFILING == 1
+      boost::timer::cpu_times const output_elapsed_times(timer.elapsed());
+      output_conversion_time += (output_elapsed_times.system + output_elapsed_times.user);
+#endif
+      process_impl(size);
+#if ATK_PROFILING == 1
+      boost::timer::cpu_times const process_elapsed_times(timer.elapsed());
+      process_time += (process_elapsed_times.system + process_elapsed_times.user);
+#endif
+      is_reset = false;
+    }
+  }
+#endif
+
   int BaseFilter::get_nb_input_ports() const
   {
     return nb_input_ports;
@@ -182,4 +249,30 @@ namespace ATK
   {
     nb_output_ports = nb_ports;
   }
+  
+  void BaseFilter::set_latency(uint64_t latency)
+  {
+    this->latency = latency;
+  }
+
+  uint64_t BaseFilter::get_latency() const
+  {
+    return latency;
+  }
+
+  uint64_t BaseFilter::get_global_latency() const
+  {
+    uint64_t global_latency = 0;
+    for(auto it = connections.begin(); it != connections.end(); ++it)
+    {
+      if(it->second == nullptr)
+      {
+        throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
+      }
+      
+      global_latency = std::max(global_latency, it->second->get_global_latency());
+    }
+    return global_latency + latency;
+  }
+
 }

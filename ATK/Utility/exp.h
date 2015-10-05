@@ -2,8 +2,8 @@
  * \file exp.h
  */
 
-#ifndef ATK_TOOLS_EXP_H
-#define ATK_TOOLS_EXP_H
+#ifndef ATK_UTILITY_EXP_H
+#define ATK_UTILITY_EXP_H
 
 #include <cstdint>
 #include <vector>
@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<class DataType_>
-  class ATK_TOOLS_EXPORT Exp
+  class ATK_UTILITY_EXPORT Exp
   {
   public:
     Exp(DataType_ max, int steps);

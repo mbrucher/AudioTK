@@ -2,7 +2,7 @@
  * \file exp.cpp
  */
 
-#include "exp.h"
+#include <ATK/Utility/exp.h>
 
 #include <cmath>
 
@@ -26,7 +26,7 @@ namespace ATK
     {
       return 1/(*this)(-value);
     }
-    int step = static_cast<int>(value * invscale);
+    size_t step = static_cast<size_t>(value * invscale);
     if(step >= LUT.size())
     {
       step = LUT.size() - 1;

@@ -7,7 +7,7 @@
 #ifndef ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
 #define ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
@@ -47,8 +47,7 @@ namespace ATK
     void process_impl(int64_t size) const override final;
     
   private:
-    boost::scoped_ptr<SimpleOverdriveFunction<DataType> > function;
-    boost::scoped_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction<DataType> > > optimizer;
+    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction<DataType> > > optimizer;
   };
 }
 

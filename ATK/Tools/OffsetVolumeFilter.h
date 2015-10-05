@@ -27,18 +27,18 @@ namespace ATK
     OffsetVolumeFilter(int nb_channels = 1);
     ~OffsetVolumeFilter();
 
-    void set_volume(double volume);
-    double get_volume() const;
+    void set_volume(DataType_ volume);
+    DataType_ get_volume() const;
 
-    void set_offset(double offset);
-    double get_offset() const;
+    void set_offset(DataType_ offset);
+    DataType_ get_offset() const;
     
   protected:
     virtual void process_impl(int64_t size) const override final;
     
   private:
-    double offset;
-    double volume;
+    DataType_ offset;
+    DataType_ volume;
   };
 }
 

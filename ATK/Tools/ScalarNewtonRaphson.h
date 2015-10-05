@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-#include <boost/scoped_ptr.hpp>
+#include <memory>
 
 namespace ATK
 {
@@ -18,15 +18,15 @@ namespace ATK
     
     typedef typename Function::DataType DataType;
     
-    const boost::scoped_ptr<Function>& function;
+    Function function;
     
     DataType x0, y0;
     DataType precision;
     DataType maxstep;
     
   public:
-    ScalarNewtonRaphson(const boost::scoped_ptr<Function>& function, DataType precision = 0)
-    :function(function), x0(0), y0(0), precision(precision), maxstep(.1)
+    ScalarNewtonRaphson(Function&& function, DataType precision = 0)
+    :function(std::move(function)), x0(0), y0(0), precision(precision), maxstep(static_cast<DataType>(.1))
     {
       if(precision == 0)
       {
@@ -36,16 +36,22 @@ namespace ATK
     
     DataType optimize(DataType x1)
     {
-      if(x0 == x1)
-      {
-        return y0;
-      }
       y0 = optimize_impl(x1);
 
       x0 = x1;
       return y0;
     }
-    
+
+    Function& get_function()
+    {
+      return function;
+    }
+
+    const Function& get_function() const
+    {
+      return function;
+    }
+
   protected:
     DataType optimize_impl(DataType x1)
     {
@@ -54,7 +60,7 @@ namespace ATK
       
       for(i = 0; i < max_iterations; ++i)
       {
-        std::pair<DataType, DataType> all = (*function)(x0, x1, y0, y1);
+        std::pair<DataType, DataType> all = function(x0, x1, y0, y1);
         if(std::abs(all.second) < std::numeric_limits<DataType>::epsilon() )
         {
           return y1;
@@ -77,7 +83,7 @@ namespace ATK
       }
       if(i == max_iterations)
       {
-        std::cout << "Failed to converge for " << x0 << "," << x1 << "," << y0 << "," << y1 << std::endl;
+        return y0; // Stay the same
       }
       return y1;
     }

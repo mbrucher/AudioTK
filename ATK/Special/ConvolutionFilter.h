@@ -11,7 +11,7 @@
 #include <ATK/Special/config.h>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include <ATK/Tools/FFT.h>
+#include <ATK/Utility/FFT.h>
 
 namespace ATK
 {
@@ -33,7 +33,7 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     mutable int64_t split_position;
-    int64_t split_size;
+    int split_size;
     
     FFT<DataType> processor;
     

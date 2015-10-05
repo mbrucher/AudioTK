@@ -8,6 +8,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
+option(ENABLE_THREADS "Enable thread pool support" OFF)
 
 message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
@@ -53,6 +54,18 @@ else(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 0)
 endif(ENABLE_PROFILING)
 
+if(ENABLE_THREADS)
+  find_package(TBB REQUIRED)
+  set(USE_THREADPOOL 1)
+  if(ENABLE_THREADS)
+    include_directories(${TBB_INCLUDE_DIR})
+  endif(ENABLE_THREADS)
+else(ENABLE_THREADS)
+  set(USE_THREADPOOL 0)
+endif(ENABLE_THREADS)
+
+find_package(Git REQUIRED)
+
 find_package(libsndfile)
 
 if(LIBSNDFILE_FOUND)
@@ -67,6 +80,7 @@ if(ATK_BUILD_PYTHON)
 endif(ATK_BUILD_PYTHON)
 
 find_package(FFTW)
+find_package(Boost REQUIRED)
 
 SET(USE_FFTW 0)
 SET(USE_ACCELERATE 0)
@@ -135,6 +149,7 @@ ENDMACRO(SOURCE_GROUP_BY_FOLDER)
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
+  find_package(Boost REQUIRED unit_test_framework timer system)
   add_subdirectory(tests)
 endif(ENABLE_TESTS)
 

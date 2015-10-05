@@ -6,7 +6,7 @@
 #include <complex>
 #include <cstdlib>
 
-#include "FFT.h"
+#include <ATK/Utility/FFT.h>
 
 namespace ATK
 {

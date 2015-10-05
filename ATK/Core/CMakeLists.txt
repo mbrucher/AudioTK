@@ -42,8 +42,12 @@ set_target_properties (ATKCore PROPERTIES
 )
 
 if(ENABLE_INTERNAL_PROFILING)
-target_link_libraries(ATKCore ${Boost_TIMER_LIBRARY} ${Boost_SYSTEM_LIBRARY})
+  target_link_libraries(ATKCore ${Boost_TIMER_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 endif(ENABLE_INTERNAL_PROFILING)
+
+if(ENABLE_THREADS)
+  target_link_libraries(ATKCore ${TBB_LIBRARY})
+endif(ENABLE_THREADS)
 
 stagedebug(ATKCore)
 

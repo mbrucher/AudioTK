@@ -144,12 +144,12 @@ namespace ATK
     assert(input_sampling_rate == output_sampling_rate);
     assert(nb_input_ports == nb_output_ports);
     
-    int processed_size = 0;
+    int64_t processed_size = 0;
     do
     {
       // We can only process split_size elements at a time, but if we already have some elements in the buffer,
       // we need to take them into account.
-      int64_t size_to_process = std::min(split_size - split_position, size - processed_size);
+      int64_t size_to_process = std::min(static_cast<int64_t>(split_size) - split_position, size - processed_size);
 
       process_impulse_beginning(processed_size, size_to_process);
 
