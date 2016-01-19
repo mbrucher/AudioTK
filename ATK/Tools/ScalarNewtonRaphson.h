@@ -5,9 +5,7 @@
 #ifndef ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
 #define ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
 
-#include <iostream>
-
-#include <memory>
+#include <limits>
 
 namespace ATK
 {
