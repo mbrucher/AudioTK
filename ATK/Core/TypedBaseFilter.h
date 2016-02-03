@@ -47,19 +47,11 @@ namespace ATK
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(int64_t size);
 
-    struct ArrayDeleter
-    {
-      void operator()(DataType* ptr)
-      {
-        delete[] ptr;
-      }
-    };
-
-    std::vector<std::unique_ptr<DataType, ArrayDeleter > > converted_inputs_delay;
+    std::vector<std::unique_ptr<DataType[]> > converted_inputs_delay;
     std::vector<DataType *> converted_inputs;
     std::vector<int64_t> converted_inputs_size;
 
-    std::vector<std::unique_ptr<DataType, ArrayDeleter > > outputs_delay;
+    std::vector<std::unique_ptr<DataType[]> > outputs_delay;
     std::vector<DataType *> outputs;
     std::vector<int64_t> outputs_size;
   };
