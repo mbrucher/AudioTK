@@ -1,0 +1,59 @@
+
+FILE(GLOB_RECURSE
+    ATK_REVERBERATION_SRC
+    *.cpp
+)
+
+FILE(GLOB_RECURSE
+    ATK_REVERBERATION_HEADERS
+    *.h
+)
+
+SOURCE_GROUP_BY_FOLDER(ATK_REVERBERATION)
+
+include_directories(${PROJECT_SOURCE_DIR})
+
+if(ENABLE_STATIC_LIBRARIES)
+add_library(ATKReverberation_static
+    STATIC
+    ${ATK_REVERBERATION_SRC} ${ATK_REVERBERATION_HEADERS}
+)
+
+set_target_properties (ATKReverberation_static PROPERTIES
+    FOLDER C++/static
+)
+
+INSTALL(TARGETS ATKReverberation_static
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    )
+endif(ENABLE_STATIC_LIBRARIES)
+
+if(ENABLE_SHARED_LIBRARIES)
+add_definitions(-DBUILD_ATK_REVERBERATION)
+add_definitions(-DATK_SHARED)
+
+add_library(ATKReverberation
+    SHARED
+    ${ATK_REVERBERATION_SRC} ${ATK_REVERBERATION_HEADERS}
+)
+
+set_target_properties (ATKReverberation PROPERTIES
+    FOLDER C++/shared
+)
+
+target_link_libraries(ATKReverberation ATKCore)
+
+stagedebug(ATKReverberation)
+
+INSTALL(TARGETS ATKReverberation
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    )
+endif(ENABLE_SHARED_LIBRARIES)
+
+INSTALL(FILES ${ATK_REVERBERATION_HEADERS}
+   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK/Reverberation
+    )
