@@ -10,6 +10,10 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 1.1.0
+* Fix a really nasty bug when changing processing sizes
+* Implemented a basic AllPassFilter (algorithmic reverb)
+
 ### 1.0.0
 * Split ATKTools in Tools and Utility modules
 * Allow threaded computation in pipelines
