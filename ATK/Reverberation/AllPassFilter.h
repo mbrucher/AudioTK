@@ -1,9 +1,9 @@
 /**
- * \file UniversalFixedDelayLineFilter.h
+ * \file AllPassFilter.h
  */
 
-#ifndef ATK_DELAY_UNIVERSALFIXEDDELAYFILTER_H
-#define ATK_DELAY_UNIVERSALFIXEDDELAYFILTER_H
+#ifndef ATK_REVERBERATION_ALLPASSFILTER_H
+#define ATK_REVERBERATION_ALLPASSFILTER_H
 
 #include <vector>
 
@@ -15,10 +15,11 @@ namespace ATK
   template<typename DataType>
   class UFDLF_Impl;
   /**
-   * Fixed delay line for fixed delays
+   * Gain "compressor". Has twice as many inputs channels as it has output channels
+   * Even channels are signal, odd channels are gains, results is the product of both
    */
   template<typename DataType_>
-  class ATK_DELAY_EXPORT UniversalFixedDelayLineFilter : public TypedBaseFilter<DataType_>
+  class ATK_REVERBERATION_EXPORT AllPassFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -32,8 +33,8 @@ namespace ATK
     using Parent::output_delay;
 
   public:
-    UniversalFixedDelayLineFilter(int max_delay);
-    ~UniversalFixedDelayLineFilter();
+    AllPassFilter(int max_delay);
+    ~AllPassFilter();
 
     void set_delay(int64_t delay);
     int64_t get_delay() const;
