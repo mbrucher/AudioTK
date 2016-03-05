@@ -20,7 +20,7 @@ namespace
   template<class DataType>
   typename boost::enable_if<typename boost::is_floating_point<DataType>::type>::type compare(DataType v1, DataType v2)
   {
-    if(std::abs(v1) < 1e-6 || std::abs(v2) < 1e-5)
+    if(std::abs(v1) < 1e-5 || std::abs(v2) < 1e-5)
     {
       BOOST_REQUIRE_SMALL(v1, static_cast<DataType>(1e-5));
       BOOST_REQUIRE_SMALL(v2, static_cast<DataType>(1e-5));
