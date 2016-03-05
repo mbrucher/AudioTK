@@ -1,8 +1,8 @@
 /**
- * \file AllPassFilter.cpp
+ * \file AllPassReverbFilter.cpp
  */
 
-#include "AllPassFilter.h"
+#include "AllPassReverbFilter.h"
 
 #include <iostream>
 #include <cmath>
@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  AllPassFilter<DataType_>::AllPassFilter(int max_delay)
+  AllPassReverbFilter<DataType_>::AllPassReverbFilter(int max_delay)
     :Parent(1, 1), delay(0), feedback(0)
   {
     output_delay = max_delay;
@@ -19,12 +19,12 @@ namespace ATK
   }
   
   template<typename DataType_>
-  AllPassFilter<DataType_>::~AllPassFilter()
+  AllPassReverbFilter<DataType_>::~AllPassReverbFilter()
   {
   }
   
   template<typename DataType_>
-  void AllPassFilter<DataType_>::set_delay(int64_t delay)
+  void AllPassReverbFilter<DataType_>::set_delay(int64_t delay)
   {
     if(delay < 0)
     {
@@ -39,13 +39,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int64_t AllPassFilter<DataType_>::get_delay() const
+  int64_t AllPassReverbFilter<DataType_>::get_delay() const
   {
     return delay;
   }
 
   template<typename DataType_>
-  void AllPassFilter<DataType_>::set_feedback(DataType_ feedback)
+  void AllPassReverbFilter<DataType_>::set_feedback(DataType_ feedback)
   {
     if(std::abs(feedback) > 1)
     {
@@ -55,13 +55,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ AllPassFilter<DataType_>::get_feedback() const
+  DataType_ AllPassReverbFilter<DataType_>::get_feedback() const
   {
     return feedback;
   }
 
   template<typename DataType_>
-  void AllPassFilter<DataType_>::process_impl(int64_t size) const
+  void AllPassReverbFilter<DataType_>::process_impl(int64_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
@@ -71,6 +71,6 @@ namespace ATK
     }
   }
 
-  template class AllPassFilter<float>;
-  template class AllPassFilter<double>;
+  template class AllPassReverbFilter<float>;
+  template class AllPassReverbFilter<double>;
 }

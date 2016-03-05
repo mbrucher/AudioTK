@@ -1,9 +1,9 @@
 /**
- * \file AllPassFilter.h
+ * \file AllPassReverbFilter.h
  */
 
-#ifndef ATK_REVERBERATION_ALLPASSFILTER_H
-#define ATK_REVERBERATION_ALLPASSFILTER_H
+#ifndef ATK_REVERBERATION_ALLPASSREVERBFILTER_H
+#define ATK_REVERBERATION_ALLPASSREVERBFILTER_H
 
 #include <vector>
 
@@ -13,27 +13,22 @@
 namespace ATK
 {
   /**
-   * Gain "compressor". Has twice as many inputs channels as it has output channels
-   * Even channels are signal, odd channels are gains, results is the product of both
+   * Simple all pass reverb filter
    */
   template<typename DataType_>
-  class ATK_REVERBERATION_EXPORT AllPassFilter : public TypedBaseFilter<DataType_>
+  class ATK_REVERBERATION_EXPORT AllPassReverbFilter : public TypedBaseFilter<DataType_>
   {
   protected:
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::input_delay;
     using Parent::outputs;
-    using Parent::nb_input_ports;
-    using Parent::nb_output_ports;
     using Parent::output_delay;
 
   public:
-    AllPassFilter(int max_delay);
-    ~AllPassFilter();
+    AllPassReverbFilter(int max_delay);
+    ~AllPassReverbFilter();
 
     void set_delay(int64_t delay);
     int64_t get_delay() const;
