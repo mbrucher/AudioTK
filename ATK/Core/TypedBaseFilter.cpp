@@ -115,12 +115,11 @@ namespace ATK
       if(input_size < size)
       {
         std::unique_ptr<DataType[]> temp(new DataType[input_delay + size]);
-        DataType* ptr = temp.get();
         if(input_size == 0)
         {
           for(int j = 0; j < input_delay; ++j)
           {
-            ptr[j] = 0;
+            temp[j] = 0;
           }
         }
         else
@@ -128,7 +127,7 @@ namespace ATK
           const auto input_ptr = converted_inputs[i];
           for(int j = 0; j < input_delay; ++j)
           {
-            ptr[j] = input_ptr[input_size + j - input_delay];
+            temp[j] = input_ptr[input_size + j - input_delay];
           }
         }
         
@@ -157,12 +156,11 @@ namespace ATK
       if(output_size < size)
       {
         std::unique_ptr<DataType[]> temp(new DataType[output_delay + size]);
-        DataType* ptr = temp.get();
         if(output_size == 0)
         {
           for(int j = 0; j < output_delay; ++j)
           {
-            ptr[j] = 0;
+            temp[j] = 0;
           }
         }
         else
@@ -170,7 +168,7 @@ namespace ATK
           const auto output_ptr = outputs[i];
           for(int j = 0; j < output_delay; ++j)
           {
-            ptr[j] = output_ptr[output_size + j - output_delay];
+            temp[j] = output_ptr[output_size + j - output_delay];
           }
         }
         
