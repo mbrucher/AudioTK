@@ -96,6 +96,7 @@ namespace ATK
     int output_delay;
     
     uint64_t latency;
+    int64_t last_size;
 
   private:
 #if ATK_PROFILING == 1

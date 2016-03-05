@@ -176,6 +176,7 @@ namespace ATK
     process_time += (process_elapsed_times.system + process_elapsed_times.user);
 #endif
     is_reset = false;
+    last_size = size;
   }
 
 #if ATK_USE_THREADPOOL == 1
@@ -225,6 +226,7 @@ namespace ATK
       process_time += (process_elapsed_times.system + process_elapsed_times.user);
 #endif
       is_reset = false;
+      last_size = size;
     }
   }
 #endif
