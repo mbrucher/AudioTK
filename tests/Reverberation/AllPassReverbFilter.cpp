@@ -12,10 +12,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/math/constants/constants.hpp>
-#include <iostream>
 
-//#define PROCESSSIZE (1024*64)
-#define PROCESSSIZE (101)
+#define PROCESSSIZE (1024*64)
 
 namespace
 {
@@ -128,7 +126,7 @@ BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_line25_delay24_feedback_1_test )
   }
   for(int64_t i = 24; i < PROCESSSIZE; ++i)
   {
- ref[i] = (ref[i - 24] - data[i]) + data[i - 24];
+    ref[i] = (ref[i - 24] - data[i]) + data[i - 24];
   }
 
   ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
