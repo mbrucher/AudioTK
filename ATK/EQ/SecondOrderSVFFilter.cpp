@@ -45,8 +45,8 @@ namespace ATK
   {
   }
 
-  template<typename DataType>
-  void BaseSecondOrderSVFCoefficients<DataType>::set_cut_frequency(DataType cut_frequency)
+  template<typename DataType_>
+  void BaseSecondOrderSVFCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
@@ -58,8 +58,8 @@ namespace ATK
     return cut_frequency;
   }
 
-  template<typename DataType>
-  void BaseSecondOrderSVFCoefficients<DataType>::set_Q(DataType Q)
+  template<typename DataType_>
+  void BaseSecondOrderSVFCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
@@ -136,8 +136,8 @@ namespace ATK
     m2 = 0;
   }
 
-  template<typename DataType>
-  void BellSecondOrderSVFCoefficients<DataType>::set_gain(DataType gain)
+  template<typename DataType_>
+  void BellSecondOrderSVFCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
@@ -162,8 +162,8 @@ namespace ATK
     m2 = 0;
   }
 
-  template<typename DataType>
-  void LowShelfSecondOrderSVFCoefficients<DataType>::set_gain(DataType gain)
+  template<typename DataType_>
+  void LowShelfSecondOrderSVFCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
@@ -188,8 +188,8 @@ namespace ATK
     m2 = gain * gain - 1;
   }
 
-  template<typename DataType>
-  void HighShelfSecondOrderSVFCoefficients<DataType>::set_gain(DataType gain)
+  template<typename DataType_>
+  void HighShelfSecondOrderSVFCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
@@ -213,6 +213,27 @@ namespace ATK
     m1 = k * (1 - gain) * gain;
     m2 = 1 - gain * gain;
   }
+
+  template class BaseSecondOrderSVFCoefficients<float>;
+  template class BaseSecondOrderSVFCoefficients<double>;
+
+  template class LowSecondOrderSVFCoefficients<float>;
+  template class LowSecondOrderSVFCoefficients<double>;
+  template class BandSecondOrderSVFCoefficients<float>;
+  template class BandSecondOrderSVFCoefficients<double>;
+  template class HighSecondOrderSVFCoefficients<float>;
+  template class HighSecondOrderSVFCoefficients<double>;
+  template class NotchSecondOrderSVFCoefficients<float>;
+  template class NotchSecondOrderSVFCoefficients<double>;
+  template class PeakSecondOrderSVFCoefficients<float>;
+  template class PeakSecondOrderSVFCoefficients<double>;
+  template class BellSecondOrderSVFCoefficients<float>;
+  template class BellSecondOrderSVFCoefficients<double>;
+  template class LowShelfSecondOrderSVFCoefficients<float>;
+  template class LowShelfSecondOrderSVFCoefficients<double>;
+  template class HighShelfSecondOrderSVFCoefficients<float>;
+  template class HighShelfSecondOrderSVFCoefficients<double>;
+
   template class SecondOrderSVFFilter<LowSecondOrderSVFCoefficients<float> >;
   template class SecondOrderSVFFilter<LowSecondOrderSVFCoefficients<double> >;
   template class SecondOrderSVFFilter<BandSecondOrderSVFCoefficients<float> >;

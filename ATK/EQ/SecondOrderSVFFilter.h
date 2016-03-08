@@ -21,6 +21,12 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;
+    using Parent::a1;
+    using Parent::a2;
+    using Parent::a3;
+    using Parent::m0;
+    using Parent::m1;
+    using Parent::m2;
 
   public:
     SecondOrderSVFFilter();
@@ -39,6 +45,7 @@ namespace ATK
   public:
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
+    using Parent::setup;
   protected:
     DataType cut_frequency;
     DataType Q;
