@@ -41,7 +41,7 @@ namespace ATK
   
   template<typename DataType>
   BaseSecondOrderSVFCoefficients<DataType>::BaseSecondOrderSVFCoefficients()
-  :TypedBaseFilter<DataType>(1, 1)
+  :TypedBaseFilter<DataType>(1, 1), cut_frequency(0), Q(1)
   {
   }
 
@@ -137,6 +137,13 @@ namespace ATK
   }
 
   template<typename DataType_>
+  BellSecondOrderSVFCoefficients<DataType_>::BellSecondOrderSVFCoefficients()
+  :gain(0)
+  {
+    
+  }
+  
+  template<typename DataType_>
   void BellSecondOrderSVFCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
@@ -163,6 +170,13 @@ namespace ATK
   }
 
   template<typename DataType_>
+  LowShelfSecondOrderSVFCoefficients<DataType_>::LowShelfSecondOrderSVFCoefficients()
+  :gain(0)
+  {
+    
+  }
+
+  template<typename DataType_>
   void LowShelfSecondOrderSVFCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
@@ -186,6 +200,13 @@ namespace ATK
     m0 = 1;
     m1 = k * (gain - 1);
     m2 = gain * gain - 1;
+  }
+
+  template<typename DataType_>
+  HighShelfSecondOrderSVFCoefficients<DataType_>::HighShelfSecondOrderSVFCoefficients()
+  :gain(0)
+  {
+    
   }
 
   template<typename DataType_>

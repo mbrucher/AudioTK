@@ -188,9 +188,10 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
+    BellSecondOrderSVFCoefficients();
+
     void set_gain(DataType_ gain);
     DataType_ get_gain() const;
-
   protected:
     void setup();
 
@@ -214,9 +215,10 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
+    LowShelfSecondOrderSVFCoefficients();
+
     void set_gain(DataType_ gain);
     DataType_ get_gain() const;
-
   protected:
     void setup();
 
@@ -240,6 +242,8 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
+    HighShelfSecondOrderSVFCoefficients();
+    
     void set_gain(DataType_ gain);
     DataType_ get_gain() const;
 
