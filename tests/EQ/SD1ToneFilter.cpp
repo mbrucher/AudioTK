@@ -12,7 +12,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*1024)
+#define PROCESSSIZE (1024*64)
 #define SAMPLINGRATE (1024*64)
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_throw_1_test )
