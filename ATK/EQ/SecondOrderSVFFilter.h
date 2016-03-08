@@ -121,6 +121,126 @@ namespace ATK
   protected:
     void setup();
   };
+
+  template<typename DataType_>
+  class NotchSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  {
+  public:
+    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::setup;
+    using Parent::a1;
+    using Parent::a2;
+    using Parent::a3;
+    using Parent::m0;
+    using Parent::m1;
+    using Parent::m2;
+    using Parent::cut_frequency;
+    using Parent::Q;
+    using Parent::input_sampling_rate;
+
+  protected:
+    void setup();
+  };
+
+  template<typename DataType_>
+  class PeakSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  {
+  public:
+    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::setup;
+    using Parent::a1;
+    using Parent::a2;
+    using Parent::a3;
+    using Parent::m0;
+    using Parent::m1;
+    using Parent::m2;
+    using Parent::cut_frequency;
+    using Parent::Q;
+    using Parent::input_sampling_rate;
+
+  protected:
+    void setup();
+  };
+
+  template<typename DataType_>
+  class BellSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  {
+  public:
+    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::setup;
+    using Parent::a1;
+    using Parent::a2;
+    using Parent::a3;
+    using Parent::m0;
+    using Parent::m1;
+    using Parent::m2;
+    using Parent::cut_frequency;
+    using Parent::Q;
+    using Parent::input_sampling_rate;
+
+    void set_gain(DataType_ gain);
+    DataType_ get_gain() const;
+
+  protected:
+    void setup();
+
+    DataType gain;
+  };
+
+  template<typename DataType_>
+  class LowShelfSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  {
+  public:
+    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::setup;
+    using Parent::a1;
+    using Parent::a2;
+    using Parent::a3;
+    using Parent::m0;
+    using Parent::m1;
+    using Parent::m2;
+    using Parent::cut_frequency;
+    using Parent::Q;
+    using Parent::input_sampling_rate;
+
+    void set_gain(DataType_ gain);
+    DataType_ get_gain() const;
+
+  protected:
+    void setup();
+
+    DataType gain;
+  };
+
+  template<typename DataType_>
+  class HighShelfSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  {
+  public:
+    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    using typename Parent::DataType;
+    using Parent::setup;
+    using Parent::a1;
+    using Parent::a2;
+    using Parent::a3;
+    using Parent::m0;
+    using Parent::m1;
+    using Parent::m2;
+    using Parent::cut_frequency;
+    using Parent::Q;
+    using Parent::input_sampling_rate;
+
+    void set_gain(DataType_ gain);
+    DataType_ get_gain() const;
+
+  protected:
+    void setup();
+
+    DataType gain;
+  };
 }
 
 #endif

@@ -107,13 +107,126 @@ namespace ATK
     a3 = g * a2;
     m0 = 1;
     m1 = -k;
-    m2 = -2;
+    m2 = -1;
   }
 
+  template<typename DataType>
+  void NotchSecondOrderSVFCoefficients<DataType>::setup()
+  {
+    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto k = 1 / Q;
+    a1 = 1 / (1 + g * (g + k));
+    a2 = g * a1;
+    a3 = g * a2;
+    m0 = 1;
+    m1 = -k;
+    m2 = 2;
+  }
+
+  template<typename DataType>
+  void PeakSecondOrderSVFCoefficients<DataType>::setup()
+  {
+    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto k = 1 / Q;
+    a1 = 1 / (1 + g * (g + k));
+    a2 = g * a1;
+    a3 = g * a2;
+    m0 = 1;
+    m1 = -k;
+    m2 = 0;
+  }
+
+  template<typename DataType>
+  void BellSecondOrderSVFCoefficients<DataType>::set_gain(DataType gain)
+  {
+    this->gain = gain;
+    setup();
+  }
+
+  template<typename DataType>
+  DataType BellSecondOrderSVFCoefficients<DataType>::get_gain() const
+  {
+    return gain;
+  }
+
+  template<typename DataType>
+  void BellSecondOrderSVFCoefficients<DataType>::setup()
+  {
+    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto k = 1 / (Q* gain);
+    a1 = 1 / (1 + g * (g + k));
+    a2 = g * a1;
+    a3 = g * a2;
+    m0 = 1;
+    m1 = k * (gain * gain - 1);
+    m2 = 0;
+  }
+
+  template<typename DataType>
+  void LowShelfSecondOrderSVFCoefficients<DataType>::set_gain(DataType gain)
+  {
+    this->gain = gain;
+    setup();
+  }
+
+  template<typename DataType>
+  DataType LowShelfSecondOrderSVFCoefficients<DataType>::get_gain() const
+  {
+    return gain;
+  }
+
+  template<typename DataType>
+  void LowShelfSecondOrderSVFCoefficients<DataType>::setup()
+  {
+    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto k = 1 / Q;
+    a1 = 1 / (1 + g * (g + k));
+    a2 = g * a1;
+    a3 = g * a2;
+    m0 = 1;
+    m1 = k * (gain - 1);
+    m2 = gain * gain - 1;
+  }
+
+  template<typename DataType>
+  void HighShelfSecondOrderSVFCoefficients<DataType>::set_gain(DataType gain)
+  {
+    this->gain = gain;
+    setup();
+  }
+
+  template<typename DataType>
+  DataType HighShelfSecondOrderSVFCoefficients<DataType>::get_gain() const
+  {
+    return gain;
+  }
+
+  template<typename DataType>
+  void HighShelfSecondOrderSVFCoefficients<DataType>::setup()
+  {
+    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto k = 1 / (Q* gain);
+    a1 = 1 / (1 + g * (g + k));
+    a2 = g * a1;
+    a3 = g * a2;
+    m0 = gain * gain;
+    m1 = k * (1 - gain) * gain;
+    m2 = 1 - gain * gain;
+  }
   template class SecondOrderSVFFilter<LowSecondOrderSVFCoefficients<float> >;
   template class SecondOrderSVFFilter<LowSecondOrderSVFCoefficients<double> >;
   template class SecondOrderSVFFilter<BandSecondOrderSVFCoefficients<float> >;
   template class SecondOrderSVFFilter<BandSecondOrderSVFCoefficients<double> >;
   template class SecondOrderSVFFilter<HighSecondOrderSVFCoefficients<float> >;
   template class SecondOrderSVFFilter<HighSecondOrderSVFCoefficients<double> >;
+  template class SecondOrderSVFFilter<NotchSecondOrderSVFCoefficients<float> >;
+  template class SecondOrderSVFFilter<NotchSecondOrderSVFCoefficients<double> >;
+  template class SecondOrderSVFFilter<PeakSecondOrderSVFCoefficients<float> >;
+  template class SecondOrderSVFFilter<PeakSecondOrderSVFCoefficients<double> >;
+  template class SecondOrderSVFFilter<BellSecondOrderSVFCoefficients<float> >;
+  template class SecondOrderSVFFilter<BellSecondOrderSVFCoefficients<double> >;
+  template class SecondOrderSVFFilter<LowShelfSecondOrderSVFCoefficients<float> >;
+  template class SecondOrderSVFFilter<LowShelfSecondOrderSVFCoefficients<double> >;
+  template class SecondOrderSVFFilter<HighShelfSecondOrderSVFCoefficients<float> >;
+  template class SecondOrderSVFFilter<HighShelfSecondOrderSVFCoefficients<double> >;
 }
