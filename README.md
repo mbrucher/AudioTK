@@ -12,7 +12,8 @@ Changelog
 ---------
 ### 1.2.0
 * Added SecondOrderSVF filters from cytomic with Python wrappers
-* Implemented a LowPassReverbFilter
+* Implemented a LowPassReverbFilter with Python wrappers
+* Added Python wrappers to AllPassReverbFilter
 
 ### 1.1.0
 * Fix a really nasty bug when changing processing sizes
@@ -154,8 +155,9 @@ Install
 
 ### Requirements
 
+* C++11 compiler
 * CMake
-* Boost 1.55
+* Boost 1.60
 * FFT library:
   * FFTW (default)
   * Accelerate
