@@ -12,4 +12,8 @@
 
 %include "../Core/BaseFilter.i"
 
+%include "AllPassReverbFilter.i"
+%include "LowPassReverbFilter.i"
+
+
 #endif
