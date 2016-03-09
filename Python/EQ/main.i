@@ -16,6 +16,7 @@
 %include "SecondOrderFilter.i"
 %include "LinkwitzRileyFilter.i"
 %include "RobertBristowJohnsonFilter.i"
+%include "SecondOrderSVFFilter.i"
 %include "BesselFilter.i"
 %include "ButterworthFilter.i"
 %include "Chebyshev1Filter.i"
