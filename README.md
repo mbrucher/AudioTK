@@ -10,6 +10,10 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 1.2.0
+* Added SecondOrderSVF filters from cytomic with Python wrappers
+* Implemented a LowPassReverbFilter
+
 ### 1.1.0
 * Fix a really nasty bug when changing processing sizes
 * Implemented a basic AllPassFilter (algorithmic reverb)

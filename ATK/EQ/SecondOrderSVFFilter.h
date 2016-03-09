@@ -1,5 +1,6 @@
 /**
  * \file SecondOrderSVFFilter.h
+ * Inspired by http://www.cytomic.com/files/dsp/SvfLinearTrapOptimised2.pdf
  */
 
 #ifndef ATK_EQ_SECONDORDERSVFFILTER_H
