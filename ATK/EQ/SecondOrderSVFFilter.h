@@ -1,9 +1,9 @@
 /**
- * \file ChamberlinFilter.h
+ * \file SecondOrderSVFFilter.h
  */
 
-#ifndef ATK_EQ_CHAMBERLINFILTER_H
-#define ATK_EQ_CHAMBERLINFILTER_H
+#ifndef ATK_EQ_SECONDORDERSVFFILTER_H
+#define ATK_EQ_SECONDORDERSVFFILTER_H
 
 #include "config.h"
 #include "../Core/TypedBaseFilter.h"
