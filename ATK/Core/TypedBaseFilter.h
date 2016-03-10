@@ -16,16 +16,20 @@ namespace ATK
   class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter
   {
   protected:
+    /// Simplify parent calls
     typedef BaseFilter Parent;
 
   public:
+    /// To be used by inherited APIs
     typedef DataType_ DataType;
 
+    /// Base constructor for filters with actual data
     TypedBaseFilter(int nb_input_ports, int nb_output_ports);
+    /// Destructor
     virtual ~TypedBaseFilter();
     
     /**
-     * Returns an array with the processed output
+     * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
     DataType* get_output_array(int port);
@@ -36,8 +40,9 @@ namespace ATK
     virtual void full_setup() override;
 
   protected:
+
     virtual int get_type() const override;
-    /// This implementation retrieves inputs from other filters and converts it accordingly
+    /// This implementation does nothing
     virtual void process_impl(int64_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays
     virtual void prepare_process(int64_t size) override final;
@@ -47,12 +52,18 @@ namespace ATK
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(int64_t size);
 
+    /// Input arrays with the input delay, owned here
     std::vector<std::unique_ptr<DataType[]> > converted_inputs_delay;
+    /// Input arrays, starting from t=0 (without input delay)
     std::vector<DataType *> converted_inputs;
+    /// Current size of the input arrays, without delay
     std::vector<int64_t> converted_inputs_size;
 
+    /// Ouput arrays with the output delay, owned here
     std::vector<std::unique_ptr<DataType[]> > outputs_delay;
+    /// Ouput arrays, starting from t=0 (without output delay)
     std::vector<DataType *> outputs;
+    /// Current size of the output arrays, without delay
     std::vector<int64_t> outputs_size;
   };
 }
