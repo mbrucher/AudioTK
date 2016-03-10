@@ -36,3 +36,4 @@ Examples/*.txt
 *.png
 *.txt
 *.bundle
+Doxygen/
