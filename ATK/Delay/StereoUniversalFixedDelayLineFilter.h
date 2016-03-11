@@ -47,45 +47,45 @@ namespace ATK
     /// Gets the initial delay from channel 2
     int get_delay_ch2() const;
 
-    /// Sets the blend of channel 1
+    /// Sets the blend of channel 1 (between -1 and 1)
     void set_blend_ch1(DataType_ blend);
     /// Gets the blend of channel 1
     DataType_ get_blend_ch1() const;
-    /// Sets the blend of channel 2
+    /// Sets the blend of channel 2 (between -1 and 1)
     void set_blend_ch2(DataType_ blend);
     /// Gets the blend of channel 2
     DataType_ get_blend_ch2() const;
 
-    /// Sets the feedback from channel 1 to channel 1
+    /// Sets the feedback from channel 1 to channel 1 (between -1 and 1)
     void set_feedback_ch1_ch1(DataType_ feedback);
     /// Gets the feedback from channel 1 to channel 1
     DataType_ get_feedback_ch1_ch1() const;
-    /// Sets the feedback from channel 1 to channel 2
+    /// Sets the feedback from channel 1 to channel 2 (between -1 and 1)
     void set_feedback_ch1_ch2(DataType_ feedback);
     /// Gets the feedback from channel 1 to channel 2
     DataType_ get_feedback_ch1_ch2() const;
-    /// Sets the feedback from channel 2 to channel 1
+    /// Sets the feedback from channel 2 to channel 1 (between -1 and 1)
     void set_feedback_ch2_ch1(DataType_ feedback);
     /// Gets the feedback from channel 2 to channel 1
     DataType_ get_feedback_ch2_ch1() const;
-    /// Sets the feedback from channel 2 to channel 2
+    /// Sets the feedback from channel 2 to channel 2 (between -1 and 1)
     void set_feedback_ch2_ch2(DataType_ feedback);
     /// Gets the feedback from channel 2 to channel 2
     DataType_ get_feedback_ch2_ch2() const;
 
-    /// Sets the feedforward from channel 1 to channel 1
+    /// Sets the feedforward from channel 1 to channel 1 (between -1 and 1)
     void set_feedforward_ch1_ch1(DataType_ feedforward);
     /// Gets the feedforward from channel 1 to channel 1
     DataType_ get_feedforward_ch1_ch1() const;
-    /// Sets the feedforward from channel 1 to channel 2
+    /// Sets the feedforward from channel 1 to channel 2 (between -1 and 1)
     void set_feedforward_ch1_ch2(DataType_ feedforward);
     /// Gets the feedforward from channel 1 to channel 2
     DataType_ get_feedforward_ch1_ch2() const;
-    /// Sets the feedforward from channel 2 to channel 1
+    /// Sets the feedforward from channel 2 to channel 1 (between -1 and 1)
     void set_feedforward_ch2_ch1(DataType_ feedforward);
     /// Gets the feedforward from channel 2 to channel 1
     DataType_ get_feedforward_ch2_ch1() const;
-    /// Sets the feedforward from channel 2 to channel 2
+    /// Sets the feedforward from channel 2 to channel 2 (between -1 and 1)
     void set_feedforward_ch2_ch2(DataType_ feedforward);
     /// Gets the feedforward from channel 2 to channel 2
     DataType_ get_feedforward_ch2_ch2() const;

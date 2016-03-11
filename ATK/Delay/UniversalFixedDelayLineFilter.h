@@ -43,17 +43,17 @@ namespace ATK
     /// Gets the initial delay
     int64_t get_delay() const;
 
-    /// Sets the blend
+    /// Sets the blend (between -1 and 1)
     void set_blend(DataType_ blend);
     /// Gets the blend
     DataType_ get_blend() const;
 
-    /// Sets feedback amount
+    /// Sets feedback amount (between -1 and 1)
     void set_feedback(DataType_ feedback);
     /// Gets feedback amount
     DataType_ get_feedback() const;
 
-    /// Sets feedforward amount
+    /// Sets feedforward amount (between -1 and 1)
     void set_feedforward(DataType_ feedforward);
     /// Gets feedforward amount
     DataType_ get_feedforward() const;
