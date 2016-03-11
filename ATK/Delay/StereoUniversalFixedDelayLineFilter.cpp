@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType>
-  class SUFDLF_Impl
+  class StereoUniversalFixedDelayLineFilter<DataType>::SUFDLF_Impl
   {
   public:
     std::vector<DataType> delay_line_l;
@@ -38,7 +38,7 @@ namespace ATK
 
   template<typename DataType_>
   StereoUniversalFixedDelayLineFilter<DataType_>::StereoUniversalFixedDelayLineFilter(int max_delay)
-    :Parent(2, 2), impl(new SUFDLF_Impl<DataType_>(max_delay)), delay_l(0), delay_r(0), max_delay(max_delay), blend_l(0), blend_r(0),
+    :Parent(2, 2), impl(new SUFDLF_Impl(max_delay)), delay_l(0), delay_r(0), max_delay(max_delay), blend_l(0), blend_r(0),
     feedback_l_l(0), feedback_l_r(0), feedback_r_l(0), feedback_r_r(0), feedforward_l_l(1), feedforward_l_r(0), feedforward_r_l(0), feedforward_r_r(1)
   {
   }
