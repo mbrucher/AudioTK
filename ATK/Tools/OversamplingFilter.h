@@ -11,6 +11,7 @@
 
 namespace ATK
 {
+  /// Used for an oversampling rate of 2
   template<class DataType_>
   class Oversampling6points5order_2
   {
@@ -33,6 +34,7 @@ namespace ATK
     Oversampling6points5order_2();
   };
   
+  /// Used for an oversampling rate of 4
   template<class DataType_>
   class Oversampling6points5order_4
   {
@@ -56,6 +58,7 @@ namespace ATK
     Oversampling6points5order_4();
   };
   
+  /// Used for an oversampling rate of 8
   template<class DataType_>
   class Oversampling6points5order_8
   {
@@ -79,6 +82,7 @@ namespace ATK
     Oversampling6points5order_8();
   };
   
+  /// Used for an oversampling rate of 16
   template<class DataType_>
   class Oversampling6points5order_16
   {
@@ -102,6 +106,7 @@ namespace ATK
     Oversampling6points5order_16();
   };
   
+  /// Used for an oversampling rate of 32
   template<class DataType_>
   class Oversampling6points5order_32
   {
