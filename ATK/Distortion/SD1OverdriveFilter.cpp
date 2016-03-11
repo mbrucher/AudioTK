@@ -9,7 +9,7 @@
 #include <boost/math/special_functions/sign.hpp>
 
 #include <ATK/Utility/exp.h>
-#include <ATK/Tools/ScalarNewtonRaphson.h>
+#include <ATK/Utility/ScalarNewtonRaphson.h>
 
 namespace ATK
 {

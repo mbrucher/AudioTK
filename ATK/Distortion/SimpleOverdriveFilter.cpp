@@ -6,7 +6,7 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
-#include "../Tools/ScalarNewtonRaphson.h"
+#include <ATK/Utility/ScalarNewtonRaphson.h>
 
 namespace ATK
 {

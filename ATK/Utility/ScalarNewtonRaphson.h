@@ -2,8 +2,8 @@
  * \file ScalarNewtonRaphson.h
  */
 
-#ifndef ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
-#define ATK_TOOLS_SCALAR_NEWTONRAPHSON_H
+#ifndef ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
+#define ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 
 #include <limits>
 
