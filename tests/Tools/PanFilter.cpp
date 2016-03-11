@@ -155,7 +155,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_sincos_3_left_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SINCOS_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SINCOS_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_sincos_3_right_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SINCOS_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SINCOS_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_sincos_3_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SINCOS_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SINCOS_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -222,7 +222,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_sincos_3_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SINCOS_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SINCOS_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -245,7 +245,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_sincos_3_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SINCOS_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SINCOS_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_sincos_3_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SINCOS_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SINCOS_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -289,7 +289,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_square_0_left_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_0_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_0_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -311,7 +311,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_square_0_right_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_0_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_0_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -334,7 +334,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_square_0_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_0_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_0_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -357,7 +357,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_square_0_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_0_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_0_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -380,7 +380,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_square_0_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_0_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_0_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -403,7 +403,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_square_0_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_0_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_0_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -425,7 +425,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_square_3_left_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -447,7 +447,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_square_3_right_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -470,7 +470,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_square_3_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -492,7 +492,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_square_3_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -515,7 +515,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_square_3_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -538,7 +538,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_square_3_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::SQUARE_3_CENTER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::SQUARE_3_CENTER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -559,7 +559,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_linear_taper_left_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::LINEAR_TAPER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::LINEAR_TAPER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -581,7 +581,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_linear_taper_right_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::LINEAR_TAPER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::LINEAR_TAPER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -604,7 +604,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_linear_taper_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::LINEAR_TAPER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::LINEAR_TAPER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -627,7 +627,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_linear_taper_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::LINEAR_TAPER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::LINEAR_TAPER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -650,7 +650,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_linear_taper_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::LINEAR_TAPER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::LINEAR_TAPER);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -673,7 +673,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_linear_taper_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::LINEAR_TAPER);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::LINEAR_TAPER);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -695,7 +695,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_balance_left_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::BALANCE);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::BALANCE);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -717,7 +717,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_center_balance_right_test )
   ATK::PanFilter<double> panfilter;
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
-  panfilter.set_pan_law(ATK::PanFilter<double>::BALANCE);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::BALANCE);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -740,7 +740,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_balance_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::BALANCE);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::BALANCE);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -762,7 +762,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_left_balance_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(-1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::BALANCE);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::BALANCE);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);
@@ -785,7 +785,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_balance_left_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::BALANCE);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::BALANCE);
   
   ATK::TriangleCheckerFilter<double> checker_l;
   checker_l.set_input_sampling_rate(48000);
@@ -808,7 +808,7 @@ BOOST_AUTO_TEST_CASE( PanFilter_right_balance_right_test )
   panfilter.set_input_sampling_rate(48000);
   panfilter.set_output_sampling_rate(48000);
   panfilter.set_pan(1);
-  panfilter.set_pan_law(ATK::PanFilter<double>::BALANCE);
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::BALANCE);
   
   ATK::TriangleCheckerFilter<double> checker_r;
   checker_r.set_input_sampling_rate(48000);

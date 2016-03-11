@@ -12,13 +12,12 @@
 
 namespace ATK
 {
-  /**
-   *
-   */
+  /// A sin/cos generator
   template<typename DataType_>
   class ATK_TOOLS_EXPORT SinusGeneratorFilter : public TypedBaseFilter<DataType_>
   {
   protected:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::outputs_size;
@@ -26,16 +25,24 @@ namespace ATK
     using Parent::output_sampling_rate;
 
   public:
+    /// Constructor
     SinusGeneratorFilter();
+    /// Destructor
     ~SinusGeneratorFilter();
 
+    /// Sets the frequency of the oscillator, without resetting it
     void set_frequency(DataType_ frequency);
+    /// Gets the frequency of the oscillator
     DataType_ get_frequency() const;
 
+    /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);
+    /// Gets the output volume
     DataType_ get_volume() const;
 
+    /// Sets the offset of the generated signal, doesn't update the cache
     void set_offset(DataType_ offset);
+    /// Gets the offset
     DataType_ get_offset() const;
 
     void full_setup() override final;
