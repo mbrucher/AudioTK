@@ -16,17 +16,14 @@ namespace ATK
 {
   template<typename Function>
   class ScalarNewtonRaphson;
-
-  template<typename DataType>
-  class SimpleOverdriveFunction;
   
-  /**
-   * First order filter template class
-   */
+  /// Diode clipper filter, based on a trapezoidal rule
   template<typename DataType_>
   class ATK_DISTORTION_EXPORT SimpleOverdriveFilter: public TypedBaseFilter<DataType_>
   {
+    class SimpleOverdriveFunction;
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
@@ -39,7 +36,12 @@ namespace ATK
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
   public:
+    /*!
+    * @brief Constructor
+    * @param nb_channels is the number of input and output channels
+    */
     SimpleOverdriveFilter(int nb_channels = 1);
+    /// Destructor
     ~SimpleOverdriveFilter();
     
   protected:
@@ -47,7 +49,7 @@ namespace ATK
     void process_impl(int64_t size) const override final;
     
   private:
-    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction<DataType> > > optimizer;
+    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction> > optimizer;
   };
 }
 

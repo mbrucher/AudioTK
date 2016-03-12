@@ -14,7 +14,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  class SD1OverdriveFunction
+  class SD1OverdriveFilter<DataType_>::SD1OverdriveFunction
   {
   public:
     typedef DataType_ DataType;
@@ -107,7 +107,7 @@ namespace ATK
   void SD1OverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction<DataType> >(SD1OverdriveFunction<DataType>(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction>(SD1OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
       static_cast<DataType>(100e3), static_cast<DataType>(0.047e-6), static_cast<DataType>(33e3),
       static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
 

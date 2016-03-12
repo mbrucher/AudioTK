@@ -15,16 +15,13 @@ namespace ATK
   template<typename Function>
   class ScalarNewtonRaphson;
 
-  template<typename DataType>
-  class SD1OverdriveFunction;
-  
-  /**
-   * First order filter template class
-   */
+  /// SD1 filter, based on a trapezoidal rule
   template<typename DataType_>
   class ATK_DISTORTION_EXPORT SD1OverdriveFilter: public TypedBaseFilter<DataType_>
   {
+    class SD1OverdriveFunction;
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
@@ -38,7 +35,12 @@ namespace ATK
     using Parent::nb_output_ports;
 
   public:
+    /*!
+    * @brief Constructor
+    * @param nb_channels is the number of input and output channels
+    */
     SD1OverdriveFilter(int nb_channels = 1);
+    /// Destructor
     ~SD1OverdriveFilter();
 
     void set_drive(DataType drive);
@@ -49,7 +51,7 @@ namespace ATK
     DataType drive;
     
   private:
-    std::unique_ptr<ScalarNewtonRaphson<SD1OverdriveFunction<DataType> > > optimizer;
+    std::unique_ptr<ScalarNewtonRaphson<SD1OverdriveFunction> > optimizer;
   };
 }
 
