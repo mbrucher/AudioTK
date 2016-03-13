@@ -83,6 +83,7 @@ The *EQ* module contains a lot of different filter types.
 * **LinkwitzRileyFilter** is an implementation of filters (low pass and high pass second orders) that can be summed together for a flat response
 * **RobertBristowJohnsonFilter** is an implementation of RBJ second order filters
 * **SecondOrderFilter** is an implementation of second order filters
+* **SecondOrderSVFFilter** is an implementation of second order SVF filters from cytomic
 
 * **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
 * **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
@@ -130,9 +131,18 @@ The *Distortion* module contains filters simulation distortion circuits.
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
 
+Reverberation module
+####################
+
+The *Reverberation* module contains reverberation specific filters
+
+* *AllPassReverbFilter* is the simplest reverb filter
+* *LowPassReverbFilter* adds a low pass filter to *AllPassFilter*
+
 Special module
 ##############
 
 The *Special* module contains specific/special filters.
 
 * **ConvolutionFilter** is a filter based on an FFT implementation with 0 latency
+
