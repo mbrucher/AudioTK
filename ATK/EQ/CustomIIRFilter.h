@@ -30,6 +30,10 @@ namespace ATK
     std::vector<DataType> coefficients_out;
 
   public:
+    /*!
+    * @brief Constructor
+    * @param nb_channels is the number of input and output channels
+    */
     CustomIIRCoefficients(int nb_channels = 1);
 
     /// Set custom coefficients for the IIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)
