@@ -12,13 +12,12 @@
 
 namespace ATK
 {
-  /**
-   * IIR filter template class (Direct Form I)
-   */
+  /// IIR filter template class (Direct Form I)
   template<class Coefficients >
   class ATK_EQ_EXPORT IIRFilter: public Coefficients
   {
   public:
+    /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
@@ -39,6 +38,10 @@ namespace ATK
     using Parent::setup;
     
   public:
+    /*!
+    * @brief Constructor
+    * @param nb_channels is the number of input and output channels
+    */
     IIRFilter(int nb_channels = 1)
       :Parent(nb_channels)
     {
@@ -79,11 +82,13 @@ namespace ATK
       }
     }
     
+    /// Returns the vector of internal coefficients for the MA section 
     const std::vector<DataType>& get_coefficients_in() const
     {
       return coefficients_in;
     }
     
+    /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
     const std::vector<DataType>& get_coefficients_out() const
     {
       return coefficients_out;
