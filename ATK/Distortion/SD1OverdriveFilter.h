@@ -39,7 +39,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    SD1OverdriveFilter(int nb_channels = 1);
+    SD1OverdriveFilter();
     /// Destructor
     ~SD1OverdriveFilter();
 

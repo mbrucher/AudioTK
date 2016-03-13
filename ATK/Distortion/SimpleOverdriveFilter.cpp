@@ -76,8 +76,8 @@ namespace ATK
   
   
   template <typename DataType>
-  SimpleOverdriveFilter<DataType>::SimpleOverdriveFilter(int nb_channels)
-  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
+  SimpleOverdriveFilter<DataType>::SimpleOverdriveFilter()
+  :TypedBaseFilter<DataType>(1, 1)
   {
   }
 
