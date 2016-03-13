@@ -9,6 +9,7 @@
 
 namespace ATK
 {
+  /// Standard Wav header block
   struct WavHeader
   {
     char FileTypeBlocID[4];
@@ -16,6 +17,7 @@ namespace ATK
     char FileFormatID[4];
   };
   
+  /// Standard Wav format block
   struct WavFormat
   {
     char FormatBlocID[4];
@@ -28,17 +30,20 @@ namespace ATK
     std::int16_t BitsPerSample;
   };
   
+  /// Standard Wav data block
   struct WavData
   {
     char DataBlocID[4];
     std::int32_t DataSize;
   };
   
+  /// Empty traits
   template<typename DataType>
   struct WavTraits
   {
   };
   
+  /// Traits for integer 16bits
   template<>
   struct WavTraits<std::int16_t>
   {
@@ -48,6 +53,7 @@ namespace ATK
     }
   };
   
+  /// Traits for float 32bits
   template<>
   struct WavTraits<float>
   {
@@ -57,6 +63,7 @@ namespace ATK
     }
   };
   
+  /// Traits for double 64bits
   template<>
   struct WavTraits<double>
   {
