@@ -9,7 +9,7 @@ FILE(GLOB_RECURSE
   *.i
 )
 
-list(REMOVE_ITEM SWIG_MODULE_Reverberation_EXTRA_DEPS ${ATK_PYTHON_Reverberation_SWIG})
+list(REMOVE_ITEM SWIG_MODULE_Reverberation_EXTRA_DEPS ${ATK_PYTHON_REVERBERATION_SWIG})
 
 include_directories(${PROJECT_SOURCE_DIR})
 
