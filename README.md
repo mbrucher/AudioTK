@@ -1,7 +1,15 @@
 AudioTK
 =======
 
-Audio ToolKit is a set of audio filters. It is supposed to help assemble workflows for specific audio processing.
+Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing.
+
+The audio workflow is split in independent components (without feedback loops) that consist of filters. 
+Each filter has a set of synchronized input and output ports that can be connected together. All input 
+ports must be connected, but not all output ports need to be.
+
+Sampling rate can be independent between input and output ports, but input sampling rates are identical, 
+and output sampling rates are also identical.
+
 
 License
 -------
