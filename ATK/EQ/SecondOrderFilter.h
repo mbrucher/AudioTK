@@ -9,10 +9,12 @@
 
 namespace ATK
 {
+  /// Base class for all IIR second order filters
   template<typename DataType_>
-  class BaseSecondOrderCoefficients: public TypedBaseFilter<DataType_>
+  class SecondOrderBaseCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
@@ -27,19 +29,24 @@ namespace ATK
     void setup() override;
 
   public:
-    BaseSecondOrderCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderBaseCoefficients(int nb_channels = 1);
+    /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
+    /// Returns the cut or central frequency
     DataType_ get_cut_frequency() const;
   };
 
-  /**
-   * Coefficients for a second order bandpass filter
-   */
+  /// Coefficients for a second order bandpass filter
   template<typename DataType_>
-  class BandPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  class SecondOrderBandPassCoefficients: public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    /// Simplify parent calls
+    typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -54,20 +61,28 @@ namespace ATK
     void setup() override;
     
   public:
-    BandPassCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderBandPassCoefficients(int nb_channels = 1);
 
+    /// Sets the Q factor, must be strictly positive
+    /*!
+     * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
+     */
     void set_Q(DataType_ Q);
+    /// Returns the Q factor
     DataType_ get_Q() const;
   };
 
-  /**
-   * Coefficients for a second order lowpass filter
-   */
+  /// Coefficients for a second order lowpass filter
   template<typename DataType_>
-  class LowPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  class SecondOrderLowPassCoefficients: public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    /// Simplify parent calls
+    typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -77,17 +92,20 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   public:
-    LowPassCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderLowPassCoefficients(int nb_channels = 1);
   };
   
-  /**
-   * Coefficients for a second order highpass filter
-   */
+  /// Coefficients for a second order highpass filter
   template<class DataType_>
-  class HighPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  class SecondOrderHighPassCoefficients: public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    /// Simplify parent calls
+    typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -97,17 +115,20 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   public:
-    HighPassCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderHighPassCoefficients(int nb_channels = 1);
   };
 
-  /**
-   * Coefficients for a second order bandpass peak filter
-   */
+  /// Coefficients for a second order bandpass peak filter
   template<typename DataType_>
-  class BandPassPeakCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  class SecondOrderBandPassPeakCoefficients: public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    /// Simplify parent calls
+    typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -122,23 +143,33 @@ namespace ATK
     void setup() override;
     
   public:
-    BandPassPeakCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderBandPassPeakCoefficients(int nb_channels = 1);
 
+    /// Sets the Q factor, must be strictly positive
+    /*!
+    * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
+    */
     void set_Q(DataType_ Q);
+    /// Returns the Q factor
     DataType_ get_Q() const;
+    /// Sets the gain of the peak
     void set_gain(DataType_ gain);
+    /// Returns the gain for the peak
     DataType_ get_gain() const;
   };
 
   
-  /**
-   * Coefficients for a second order allpass filter
-   */
+  /// Coefficients for a second order allpass filter
   template<typename DataType_>
-  class AllPassCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  class SecondOrderAllPassCoefficients: public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    /// Simplify parent calls
+    typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -152,21 +183,28 @@ namespace ATK
     void setup() override;
     
   public:
-    AllPassCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderAllPassCoefficients(int nb_channels = 1);
 
-    /// Q is the allpass relative width (to the sampling rate)
+    /// Sets the Q factor, must be strictly positive
+    /*!
+    * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
+    */
     void set_Q(DataType_ Q);
+    /// Returns the Q factor
     DataType_ get_Q() const;
   };
 
-  /**
-   * Coefficients for a second order low-pass shelving filter
-   */
+  /// Coefficients for a second order low-pass shelving filter
   template<typename DataType_>
-  class LowShelvingCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  class SecondOrderLowShelvingCoefficients: public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    /// Simplify parent calls
+    typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -179,20 +217,25 @@ namespace ATK
     DataType gain;
     
   public:
-    LowShelvingCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderLowShelvingCoefficients(int nb_channels = 1);
 
+    /// Sets the gain of the shelf
     void set_gain(DataType_ gain);
+    /// Returns the gain for the shelf
     DataType_ get_gain() const;
   };
   
-  /**
-   * Coefficients for a second order high-pass shelving filter
-   */
+  /// Coefficients for a second order high-pass shelving filter
   template<typename DataType_>
-  class HighShelvingCoefficients: public BaseSecondOrderCoefficients<DataType_>
+  class SecondOrderHighShelvingCoefficients: public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderCoefficients<DataType_> Parent;
+    /// Simplify parent calls
+    typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -205,9 +248,15 @@ namespace ATK
     DataType gain;
     
   public:
-    HighShelvingCoefficients(int nb_channels = 1);
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    SecondOrderHighShelvingCoefficients(int nb_channels = 1);
 
+    /// Sets the gain of the shelf
     void set_gain(DataType_ gain);
+    /// Returns the gain for the shelf
     DataType_ get_gain() const;
   };
 }

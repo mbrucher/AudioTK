@@ -31,9 +31,9 @@ namespace ATK
 
   public:
     /*!
-    * @brief Constructor
-    * @param nb_channels is the number of input and output channels
-    */
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
     CustomFIRCoefficients(int nb_channels = 1);
 
     /// Set custom coefficients for the FIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)

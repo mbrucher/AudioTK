@@ -39,9 +39,9 @@ namespace ATK
     
   public:
     /*!
-    * @brief Constructor
-    * @param nb_channels is the number of input and output channels
-    */
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
     IIRFilter(int nb_channels = 1)
       :Parent(nb_channels)
     {
