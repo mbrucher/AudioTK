@@ -4,7 +4,7 @@ Documentation
 This is a small list of the different files and the implemented algorithms.
 
 Core module
-###########
+-----------
 
 The *Core* module doesn't implement fancy signal processing algorithm. It is only
 meant to manage the pipeline.
@@ -21,7 +21,7 @@ meant to manage the pipeline.
 * **PipelineGlobalSinkFilter** is a special class without inputs or outputs, but that can process several sinks simultaneously (not possible without this special class)
 
 Mock module
-###########
+-----------
 
 The *Mock* module is meant for testing purposes. It only contains sources and
 sinks.
@@ -32,7 +32,7 @@ sinks.
 * **TriangleGeneratorFilter** generates such a traingle signal.
 
 IO module
-#########
+---------
 
 The *IO* module has facilities to read and write files.
 
@@ -45,7 +45,7 @@ If you have access to **libsndfile** you should use these filters instead:
 * **OutSndFileFilter** is an advanced wav writer filter
 
 Tools module
-############
+------------
 
 The *Tools* has two kind of classes: filters and general purpose classes.
 
@@ -71,7 +71,7 @@ The general purpose classes are:
 * **SclarNewtonRaphson**, an optimization class for scalar ODEs
 
 EQ module
-#########
+---------
 
 The *EQ* module contains a lot of different filter types.
 
@@ -97,7 +97,7 @@ The *EQ* module contains a lot of different filter types.
 * **TimeVaryingIIRFilter** is the base class for time varying IIR filters
 
 Delay module
-##############
+------------
 
 The *Delay* module contains filters enabling delays construction.
 
@@ -108,7 +108,7 @@ The *Delay* module contains filters enabling delays construction.
 * **VariableDelayLineFilter** is a FIR filter that delays the input by a variable value, on a second port.
 
 Dynamic module
-##############
+--------------
 
 The *Dynamic* module contains filters enabling compressor construction.
 
@@ -124,7 +124,7 @@ The *Dynamic* module contains filters enabling compressor construction.
 * **GainMaxExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with a maximum gain reduction
 
 Distortion module
-#################
+-----------------
 
 The *Distortion* module contains filters simulation distortion circuits.
 
@@ -132,15 +132,15 @@ The *Distortion* module contains filters simulation distortion circuits.
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
 
 Reverberation module
-####################
+--------------------
 
 The *Reverberation* module contains reverberation specific filters
 
-* *AllPassReverbFilter* is the simplest reverb filter
-* *LowPassReverbFilter* adds a low pass filter to *AllPassFilter*
+* **AllPassReverbFilter** is the simplest reverb filter
+* **LowPassReverbFilter** adds a low pass filter to *AllPassFilter*
 
 Special module
-##############
+--------------
 
 The *Special* module contains specific/special filters.
 

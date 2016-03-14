@@ -6,16 +6,14 @@ ports and another number of output ports. All inputs have to be connected to
 another filter, and then the pipeline is used by calling **process**.
 
 Creating a basic pipeline
-#########################
+-------------------------
 
 Let's create a simple pipeline. We will start by opening a file (stereo file),
 split the stereo channels between middle and side tracks, divide the volume
 of the side one by 2, combine them again to stereo channels, and finally the
 result is saved to another stereo file.
 
-.. code-block:: cpp
-  :linenos:
-  
+\code{.cpp}
   #include <ATK/IO/libsndfile/InSndFileFilter.h>
   #include <ATK/IO/libsndfile/OutSndFileFilter.h>
   #include <ATK/Tools/MSFilter.h>
@@ -58,16 +56,15 @@ result is saved to another stereo file.
 
     return 0;
   }
+\endcode
 
 Creating a Python pipeline
-##########################
+--------------------------
 
 Now let's do something similar with Python. The only exception is that the IO
 will be handled by **numpy**.
 
-.. code-block:: python
-  :linenos:
-
+\code{.py}
   import numpy as np
   from scipy.io import wavfile
     
@@ -111,3 +108,4 @@ will be handled by **numpy**.
     
   outfilter.process(len(data))
   wavfile.write("stereofile3.wav", sampling_rate, outdata)
+\endcode
