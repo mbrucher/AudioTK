@@ -13,13 +13,12 @@
 
 namespace ATK
 {
-  /**
-   * IIR filter template class for time varying frequencies. Transposed Direct Form II
-   */
+  /// IIR filter template class for time varying frequencies. Transposed Direct Form II
   template<class Coefficients >
   class ATK_EQ_EXPORT TimeVaryingIIRFilter: public Coefficients
   {
   public:
+    /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
