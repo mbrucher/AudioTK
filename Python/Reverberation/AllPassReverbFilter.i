@@ -6,10 +6,10 @@
 namespace ATK
 {
   template<class DataType>
-  class ApplyGainFilter: public BaseFilter
+  class AllPassReverbFilter: public BaseFilter
   {
   public:
-    AllPassReverbFilter();
+    AllPassReverbFilter(int64_t max_delay);
     ~AllPassReverbFilter();
 
     void set_delay(int64_t delay);

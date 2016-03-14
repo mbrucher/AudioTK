@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
   ATK::ConvolutionFilter<double> convolution;
   convolution.set_input_sampling_rate(48000);
   convolution.set_split_size(split_size);
-  convolution.set_impulse(impulse);
+  convolution.set_impulse(std::move(impulse));
 
   ATK::VolumeFilter<double> gainfilter;
   gainfilter.set_input_sampling_rate(48000);
