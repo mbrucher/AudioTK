@@ -12,15 +12,19 @@ namespace ATK
   template<typename DataType_>
   class IIRFilter;
 
+  /// Emulation of a classic tone stack section of an amp
   template<typename DataType_>
   class ToneStackFilterCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Electronic components of the stack
     DataType R1, R2, R3, R4, C1, C2, C3;
+    /// Parameters of the stack
     DataType low, middle, high;
     
     static const int in_order = 3;
@@ -28,23 +32,38 @@ namespace ATK
     
     void setup() override;
     
+    /// MA part of the filter, based on the electronic components specifications
     std::vector<DataType> coefficients_in;
+    /// AR part of the filter, based on the electronic components specifications
     std::vector<DataType> coefficients_out;
     
   public:
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
     ToneStackFilterCoefficients(int nb_channels = 1);
 
+    /// Changes the low section parameter of the stack
     void set_low(DataType_ alpha);
+    /// Gets the low tone parameter
     DataType_ get_low() const;
+    /// Changes the middle section parameter of the stack
     void set_middle(DataType_ alpha);
+    /// Gets the middle tone parameter
     DataType_ get_middle() const;
+    /// Changes the high section parameter of the stack
     void set_high(DataType_ alpha);
+    /// Gets the high tone parameter
     DataType_ get_high() const;
     
+    /// Builds a Bassman stack equivalent filter (bass, Fender)
     static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildBassmanStack();
+    /// Builds a JCM800 stack equivalent filter (guitar, Marshall)
     static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildJCM800Stack();
 
   protected:
+  /// Sets the specific coefficients for a given stack
     void set_coefficients(DataType R1, DataType R2, DataType R3, DataType R4, DataType C1, DataType C2, DataType C3);
   };
 }
