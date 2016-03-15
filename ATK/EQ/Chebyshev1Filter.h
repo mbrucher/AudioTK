@@ -13,6 +13,7 @@ namespace ATK
   class Chebyshev1LowPassCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
@@ -29,13 +30,19 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
     Chebyshev1LowPassCoefficients(int nb_channels = 1);
     
+    /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
+    /// Returns the cut or central frequency
     DataType_ get_cut_frequency() const;
     void set_ripple(DataType_ cut_frequency);
     DataType_ get_ripple() const;
-    
+    /// Sets the order of the IIR filter
     void set_order(int order);
   };
   
@@ -43,6 +50,7 @@ namespace ATK
   class Chebyshev1HighPassCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
@@ -59,13 +67,19 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
     Chebyshev1HighPassCoefficients(int nb_channels = 1);
     
+    /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
+    /// Returns the cut or central frequency
     DataType_ get_cut_frequency() const;
     void set_ripple(DataType_ cut_frequency);
     DataType_ get_ripple() const;
-    
+    /// Sets the order of the IIR filter
     void set_order(int order);
   };
   
@@ -73,6 +87,7 @@ namespace ATK
   class Chebyshev1BandPassCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
@@ -89,6 +104,10 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
     Chebyshev1BandPassCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
@@ -96,7 +115,7 @@ namespace ATK
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     void set_ripple(DataType_ cut_frequency);
     DataType_ get_ripple() const;
-
+    /// Sets the order of the IIR filter
     void set_order(int order);
   };
   
@@ -104,6 +123,7 @@ namespace ATK
   class Chebyshev1BandStopCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
@@ -120,6 +140,10 @@ namespace ATK
     std::vector<DataType> coefficients_out;
     
   public:
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
     Chebyshev1BandStopCoefficients(int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
@@ -127,7 +151,7 @@ namespace ATK
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     void set_ripple(DataType_ cut_frequency);
     DataType_ get_ripple() const;
-
+    /// Sets the order of the IIR filter
     void set_order(int order);
   };
 }
