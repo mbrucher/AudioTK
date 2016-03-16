@@ -29,7 +29,8 @@ namespace ATK
   public:
     /*!
      * @brief Constructs the optimizer
-     * @param function is the function that we will try to optimize
+     * @param function is the function that we will try to optimize.
+     *   It is a functor taking x[n-1], x[n], y[n-1] and an estimate y[n], returning the value of the cost function and its derivative according to y[n]
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
     ScalarNewtonRaphson(Function&& function, DataType precision = 0)
@@ -66,7 +67,7 @@ namespace ATK
     /// Just optimize the function
     DataType optimize_impl(DataType x1)
     {
-      DataType y1 = y0;
+      DataType y1 = function.estimate(x0, x1, y0);
       int i;
       
       for(i = 0; i < max_iterations; ++i)

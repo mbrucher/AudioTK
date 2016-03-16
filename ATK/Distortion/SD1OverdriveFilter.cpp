@@ -89,6 +89,11 @@ namespace ATK
       DataType diode0 = is * (expdiode_y0_p - 2 * expdiode_y0_m + 1);
       return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1.first + B * diode0, (A / drive) + A * diode1.second);
     }
+
+    DataType estimate(DataType x0, DataType x1, DataType y0)
+    {
+      return y0;
+    }
   };
   
   
