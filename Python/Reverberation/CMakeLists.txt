@@ -20,7 +20,7 @@ SWIG_LINK_LIBRARIES(Reverberation ATKReverberation ${PYTHON_LIBRARIES})
 
 SET(
     ATK_REVERBERATION_PYTHON_SRC
-    __init__.py ${PROJECT_BINARY_DIR}/Python/Reverberation/Reverberation
+    __init__.py ${PROJECT_BINARY_DIR}/Python/Reverberation/Reverberation.py
 )
 
 INSTALL(FILES ${ATK_REVERBERATION_PYTHON_SRC}
