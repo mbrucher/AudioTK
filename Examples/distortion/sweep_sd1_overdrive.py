@@ -8,8 +8,8 @@ from ATK.Distortion import DoubleSD1OverdriveFilter
 import matplotlib.pyplot as plt
 
 import sys
-print __file__
-sys.path.append(__file__+"/../..")
+import os
+sys.path.append(os.getcwd()+"/..")
 from display.compare_spec import plot_me
 
 sample_rate = 96000
