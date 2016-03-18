@@ -47,6 +47,8 @@ namespace ATK
     
     /// Changes the pan law
     void set_pan_law(PAN_LAWS law);
+    /// Gets the pan law enum
+    PAN_LAWS get_pan_law() const;
     /// Sets the pan value
     void set_pan(double pan);
     /// Gets the pan value
