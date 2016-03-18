@@ -52,7 +52,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void TriangleCheckerFilter<DataType_>::set_amplitude(DataType amplitude)
+  void TriangleCheckerFilter<DataType_>::set_amplitude(DataType_ amplitude)
   {
     this->amplitude = amplitude;
   }
