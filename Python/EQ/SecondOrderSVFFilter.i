@@ -10,6 +10,7 @@ namespace ATK
   {
   public:
     SecondOrderSVFFilter();
+    ~SecondOrderSVFFilter();
   };
   
   template<class DataType>
