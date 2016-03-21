@@ -121,8 +121,8 @@ if __name__ == "__main__":
   import numpy as np
   size = 100000
   
-  d = np.arange(size).reshape(1, -1)
-  d = np.sin(d * 2 * np.pi * 1000 / 48000)
+  x = np.arange(size).reshape(1, -1) / 48000.
+  d = np.sin(x * 2 * np.pi * 1000)
   np.savetxt("input.txt", d)
   out = filter_32(d)
   np.savetxt("output32.txt", out)
