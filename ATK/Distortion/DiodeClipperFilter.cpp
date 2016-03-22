@@ -81,20 +81,17 @@ namespace ATK
     
     DataType linear_estimate(DataType x0, DataType x1, DataType y0)
     {
-      if(y0 != 0)
-      {
-        auto exp = std::exp(y0 / vt);
-        auto sinh = (exp - 1/exp);
-        return (y0 + A * (2 * x1 - y0) - B * sinh) / (1 + A + B * sinh / y0);
-      }
-      return y0;
+      if(y0 == 0)
+        return 0;
+      auto sinh = (oldexpy1 - oldinvexpy1);
+      return (y0 + A * (2 * x1 - y0) - B * sinh) / (1 + A + B * sinh / y0);
     }
     
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
-      auto exp = std::exp(y0 / vt);
-      auto cosh = (exp + 1/exp);
-      return (y0 + A * (2 * x1 - y0) - B * (y0 - x0 / vt * cosh) ) / (B * cosh / vt + 1 + A);
+      auto sinh = (oldexpy1 - oldinvexpy1);
+      auto cosh = (oldexpy1 + oldinvexpy1);
+      return (y0 + A * (2 * x1 - y0) - B * (2 * sinh - y0 / vt * cosh) ) / (B * cosh / vt + 1 + A);
     }
   };
   
@@ -196,12 +193,12 @@ namespace ATK
       return std::make_pair(y0 - y1 + A * x1 - (A * y1 + B * diode.first), -1 - A - B * diode.second);
     }
     
-    DataType estimate(DataType x0, DataType x1, DataType y0)/*
+    DataType estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }
     
-    DataType linear_estimate(DataType x0, DataType x1, DataType y0)*/
+    DataType linear_estimate(DataType x0, DataType x1, DataType y0)
     {
       if(y0 == 0)
         return 0;
