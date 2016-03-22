@@ -203,16 +203,17 @@ namespace ATK
     
     DataType linear_estimate(DataType x0, DataType x1, DataType y0)*/
     {
-      auto exp = std::exp(y0 / vt);
-      auto sinh = (exp - 1/exp);
+      if(y0 == 0)
+        return 0;
+      auto sinh = (oldexpy1 - oldinvexpy1);
       return (y0 + x1 * A) / (B * sinh / y0 + (1 + A));
     }
     
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
-      auto exp = std::exp(y0 / vt);
-      auto cosh = (exp + 1/exp);
-      return (y0 + x1 * A - B * (y0 - x0 / vt * cosh) ) / (B * cosh / vt + 1 + A);
+      auto sinh = (oldexpy1 - oldinvexpy1);
+      auto cosh = (oldexpy1 + oldinvexpy1);
+      return (y0 + x1 * A - B * (sinh - y0 / vt * cosh) ) / (B * cosh / vt + 1 + A);
     }
   };
 

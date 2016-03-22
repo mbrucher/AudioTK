@@ -73,28 +73,25 @@ namespace ATK
       return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
     }
     
-    DataType estimate(DataType x0, DataType x1, DataType y0)
+    DataType estimate(DataType x0, DataType x1, DataType y0)/*
     {
       return y0;
     }
     
     DataType linear_estimate(DataType x0, DataType x1, DataType y0)
     {
-      if(x0 != 0)
-      {
-        auto exp = std::exp(y0 / vt);
-        auto sinh = (exp - 1/exp);
-        return (x1 - x0 + y0 + is * sinh * B) / (is * sinh * A / x0 + 1);
-      }
-      return y0;
-    }
-    
-    DataType affine_estimate(DataType x0, DataType x1, DataType y0)
-    {
+      if(y0 == 0)
+        return 0;
       auto exp = std::exp(y0 / vt);
       auto sinh = (exp - 1/exp);
-      auto cosh = (exp + 1/exp);
-      return (x1 - x0 + y0 + is * sinh * B - (y0 + x0/vt*cosh) * is * A) / (is * cosh * A / vt + 1);
+      return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
+    }
+    
+    DataType affine_estimate(DataType x0, DataType x1, DataType y0)*/
+    {
+      auto sinh = (oldexpy1 - oldinvexpy1);
+      auto cosh = (oldexpy1 + oldinvexpy1);
+      return (x1 - x0 + y0 - is * sinh * B - (sinh - y0 / vt * cosh) * is * A) / (is * cosh * A / vt + 1);
     }
   };
   
@@ -203,13 +200,11 @@ namespace ATK
     
     DataType linear_estimate(DataType x0, DataType x1, DataType y0)
     {
-      if(x0 != 0)
-      {
-        auto exp = std::exp(y0 / vt);
-        auto sinh = (exp - 1/exp);
-        return (x1 - x0 + y0 + is * sinh * B) / (is * sinh * A / x0 + 1);
-      }
-      return y0;
+      if(y0 == 0)
+        return 0;
+      auto exp = std::exp(y0 / vt);
+      auto sinh = (exp - 1/exp);
+      return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
     }
     
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
@@ -217,7 +212,7 @@ namespace ATK
       auto exp = std::exp(y0 / vt);
       auto sinh = (exp - 1/exp);
       auto cosh = (exp + 1/exp);
-      return (x1 - x0 + y0 + is * sinh * B - (y0 + x0/vt*cosh) * is * A) / (is * cosh * A / vt + 1);
+      return (x1 - x0 + y0 - is * sinh * B - (sinh - y0 / vt * cosh) * is * A) / (is * cosh * A / vt + 1);
     }
   };
 
