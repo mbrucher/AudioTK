@@ -13,10 +13,9 @@ namespace ATK
   /*!
    * A NR optimizer, 10 iterations max
    */
-  template<typename Function>
+  template<typename Function, int max_iterations=10, bool check_convergence=true>
   class ScalarNewtonRaphson
   {
-    static const int max_iterations = 10;
     
     typedef typename Function::DataType DataType;
     
@@ -93,7 +92,7 @@ namespace ATK
         }
         y1 = yk;
       }
-      if(i == max_iterations)
+      if(check_convergence && i == max_iterations)
       {
         return y0; // Stay the same
       }

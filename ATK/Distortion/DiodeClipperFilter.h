@@ -12,7 +12,7 @@
 
 namespace ATK
 {
-  template<typename Function>
+  template<typename Function, int max_iterations, bool check_convergence>
   class ScalarNewtonRaphson;
   
   /// Diode clipper filter, based on a trapezoidal rule
@@ -43,7 +43,7 @@ namespace ATK
     void process_impl(int64_t size) const override final;
     
   private:
-    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction> > optimizer;
+    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction, 10, true> > optimizer;
   };
 
   /// Diode clipper filter, based on a backward Euler rule
@@ -74,7 +74,7 @@ namespace ATK
     void process_impl(int64_t size) const override final;
     
   private:
-    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction> > optimizer;
+    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction, 10, true> > optimizer;
   };
 
   /// Diode clipper filter, based on a forward Euler rule
