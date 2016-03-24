@@ -12,7 +12,7 @@
 
 namespace ATK
 {
-  template<typename Function>
+  template<typename Function, int max_iterations, bool check_convergence>
   class ScalarNewtonRaphson;
 
   /// SD1 filter, based on a trapezoidal rule
@@ -48,7 +48,7 @@ namespace ATK
     DataType drive;
     
   private:
-    std::unique_ptr<ScalarNewtonRaphson<SD1OverdriveFunction> > optimizer;
+    std::unique_ptr<ScalarNewtonRaphson<SD1OverdriveFunction, 10, true> > optimizer;
   };
 }
 

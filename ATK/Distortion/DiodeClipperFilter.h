@@ -1,11 +1,9 @@
 /**
- * \file SimpleOverdriveFilter.h
- * Inspired by http://simulanalog.org/statevariable.pdf
- * See https://ccrma.stanford.edu/~dtyeh/papers/yeh07_dafx_clipode.pdf as well
+ * \file DiodeClipperFilter.h
  */
 
-#ifndef ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
-#define ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
+#ifndef ATK_DISTORTION_DiodeClipperFilter_H
+#define ATK_DISTORTION_DiodeClipperFilter_H
 
 #include <memory>
 
@@ -19,7 +17,7 @@ namespace ATK
   
   /// Diode clipper filter, based on a trapezoidal rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT SimpleOverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT DiodeClipperFilter: public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
   public:
@@ -36,9 +34,9 @@ namespace ATK
     /*!
     * @brief Constructor
     */
-    SimpleOverdriveFilter();
+    DiodeClipperFilter();
     /// Destructor
-    ~SimpleOverdriveFilter();
+    ~DiodeClipperFilter();
     
   protected:
     void setup() override final;
@@ -50,7 +48,7 @@ namespace ATK
 
   /// Diode clipper filter, based on a backward Euler rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT BackwardSimpleOverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT BackwardDiodeClipperFilter: public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
   public:
@@ -67,9 +65,9 @@ namespace ATK
     /*!
      * @brief Constructor
      */
-    BackwardSimpleOverdriveFilter();
+    BackwardDiodeClipperFilter();
     /// Destructor
-    ~BackwardSimpleOverdriveFilter();
+    ~BackwardDiodeClipperFilter();
     
   protected:
     void setup() override final;
@@ -81,7 +79,7 @@ namespace ATK
 
   /// Diode clipper filter, based on a forward Euler rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT ForwardSimpleOverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT ForwardDiodeClipperFilter: public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
   public:
@@ -101,9 +99,9 @@ namespace ATK
     /*!
      * @brief Constructor
      */
-    ForwardSimpleOverdriveFilter();
+    ForwardDiodeClipperFilter();
     /// Destructor
-    ~ForwardSimpleOverdriveFilter();
+    ~ForwardDiodeClipperFilter();
     
   protected:
     void setup() override final;
