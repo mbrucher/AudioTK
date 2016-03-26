@@ -17,7 +17,7 @@ def filter_32(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 32)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleSD1OverdriveFilter(1)
+  overdrivefilter = DoubleSD1OverdriveFilter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 32)
   overdrivefilter.set_input_port(0, overfilter, 0)
   overdrivefilter.set_drive(0.9)
