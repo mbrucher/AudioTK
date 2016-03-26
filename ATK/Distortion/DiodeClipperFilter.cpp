@@ -1,8 +1,8 @@
 /**
- * \file SimpleOverdriveFilter.cpp
+ * \file DiodeClipperFilter.cpp
  */
 
-#include "SimpleOverdriveFilter.h"
+#include "DiodeClipperFilter.h"
 
 #include <boost/math/special_functions/sign.hpp>
 
@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  class SimpleOverdriveFilter<DataType_>::SimpleOverdriveFunction
+  class DiodeClipperFilter<DataType_>::SimpleOverdriveFunction
   {
   public:
     typedef DataType_ DataType;
@@ -31,8 +31,8 @@ namespace ATK
     SimpleOverdriveFunction(DataType dt, DataType R, DataType C, DataType is, DataType vt)
     :is(is), vt(vt)
     {
-      A = dt / (2 * C) + R;
-      B = dt / (2 * C) - R;
+      A = dt / (2 * C * R);
+      B = dt / (2 * C);
 
       oldy0 = oldy1 = 0;
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
@@ -68,12 +68,13 @@ namespace ATK
       oldy1 = y1;
       oldexpy1 = expdiode_y1_p;
       oldinvexpy1 = expdiode_y1_m;
-
+      
       std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p + expdiode_y1_m) / vt);
-      return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
+      auto old_diode = is * (expdiode_y0_p - expdiode_y0_m);
+      return std::make_pair(y0 - y1 + 2 * A * x1 - (A * (y1 + y0) + B * (diode.first + old_diode)), -1 - A - B * diode.second);
     }
     
-    DataType estimate(DataType x0, DataType x1, DataType y0)/*
+    DataType estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }
@@ -82,32 +83,31 @@ namespace ATK
     {
       if(y0 == 0)
         return 0;
-      auto exp = std::exp(y0 / vt);
-      auto sinh = (exp - 1/exp);
-      return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
+      auto sinh = (oldexpy1 - oldinvexpy1);
+      return (y0 + A * (2 * x1 - y0) - B * sinh) / (1 + A + B * sinh / y0);
     }
     
-    DataType affine_estimate(DataType x0, DataType x1, DataType y0)*/
+    DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       auto sinh = (oldexpy1 - oldinvexpy1);
       auto cosh = (oldexpy1 + oldinvexpy1);
-      return (x1 - x0 + y0 - is * sinh * B - (sinh - y0 / vt * cosh) * is * A) / (is * cosh * A / vt + 1);
+      return (y0 + A * (2 * x1 - y0) - B * (2 * sinh - y0 / vt * cosh) ) / (B * cosh / vt + 1 + A);
     }
   };
   
   template <typename DataType>
-  SimpleOverdriveFilter<DataType>::SimpleOverdriveFilter()
+  DiodeClipperFilter<DataType>::DiodeClipperFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
   }
 
   template <typename DataType>
-  SimpleOverdriveFilter<DataType>::~SimpleOverdriveFilter()
+  DiodeClipperFilter<DataType>::~DiodeClipperFilter()
   {
   }
 
   template <typename DataType>
-  void SimpleOverdriveFilter<DataType>::setup()
+  void DiodeClipperFilter<DataType>::setup()
   {
     Parent::setup();
     optimizer.reset(new ScalarNewtonRaphson<SimpleOverdriveFunction>(SimpleOverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
@@ -115,7 +115,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void SimpleOverdriveFilter<DataType>::process_impl(int64_t size) const
+  void DiodeClipperFilter<DataType>::process_impl(int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
 
@@ -127,11 +127,11 @@ namespace ATK
     }
   }
 
-  template class SimpleOverdriveFilter<float>;
-  template class SimpleOverdriveFilter<double>;
+  template class DiodeClipperFilter<float>;
+  template class DiodeClipperFilter<double>;
 
   template<typename DataType_>
-  class BackwardSimpleOverdriveFilter<DataType_>::SimpleOverdriveFunction
+  class BackwardDiodeClipperFilter<DataType_>::SimpleOverdriveFunction
   {
   public:
     typedef DataType_ DataType;
@@ -151,8 +151,8 @@ namespace ATK
     SimpleOverdriveFunction(DataType dt, DataType R, DataType C, DataType is, DataType vt)
     :is(is), vt(vt)
     {
-      A = dt / C + R;
-      B = - R;
+      A = dt / (C * R);
+      B = dt / C;
       
       oldy0 = oldy1 = 0;
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
@@ -190,7 +190,7 @@ namespace ATK
       oldinvexpy1 = expdiode_y1_m;
       
       std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p + expdiode_y1_m) / vt);
-      return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
+      return std::make_pair(y0 - y1 + A * x1 - (A * y1 + B * diode.first), -1 - A - B * diode.second);
     }
     
     DataType estimate(DataType x0, DataType x1, DataType y0)
@@ -202,33 +202,31 @@ namespace ATK
     {
       if(y0 == 0)
         return 0;
-      auto exp = std::exp(y0 / vt);
-      auto sinh = (exp - 1/exp);
-      return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
+      auto sinh = (oldexpy1 - oldinvexpy1);
+      return (y0 + x1 * A) / (B * sinh / y0 + (1 + A));
     }
     
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
-      auto exp = std::exp(y0 / vt);
-      auto sinh = (exp - 1/exp);
-      auto cosh = (exp + 1/exp);
-      return (x1 - x0 + y0 - is * sinh * B - (sinh - y0 / vt * cosh) * is * A) / (is * cosh * A / vt + 1);
+      auto sinh = (oldexpy1 - oldinvexpy1);
+      auto cosh = (oldexpy1 + oldinvexpy1);
+      return (y0 + x1 * A - B * (sinh - y0 / vt * cosh) ) / (B * cosh / vt + 1 + A);
     }
   };
 
   template <typename DataType>
-  BackwardSimpleOverdriveFilter<DataType>::BackwardSimpleOverdriveFilter()
+  BackwardDiodeClipperFilter<DataType>::BackwardDiodeClipperFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
   }
   
   template <typename DataType>
-  BackwardSimpleOverdriveFilter<DataType>::~BackwardSimpleOverdriveFilter()
+  BackwardDiodeClipperFilter<DataType>::~BackwardDiodeClipperFilter()
   {
   }
   
   template <typename DataType>
-  void BackwardSimpleOverdriveFilter<DataType>::setup()
+  void BackwardDiodeClipperFilter<DataType>::setup()
   {
     Parent::setup();
     optimizer.reset(new ScalarNewtonRaphson<SimpleOverdriveFunction>(SimpleOverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
@@ -236,7 +234,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void BackwardSimpleOverdriveFilter<DataType>::process_impl(int64_t size) const
+  void BackwardDiodeClipperFilter<DataType>::process_impl(int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
     
@@ -248,11 +246,11 @@ namespace ATK
     }
   }
   
-  template class BackwardSimpleOverdriveFilter<float>;
-  template class BackwardSimpleOverdriveFilter<double>;
+  template class BackwardDiodeClipperFilter<float>;
+  template class BackwardDiodeClipperFilter<double>;
   
   template <typename DataType>
-  ForwardSimpleOverdriveFilter<DataType>::ForwardSimpleOverdriveFilter()
+  ForwardDiodeClipperFilter<DataType>::ForwardDiodeClipperFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
     input_delay = 1;
@@ -260,18 +258,18 @@ namespace ATK
   }
   
   template <typename DataType>
-  ForwardSimpleOverdriveFilter<DataType>::~ForwardSimpleOverdriveFilter()
+  ForwardDiodeClipperFilter<DataType>::~ForwardDiodeClipperFilter()
   {
   }
   
   template <typename DataType>
-  void ForwardSimpleOverdriveFilter<DataType>::setup()
+  void ForwardDiodeClipperFilter<DataType>::setup()
   {
     Parent::setup();
   }
   
   template <typename DataType>
-  void ForwardSimpleOverdriveFilter<DataType>::process_impl(int64_t size) const
+  void ForwardDiodeClipperFilter<DataType>::process_impl(int64_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
     
@@ -285,11 +283,11 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
     {
-      output[i] = output[i-1] + (input[i] - input[i-1] - (4 * dt * is * C * sinh(output[i-1] / vt))) / (1 + 2 * is * R * vt * cosh(output[i-1] / vt));
+      output[i] = output[i-1] + dt * ((input[i] - output[i-1]) / (R * C) - (2 * is / C * sinh(output[i-1] / vt)));
     }
   }
   
-  template class ForwardSimpleOverdriveFilter<float>;
-  template class ForwardSimpleOverdriveFilter<double>;
+  template class ForwardDiodeClipperFilter<float>;
+  template class ForwardDiodeClipperFilter<double>;
 
 }

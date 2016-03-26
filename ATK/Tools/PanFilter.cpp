@@ -31,6 +31,12 @@ namespace ATK
   }
   
   template<typename DataType_>
+  typename PanFilter<DataType_>::PAN_LAWS PanFilter<DataType_>::get_pan_law() const
+  {
+    return law;
+  }
+  
+  template<typename DataType_>
   void PanFilter<DataType_>::set_pan(double pan)
   {
     if(pan < -1 || pan > 1)
