@@ -73,8 +73,13 @@ namespace ATK
       auto old_diode = is * (expdiode_y0_p - expdiode_y0_m);
       return std::make_pair(y0 - y1 + 2 * A * x1 - (A * (y1 + y0) + B * (diode.first + old_diode)), -1 - A - B * diode.second);
     }
-    
+
     DataType estimate(DataType x0, DataType x1, DataType y0)
+    {
+      return id_estimate(x0, x1, y0);
+    }
+
+    DataType id_estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }
@@ -194,6 +199,11 @@ namespace ATK
     }
     
     DataType estimate(DataType x0, DataType x1, DataType y0)
+    {
+      return id_estimate(x0, x1, y0);
+    }
+    
+    DataType id_estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }

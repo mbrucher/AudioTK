@@ -72,8 +72,13 @@ namespace ATK
       std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p + expdiode_y1_m) / vt);
       return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
     }
-    
-    DataType estimate(DataType x0, DataType x1, DataType y0)/*
+
+    DataType estimate(DataType x0, DataType x1, DataType y0)
+    {
+      return affine_estimate(x0, x1, y0);
+    }
+
+    DataType id_estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }
@@ -87,7 +92,7 @@ namespace ATK
       return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
     }
     
-    DataType affine_estimate(DataType x0, DataType x1, DataType y0)*/
+    DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       auto sinh = (oldexpy1 - oldinvexpy1);
       auto cosh = (oldexpy1 + oldinvexpy1);
@@ -194,6 +199,11 @@ namespace ATK
     }
     
     DataType estimate(DataType x0, DataType x1, DataType y0)
+    {
+      return affine_estimate(x0, x1, y0);
+    }
+    
+    DataType id_estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }
