@@ -67,8 +67,14 @@ def filter_16(input):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
 
-  infilter = DoubleInPointerFilter(input, False)
+  inputfilter = DoubleInPointerFilter(input, False)
+  inputfilter.set_input_sampling_rate(sample_rate)
+  infilter = DoubleChamberlinFilter()
   infilter.set_input_sampling_rate(sample_rate)
+  infilter.set_input_port(0, inputfilter, 0)
+  infilter.select(0)
+  infilter.set_attenuation(1)
+  infilter.set_cut_frequency(1000)
   overfilter = DoubleOversampling6points5order_16Filter()
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 16)
@@ -107,8 +113,14 @@ def filter_8(input):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
 
-  infilter = DoubleInPointerFilter(input, False)
+  inputfilter = DoubleInPointerFilter(input, False)
+  inputfilter.set_input_sampling_rate(sample_rate)
+  infilter = DoubleChamberlinFilter()
   infilter.set_input_sampling_rate(sample_rate)
+  infilter.set_input_port(0, inputfilter, 0)
+  infilter.select(0)
+  infilter.set_attenuation(1)
+  infilter.set_cut_frequency(1000)
   overfilter = DoubleOversampling6points5order_8Filter()
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 8)
@@ -147,8 +159,14 @@ def filter_4(input):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
 
-  infilter = DoubleInPointerFilter(input, False)
+  inputfilter = DoubleInPointerFilter(input, False)
+  inputfilter.set_input_sampling_rate(sample_rate)
+  infilter = DoubleChamberlinFilter()
   infilter.set_input_sampling_rate(sample_rate)
+  infilter.set_input_port(0, inputfilter, 0)
+  infilter.select(0)
+  infilter.set_attenuation(1)
+  infilter.set_cut_frequency(1000)
   overfilter = DoubleOversampling6points5order_4Filter()
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 4)
