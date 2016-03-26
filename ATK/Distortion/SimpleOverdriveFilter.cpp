@@ -70,7 +70,7 @@ namespace ATK
       oldinvexpy1 = expdiode_y1_m;
 
       std::pair<DataType, DataType> diode = std::make_pair(is * (expdiode_y1_p - expdiode_y1_m), is * (expdiode_y1_p + expdiode_y1_m) / vt);
-      return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
+      return std::make_pair(A * diode.first + y1 + x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0, A * diode.second + 1);
     }
 
     DataType estimate(DataType x0, DataType x1, DataType y0)
