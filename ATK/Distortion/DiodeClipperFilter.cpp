@@ -76,7 +76,7 @@ namespace ATK
 
     DataType estimate(DataType x0, DataType x1, DataType y0)
     {
-      return id_estimate(x0, x1, y0);
+      return affine_estimate(x0, x1, y0);
     }
 
     DataType id_estimate(DataType x0, DataType x1, DataType y0)
@@ -88,14 +88,14 @@ namespace ATK
     {
       if(y0 == 0)
         return 0;
-      auto sinh = (oldexpy1 - oldinvexpy1);
+      auto sinh = is * (oldexpy1 - oldinvexpy1);
       return (y0 + A * (2 * x1 - y0) - B * sinh) / (1 + A + B * sinh / y0);
     }
     
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
-      auto sinh = (oldexpy1 - oldinvexpy1);
-      auto cosh = (oldexpy1 + oldinvexpy1);
+      auto sinh = is * (oldexpy1 - oldinvexpy1);
+      auto cosh = is * (oldexpy1 + oldinvexpy1);
       return (y0 + A * (2 * x1 - y0) - B * (2 * sinh - y0 / vt * cosh) ) / (B * cosh / vt + 1 + A);
     }
   };

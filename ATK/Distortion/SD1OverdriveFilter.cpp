@@ -92,7 +92,29 @@ namespace ATK
 
     DataType estimate(DataType x0, DataType x1, DataType y0)
     {
+      return affine_estimate(x0, x1, y0);
+    }
+    
+    DataType id_estimate(DataType x0, DataType x1, DataType y0)
+    {
       return y0;
+    }
+    
+    DataType linear_estimate(DataType x0, DataType x1, DataType y0)
+    {
+      y0 -= x0;
+      if(y0 == 0)
+        return 0;
+      auto sinh = is * (oldexpy1 - oldinvexpy1);
+      return (x1 - x0 - y0 * (B / drive) - B * sinh) / (A * sinh / y0 + (A / drive)) + x1;
+    }
+    
+    DataType affine_estimate(DataType x0, DataType x1, DataType y0)
+    {
+      y0 -= x0;
+      auto sinh = is * (oldexpy1 - oldinvexpy1);
+      auto cosh = is * (oldexpy1 + oldinvexpy1);
+      return (x1 - x0 - y0 * (B / drive) - B * sinh - A * (sinh - y0 / vt * cosh) ) / (A * cosh / vt + (A / drive)) + x1;
     }
   };
   
@@ -112,7 +134,7 @@ namespace ATK
   void SD1OverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction>(SD1OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction, 10, true>(SD1OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
       static_cast<DataType>(4.7e3), static_cast<DataType>(0.047e-6), static_cast<DataType>(33e3),
       static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
 

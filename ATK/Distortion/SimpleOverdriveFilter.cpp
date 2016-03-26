@@ -87,8 +87,7 @@ namespace ATK
     {
       if(y0 == 0)
         return 0;
-      auto exp = std::exp(y0 / vt);
-      auto sinh = (exp - 1/exp);
+      auto sinh = (oldexpy1 - oldinvexpy1);
       return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
     }
     
