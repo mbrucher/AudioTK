@@ -13,6 +13,8 @@
 #define ATK_USE_ACCELERATE @USE_ACCELERATE@
 #define ATK_USE_THREADPOOL @USE_THREADPOOL@
 
+#define ATK_SOURCE_TREE "@PROJECT_SOURCE_DIR@"
+
 #if defined __INTEL_COMPILER
 # define ATK_RESTRICT restrict
 #elif defined _MSC_VER
