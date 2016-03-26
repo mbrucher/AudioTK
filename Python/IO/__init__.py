@@ -1,2 +1,2 @@
 
-from IO import *
+from .IO import *

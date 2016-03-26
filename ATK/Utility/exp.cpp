@@ -4,6 +4,7 @@
 
 #include <ATK/Utility/exp.h>
 
+#include <cstddef>
 #include <cmath>
 
 namespace ATK
