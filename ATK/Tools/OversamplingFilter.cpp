@@ -145,14 +145,13 @@ namespace ATK
         DataType even[Coefficients::points / 2];
         for(int j = 0; j < Coefficients::points / 2; ++j)
         {
-          even[j] = input[i - input_delay + Coefficients::points / 2 + j] + input[i - input_delay + Coefficients::points / 2 - 1 - j];
+          even[j] = input[i - Coefficients::points + Coefficients::points / 2 + j] + input[i - Coefficients::points + Coefficients::points / 2 - 1 - j];
         }
         DataType odd[Coefficients::points / 2];
         for(int j = 0; j < Coefficients::points / 2; ++j)
         {
-          odd[j] = input[i - input_delay + Coefficients::points / 2 + j] - input[i - input_delay + Coefficients::points / 2 - 1 - j];
+          odd[j] = input[i - Coefficients::points + Coefficients::points / 2 + j] - input[i - Coefficients::points + Coefficients::points / 2 - 1 - j];
         }
-
         DataType c[Coefficients::order + 1];
 
         for(int j = 0; j < Coefficients::order + 1; j += 2)

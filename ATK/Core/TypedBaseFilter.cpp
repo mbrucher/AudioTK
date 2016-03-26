@@ -137,10 +137,11 @@ namespace ATK
       }
       else
       {
+        auto my_last_size = last_size * input_sampling_rate / output_sampling_rate;
         const auto input_ptr = converted_inputs[i];
         for(int j = 0; j < input_delay; ++j)
         {
-          input_ptr[j - input_delay] = input_ptr[last_size + j - input_delay];
+          input_ptr[j - input_delay] = input_ptr[my_last_size + j - input_delay];
         }
       }
       convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
