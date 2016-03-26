@@ -23,14 +23,14 @@ def filter(input):
   outfilter.set_input_sampling_rate(sample_rate * 32)
   outfilter.set_input_port(0, overfilter, 0)
   for i in range(10):
-    outfilter.process(input.shape[1] / 10)
+    outfilter.process(input.shape[1] * 32 / 10)
 
   return output
 
 if __name__ == "__main__":
   import numpy as np
   import matplotlib.pyplot as plt
-  samples = 1000
+  samples = 100
 
   t = np.arange(samples, dtype=np.float64).reshape(1, -1) / sample_rate
   d = np.sin(t * 2 * np.pi * 100)
@@ -38,7 +38,7 @@ if __name__ == "__main__":
   t2 = np.arange(samples * 32, dtype=np.float64).reshape(1, -1) / (sample_rate * 32)
   d2 = filter(d)
   plt.plot(t[0], d[0], label="input")
-  plt.plot(t2[0], d2[0], label="output")
+  plt.plot(t2[0] - 3. / sample_rate, d2[0], label="output")
   plt.gcf().suptitle("Oversampling")
   plt.legend()
   plt.show()
