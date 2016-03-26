@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   PanFilter<DataType_>::PanFilter()
-  :Parent(1, 2), law(SINCOS_0_CENTER), pan(0)
+  :Parent(1, 2), law(PAN_LAWS::SINCOS_0_CENTER), pan(0)
   {
     
   }
@@ -31,6 +31,12 @@ namespace ATK
   }
   
   template<typename DataType_>
+  typename PanFilter<DataType_>::PAN_LAWS PanFilter<DataType_>::get_pan_law() const
+  {
+    return law;
+  }
+  
+  template<typename DataType_>
   void PanFilter<DataType_>::set_pan(double pan)
   {
     if(pan < -1 || pan > 1)
@@ -41,6 +47,12 @@ namespace ATK
   }
 
   template<typename DataType_>
+  double PanFilter<DataType_>::get_pan() const
+  {
+    return pan;
+  }
+
+  template<typename DataType_>
   void PanFilter<DataType_>::process_impl(int64_t size) const
   {
     double left_coeff = 1;
@@ -48,27 +60,27 @@ namespace ATK
     
     switch(law)
     {
-      case SINCOS_0_CENTER:
+    case PAN_LAWS::SINCOS_0_CENTER:
         left_coeff = std::sqrt(2) * std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
         right_coeff = std::sqrt(2) * std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
         break;
-      case SINCOS_3_CENTER:
+      case PAN_LAWS::SINCOS_3_CENTER:
         left_coeff = std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
         right_coeff = std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
         break;
-      case SQUARE_0_CENTER:
+      case PAN_LAWS::SQUARE_0_CENTER:
         left_coeff = std::sqrt(2) * std::sqrt((1 - pan) / 2);
         right_coeff = std::sqrt(2) * std::sqrt((1 + pan) / 2);
         break;
-      case SQUARE_3_CENTER:
+      case PAN_LAWS::SQUARE_3_CENTER:
         left_coeff = std::sqrt((1 - pan) / 2);
         right_coeff = std::sqrt((1 + pan) / 2);
         break;
-      case LINEAR_TAPER:
+      case PAN_LAWS::LINEAR_TAPER:
         left_coeff = (1 - pan) / 2;
         right_coeff = (1 + pan) / 2;
         break;
-      case BALANCE:
+      case PAN_LAWS::BALANCE:
         left_coeff = pan < 0 ? 1 : 1 - pan;
         right_coeff = pan > 0 ? 1 : 1 + pan;
         break;

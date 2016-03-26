@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<typename DataType>
-  class UVDLF_Impl
+  class UniversalVariableDelayLineFilter<DataType>::UVDLF_Impl
   {
   public:
     /// Delay line contains the last size elements + max_delay of the last delay line
@@ -47,7 +47,7 @@ namespace ATK
 
   template<typename DataType_>
   UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(int max_delay)
-    :Parent(2, 1), impl(new UVDLF_Impl<DataType_>(max_delay)), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
+    :Parent(2, 1), impl(new UVDLF_Impl(max_delay)), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
   {
   }
   

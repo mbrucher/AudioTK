@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType>
-  class FDLF_Impl
+  class FixedDelayLineFilter<DataType>::FDLF_Impl
   {
   public:
     std::vector<DataType> delay_line;
@@ -24,7 +24,7 @@ namespace ATK
 
   template<typename DataType_>
   FixedDelayLineFilter<DataType_>::FixedDelayLineFilter(int max_delay)
-    :Parent(1, 1), impl(new FDLF_Impl<DataType_>(max_delay)), delay(0)
+    :Parent(1, 1), impl(new FDLF_Impl(max_delay)), delay(0)
   {
   }
   

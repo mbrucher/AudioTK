@@ -9,7 +9,7 @@ namespace ATK
   class SD1OverdriveFilter: public BaseFilter
   {
   public:
-    SD1OverdriveFilter(int nb_channels = 1);
+    SD1OverdriveFilter();
     ~SD1OverdriveFilter();
     void set_drive(DataType drive);
   };

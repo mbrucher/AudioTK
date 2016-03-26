@@ -15,13 +15,13 @@
 namespace ATK
 {
   template <typename DataType>
-  BaseSecondOrderCoefficients<DataType>::BaseSecondOrderCoefficients(int nb_channels)
+  SecondOrderBaseCoefficients<DataType>::SecondOrderBaseCoefficients(int nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }
 
   template <typename DataType>
-  void BaseSecondOrderCoefficients<DataType>::setup()
+  void SecondOrderBaseCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -30,26 +30,26 @@ namespace ATK
   }
 
   template <typename DataType_>
-  void BaseSecondOrderCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
+  void SecondOrderBaseCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ BaseSecondOrderCoefficients<DataType_>::get_cut_frequency() const
+  DataType_ SecondOrderBaseCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
 
   template<typename DataType>
-  BandPassCoefficients<DataType>::BandPassCoefficients(int nb_channels)
+  SecondOrderBandPassCoefficients<DataType>::SecondOrderBandPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void BandPassCoefficients<DataType>::setup()
+  void SecondOrderBandPassCoefficients<DataType>::setup()
   {
     Parent::setup();
     
@@ -65,26 +65,26 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void BandPassCoefficients<DataType_>::set_Q(DataType_ Q)
+  void SecondOrderBandPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
   template <typename DataType_>
-  DataType_ BandPassCoefficients<DataType_>::get_Q() const
+  DataType_ SecondOrderBandPassCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
 
   template<typename DataType>
-  LowPassCoefficients<DataType>::LowPassCoefficients(int nb_channels)
+  SecondOrderLowPassCoefficients<DataType>::SecondOrderLowPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void LowPassCoefficients<DataType>::setup()
+  void SecondOrderLowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -99,13 +99,13 @@ namespace ATK
   }
 
   template<typename DataType>
-  HighPassCoefficients<DataType>::HighPassCoefficients(int nb_channels)
+  SecondOrderHighPassCoefficients<DataType>::SecondOrderHighPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void HighPassCoefficients<DataType>::setup()
+  void SecondOrderHighPassCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -120,13 +120,13 @@ namespace ATK
   }
 
   template<typename DataType>
-  BandPassPeakCoefficients<DataType>::BandPassPeakCoefficients(int nb_channels)
+  SecondOrderBandPassPeakCoefficients<DataType>::SecondOrderBandPassPeakCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void BandPassPeakCoefficients<DataType>::setup()
+  void SecondOrderBandPassPeakCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -157,39 +157,39 @@ namespace ATK
   }
 
   template <typename DataType_>
-  void BandPassPeakCoefficients<DataType_>::set_Q(DataType_ Q)
+  void SecondOrderBandPassPeakCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
   template <typename DataType_>
-  DataType_ BandPassPeakCoefficients<DataType_>::get_Q() const
+  DataType_ SecondOrderBandPassPeakCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
 
   template <typename DataType_>
-  void BandPassPeakCoefficients<DataType_>::set_gain(DataType_ gain)
+  void SecondOrderBandPassPeakCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
   template <typename DataType_>
-  DataType_ BandPassPeakCoefficients<DataType_>::get_gain() const
+  DataType_ SecondOrderBandPassPeakCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }
 
   template<typename DataType>
-  AllPassCoefficients<DataType>::AllPassCoefficients(int nb_channels)
+  SecondOrderAllPassCoefficients<DataType>::SecondOrderAllPassCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void AllPassCoefficients<DataType>::setup()
+  void SecondOrderAllPassCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -204,26 +204,26 @@ namespace ATK
   }
 
   template <typename DataType_>
-  void AllPassCoefficients<DataType_>::set_Q(DataType_ Q)
+  void SecondOrderAllPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
     this->Q = Q;
     setup();
   }
 
   template <typename DataType_>
-  DataType_ AllPassCoefficients<DataType_>::get_Q() const
+  DataType_ SecondOrderAllPassCoefficients<DataType_>::get_Q() const
   {
     return Q;
   }
 
   template<typename DataType>
-  LowShelvingCoefficients<DataType>::LowShelvingCoefficients(int nb_channels)
+  SecondOrderLowShelvingCoefficients<DataType>::SecondOrderLowShelvingCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void LowShelvingCoefficients<DataType>::setup()
+  void SecondOrderLowShelvingCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -252,26 +252,26 @@ namespace ATK
   }
 
   template <typename DataType_>
-  void LowShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
+  void SecondOrderLowShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
   template <typename DataType_>
-  DataType_ LowShelvingCoefficients<DataType_>::get_gain() const
+  DataType_ SecondOrderLowShelvingCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }
 
   template<typename DataType>
-  HighShelvingCoefficients<DataType>::HighShelvingCoefficients(int nb_channels)
+  SecondOrderHighShelvingCoefficients<DataType>::SecondOrderHighShelvingCoefficients(int nb_channels)
     :Parent(nb_channels)
   {
   }
 
   template <typename DataType>
-  void HighShelvingCoefficients<DataType>::setup()
+  void SecondOrderHighShelvingCoefficients<DataType>::setup()
   {
     Parent::setup();
 
@@ -300,48 +300,48 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void HighShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
+  void SecondOrderHighShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
     this->gain = gain;
     setup();
   }
 
   template <typename DataType_>
-  DataType_ HighShelvingCoefficients<DataType_>::get_gain() const
+  DataType_ SecondOrderHighShelvingCoefficients<DataType_>::get_gain() const
   {
     return gain;
   }
 
-  template class BaseSecondOrderCoefficients<float>;
-  template class BaseSecondOrderCoefficients<double>;
+  template class SecondOrderBaseCoefficients<float>;
+  template class SecondOrderBaseCoefficients<double>;
   
-  template class BandPassCoefficients<float>;
-  template class BandPassCoefficients<double>;
-  template class LowPassCoefficients<float>;
-  template class LowPassCoefficients<double>;
-  template class HighPassCoefficients<float>;
-  template class HighPassCoefficients<double>;
-  template class BandPassPeakCoefficients<float>;
-  template class BandPassPeakCoefficients<double>;
-  template class AllPassCoefficients<float>;
-  template class AllPassCoefficients<double>;
-  template class LowShelvingCoefficients<float>;
-  template class LowShelvingCoefficients<double>;
-  template class HighShelvingCoefficients<float>;
-  template class HighShelvingCoefficients<double>;
+  template class SecondOrderBandPassCoefficients<float>;
+  template class SecondOrderBandPassCoefficients<double>;
+  template class SecondOrderLowPassCoefficients<float>;
+  template class SecondOrderLowPassCoefficients<double>;
+  template class SecondOrderHighPassCoefficients<float>;
+  template class SecondOrderHighPassCoefficients<double>;
+  template class SecondOrderBandPassPeakCoefficients<float>;
+  template class SecondOrderBandPassPeakCoefficients<double>;
+  template class SecondOrderAllPassCoefficients<float>;
+  template class SecondOrderAllPassCoefficients<double>;
+  template class SecondOrderLowShelvingCoefficients<float>;
+  template class SecondOrderLowShelvingCoefficients<double>;
+  template class SecondOrderHighShelvingCoefficients<float>;
+  template class SecondOrderHighShelvingCoefficients<double>;
   
-  template class IIRFilter<BandPassCoefficients<float> >;
-  template class IIRFilter<BandPassCoefficients<double> >;
-  template class IIRFilter<LowPassCoefficients<float> >;
-  template class IIRFilter<LowPassCoefficients<double> >;
-  template class IIRFilter<HighPassCoefficients<float> >;
-  template class IIRFilter<HighPassCoefficients<double> >;
-  template class IIRFilter<BandPassPeakCoefficients<float> >;
-  template class IIRFilter<BandPassPeakCoefficients<double> >;
-  template class IIRFilter<AllPassCoefficients<float> >;
-  template class IIRFilter<AllPassCoefficients<double> >;
-  template class IIRFilter<LowShelvingCoefficients<float> >;
-  template class IIRFilter<LowShelvingCoefficients<double> >;
-  template class IIRFilter<HighShelvingCoefficients<float> >;
-  template class IIRFilter<HighShelvingCoefficients<double> >;
+  template class IIRFilter<SecondOrderBandPassCoefficients<float> >;
+  template class IIRFilter<SecondOrderBandPassCoefficients<double> >;
+  template class IIRFilter<SecondOrderLowPassCoefficients<float> >;
+  template class IIRFilter<SecondOrderLowPassCoefficients<double> >;
+  template class IIRFilter<SecondOrderHighPassCoefficients<float> >;
+  template class IIRFilter<SecondOrderHighPassCoefficients<double> >;
+  template class IIRFilter<SecondOrderBandPassPeakCoefficients<float> >;
+  template class IIRFilter<SecondOrderBandPassPeakCoefficients<double> >;
+  template class IIRFilter<SecondOrderAllPassCoefficients<float> >;
+  template class IIRFilter<SecondOrderAllPassCoefficients<double> >;
+  template class IIRFilter<SecondOrderLowShelvingCoefficients<float> >;
+  template class IIRFilter<SecondOrderLowShelvingCoefficients<double> >;
+  template class IIRFilter<SecondOrderHighShelvingCoefficients<float> >;
+  template class IIRFilter<SecondOrderHighShelvingCoefficients<double> >;
 }

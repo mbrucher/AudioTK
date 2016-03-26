@@ -11,7 +11,7 @@ namespace ATK
 {
   template<typename DataType_>
   OffsetVolumeFilter<DataType_>::OffsetVolumeFilter(int nb_channels)
-  :Parent(nb_channels, nb_channels), offset(0), volume(1)
+  :Parent(nb_channels, nb_channels), volume(1), offset(0)
   {
     
   }

@@ -12,13 +12,12 @@
 
 namespace ATK
 {
-  /**
-   *
-   */
+  /// Generates a sinus signal from a cache
   template<typename DataType_>
   class ATK_TOOLS_EXPORT CachedSinusGeneratorFilter : public TypedBaseFilter<DataType_>
   {
   protected:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::outputs_size;
@@ -26,16 +25,32 @@ namespace ATK
     using Parent::output_sampling_rate;
 
   public:
+    /*!
+    * @brief Constructor
+    * @param periods is the number of periods per second
+    * @param seconds is the number of seconds to cache
+    */
     CachedSinusGeneratorFilter(int periods, int seconds = 1);
+    /// Destructor
     ~CachedSinusGeneratorFilter();
 
+    /*!
+    * @brief Updates the cache with new values
+    * @param periods is the number of periods per second
+    * @param seconds is the number of seconds to cache
+    */
     void set_frequency(int periods, int seconds = 1);
+    /// Retrieves the current parameters
     std::pair<int, int> get_frequency() const;
 
+    /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);
+    /// Gets the output volume
     DataType_ get_volume() const;
 
+    /// Sets the offset of the generated signal, doesn't update the cache
     void set_offset(DataType_ offset);
+    /// Gets the offset
     DataType_ get_offset() const;
 
   protected:
@@ -46,8 +61,8 @@ namespace ATK
     mutable int64_t indice;
     int periods;
     int seconds;
-    double volume;
-    double offset;
+    DataType_ volume;
+    DataType_ offset;
     std::vector<DataType_> cache;
   };
 }

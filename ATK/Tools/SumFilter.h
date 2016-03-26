@@ -10,10 +10,12 @@
 
 namespace ATK
 {
+  /// Sums two signqls together
   template<typename DataType_>
   class ATK_TOOLS_EXPORT SumFilter : public TypedBaseFilter<DataType_>
   {
   protected:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
@@ -22,7 +24,9 @@ namespace ATK
     using Parent::outputs;
     
   public:
+    /// Constructor
     SumFilter();
+    /// Destructor
     ~SumFilter();
     
   protected:

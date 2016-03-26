@@ -6,7 +6,7 @@
 namespace ATK
 {
   template<class DataType>
-  class RobertBristowJohnsonLowPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonLowPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -14,7 +14,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class RobertBristowJohnsonHighPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonHighPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -22,7 +22,7 @@ namespace ATK
   };
 
   template<class DataType>
-  class RobertBristowJohnsonBandPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonBandPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -30,7 +30,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class RobertBristowJohnsonBandPass2Coefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonBandPass2Coefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -38,7 +38,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class RobertBristowJohnsonBandStopCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonBandStopCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -46,7 +46,7 @@ namespace ATK
   };
 
   template<class DataType>
-  class RobertBristowJohnsonAllPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonAllPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -54,7 +54,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class RobertBristowJohnsonBandPassPeakCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonBandPassPeakCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -64,7 +64,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class RobertBristowJohnsonLowShelvingCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonLowShelvingCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -74,7 +74,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class RobertBristowJohnsonHighShelvingCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class RobertBristowJohnsonHighShelvingCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);

@@ -12,9 +12,7 @@
 
 namespace ATK
 {
-  /**
-   * Gain "compressor". Computes a new amplitude/volume gain based on threshold, slope and the power of the input signal
-   */
+  /// Gain "compressor". Computes a new amplitude/volume gain based on threshold, slope and the power of the input signal
   template<typename DataType_>
   class ATK_DYNAMIC_EXPORT GainCompressorFilter : public GainFilter<DataType_>
   {

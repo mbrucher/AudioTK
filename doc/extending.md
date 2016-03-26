@@ -5,7 +5,7 @@ Extending ATK is supposed to be easy. There are a few methods to override to
 create a new filter that can be used in any pipeline.
 
 Creating a new filter
-#####################
+---------------------
 
 Creating a new filter means that you derive from **ATK::TypedBaseFilter<>**.
 This class handles getting data in and out of the pipeline.
@@ -27,7 +27,7 @@ filter needs past values (input and output) to compute values. This way, you
 don't need to store last values in another buffer by yourself.
 
 Creating a new IIR filter
-#########################
+-------------------------
 
 The creation of an IIR filter is straightforward, as the **process_impl** is
 already implemented. In the **setup** method, you need to place:
@@ -38,7 +38,7 @@ already implemented. In the **setup** method, you need to place:
 Then, use the class as a template argument for **IIRFilter<>**.
 
 Creating a new overdrive filter
-###############################
+-------------------------------
 
 The overall goal of the following class is to solve **y=f(x, t)**, and more
 precisely **y[n]=f(x[n])**. The overdrive filters in ATK are based on a Newton

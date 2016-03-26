@@ -10,10 +10,12 @@
 
 namespace ATK
 {
+  /// Mixes two signals together
   template<typename DataType_>
   class ATK_TOOLS_EXPORT DryWetFilter : public TypedBaseFilter<DataType_>
   {
   protected:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
@@ -24,16 +26,24 @@ namespace ATK
     using Parent::nb_output_ports;
 
   public:
+    /*!
+    * @brief Constructor
+    * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
+    */
     DryWetFilter(int nb_channels = 1);
+    /// Destructor
     ~DryWetFilter();
 
+    /// Sets the amount of input signal in the output signal
     void set_dry(double dry);
+    /// Returns the amount of dry signal in the output
     double get_dry() const;
     
   protected:
     virtual void process_impl(int64_t size) const override final;
     
   private:
+    /// Amount of dry signal, between 0 and 1
     double dry;
   };
 }

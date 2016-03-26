@@ -6,12 +6,12 @@
 namespace ATK
 {
   template<class DataType>
-  class LinkwitzRileyLowPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class LinkwitzRileyLowPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   };
   
   template<class DataType>
-  class LinkwitzRileyHighPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class LinkwitzRileyHighPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   };
 }

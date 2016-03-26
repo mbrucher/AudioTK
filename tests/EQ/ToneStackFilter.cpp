@@ -12,7 +12,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*1024)
+#define PROCESSSIZE (1024*64)
 #define SAMPLINGRATE (1024*64)
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilterCoefficients_throw_low_1_test )
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_low0_100_test )
   ATK::FFTCheckerFilter<double> checker;
   checker.set_input_sampling_rate(SAMPLINGRATE);
   std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 0.520546902788));
+  frequency_checks.push_back(std::make_pair(100, 0.5201750998244906));
   frequency_checks.push_back(std::make_pair(1000, 0));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);

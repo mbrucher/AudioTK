@@ -12,16 +12,13 @@
 
 namespace ATK
 {
-  template<typename DataType>
-  class SUFDLF_Impl;
-  /**
-   * Gain "compressor". Has twice as many inputs channels as it has output channels
-   * Even channels are signal, odd channels are gains, results is the product of both
-   */
+  /// A stereo/ping-pong delay effect
   template<typename DataType_>
   class ATK_DELAY_EXPORT StereoUniversalFixedDelayLineFilter : public TypedBaseFilter<DataType_>
   {
+    class SUFDLF_Impl;
   protected:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
@@ -33,50 +30,73 @@ namespace ATK
     using Parent::output_delay;
 
   public:
+    /*!
+    * @brief construct the filter with a maximum delay line size
+    * @param max-delay is the maximum delay allowed
+    */
     StereoUniversalFixedDelayLineFilter(int max_delay);
+    /// Destructor
     ~StereoUniversalFixedDelayLineFilter();
 
-    /// Set the initial delay from channel 1
+    /// Sets the initial delay from channel 1
     void set_delay_ch1(int delay);
+    /// Gets the initial delay from channel 1
     int get_delay_ch1() const;
-    /// Set the initial delay from channel 2
+    /// Sets the initial delay from channel 2
     void set_delay_ch2(int delay);
+    /// Gets the initial delay from channel 2
     int get_delay_ch2() const;
 
+    /// Sets the blend of channel 1 (between -1 and 1)
     void set_blend_ch1(DataType_ blend);
+    /// Gets the blend of channel 1
     DataType_ get_blend_ch1() const;
+    /// Sets the blend of channel 2 (between -1 and 1)
     void set_blend_ch2(DataType_ blend);
+    /// Gets the blend of channel 2
     DataType_ get_blend_ch2() const;
 
-    /// Set the feedback from channel 1 to channel 1
+    /// Sets the feedback from channel 1 to channel 1 (between -1 and 1)
     void set_feedback_ch1_ch1(DataType_ feedback);
+    /// Gets the feedback from channel 1 to channel 1
     DataType_ get_feedback_ch1_ch1() const;
-    /// Set the feedback from channel 1 to channel 2
+    /// Sets the feedback from channel 1 to channel 2 (between -1 and 1)
     void set_feedback_ch1_ch2(DataType_ feedback);
+    /// Gets the feedback from channel 1 to channel 2
     DataType_ get_feedback_ch1_ch2() const;
-    /// Set the feedback from channel 2 to channel 1
+    /// Sets the feedback from channel 2 to channel 1 (between -1 and 1)
     void set_feedback_ch2_ch1(DataType_ feedback);
+    /// Gets the feedback from channel 2 to channel 1
     DataType_ get_feedback_ch2_ch1() const;
-    /// Set the feedback from channel 2 to channel 2
+    /// Sets the feedback from channel 2 to channel 2 (between -1 and 1)
     void set_feedback_ch2_ch2(DataType_ feedback);
+    /// Gets the feedback from channel 2 to channel 2
     DataType_ get_feedback_ch2_ch2() const;
 
+    /// Sets the feedforward from channel 1 to channel 1 (between -1 and 1)
     void set_feedforward_ch1_ch1(DataType_ feedforward);
+    /// Gets the feedforward from channel 1 to channel 1
     DataType_ get_feedforward_ch1_ch1() const;
+    /// Sets the feedforward from channel 1 to channel 2 (between -1 and 1)
     void set_feedforward_ch1_ch2(DataType_ feedforward);
+    /// Gets the feedforward from channel 1 to channel 2
     DataType_ get_feedforward_ch1_ch2() const;
+    /// Sets the feedforward from channel 2 to channel 1 (between -1 and 1)
     void set_feedforward_ch2_ch1(DataType_ feedforward);
+    /// Gets the feedforward from channel 2 to channel 1
     DataType_ get_feedforward_ch2_ch1() const;
+    /// Sets the feedforward from channel 2 to channel 2 (between -1 and 1)
     void set_feedforward_ch2_ch2(DataType_ feedforward);
+    /// Gets the feedforward from channel 2 to channel 2
     DataType_ get_feedforward_ch2_ch2() const;
 
     virtual void full_setup() override final;
   protected:
     virtual void process_impl(int64_t size) const override final;
 
+  private:
     // internal state
-    std::unique_ptr<SUFDLF_Impl<DataType_> > impl;
-
+    std::unique_ptr<SUFDLF_Impl> impl;
     int delay_l;
     int delay_r;
     /// Max delay for the delay line

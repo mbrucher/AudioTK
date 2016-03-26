@@ -13,8 +13,8 @@ namespace ATK
 {
   template<typename DataType_>
   GainFilter<DataType_>::GainFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0),
-  isRunning(false), resetRequest(false)
+  :Parent(nb_channels, nb_channels), threshold(1), ratio(1), isRunning(false), resetRequest(false),
+  LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0)
   {
   }
   

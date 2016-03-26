@@ -16,7 +16,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ConvolutionFilter<DataType_>::set_impulse(std::vector<DataType> impulse)
+  void ConvolutionFilter<DataType_>::set_impulse(std::vector<DataType>&& impulse)
   {
     this->impulse = std::move(impulse);
     setup();

@@ -16,7 +16,6 @@
 #include <boost/test/unit_test.hpp>
 
 #define PROCESSSIZE (1024)
-#define ATK_SOURCE_TREE
 
 BOOST_AUTO_TEST_CASE( InWavFilter_InFloat_1k_test )
 {

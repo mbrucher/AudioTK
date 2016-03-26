@@ -6,7 +6,7 @@
 namespace ATK
 {
   template<class DataType>
-  class BaseSecondOrderCoefficients: public BaseFilter
+  class SecondOrderBaseCoefficients: public BaseFilter
   {
   public:
     void set_cut_frequency(DataType cut_frequency);
@@ -14,7 +14,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class BandPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class SecondOrderBandPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -22,19 +22,19 @@ namespace ATK
   };
   
   template<class DataType>
-  class LowPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class SecondOrderLowPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
   };
   
   template<class DataType>
-  class HighPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class SecondOrderHighPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
   };
   
   template<class DataType>
-  class BandPassPeakCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class SecondOrderBandPassPeakCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -44,7 +44,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class AllPassCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class SecondOrderAllPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_Q(DataType Q);
@@ -52,7 +52,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class LowShelvingCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class SecondOrderLowShelvingCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_gain(DataType gain);
@@ -60,7 +60,7 @@ namespace ATK
   };
 
   template<class DataType>
-  class HighShelvingCoefficients: public BaseSecondOrderCoefficients<DataType>
+  class SecondOrderHighShelvingCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   public:
     void set_gain(DataType gain);
@@ -68,51 +68,50 @@ namespace ATK
   };
 }
 
-%template(FloatBaseSecondOrderCoefficients) ATK::BaseSecondOrderCoefficients<float>;
-%template(DoubleBaseSecondOrderCoefficients) ATK::BaseSecondOrderCoefficients<double>;
+%template(FloatSecondOrderBaseCoefficients) ATK::SecondOrderBaseCoefficients<float>;
+%template(DoubleSecondOrderBaseCoefficients) ATK::SecondOrderBaseCoefficients<double>;
 
-%template(FloatBandPassCoefficients) ATK::BandPassCoefficients<float>;
-%template(DoubleBandPassCoefficients) ATK::BandPassCoefficients<double>;
-%template(FloatLowPassCoefficients) ATK::LowPassCoefficients<float>;
-%template(DoubleLowPassCoefficients) ATK::LowPassCoefficients<double>;
-%template(FloatHighPassCoefficients) ATK::HighPassCoefficients<float>;
-%template(DoubleHighPassCoefficients) ATK::HighPassCoefficients<double>;
-%template(FloatBandPassPeakCoefficients) ATK::BandPassPeakCoefficients<float>;
-%template(DoubleBandPassPeakCoefficients) ATK::BandPassPeakCoefficients<double>;
-%template(FloatAllPassCoefficients) ATK::AllPassCoefficients<float>;
-%template(DoubleAllPassCoefficients) ATK::AllPassCoefficients<double>;
-%template(FloatLowShelvingCoefficients) ATK::LowShelvingCoefficients<float>;
-%template(DoubleLowShelvingCoefficients) ATK::LowShelvingCoefficients<double>;
-%template(FloatHighShelvingCoefficients) ATK::HighShelvingCoefficients<float>;
-%template(DoubleHighShelvingCoefficients) ATK::HighShelvingCoefficients<double>;
+%template(FloatSecondOrderBandPassCoefficients) ATK::SecondOrderBandPassCoefficients<float>;
+%template(DoubleSecondOrderBandPassCoefficients) ATK::SecondOrderBandPassCoefficients<double>;
+%template(FloatSecondOrderLowPassCoefficients) ATK::SecondOrderLowPassCoefficients<float>;
+%template(DoubleSecondOrderLowPassCoefficients) ATK::SecondOrderLowPassCoefficients<double>;
+%template(FloatSecondOrderHighPassCoefficients) ATK::SecondOrderHighPassCoefficients<float>;
+%template(DoubleSecondOrderHighPassCoefficients) ATK::SecondOrderHighPassCoefficients<double>;
+%template(FloatSecondOrderBandPassPeakCoefficients) ATK::SecondOrderBandPassPeakCoefficients<float>;
+%template(DoubleSecondOrderBandPassPeakCoefficients) ATK::SecondOrderBandPassPeakCoefficients<double>;
+%template(FloatSecondOrderAllPassCoefficients) ATK::SecondOrderAllPassCoefficients<float>;
+%template(DoubleSecondOrderAllPassCoefficients) ATK::SecondOrderAllPassCoefficients<double>;
+%template(FloatSecondOrderLowShelvingCoefficients) ATK::SecondOrderLowShelvingCoefficients<float>;
+%template(DoubleSecondOrderLowShelvingCoefficients) ATK::SecondOrderLowShelvingCoefficients<double>;
+%template(FloatSecondOrderHighShelvingCoefficients) ATK::SecondOrderHighShelvingCoefficients<float>;
+%template(DoubleSecondOrderHighShelvingCoefficients) ATK::SecondOrderHighShelvingCoefficients<double>;
 
+%template(FloatSecondOrderBandPassFilter) ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<float> >;
+%template(DoubleSecondOrderBandPassFilter) ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<double> >;
+%template(FloatSecondOrderLowPassFilter) ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<float> >;
+%template(DoubleSecondOrderLowPassFilter) ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> >;
+%template(FloatSecondOrderHighPassFilter) ATK::IIRFilter<ATK::SecondOrderHighPassCoefficients<float> >;
+%template(DoubleSecondOrderHighPassFilter) ATK::IIRFilter<ATK::SecondOrderHighPassCoefficients<double> >;
+%template(FloatSecondOrderBandPassPeakFilter) ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<float> >;
+%template(DoubleSecondOrderBandPassPeakFilter) ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> >;
+%template(FloatSecondOrderAllPassFilter) ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<float> >;
+%template(DoubleSecondOrderAllPassFilter) ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<double> >;
+%template(FloatSecondOrderLowShelvingFilter) ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<float> >;
+%template(DoubleSecondOrderLowShelvingFilter) ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<double> >;
+%template(FloatSecondOrderHighShelvingFilter) ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<float> >;
+%template(DoubleSecondOrderHighShelvingFilter) ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<double> >;
 
-%template(FloatBandPassFilter) ATK::IIRFilter<ATK::BandPassCoefficients<float> >;
-%template(DoubleBandPassFilter) ATK::IIRFilter<ATK::BandPassCoefficients<double> >;
-%template(FloatLowPassFilter) ATK::IIRFilter<ATK::LowPassCoefficients<float> >;
-%template(DoubleLowPassFilter) ATK::IIRFilter<ATK::LowPassCoefficients<double> >;
-%template(FloatHighPassFilter) ATK::IIRFilter<ATK::HighPassCoefficients<float> >;
-%template(DoubleHighPassFilter) ATK::IIRFilter<ATK::HighPassCoefficients<double> >;
-%template(FloatBandPassPeakFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<float> >;
-%template(DoubleBandPassPeakFilter) ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> >;
-%template(FloatAllPassFilter) ATK::IIRFilter<ATK::AllPassCoefficients<float> >;
-%template(DoubleAllPassFilter) ATK::IIRFilter<ATK::AllPassCoefficients<double> >;
-%template(FloatLowShelvingFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<float> >;
-%template(DoubleLowShelvingFilter) ATK::IIRFilter<ATK::LowShelvingCoefficients<double> >;
-%template(FloatHighShelvingFilter) ATK::IIRFilter<ATK::HighShelvingCoefficients<float> >;
-%template(DoubleHighShelvingFilter) ATK::IIRFilter<ATK::HighShelvingCoefficients<double> >;
-
-IIRFilterExtend(ATK::IIRFilter<ATK::BandPassCoefficients<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::BandPassCoefficients<double> >, double);
-IIRFilterExtend(ATK::IIRFilter<ATK::LowPassCoefficients<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::LowPassCoefficients<double> >, double);
-IIRFilterExtend(ATK::IIRFilter<ATK::HighPassCoefficients<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::HighPassCoefficients<double> >, double);
-IIRFilterExtend(ATK::IIRFilter<ATK::BandPassPeakCoefficients<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> >, double);
-IIRFilterExtend(ATK::IIRFilter<ATK::AllPassCoefficients<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::AllPassCoefficients<double> >, double);
-IIRFilterExtend(ATK::IIRFilter<ATK::LowShelvingCoefficients<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::LowShelvingCoefficients<double> >, double);
-IIRFilterExtend(ATK::IIRFilter<ATK::HighShelvingCoefficients<float> >, float);
-IIRFilterExtend(ATK::IIRFilter<ATK::HighShelvingCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderHighPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderHighPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<double> >, double);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<double> >, double);

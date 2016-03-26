@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType>
-  class VDLF_Impl
+  class VariableDelayLineFilter<DataType>::VDLF_Impl
   {
   public:
     /// Delay line contains the last size elements + max_delay of the last delay line
@@ -44,7 +44,7 @@ namespace ATK
 
   template<typename DataType_>
   VariableDelayLineFilter<DataType_>::VariableDelayLineFilter(int max_delay)
-    :Parent(2, 1), impl(new VDLF_Impl<DataType_>(max_delay)), max_delay(max_delay)
+    :Parent(2, 1), impl(new VDLF_Impl(max_delay)), max_delay(max_delay)
   {
   }
   

@@ -15,10 +15,12 @@
 
 namespace ATK
 {
+  /// A zero-delay convolution filter based on FFT
   template<typename DataType_>
   class ATK_SPECIAL_EXPORT ConvolutionFilter: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
@@ -32,11 +34,15 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    /// Current amount of data in the buffer
     mutable int64_t split_position;
+    /// Size of the individual FFTs that are processed
     int split_size;
     
+    /// FFT object for fast FFT/iFFT
     FFT<DataType> processor;
     
+    /// Impulse convolved with the input signal
     std::vector<DataType> impulse;
     /// This buffer contains the head of the last convolution (easier to have 2 parts)
     mutable std::vector<DataType> temp_out_buffer;
@@ -57,13 +63,19 @@ namespace ATK
     void process_impulse_beginning(int64_t processed_size, int64_t position) const;
 
   public:
+    /// Build a new convolution filter
     ConvolutionFilter();
 
     /**
-     * Set the impulse for the convolution
+     * @brief Set the impulse for the convolution
+     * @param impulse is the impulse for the convolution
      */
-    void set_impulse(std::vector<DataType> impulse);
+    void set_impulse(std::vector<DataType>&& impulse);
     
+    /*!
+    * @brief Set the split size
+    * @param split_size is the size of the individual FFTs
+    */
     void set_split_size(int split_size);
     
     void process_impl(int64_t size) const override final;

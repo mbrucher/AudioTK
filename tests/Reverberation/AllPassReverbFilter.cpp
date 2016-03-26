@@ -1,8 +1,8 @@
 /**
- * \ file AllPassFilter.cpp
+ * \ file AllPassReverbFilter.cpp
  */
 
-#include <ATK/Reverberation/AllPassFilter.h>
+#include <ATK/Reverberation/AllPassReverbFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
@@ -12,10 +12,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/math/constants/constants.hpp>
-#include <iostream>
 
-//#define PROCESSSIZE (1024*64)
-#define PROCESSSIZE (101)
+#define PROCESSSIZE (1024*64)
 
 namespace
 {
@@ -33,7 +31,7 @@ namespace
   }
 }
 
-BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line100_delay50_test )
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_line100_delay50_test )
 {
   std::vector<float> data(PROCESSSIZE);
   for(int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -51,7 +49,7 @@ BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line100_delay50_test )
 
   std::vector<float> outdata(PROCESSSIZE);
 
-  ATK::AllPassFilter<float> filter(100);
+  ATK::AllPassReverbFilter<float> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(50);
@@ -71,7 +69,7 @@ BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line100_delay50_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line25_delay24_feedback_0_5_test )
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_line25_delay24_feedback_0_5_test )
 {
   std::vector<float> data(PROCESSSIZE);
   for(int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -93,7 +91,7 @@ BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line25_delay24_feedback_0_5_test )
 
   std::vector<float> outdata(PROCESSSIZE);
 
-  ATK::AllPassFilter<float> filter(25);
+  ATK::AllPassReverbFilter<float> filter(25);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(24);
@@ -114,7 +112,7 @@ BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line25_delay24_feedback_0_5_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line25_delay24_feedback_1_test )
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_line25_delay24_feedback_1_test )
 {
   std::vector<float> data(PROCESSSIZE);
   for(int64_t i = 0; i < PROCESSSIZE; ++i)
@@ -128,7 +126,7 @@ BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line25_delay24_feedback_1_test )
   }
   for(int64_t i = 24; i < PROCESSSIZE; ++i)
   {
- ref[i] = (ref[i - 24] - data[i]) + data[i - 24];
+    ref[i] = (ref[i - 24] - data[i]) + data[i - 24];
   }
 
   ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
@@ -136,7 +134,7 @@ BOOST_AUTO_TEST_CASE( AllPassFilter_sinus_line25_delay24_feedback_1_test )
 
   std::vector<float> outdata(PROCESSSIZE);
 
-  ATK::AllPassFilter<float> filter(25);
+  ATK::AllPassReverbFilter<float> filter(25);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(24);

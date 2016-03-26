@@ -12,6 +12,7 @@
 
 namespace ATK
 {
+  /// Base class for typed filters, contains arrays
   template<typename DataType_>
   class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter
   {

@@ -10,10 +10,12 @@
 
 namespace ATK
 {
+  /// Returns the maximum of two signals in one
   template<typename DataType_>
   class ATK_TOOLS_EXPORT MaxFilter : public TypedBaseFilter<DataType_>
   {
   protected:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs_size;
@@ -22,7 +24,11 @@ namespace ATK
     using Parent::outputs;
     
   public:
+    /*!
+    * @brief Constructor
+    */
     MaxFilter();
+    /// Destructor
     ~MaxFilter();
     
   protected:

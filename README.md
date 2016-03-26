@@ -1,7 +1,15 @@
 AudioTK
 =======
 
-Audio ToolKit is a set of audio filters. It is supposed to help assemble workflows for specific audio processing.
+Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing.
+
+The audio workflow is split in independent components (without feedback loops) that consist of filters. 
+Each filter has a set of synchronized input and output ports that can be connected together. All input 
+ports must be connected, but not all output ports need to be.
+
+Sampling rate can be independent between input and output ports, but input sampling rates are identical, 
+and output sampling rates are also identical.
+
 
 License
 -------
@@ -10,6 +18,13 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 1.2.0
+* Added SecondOrderSVF filters from cytomic with Python wrappers
+* Implemented a LowPassReverbFilter with Python wrappers
+* Added Python wrappers to AllPassReverbFilter
+* Distortion filters optimization
+* Bunch of fixes (Linux compil, calls...)
+
 ### 1.1.0
 * Fix a really nasty bug when changing processing sizes
 * Implemented a basic AllPassFilter (algorithmic reverb)
@@ -150,8 +165,9 @@ Install
 
 ### Requirements
 
+* C++11 compiler
 * CMake
-* Boost 1.55
+* Boost 1.60
 * FFT library:
   * FFTW (default)
   * Accelerate

@@ -16,10 +16,10 @@
 namespace ATK
 {
   BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
-  :is_reset(true), nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
+  :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
-   latency(0)
+   latency(0), is_reset(true)
   {
 #if ATK_PROFILING == 1
     input_conversion_time = 0;

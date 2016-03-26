@@ -1,2 +1,2 @@
 
-from Dynamic import *
+from .Dynamic import *
