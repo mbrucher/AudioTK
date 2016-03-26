@@ -22,6 +22,7 @@ Changelog
 * Added SecondOrderSVF filters from cytomic with Python wrappers
 * Implemented a LowPassReverbFilter with Python wrappers
 * Added Python wrappers to AllPassReverbFilter
+* Distortion filters optimization
 * Bunch of fixes (Linux compil, calls...)
 
 ### 1.1.0
