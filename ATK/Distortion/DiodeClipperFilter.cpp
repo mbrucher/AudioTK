@@ -122,8 +122,6 @@ namespace ATK
   template <typename DataType>
   void DiodeClipperFilter<DataType>::process_impl(int64_t size) const
   {
-    assert(nb_input_ports == nb_output_ports);
-
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
@@ -246,8 +244,6 @@ namespace ATK
   template <typename DataType>
   void BackwardDiodeClipperFilter<DataType>::process_impl(int64_t size) const
   {
-    assert(nb_input_ports == nb_output_ports);
-    
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
@@ -281,8 +277,6 @@ namespace ATK
   template <typename DataType>
   void ForwardDiodeClipperFilter<DataType>::process_impl(int64_t size) const
   {
-    assert(nb_input_ports == nb_output_ports);
-    
     DataType dt = static_cast<DataType>(1. / input_sampling_rate);
     DataType R = 10000;
     DataType C = static_cast<DataType>(22e-9);
