@@ -2,7 +2,7 @@
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Delay import DoubleUniversalVariableDelayLineFilter
-from ATK.EQ import DoubleLowPassCoefficientsIIRFilter
+from ATK.EQ import DoubleSecondOrderLowPassFilter
 from ATK.Tools import DoubleWhiteNoiseGeneratorFilter
 
 import matplotlib.pyplot as plt
@@ -25,7 +25,7 @@ def filter(input, blend=0, feedback=0, feedforward=1):
   noisefilter.set_offset(50e-3 * sample_rate)
   noisefilter.set_volume(25e-3 * sample_rate)
   
-  lownoisefilter = DoubleLowPassCoefficientsIIRFilter()
+  lownoisefilter = DoubleSecondOrderLowPassFilter()
   lownoisefilter.set_input_sampling_rate(sample_rate)
   lownoisefilter.set_cut_frequency(5)
   lownoisefilter.set_input_port(0, noisefilter, 0)

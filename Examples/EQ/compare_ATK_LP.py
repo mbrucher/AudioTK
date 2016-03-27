@@ -2,7 +2,7 @@
 
 from ATK.EQ import DoubleBesselLowPassFilter, DoubleButterworthLowPassFilter
 from ATK.EQ import DoubleChebyshev1LowPassFilter, DoubleChebyshev2LowPassFilter
-from ATK.EQ import DoubleLinkwitzRileyLowPassFilter, DoubleLowPassFilter, DoubleRobertBristowJohnsonLowPassFilter
+from ATK.EQ import DoubleLinkwitzRileyLowPassFilter, DoubleSecondOrderLowPassFilter, DoubleRobertBristowJohnsonLowPassFilter
 
 def get_low_pass(filter, order=-1, ripple=0, samplingrate=48000):
   from scipy import signal
@@ -34,7 +34,7 @@ bessel = get_low_pass(DoubleBesselLowPassFilter, order=2)
 butter = get_low_pass(DoubleButterworthLowPassFilter, order=2)
 cheby1 = get_low_pass(DoubleChebyshev1LowPassFilter, order=2, ripple=1)
 cheby2 = get_low_pass(DoubleChebyshev2LowPassFilter, order=2, ripple=20)
-second = get_low_pass(DoubleLowPassFilter)
+second = get_low_pass(DoubleSecondOrderLowPassFilter)
 lr = get_low_pass(DoubleLinkwitzRileyLowPassFilter)
 rbj = get_low_pass(DoubleRobertBristowJohnsonLowPassFilter)
 
