@@ -26,8 +26,7 @@ namespace ATK
     using Parent::converted_inputs_size;
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;
-    using Parent::set_nb_output_ports;
-    using Parent::nb_output_ports;
+    using Parent::nb_input_ports;
 
   private:
     mutable std::ofstream wavstream;
