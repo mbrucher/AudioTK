@@ -19,19 +19,22 @@
 BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_1k_test )
 {
   ATK::SimpleSinusGeneratorFilter<float> generator;
+  generator.set_input_sampling_rate(48000);
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(-1);
   generator.set_frequency(1000);
-  generator.process(48000/1000/4);
   
   ATK::CachedCosinusGeneratorFilter<float> filter(10000, 10);
+  filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   
   ATK::SumFilter<float> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
+  sumfilter.set_output_sampling_rate(48000);
   
   ATK::TriangleCheckerFilter<float> checker;
   checker.set_input_sampling_rate(48000);
+  checker.set_output_sampling_rate(48000);
   checker.set_amplitude(0);
   checker.set_frequency(1000);
   
@@ -40,5 +43,6 @@ BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_1k_test )
   
   checker.set_input_port(0, &sumfilter, 0);
   
+  generator.process(48000/1000/4);
   checker.process(PROCESSSIZE);
 }

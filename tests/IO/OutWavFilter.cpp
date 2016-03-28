@@ -22,12 +22,14 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
 {
   {// setup
     ATK::SimpleSinusGeneratorFilter<float> generator;
+    generator.set_input_sampling_rate(48000);
     generator.set_output_sampling_rate(48000);
     generator.set_amplitude(1);
     generator.set_frequency(1000);
     
     ATK::OutWavFilter<float> filter("outsinus1k.wav");
     filter.set_input_sampling_rate(48000);
+    filter.set_output_sampling_rate(48000);
     filter.set_nb_input_ports(1);
     filter.set_input_port(0, &generator, 0);
     
@@ -35,18 +37,22 @@ BOOST_AUTO_TEST_CASE( OutWavFilter_OutFloat_1k_test )
   }
   
   ATK::SimpleSinusGeneratorFilter<float> generator;
+  generator.set_input_sampling_rate(48000);
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(-1);
   generator.set_frequency(1000);
   
   ATK::InWavFilter<float> filter("outsinus1k.wav");
+  filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   
   ATK::SumFilter<float> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
+  sumfilter.set_output_sampling_rate(48000);
   
   ATK::TriangleCheckerFilter<float> checker;
   checker.set_input_sampling_rate(48000);
+  checker.set_output_sampling_rate(48000);
   checker.set_amplitude(0);
   checker.set_frequency(1000);
   

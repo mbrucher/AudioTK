@@ -5,6 +5,9 @@
 
 %include <std_vector.i>
 
+%template(FloatVector) std::vector<float>;
+%template(DoubleVector) std::vector<double>;
+
 namespace ATK
 {
   template<class Coefficients>

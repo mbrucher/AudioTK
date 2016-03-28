@@ -19,7 +19,7 @@ namespace ATK
   :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
-   latency(0), is_reset(true)
+   latency(0), is_reset(false)
   {
 #if ATK_PROFILING == 1
     input_conversion_time = 0;

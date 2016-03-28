@@ -85,7 +85,7 @@ namespace ATK
     format.BitsPerSample = sizeof(DataType)* 8;
     format.BytePerBloc = format.NbChannels * format.BitsPerSample / 8;
     format.BytePerSec = format.BytePerBloc * input_sampling_rate;
-    format.NbChannels = nb_output_ports;
+    format.NbChannels = nb_input_ports;
 
     std::size_t total_size = wavstream.tellp();
     std::size_t bloc_size = sizeof(WavFormat);
