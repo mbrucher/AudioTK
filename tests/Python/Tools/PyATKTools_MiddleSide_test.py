@@ -28,6 +28,6 @@ def MiddleSide_test():
 
   outputfilter.process(1000)
 
-  assert_almost_equal(input[0], output[0])
+  assert_almost_equal(input[0]*2, output[0])
   assert_almost_equal(0, output[1])
 
