@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.998417344215763));
+  frequency_checks.push_back(std::make_pair(100, 1));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.9984147991505208));
+  frequency_checks.push_back(std::make_pair(100, 1));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassCoefficients_100_test)
   checker.set_input_sampling_rate(1024 * 64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.9984071576134207));
+  frequency_checks.push_back(std::make_pair(100, 1));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
 
@@ -372,7 +372,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassPeakCoefficients_100_test)
   checker.set_input_sampling_rate(1024 * 64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 1.9952195654218672));
+  frequency_checks.push_back(std::make_pair(100, 2));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
 
@@ -460,7 +460,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowShelvingCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.9481401706716073));
+  frequency_checks.push_back(std::make_pair(100, 0.949414461057972));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   

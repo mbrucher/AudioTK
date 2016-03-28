@@ -87,7 +87,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_100_t
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.8399272603809834));
+  frequency_checks.push_back(std::make_pair(100, 0.8408964152537104));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_1
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 1.4120406419594205));
+  frequency_checks.push_back(std::make_pair(100, 1.4142135623730931));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -457,7 +457,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_100_te
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.8399580596838141));
+  frequency_checks.push_back(std::make_pair(100, 0.8408964152537146));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -537,7 +537,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_200_te
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.4922096817035885));
+  frequency_checks.push_back(std::make_pair(200, 0.49246840910199763));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -740,7 +740,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_10
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.794335872858682));
+  frequency_checks.push_back(std::make_pair(100, 0.7951544465306409));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
