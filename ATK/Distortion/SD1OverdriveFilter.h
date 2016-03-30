@@ -30,7 +30,9 @@ namespace ATK
     using Parent::outputs;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
-    
+
+    using Parent::input_delay;
+    using Parent::output_delay;
   public:
     /*!
     * @brief Constructor

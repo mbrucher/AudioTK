@@ -103,6 +103,8 @@ namespace ATK
   SimpleOverdriveFilter<DataType>::SimpleOverdriveFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
+    input_delay = 1;
+    output_delay = 1;
   }
 
   template <typename DataType>
@@ -125,7 +127,7 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
     {
-      output[i] = optimizer->optimize(input[i]);
+      optimizer->optimize(input + i, output + i);
     }
   }
 
@@ -227,6 +229,8 @@ namespace ATK
   BackwardSimpleOverdriveFilter<DataType>::BackwardSimpleOverdriveFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
+    input_delay = 1;
+    output_delay = 1;
   }
   
   template <typename DataType>
@@ -249,7 +253,7 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
     {
-      output[i] = optimizer->optimize(input[i]);
+      optimizer->optimize(input + i, output + i);
     }
   }
   

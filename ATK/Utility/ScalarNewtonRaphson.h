@@ -7,6 +7,8 @@
 
 #include <limits>
 
+#include <ATK/config.h>
+
 namespace ATK
 {
   /// Scalar Newton Raphson optimizer
@@ -21,7 +23,6 @@ namespace ATK
     
     Function function;
     
-    DataType x0, y0;
     DataType precision;
     DataType maxstep;
     
@@ -33,7 +34,7 @@ namespace ATK
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
     ScalarNewtonRaphson(Function&& function, DataType precision = 0)
-    :function(std::move(function)), x0(0), y0(0), precision(precision), maxstep(static_cast<DataType>(.1))
+    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(.1))
     {
       if(precision == 0)
       {
@@ -42,12 +43,9 @@ namespace ATK
     }
     
     /// Optimize the function and sets its internal state
-    DataType optimize(DataType x1)
+    void optimize(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
-      y0 = optimize_impl(x1);
-
-      x0 = x1;
-      return y0;
+      output[0] = optimize_impl(input, output);
     }
 
     /// Returns the function
@@ -64,8 +62,11 @@ namespace ATK
 
   protected:
     /// Just optimize the function
-    DataType optimize_impl(DataType x1)
+    DataType optimize_impl(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       DataType y1 = function.estimate(x0, x1, y0);
       int i;
       
