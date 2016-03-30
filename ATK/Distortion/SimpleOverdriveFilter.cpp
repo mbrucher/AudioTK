@@ -38,8 +38,11 @@ namespace ATK
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
     
-    std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
+    std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       DataType expdiode_y0_p;
@@ -73,8 +76,11 @@ namespace ATK
       return std::make_pair(A * diode.first + y1 + x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0, A * diode.second + 1);
     }
 
-    DataType estimate(DataType x0, DataType x1, DataType y0)
+    DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       return affine_estimate(x0, x1, y0);
     }
 
@@ -162,8 +168,11 @@ namespace ATK
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
     
-    std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
+    std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       DataType expdiode_y0_p;
@@ -197,8 +206,11 @@ namespace ATK
       return std::make_pair(A * diode.first + (y1 + (x0 - x1 + B * is * (expdiode_y0_p - expdiode_y0_m) - y0)), A * diode.second + 1);
     }
     
-    DataType estimate(DataType x0, DataType x1, DataType y0)
+    DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       return affine_estimate(x0, x1, y0);
     }
     

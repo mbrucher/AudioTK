@@ -51,8 +51,11 @@ namespace ATK
       this->drive = (R1 + drive * Q);
     }
     
-    std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
+    std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       y0 -= x0;
       y1 -= x1;
       DataType expdiode_y1_p = exp(y1 / vt);
@@ -90,8 +93,11 @@ namespace ATK
       return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1.first + B * diode0, (A / drive) + A * diode1.second);
     }
 
-    DataType estimate(DataType x0, DataType x1, DataType y0)
+    DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       return affine_estimate(x0, x1, y0);
     }
     

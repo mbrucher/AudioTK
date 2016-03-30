@@ -64,15 +64,12 @@ namespace ATK
     /// Just optimize the function
     DataType optimize_impl(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
-      auto x0 = input[-1];
-      auto x1 = input[0];
-      auto y0 = output[-1];
-      DataType y1 = function.estimate(x0, x1, y0);
+      DataType y1 = function.estimate(input, output);
       int i;
       
       for(i = 0; i < max_iterations; ++i)
       {
-        std::pair<DataType, DataType> all = function(x0, x1, y0, y1);
+        std::pair<DataType, DataType> all = function(input, output, y1);
         if(std::abs(all.second) < std::numeric_limits<DataType>::epsilon() )
         {
           return y1;
@@ -95,7 +92,7 @@ namespace ATK
       }
       if(check_convergence && i == max_iterations)
       {
-        return y0; // Stay the same
+        return output[-1]; // Stay the same
       }
       return y1;
     }
