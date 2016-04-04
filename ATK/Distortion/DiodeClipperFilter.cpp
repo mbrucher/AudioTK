@@ -40,7 +40,6 @@ namespace ATK
     
     std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
-      auto x0 = input[-1];
       auto x1 = input[0];
       auto y0 = output[-1];
       DataType expdiode_y1_p = std::exp(y1 / vt);
@@ -171,7 +170,6 @@ namespace ATK
     
     std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
-      auto x0 = input[-1];
       auto x1 = input[0];
       auto y0 = output[-1];
       DataType expdiode_y1_p = std::exp(y1 / vt);
