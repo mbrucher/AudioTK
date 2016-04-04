@@ -8,7 +8,6 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
-#include <ATK/Utility/exp.h>
 #include <ATK/Utility/ScalarNewtonRaphson.h>
 
 namespace ATK
@@ -19,13 +18,13 @@ namespace ATK
   public:
     typedef DataType_ DataType;
   protected:
-    DataType A;
-    DataType B;
-    DataType R1;
-    DataType Q;
+    const DataType A;
+    const DataType B;
+    const DataType R1;
+    const DataType Q;
     DataType drive;
-    DataType is;
-    DataType vt;
+    const DataType is;
+    const DataType vt;
 
     DataType oldy0;
     DataType oldexpy0;
@@ -33,15 +32,11 @@ namespace ATK
     DataType oldy1;
     DataType oldexpy1;
     DataType oldinvexpy1;
-    
-    Exp<DataType> exp;
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-    :R1(R1), Q(Q), drive(0.5), is(is), vt(vt), exp(32, 1024*1024)
+    :A(dt / (2 * C) + R), B(dt / (2 * C) - R), R1(R1), Q(Q), drive(0.5), is(is), vt(vt)
     {
-      A = dt / (2 * C) + R;
-      B = dt / (2 * C) - R;
       oldy0 = oldy1 = 0;
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
@@ -58,7 +53,7 @@ namespace ATK
       auto y0 = output[-1];
       y0 -= x0;
       y1 -= x1;
-      DataType expdiode_y1_p = exp(y1 / vt);
+      DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       
       DataType expdiode_y0_p;
@@ -76,7 +71,7 @@ namespace ATK
 	    }
 	    else
 	    {
-	      expdiode_y0_p = exp(y0 / vt);
+	      expdiode_y0_p = std::exp(y0 / vt);
 	      expdiode_y0_m = 1 / expdiode_y0_p;
 	    }
 	  
