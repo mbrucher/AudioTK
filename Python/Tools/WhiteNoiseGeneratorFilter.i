@@ -12,10 +12,10 @@ namespace ATK
     WhiteNoiseGeneratorFilter();
     ~WhiteNoiseGeneratorFilter();
     
-    void set_volume(double volume);
-    double get_volume();
-    void set_offset(double offset);
-    double get_offset();
+    void set_volume(DataType volume);
+    DataType get_volume();
+    void set_offset(DataType offset);
+    DataType get_offset();
   };
 }
 
