@@ -88,9 +88,10 @@ namespace ATK
       oldexpy1 = expdiode_y1_p;
       oldinvexpy1 = expdiode_y1_m;
   
-      std::pair<DataType, DataType> diode1 = std::make_pair(is * (expdiode_y1_p - 2 * expdiode_y1_m + 1), is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt);
+      DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
+      DataType diode1_derivative = is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt;
       DataType diode0 = is * (expdiode_y0_p - 2 * expdiode_y0_m + 1);
-      return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1.first + B * diode0, (A / drive) + A * diode1.second);
+      return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1 + B * diode0, (A / drive) + A * diode1_derivative);
     }
 
     DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
