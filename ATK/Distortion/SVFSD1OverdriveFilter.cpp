@@ -28,10 +28,14 @@ namespace ATK
     const DataType vt;
 
     DataType ieq;
-    
+    DataType i;
+
+    DataType expdiode_y1_p;
+    DataType expdiode_y1_m;
+
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-    :dt(dt), R(R), R1(R1), C(C), Q(Q), drive(0.5), is(is), vt(vt), ieq(0)
+      :dt(dt), R(R), R1(R1), C(C), Q(Q), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
     {
     }
     
@@ -44,52 +48,56 @@ namespace ATK
     {
       auto x1 = input[0];
       y1 -= x1;
-      DataType expdiode_y1_p = std::exp(y1 / vt);
-      DataType expdiode_y1_m = 1 / expdiode_y1_p;
-      
+      expdiode_y1_p = std::exp(y1 / vt);
+      expdiode_y1_m = 1 / expdiode_y1_p;
+
       DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
       DataType diode1_derivative = is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt;
 
-      DataType i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
-      
+      i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+
       return std::make_pair(y1 / drive + diode1 - i, 1 / drive + diode1_derivative);
     }
     
     void update_state(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
       auto x1 = input[0];
-      DataType i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
-
       ieq = 4 / dt * C * (x1 - i * R) - ieq;
     }
 
     DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
-      return output[-1];
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
+      return affine_estimate(x0, x1, y0);
     }
-    
-    /*
+
     DataType id_estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }
-    
+
     DataType linear_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;
-      if(y0 == 0)
+      if (y0 == 0)
         return 0;
-      auto sinh = is * (oldexpy1 - oldinvexpy1);
-      return (x1 - x0 - y0 * (B / drive) - B * sinh) / (A * sinh / y0 + (A / drive)) + x1;
+      auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
+      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+
+      return i / (sinh / y0 + (1 / drive)) + x1;
     }
-    
+
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;
-      auto sinh = is * (oldexpy1 - oldinvexpy1);
-      auto cosh = is * (oldexpy1 + oldinvexpy1);
-      return (x1 - x0 - y0 * (B / drive) - B * sinh - A * (sinh - y0 / vt * cosh) ) / (A * cosh / vt + (A / drive)) + x1;
-    }*/
+      auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
+      auto cosh = is * (expdiode_y1_p + 2 * expdiode_y1_m);
+      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+
+      return (i - (sinh - y0 / vt * cosh)) / (cosh / vt + (1 / drive)) + x1;
+    }
   };
   
   
