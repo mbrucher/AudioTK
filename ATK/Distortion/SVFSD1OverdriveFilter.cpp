@@ -50,7 +50,7 @@ namespace ATK
       DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
       DataType diode1_derivative = is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt;
 
-      DataType i = (2 * C * x1 / dt - ieq) / (2 * R * C / dt);
+      DataType i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
       
       return std::make_pair(y1 / drive + diode1 - i, 1 / drive + diode1_derivative);
     }
@@ -58,7 +58,7 @@ namespace ATK
     void update_state(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
       auto x1 = input[0];
-      DataType i = (2 * C * x1 / dt - ieq) / (2 * R * C / dt);
+      DataType i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
 
       ieq = 4 / dt * C * (x1 - i * R) - ieq;
     }
