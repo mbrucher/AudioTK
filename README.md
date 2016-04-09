@@ -18,6 +18,10 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 1.3.0
+* Added a new Diode clipper with trapezoidal rule with Python wrappers
+* Added a new version of the SD1 distortion with ZDF mode and Python wrappers
+
 ### 1.2.0
 * Added SecondOrderSVF filters from cytomic with Python wrappers
 * Implemented a LowPassReverbFilter with Python wrappers
