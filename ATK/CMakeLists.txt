@@ -21,3 +21,7 @@ add_subdirectory(Distortion)
 add_subdirectory(Reverberation)
 
 add_subdirectory(Special)
+
+if(EIGEN_FOUND)
+add_subdirectory(Adaptive)
+endif(EIGEN_FOUND)

@@ -81,6 +81,7 @@ endif(ATK_BUILD_PYTHON)
 
 find_package(FFTW)
 find_package(Boost REQUIRED)
+find_package(Eigen)
 
 SET(USE_FFTW 0)
 SET(USE_ACCELERATE 0)
