@@ -51,15 +51,15 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    virtual void process_impl(int64_t size);
+    virtual void process_impl(int64_t size) const;
     
     typedef Eigen::Map<const wType> xType;
     
-    void learn(const xType& x, DataType_ target, DataType_ actual);
+    void learn(const xType& x, DataType_ target, DataType_ actual) const;
     
     int64_t global_size;
-    PType P;
-    wType w;
+    mutable PType P;
+    mutable wType w;
     DataType memory;
     bool learning;
   };

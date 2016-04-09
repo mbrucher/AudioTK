@@ -16,3 +16,6 @@ target_link_libraries (ATKAdaptive_test ATKAdaptive ATKTools ATKMock ATKCore ${B
 
 add_test(AudioTKAdaptive ATKAdaptive_test --log_level=message)
 
+set_target_properties (ATKAdaptive_test PROPERTIES
+    FOLDER Tests
+)

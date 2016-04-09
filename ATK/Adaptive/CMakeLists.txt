@@ -17,6 +17,10 @@ add_library(ATKAdaptive_static
     ${ATK_ADAPTIVE_SRC} ${ATK_ADAPTIVE_HEADERS}
 )
 
+set_target_properties (ATKAdaptive_static PROPERTIES
+    FOLDER C++/static
+)
+
 INSTALL(TARGETS ATKAdaptive_static
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
@@ -33,7 +37,13 @@ add_library(ATKAdaptive
     ${ATK_ADAPTIVE_SRC} ${ATK_ADAPTIVE_HEADERS}
 )
 
+set_target_properties (ATKAdaptive PROPERTIES
+    FOLDER C++/shared
+)
+
 target_link_libraries(ATKAdaptive ATKCore)
+
+stagedebug(ATKAdaptive)
 
 INSTALL(TARGETS ATKAdaptive
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries

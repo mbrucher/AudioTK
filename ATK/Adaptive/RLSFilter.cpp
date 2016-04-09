@@ -76,7 +76,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void RLSFilter<DataType_>::process_impl(int64_t size)
+  void RLSFilter<DataType_>::process_impl(int64_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
@@ -97,7 +97,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void RLSFilter<DataType_>::learn(const xType& x, DataType_ target, DataType_ actual)
+  void RLSFilter<DataType_>::learn(const xType& x, DataType_ target, DataType_ actual) const
   {
     auto alpha = target - actual;
     auto xreverse = x.reverse();

@@ -7,7 +7,7 @@
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
 
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
 
 #include <ATK/Tools/SumFilter.h>
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE( RLSFilter_memory_positive1_test )
 
 BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
 {
-  ATK::SinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<float> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -57,12 +57,12 @@ BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
 
 BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )
 {
-  ATK::SinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<float> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
 
-  ATK::SinusGeneratorFilter<float> reference;
+  ATK::SimpleSinusGeneratorFilter<float> reference;
   reference.set_output_sampling_rate(48000);
   reference.set_amplitude(-1);
   reference.set_frequency(1000);
@@ -95,12 +95,12 @@ BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )
 
 BOOST_AUTO_TEST_CASE( RLSFilter_learning_test )
 {
-  ATK::SinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<float> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::SinusGeneratorFilter<float> reference;
+  ATK::SimpleSinusGeneratorFilter<float> reference;
   reference.set_output_sampling_rate(48000);
   reference.set_amplitude(-1);
   reference.set_frequency(1000);
@@ -115,7 +115,7 @@ BOOST_AUTO_TEST_CASE( RLSFilter_learning_test )
   sum.set_input_sampling_rate(48000);
   sum.set_output_sampling_rate(48000);
   
-  boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
+  std::unique_ptr<float[]> outdata(new float[PROCESSSIZE]);
   ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
   
