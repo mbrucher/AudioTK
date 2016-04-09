@@ -1,0 +1,59 @@
+
+FILE(GLOB_RECURSE
+    ATK_PREAMPLIFIER_SRC
+    *.cpp
+)
+
+FILE(GLOB_RECURSE
+    ATK_PREAMPLIFIER_HEADERS
+    *.h
+)
+
+SOURCE_GROUP_BY_FOLDER(ATK_PREAMPLIFIER)
+
+include_directories(${PROJECT_SOURCE_DIR})
+
+if(ENABLE_STATIC_LIBRARIES)
+add_library(ATKPreamplifier_static
+    STATIC
+    ${ATK_PREAMPLIFIER_SRC} ${ATK_PREAMPLIFIER_HEADERS}
+)
+
+set_target_properties (ATKPreamplifier_static PROPERTIES
+    FOLDER C++/static
+)
+
+INSTALL(TARGETS ATKPreamplifier_static
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    )
+endif(ENABLE_STATIC_LIBRARIES)
+
+if(ENABLE_SHARED_LIBRARIES)
+add_definitions(-DBUILD_ATK_PREAMPLIFIER)
+add_definitions(-DATK_SHARED)
+
+add_library(ATKPreamplifier
+    SHARED
+    ${ATK_PREAMPLIFIER_SRC} ${ATK_PREAMPLIFIER_HEADERS}
+)
+
+set_target_properties (ATKPreamplifier PROPERTIES
+    FOLDER C++/shared
+)
+
+target_link_libraries(ATKPreamplifier ATKUtility ATKCore)
+
+stagedebug(ATKPreamplifier)
+
+INSTALL(TARGETS ATKPreamplifier
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    )
+endif(ENABLE_SHARED_LIBRARIES)
+
+INSTALL(FILES ${ATK_PREAMPLIFIER_HEADERS}
+   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK/Preamplifier
+    )
