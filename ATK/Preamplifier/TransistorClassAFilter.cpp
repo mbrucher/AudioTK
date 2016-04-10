@@ -20,7 +20,7 @@ namespace ATK
 
     Vector estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
-      Vector y0;
+      Vector y0 = Vector::Zero();
       for(int j = 0; j < 4; ++j)
       {
         y0.data()[j] = output[j][i-1];
@@ -31,7 +31,7 @@ namespace ATK
     
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      return std::make_pair(Vector(), Matrix());
+      return std::make_pair(Vector::Zero(), Matrix::Zero());
     }
 
   };
@@ -52,6 +52,7 @@ namespace ATK
   void TransistorClassAFilter<DataType_>::setup()
   {
     Parent::setup();
+    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true>(TransistorClassAFunction()));
   }
 
   template<typename DataType_>
