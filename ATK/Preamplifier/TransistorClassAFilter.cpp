@@ -40,6 +40,12 @@ namespace ATK
   TransistorClassAFilter<DataType>::TransistorClassAFilter()
     :Parent(1, 4)
   {
+    input_delay = output_delay = 1;
+  }
+  
+  template <typename DataType>
+  TransistorClassAFilter<DataType>::~TransistorClassAFilter()
+  {
   }
   
   template<typename DataType_>

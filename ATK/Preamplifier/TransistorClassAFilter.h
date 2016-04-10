@@ -38,8 +38,9 @@ namespace ATK
     std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true> > optimizer;
 
   public:
-    /// Build a new convolution filter
+    /// Build a new preamp filter
     TransistorClassAFilter();
+    ~TransistorClassAFilter();
     
     void process_impl(int64_t size) const override final;
     
