@@ -14,10 +14,14 @@
 
 namespace ATK
 {
+  template<typename Function, int size, int max_iterations, bool check_convergence>
+  class VectorizedNewtonRaphson;
+
   /// A class A transistor preamplifier (Ebers-Moll equations)
   template<typename DataType_>
   class ATK_PREAMPLIFIER_EXPORT TransistorClassAFilter: public TypedBaseFilter<DataType_>
   {
+    class TransistorClassAFunction;
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
@@ -30,6 +34,8 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+
+    std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true> > optimizer;
 
   public:
     /// Build a new convolution filter
