@@ -5,6 +5,7 @@
 #ifndef ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 #define ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 
+#include <cmath>
 #include <limits>
 
 #include <ATK/config.h>
