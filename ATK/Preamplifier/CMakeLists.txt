@@ -11,7 +11,7 @@ FILE(GLOB_RECURSE
 
 SOURCE_GROUP_BY_FOLDER(ATK_PREAMPLIFIER)
 
-include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR} ${EIGEN_INCLUDE_DIR})
 
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKPreamplifier_static

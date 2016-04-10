@@ -10,6 +10,8 @@
 
 #include <ATK/config.h>
 
+#include <Eigen/Dense>
+
 namespace ATK
 {
   /// Vectorized Newton Raphson optimizer
@@ -26,6 +28,8 @@ namespace ATK
     
     DataType precision;
     DataType maxstep;
+    
+    typedef Eigen::Matrix<DataType, size, 1> Vector;
     
   public:
     /*!
@@ -44,9 +48,13 @@ namespace ATK
     }
     
     /// Optimize the function and sets its internal state
-    void optimize(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
+    void optimize(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
-      output[0] = optimize_impl(input, output);
+      auto res = optimize_impl(i, input, output);
+      for(int j = 0; j < size; ++j)
+      {
+        output[j][i] = res.data()[j];
+      }
     }
 
     /// Returns the function
@@ -63,37 +71,31 @@ namespace ATK
 
   protected:
     /// Just optimize the function
-    DataType optimize_impl(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
+    Vector optimize_impl(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
-      DataType y1 = function.estimate(input, output);
-      int i;
+      Vector y1 = function.estimate(i, input, output);
       
-      for(i = 0; i < max_iterations; ++i)
+      int j;
+      for(j = 0; j < max_iterations; ++j)
       {
-        std::pair<DataType, DataType> all = function(input, output, y1);
-        if(std::abs(all.second) < std::numeric_limits<DataType>::epsilon() )
-        {
-          return y1;
-        }
-        DataType cx = all.first / all.second;
-        if(cx < -maxstep)
-        {
-          cx = -maxstep;
-        }
-        if(cx > maxstep)
-        {
-          cx = maxstep;
-        }
-        DataType yk = y1 - cx;
-        if( std::abs(yk - y1) < precision )
+        auto all = function(i, input, output, y1);
+        Vector cx = all.second.colPivHouseholderQr().solve(all.first);
+        auto yk = y1 - cx;
+        if((cx.array().abs() < precision).all())
         {
           return yk;
         }
         y1 = yk;
       }
-      if(check_convergence && i == max_iterations)
+      if(check_convergence && j == max_iterations)
       {
-        return output[-1]; // Stay the same
+        Vector y0;
+        for(int j = 0; j < size; ++j)
+        {
+          y0.data()[j] = output[j][i-1];
+        }
+
+        return y0; // Stay the same
       }
       return y1;
     }

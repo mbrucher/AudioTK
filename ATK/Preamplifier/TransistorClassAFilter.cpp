@@ -15,6 +15,25 @@ namespace ATK
   {
   public:
     typedef DataType_ DataType;
+    typedef Eigen::Matrix<DataType, 4, 1> Vector;
+    typedef Eigen::Matrix<DataType, 4, 4> Matrix;
+
+    Vector estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    {
+      Vector y0;
+      for(int j = 0; j < 4; ++j)
+      {
+        y0.data()[j] = output[j][i-1];
+      }
+
+      return y0;
+    }
+    
+    std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
+    {
+      return std::make_pair(Vector(), Matrix());
+    }
+
   };
   
   template <typename DataType>
@@ -34,14 +53,9 @@ namespace ATK
   {
     assert(input_sampling_rate == output_sampling_rate);
 
-    const DataType* ATK_RESTRICT input = converted_inputs[0];
-    DataType* ATK_RESTRICT output_Vout = outputs[0];
-    DataType* ATK_RESTRICT output_Vk = outputs[1];
-    DataType* ATK_RESTRICT output_Vp = outputs[2];
-    DataType* ATK_RESTRICT output_Vg = outputs[3];
     for(int64_t i = 0; i < size; ++i)
     {
-      //optimizer->optimize(input + i, output_Vout + i, output_Vk + i, output_Vp + i, output_Vg + i);
+      optimizer->optimize(i, converted_inputs.data(), outputs.data());
     }
   }
 
