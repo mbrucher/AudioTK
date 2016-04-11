@@ -18,6 +18,12 @@ namespace ATK
   class VectorizedNewtonRaphson;
 
   /// A class A transistor preamplifier (Ebers-Moll equations)
+  /**
+   * Output 0 is Vout
+   * Output 1 is Vb
+   * Output 2 is Vc
+   * Output 3 is Ve
+   */
   template<typename DataType_>
   class ATK_PREAMPLIFIER_EXPORT TransistorClassAFilter: public TypedBaseFilter<DataType_>
   {
