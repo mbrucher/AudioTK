@@ -13,6 +13,8 @@ namespace ATK
   template <typename DataType_>
   class TransistorClassAFilter<DataType_>::TransistorClassAFunction
   {
+    DataType_ dt;
+    
     DataType_ Rp;
     DataType_ Rg;
     DataType_ Ro;
@@ -41,8 +43,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    TransistorClassAFunction()
-    :Rp(100e3), Rg(220e3), Ro(22e3), Rk(2.7e3), VBias(400), Co(20e-9), Ck(10e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
+    TransistorClassAFunction(DataType dt)
+    :dt(dt), Rp(100e3), Rg(220e3), Ro(22e3), Rk(2.7e3), VBias(400), Co(20e-9), Ck(10e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
     {
     }
 
@@ -76,9 +78,13 @@ namespace ATK
       
       Vector F(Vector::Zero());
       
-      F << (0) , (0) , (0) , (0);
-      
-      return std::make_pair(F, Matrix::Identity());
+      F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - output[0][i]) , (dt / 2 * (f2 + f2_old) + output[1][i-1] - output[1][i]) , (g1) , (g2);
+      Matrix M(Matrix::Zero());
+      M << -1, 0, 0, (-1/(Rk * Ck)),
+           (-1/(Ro * Co)), 0, 0, 0,
+           Rp/Ro, 0, 1, 0,
+           -1, 1, 0, 1;
+      return std::make_pair(F, M);
     }
 
   };
@@ -99,7 +105,7 @@ namespace ATK
   void TransistorClassAFilter<DataType_>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true>(TransistorClassAFunction()));
+    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate))));
   }
 
   template<typename DataType_>
