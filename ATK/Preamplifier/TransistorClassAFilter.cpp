@@ -64,7 +64,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
     TransistorClassAFunction(DataType dt)
-    :dt(dt), Rp(100e3), Rg(220e3), Ro(22e3), Rk(2.7e3), VBias(400), Co(20e-9), Ck(10e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
+    :dt(dt), Rp(100e3), Rg(220e3), Ro(22e3), Rk(2.7e3), VBias(12), Co(20e-9), Ck(10e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
     {
     }
 
@@ -81,35 +81,39 @@ namespace ATK
     
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib_old = Lb(output[3][i-1] - output[1][i-1], output[3][i-1] - output[2][i-1]);
-      auto Ic_old = Lc(output[3][i-1] - output[1][i-1], output[3][i-1] - output[2][i-1]);
+      auto Ib_old = Lb(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
+      auto Ic_old = Lc(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
 
-      auto Ib = Lb(output[3][i] - output[1][i], output[3][i] - output[2][i]);
-      auto Ic = Lc(output[3][i] - output[1][i], output[3][i] - output[2][i]);
+      auto Ib = Lb(output[0][i] - output[3][i], output[0][i] - output[2][i]);
+      auto Ic = Lc(output[0][i] - output[3][i], output[0][i] - output[2][i]);
 
-      auto Ib_Vbe = Lb_Vbe(output[3][i] - output[1][i], output[3][i] - output[2][i]);
-      auto Ib_Vce = Lb_Vce(output[3][i] - output[1][i], output[3][i] - output[2][i]);
+      auto Ib_Vbe = Lb_Vbe(output[0][i] - output[3][i], output[0][i] - output[2][i]);
+      auto Ib_Vce = Lb_Vce(output[0][i] - output[3][i], output[0][i] - output[2][i]);
 
-      auto Ic_Vbe = Lc_Vbe(output[3][i] - output[1][i], output[3][i] - output[2][i]);
-      auto Ic_Vce = Lc_Vce(output[3][i] - output[1][i], output[3][i] - output[2][i]);
+      auto Ic_Vbe = Lc_Vbe(output[0][i] - output[3][i], output[0][i] - output[2][i]);
+      auto Ic_Vce = Lc_Vce(output[0][i] - output[3][i], output[0][i] - output[2][i]);
 
-      auto f1_old = - output[3][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
-      auto f2_old = - output[0][i-1] / (Ro * Co);
+      auto f1_old = - output[0][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
+      auto f2_old = - (output[1][i-1] + output[2][i-1]) / (Ro * Co);
 
-      auto f1 = - output[3][i] / (Rk * Ck) + (Ib + Ic) / Ck;
-      auto f2 = - output[0][i] / (Ro * Co);
+      auto f1 = - output[0][i] / (Rk * Ck) + (Ib + Ic) / Ck;
+      auto f2 = - (output[1][i] + output[2][i]) / (Ro * Co);
 
-      auto g1 = output[2][i] + Rp * (Ic + output[0][i] / Ro) - VBias;
-      auto g2 = output[1][i] - input[0][i] + Rg * Ib;
+      auto g1 = output[2][i] + Rp * (Ic + (output[1][i] + output[2][i]) / Ro) - VBias;
+      auto g2 = output[3][i] - input[0][i] + Rg * Ib;
       
       Vector F(Vector::Zero());
-      F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - output[0][i]) , (dt / 2 * (f2 + f2_old) + output[1][i-1] - output[1][i]) , (g1) , (g2);
+      F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - output[0][i]),
+           (dt / 2 * (f2 + f2_old) + output[1][i-1] - output[1][i]),
+           (g1),
+           (g2);
 
       Matrix M(Matrix::Zero());
-      M << -1, -(Ib_Vbe + Ic_Vbe) / Ck, -(Ib_Vce + Ic_Vce) / Ck, (-1/(Rk * Ck) + (Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck),
-           (-1/(Ro * Co)), 0, 0, 0,
-           Rp/Ro, -Ic_Vbe * Rp / Ro, 1 - Ic_Vce * Rp / Ro, (Ic_Vbe + Ic_Vce) * Rp / Ro,
-           -1, 1 - Rg * Ib_Vbe, -Rg * Ib_Vce, 1 + (Ib_Vbe + Ib_Vce) * Rg;
+      M << (-1 -dt/2/(Rk * Ck))+ dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, -dt/2*(Ib_Vbe + Ic_Vbe) / Ck, -dt/2*(Ib_Vce + Ic_Vce) / Ck,
+            0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
+            Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vce, - Rp * Ic_Vbe,
+            Rg * (Ib_Vbe + Ib_Vbe), 0, -Rg * Ib_Vce, -Rg * Ib_Vbe + 1;
+      
       return std::make_pair(F, M);
     }
 
@@ -117,7 +121,7 @@ namespace ATK
   
   template <typename DataType>
   TransistorClassAFilter<DataType>::TransistorClassAFilter()
-    :Parent(1, 4)
+    :Parent(1, 5)
   {
     input_delay = output_delay = 1;
   }
@@ -141,7 +145,8 @@ namespace ATK
 
     for(int64_t i = 0; i < size; ++i)
     {
-      optimizer->optimize(i, converted_inputs.data(), outputs.data());
+      optimizer->optimize(i, converted_inputs.data(), outputs.data() + 1);
+      outputs[0][i] = outputs[2][i] + outputs[3][i];
     }
   }
 

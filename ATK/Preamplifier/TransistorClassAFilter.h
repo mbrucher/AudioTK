@@ -1,5 +1,6 @@
 /**
  * \file TransistorClassAFilter.h
+ * Heavily inspired by Simualtion of a guitar amplifier stage for several triode models (Cohen and Helie)
  */
 
 #ifndef ATK_PREAMPLIFIER_TRANSISTORCLASSEAFILTER_H
@@ -20,9 +21,10 @@ namespace ATK
   /// A class A transistor preamplifier (Ebers-Moll equations)
   /**
    * Output 0 is Vout
-   * Output 1 is Vb
-   * Output 2 is Vc
-   * Output 3 is Ve
+   * Output 1 is Ve
+   * Output 2 is Vout - Vb
+   * Output 3 is Vb
+   * Output 4 is Vc
    */
   template<typename DataType_>
   class ATK_PREAMPLIFIER_EXPORT TransistorClassAFilter: public TypedBaseFilter<DataType_>
