@@ -84,35 +84,35 @@ namespace ATK
       auto Ib_old = Lb(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
       auto Ic_old = Lc(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
 
-      auto Ib = Lb(output[0][i] - output[3][i], output[0][i] - output[2][i]);
-      auto Ic = Lc(output[0][i] - output[3][i], output[0][i] - output[2][i]);
+      auto Ib = Lb(y1(0) - y1(3), y1(0) - y1(2));
+      auto Ic = Lc(y1(0) - y1(3), y1(0) - y1(2));
 
-      auto Ib_Vbe = Lb_Vbe(output[0][i] - output[3][i], output[0][i] - output[2][i]);
-      auto Ib_Vce = Lb_Vce(output[0][i] - output[3][i], output[0][i] - output[2][i]);
+      auto Ib_Vbe = Lb_Vbe(y1(0) - y1(3), y1(0) - y1(2));
+      auto Ib_Vce = Lb_Vce(y1(0) - y1(3), y1(0) - y1(2));
 
-      auto Ic_Vbe = Lc_Vbe(output[0][i] - output[3][i], output[0][i] - output[2][i]);
-      auto Ic_Vce = Lc_Vce(output[0][i] - output[3][i], output[0][i] - output[2][i]);
+      auto Ic_Vbe = Lc_Vbe(y1(0) - y1(3), y1(0) - y1(2));
+      auto Ic_Vce = Lc_Vce(y1(0) - y1(3), y1(0) - y1(2));
 
       auto f1_old = - output[0][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
       auto f2_old = - (output[1][i-1] + output[2][i-1]) / (Ro * Co);
 
-      auto f1 = - output[0][i] / (Rk * Ck) + (Ib + Ic) / Ck;
-      auto f2 = - (output[1][i] + output[2][i]) / (Ro * Co);
+      auto f1 = - y1(0) / (Rk * Ck) + (Ib + Ic) / Ck;
+      auto f2 = - (y1(1) + y1(2)) / (Ro * Co);
 
-      auto g1 = output[2][i] + Rp * (Ic + (output[1][i] + output[2][i]) / Ro) - VBias;
-      auto g2 = output[3][i] - input[0][i] + Rg * Ib;
+      auto g1 = y1(2) + Rp * (Ic + (y1(1) + y1(2)) / Ro) - VBias;
+      auto g2 = y1(3) - input[0][i] + Rg * Ib;
       
       Vector F(Vector::Zero());
-      F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - output[0][i]),
-           (dt / 2 * (f2 + f2_old) + output[1][i-1] - output[1][i]),
+      F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - y1(0)),
+           (dt / 2 * (f2 + f2_old) + output[1][i-1] - y1(1)),
            (g1),
            (g2);
 
       Matrix M(Matrix::Zero());
-      M << (-1 -dt/2/(Rk * Ck))+ dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, -dt/2*(Ib_Vbe + Ic_Vbe) / Ck, -dt/2*(Ib_Vce + Ic_Vce) / Ck,
+      M << (-1 -dt/2/(Rk * Ck))+ dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, -dt/2*(Ib_Vce + Ic_Vce) / Ck, -dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
             0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
             Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vce, - Rp * Ic_Vbe,
-            Rg * (Ib_Vbe + Ib_Vbe), 0, -Rg * Ib_Vce, -Rg * Ib_Vbe + 1;
+            Rg * (Ib_Vbe + Ib_Vce), 0, -Rg * Ib_Vce, -Rg * Ib_Vbe + 1;
       
       return std::make_pair(F, M);
     }
