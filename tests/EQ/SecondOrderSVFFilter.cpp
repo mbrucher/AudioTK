@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_1k_test )
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::SecondOrderSVFFilter<ATK::LowSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -48,7 +48,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_100_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::SecondOrderSVFFilter<ATK::LowSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_2k_test )
   generator.set_amplitude(1);
   generator.set_frequency(2000);
   
-  ATK::SecondOrderSVFFilter<ATK::LowSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_200_test )
   generator.set_amplitude(1);
   generator.set_frequency(200);
   
-  ATK::SecondOrderSVFFilter<ATK::LowSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -132,7 +132,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighPassCoefficients_1k_test )
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::SecondOrderSVFFilter<ATK::HighSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighPassCoefficients_100_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::SecondOrderSVFFilter<ATK::HighSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -188,7 +188,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighPassCoefficients_2k_test )
   generator.set_amplitude(1);
   generator.set_frequency(2000);
   
-  ATK::SecondOrderSVFFilter<ATK::HighSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -216,7 +216,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighPassCoefficients_200_test )
   generator.set_amplitude(1);
   generator.set_frequency(200);
   
-  ATK::SecondOrderSVFFilter<ATK::HighSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassCoefficients_1k_test)
   generator.set_amplitude(1);
   generator.set_frequency(1000);
 
-  ATK::SecondOrderSVFFilter<ATK::BandSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBandPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024 * 64);
   filter.set_output_sampling_rate(1024 * 64);
   filter.set_Q(1);
@@ -273,7 +273,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassCoefficients_100_test)
   generator.set_amplitude(1);
   generator.set_frequency(100);
 
-  ATK::SecondOrderSVFFilter<ATK::BandSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBandPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024 * 64);
   filter.set_output_sampling_rate(1024 * 64);
   filter.set_Q(1);
@@ -302,7 +302,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassCoefficients_2k_test)
   generator.set_amplitude(1);
   generator.set_frequency(2000);
 
-  ATK::SecondOrderSVFFilter<ATK::BandSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBandPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024 * 64);
   filter.set_output_sampling_rate(1024 * 64);
   filter.set_Q(1);
@@ -331,7 +331,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassPeakCoefficients_1k_test)
   generator.set_amplitude(1);
   generator.set_frequency(1000);
 
-  ATK::SecondOrderSVFFilter<ATK::BellSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBellCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024 * 64);
   filter.set_output_sampling_rate(1024 * 64);
   filter.set_Q(1);
@@ -361,7 +361,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassPeakCoefficients_100_test)
   generator.set_amplitude(1);
   generator.set_frequency(100);
 
-  ATK::SecondOrderSVFFilter<ATK::BellSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBellCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024 * 64);
   filter.set_output_sampling_rate(1024 * 64);
   filter.set_Q(1);
@@ -391,7 +391,7 @@ BOOST_AUTO_TEST_CASE(SecondOrderSVFFilter_SVFBandPassPeakCoefficients_2k_test)
   generator.set_amplitude(1);
   generator.set_frequency(2000);
 
-  ATK::SecondOrderSVFFilter<ATK::BellSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBellCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024 * 64);
   filter.set_output_sampling_rate(1024 * 64);
   filter.set_Q(1);
@@ -421,7 +421,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowShelvingCoefficients_1k_test )
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::SecondOrderSVFFilter<ATK::LowShelfSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowShelfCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -450,7 +450,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowShelvingCoefficients_100_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::SecondOrderSVFFilter<ATK::LowShelfSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowShelfCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -479,7 +479,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowShelvingCoefficients_200_test )
   generator.set_amplitude(1);
   generator.set_frequency(200);
   
-  ATK::SecondOrderSVFFilter<ATK::LowShelfSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowShelfCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -508,7 +508,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighShelvingCoefficients_1k_test )
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::SecondOrderSVFFilter<ATK::HighShelfSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighShelfCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -537,7 +537,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighShelvingCoefficients_10k_test 
   generator.set_amplitude(1);
   generator.set_frequency(10000);
   
-  ATK::SecondOrderSVFFilter<ATK::HighShelfSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighShelfCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -566,7 +566,7 @@ BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFHighShelvingCoefficients_500_test 
   generator.set_amplitude(1);
   generator.set_frequency(500);
   
-  ATK::SecondOrderSVFFilter<ATK::HighShelfSecondOrderSVFCoefficients<double> > filter;
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighShelfCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);

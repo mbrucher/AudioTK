@@ -23,6 +23,7 @@
 %include "OversamplingFilter.i"
 %include "PanFilter.i"
 %include "SumFilter.i"
+%include "TanFilter.i"
 %include "VolumeFilter.i"
 %include "WhiteNoiseGeneratorFilter.i"
 
