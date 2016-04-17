@@ -26,6 +26,7 @@
 
 %include "TimeVaryingIIRFilter.i"
 %include "TimeVaryingSecondOrderFilter.i"
+%include "TimeVaryingSecondOrderSVFFilter.i"
 
 %include "SD1ToneFilter.i"
 %include "ToneStackFilter.i"
