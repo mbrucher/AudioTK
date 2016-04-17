@@ -43,7 +43,7 @@ namespace ATK
 
   /// Second order SVF base coefficient class
   template<typename DataType_>
-  class BaseSecondOrderSVFCoefficients : public TypedBaseFilter<DataType_>
+  class SecondOrderSVFBaseCoefficients : public TypedBaseFilter<DataType_>
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
@@ -61,7 +61,7 @@ namespace ATK
     DataType m2;
 
   public:
-    BaseSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFBaseCoefficients(int nb_channels);
 
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -78,10 +78,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF low-pass filter
   template<typename DataType_>
-  class LowSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFLowPassCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -94,7 +94,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    LowSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFLowPassCoefficients(int nb_channels);
 
   protected:
     void setup();
@@ -102,10 +102,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF band-pass filter
   template<typename DataType_>
-  class BandSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFBandPassCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -118,7 +118,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    BandSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFBandPassCoefficients(int nb_channels);
 
   protected:
     void setup();
@@ -126,10 +126,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF high-pass filter
   template<typename DataType_>
-  class HighSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFHighPassCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -142,7 +142,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    HighSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFHighPassCoefficients(int nb_channels);
 
   protected:
     void setup();
@@ -150,10 +150,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF notch filter
   template<typename DataType_>
-  class NotchSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFNotchCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -166,7 +166,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    NotchSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFNotchCoefficients(int nb_channels);
 
   protected:
     void setup();
@@ -174,10 +174,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF peak filter
   template<typename DataType_>
-  class PeakSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFPeakCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -190,7 +190,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    PeakSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFPeakCoefficients(int nb_channels);
 
   protected:
     void setup();
@@ -198,10 +198,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF bell filter
   template<typename DataType_>
-  class BellSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFBellCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -214,7 +214,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    BellSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFBellCoefficients(int nb_channels);
 
     /// Sets the gain of the bell
     void set_gain(DataType_ gain);
@@ -228,10 +228,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF low-pass shelving filter
   template<typename DataType_>
-  class LowShelfSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFLowShelfCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -244,7 +244,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    LowShelfSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFLowShelfCoefficients(int nb_channels);
 
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);
@@ -258,10 +258,10 @@ namespace ATK
 
   /// Coefficients for a second order SVF high-pass shelving filter
   template<typename DataType_>
-  class HighShelfSecondOrderSVFCoefficients : public BaseSecondOrderSVFCoefficients<DataType_>
+  class SecondOrderSVFHighShelfCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef BaseSecondOrderSVFCoefficients<DataType_> Parent;
+    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -274,7 +274,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    HighShelfSecondOrderSVFCoefficients(int nb_channels);
+    SecondOrderSVFHighShelfCoefficients(int nb_channels);
     
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);
