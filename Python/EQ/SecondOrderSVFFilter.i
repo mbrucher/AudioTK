@@ -9,7 +9,7 @@ namespace ATK
   class SecondOrderSVFFilter: public Coefficients
   {
   public:
-    SecondOrderSVFFilter();
+    SecondOrderSVFFilter(int nb_channels=1);
     ~SecondOrderSVFFilter();
   };
   
