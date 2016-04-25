@@ -40,6 +40,8 @@ namespace ATK
 
     virtual void full_setup() override;
 
+    virtual void set_input_port(int input_port, BaseFilter* filter, int output_port) override final;
+    
   protected:
 
     virtual int get_type() const override;

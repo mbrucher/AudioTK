@@ -204,6 +204,13 @@ namespace ATK
     Parent::full_setup();
   }
 
+  template<typename DataType>
+  void TypedBaseFilter<DataType>::set_input_port(int input_port, BaseFilter* filter, int output_port)
+  {
+    Parent::set_input_port(input_port, filter, output_port);
+    converted_inputs_size[input_port] = 0;
+  }
+
   template class TypedBaseFilter<std::int16_t>;
   template class TypedBaseFilter<std::int32_t>;
   template class TypedBaseFilter<int64_t>;
