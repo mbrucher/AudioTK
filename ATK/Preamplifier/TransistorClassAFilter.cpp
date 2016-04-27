@@ -66,7 +66,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
     TransistorClassAFunction(DataType dt)
-    :dt(dt), Rp(1.5e3), Rg1(10e3), Rg2(2.2e3), Ro(22e3), Rk(470), VBias(12), Cg(1e-9), Co(100e-9), Ck(10e-3), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
+    :dt(dt), Rp(1e3), Rg1(16.7e3), Rg2(1.47e3), Ro(22e3), Rk(100), VBias(12), Cg(3.3e-6), Co(100e-6), Ck(160e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
     {
     }
 
@@ -109,13 +109,13 @@ namespace ATK
       F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - y1(0)),
            (dt / 2 * (f2 + f2_old) + output[1][i-1] - y1(1)),
            (g1),
-           (dt / 2 * (f4 + f4_old) + output[3][i-1] - y1(3) + input[0][i] - input[0][i-1]);
+           (dt / 2 * (f4 + f4_old) - (output[3][i-1] - y1(3) + input[0][i] - input[0][i-1]));
 
       Matrix M(Matrix::Zero());
       M << (-1 -dt/2/(Rk * Ck))+ dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, -dt/2*(Ib_Vce + Ic_Vce) / Ck, -dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
             0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
             Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vce, - Rp * Ic_Vbe,
-            dt/2 * (Ib_Vce + Ib_Vbe)/Cg, 0, -dt/2 * Ib_Vce/Cg, -1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) - Ib_Vbe));
+            dt/2 * (Ib_Vce + Ib_Vbe)/Cg, 0, -dt/2 * Ib_Vce/Cg, 1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) - Ib_Vbe));
       
       return std::make_pair(F, M);
     }
