@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 ### 1.3.0
+* Added a buffer filter with Python wrappers
 * Added a new Diode clipper with trapezoidal rule with Python wrappers
 * Added a new version of the SD1 distortion with ZDF mode and Python wrappers
 
@@ -183,3 +184,8 @@ Install
 * Start CMake
 * Configure your options
 * Run make, Visual Studio or XCode
+
+Known Issues
+------------
+
+* If a plugin uses the same buffers for input and output and the pipeline has two subgraphs, one from left to right and one to left (for instance), then they are processed in order and the second graph would use the result of the first branch. To fix this, add a BufferFilter just after the input filter so that they are all buffered and copied to an intermediate buffer when the first one is used. It adds a copy, so only use this fix when you have this specific configuration for a pipeline.

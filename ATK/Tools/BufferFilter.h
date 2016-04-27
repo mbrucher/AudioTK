@@ -10,7 +10,7 @@
 
 namespace ATK
 {
-  /// Scales input signals
+  /// Buffers input signals
   template<typename DataType_>
   class ATK_TOOLS_EXPORT BufferFilter : public TypedBaseFilter<DataType_>
   {
