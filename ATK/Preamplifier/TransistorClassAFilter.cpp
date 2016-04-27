@@ -30,32 +30,32 @@ namespace ATK
     
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp((Vbe - Vce) / Vt) - 1) / Br);
+      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp((Vce - Vbe) / Vt) - 1) / Br);
     }
 
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return Is * (std::exp(Vbe / Vt) / (Bf * Vt) + std::exp((Vbe - Vce) / Vt) / (Br * Vt));
+      return Is / Vt * (std::exp(Vbe / Vt) / Bf - std::exp((Vce - Vbe) / Vt) / Br);
     }
 
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      return -Is * (std::exp((Vbe - Vce) / Vt) / (Br * Vt));
+      return Is / Vt * (std::exp((Vce - Vbe) / Vt) / Br);
     }
 
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
-      return Is * ((std::exp(Vbe / Vt) - std::exp((Vbe - Vce) / Vt)) - (std::exp((Vbe - Vce) / Vt) - 1) / Br);
+      return Is * ((std::exp(Vbe / Vt) - std::exp((Vce - Vbe) / Vt)) - (std::exp((Vce - Vbe) / Vt) - 1) / Br);
     }
 
     DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return Is * ((std::exp(Vbe / Vt) - std::exp((Vbe - Vce) / Vt)) / Vt - std::exp((Vbe - Vce) / Vt) / (Br * Vt));
+      return Is / Vt * ((std::exp(Vbe / Vt) + std::exp((Vce - Vbe) / Vt)) + std::exp((Vce - Vbe) / Vt) / Br);
     }
 
     DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      return Is * (std::exp((Vbe - Vce) / Vt) / Vt + std::exp((Vbe - Vce) / Vt) / (Br * Vt));
+      return -Is / Vt * (std::exp((Vce - Vbe) / Vt) + std::exp((Vce - Vbe) / Vt) / Br);
     }
 
   public:
