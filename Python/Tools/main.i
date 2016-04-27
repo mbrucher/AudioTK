@@ -12,6 +12,7 @@
 
 %include "../Core/BaseFilter.i"
 %include "ApplyGainFilter.i"
+%include "BufferFilter.i"
 %include "CachedCosinusGeneratorFilter.i"
 %include "CachedSinusGeneratorFilter.i"
 %include "DecimationFilter.i"
