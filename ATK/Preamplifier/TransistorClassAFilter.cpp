@@ -13,20 +13,20 @@ namespace ATK
   template <typename DataType_>
   class TransistorClassAFilter<DataType_>::TransistorClassAFunction
   {
-    DataType_ dt;
+    const DataType_ dt;
     
-    DataType_ Rp;
-    DataType_ Rg;
-    DataType_ Ro;
-    DataType_ Rk;
-    DataType_ VBias;
-    DataType_ Co;
-    DataType_ Ck;
+    const DataType_ Rp;
+    const DataType_ Rg;
+    const DataType_ Ro;
+    const DataType_ Rk;
+    const DataType_ VBias;
+    const DataType_ Co;
+    const DataType_ Ck;
     
-    DataType_ Is;
-    DataType_ Vt;
-    DataType_ Br;
-    DataType_ Bf;
+    const DataType_ Is;
+    const DataType_ Vt;
+    const DataType_ Br;
+    const DataType_ Bf;
     
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
