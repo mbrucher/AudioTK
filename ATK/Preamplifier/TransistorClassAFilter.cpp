@@ -31,41 +31,43 @@ namespace ATK
     const DataType_ Br;
     const DataType_ Bf;
     
-    DataType_ Lb(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lb(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp(Vbc / Vt) - 1) / Br);
+      return Is * ((exp.first - 1) / Bf + (exp.second - 1) / Br);
     }
     
-    DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lb_Vbe(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * (std::exp(Vbe / Vt) / Bf + std::exp(Vbc / Vt) / Br);
+      return Is / Vt * (exp.first / Bf + exp.second / Br);
     }
     
-    DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lb_Vce(const std::pair<DataType_, DataType_>& exp)
     {
-      return -Is / Vt * (std::exp(Vbc / Vt) / Br);
+      return -Is / Vt * (exp.second / Br);
     }
     
-    DataType_ Lc(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lc(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - (std::exp(Vbc / Vt) - 1) / Br);
+      return Is * ((exp.first - exp.second) - (exp.second - 1) / Br);
     }
     
-    DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lc_Vbe(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - std::exp(Vbc / Vt) / Br);
+      return Is / Vt * ((exp.first - exp.second) - exp.second / Br);
     }
     
-    DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lc_Vce(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * (std::exp(Vbc / Vt) + std::exp(Vbc / Vt) / Br);
+      return Is / Vt * (exp.second + exp.second / Br);
     }
 
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
-    
+
+    std::pair<DataType, DataType> exp_y0;
+
     TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
     :dt(dt), Rp(1e3), Rg1(16.7e3), Rg2(1.47e3), Ro(22e3), Rk(100), VBias(5), Cg(3.3e-6), Co(1e-6), Ck(160e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
     {
@@ -84,17 +86,19 @@ namespace ATK
         
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib_old = Lb(output[3][i-1] - output[0][i-1], output[3][i-1] - output[2][i-1]);
-      auto Ic_old = Lc(output[3][i-1] - output[0][i-1], output[3][i-1] - output[2][i-1]);
+      auto Ib_old = Lb(exp_y0);
+      auto Ic_old = Lc(exp_y0);
 
-      auto Ib = Lb(y1(3) - y1(0), y1(3) - y1(2));
-      auto Ic = Lc(y1(3) - y1(0), y1(3) - y1(2));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((y1(3) - y1(0)) / Vt), std::exp((y1(3) - y1(2)) / Vt));
       
-      auto Ib_Vbe = Lb_Vbe(y1(3) - y1(0), y1(3) - y1(2));
-      auto Ib_Vbc = Lb_Vce(y1(3) - y1(0), y1(3) - y1(2));
+      auto Ib = Lb(exp_y1);
+      auto Ic = Lc(exp_y1);
+      
+      auto Ib_Vbe = Lb_Vbe(exp_y1);
+      auto Ib_Vbc = Lb_Vce(exp_y1);
 
-      auto Ic_Vbe = Lc_Vbe(y1(3) - y1(0), y1(3) - y1(2));
-      auto Ic_Vbc = Lc_Vce(y1(3) - y1(0), y1(3) - y1(2));
+      auto Ic_Vbe = Lc_Vbe(exp_y1);
+      auto Ic_Vbc = Lc_Vce(exp_y1);
 
       auto f1_old = - output[0][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
       auto f2_old = - (output[1][i-1] + output[2][i-1]) / (Ro * Co);
@@ -138,34 +142,34 @@ namespace ATK
     const DataType_ Br;
     const DataType_ Bf;
     
-    DataType_ Lb(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lb(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp(Vbc / Vt) - 1) / Br);
+      return Is * ((exp.first - 1) / Bf + (exp.second - 1) / Br);
     }
     
-    DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lb_Vbe(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * (std::exp(Vbe / Vt) / Bf + std::exp(Vbc / Vt) / Br);
+      return Is / Vt * (exp.first / Bf + exp.second / Br);
     }
     
-    DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lb_Vce(const std::pair<DataType_, DataType_>& exp)
     {
-      return -Is / Vt * (std::exp(Vbc / Vt) / Br);
+      return -Is / Vt * (exp.second / Br);
     }
     
-    DataType_ Lc(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lc(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - (std::exp(Vbc / Vt) - 1) / Br);
+      return Is * ((exp.first - exp.second) - (exp.second - 1) / Br);
     }
     
-    DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lc_Vbe(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - std::exp(Vbc / Vt) / Br);
+      return Is / Vt * ((exp.first - exp.second) - exp.second / Br);
     }
     
-    DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vbc)
+    DataType_ Lc_Vce(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * (std::exp(Vbc / Vt) + std::exp(Vbc / Vt) / Br);
+      return Is / Vt * (exp.second + exp.second / Br);
     }
     
   public:
@@ -180,14 +184,16 @@ namespace ATK
     
     std::pair<Vector, Matrix> operator()(const Vector& y1)
     {
-      auto Ib = Lb(y1(2) - y1(1), y1(2) - y1(0));
-      auto Ic = Lc(y1(2) - y1(1), y1(2) - y1(0));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((y1(2) - y1(1)) / Vt), std::exp((y1(2) - y1(0)) / Vt));
       
-      auto Ib_Vbe = Lb_Vbe(y1(2) - y1(1), y1(2) - y1(0));
-      auto Ib_Vbc = Lb_Vce(y1(2) - y1(1), y1(2) - y1(0));
+      auto Ib = Lb(exp_y1);
+      auto Ic = Lc(exp_y1);
       
-      auto Ic_Vbe = Lc_Vbe(y1(2) - y1(1), y1(2) - y1(0));
-      auto Ic_Vbc = Lc_Vce(y1(2) - y1(1), y1(2) - y1(0));
+      auto Ib_Vbe = Lb_Vbe(exp_y1);
+      auto Ib_Vbc = Lb_Vce(exp_y1);
+      
+      auto Ic_Vbe = Lc_Vbe(exp_y1);
+      auto Ic_Vbc = Lc_Vce(exp_y1);
       
       Vector F(Vector::Zero());
       auto R = 1/(1/Rg1 + 1/Rg2);
@@ -252,8 +258,12 @@ namespace ATK
   {
     assert(input_sampling_rate == output_sampling_rate);
 
+    DataType Vt = 26e-3;
+
     for(int64_t i = 0; i < size; ++i)
     {
+      optimizer->get_function().exp_y0 = std::make_pair(std::exp((outputs[4][i-1] - outputs[1][i-1]) / Vt), std::exp((outputs[4][i-1] - outputs[3][i-1]) / Vt));
+
       optimizer->optimize(i, converted_inputs.data(), outputs.data() + 1);
       outputs[0][i] = outputs[2][i] + outputs[3][i];
     }
