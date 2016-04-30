@@ -69,7 +69,7 @@ namespace ATK
     std::pair<DataType, DataType> exp_y0;
 
     TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
-    :dt(dt), Rp(1e3), Rg1(16.7e3), Rg2(1.47e3), Ro(22e3), Rk(100), VBias(5), Cg(3.3e-6), Co(1e-6), Ck(160e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
+    :dt(dt), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
     {
     }
 
@@ -178,7 +178,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
     
     TransistorClassAInitialFunction(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Is, DataType Vt, DataType Br, DataType Bf)
-    :Rp(1e3), Rg1(16.7e3), Rg2(1.47e3), Ro(22e3), Rk(100), VBias(5), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
+    :Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
     {
     }
     
@@ -209,8 +209,8 @@ namespace ATK
   };
 
   template <typename DataType>
-  TransistorClassAFilter<DataType>::TransistorClassAFilter()
-    :Parent(1, 5)
+  TransistorClassAFilter<DataType>::TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
+    :Parent(1, 5), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
   {
     input_delay = output_delay = 1;
   }
@@ -225,10 +225,10 @@ namespace ATK
   {
     Parent::setup();
     optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
-                    1e3, 16.7e3, 1.47e3, 22e3, 100, //R
-                    5, // VBias
-                    3.3e-6, 1e-6, 160e-6, // C
-                    1e-12, 26e-3, 1, 100 // transistor
+                    Rp, Rg1, Rg2, Ro, Rk, //R
+                    VBias, // VBias
+                    Cg, Co, Ck, // C
+                    Is, Vt, Br, Bf // transistor
                     )));
   }
 
@@ -239,9 +239,9 @@ namespace ATK
     // setup default_output
 
     SimplifiedVectorizedNewtonRaphson<TransistorClassAInitialFunction<DataType_>, 3, 10> custom(TransistorClassAInitialFunction<DataType_>(
-                    1e3, 16.7e3, 1.47e3, 22e3, 100, //R
-                    5, // VBias
-                    1e-12, 26e-3, 1, 100 // transistor
+                    Rp, Rg1, Rg2, Ro, Rk, //R
+                    VBias, // VBias
+                    Is, Vt, Br, Bf // transistor
                     ));
     
     auto stable = custom.optimize();
@@ -258,8 +258,6 @@ namespace ATK
   {
     assert(input_sampling_rate == output_sampling_rate);
 
-    DataType Vt = 26e-3;
-
     for(int64_t i = 0; i < size; ++i)
     {
       optimizer->get_function().exp_y0 = std::make_pair(std::exp((outputs[4][i-1] - outputs[1][i-1]) / Vt), std::exp((outputs[4][i-1] - outputs[3][i-1]) / Vt));
@@ -267,6 +265,16 @@ namespace ATK
       optimizer->optimize(i, converted_inputs.data(), outputs.data() + 1);
       outputs[0][i] = outputs[2][i] + outputs[3][i];
     }
+  }
+
+  template<typename DataType_>
+  TransistorClassAFilter<DataType_>* TransistorClassAFilter<DataType_>::build_standard_filter()
+  {
+    return new TransistorClassAFilter<DataType_>(1e3, 15e3, 1.5e3, 22e3, 100, //R
+                                                 5, // VBias
+                                                 3.3e-6, 1e-6, 160e-6, // C
+                                                 1e-12, 26e-3, 1, 100 // transistor
+);
   }
 
   template class TransistorClassAFilter<float>;

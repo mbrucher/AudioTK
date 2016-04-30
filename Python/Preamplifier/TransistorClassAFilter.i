@@ -9,8 +9,9 @@ namespace ATK
   class TransistorClassAFilter: public BaseFilter
   {
   public:
-    TransistorClassAFilter();
     ~TransistorClassAFilter();
+    
+    static TransistorClassAFilter* build_standard_filter();
   };
 }
 

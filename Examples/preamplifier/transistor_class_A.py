@@ -15,7 +15,7 @@ def filter_32(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 32)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 32)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -43,7 +43,7 @@ def filter_16(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 16)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 16)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -71,7 +71,7 @@ def filter_8(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 8)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 8)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -99,7 +99,7 @@ def filter_4(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 4)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 4)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -122,7 +122,7 @@ if __name__ == "__main__":
   size = 1200
   
   x = np.arange(size).reshape(1, -1) / 48000.
-  d = np.sin(x * 2 * np.pi * 100) * .1
+  d = np.sin(x * 2 * np.pi * 100) * .05
   np.savetxt("input.txt", d)
   out = filter_32(d)
   np.savetxt("output32.txt", out)
@@ -132,4 +132,10 @@ if __name__ == "__main__":
   np.savetxt("output8.txt", out)
   out = filter_4(d)
   np.savetxt("output4.txt", out)
-  
+
+  import matplotlib.pyplot as plt
+  plt.plot(x[0], d[0], label="input")
+  plt.plot(x[0], out[0], label="output")
+  plt.legend()
+  plt.show()
+

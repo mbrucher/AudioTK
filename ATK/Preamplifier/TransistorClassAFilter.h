@@ -46,9 +46,27 @@ namespace ATK
   protected:
     std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true> > optimizer;
 
-  public:
+    const DataType_ Rp;
+    const DataType_ Rg1;
+    const DataType_ Rg2;
+    const DataType_ Ro;
+    const DataType_ Rk;
+    const DataType_ VBias;
+    const DataType_ Cg;
+    const DataType_ Co;
+    const DataType_ Ck;
+    
+    const DataType_ Is;
+    const DataType_ Vt;
+    const DataType_ Br;
+    const DataType_ Bf;
+
     /// Build a new preamp filter
-    TransistorClassAFilter();
+    TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
+  public:
+    static TransistorClassAFilter* build_standard_filter();
+    
+    
     ~TransistorClassAFilter();
     
     void process_impl(int64_t size) const override final;

@@ -26,7 +26,7 @@ def filter_32(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 32)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 32)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -54,7 +54,7 @@ def filter_16(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 16)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 16)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -82,7 +82,7 @@ def filter_8(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 8)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 8)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -110,7 +110,7 @@ def filter_4(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 4)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTransistorClassAFilter()
+  overdrivefilter = DoubleTransistorClassAFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 4)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -135,7 +135,7 @@ if __name__ == "__main__":
   freq_max = 20000
 
   t = np.arange(samples, dtype=np.float64).reshape(1, -1) / sample_rate
-  d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t) * .1
+  d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t) * .05
 
   np.savetxt("input.txt", d)
   out = filter_32(d)
