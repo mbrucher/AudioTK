@@ -63,7 +63,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    TransistorClassAFunction(DataType dt)
+    TubeFunction(DataType dt)
     :dt(dt), Rp(100e3), Rg(220e3), Ro(22e3), Rk(2.7e3), VBias(12), Co(20e-9), Ck(10e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
     {
     }
