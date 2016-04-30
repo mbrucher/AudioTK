@@ -7,7 +7,7 @@
 
 #ifdef _MSC_VER
 # ifdef ATK_SHARED
-#  ifdef BUILD_ATK_ADATIVE
+#  ifdef BUILD_ATK_ADAPTIVE
 #   define ATK_ADAPTIVE_EXPORT __declspec( dllexport )
 #  else
 #   define ATK_ADAPTIVE_EXPORT __declspec( dllimport )

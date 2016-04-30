@@ -19,7 +19,6 @@ namespace ATK
   protected:
     /// Simplify parent calls
     typedef BaseFilter Parent;
-
   public:
     /// To be used by inherited APIs
     typedef DataType_ DataType;
@@ -68,6 +67,12 @@ namespace ATK
     std::vector<DataType *> outputs;
     /// Current size of the output arrays, without delay
     std::vector<int64_t> outputs_size;
+
+    /// A vector containing the default values for the input arrays
+    std::vector<DataType> default_input;
+    /// A vector containing the default values for the output arrays
+    std::vector<DataType> default_output;
+
   };
 }
 
