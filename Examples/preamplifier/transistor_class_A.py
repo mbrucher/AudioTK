@@ -122,7 +122,7 @@ if __name__ == "__main__":
   size = 1200
   
   x = np.arange(size).reshape(1, -1) / 48000.
-  d = np.sin(x * 2 * np.pi * 100)
+  d = np.sin(x * 2 * np.pi * 100) * .1
   np.savetxt("input.txt", d)
   out = filter_32(d)
   np.savetxt("output32.txt", out)
@@ -132,7 +132,7 @@ if __name__ == "__main__":
   np.savetxt("output8.txt", out)
   out = filter_4(d)
   np.savetxt("output4.txt", out)
-
+  
   import matplotlib.pyplot as plt
   plt.plot(x[0], d[0], label="input")
   plt.plot(x[0], out[0], label="output")
