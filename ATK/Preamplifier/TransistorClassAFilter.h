@@ -3,8 +3,8 @@
  * Heavily inspired by Simualtion of a guitar amplifier stage for several triode models (Cohen and Helie)
  */
 
-#ifndef ATK_PREAMPLIFIER_TRANSISTORCLASSEAFILTER_H
-#define ATK_PREAMPLIFIER_TRANSISTORCLASSEAFILTER_H
+#ifndef ATK_PREAMPLIFIER_TRANSISTORCLASSAFILTER_H
+#define ATK_PREAMPLIFIER_TRANSISTORCLASSAFILTER_H
 
 #include <list>
 #include <vector>

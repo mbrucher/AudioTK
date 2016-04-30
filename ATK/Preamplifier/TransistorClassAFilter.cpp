@@ -31,34 +31,34 @@ namespace ATK
     const DataType_ Br;
     const DataType_ Bf;
     
-    DataType_ Lb(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lb(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp((Vbe - Vce) / Vt) - 1) / Br);
+      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp(Vbc / Vt) - 1) / Br);
     }
     
-    DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is / Vt * (std::exp(Vbe / Vt) / Bf + std::exp((Vbe - Vce) / Vt) / Br);
+      return Is / Vt * (std::exp(Vbe / Vt) / Bf + std::exp(Vbc / Vt) / Br);
     }
     
-    DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vbc)
     {
-      return -Is / Vt * (std::exp((Vbe - Vce) / Vt) / Br);
+      return -Is / Vt * (std::exp(Vbc / Vt) / Br);
     }
     
-    DataType_ Lc(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lc(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is * ((std::exp(Vbe / Vt) - std::exp((Vbe - Vce) / Vt)) - (std::exp((Vbe - Vce) / Vt) - 1) / Br);
+      return Is * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - (std::exp(Vbc / Vt) - 1) / Br);
     }
     
-    DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is / Vt * ((std::exp(Vbe / Vt) - std::exp((Vbe - Vce) / Vt)) - std::exp((Vbe - Vce) / Vt) / Br);
+      return Is / Vt * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - std::exp(Vbc / Vt) / Br);
     }
     
-    DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is / Vt * (std::exp((Vbe - Vce) / Vt) + std::exp((Vbe - Vce) / Vt) / Br);
+      return Is / Vt * (std::exp(Vbc / Vt) + std::exp(Vbc / Vt) / Br);
     }
 
   public:
@@ -84,17 +84,17 @@ namespace ATK
         
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib_old = Lb(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
-      auto Ic_old = Lc(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
+      auto Ib_old = Lb(output[3][i-1] - output[0][i-1], output[3][i-1] - output[2][i-1]);
+      auto Ic_old = Lc(output[3][i-1] - output[0][i-1], output[3][i-1] - output[2][i-1]);
 
-      auto Ib = Lb(y1(3) - y1(0), y1(2) - y1(0));
-      auto Ic = Lc(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ib = Lb(y1(3) - y1(0), y1(3) - y1(2));
+      auto Ic = Lc(y1(3) - y1(0), y1(3) - y1(2));
       
-      auto Ib_Vbe = Lb_Vbe(y1(3) - y1(0), y1(2) - y1(0));
-      auto Ib_Vce = Lb_Vce(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ib_Vbe = Lb_Vbe(y1(3) - y1(0), y1(3) - y1(2));
+      auto Ib_Vbc = Lb_Vce(y1(3) - y1(0), y1(3) - y1(2));
 
-      auto Ic_Vbe = Lc_Vbe(y1(3) - y1(0), y1(2) - y1(0));
-      auto Ic_Vce = Lc_Vce(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ic_Vbe = Lc_Vbe(y1(3) - y1(0), y1(3) - y1(2));
+      auto Ic_Vbc = Lc_Vce(y1(3) - y1(0), y1(3) - y1(2));
 
       auto f1_old = - output[0][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
       auto f2_old = - (output[1][i-1] + output[2][i-1]) / (Ro * Co);
@@ -113,10 +113,10 @@ namespace ATK
            (dt / 2 * (f4 + f4_old) - (output[3][i-1] - y1(3) + input[0][i] - input[0][i-1]));
 
       Matrix M(Matrix::Zero());
-      M << (-1 - dt/2/(Rk * Ck)) - dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, dt/2*(Ib_Vce + Ic_Vce) / Ck, dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
+      M << (-1 - dt/2/(Rk * Ck)) - dt/2*((Ib_Vbe + Ic_Vbe)/ Ck), 0, -dt/2*(Ib_Vbc + Ic_Vbc) / Ck, dt/2*(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) / Ck,
             0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
-            -Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro + Rp * Ic_Vce, Rp * Ic_Vbe,
-            -dt/2 * (Ib_Vce + Ib_Vbe)/Cg, 0, dt/2 * Ib_Vce/Cg, 1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) + Ib_Vbe));
+            -Rp * Ic_Vbe, Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vbc, Rp * (Ic_Vbe + Ic_Vbc),
+            -dt/2 * Ib_Vbe/Cg, 0, -dt/2 * Ib_Vbc/Cg, 1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) + (Ib_Vbc + Ib_Vbe)));
 
       return std::make_pair(F, M);
     }
@@ -138,34 +138,34 @@ namespace ATK
     const DataType_ Br;
     const DataType_ Bf;
     
-    DataType_ Lb(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lb(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp((Vbe - Vce) / Vt) - 1) / Br);
+      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp(Vbc / Vt) - 1) / Br);
     }
     
-    DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is / Vt * (std::exp(Vbe / Vt) / Bf + std::exp((Vbe - Vce) / Vt) / Br);
+      return Is / Vt * (std::exp(Vbe / Vt) / Bf + std::exp(Vbc / Vt) / Br);
     }
     
-    DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vbc)
     {
-      return -Is / Vt * (std::exp((Vbe - Vce) / Vt) / Br);
+      return -Is / Vt * (std::exp(Vbc / Vt) / Br);
     }
     
-    DataType_ Lc(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lc(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is * ((std::exp(Vbe / Vt) - std::exp((Vbe - Vce) / Vt)) - (std::exp((Vbe - Vce) / Vt) - 1) / Br);
+      return Is * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - (std::exp(Vbc / Vt) - 1) / Br);
     }
     
-    DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is / Vt * ((std::exp(Vbe / Vt) - std::exp((Vbe - Vce) / Vt)) - std::exp((Vbe - Vce) / Vt) / Br);
+      return Is / Vt * ((std::exp(Vbe / Vt) - std::exp(Vbc / Vt)) - std::exp(Vbc / Vt) / Br);
     }
     
-    DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
+    DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vbc)
     {
-      return Is / Vt * (std::exp((Vbe - Vce) / Vt) + std::exp((Vbe - Vce) / Vt) / Br);
+      return Is / Vt * (std::exp(Vbc / Vt) + std::exp(Vbc / Vt) / Br);
     }
     
   public:
@@ -180,23 +180,23 @@ namespace ATK
     
     std::pair<Vector, Matrix> operator()(const Vector& y1)
     {
-      auto Ib = Lb(y1(2) - y1(1), y1(0) - y1(1));
-      auto Ic = Lc(y1(2) - y1(1), y1(0) - y1(1));
+      auto Ib = Lb(y1(2) - y1(1), y1(2) - y1(0));
+      auto Ic = Lc(y1(2) - y1(1), y1(2) - y1(0));
       
-      auto Ib_Vbe = Lb_Vbe(y1(2) - y1(1), y1(0) - y1(1));
-      auto Ib_Vce = Lb_Vce(y1(2) - y1(1), y1(0) - y1(1));
+      auto Ib_Vbe = Lb_Vbe(y1(2) - y1(1), y1(2) - y1(0));
+      auto Ib_Vbc = Lb_Vce(y1(2) - y1(1), y1(2) - y1(0));
       
-      auto Ic_Vbe = Lc_Vbe(y1(2) - y1(1), y1(0) - y1(1));
-      auto Ic_Vce = Lc_Vce(y1(2) - y1(1), y1(0) - y1(1));
+      auto Ic_Vbe = Lc_Vbe(y1(2) - y1(1), y1(2) - y1(0));
+      auto Ic_Vbc = Lc_Vce(y1(2) - y1(1), y1(2) - y1(0));
       
       Vector F(Vector::Zero());
       auto R = 1/(1/Rg1 + 1/Rg2);
       F << y1(0) - VBias + Ic * Rp, y1(1) - (Ib + Ic) * Rk, Ib * R + y1(2) - VBias / Rg1 * R;
       
       Matrix M(Matrix::Zero());
-      M << 1 + Ic_Vce * Rp, -(Ic_Vbe + Ic_Vce) * Rp, Ic_Vbe * Rp,
-           -(Ib_Vce + Ic_Vce) * Rk, 1 + (Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) * Rk, -(Ib_Vbe + Ic_Vbe) * Rk,
-           Ib_Vce * R, (Ib_Vbe + Ib_Vce) * R, 1 + Ib_Vbe * R;
+      M << 1 - Ic_Vbc * Rp, -Ic_Vbe * Rp, (Ic_Vbe + Ic_Vbc) * Rp,
+           (Ib_Vbc + Ic_Vbc) * Rk, 1 + (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk, -(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk,
+           -Ib_Vbc * R, -Ib_Vbe * R, 1 + (Ib_Vbe + Ib_Vbc) * R;
 
       return std::make_pair(F, M);
     }
