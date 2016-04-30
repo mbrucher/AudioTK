@@ -6,7 +6,6 @@
 #define ATK_UTILITY_SIMPLIFIEDVECTORIZEDNEWTONRAPHSON_H
 
 #include <cmath>
-#include <iostream>
 #include <limits>
 
 #include <ATK/config.h>
@@ -55,12 +54,8 @@ namespace ATK
       for(j = 0; j < max_iterations; ++j)
       {
         auto all = function(y1);
-        std::cout << "F " << all.first << std::endl;
-        std::cout << "M " << all.second << std::endl;
         Vector cx = all.second.colPivHouseholderQr().solve(all.first);
-        std::cout << "cx " << cx << std::endl;
         auto yk = y1 - cx;
-        std::cout << "yk " << yk << std::endl;
         if((cx.array().abs() < precision).all())
         {
           return yk;
