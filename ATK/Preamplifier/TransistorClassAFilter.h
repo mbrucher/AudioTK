@@ -41,8 +41,9 @@ namespace ATK
     using Parent::output_delay;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+    
+    using Parent::default_output;
   protected:
-
     std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true> > optimizer;
 
   public:
@@ -53,6 +54,7 @@ namespace ATK
     void process_impl(int64_t size) const override final;
     
     void setup() override final;
+    void full_setup() override final;
   };
 }
 

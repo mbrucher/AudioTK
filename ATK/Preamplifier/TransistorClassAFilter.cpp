@@ -65,8 +65,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    TransistorClassAFunction(DataType dt)
-    :dt(dt), Rp(1e3), Rg1(16.7e3), Rg2(1.47e3), Ro(22e3), Rk(100), VBias(12), Cg(3.3e-6), Co(100e-6), Ck(160e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
+    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
+    :dt(dt), Rp(1e3), Rg1(16.7e3), Rg2(1.47e3), Ro(22e3), Rk(100), VBias(5), Cg(3.3e-6), Co(1e-6), Ck(160e-6), Is(1e-12), Vt(26e-3), Br(1), Bf(100)
     {
     }
 
@@ -83,17 +83,17 @@ namespace ATK
     
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib_old = Lb(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
-      auto Ic_old = Lc(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
+      auto Ib_old = Lb(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
+      auto Ic_old = Lc(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
 
-      auto Ib = Lb(y1(0) - y1(3), y1(0) - y1(2));
-      auto Ic = Lc(y1(0) - y1(3), y1(0) - y1(2));
+      auto Ib = Lb(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ic = Lc(y1(3) - y1(0), y1(2) - y1(0));
 
-      auto Ib_Vbe = Lb_Vbe(y1(0) - y1(3), y1(0) - y1(2));
-      auto Ib_Vce = Lb_Vce(y1(0) - y1(3), y1(0) - y1(2));
+      auto Ib_Vbe = Lb_Vbe(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ib_Vce = Lb_Vce(y1(3) - y1(0), y1(2) - y1(0));
 
-      auto Ic_Vbe = Lc_Vbe(y1(0) - y1(3), y1(0) - y1(2));
-      auto Ic_Vce = Lc_Vce(y1(0) - y1(3), y1(0) - y1(2));
+      auto Ic_Vbe = Lc_Vbe(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ic_Vce = Lc_Vce(y1(3) - y1(0), y1(2) - y1(0));
 
       auto f1_old = - output[0][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
       auto f2_old = - (output[1][i-1] + output[2][i-1]) / (Ro * Co);
@@ -112,10 +112,10 @@ namespace ATK
            (dt / 2 * (f4 + f4_old) - (output[3][i-1] - y1(3) + input[0][i] - input[0][i-1]));
 
       Matrix M(Matrix::Zero());
-      M << (-1 -dt/2/(Rk * Ck))+ dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, -dt/2*(Ib_Vce + Ic_Vce) / Ck, -dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
+      M << (-1 - dt/2/(Rk * Ck)) - dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, dt/2*(Ib_Vce + Ic_Vce) / Ck, dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
             0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
-            Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vce, - Rp * Ic_Vbe,
-            dt/2 * (Ib_Vce + Ib_Vbe)/Cg, 0, -dt/2 * Ib_Vce/Cg, 1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) - Ib_Vbe));
+            -Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro + Rp * Ic_Vce, Rp * Ic_Vbe,
+            -dt/2 * (Ib_Vce + Ib_Vbe)/Cg, 0, dt/2 * Ib_Vce/Cg, 1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) + Ib_Vbe));
       
       return std::make_pair(F, M);
     }
@@ -138,7 +138,19 @@ namespace ATK
   void TransistorClassAFilter<DataType_>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate))));
+    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
+                    1e3, 16.7e3, 1.47e3, 22e3, 100, //R
+                    5, // VBias
+                    3.3e-6, 1e-6, 160e-6, // C
+                    1e-12, 26e-3, 1, 100 // transistor
+                    )));
+  }
+
+  template<typename DataType_>
+  void TransistorClassAFilter<DataType_>::full_setup()
+  {
+    Parent::full_setup();
+    // setup default_output
   }
 
   template<typename DataType_>
