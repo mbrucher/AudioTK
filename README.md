@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 ### 1.3.0
+* Added a class A NPN preamplification filter with Python wrappers (requires Eigen)
 * Added a buffer filter with Python wrappers
 * Added a new Diode clipper with trapezoidal rule with Python wrappers
 * Added a new version of the SD1 distortion with ZDF mode and Python wrappers
@@ -173,10 +174,11 @@ Install
 * C++11 compiler
 * CMake
 * Boost 1.60
-* FFT library:
+* FFT library (for some filters like the fast convolution filter)
   * FFTW (default)
   * Accelerate
 * Python with numpy (for Python support)
+* Eigen (for some complex modules)
 * libsndfile (for sound file I/O)
 
 ### Procedure

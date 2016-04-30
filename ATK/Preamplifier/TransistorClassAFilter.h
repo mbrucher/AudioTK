@@ -64,6 +64,11 @@ namespace ATK
     /// Build a new preamp filter
     TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
   public:
+    /// Build a simple class A preamp
+    /**
+     * The preamp clips at 5V, gain of 10 at BF, 200 at HF and inverts the input.
+     * This means that the input has to be low to allow a proper amplification.
+     */
     static TransistorClassAFilter* build_standard_filter();
     
     
