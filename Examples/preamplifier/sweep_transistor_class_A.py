@@ -3,7 +3,7 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Tools import DoubleOversampling6points5order_32Filter, DoubleOversampling6points5order_16Filter, DoubleOversampling6points5order_8Filter, DoubleOversampling6points5order_4Filter, DoubleDecimationFilter
 from ATK.EQ import DoubleButterworthLowPassFilter
-from ATK.Distortion import DoubleTransistorClassAFilter
+from ATK.Preamplifier import DoubleTransistorClassAFilter
 
 import numpy as np
 import scipy.signal as signal
@@ -135,7 +135,7 @@ if __name__ == "__main__":
   freq_max = 20000
 
   t = np.arange(samples, dtype=np.float64).reshape(1, -1) / sample_rate
-  d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t)
+  d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t) * .1
 
   np.savetxt("input.txt", d)
   out = filter_32(d)
