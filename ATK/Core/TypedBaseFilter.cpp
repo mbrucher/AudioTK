@@ -65,6 +65,7 @@ namespace ATK
     converted_inputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
+    default_input.assign(nb_ports, 0);
   }
   
   template<typename DataType>
@@ -76,6 +77,7 @@ namespace ATK
     outputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_ports);
     outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
+    default_output.assign(nb_ports, 0);
   }
 
   template<typename DataType>
@@ -119,7 +121,7 @@ namespace ATK
         {
           for(int j = 0; j < input_delay; ++j)
           {
-            temp[j] = 0;
+            temp[j] = default_input[i];
           }
         }
         else
@@ -161,7 +163,7 @@ namespace ATK
         {
           for(int j = 0; j < output_delay; ++j)
           {
-            temp[j] = 0;
+            temp[j] = default_output[i];
           }
         }
         else
