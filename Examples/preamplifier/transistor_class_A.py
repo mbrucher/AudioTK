@@ -133,8 +133,3 @@ if __name__ == "__main__":
   out = filter_4(d)
   np.savetxt("output4.txt", out)
   
-  import matplotlib.pyplot as plt
-  plt.plot(x[0], d[0], label="input")
-  plt.plot(x[0], out[0], label="output")
-  plt.legend()
-  plt.show()
