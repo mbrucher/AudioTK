@@ -111,14 +111,14 @@ namespace ATK
       auto g1 = y1(2) + Rp * (Ic + (y1(1) + y1(2)) / Ro) - VBias;
       
       Vector F(Vector::Zero());
-      F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - y1(0)),
-           (dt / 2 * (f2 + f2_old) + output[1][i-1] - y1(1)),
+      F << -(dt / 2 * (f1 + f1_old) + output[0][i-1] - y1(0)),
+           -(dt / 2 * (f2 + f2_old) + output[1][i-1] - y1(1)),
            (g1),
            (dt / 2 * (f4 + f4_old) - (output[3][i-1] - y1(3) + input[0][i] - input[0][i-1]));
 
       Matrix M(Matrix::Zero());
-      M << (-1 - dt/2/(Rk * Ck)) - dt/2*((Ib_Vbe + Ic_Vbe)/ Ck), 0, -dt/2*(Ib_Vbc + Ic_Vbc) / Ck, dt/2*(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) / Ck,
-            0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
+      M << (1 + dt/2/(Rk * Ck) + dt/2*((Ib_Vbe + Ic_Vbe)/ Ck)), 0, dt/2*(Ib_Vbc + Ic_Vbc) / Ck, -dt/2*(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) / Ck,
+            0, 1 + dt/2*(Ro * Co), dt/2*(Ro * Co), 0,
             -Rp * Ic_Vbe, Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vbc, Rp * (Ic_Vbe + Ic_Vbc),
             -dt/2 * Ib_Vbe/Cg, 0, -dt/2 * Ib_Vbc/Cg, 1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) + (Ib_Vbc + Ib_Vbe)));
 
