@@ -25,6 +25,8 @@ namespace ATK
 
     /// Base constructor for filters with actual data
     TypedBaseFilter(int nb_input_ports, int nb_output_ports);
+    /// Move constructor
+    TypedBaseFilter(TypedBaseFilter&& other);
     /// Destructor
     virtual ~TypedBaseFilter();
     

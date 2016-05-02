@@ -34,7 +34,9 @@ namespace ATK
      * @param nb_output_ports is the total number of output ports of this filter
      */
     ATK_CORE_EXPORT BaseFilter(int nb_input_ports, int nb_output_ports);
-    /// Destructor 
+    /// Move constructor
+    ATK_CORE_EXPORT BaseFilter(BaseFilter&& other);
+    /// Destructor
     virtual ATK_CORE_EXPORT ~BaseFilter();
     
     /*!

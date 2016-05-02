@@ -14,6 +14,14 @@ namespace ATK
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(0), R2(0), R3(0), R4(0), C1(0), C2(0), C3(0), low(.5), middle(.5), high(.5)
   {
   }
+  
+  template<typename DataType>
+  ToneStackFilterCoefficients<DataType>::ToneStackFilterCoefficients(ToneStackFilterCoefficients&& other)
+  :Parent(std::move(other)), R1(other.R1), R2(other.R2), R3(other.R3), R4(other.R4), C1(other.C1), C2(other.C2), C3(other.C3), low(other.low), middle(other.middle), high(other.high)
+  {
+    
+  }
+
 
   template<typename DataType>
   void ToneStackFilterCoefficients<DataType>::setup()
@@ -115,21 +123,21 @@ namespace ATK
 
 
   template<typename DataType>
-  IIRFilter<ToneStackFilterCoefficients<DataType> >* ToneStackFilterCoefficients<DataType>::buildBassmanStack()
+  IIRFilter<ToneStackFilterCoefficients<DataType> >&& ToneStackFilterCoefficients<DataType>::buildBassmanStack()
   {
-    IIRFilter<ToneStackFilterCoefficients<DataType> >* filter = new IIRFilter<ToneStackFilterCoefficients<DataType> >;
-    filter->set_coefficients(static_cast<DataType>(250e3), static_cast<DataType>(1e6), static_cast<DataType>(25e3), static_cast<DataType>(45e3),
+    IIRFilter<ToneStackFilterCoefficients<DataType> > filter;
+    filter.set_coefficients(static_cast<DataType>(250e3), static_cast<DataType>(1e6), static_cast<DataType>(25e3), static_cast<DataType>(45e3),
       static_cast<DataType>(250e-12), static_cast<DataType>(20e-9), static_cast<DataType>(20e-9));
-    return filter;
+    return std::move(filter);
   }
 
   template<typename DataType>
-  IIRFilter<ToneStackFilterCoefficients<DataType> >* ToneStackFilterCoefficients<DataType>::buildJCM800Stack()
+  IIRFilter<ToneStackFilterCoefficients<DataType> >&& ToneStackFilterCoefficients<DataType>::buildJCM800Stack()
   {
-    IIRFilter<ToneStackFilterCoefficients<DataType> >* filter = new IIRFilter<ToneStackFilterCoefficients<DataType> >;
-    filter->set_coefficients(static_cast<DataType>(220e3), static_cast<DataType>(1e6), static_cast<DataType>(22e3), static_cast<DataType>(33e3),
+    IIRFilter<ToneStackFilterCoefficients<DataType> > filter;
+    filter.set_coefficients(static_cast<DataType>(220e3), static_cast<DataType>(1e6), static_cast<DataType>(22e3), static_cast<DataType>(33e3),
       static_cast<DataType>(470e-12), static_cast<DataType>(22e-9), static_cast<DataType>(22e-9));
-    return filter;
+    return std::move(filter);
   }
 
   template<typename DataType_>

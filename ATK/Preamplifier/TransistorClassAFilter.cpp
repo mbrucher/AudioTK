@@ -216,6 +216,13 @@ namespace ATK
   }
   
   template <typename DataType>
+  TransistorClassAFilter<DataType>::TransistorClassAFilter(TransistorClassAFilter&& other)
+  :Parent(std::move(other)), Rp(other.Rp), Rg1(other.Rg1), Rg2(other.Rg2), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Cg(other.Cg), Co(other.Co), Ck(other.Ck), Is(other.Is), Vt(other.Vt), Br(other.Br), Bf(other.Bf)
+  {
+    
+  }
+
+  template <typename DataType>
   TransistorClassAFilter<DataType>::~TransistorClassAFilter()
   {
   }
@@ -268,9 +275,9 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TransistorClassAFilter<DataType_>* TransistorClassAFilter<DataType_>::build_standard_filter()
+  TransistorClassAFilter<DataType_> TransistorClassAFilter<DataType_>::build_standard_filter()
   {
-    return new TransistorClassAFilter<DataType_>(1e3, 15e3, 1.5e3, 22e3, 100, //R
+    return TransistorClassAFilter<DataType_>(1e3, 15e3, 1.5e3, 22e3, 100, //R
                                                  5, // VBias
                                                  3.3e-6, 1e-6, 160e-6, // C
                                                  1e-12, 26e-3, 1, 100 // transistor

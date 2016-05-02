@@ -52,6 +52,13 @@ namespace ATK
   }
 
   template<typename DataType>
+  TypedBaseFilter<DataType>::TypedBaseFilter(TypedBaseFilter&& other)
+  :Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), converted_inputs_size(std::move(other.converted_inputs_size)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
+  {
+    
+  }
+
+  template<typename DataType>
   TypedBaseFilter<DataType>::~TypedBaseFilter()
   {
   }

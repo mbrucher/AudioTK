@@ -28,6 +28,12 @@ namespace ATK
     process_time = 0;
 #endif
   }
+  
+  BaseFilter::BaseFilter(BaseFilter&& other)
+  :nb_input_ports(other.nb_input_ports), nb_output_ports(other.nb_output_ports), input_sampling_rate(other.input_sampling_rate), output_sampling_rate(other.output_sampling_rate), connections(std::move(other.connections)), input_delay(other.input_delay), output_delay(std::move(other.output_delay)), latency(std::move(other.latency)), is_reset(std::move(other.is_reset))
+  {
+    
+  }
 
   BaseFilter::~BaseFilter()
   {
