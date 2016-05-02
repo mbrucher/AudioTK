@@ -6,6 +6,9 @@
 #define ATK_UTILITY_VECTORIZEDNEWTONRAPHSON_H
 
 #include <cmath>
+#if ATK_PROFILING == 1
+#include <iostream>
+#endif
 #include <limits>
 
 #include <ATK/config.h>
@@ -29,6 +32,11 @@ namespace ATK
     DataType precision;
     DataType maxstep;
     
+#if ATK_PROFILING == 1
+    int64_t nb_iterations;
+    int64_t nb_optimizations;
+#endif
+    
     typedef Eigen::Matrix<DataType, size, 1> Vector;
     
   public:
@@ -40,6 +48,9 @@ namespace ATK
      */
     VectorizedNewtonRaphson(Function&& function, DataType precision = 0)
     :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(.1))
+#if ATK_PROFILING == 1
+    , nb_iterations(0), nb_optimizations(0)
+#endif
     {
       if(precision == 0)
       {
@@ -47,9 +58,21 @@ namespace ATK
       }
     }
     
+#if ATK_PROFILING == 1
+    ~VectorizedNewtonRaphson()
+    {
+      std::cout << "nb optimizations: " << nb_optimizations << std::endl;
+      std::cout << "nb iterations: " << nb_iterations << std::endl;
+      std::cout << "average: " << nb_iterations / double(nb_optimizations) << std::endl;
+    }
+#endif
+    
     /// Optimize the function and sets its internal state
     void optimize(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
+#if ATK_PROFILING == 1
+      ++nb_optimizations;
+#endif
       auto res = optimize_impl(i, input, output);
       for(int j = 0; j < size; ++j)
       {
@@ -78,6 +101,9 @@ namespace ATK
       int j;
       for(j = 0; j < max_iterations; ++j)
       {
+#if ATK_PROFILING == 1
+        ++nb_iterations;
+#endif
         auto all = function(i, input, output, y1);
         Vector cx = all.second.inverse() * all.first;
         auto yk = y1 - cx;

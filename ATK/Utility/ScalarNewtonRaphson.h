@@ -6,6 +6,9 @@
 #define ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 
 #include <cmath>
+#if ATK_PROFILING == 1
+#include <iostream>
+#endif
 #include <limits>
 
 #include <ATK/config.h>
@@ -27,6 +30,11 @@ namespace ATK
     DataType precision;
     DataType maxstep;
     
+#if ATK_PROFILING == 1
+    int64_t nb_iterations;
+    int64_t nb_optimizations;
+#endif
+    
   public:
     /*!
      * @brief Constructs the optimizer
@@ -36,6 +44,9 @@ namespace ATK
      */
     ScalarNewtonRaphson(Function&& function, DataType precision = 0)
     :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(.1))
+#if ATK_PROFILING == 1
+    , nb_iterations(0), nb_optimizations(0)
+#endif
     {
       if(precision == 0)
       {
@@ -43,9 +54,20 @@ namespace ATK
       }
     }
     
+#if ATK_PROFILING == 1
+    ~ScalarNewtonRaphson()
+    {
+      std::cout << "nb optimizations: " << nb_optimizations << std::endl;
+      std::cout << "nb iterations: " << nb_iterations << std::endl;
+      std::cout << "average: " << nb_iterations / double(nb_optimizations) << std::endl;
+    }
+#endif
     /// Optimize the function and sets its internal state
     void optimize(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+#if ATK_PROFILING == 1
+      ++nb_optimizations;
+#endif
       output[0] = optimize_impl(input, output);
     }
 
@@ -70,6 +92,9 @@ namespace ATK
       
       for(i = 0; i < max_iterations; ++i)
       {
+#if ATK_PROFILING == 1
+        ++nb_iterations;
+#endif
         std::pair<DataType, DataType> all = function(input, output, y1);
         if(std::abs(all.second) < std::numeric_limits<DataType>::epsilon() )
         {
