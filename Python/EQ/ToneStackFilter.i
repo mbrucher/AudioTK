@@ -38,6 +38,8 @@ IIRFilterExtend(ATK::IIRFilter<ATK::ToneStackFilterCoefficients<double> >, doubl
 
 %define ToneStackExtend(name, T)
 %extend name {
+  %newobject buildBassmanStack;
+  %newobject buildJCM800Stack;
   static ATK::IIRFilter<ATK::ToneStackFilterCoefficients<T> >* buildBassmanStack()
   {
     return new ATK::IIRFilter<ATK::ToneStackFilterCoefficients<T> >(ATK::IIRFilter<ATK::ToneStackFilterCoefficients<T> >::buildBassmanStack());

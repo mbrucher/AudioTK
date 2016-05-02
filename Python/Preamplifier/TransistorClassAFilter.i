@@ -18,6 +18,7 @@ namespace ATK
 
 %define ClassAExtend(name, T)
 %extend name {
+  %newobject build_standard_filter;
   static ATK::TransistorClassAFilter<T>* build_standard_filter()
   {
     return new ATK::TransistorClassAFilter<T>(ATK::TransistorClassAFilter<T>::build_standard_filter());
