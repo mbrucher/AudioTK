@@ -79,7 +79,7 @@ namespace ATK
       for(j = 0; j < max_iterations; ++j)
       {
         auto all = function(i, input, output, y1);
-        Vector cx = all.second.colPivHouseholderQr().solve(all.first);
+        Vector cx = all.second.inverse() * all.first;
         auto yk = y1 - cx;
         if((cx.array().abs() < precision).all())
         {
