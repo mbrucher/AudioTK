@@ -130,11 +130,6 @@ namespace ATK
   }
 
   template <typename DataType>
-  SD1OverdriveFilter<DataType>::~SD1OverdriveFilter()
-  {
-  }
-
-  template <typename DataType>
   void SD1OverdriveFilter<DataType>::setup()
   {
     Parent::setup();

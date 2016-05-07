@@ -105,11 +105,8 @@ namespace ATK
   SVFSD1OverdriveFilter<DataType>::SVFSD1OverdriveFilter()
     :TypedBaseFilter<DataType>(1, 1), drive(0)
   {
-  }
-
-  template <typename DataType>
-  SVFSD1OverdriveFilter<DataType>::~SVFSD1OverdriveFilter()
-  {
+    input_delay = 1;
+    output_delay = 1;
   }
 
   template <typename DataType>

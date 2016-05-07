@@ -30,15 +30,15 @@ namespace ATK
     using Parent::outputs;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
-    
+
+    using Parent::input_delay;
+    using Parent::output_delay;
   public:
     /*!
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
     SVFSD1OverdriveFilter();
-    /// Destructor
-    ~SVFSD1OverdriveFilter();
 
     void set_drive(DataType drive);
 

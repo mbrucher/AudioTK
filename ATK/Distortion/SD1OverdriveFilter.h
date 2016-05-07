@@ -39,8 +39,6 @@ namespace ATK
     * @param nb_channels is the number of input and output channels
     */
     SD1OverdriveFilter();
-    /// Destructor
-    ~SD1OverdriveFilter();
 
     void set_drive(DataType drive);
 
