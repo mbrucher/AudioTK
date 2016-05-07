@@ -44,7 +44,8 @@ namespace ATK
     
     using Parent::default_output;
   protected:
-    std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true> > optimizer;
+    static const int nb_max_iter = 10;
+    std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, nb_max_iter, true> > optimizer;
 
     const DataType_ Rp;
     const DataType_ Rg1;
@@ -60,7 +61,7 @@ namespace ATK
     const DataType_ Vt;
     const DataType_ Br;
     const DataType_ Bf;
-
+    
     /// Build a new preamp filter
     TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
   public:
@@ -73,7 +74,6 @@ namespace ATK
      * This means that the input has to be low to allow a proper amplification.
      */
     static TransistorClassAFilter build_standard_filter();
-    
     
     ~TransistorClassAFilter();
     

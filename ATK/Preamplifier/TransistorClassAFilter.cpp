@@ -14,8 +14,6 @@ namespace ATK
   template <typename DataType_>
   class TransistorClassAFilter<DataType_>::TransistorClassAFunction
   {
-    const DataType_ dt;
-    
     const DataType_ Rp;
     const DataType_ Rg1;
     const DataType_ Rg2;
@@ -30,6 +28,10 @@ namespace ATK
     const DataType_ Vt;
     const DataType_ Br;
     const DataType_ Bf;
+    
+    DataType ickeq;
+    DataType icgeq;
+    DataType icoeq;
     
     DataType_ Lb(const std::pair<DataType_, DataType_>& exp)
     {
@@ -68,8 +70,8 @@ namespace ATK
 
     std::pair<DataType, DataType> exp_y0;
 
-    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
-    :dt(dt), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
+    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf, const std::vector<DataType>& default_output)
+    :Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2])
     {
     }
 
@@ -83,12 +85,16 @@ namespace ATK
 
       return y0;
     }
-        
+    
+    void update_state(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    {
+      ickeq = 2 * Ck * output[1][i] - ickeq;
+      icgeq = 2 * Cg * (input[0][i] - output[4][i]) - icgeq;
+      icoeq = -2 * Co * output[2][i] - icoeq;
+    }
+    
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib_old = Lb(exp_y0);
-      auto Ic_old = Lc(exp_y0);
-
       std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((y1(3) - y1(0)) / Vt), std::exp((y1(3) - y1(2)) / Vt));
       
       auto Ib = Lb(exp_y1);
@@ -100,27 +106,22 @@ namespace ATK
       auto Ic_Vbe = Lc_Vbe(exp_y1);
       auto Ic_Vbc = Lc_Vce(exp_y1);
 
-      auto f1_old = - output[0][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
-      auto f2_old = - (output[1][i-1] + output[2][i-1]) / (Ro * Co);
-      auto f4_old = 1/Cg * (output[3][i-1] * (1/Rg1 + 1/Rg2) - VBias/Rg1 + Ib_old);
-
-      auto f1 = - y1(0) / (Rk * Ck) + (Ib + Ic) / Ck;
-      auto f2 = - (y1(1) + y1(2)) / (Ro * Co);
-      auto f4 = 1/Cg * (y1(3) * (1/Rg1 + 1/Rg2) - VBias/Rg1 + Ib);
-
-      auto g1 = y1(2) + Rp * (Ic + (y1(1) + y1(2)) / Ro) - VBias;
+      auto f1 = Ib + Ic + ickeq - y1(0) * (1/Rk + Ck);
+      auto f2 = icoeq + (y1(1) + y1(2)) / Ro + y1(1) * Co;
+      auto f3 = Ic + (y1(1) + y1(2)) / Ro + (y1(2) - VBias) / Rp;
+      auto f4 = Ib + icgeq + y1(3) / Rg2 + (y1(3) - VBias) / Rg1 + (y1(3) - input[0][i]) * Cg;
       
       Vector F(Vector::Zero());
-      F << -(dt / 2 * (f1 + f1_old) + output[0][i-1] - y1(0)),
-           -(dt / 2 * (f2 + f2_old) + output[1][i-1] - y1(1)),
-           (g1),
-           (dt / 2 * (f4 + f4_old) - (output[3][i-1] - y1(3) + input[0][i] - input[0][i-1]));
+      F << f1,
+           f2,
+           f3,
+           f4;
 
       Matrix M(Matrix::Zero());
-      M << (1 + dt/2/(Rk * Ck) + dt/2*((Ib_Vbe + Ic_Vbe)/ Ck)), 0, dt/2*(Ib_Vbc + Ic_Vbc) / Ck, -dt/2*(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) / Ck,
-            0, 1 + dt/2*(Ro * Co), dt/2*(Ro * Co), 0,
-            -Rp * Ic_Vbe, Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vbc, Rp * (Ic_Vbe + Ic_Vbc),
-            -dt/2 * Ib_Vbe/Cg, 0, -dt/2 * Ib_Vbc/Cg, 1 + dt/2 * (1/Cg * ((1/Rg1 + 1/Rg2) + (Ib_Vbc + Ib_Vbe)));
+      M << -(Ib_Vbe + Ic_Vbe) - (1/Rk + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc),
+            0, 1/Ro + Co, 1/Ro, 0,
+            -Ic_Vbe, 1/Ro, -Ic_Vbc + 1/Ro + 1/Rp, (Ic_Vbe + Ic_Vbc),
+            -Ib_Vbe, 0, -Ib_Vbc, (Ib_Vbc + Ib_Vbe) + 1/Rg2 + 1/Rg1 + Cg;
 
       return std::make_pair(F, M);
     }
@@ -231,12 +232,12 @@ namespace ATK
   void TransistorClassAFilter<DataType_>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, 10, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, nb_max_iter, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
                     Rp, Rg1, Rg2, Ro, Rk, //R
                     VBias, // VBias
                     Cg, Co, Ck, // C
-                    Is, Vt, Br, Bf // transistor
-                    )));
+                    Is, Vt, Br, Bf, // transistor
+                    default_output)));
   }
 
   template<typename DataType_>
@@ -258,6 +259,8 @@ namespace ATK
     default_output[2] = -stable(0);
     default_output[3] = stable(0);
     default_output[4] = stable(2);
+
+    setup();
   }
 
   template<typename DataType_>
@@ -267,10 +270,9 @@ namespace ATK
 
     for(int64_t i = 0; i < size; ++i)
     {
-      optimizer->get_function().exp_y0 = std::make_pair(std::exp((outputs[4][i-1] - outputs[1][i-1]) / Vt), std::exp((outputs[4][i-1] - outputs[3][i-1]) / Vt));
-
       optimizer->optimize(i, converted_inputs.data(), outputs.data() + 1);
       outputs[0][i] = outputs[2][i] + outputs[3][i];
+      optimizer->get_function().update_state(i, converted_inputs.data(), outputs.data());
     }
   }
 
