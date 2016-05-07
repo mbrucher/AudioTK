@@ -74,11 +74,9 @@ namespace ATK
      * This means that the input has to be low to allow a proper amplification.
      */
     static TransistorClassAFilter build_standard_filter();
-    
-    ~TransistorClassAFilter();
-    
+
     void process_impl(int64_t size) const override final;
-    
+
     void setup() override final;
     void full_setup() override final;
   };

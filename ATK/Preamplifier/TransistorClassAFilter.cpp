@@ -222,11 +222,6 @@ namespace ATK
   {
     
   }
-
-  template <typename DataType>
-  TransistorClassAFilter<DataType>::~TransistorClassAFilter()
-  {
-  }
   
   template<typename DataType_>
   void TransistorClassAFilter<DataType_>::setup()
