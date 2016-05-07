@@ -259,8 +259,6 @@ namespace ATK
     default_output[2] = -stable(0);
     default_output[3] = stable(0);
     default_output[4] = stable(2);
-
-    setup();
   }
 
   template<typename DataType_>
