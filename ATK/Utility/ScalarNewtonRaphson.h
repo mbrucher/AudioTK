@@ -53,7 +53,7 @@ namespace ATK
         this->precision = std::sqrt(std::numeric_limits<DataType>::epsilon());
       }
     }
-    
+
 #if ATK_PROFILING == 1
     ~ScalarNewtonRaphson()
     {

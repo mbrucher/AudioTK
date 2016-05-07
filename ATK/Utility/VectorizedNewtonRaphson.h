@@ -36,7 +36,6 @@ namespace ATK
     int64_t nb_iterations;
     int64_t nb_optimizations;
 #endif
-    
     typedef Eigen::Matrix<DataType, size, 1> Vector;
     
   public:
