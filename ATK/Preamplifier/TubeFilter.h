@@ -45,8 +45,7 @@ namespace ATK
     std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true> > optimizer;
 
     const DataType_ Rp;
-    const DataType_ Rg1;
-    const DataType_ Rg2;
+    const DataType_ Rg;
     const DataType_ Ro;
     const DataType_ Rk;
     const DataType_ VBias;
@@ -59,7 +58,7 @@ namespace ATK
     const DataType_ Br;
     const DataType_ Bf;
 
-    TubeFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
+    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
   public:
     static TubeFilter build_standard_filter();
     
