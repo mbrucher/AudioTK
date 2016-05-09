@@ -120,13 +120,17 @@ namespace ATK
     }
   };
   
-  
   template <typename DataType>
   SD1OverdriveFilter<DataType>::SD1OverdriveFilter()
     :TypedBaseFilter<DataType>(1, 1), drive(0)
   {
     input_delay = 1;
     output_delay = 1;
+  }
+
+  template <typename DataType>
+  SD1OverdriveFilter<DataType>::~SD1OverdriveFilter()
+  {
   }
 
   template <typename DataType>
