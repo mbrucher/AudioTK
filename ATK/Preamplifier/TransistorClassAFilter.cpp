@@ -77,6 +77,11 @@ namespace ATK
 
     Vector estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
+      return affine_estimate(i, input, output);
+    }
+
+    Vector id_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    {
       Vector y0 = Vector::Zero();
       for(int j = 0; j < 4; ++j)
       {
@@ -85,7 +90,36 @@ namespace ATK
 
       return y0;
     }
-    
+
+    Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    {
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((output[3][i-1] - output[0][i-1]) / Vt), std::exp((output[3][i-1] - output[2][i-1]) / Vt));
+      
+      auto Ib = Lb(exp_y1);
+      auto Ic = Lc(exp_y1);
+      
+      auto Ib_Vbe = Lb_Vbe(exp_y1);
+      auto Ib_Vbc = Lb_Vce(exp_y1);
+      
+      auto Ic_Vbe = Lc_Vbe(exp_y1);
+      auto Ic_Vbc = Lc_Vce(exp_y1);
+
+      Vector y0(Vector::Zero());
+      Matrix M(Matrix::Zero());
+
+      y0 << -ickeq - (Ib - Ib_Vbe * (output[3][i-1] - output[0][i-1]) - Ib_Vbc * (output[3][i-1] - output[2][i-1]) + Ic - Ic_Vbe * (output[3][i-1] - output[0][i-1]) - Ic_Vbc * (output[3][i-1] - output[2][i-1])),
+      -icoeq,
+      VBias / Rp - (Ic - Ic_Vbe * (output[3][i-1] - output[0][i-1]) - Ic_Vbc * (output[3][i-1] - output[2][i-1])),
+      input[0][i] * Cg - icgeq + VBias / Rg1 - (Ib - Ib_Vbe * (output[3][i-1] - output[0][i-1]) - Ib_Vbc * (output[3][i-1] - output[2][i-1]));
+      
+      M << -(Ib_Vbe + Ic_Vbe) - (1/Rk + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc),
+        0, 1/Ro + Co, 1/Ro, 0,
+        -Ic_Vbe, 1/Ro, -Ic_Vbc + 1/Ro + 1/Rp, (Ic_Vbe + Ic_Vbc),
+        -Ib_Vbe, 0, -Ib_Vbc, (Ib_Vbc + Ib_Vbe) + 1/Rg2 + 1/Rg1 + Cg;
+      
+      return M.inverse() * y0;
+    }
+
     void update_state(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       ickeq = 2 * Ck * output[1][i] - ickeq;
