@@ -12,7 +12,52 @@
 namespace ATK
 {
   template <typename DataType_>
-  class TransistorClassAFilter<DataType_>::TransistorClassAFunction
+  class TransistorFunction
+  {
+  protected:
+    const DataType_ Is;
+    const DataType_ Vt;
+    const DataType_ Br;
+    const DataType_ Bf;
+
+    DataType_ Lb(const std::pair<DataType_, DataType_>& exp)
+    {
+      return Is * ((exp.first - 1) / Bf + (exp.second - 1) / Br);
+    }
+
+    DataType_ Lb_Vbe(const std::pair<DataType_, DataType_>& exp)
+    {
+      return Is / Vt * (exp.first / Bf + exp.second / Br);
+    }
+
+    DataType_ Lb_Vce(const std::pair<DataType_, DataType_>& exp)
+    {
+      return -Is / Vt * (exp.second / Br);
+    }
+
+    DataType_ Lc(const std::pair<DataType_, DataType_>& exp)
+    {
+      return Is * ((exp.first - exp.second) - (exp.second - 1) / Br);
+    }
+
+    DataType_ Lc_Vbe(const std::pair<DataType_, DataType_>& exp)
+    {
+      return Is / Vt * ((exp.first - exp.second) - exp.second / Br);
+    }
+
+    DataType_ Lc_Vce(const std::pair<DataType_, DataType_>& exp)
+    {
+      return Is / Vt * (exp.second + exp.second / Br);
+    }
+
+    TransistorFunction(DataType_ Is, DataType_ Vt, DataType_ Br, DataType_ Bf)
+      :Is(Is), Vt(Vt), Br(Br), Bf(Bf)
+    {
+    }
+  };
+
+  template <typename DataType_>
+  class TransistorClassAFilter<DataType_>::TransistorClassAFunction : public TransistorFunction<DataType_>
   {
     const DataType_ dt;
     
@@ -26,41 +71,6 @@ namespace ATK
     const DataType_ Co;
     const DataType_ Ck;
     
-    const DataType_ Is;
-    const DataType_ Vt;
-    const DataType_ Br;
-    const DataType_ Bf;
-    
-    DataType_ Lb(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is * ((exp.first - 1) / Bf + (exp.second - 1) / Br);
-    }
-    
-    DataType_ Lb_Vbe(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is / Vt * (exp.first / Bf + exp.second / Br);
-    }
-    
-    DataType_ Lb_Vce(const std::pair<DataType_, DataType_>& exp)
-    {
-      return -Is / Vt * (exp.second / Br);
-    }
-    
-    DataType_ Lc(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is * ((exp.first - exp.second) - (exp.second - 1) / Br);
-    }
-    
-    DataType_ Lc_Vbe(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is / Vt * ((exp.first - exp.second) - exp.second / Br);
-    }
-    
-    DataType_ Lc_Vce(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is / Vt * (exp.second + exp.second / Br);
-    }
-
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
@@ -69,7 +79,7 @@ namespace ATK
     std::pair<DataType, DataType> exp_y0;
 
     TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
-    :dt(dt), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
+    :TransistorFunction<DataType_>(Is, Vt, Br, Bf), dt(dt), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck)
     {
     }
 
@@ -128,7 +138,7 @@ namespace ATK
   };
   
   template <typename DataType_>
-  class TransistorClassAInitialFunction
+  class TransistorClassAInitialFunction : public TransistorFunction<DataType_>
   {
     const DataType_ Rp;
     const DataType_ Rg1;
@@ -137,48 +147,13 @@ namespace ATK
     const DataType_ Rk;
     const DataType_ VBias;
     
-    const DataType_ Is;
-    const DataType_ Vt;
-    const DataType_ Br;
-    const DataType_ Bf;
-    
-    DataType_ Lb(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is * ((exp.first - 1) / Bf + (exp.second - 1) / Br);
-    }
-    
-    DataType_ Lb_Vbe(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is / Vt * (exp.first / Bf + exp.second / Br);
-    }
-    
-    DataType_ Lb_Vce(const std::pair<DataType_, DataType_>& exp)
-    {
-      return -Is / Vt * (exp.second / Br);
-    }
-    
-    DataType_ Lc(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is * ((exp.first - exp.second) - (exp.second - 1) / Br);
-    }
-    
-    DataType_ Lc_Vbe(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is / Vt * ((exp.first - exp.second) - exp.second / Br);
-    }
-    
-    DataType_ Lc_Vce(const std::pair<DataType_, DataType_>& exp)
-    {
-      return Is / Vt * (exp.second + exp.second / Br);
-    }
-    
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 3, 1> Vector;
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
     
     TransistorClassAInitialFunction(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Is, DataType Vt, DataType Br, DataType Bf)
-    :Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
+    :TransistorFunction<DataType_>(Is, Vt, Br, Bf), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias)
     {
     }
     
