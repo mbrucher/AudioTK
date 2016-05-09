@@ -69,15 +69,14 @@ namespace ATK
     const DataType_ VBias;
     const DataType_ Co;
     const DataType_ Ck;
-    const DataType_ Cg;
 
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
-      :TubeFunction<DataType_>(Is, Vt, Br, Bf), dt(dt), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck)
+    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
+      :TubeFunction<DataType_>(Is, Vt, Br, Bf), dt(dt), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck)
     {
     }
 
@@ -175,15 +174,15 @@ namespace ATK
   };
 
   template <typename DataType>
-  TubeFilter<DataType>::TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
-    :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
+  TubeFilter<DataType>::TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
+    :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
   {
     input_delay = output_delay = 1;
   }
 
   template <typename DataType>
   TubeFilter<DataType>::TubeFilter(TubeFilter&& other)
-    :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Cg(other.Cg), Co(other.Co), Ck(other.Ck), Is(other.Is), Vt(other.Vt), Br(other.Br), Bf(other.Bf)
+    :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), Is(other.Is), Vt(other.Vt), Br(other.Br), Bf(other.Bf)
   {
   }
 
@@ -194,7 +193,7 @@ namespace ATK
     optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true>(CommonCathodeTriodeFunction(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
-      Cg, Co, Ck, // C
+      Co, Ck, // C
       Is, Vt, Br, Bf // transistor
       )));
   }
@@ -237,7 +236,7 @@ namespace ATK
   {
     return TubeFilter<DataType_>(100e3, 220e3, 22e3, 2.7e3, //R
       400, // VBias
-      0, 20e-9, 10e-6, // C
+      20e-9, 10e-6, // C
       1e-12, 26e-3, 1, 100 // transistor
       );
   }

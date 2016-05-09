@@ -49,7 +49,6 @@ namespace ATK
     const DataType_ Ro;
     const DataType_ Rk;
     const DataType_ VBias;
-    const DataType_ Cg;
     const DataType_ Co;
     const DataType_ Ck;
 
@@ -58,7 +57,7 @@ namespace ATK
     const DataType_ Br;
     const DataType_ Bf;
 
-    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
+    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
   public:
     static TubeFilter build_standard_filter();
     
