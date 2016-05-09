@@ -220,7 +220,11 @@ namespace ATK
   TransistorClassAFilter<DataType>::TransistorClassAFilter(TransistorClassAFilter&& other)
   :Parent(std::move(other)), Rp(other.Rp), Rg1(other.Rg1), Rg2(other.Rg2), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Cg(other.Cg), Co(other.Co), Ck(other.Ck), Is(other.Is), Vt(other.Vt), Br(other.Br), Bf(other.Bf)
   {
-    
+  }
+  
+  template <typename DataType>
+  TransistorClassAFilter<DataType>::~TransistorClassAFilter()
+  {
   }
   
   template<typename DataType_>
