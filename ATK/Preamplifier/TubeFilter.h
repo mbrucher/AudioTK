@@ -29,7 +29,7 @@ namespace ATK
   template<typename DataType_>
   class ATK_PREAMPLIFIER_EXPORT TubeFilter: public TypedBaseFilter<DataType_>
   {
-    class TubeFunction;
+    class CommonCathodeTriodeFunction;
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
@@ -42,16 +42,33 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
+    std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true> > optimizer;
 
-    std::unique_ptr<VectorizedNewtonRaphson<TubeFunction, 4, 10, true> > optimizer;
+    const DataType_ Rp;
+    const DataType_ Rg1;
+    const DataType_ Rg2;
+    const DataType_ Ro;
+    const DataType_ Rk;
+    const DataType_ VBias;
+    const DataType_ Cg;
+    const DataType_ Co;
+    const DataType_ Ck;
 
+    const DataType_ Is;
+    const DataType_ Vt;
+    const DataType_ Br;
+    const DataType_ Bf;
+
+    TubeFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
   public:
-    /// Build a new preamp filter
-    TubeFilter();
-    ~TubeFilter();
+    static TubeFilter build_standard_filter();
     
+    /// Move constructor
+    TubeFilter(TubeFilter&& other);
+
     void process_impl(int64_t size) const override final;
     
+    void full_setup() override final;
     void setup() override final;
   };
 }
