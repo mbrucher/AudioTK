@@ -81,8 +81,8 @@ namespace ATK
     
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib_old = Lb(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
-      auto Ic_old = Lc(output[0][i-1] - output[3][i-1], output[0][i-1] - output[2][i-1]);
+      auto Ib_old = Lb(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
+      auto Ic_old = Lc(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
 
       auto Ib = Lb(y1(0) - y1(3), y1(0) - y1(2));
       auto Ic = Lc(y1(0) - y1(3), y1(0) - y1(2));
@@ -109,10 +109,10 @@ namespace ATK
            (g2);
 
       Matrix M(Matrix::Zero());
-      M << (-1 -dt/2/(Rk * Ck))+ dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, -dt/2*(Ib_Vce + Ic_Vce) / Ck, -dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
+      M << (-1 -dt/2/(Rk * Ck)) - dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, dt/2*(Ib_Vce + Ic_Vce) / Ck, dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
             0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
-            Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro - Rp * Ic_Vce, - Rp * Ic_Vbe,
-            Rg * (Ib_Vbe + Ib_Vce), 0, -Rg * Ib_Vce, -Rg * Ib_Vbe + 1;
+            -Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro + Rp * Ic_Vce, Rp * Ic_Vbe,
+            -Rg * (Ib_Vbe + Ib_Vce), 0, Rg * Ib_Vce, Rg * Ib_Vbe + 1;
       
       return std::make_pair(F, M);
     }
