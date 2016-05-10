@@ -15,43 +15,60 @@ namespace ATK
   class TubeFunction
   {
   protected:
-    const DataType_ Is;
-    const DataType_ Vt;
-    const DataType_ Br;
-    const DataType_ Bf;
+    const DataType_ mu;
+    const DataType_ K;
+    const DataType_ Kp;
+    const DataType_ Kvb;
+    const DataType_ Kg;
+    const DataType_ Ex;
 
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      return Is * ((std::exp(Vbe / Vt) - 1) / Bf + (std::exp((Vce - Vbe) / Vt) - 1) / Br);
+      if(mu * Vbe + Vce > 0)
+        return K * std::pow(mu * Vbe + Vce, 1.5);
+      return 0;
     }
 
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return Is / Vt * (std::exp(Vbe / Vt) / Bf - std::exp((Vce - Vbe) / Vt) / Br);
+      if (mu * Vbe + Vce > 0)
+        return 0;
+      return 0;
     }
 
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      return Is / Vt * (std::exp((Vce - Vbe) / Vt) / Br);
+      if (mu * Vbe + Vce > 0)
+        return 0;
+      return 0;
     }
 
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
-      return Is * ((std::exp(Vbe / Vt) - std::exp((Vce - Vbe) / Vt)) - (std::exp((Vce - Vbe) / Vt) - 1) / Br);
+      if (Vce > 0)
+      {
+        DataType_ E1 = Vce / Kp * std::log(1 + std::exp(Kp * (1/mu + Vbe / std::sqrt(Kvb + Vce * Vce))));
+        return 2 / Kg * std::pow(E1, Ex);
+      }
+      return 0;
     }
 
     DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return Is / Vt * ((std::exp(Vbe / Vt) + std::exp((Vce - Vbe) / Vt)) + std::exp((Vce - Vbe) / Vt) / Br);
+      if (Vce > 0)
+        return 0;
+      return 0;
     }
 
     DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      return -Is / Vt * (std::exp((Vce - Vbe) / Vt) + std::exp((Vce - Vbe) / Vt) / Br);
+      if (Vce > 0)
+        return 0;
+      return 0;
     }
 
-    TubeFunction(DataType_ Is, DataType_ Vt, DataType_ Br, DataType_ Bf)
-      :Is(Is), Vt(Vt), Br(Br), Bf(Bf)
+    TubeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
+      :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex)
     {
     }
 
@@ -75,8 +92,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
-      :TubeFunction<DataType_>(Is, Vt, Br, Bf), dt(dt), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck)
+    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
+      :TubeFunction<DataType_>(mu, K, Kp, Kvb, Kg, Ex), dt(dt), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck)
     {
     }
 
@@ -145,8 +162,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 3, 1> Vector;
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
 
-    CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Is, DataType Vt, DataType Br, DataType Bf)
-      :TubeFunction<DataType_>(Is, Vt, Br, Bf), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias)
+    CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
+      :TubeFunction<DataType_>(mu, K, Kp, Kvb, Kg, Ex), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias)
     {
     }
 
@@ -176,15 +193,15 @@ namespace ATK
   };
 
   template <typename DataType>
-  TubeFilter<DataType>::TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf)
-    :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), Is(Is), Vt(Vt), Br(Br), Bf(Bf)
+  TubeFilter<DataType>::TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType mu, DataType K, DataType Kp, DataType Kvb, DataType Kg, DataType Ex)
+    :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex)
   {
     input_delay = output_delay = 1;
   }
 
   template <typename DataType>
   TubeFilter<DataType>::TubeFilter(TubeFilter&& other)
-    :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), Is(other.Is), Vt(other.Vt), Br(other.Br), Bf(other.Bf)
+    :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), mu(other.mu), K(other.K), Kp(other.Kp), Kvb(other.Kvb), Kg(other.Kg), Ex(other.Ex)
   {
   }
 
@@ -196,7 +213,7 @@ namespace ATK
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       Co, Ck, // C
-      Is, Vt, Br, Bf // transistor
+      mu, K, Kp, Kvb, Kg, Ex // tube
       )));
   }
 
@@ -209,7 +226,7 @@ namespace ATK
     SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType_>, 3, 10> custom(CommonCathodeTriodeInitialFunction<DataType_>(
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
-      Is, Vt, Br, Bf // transistor
+      mu, K, Kp, Kvb, Kg, Ex // tube
       ));
 
     auto stable = custom.optimize();
@@ -239,7 +256,7 @@ namespace ATK
     return TubeFilter<DataType_>(100e3, 220e3, 22e3, 2.7e3, //R
       400, // VBias
       20e-9, 10e-6, // C
-      1e-12, 26e-3, 1, 100 // transistor
+      88.5, 1.73e-6, 600, 300, 1060, 1.4 // transistor
       );
   }
 

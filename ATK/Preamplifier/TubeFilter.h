@@ -52,12 +52,14 @@ namespace ATK
     const DataType_ Co;
     const DataType_ Ck;
 
-    const DataType_ Is;
-    const DataType_ Vt;
-    const DataType_ Br;
-    const DataType_ Bf;
+    const DataType_ mu;
+    const DataType_ K;
+    const DataType_ Kp;
+    const DataType_ Kvb;
+    const DataType_ Kg;
+    const DataType_ Ex;
 
-    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
+    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex);
   public:
     static TubeFilter build_standard_filter();
     
