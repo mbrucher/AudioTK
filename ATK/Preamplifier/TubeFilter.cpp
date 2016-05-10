@@ -32,14 +32,14 @@ namespace ATK
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       if (mu * Vbe + Vce > 0)
-        return 0;
+        return K * mu * 1.5 * std::sqrt(mu * Vbe + Vce);
       return 0;
     }
 
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
       if (mu * Vbe + Vce > 0)
-        return 0;
+        return K * 1.5 * std::sqrt(mu * Vbe + Vce);;
       return 0;
     }
 
