@@ -269,9 +269,7 @@ namespace ATK
   template<typename DataType_>
   void TransistorClassAFilter<DataType_>::full_setup()
   {
-    Parent::full_setup();
     // setup default_output
-
     SimplifiedVectorizedNewtonRaphson<TransistorClassAInitialFunction<DataType_>, 3, 10> custom(TransistorClassAInitialFunction<DataType_>(
       Rp, Rg1, Rg2, Ro, Rk, //R
       VBias, // VBias
@@ -285,6 +283,8 @@ namespace ATK
     default_output[2] = -stable(0);
     default_output[3] = stable(0);
     default_output[4] = stable(2);
+    
+    Parent::full_setup();
   }
 
   template<typename DataType_>
