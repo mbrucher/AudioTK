@@ -249,9 +249,7 @@ namespace ATK
   template<typename DataType_>
   void TubeFilter<DataType_>::full_setup()
   {
-    Parent::full_setup();
     // setup default_output
-
     SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType_>, 3, 10> custom(CommonCathodeTriodeInitialFunction<DataType_>(
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
@@ -265,6 +263,8 @@ namespace ATK
     default_output[2] = -stable(0);
     default_output[3] = stable(0);
     default_output[4] = stable(1);
+
+    Parent::full_setup();
   }
 
   template<typename DataType_>
