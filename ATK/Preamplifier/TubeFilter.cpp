@@ -253,12 +253,15 @@ namespace ATK
   template<typename DataType_>
   void TubeFilter<DataType_>::full_setup()
   {
+    Eigen::Matrix<DataType, 3, 1> y0;
+    y0 << VBias, 0, 0;
+    
     // setup default_output
     SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType_>, 3, 10> custom(CommonCathodeTriodeInitialFunction<DataType_>(
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       mu, K, Kp, Kvb, Kg, Ex // tube
-      ));
+      ), y0);
 
     auto stable = custom.optimize();
 

@@ -22,7 +22,7 @@ namespace ATK
   /**
    * Output 0 is Vout
    * Output 1 is Ve
-   * Output 2 is Vout - Vb
+   * Output 2 is Vout - Ve
    * Output 3 is Vb
    * Output 4 is Vc
    */

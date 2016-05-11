@@ -30,7 +30,6 @@ namespace ATK
     Function function;
     
     DataType precision;
-    DataType maxstep;
     
 #if ATK_PROFILING == 1
     int64_t nb_iterations;
@@ -46,7 +45,7 @@ namespace ATK
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
     VectorizedNewtonRaphson(Function&& function, DataType precision = 0)
-    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(.1))
+    :function(std::move(function)), precision(precision)
 #if ATK_PROFILING == 1
     , nb_iterations(0), nb_optimizations(0)
 #endif

@@ -22,13 +22,13 @@ namespace ATK
   class SimplifiedVectorizedNewtonRaphson
   {
     typedef typename Function::DataType DataType;
-    
+    typedef Eigen::Matrix<DataType, size, 1> Vector;
+
     Function function;
     
     DataType precision;
     DataType maxstep;
-    
-    typedef Eigen::Matrix<DataType, size, 1> Vector;
+    Vector y0;
     
   public:
     /*!
