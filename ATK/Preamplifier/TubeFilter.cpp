@@ -32,14 +32,18 @@ namespace ATK
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       if (mu * Vbe + Vce > 0)
+      {
         return K * mu * 1.5 * std::sqrt(mu * Vbe + Vce);
+      }
       return 0;
     }
 
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
       if (mu * Vbe + Vce > 0)
-        return K * 1.5 * std::sqrt(mu * Vbe + Vce);;
+      {
+        return K * 1.5 * std::sqrt(mu * Vbe + Vce);
+      }
       return 0;
     }
 
@@ -71,7 +75,7 @@ namespace ATK
       {
         DataType_ E2 = 1 + std::exp(Kp * (1 / mu + Vbe / std::sqrt(Kvb + Vce * Vce)));
         DataType_ E1 = Vce / Kp * std::log(E2);
-        DataType_ E1p = 1/Kp * std::log(E2) + Vce / Kp / E2 * (E2 - 1) * Kp * Vce / std::pow(Kvb + Vce * Vce, 1.5);
+        DataType_ E1p = 1/Kp * std::log(E2) - Vce / Kp / E2 * (E2 - 1) * Kp * Vbe * Vce / std::pow(Kvb + Vce * Vce, 1.5);
         return 2 * Ex / Kg * std::pow(E1, Ex - 1) * E1p;
       }
       return 0;
