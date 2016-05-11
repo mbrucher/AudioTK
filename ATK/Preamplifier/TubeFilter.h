@@ -41,6 +41,7 @@ namespace ATK
     using Parent::output_delay;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+    using Parent::default_output;
   protected:
     std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true> > optimizer;
 
@@ -59,7 +60,7 @@ namespace ATK
     const DataType_ Kg;
     const DataType_ Ex;
 
-    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex);
+    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType mu, DataType K, DataType Kp, DataType Kvb, DataType Kg, DataType Ex);
   public:
     static TubeFilter build_standard_filter();
     

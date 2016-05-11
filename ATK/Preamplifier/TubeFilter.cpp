@@ -97,6 +97,13 @@ namespace ATK
     const DataType_ Co;
     const DataType_ Ck;
 
+    using TubeFunction<DataType_>::Lb;
+    using TubeFunction<DataType_>::Lb_Vbe;
+    using TubeFunction<DataType_>::Lb_Vce;
+    using TubeFunction<DataType_>::Lc;
+    using TubeFunction<DataType_>::Lc_Vbe;
+    using TubeFunction<DataType_>::Lc_Vce;
+
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
@@ -166,6 +173,13 @@ namespace ATK
     const DataType_ Ro;
     const DataType_ Rk;
     const DataType_ VBias;
+
+    using TubeFunction<DataType_>::Lb;
+    using TubeFunction<DataType_>::Lb_Vbe;
+    using TubeFunction<DataType_>::Lb_Vce;
+    using TubeFunction<DataType_>::Lc;
+    using TubeFunction<DataType_>::Lc_Vbe;
+    using TubeFunction<DataType_>::Lc_Vce;
 
   public:
     typedef DataType_ DataType;
