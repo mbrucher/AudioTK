@@ -57,7 +57,7 @@ namespace ATK
     {
       if (Vce > 0)
       {
-        DataType E2 = 1 + std::exp(Kp * (1 / mu + Vbe / std::sqrt(Kvb + Vce * Vce)));
+        DataType_ E2 = 1 + std::exp(Kp * (1 / mu + Vbe / std::sqrt(Kvb + Vce * Vce)));
         DataType_ E1 = Vce / Kp * std::log(E2);
         DataType_ E1p = Vce / Kp / E2 * (E2 - 1) * Kp / std::sqrt(Kvb + Vce * Vce);
         return 2 * Ex / Kg * std::pow(E1, Ex - 1) * E1p;
@@ -69,7 +69,7 @@ namespace ATK
     {
       if (Vce > 0)
       {
-        DataType E2 = 1 + std::exp(Kp * (1 / mu + Vbe / std::sqrt(Kvb + Vce * Vce)));
+        DataType_ E2 = 1 + std::exp(Kp * (1 / mu + Vbe / std::sqrt(Kvb + Vce * Vce)));
         DataType_ E1 = Vce / Kp * std::log(E2);
         DataType_ E1p = 1/Kp * std::log(E2) + Vce / Kp / E2 * (E2 - 1) * Kp * Vce / std::pow(Kvb + Vce * Vce, 1.5);
         return 2 * Ex / Kg * std::pow(E1, Ex - 1) * E1p;
@@ -212,6 +212,11 @@ namespace ATK
   template <typename DataType>
   TubeFilter<DataType>::TubeFilter(TubeFilter&& other)
     :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), mu(other.mu), K(other.K), Kp(other.Kp), Kvb(other.Kvb), Kg(other.Kg), Ex(other.Ex)
+  {
+  }
+
+  template<typename DataType_>
+  TubeFilter<DataType_>::~TubeFilter()
   {
   }
 

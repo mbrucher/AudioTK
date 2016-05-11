@@ -65,6 +65,8 @@ namespace ATK
     
     /// Move constructor
     TubeFilter(TubeFilter&& other);
+    /// Destructor
+    ~TubeFilter();
 
     void process_impl(int64_t size) const override final;
     
