@@ -57,10 +57,8 @@ namespace ATK
   };
 
   template <typename DataType_>
-  class TransistorClassAFilter<DataType_>::TransistorClassAFunction : public TransistorFunction<DataType_>
+  class TransistorClassAFilter<DataType_>::TransistorClassAFunction: public TransistorFunction<DataType_>
   {
-    const DataType_ dt;
-
     const DataType_ Rp;
     const DataType_ Rg1;
     const DataType_ Rg2;
@@ -91,7 +89,7 @@ namespace ATK
     std::pair<DataType, DataType> exp_y0;
 
     TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf, const std::vector<DataType>& default_output)
-      :TransistorFunction<DataType_>(Is, Vt, Br, Bf), dt(dt), Rp(1 / Rp), Rg1(1 / Rg1), Rg2(1 / Rg2), Ro(1 / Ro), Rk(1 / Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2])
+      :TransistorFunction<DataType_>(Is, Vt, Br, Bf), Rp(1/Rp), Rg1(1/Rg1), Rg2(1/Rg2), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2])
     {
     }
 
@@ -183,7 +181,7 @@ namespace ATK
   };
 
   template <typename DataType_>
-  class TransistorClassAInitialFunction : public TransistorFunction<DataType_>
+  class TransistorClassAInitialFunction: public TransistorFunction<DataType_>
   {
     const DataType_ Rp;
     const DataType_ Rg1;
@@ -283,7 +281,7 @@ namespace ATK
     default_output[2] = -stable(0);
     default_output[3] = stable(0);
     default_output[4] = stable(2);
-    
+
     Parent::full_setup();
   }
 
