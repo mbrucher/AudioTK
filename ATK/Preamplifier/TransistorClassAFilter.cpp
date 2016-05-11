@@ -223,8 +223,10 @@ namespace ATK
 
       Vector F(Vector::Zero());
       auto R = 1 / (1 / Rg1 + 1 / Rg2);
-      F << y1(0) - VBias + Ic * Rp, y1(1) - (Ib + Ic) * Rk, Ib * R + y1(2) - VBias / Rg1 * R;
-
+      F << y1(0) - VBias + Ic * Rp,
+       y1(1) - (Ib + Ic) * Rk,
+       Ib * R + y1(2) - VBias / Rg1 * R;
+      
       Matrix M(Matrix::Zero());
       M << 1 - Ic_Vbc * Rp, -Ic_Vbe * Rp, (Ic_Vbe + Ic_Vbc) * Rp,
         (Ib_Vbc + Ic_Vbc) * Rk, 1 + (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk, -(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk,
