@@ -37,8 +37,8 @@ namespace ATK
      *   It is a functor taking x[n-1], x[n], y[n-1] and an estimate y[n], returning the value of the cost function and its derivative according to y[n]
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
-    SimplifiedVectorizedNewtonRaphson(Function&& function, DataType precision = 0)
-    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(.1))
+    SimplifiedVectorizedNewtonRaphson(Function&& function, Vector y0 = Vector::Zero(), DataType precision = 0)
+    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10))
     {
       if(precision == 0)
       {
@@ -49,12 +49,20 @@ namespace ATK
     /// Optimize the function and sets its internal state
     Vector optimize()
     {
-      Vector y1(Vector::Zero());
+      Vector y1 = y0;
       int j;
       for(j = 0; j < max_iterations; ++j)
       {
         auto all = function(y1);
-        Vector cx = all.second.colPivHouseholderQr().solve(all.first);
+        Vector cx = all.second.inverse() * all.first;
+        auto maximum = cx.maxCoeff();
+        auto minimum = cx.minCoeff();
+        auto r = std::max(maximum, -minimum);
+        if(r > maxstep)
+        {
+          cx *= maxstep/r;
+        }
+
         auto yk = y1 - cx;
         if((cx.array().abs() < precision).all())
         {

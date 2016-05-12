@@ -22,9 +22,9 @@ namespace ATK
   /**
    * Output 0 is Vout
    * Output 1 is Ve
-   * Output 2 is Vout - Ve
-   * Output 3 is Vb
-   * Output 4 is Vc
+   * Output 2 is Vout - Vc
+   * Output 3 is Vc
+   * Output 4 is Vb
    */
   template<typename DataType_>
   class ATK_PREAMPLIFIER_EXPORT TubeFilter: public TypedBaseFilter<DataType_>
