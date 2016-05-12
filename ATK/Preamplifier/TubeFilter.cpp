@@ -197,14 +197,14 @@ namespace ATK
 
     std::pair<Vector, Matrix> operator()(const Vector& y1)
     {
-      auto Ib = Lb(y1(0) - y1(1), y1(0) - y1(2));
-      auto Ic = Lc(y1(0) - y1(1), y1(0) - y1(2));
+      auto Ib = Lb(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ic = Lc(y1(1) - y1(2), y1(0) - y1(2));
 
-      auto Ib_Vbe = Lb_Vbe(y1(0) - y1(1), y1(0) - y1(2));
-      auto Ib_Vce = Lb_Vce(y1(0) - y1(1), y1(0) - y1(2));
+      auto Ib_Vbe = Lb_Vbe(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ib_Vce = Lb_Vce(y1(1) - y1(2), y1(0) - y1(2));
 
-      auto Ic_Vbe = Lc_Vbe(y1(0) - y1(1), y1(0) - y1(2));
-      auto Ic_Vce = Lc_Vce(y1(0) - y1(1), y1(0) - y1(2));
+      auto Ic_Vbe = Lc_Vbe(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ic_Vce = Lc_Vce(y1(1) - y1(2), y1(0) - y1(2));
 
       Vector F(Vector::Zero());
       F << y1(0) - VBias + Ic * Rp,
@@ -212,9 +212,9 @@ namespace ATK
         y1(2) - (Ib + Ic) * Rk;
 
       Matrix M(Matrix::Zero());
-      M << 1 + Rp * (Ic_Vbe + Ic_Vce), -Rp * Ic_Vbe, -Rp * Ic_Vce,
-        (Ib_Vbe + Ib_Vce) * Rg, 1 - Rg * Ib_Vbe, -Rg * Ib_Vce,
-        -(Ic_Vbe + Ic_Vce + Ib_Vbe + Ib_Vce) * Rk, (Ic_Vbe + Ib_Vbe) * Rk, 1 + (Ic_Vce + Ib_Vce) * Rk;
+      M << 1 + Rp * Ic_Vce, Rp * Ic_Vbe, -Rp * (Ic_Vbe + Ic_Vce),
+        Ib_Vce * Rg, 1 + Rg * Ib_Vbe, -Rg * (Ib_Vbe + Ib_Vce),
+        -(Ic_Vce + Ib_Vce) * Rk, -(Ic_Vbe + Ib_Vbe) * Rk, 1 + (Ic_Vbe + Ic_Vce + Ib_Vbe + Ib_Vce) * Rk;
 
       return std::make_pair(F, M);
     }
