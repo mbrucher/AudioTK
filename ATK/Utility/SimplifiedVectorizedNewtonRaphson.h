@@ -38,7 +38,7 @@ namespace ATK
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
     SimplifiedVectorizedNewtonRaphson(Function&& function, Vector y0 = Vector::Zero(), DataType precision = 0)
-    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10))
+    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(y0)
     {
       if(precision == 0)
       {
