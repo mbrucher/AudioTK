@@ -1,5 +1,6 @@
 
 %{
+#include <ATK/Preamplifier/BasicTubeFunction.h>
 #include <ATK/Preamplifier/TubeFilter.h>
 %}
 

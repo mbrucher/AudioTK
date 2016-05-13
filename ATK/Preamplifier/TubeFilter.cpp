@@ -2,6 +2,7 @@
  * \file TubeFilter.cpp
  */
 
+#include "BasicTubeFunction.h"
 #include "TubeFilter.h"
 
 #include <cassert>
