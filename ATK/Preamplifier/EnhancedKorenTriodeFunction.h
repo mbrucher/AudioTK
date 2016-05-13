@@ -43,7 +43,7 @@ namespace ATK
   public:
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      exp_comp = std::exp(a * Vbe + Vphi);
+      exp_comp = std::exp(a * (Vbe + Vphi));
       ln_exp_comp_1 = std::log(1 + exp_comp);
       first_component = std::pow(ln_exp_comp_1, gamma - 1);
       return first_component * ln_exp_comp_1 * (1/(b * Vce + 1) + 1/c);
@@ -51,12 +51,12 @@ namespace ATK
     
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return (1/(b * Vce + 1) + 1/c) * first_component * 1/(1+exp_comp) * a * exp_comp;
+      return gamma * (1/(b * Vce + 1) + 1/c) * first_component / (1+exp_comp) * a * exp_comp;
     }
     
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      return - first_component * ln_exp_comp_1 * -b / ((b * Vce + 1)*(b * Vce + 1));
+      return - first_component * ln_exp_comp_1 * b / ((b * Vce + 1)*(b * Vce + 1));
     }
     
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
