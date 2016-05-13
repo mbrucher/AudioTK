@@ -3,7 +3,7 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Tools import DoubleOversampling6points5order_32Filter, DoubleOversampling6points5order_16Filter, DoubleOversampling6points5order_8Filter, DoubleOversampling6points5order_4Filter, DoubleDecimationFilter
 from ATK.EQ import DoubleButterworthLowPassFilter
-from ATK.Preamplifier import DoubleTubeFilter
+from ATK.Preamplifier import DoubleKorenTriodeFilter
 
 import numpy as np
 import scipy.signal as signal
@@ -26,7 +26,7 @@ def filter_32(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 32)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 32)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -54,7 +54,7 @@ def filter_16(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 16)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 16)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -82,7 +82,7 @@ def filter_8(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 8)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 8)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -110,7 +110,7 @@ def filter_4(input):
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 4)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 4)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()

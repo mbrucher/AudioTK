@@ -1,9 +1,9 @@
 /**
- * \file TubeFilter.cpp
+ * \file TriodeFilter.cpp
  */
 
-#include "BasicTubeFunction.h"
-#include "TubeFilter.h"
+#include "KorenTriodeFunction.h"
+#include "TriodeFilter.h"
 
 #include <cassert>
 
@@ -12,8 +12,8 @@
 
 namespace ATK
 {
-  template <typename DataType_, typename TubeFunction>
-  class TubeFilter<DataType_, TubeFunction>::CommonCathodeTriodeFunction
+  template <typename DataType_, typename TriodeFunction>
+  class TriodeFilter<DataType_, TriodeFunction>::CommonCathodeTriodeFunction
   {
     const DataType_ Rp;
     const DataType_ Rg;
@@ -26,14 +26,14 @@ namespace ATK
     DataType_ ickeq;
     DataType_ icoeq;
 
-    TubeFunction& tube_function;
+    TriodeFunction& tube_function;
 
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TubeFunction& tube_function, const std::vector<DataType>& default_output)
+    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
       :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
     {
     }
@@ -89,7 +89,7 @@ namespace ATK
 
   };
   
-  template <typename DataType_, typename TubeFunction>
+  template <typename DataType_, typename TriodeFunction>
   class CommonCathodeTriodeInitialFunction
   {
     const DataType_ Rp;
@@ -98,14 +98,14 @@ namespace ATK
     const DataType_ Rk;
     const DataType_ VBias;
 
-    TubeFunction& tube_function;
+    TriodeFunction& tube_function;
 
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 3, 1> Vector;
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
 
-    CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, TubeFunction& tube_function)
+    CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, TriodeFunction& tube_function)
       :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), tube_function(tube_function)
     {
     }
@@ -135,26 +135,26 @@ namespace ATK
     }
   };
 
-  template <typename DataType, typename TubeFunction>
-  TubeFilter<DataType, TubeFunction>::TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TubeFunction&& tube_function)
+  template <typename DataType, typename TriodeFunction>
+  TriodeFilter<DataType, TriodeFunction>::TriodeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function)
   :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), tube_function(std::move(tube_function))
   {
     input_delay = output_delay = 1;
   }
 
-  template <typename DataType, typename TubeFunction>
-  TubeFilter<DataType, TubeFunction>::TubeFilter(TubeFilter&& other)
+  template <typename DataType, typename TriodeFunction>
+  TriodeFilter<DataType, TriodeFunction>::TriodeFilter(TriodeFilter&& other)
   :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), tube_function(std::move(other.tube_function))
   {
   }
 
-  template<typename DataType,  typename TubeFunction>
-  TubeFilter<DataType, TubeFunction>::~TubeFilter()
+  template<typename DataType,  typename TriodeFunction>
+  TriodeFilter<DataType, TriodeFunction>::~TriodeFilter()
   {
   }
 
-  template<typename DataType,  typename TubeFunction>
-  void TubeFilter<DataType, TubeFunction>::setup()
+  template<typename DataType,  typename TriodeFunction>
+  void TriodeFilter<DataType, TriodeFunction>::setup()
   {
     Parent::setup();
     optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true>(CommonCathodeTriodeFunction(static_cast<DataType>(1. / input_sampling_rate),
@@ -165,14 +165,14 @@ namespace ATK
       default_output)));
   }
 
-  template<typename DataType, typename TubeFunction>
-  void TubeFilter<DataType, TubeFunction>::full_setup()
+  template<typename DataType, typename TriodeFunction>
+  void TriodeFilter<DataType, TriodeFunction>::full_setup()
   {
     Eigen::Matrix<DataType, 3, 1> y0;
     y0 << VBias, 0, 0;
     
     // setup default_output
-    SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType, TubeFunction>, 3, 20> custom(CommonCathodeTriodeInitialFunction<DataType, TubeFunction>(
+    SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType, TriodeFunction>, 3, 20> custom(CommonCathodeTriodeInitialFunction<DataType, TriodeFunction>(
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       tube_function // tube
@@ -189,8 +189,8 @@ namespace ATK
     Parent::full_setup();
   }
 
-  template<typename DataType, typename TubeFunction>
-  void TubeFilter<DataType, TubeFunction>::process_impl(int64_t size) const
+  template<typename DataType, typename TriodeFunction>
+  void TriodeFilter<DataType, TriodeFunction>::process_impl(int64_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
 
@@ -202,16 +202,16 @@ namespace ATK
     }
   }
 
-  template<typename DataType, typename TubeFunction>
-  TubeFilter<DataType, TubeFunction> TubeFilter<DataType, TubeFunction>::build_standard_filter()
+  template<typename DataType, typename TriodeFunction>
+  TriodeFilter<DataType, TriodeFunction> TriodeFilter<DataType, TriodeFunction>::build_standard_filter()
   {
-    return TubeFilter<DataType, TubeFunction>(200e3, 220e3, 220e3, 1e3, //R
+    return TriodeFilter<DataType, TriodeFunction>(200e3, 220e3, 220e3, 1e3, //R
       300, // VBias
       22e-9, 1e-6, // C
-      TubeFunction(100, 1.73e-6, 600, 300, 1060, 1.4) // tube
+      TriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4) // tube
       );
   }
 
-  template class TubeFilter<float, BasicTubeFunction<float> >;
-  template class TubeFilter<double, BasicTubeFunction<double> >;
+  template class TriodeFilter<float, KorenTriodeFunction<float> >;
+  template class TriodeFilter<double, KorenTriodeFunction<double> >;
 }

@@ -3,7 +3,7 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Tools import DoubleOversampling6points5order_32Filter, DoubleOversampling6points5order_16Filter, DoubleOversampling6points5order_8Filter, DoubleOversampling6points5order_4Filter, DoubleDecimationFilter
 from ATK.EQ import DoubleButterworthLowPassFilter
-from ATK.Preamplifier import DoubleTubeFilter
+from ATK.Preamplifier import DoubleKorenTriodeFilter
 
 def filter_32(input):
   import numpy as np
@@ -15,7 +15,7 @@ def filter_32(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 32)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 32)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -43,7 +43,7 @@ def filter_16(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 16)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 16)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -71,7 +71,7 @@ def filter_8(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 8)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 8)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -99,7 +99,7 @@ def filter_4(input):
   overfilter.set_input_sampling_rate(48000)
   overfilter.set_output_sampling_rate(48000 * 4)
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleTubeFilter.build_standard_filter()
+  overdrivefilter = DoubleKorenTriodeFilter.build_standard_filter()
   overdrivefilter.set_input_sampling_rate(48000 * 4)
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
@@ -119,10 +119,10 @@ def filter_4(input):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 1200
+  size = 12000
   
   x = np.arange(size).reshape(1, -1) / 48000.
-  d = np.sin(x * 2 * np.pi * 100)
+  d = np.sin(x * 2 * np.pi * 200) * 1
   np.savetxt("input.txt", d)
   out = filter_32(d)
   np.savetxt("output32.txt", out)

@@ -1,10 +1,10 @@
 /**
- * \file BasicTubeFunction.h
+ * \file KorenTriodeFunction.h
  * Heavily inspired by Simulation of a guitar amplifier stage for several triode models (Cohen and Helie)
  */
 
-#ifndef ATK_PREAMPLIFIER_BASICTUBEFUNCTION_H
-#define ATK_PREAMPLIFIER_BASICTUBEFUNCTION_H
+#ifndef ATK_PREAMPLIFIER_KORENTRIODEFUNCTION_H
+#define ATK_PREAMPLIFIER_KORENTRIODEFUNCTION_H
 
 #include <cmath>
 
@@ -12,7 +12,7 @@ namespace ATK
 {
   /// A simplified tube model
   template <typename DataType_>
-  class BasicTubeFunction
+  class KorenTriodeFunction
   {
   protected:
     const DataType_ mu;
@@ -88,7 +88,7 @@ namespace ATK
       return 0;
     }
     
-    BasicTubeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
+    KorenTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
     :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex)
     {
     }

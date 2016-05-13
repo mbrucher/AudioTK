@@ -1,10 +1,10 @@
 /**
- * \file TubeFilter.h
+ * \file TriodeFilter.h
  * Heavily inspired by Simulation of a guitar amplifier stage for several triode models (Cohen and Helie)
  */
 
-#ifndef ATK_PREAMPLIFIER_TUBEFILTER_H
-#define ATK_PREAMPLIFIER_TUBEFILTER_H
+#ifndef ATK_PREAMPLIFIER_TRIODEFILTER_H
+#define ATK_PREAMPLIFIER_TRIODEFILTER_H
 
 #include <list>
 #include <vector>
@@ -26,8 +26,8 @@ namespace ATK
    * Output 3 is Vc
    * Output 4 is Vb
    */
-  template<typename DataType_, typename TubeFunction>
-  class ATK_PREAMPLIFIER_EXPORT TubeFilter: public TypedBaseFilter<DataType_>
+  template<typename DataType_, typename TriodeFunction>
+  class ATK_PREAMPLIFIER_EXPORT TriodeFilter: public TypedBaseFilter<DataType_>
   {
     class CommonCathodeTriodeFunction;
   public:
@@ -53,16 +53,16 @@ namespace ATK
     const DataType_ Co;
     const DataType_ Ck;
 
-    TubeFunction tube_function;
+    TriodeFunction tube_function;
 
-    TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TubeFunction&& tube_function);
+    TriodeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function);
   public:
-    static TubeFilter build_standard_filter();
+    static TriodeFilter build_standard_filter();
     
     /// Move constructor
-    TubeFilter(TubeFilter&& other);
+    TriodeFilter(TriodeFilter&& other);
     /// Destructor
-    ~TubeFilter();
+    ~TriodeFilter();
 
     void process_impl(int64_t size) const override final;
     
