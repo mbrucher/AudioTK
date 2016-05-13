@@ -11,91 +11,8 @@
 
 namespace ATK
 {
-  template <typename DataType_>
-  class TubeFunction
-  {
-  protected:
-    const DataType_ mu;
-    const DataType_ K;
-    const DataType_ Kp;
-    const DataType_ Kvb;
-    const DataType_ Kg;
-    const DataType_ Ex;
-
-    DataType_ Lb(DataType_ Vbe, DataType_ Vce)
-    {
-      if(mu * Vbe + Vce > 0)
-        return K * std::sqrt(mu * Vbe + Vce) * (mu * Vbe + Vce);
-      return 0;
-    }
-
-    DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
-    {
-      if (mu * Vbe + Vce > 0)
-      {
-        return K * mu * 1.5 * std::sqrt(mu * Vbe + Vce);
-      }
-      return 0;
-    }
-
-    DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
-    {
-      if (mu * Vbe + Vce > 0)
-      {
-        return K * 1.5 * std::sqrt(mu * Vbe + Vce);
-      }
-      return 0;
-    }
-
-    DataType_ tmp;
-    DataType_ E2;
-    DataType_ lnE2;
-    DataType_ E1;
-    DataType_ E1_Ex1;
-
-    DataType_ Lc(DataType_ Vbe, DataType_ Vce)
-    {
-      if (Vce > 0)
-      {
-        tmp = std::sqrt(Kvb + Vce * Vce);
-        E2 = 1 + std::exp(Kp * (1 / mu + Vbe / tmp));
-        lnE2 = std::log(E2);
-        E1 = Vce / Kp * lnE2;
-        E1_Ex1 = std::pow(E1, Ex - 1);
-        return 2 / Kg * E1_Ex1 * E1;
-      }
-      return 0;
-    }
-
-    DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
-    {
-      if (Vce > 0)
-      {
-        DataType_ E1p = Vce / Kp / E2 * (E2 - 1) * Kp / tmp;
-        return 2 * Ex / Kg * E1_Ex1 * E1p;
-      }
-      return 0;
-    }
-
-    DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
-    {
-      if (Vce > 0)
-      {
-        DataType_ E1p = 1 / Kp * lnE2 - Vce / Kp / E2 * (E2 - 1) * Kp * Vbe * Vce / (tmp * (Kvb + Vce * Vce));
-        return 2 * Ex / Kg * E1_Ex1 * E1p;
-      }
-      return 0;
-    }
-
-    TubeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
-      :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex)
-    {
-    }
-
-  };
-
-  template <typename DataType_>
-  class TubeFilter<DataType_>::CommonCathodeTriodeFunction : public TubeFunction<DataType_>
+  template <typename DataType_, typename TubeFunction>
+  class TubeFilter<DataType_, TubeFunction>::CommonCathodeTriodeFunction
   {
     const DataType_ Rp;
     const DataType_ Rg;
@@ -108,20 +25,15 @@ namespace ATK
     DataType_ ickeq;
     DataType_ icoeq;
 
-    using TubeFunction<DataType_>::Lb;
-    using TubeFunction<DataType_>::Lb_Vbe;
-    using TubeFunction<DataType_>::Lb_Vce;
-    using TubeFunction<DataType_>::Lc;
-    using TubeFunction<DataType_>::Lc_Vbe;
-    using TubeFunction<DataType_>::Lc_Vce;
+    TubeFunction& tube_function;
 
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex, const std::vector<DataType>& default_output)
-      :TubeFunction<DataType_>(mu, K, Kp, Kvb, Kg, Ex), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2])
+    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TubeFunction& tube_function, const std::vector<DataType>& default_output)
+      :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
     {
     }
 
@@ -144,14 +56,14 @@ namespace ATK
 
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib = Lb(y1(3) - y1(0), y1(2) - y1(0));
-      auto Ic = Lc(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ib = tube_function.Lb(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ic = tube_function.Lc(y1(3) - y1(0), y1(2) - y1(0));
 
-      auto Ib_Vbe = Lb_Vbe(y1(3) - y1(0), y1(2) - y1(0));
-      auto Ib_Vce = Lb_Vce(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ib_Vbe = tube_function.Lb_Vbe(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ib_Vce = tube_function.Lb_Vce(y1(3) - y1(0), y1(2) - y1(0));
 
-      auto Ic_Vbe = Lc_Vbe(y1(3) - y1(0), y1(2) - y1(0));
-      auto Ic_Vce = Lc_Vce(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ic_Vbe = tube_function.Lc_Vbe(y1(3) - y1(0), y1(2) - y1(0));
+      auto Ic_Vce = tube_function.Lc_Vce(y1(3) - y1(0), y1(2) - y1(0));
 
       auto f1 = Ib + Ic + ickeq - y1(0) * (1/Rk + Ck);
       auto f2 = icoeq + (y1(1) + y1(2)) / Ro + y1(1) * Co;
@@ -176,8 +88,8 @@ namespace ATK
 
   };
   
-  template <typename DataType_>
-  class CommonCathodeTriodeInitialFunction : public TubeFunction<DataType_>
+  template <typename DataType_, typename TubeFunction>
+  class CommonCathodeTriodeInitialFunction
   {
     const DataType_ Rp;
     const DataType_ Rg;
@@ -185,33 +97,28 @@ namespace ATK
     const DataType_ Rk;
     const DataType_ VBias;
 
-    using TubeFunction<DataType_>::Lb;
-    using TubeFunction<DataType_>::Lb_Vbe;
-    using TubeFunction<DataType_>::Lb_Vce;
-    using TubeFunction<DataType_>::Lc;
-    using TubeFunction<DataType_>::Lc_Vbe;
-    using TubeFunction<DataType_>::Lc_Vce;
+    TubeFunction& tube_function;
 
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 3, 1> Vector;
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
 
-    CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
-      :TubeFunction<DataType_>(mu, K, Kp, Kvb, Kg, Ex), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias)
+    CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, TubeFunction& tube_function)
+      :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), tube_function(tube_function)
     {
     }
 
     std::pair<Vector, Matrix> operator()(const Vector& y1)
     {
-      auto Ib = Lb(y1(1) - y1(2), y1(0) - y1(2));
-      auto Ic = Lc(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ib = tube_function.Lb(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ic = tube_function.Lc(y1(1) - y1(2), y1(0) - y1(2));
 
-      auto Ib_Vbe = Lb_Vbe(y1(1) - y1(2), y1(0) - y1(2));
-      auto Ib_Vce = Lb_Vce(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ib_Vbe = tube_function.Lb_Vbe(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ib_Vce = tube_function.Lb_Vce(y1(1) - y1(2), y1(0) - y1(2));
 
-      auto Ic_Vbe = Lc_Vbe(y1(1) - y1(2), y1(0) - y1(2));
-      auto Ic_Vce = Lc_Vce(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ic_Vbe = tube_function.Lc_Vbe(y1(1) - y1(2), y1(0) - y1(2));
+      auto Ic_Vce = tube_function.Lc_Vce(y1(1) - y1(2), y1(0) - y1(2));
 
       Vector F(Vector::Zero());
       F << y1(0) - VBias + Ic * Rp,
@@ -227,47 +134,47 @@ namespace ATK
     }
   };
 
-  template <typename DataType>
-  TubeFilter<DataType>::TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType mu, DataType K, DataType Kp, DataType Kvb, DataType Kg, DataType Ex)
-    :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex)
+  template <typename DataType, typename TubeFunction>
+  TubeFilter<DataType, TubeFunction>::TubeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TubeFunction&& tube_function)
+  :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), tube_function(std::move(tube_function))
   {
     input_delay = output_delay = 1;
   }
 
-  template <typename DataType>
-  TubeFilter<DataType>::TubeFilter(TubeFilter&& other)
-    :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), mu(other.mu), K(other.K), Kp(other.Kp), Kvb(other.Kvb), Kg(other.Kg), Ex(other.Ex)
+  template <typename DataType, typename TubeFunction>
+  TubeFilter<DataType, TubeFunction>::TubeFilter(TubeFilter&& other)
+  :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), tube_function(std::move(other.tube_function))
   {
   }
 
-  template<typename DataType_>
-  TubeFilter<DataType_>::~TubeFilter()
+  template<typename DataType,  typename TubeFunction>
+  TubeFilter<DataType, TubeFunction>::~TubeFilter()
   {
   }
 
-  template<typename DataType_>
-  void TubeFilter<DataType_>::setup()
+  template<typename DataType,  typename TubeFunction>
+  void TubeFilter<DataType, TubeFunction>::setup()
   {
     Parent::setup();
     optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true>(CommonCathodeTriodeFunction(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       Co, Ck, // C
-      mu, K, Kp, Kvb, Kg, Ex, // tube
+      tube_function, // tube
       default_output)));
   }
 
-  template<typename DataType_>
-  void TubeFilter<DataType_>::full_setup()
+  template<typename DataType, typename TubeFunction>
+  void TubeFilter<DataType, TubeFunction>::full_setup()
   {
     Eigen::Matrix<DataType, 3, 1> y0;
     y0 << VBias, 0, 0;
     
     // setup default_output
-    SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType_>, 3, 10> custom(CommonCathodeTriodeInitialFunction<DataType_>(
+    SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType, TubeFunction>, 3, 20> custom(CommonCathodeTriodeInitialFunction<DataType, TubeFunction>(
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
-      mu, K, Kp, Kvb, Kg, Ex // tube
+      tube_function // tube
       ), y0);
 
     auto stable = custom.optimize();
@@ -281,8 +188,8 @@ namespace ATK
     Parent::full_setup();
   }
 
-  template<typename DataType_>
-  void TubeFilter<DataType_>::process_impl(int64_t size) const
+  template<typename DataType, typename TubeFunction>
+  void TubeFilter<DataType, TubeFunction>::process_impl(int64_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
 
@@ -294,16 +201,16 @@ namespace ATK
     }
   }
 
-  template<typename DataType_>
-  TubeFilter<DataType_> TubeFilter<DataType_>::build_standard_filter()
+  template<typename DataType, typename TubeFunction>
+  TubeFilter<DataType, TubeFunction> TubeFilter<DataType, TubeFunction>::build_standard_filter()
   {
-    return TubeFilter<DataType_>(100e3, 220e3, 22e3, 2.7e3, //R
-      400, // VBias
-      20e-9, 10e-6, // C
-      88.5, 1.73e-6, 600, 300, 1060, 1.4 // transistor
+    return TubeFilter<DataType, TubeFunction>(200e3, 220e3, 220e3, 1e3, //R
+      300, // VBias
+      22e-9, 1e-6, // C
+      TubeFunction(100, 1.73e-6, 600, 300, 1060, 1.4) // tube
       );
   }
 
-  template class TubeFilter<float>;
-  template class TubeFilter<double>;
+  template class TubeFilter<float, BasicTubeFunction<float> >;
+  template class TubeFilter<double, BasicTubeFunction<double> >;
 }
