@@ -2,6 +2,7 @@
  * \file TriodeFilter.cpp
  */
 
+#include "EnhancedKorenTriodeFunction.h"
 #include "KorenTriodeFunction.h"
 #include "TriodeFilter.h"
 
@@ -214,4 +215,6 @@ namespace ATK
 
   template class TriodeFilter<float, KorenTriodeFunction<float> >;
   template class TriodeFilter<double, KorenTriodeFunction<double> >;
+  template class TriodeFilter<float, EnhancedKorenTriodeFunction<float> >;
+  template class TriodeFilter<double, EnhancedKorenTriodeFunction<double> >;
 }

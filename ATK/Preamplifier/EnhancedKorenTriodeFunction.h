@@ -1,6 +1,7 @@
 /**
  * \file EnhancedKorenTriodeFunction.h
  * from Measures and models of real triodes, for the simulation of guitar amplifiers (Cohen and Helie)
+ * https://hal.archives-ouvertes.fr/hal-00811215
  */
 
 #ifndef ATK_PREAMPLIFIER_ENHANCEDKORENTRIODEFUNCTION_H
@@ -12,7 +13,7 @@ namespace ATK
 {
   /// A simplified tube model
   template <typename DataType_>
-  class KorenTriodeFunction
+  class EnhancedKorenTriodeFunction
   {
   protected:
     const DataType_ a;
@@ -29,6 +30,10 @@ namespace ATK
     const DataType_ Kg;
     const DataType_ Ex;
     
+    DataType_ exp_comp;
+    DataType_ ln_exp_comp_1;
+    DataType_ first_component;
+    
     DataType_ tmp;
     DataType_ E2;
     DataType_ lnE2;
@@ -38,27 +43,20 @@ namespace ATK
   public:
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      if(mu * Vbe + Vce > 0)
-        return K * std::sqrt(mu * Vbe + Vce) * (mu * Vbe + Vce);
-      return 0;
+      exp_comp = std::exp(a * Vbe + Vphi);
+      ln_exp_comp_1 = std::log(1 + exp_comp);
+      first_component = std::pow(ln_exp_comp_1, gamma - 1);
+      return first_component * ln_exp_comp_1 * (1/(b * Vce + 1) + 1/c);
     }
     
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      if (mu * Vbe + Vce > 0)
-      {
-        return K * mu * 1.5 * std::sqrt(mu * Vbe + Vce);
-      }
-      return 0;
+      return (1/(b * Vce + 1) + 1/c) * first_component * 1/(1+exp_comp) * a * exp_comp;
     }
     
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      if (mu * Vbe + Vce > 0)
-      {
-        return K * 1.5 * std::sqrt(mu * Vbe + Vce);
-      }
-      return 0;
+      return - first_component * ln_exp_comp_1 * -b / ((b * Vce + 1)*(b * Vce + 1));
     }
     
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
@@ -95,11 +93,16 @@ namespace ATK
       return 0;
     }
     
-    KorenTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Vct, DataType_ Kvb, DataType_ Kvb2, DataType_ Kg, DataType_ Ex)
-    :mu(mu), K(K), Kp(Kp), Vct(Vct), Kvb(Kvb), Kvb2(Kvb2), Kg(Kg), Ex(Ex)
+    EnhancedKorenTriodeFunction(DataType_ a, DataType_ b, DataType_ c, DataType_ Vphi, DataType_ gamma, DataType_ mu, DataType_ Kp, DataType_ Vct, DataType_ Kvb, DataType_ Kvb2, DataType_ Kg, DataType_ Ex)
+    :a(a), b(b), c(c), Vphi(Vphi), gamma(gamma), mu(mu), Kp(Kp), Vct(Vct), Kvb(Kvb), Kvb2(Kvb2), Kg(Kg), Ex(Ex)
     {
     }
-    
+
+    static EnhancedKorenTriodeFunction build_standard_function()
+    {
+      return EnhancedKorenTriodeFunction(17.32, 21238.8, 163757, -0.2227, 1.444, 105, 578.2, 0.378, 50, 18.8, 1335, 1.277);
+    }
+
   };
 }
 
