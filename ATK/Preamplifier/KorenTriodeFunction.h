@@ -93,6 +93,11 @@ namespace ATK
     {
     }
     
+    static KorenTriodeFunction build_standard_function()
+    {
+      return KorenTriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4);
+    }
+
   };
 }
 

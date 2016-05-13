@@ -208,7 +208,7 @@ namespace ATK
     return TriodeFilter<DataType, TriodeFunction>(200e3, 220e3, 220e3, 1e3, //R
       300, // VBias
       22e-9, 1e-6, // C
-      TriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4) // tube
+      TriodeFunction::build_standard_function() // tube
       );
   }
 
