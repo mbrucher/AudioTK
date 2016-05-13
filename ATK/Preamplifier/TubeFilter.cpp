@@ -97,8 +97,6 @@ namespace ATK
   template <typename DataType_>
   class TubeFilter<DataType_>::CommonCathodeTriodeFunction : public TubeFunction<DataType_>
   {
-    const DataType_ dt;
-    
     const DataType_ Rp;
     const DataType_ Rg;
     const DataType_ Ro;
@@ -106,6 +104,9 @@ namespace ATK
     const DataType_ VBias;
     const DataType_ Co;
     const DataType_ Ck;
+
+    DataType_ ickeq;
+    DataType_ icoeq;
 
     using TubeFunction<DataType_>::Lb;
     using TubeFunction<DataType_>::Lb_Vbe;
@@ -119,8 +120,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
-      :TubeFunction<DataType_>(mu, K, Kp, Kvb, Kg, Ex), dt(dt), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck)
+    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex, const std::vector<DataType>& default_output)
+      :TubeFunction<DataType_>(mu, K, Kp, Kvb, Kg, Ex), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2])
     {
     }
 
@@ -135,11 +136,14 @@ namespace ATK
       return y0;
     }
     
+    void update_state(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    {
+      ickeq = 2 * Ck * output[1][i] - ickeq;
+      icoeq = -2 * Co * output[2][i] - icoeq;
+    }
+
     std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      auto Ib_old = Lb(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
-      auto Ic_old = Lc(output[3][i-1] - output[0][i-1], output[2][i-1] - output[0][i-1]);
-
       auto Ib = Lb(y1(3) - y1(0), y1(2) - y1(0));
       auto Ic = Lc(y1(3) - y1(0), y1(2) - y1(0));
 
@@ -149,24 +153,21 @@ namespace ATK
       auto Ic_Vbe = Lc_Vbe(y1(3) - y1(0), y1(2) - y1(0));
       auto Ic_Vce = Lc_Vce(y1(3) - y1(0), y1(2) - y1(0));
 
-      auto f1_old = - output[0][i-1] / (Rk * Ck) + (Ib_old + Ic_old) / Ck;
-      auto f2_old = - (output[1][i-1] + output[2][i-1]) / (Ro * Co);
-
-      auto f1 = - y1(0) / (Rk * Ck) + (Ib + Ic) / Ck;
-      auto f2 = - (y1(1) + y1(2)) / (Ro * Co);
+      auto f1 = Ib + Ic + ickeq - y1(0) * (1/Rk + Ck);
+      auto f2 = icoeq + (y1(1) + y1(2)) / Ro + y1(1) * Co;
 
       auto g1 = y1(2) + Rp * (Ic + (y1(1) + y1(2)) / Ro) - VBias;
       auto g2 = y1(3) - input[0][i] + Rg * Ib;
       
       Vector F(Vector::Zero());
-      F << (dt / 2 * (f1 + f1_old) + output[0][i-1] - y1(0)),
-           (dt / 2 * (f2 + f2_old) + output[1][i-1] - y1(1)),
-           (g1),
-           (g2);
+      F << f1,
+           f2,
+           g1,
+           g2;
 
       Matrix M(Matrix::Zero());
-      M << (-1 -dt/2/(Rk * Ck)) - dt/2*((Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce)/ Ck), 0, dt/2*(Ib_Vce + Ic_Vce) / Ck, dt/2*(Ib_Vbe + Ic_Vbe) / Ck,
-            0, -1 -dt/2*(Ro * Co), -dt/2*(Ro * Co), 0,
+      M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (1/Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
+            0, 1/Ro + Co, 1/Ro, 0,
             -Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro + Rp * Ic_Vce, Rp * Ic_Vbe,
             -Rg * (Ib_Vbe + Ib_Vce), 0, Rg * Ib_Vce, Rg * Ib_Vbe + 1;
       
@@ -252,8 +253,8 @@ namespace ATK
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       Co, Ck, // C
-      mu, K, Kp, Kvb, Kg, Ex // tube
-      )));
+      mu, K, Kp, Kvb, Kg, Ex, // tube
+      default_output)));
   }
 
   template<typename DataType_>
@@ -289,6 +290,7 @@ namespace ATK
     {
       optimizer->optimize(i, converted_inputs.data(), outputs.data() + 1);
       outputs[0][i] = outputs[2][i] + outputs[3][i];
+      optimizer->get_function().update_state(i, converted_inputs.data(), outputs.data());
     }
   }
 
