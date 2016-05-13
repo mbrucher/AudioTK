@@ -25,7 +25,7 @@ namespace ATK
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
       if(mu * Vbe + Vce > 0)
-        return K * std::pow(mu * Vbe + Vce, 1.5);
+        return K * std::sqrt(mu * Vbe + Vce) * (mu * Vbe + Vce);
       return 0;
     }
 
@@ -47,12 +47,22 @@ namespace ATK
       return 0;
     }
 
+    DataType_ tmp;
+    DataType_ E2;
+    DataType_ lnE2;
+    DataType_ E1;
+    DataType_ E1_Ex1;
+
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
       if (Vce > 0)
       {
-        DataType_ E1 = Vce / Kp * std::log(1 + std::exp(Kp * (1/mu + Vbe / std::sqrt(Kvb + Vce * Vce))));
-        return 2 / Kg * std::pow(E1, Ex);
+        tmp = std::sqrt(Kvb + Vce * Vce);
+        E2 = 1 + std::exp(Kp * (1 / mu + Vbe / tmp));
+        lnE2 = std::log(E2);
+        E1 = Vce / Kp * lnE2;
+        E1_Ex1 = std::pow(E1, Ex - 1);
+        return 2 / Kg * E1_Ex1 * E1;
       }
       return 0;
     }
@@ -61,10 +71,8 @@ namespace ATK
     {
       if (Vce > 0)
       {
-        DataType_ E2 = 1 + std::exp(Kp * (1 / mu + Vbe / std::sqrt(Kvb + Vce * Vce)));
-        DataType_ E1 = Vce / Kp * std::log(E2);
-        DataType_ E1p = Vce / Kp / E2 * (E2 - 1) * Kp / std::sqrt(Kvb + Vce * Vce);
-        return 2 * Ex / Kg * std::pow(E1, Ex - 1) * E1p;
+        DataType_ E1p = Vce / Kp / E2 * (E2 - 1) * Kp / tmp;
+        return 2 * Ex / Kg * E1_Ex1 * E1p;
       }
       return 0;
     }
@@ -73,10 +81,8 @@ namespace ATK
     {
       if (Vce > 0)
       {
-        DataType_ E2 = 1 + std::exp(Kp * (1 / mu + Vbe / std::sqrt(Kvb + Vce * Vce)));
-        DataType_ E1 = Vce / Kp * std::log(E2);
-        DataType_ E1p = 1/Kp * std::log(E2) - Vce / Kp / E2 * (E2 - 1) * Kp * Vbe * Vce / std::pow(Kvb + Vce * Vce, 1.5);
-        return 2 * Ex / Kg * std::pow(E1, Ex - 1) * E1p;
+        DataType_ E1p = 1 / Kp * lnE2 - Vce / Kp / E2 * (E2 - 1) * Kp * Vbe * Vce / (tmp * (Kvb + Vce * Vce));
+        return 2 * Ex / Kg * E1_Ex1 * E1p;
       }
       return 0;
     }
