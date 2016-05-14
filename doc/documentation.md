@@ -128,8 +128,10 @@ Distortion module
 
 The *Distortion* module contains filters simulation distortion circuits.
 
-* **SimpleOverdriveFilter** is a Newton-Raphson simulation of a diode clipper
+* **DiodeClipperFilter** is a Newton-Raphson simulation of a diode clipper
+* **SimpleOverdriveFilter** is a Newton-Raphson simulation of another diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
+* **SVFSD1OverdriveFilter** is a variation of the previous overdrive
 
 Reverberation module
 --------------------

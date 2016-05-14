@@ -12,6 +12,7 @@
 
 %include "../Core/BaseFilter.i"
 %include "ApplyGainFilter.i"
+%include "BufferFilter.i"
 %include "CachedCosinusGeneratorFilter.i"
 %include "CachedSinusGeneratorFilter.i"
 %include "DecimationFilter.i"
@@ -23,6 +24,7 @@
 %include "OversamplingFilter.i"
 %include "PanFilter.i"
 %include "SumFilter.i"
+%include "TanFilter.i"
 %include "VolumeFilter.i"
 %include "WhiteNoiseGeneratorFilter.i"
 

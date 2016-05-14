@@ -37,12 +37,14 @@ namespace ATK
     /// AR part of the filter, based on the electronic components specifications
     std::vector<DataType> coefficients_out;
     
-  public:
     /*!
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
     ToneStackFilterCoefficients(int nb_channels = 1);
+  public:
+    /// Move constructor
+    ToneStackFilterCoefficients(ToneStackFilterCoefficients&& other);
 
     /// Changes the low section parameter of the stack
     void set_low(DataType_ alpha);
@@ -58,9 +60,9 @@ namespace ATK
     DataType_ get_high() const;
     
     /// Builds a Bassman stack equivalent filter (bass, Fender)
-    static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildBassmanStack();
+    static IIRFilter<ToneStackFilterCoefficients<DataType_> >&& buildBassmanStack();
     /// Builds a JCM800 stack equivalent filter (guitar, Marshall)
-    static IIRFilter<ToneStackFilterCoefficients<DataType_> >* buildJCM800Stack();
+    static IIRFilter<ToneStackFilterCoefficients<DataType_> >&& buildJCM800Stack();
 
   protected:
   /// Sets the specific coefficients for a given stack

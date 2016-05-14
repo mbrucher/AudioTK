@@ -142,7 +142,6 @@ namespace ATK
   void ConvolutionFilter<DataType_>::process_impl(int64_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
-    assert(nb_input_ports == nb_output_ports);
     
     int64_t processed_size = 0;
     do

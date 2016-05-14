@@ -38,8 +38,10 @@ namespace ATK
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
     
-    std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
+    std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
+      auto x1 = input[0];
+      auto y0 = output[-1];
       DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       DataType expdiode_y0_p;
@@ -74,8 +76,11 @@ namespace ATK
       return std::make_pair(y0 - y1 + 2 * A * x1 - (A * (y1 + y0) + B * (diode.first + old_diode)), -1 - A - B * diode.second);
     }
 
-    DataType estimate(DataType x0, DataType x1, DataType y0)
+    DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       return affine_estimate(x0, x1, y0);
     }
 
@@ -104,6 +109,8 @@ namespace ATK
   DiodeClipperFilter<DataType>::DiodeClipperFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
+    input_delay = 1;
+    output_delay = 1;
   }
 
   template <typename DataType>
@@ -126,7 +133,7 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
     {
-      output[i] = optimizer->optimize(input[i]);
+      optimizer->optimize(input + i, output + i);
     }
   }
 
@@ -161,8 +168,10 @@ namespace ATK
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
     
-    std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
+    std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
+      auto x1 = input[0];
+      auto y0 = output[-1];
       DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       DataType expdiode_y0_p;
@@ -196,8 +205,11 @@ namespace ATK
       return std::make_pair(y0 - y1 + A * x1 - (A * y1 + B * diode.first), -1 - A - B * diode.second);
     }
     
-    DataType estimate(DataType x0, DataType x1, DataType y0)
+    DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       return id_estimate(x0, x1, y0);
     }
     
@@ -226,6 +238,8 @@ namespace ATK
   BackwardDiodeClipperFilter<DataType>::BackwardDiodeClipperFilter()
   :TypedBaseFilter<DataType>(1, 1)
   {
+    input_delay = 1;
+    output_delay = 1;
   }
   
   template <typename DataType>
@@ -248,7 +262,7 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
     {
-      output[i] = optimizer->optimize(input[i]);
+      optimizer->optimize(input + i, output + i);
     }
   }
   

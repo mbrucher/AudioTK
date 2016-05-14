@@ -18,6 +18,13 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 1.3.0
+* Added a family of triode preamplification filters with Python wrappers (requires Eigen)
+* Added a class A NPN preamplification filter with Python wrappers (requires Eigen)
+* Added a buffer filter with Python wrappers
+* Added a new Diode clipper with trapezoidal rule with Python wrappers
+* Added a new version of the SD1 distortion with ZDF mode and Python wrappers
+
 ### 1.2.0
 * Added SecondOrderSVF filters from cytomic with Python wrappers
 * Implemented a LowPassReverbFilter with Python wrappers
@@ -168,10 +175,11 @@ Install
 * C++11 compiler
 * CMake
 * Boost 1.60
-* FFT library:
+* FFT library (for some filters like the fast convolution filter)
   * FFTW (default)
   * Accelerate
 * Python with numpy (for Python support)
+* Eigen (for some complex modules)
 * libsndfile (for sound file I/O)
 
 ### Procedure
@@ -179,3 +187,8 @@ Install
 * Start CMake
 * Configure your options
 * Run make, Visual Studio or XCode
+
+Known Issues
+------------
+
+* If a plugin uses the same buffers for input and output and the pipeline has two subgraphs, one from left to right and one to left (for instance), then they are processed in order and the second graph would use the result of the first branch. To fix this, add a BufferFilter just after the input filter so that they are all buffered and copied to an intermediate buffer when the first one is used. It adds a copy, so only use this fix when you have this specific configuration for a pipeline.

@@ -8,7 +8,6 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
-#include <ATK/Utility/exp.h>
 #include <ATK/Utility/ScalarNewtonRaphson.h>
 
 namespace ATK
@@ -19,13 +18,13 @@ namespace ATK
   public:
     typedef DataType_ DataType;
   protected:
-    DataType A;
-    DataType B;
-    DataType R1;
-    DataType Q;
+    const DataType A;
+    const DataType B;
+    const DataType R1;
+    const DataType Q;
     DataType drive;
-    DataType is;
-    DataType vt;
+    const DataType is;
+    const DataType vt;
 
     DataType oldy0;
     DataType oldexpy0;
@@ -33,15 +32,11 @@ namespace ATK
     DataType oldy1;
     DataType oldexpy1;
     DataType oldinvexpy1;
-    
-    Exp<DataType> exp;
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-    :R1(R1), Q(Q), drive(0.5), is(is), vt(vt), exp(32, 1024*1024)
+    :A(dt / (2 * C) + R), B(dt / (2 * C) - R), R1(R1), Q(Q), drive(0.5), is(is), vt(vt)
     {
-      A = dt / (2 * C) + R;
-      B = dt / (2 * C) - R;
       oldy0 = oldy1 = 0;
       oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
@@ -51,11 +46,14 @@ namespace ATK
       this->drive = (R1 + drive * Q);
     }
     
-    std::pair<DataType, DataType> operator()(DataType x0, DataType x1, DataType y0, DataType y1)
+    std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       y0 -= x0;
       y1 -= x1;
-      DataType expdiode_y1_p = exp(y1 / vt);
+      DataType expdiode_y1_p = std::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       
       DataType expdiode_y0_p;
@@ -73,7 +71,7 @@ namespace ATK
 	    }
 	    else
 	    {
-	      expdiode_y0_p = exp(y0 / vt);
+	      expdiode_y0_p = std::exp(y0 / vt);
 	      expdiode_y0_m = 1 / expdiode_y0_p;
 	    }
 	  
@@ -85,13 +83,17 @@ namespace ATK
       oldexpy1 = expdiode_y1_p;
       oldinvexpy1 = expdiode_y1_m;
   
-      std::pair<DataType, DataType> diode1 = std::make_pair(is * (expdiode_y1_p - 2 * expdiode_y1_m + 1), is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt);
+      DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
+      DataType diode1_derivative = is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt;
       DataType diode0 = is * (expdiode_y0_p - 2 * expdiode_y0_m + 1);
-      return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1.first + B * diode0, (A / drive) + A * diode1.second);
+      return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1 + B * diode0, (A / drive) + A * diode1_derivative);
     }
 
-    DataType estimate(DataType x0, DataType x1, DataType y0)
+    DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
+      auto x0 = input[-1];
+      auto x1 = input[0];
+      auto y0 = output[-1];
       return affine_estimate(x0, x1, y0);
     }
     
@@ -118,11 +120,12 @@ namespace ATK
     }
   };
   
-  
   template <typename DataType>
   SD1OverdriveFilter<DataType>::SD1OverdriveFilter()
     :TypedBaseFilter<DataType>(1, 1), drive(0)
   {
+    input_delay = 1;
+    output_delay = 1;
   }
 
   template <typename DataType>
@@ -159,7 +162,7 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(int64_t i = 0; i < size; ++i)
     {
-      output[i] = optimizer->optimize(input[i]);
+      optimizer->optimize(input + i, output + i);
     }
   }
 

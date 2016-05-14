@@ -9,12 +9,12 @@ namespace ATK
   class SecondOrderSVFFilter: public Coefficients
   {
   public:
-    SecondOrderSVFFilter();
+    SecondOrderSVFFilter(int nb_channels=1);
     ~SecondOrderSVFFilter();
   };
   
   template<class DataType>
-  class BaseSecondOrderSVFCoefficients: public BaseFilter
+  class SecondOrderSVFBaseCoefficients: public BaseFilter
   {
   public:
     void set_cut_frequency(DataType cut_frequency);
@@ -24,32 +24,32 @@ namespace ATK
   };
   
   template<class DataType>
-  class LowSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFLowPassCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   };
   
   template<class DataType>
-  class BandSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFBandPassCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   };
   
   template<class DataType>
-  class HighSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFHighPassCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   };
   
   template<class DataType>
-  class NotchSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFNotchCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   };
   
   template<class DataType>
-  class PeakSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFPeakCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   };
    
   template<class DataType>
-  class BellSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFBellCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   public:
     void set_gain(DataType gain);
@@ -57,7 +57,7 @@ namespace ATK
   };
 
   template<class DataType>
-  class LowShelfSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFLowShelfCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   public:
     void set_gain(DataType gain);
@@ -65,7 +65,7 @@ namespace ATK
   };
 
   template<class DataType>
-  class HighShelfSecondOrderSVFCoefficients: public BaseSecondOrderSVFCoefficients<DataType>
+  class SecondOrderSVFHighShelfCoefficients: public SecondOrderSVFBaseCoefficients<DataType>
   {
   public:
     void set_gain(DataType gain);
@@ -73,40 +73,40 @@ namespace ATK
   };
 }
 
-%template(FloatBaseSecondOrderSVFCoefficients) ATK::BaseSecondOrderSVFCoefficients<float>;
-%template(DoubleBaseSecondOrderSVFCoefficients) ATK::BaseSecondOrderSVFCoefficients<double>;
+%template(FloatSecondOrderSVFBaseCoefficients) ATK::SecondOrderSVFBaseCoefficients<float>;
+%template(DoubleSecondOrderSVFBaseCoefficients) ATK::SecondOrderSVFBaseCoefficients<double>;
 
-%template(FloatLowSecondOrderSVFCoefficients) ATK::LowSecondOrderSVFCoefficients<float>;
-%template(DoubleLowSecondOrderSVFCoefficients) ATK::LowSecondOrderSVFCoefficients<double>;
-%template(FloatBandSecondOrderSVFCoefficients) ATK::BandSecondOrderSVFCoefficients<float>;
-%template(DoubleBandSecondOrderSVFCoefficients) ATK::BandSecondOrderSVFCoefficients<double>;
-%template(FloatHighSecondOrderSVFCoefficients) ATK::HighSecondOrderSVFCoefficients<float>;
-%template(DoubleHighSecondOrderSVFCoefficients) ATK::HighSecondOrderSVFCoefficients<double>;
-%template(FloatNotchSecondOrderSVFCoefficients) ATK::NotchSecondOrderSVFCoefficients<float>;
-%template(DoubleNotchSecondOrderSVFCoefficients) ATK::NotchSecondOrderSVFCoefficients<double>;
-%template(FloatPeakSecondOrderSVFCoefficients) ATK::PeakSecondOrderSVFCoefficients<float>;
-%template(DoublePeakSecondOrderSVFCoefficients) ATK::PeakSecondOrderSVFCoefficients<double>;
-%template(FloatBellSecondOrderSVFCoefficients) ATK::BellSecondOrderSVFCoefficients<float>;
-%template(DoubleBellSecondOrderSVFCoefficients) ATK::BellSecondOrderSVFCoefficients<double>;
-%template(FloatLowShelfSecondOrderSVFCoefficients) ATK::LowShelfSecondOrderSVFCoefficients<float>;
-%template(DoubleLowShelfSecondOrderSVFCoefficients) ATK::LowShelfSecondOrderSVFCoefficients<double>;
-%template(FloatHighShelfSecondOrderSVFCoefficients) ATK::HighShelfSecondOrderSVFCoefficients<float>;
-%template(DoubleHighShelfSecondOrderSVFCoefficients) ATK::HighShelfSecondOrderSVFCoefficients<double>;
+%template(FloatSecondOrderSVFLowPassCoefficients) ATK::SecondOrderSVFLowPassCoefficients<float>;
+%template(DoubleSecondOrderSVFLowPassCoefficients) ATK::SecondOrderSVFLowPassCoefficients<double>;
+%template(FloatSecondOrderSVFBandPassCoefficients) ATK::SecondOrderSVFBandPassCoefficients<float>;
+%template(DoubleSecondOrderSVFBandPassCoefficients) ATK::SecondOrderSVFBandPassCoefficients<double>;
+%template(FloatSecondOrderSVFHighPassCoefficients) ATK::SecondOrderSVFHighPassCoefficients<float>;
+%template(DoubleSecondOrderSVFHighPassCoefficients) ATK::SecondOrderSVFHighPassCoefficients<double>;
+%template(FloatSecondOrderSVFNotchCoefficients) ATK::SecondOrderSVFNotchCoefficients<float>;
+%template(DoubleSecondOrderSVFNotchCoefficients) ATK::SecondOrderSVFNotchCoefficients<double>;
+%template(FloatSecondOrderSVFPeakCoefficients) ATK::SecondOrderSVFPeakCoefficients<float>;
+%template(DoubleSecondOrderSVFPeakCoefficients) ATK::SecondOrderSVFPeakCoefficients<double>;
+%template(FloatSecondOrderSVFBellCoefficients) ATK::SecondOrderSVFBellCoefficients<float>;
+%template(DoubleSecondOrderSVFBellCoefficients) ATK::SecondOrderSVFBellCoefficients<double>;
+%template(FloatSecondOrderSVFLowShelfCoefficients) ATK::SecondOrderSVFLowShelfCoefficients<float>;
+%template(DoubleSecondOrderSVFLowShelfCoefficients) ATK::SecondOrderSVFLowShelfCoefficients<double>;
+%template(FloatSecondOrderSVFHighShelfCoefficients) ATK::SecondOrderSVFHighShelfCoefficients<float>;
+%template(DoubleSecondOrderSVFHighShelfCoefficients) ATK::SecondOrderSVFHighShelfCoefficients<double>;
 
 
-%template(FloatLowSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::LowSecondOrderSVFCoefficients<float> >;
-%template(DoubleLowSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::LowSecondOrderSVFCoefficients<double> >;
-%template(FloatBandSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::BandSecondOrderSVFCoefficients<float> >;
-%template(DoubleBandSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::BandSecondOrderSVFCoefficients<double> >;
-%template(FloatHighSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::HighSecondOrderSVFCoefficients<float> >;
-%template(DoubleHighSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::HighSecondOrderSVFCoefficients<double> >;
-%template(FloatNotchSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::NotchSecondOrderSVFCoefficients<float> >;
-%template(DoubleNotchSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::NotchSecondOrderSVFCoefficients<double> >;
-%template(FloatPeakSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::PeakSecondOrderSVFCoefficients<float> >;
-%template(DoublePeakSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::PeakSecondOrderSVFCoefficients<double> >;
-%template(FloatBellSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::BellSecondOrderSVFCoefficients<float> >;
-%template(DoubleBellSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::BellSecondOrderSVFCoefficients<double> >;
-%template(FloatLowShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::LowShelfSecondOrderSVFCoefficients<float> >;
-%template(DoubleLowShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::LowShelfSecondOrderSVFCoefficients<double> >;
-%template(FloatHighShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::HighShelfSecondOrderSVFCoefficients<float> >;
-%template(DoubleHighShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::HighShelfSecondOrderSVFCoefficients<double> >;
+%template(FloatLowSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<float> >;
+%template(DoubleLowSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> >;
+%template(FloatBandSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBandPassCoefficients<float> >;
+%template(DoubleBandSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBandPassCoefficients<double> >;
+%template(FloatHighSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighPassCoefficients<float> >;
+%template(DoubleHighSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighPassCoefficients<double> >;
+%template(FloatNotchSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFNotchCoefficients<float> >;
+%template(DoubleNotchSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFNotchCoefficients<double> >;
+%template(FloatPeakSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFPeakCoefficients<float> >;
+%template(DoublePeakSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFPeakCoefficients<double> >;
+%template(FloatBellSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBellCoefficients<float> >;
+%template(DoubleBellSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFBellCoefficients<double> >;
+%template(FloatLowShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowShelfCoefficients<float> >;
+%template(DoubleLowShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowShelfCoefficients<double> >;
+%template(FloatHighShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighShelfCoefficients<float> >;
+%template(DoubleHighShelfSecondOrderSVFFilter) ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFHighShelfCoefficients<double> >;

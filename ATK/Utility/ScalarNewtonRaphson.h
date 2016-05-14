@@ -5,7 +5,13 @@
 #ifndef ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 #define ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 
+#include <cmath>
+#if ATK_PROFILING == 1
+#include <iostream>
+#endif
 #include <limits>
+
+#include <ATK/config.h>
 
 namespace ATK
 {
@@ -21,9 +27,13 @@ namespace ATK
     
     Function function;
     
-    DataType x0, y0;
     DataType precision;
     DataType maxstep;
+    
+#if ATK_PROFILING == 1
+    int64_t nb_iterations;
+    int64_t nb_optimizations;
+#endif
     
   public:
     /*!
@@ -33,21 +43,32 @@ namespace ATK
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
     ScalarNewtonRaphson(Function&& function, DataType precision = 0)
-    :function(std::move(function)), x0(0), y0(0), precision(precision), maxstep(static_cast<DataType>(.1))
+    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(.1))
+#if ATK_PROFILING == 1
+    , nb_iterations(0), nb_optimizations(0)
+#endif
     {
       if(precision == 0)
       {
         this->precision = std::sqrt(std::numeric_limits<DataType>::epsilon());
       }
     }
-    
-    /// Optimize the function and sets its internal state
-    DataType optimize(DataType x1)
-    {
-      y0 = optimize_impl(x1);
 
-      x0 = x1;
-      return y0;
+#if ATK_PROFILING == 1
+    ~ScalarNewtonRaphson()
+    {
+      std::cout << "nb optimizations: " << nb_optimizations << std::endl;
+      std::cout << "nb iterations: " << nb_iterations << std::endl;
+      std::cout << "average: " << nb_iterations / double(nb_optimizations) << std::endl;
+    }
+#endif
+    /// Optimize the function and sets its internal state
+    void optimize(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
+    {
+#if ATK_PROFILING == 1
+      ++nb_optimizations;
+#endif
+      output[0] = optimize_impl(input, output);
     }
 
     /// Returns the function
@@ -64,14 +85,17 @@ namespace ATK
 
   protected:
     /// Just optimize the function
-    DataType optimize_impl(DataType x1)
+    DataType optimize_impl(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
-      DataType y1 = function.estimate(x0, x1, y0);
+      DataType y1 = function.estimate(input, output);
       int i;
       
       for(i = 0; i < max_iterations; ++i)
       {
-        std::pair<DataType, DataType> all = function(x0, x1, y0, y1);
+#if ATK_PROFILING == 1
+        ++nb_iterations;
+#endif
+        std::pair<DataType, DataType> all = function(input, output, y1);
         if(std::abs(all.second) < std::numeric_limits<DataType>::epsilon() )
         {
           return y1;
@@ -94,7 +118,7 @@ namespace ATK
       }
       if(check_convergence && i == max_iterations)
       {
-        return y0; // Stay the same
+        return output[-1]; // Stay the same
       }
       return y1;
     }

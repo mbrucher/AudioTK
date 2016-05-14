@@ -19,5 +19,10 @@ add_subdirectory(Dynamic)
 add_subdirectory(Distortion)
 add_subdirectory(Reverberation)
 
+if(EIGEN_FOUND)
+add_subdirectory(Preamplifier)
+endif(EIGEN_FOUND)
+
+
 INSTALL(FILES __init__.py DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK)
 

@@ -34,7 +34,9 @@ namespace ATK
      * @param nb_output_ports is the total number of output ports of this filter
      */
     ATK_CORE_EXPORT BaseFilter(int nb_input_ports, int nb_output_ports);
-    /// Destructor 
+    /// Move constructor
+    ATK_CORE_EXPORT BaseFilter(BaseFilter&& other);
+    /// Destructor
     virtual ATK_CORE_EXPORT ~BaseFilter();
     
     /*!
@@ -43,7 +45,7 @@ namespace ATK
      * @param filter is a pointer to the previous filter
      * @param output_port is the port number where this filter will be connected
      */
-    ATK_CORE_EXPORT void set_input_port(int input_port, BaseFilter* filter, int output_port);
+    ATK_CORE_EXPORT virtual void set_input_port(int input_port, BaseFilter* filter, int output_port);
     
     /// Starts processing after calling reset
     ATK_CORE_EXPORT void process(int64_t size);

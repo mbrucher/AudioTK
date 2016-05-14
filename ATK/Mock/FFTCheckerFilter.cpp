@@ -49,9 +49,9 @@ namespace ATK
       {
         DataType amp = output_freqs[frequency_checks[j].first];
         DataType amp_check = frequency_checks[j].second * frequency_checks[j].second;
-        if(amp_check == 0)
+        if(amp_check < 0.001)
         {
-          BOOST_REQUIRE_SMALL(amp, 0.1);
+          BOOST_REQUIRE_SMALL(amp, 0.001);
         }
         else
         {

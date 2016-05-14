@@ -47,6 +47,12 @@ namespace ATK
     {
     }
 
+    /// Move constructor
+    IIRFilter(IIRFilter&& other)
+    :Parent(std::move(other))
+    {
+    }
+
     void setup() override final
     {
       Parent::setup();
