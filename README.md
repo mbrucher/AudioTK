@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 ### 1.3.0
+* Added a family of triode preamplification filters with Python wrappers (requires Eigen)
 * Added a class A NPN preamplification filter with Python wrappers (requires Eigen)
 * Added a buffer filter with Python wrappers
 * Added a new Diode clipper with trapezoidal rule with Python wrappers

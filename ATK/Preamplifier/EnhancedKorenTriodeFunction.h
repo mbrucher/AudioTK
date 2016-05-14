@@ -11,11 +11,11 @@
 
 namespace ATK
 {
-  /// A more complex triode model
+  /// A more complex triode model, used with TriodeFilter
   template <typename DataType_>
   class EnhancedKorenTriodeFunction
   {
-  protected:
+  private:
     const DataType_ a;
     const DataType_ b;
     const DataType_ c;
@@ -41,6 +41,7 @@ namespace ATK
     DataType_ E1_Ex1;
     
   public:
+    /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
       exp_comp = std::exp(a * (Vbe + Vphi));
@@ -49,16 +50,19 @@ namespace ATK
       return first_term * ln_exp_comp_1 * (1/(b * Vce + 1) + 1/c);
     }
     
+    /// Compute grid current derivative relative to the grid cathode voltage
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       return (1/(b * Vce + 1) + 1/c) * gamma * first_term / (1+exp_comp) * a * exp_comp;
     }
     
+    /// Compute grid current derivative relative to the plate cathode voltage
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
       return - first_term * ln_exp_comp_1 * b / ((b * Vce + 1)*(b * Vce + 1));
     }
     
+    /// Compute plate current
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
       if (Vce > 0)
@@ -73,6 +77,7 @@ namespace ATK
       return 0;
     }
     
+    /// Compute plate current derivative relative to the grid cathode voltage
     DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       if (Vce > 0)
@@ -83,6 +88,7 @@ namespace ATK
       return 0;
     }
     
+    /// Compute plate current derivative relative to the plate cathode voltage
     DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
     {
       if (Vce > 0)
@@ -93,6 +99,7 @@ namespace ATK
       return 0;
     }
     
+    /// Constructor
     EnhancedKorenTriodeFunction(DataType_ a, DataType_ b, DataType_ c, DataType_ Vphi, DataType_ gamma, DataType_ mu, DataType_ Kp, DataType_ Vct, DataType_ Kvb, DataType_ Kvb2, DataType_ Kg, DataType_ Ex)
     :a(a), b(b), c(c), Vphi(Vphi), gamma(gamma), mu(mu), Kp(Kp), Vct(Vct), Kvb(Kvb), Kvb2(Kvb2), Kg(Kg), Ex(Ex)
     {

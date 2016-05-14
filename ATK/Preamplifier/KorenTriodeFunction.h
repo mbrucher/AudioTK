@@ -10,11 +10,11 @@
 
 namespace ATK
 {
-  /// A simplified tube model
+  /// A simplified tube model, used with TriodeFilter
   template <typename DataType_>
   class KorenTriodeFunction
   {
-  protected:
+  private:
     const DataType_ mu;
     const DataType_ K;
     const DataType_ Kp;
@@ -29,6 +29,7 @@ namespace ATK
     DataType_ E1_Ex1;
     
   public:
+    /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
       if(mu * Vbe + Vce > 0)
@@ -36,6 +37,7 @@ namespace ATK
       return 0;
     }
     
+    /// Compute grid current derivative relative to the grid cathode voltage
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       if (mu * Vbe + Vce > 0)
@@ -45,6 +47,7 @@ namespace ATK
       return 0;
     }
     
+    /// Compute grid current derivative relative to the plate cathode voltage
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
       if (mu * Vbe + Vce > 0)
@@ -54,6 +57,7 @@ namespace ATK
       return 0;
     }
     
+    /// Compute plate current
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
       if (Vce > 0)
@@ -68,6 +72,7 @@ namespace ATK
       return 0;
     }
     
+    /// Compute plate current derivative relative to the grid cathode voltage
     DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       if (Vce > 0)
@@ -78,6 +83,7 @@ namespace ATK
       return 0;
     }
     
+    /// Compute plate current derivative relative to the plate cathode voltage
     DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
     {
       if (Vce > 0)
@@ -88,11 +94,13 @@ namespace ATK
       return 0;
     }
     
+    /// Constructor
     KorenTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
     :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex)
     {
     }
     
+    /// Build a new triode function for a filter
     static KorenTriodeFunction build_standard_function()
     {
       return KorenTriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4);

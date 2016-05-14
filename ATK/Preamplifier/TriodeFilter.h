@@ -42,7 +42,7 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     using Parent::default_output;
-  protected:
+  private:
     std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true> > optimizer;
 
     const DataType_ Rp;
@@ -55,8 +55,11 @@ namespace ATK
 
     TriodeFunction tube_function;
 
+  protected:
+    /// Constructor, used with a builder static method
     TriodeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function);
   public:
+    /// Builds a standard filter with default triode and circuit parameters
     static TriodeFilter build_standard_filter();
     
     /// Move constructor
