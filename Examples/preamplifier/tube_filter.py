@@ -119,10 +119,10 @@ def filter_4(input):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 12000
+  size = 1200
   
   x = np.arange(size).reshape(1, -1) / 48000.
-  d = np.sin(x * 2 * np.pi * 200) * 1
+  d = np.sin(x * 2 * np.pi * 200) * 10
   np.savetxt("input.txt", d)
   out = filter_32(d)
   np.savetxt("output32.txt", out)

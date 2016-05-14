@@ -7,6 +7,7 @@
 #define ATK_PREAMPLIFIER_KORENTRIODEFUNCTION_H
 
 #include <cmath>
+#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {
@@ -27,6 +28,8 @@ namespace ATK
     DataType_ lnE2;
     DataType_ E1;
     DataType_ E1_Ex1;
+    
+    fmath::PowGenerator Ex_1;
     
   public:
     /// Compute grid current
@@ -63,7 +66,7 @@ namespace ATK
       if (Vce > 0)
       {
         tmp = std::sqrt(Kvb + Vce * Vce);
-        E2 = 1 + std::exp(Kp * (1 / mu + Vbe / tmp));
+        E2 = 1 + fmath::exp(Kp * (1 / mu + Vbe / tmp));
         lnE2 = std::log(E2);
         E1 = Vce / Kp * lnE2;
         E1_Ex1 = std::pow(E1, Ex - 1);
@@ -96,7 +99,7 @@ namespace ATK
     
     /// Constructor
     KorenTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
-    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex)
+    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex), Ex_1(Ex - 1)
     {
     }
     

@@ -8,6 +8,7 @@
 #define ATK_PREAMPLIFIER_ENHANCEDKORENTRIODEFUNCTION_H
 
 #include <cmath>
+#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {
@@ -44,7 +45,7 @@ namespace ATK
     /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      exp_comp = std::exp(a * (Vbe + Vphi));
+      exp_comp = fmath::exp(a * (Vbe + Vphi));
       ln_exp_comp_1 = std::log(1 + exp_comp);
       first_term = std::pow(ln_exp_comp_1, gamma - 1);
       return first_term * ln_exp_comp_1 * (1/(b * Vce + 1) + 1/c);
@@ -68,7 +69,7 @@ namespace ATK
       if (Vce > 0)
       {
         tmp = std::sqrt(Kvb + Vce * Kvb2 + Vce * Vce);
-        E2 = 1 + std::exp(Kp * (1 / mu + (Vbe + Vct) / tmp));
+        E2 = 1 + fmath::exp(Kp * (1 / mu + (Vbe + Vct) / tmp));
         lnE2 = std::log(E2);
         E1 = Vce / Kp * lnE2;
         E1_Ex1 = std::pow(E1, Ex - 1);
