@@ -35,7 +35,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
     CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
-      :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
+      :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
     {
     }
 
@@ -71,13 +71,13 @@ namespace ATK
       
       y0 << -ickeq - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vce * (output[2][i - 1] - output[0][i - 1]) + Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vce * (output[2][i - 1] - output[0][i - 1])),
       -icoeq,
-        VBias - Rp * (Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vce * (output[2][i - 1] - output[0][i - 1])),
-        input[0][i] - Rg * (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vce * (output[2][i - 1] - output[0][i - 1]));
+        VBias * Rp - (Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vce * (output[2][i - 1] - output[0][i - 1])),
+        input[0][i] * Rg - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vce * (output[2][i - 1] - output[0][i - 1]));
       
-      M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (1/Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
-        0, 1/Ro + Co, 1/Ro, 0,
-        -Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro + Rp * Ic_Vce, Rp * Ic_Vbe,
-        -Rg * (Ib_Vbe + Ib_Vce), 0, Rg * Ib_Vce, Rg * Ib_Vbe + 1;
+      M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
+        0, Ro + Co, Ro, 0,
+        -(Ic_Vbe + Ic_Vce), Ro, Rp + Ro + Ic_Vce, Ic_Vbe,
+        -(Ib_Vbe + Ib_Vce), 0, Ib_Vce, Ib_Vbe + Rg;
       
       return M.inverse() * y0;
     }
@@ -99,11 +99,11 @@ namespace ATK
       auto Ic_Vbe = tube_function.Lc_Vbe(y1(3) - y1(0), y1(2) - y1(0));
       auto Ic_Vce = tube_function.Lc_Vce(y1(3) - y1(0), y1(2) - y1(0));
 
-      auto f1 = Ib + Ic + ickeq - y1(0) * (1/Rk + Ck);
-      auto f2 = icoeq + (y1(1) + y1(2)) / Ro + y1(1) * Co;
+      auto f1 = Ib + Ic + ickeq - y1(0) * (Rk + Ck);
+      auto f2 = icoeq + (y1(1) + y1(2)) * Ro + y1(1) * Co;
 
-      auto g1 = y1(2) + Rp * (Ic + (y1(1) + y1(2)) / Ro) - VBias;
-      auto g2 = y1(3) - input[0][i] + Rg * Ib;
+      auto g1 = (y1(2) - VBias) * Rp + (Ic + (y1(1) + y1(2)) * Ro);
+      auto g2 = (y1(3) - input[0][i]) * Rg + Ib;
       
       Vector F(Vector::Zero());
       F << f1,
@@ -112,10 +112,10 @@ namespace ATK
            g2;
 
       Matrix M(Matrix::Zero());
-      M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (1/Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
-            0, 1/Ro + Co, 1/Ro, 0,
-            -Rp * (Ic_Vbe + Ic_Vce), Rp / Ro, 1 + Rp / Ro + Rp * Ic_Vce, Rp * Ic_Vbe,
-            -Rg * (Ib_Vbe + Ib_Vce), 0, Rg * Ib_Vce, Rg * Ib_Vbe + 1;
+      M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
+            0, Ro + Co, Ro, 0,
+      -(Ic_Vbe + Ic_Vce), Ro, Rp + Ro + Ic_Vce, Ic_Vbe,
+            -(Ib_Vbe + Ib_Vce), 0, Ib_Vce, Ib_Vbe + Rg;
       
       return std::make_pair(F, M);
     }
