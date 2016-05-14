@@ -122,7 +122,7 @@ if __name__ == "__main__":
   size = 1200
   
   x = np.arange(size).reshape(1, -1) / 48000.
-  d = np.sin(x * 2 * np.pi * 200)
+  d = np.sin(x * 2 * np.pi * 200) * 10
   np.savetxt("input.txt", d)
   out = filter_32(d)
   np.savetxt("output32.txt", out)
