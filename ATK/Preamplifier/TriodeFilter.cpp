@@ -88,7 +88,7 @@ namespace ATK
       icoeq = -2 * Co * output[2][i] - icoeq;
     }
 
-    std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
+    Vector operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
       auto Ib = tube_function.Lb(y1(3) - y1(0), y1(2) - y1(0));
       auto Ic = tube_function.Lc(y1(3) - y1(0), y1(2) - y1(0));
@@ -117,7 +117,25 @@ namespace ATK
       -(Ic_Vbe + Ic_Vce), Ro, Rp + Ro + Ic_Vce, Ic_Vbe,
             -(Ib_Vbe + Ib_Vce), 0, Ib_Vce, Ib_Vbe + Rg;
       
-      return std::make_pair(F, M);
+      return M.inverse() * F;
+      /* det = a1*b2*c3*d4 - a1*b2*c4*d3 - a1*b3*c2*d4 - a3*b2*c1*d4 + a3*b2*c4*d1 + a4*b2*c1*d3 - a4*b2*c3*d1 + a4*b3*c2*d1
+       el of inverse matrix:
+       b2*c3*d4 - b2*c4*d3 - b3*c2*d4
+       c2*(a3*d4 - a4*d3)
+       b2*(-a3*d4 + a4*d3)
+       a3*b2*c4 - a4*b2*c3 + a4*b3*c2
+       b3*(c1*d4 - c4*d1)
+       a1*c3*d4 - a1*c4*d3 - a3*c1*d4 + a3*c4*d1 + a4*c1*d3 - a4*c3*d1
+       b3*(-a1*d4 + a4*d1)
+       b3*(a1*c4 - a4*c1)
+       b2*(-c1*d4 + c4*d1)
+       c2*(-a1*d4 + a4*d1)
+       b2*(a1*d4 - a4*d1)
+       b2*(-a1*c4 + a4*c1)
+       b2*c1*d3 - b2*c3*d1 + b3*c2*d1
+       c2*(a1*d3 - a3*d1)
+       b2*(-a1*d3 + a3*d1)
+       a1*b2*c3 - a1*b3*c2 - a3*b2*c1*/
     }
 
   };
