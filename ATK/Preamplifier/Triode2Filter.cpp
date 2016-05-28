@@ -23,9 +23,11 @@ namespace ATK
     const DataType_ VBias;
     const DataType_ Co;
     const DataType_ Ck;
+    const DataType_ Cpg;
 
     DataType_ ickeq;
     DataType_ icoeq;
+    DataType_ icpgeq;
 
     TriodeFunction& tube_function;
 
@@ -35,13 +37,13 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
     CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
-      :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
+      :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), Cpg(2 / dt * tube_function.Cpg), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), icpgeq(2 / dt * Cpg * (default_output[3] - default_output[4]) ), tube_function(tube_function)
     {
     }
 
     Vector estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
-      return affine_estimate(i, input, output);
+      return id_estimate(i, input, output);
     }
     
     Vector id_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
@@ -86,6 +88,7 @@ namespace ATK
     {
       ickeq = 2 * Ck * output[1][i] - ickeq;
       icoeq = -2 * Co * output[2][i] - icoeq;
+      icpgeq = 2 * Cpg * (output[3][i] - output[4][i]) - icpgeq;
     }
 
     Vector operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
