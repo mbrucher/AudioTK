@@ -109,7 +109,7 @@ namespace ATK
     /// Build a new triode function for a filter (12AX7/ECC83)
     static KorenTriodeFunction build_standard_function()
     {
-      return KorenTriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4, 1.7e-9);
+      return KorenTriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4, 1.7e-12);
     }
 
   };

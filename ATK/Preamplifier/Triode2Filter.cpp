@@ -37,7 +37,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
     CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
-      :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), Cpg(2 / dt * tube_function.Cpg), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), icpgeq(2 / dt * Cpg * (default_output[3] - default_output[4]) ), tube_function(tube_function)
+      :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), Cpg(2 / dt * tube_function.Cpg), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), icpgeq(Cpg * (default_output[3] - default_output[4]) ), tube_function(tube_function)
     {
     }
 
@@ -57,7 +57,7 @@ namespace ATK
       return y0;
     }
     
-    Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    /*Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       auto Ib = tube_function.Lb(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
       auto Ic = tube_function.Lc(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
@@ -82,7 +82,7 @@ namespace ATK
         -(Ib_Vbe + Ib_Vce), 0, Ib_Vce, Ib_Vbe + Rg;
       
       return M.inverse() * y0;
-    }
+    }*/
 
     void update_state(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
@@ -105,8 +105,8 @@ namespace ATK
       auto f1 = Ib + Ic + ickeq - y1(0) * (Rk + Ck);
       auto f2 = icoeq + (y1(1) + y1(2)) * Ro + y1(1) * Co;
 
-      auto g1 = (y1(2) - VBias) * Rp + (Ic + (y1(1) + y1(2)) * Ro);
-      auto g2 = (y1(3) - input[0][i]) * Rg + Ib;
+      auto g1 = (y1(2) - VBias) * Rp + (Ic + (y1(1) + y1(2)) * Ro) + (y1(2) - y1(3)) * Cpg - icpgeq;
+      auto g2 = (y1(3) - input[0][i]) * Rg + Ib + icpgeq - (y1(2) - y1(3)) * Cpg;
       
       Vector F(Vector::Zero());
       F << f1,
@@ -117,9 +117,9 @@ namespace ATK
       Matrix M(Matrix::Zero());
       M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
             0, Ro + Co, Ro, 0,
-      -(Ic_Vbe + Ic_Vce), Ro, Rp + Ro + Ic_Vce, Ic_Vbe,
-            -(Ib_Vbe + Ib_Vce), 0, Ib_Vce, Ib_Vbe + Rg;
-      
+      -(Ic_Vbe + Ic_Vce), Ro, Rp + Ro + Ic_Vce + Cpg, Ic_Vbe - Cpg,
+            -(Ib_Vbe + Ib_Vce), 0, Ib_Vce - Cpg, Ib_Vbe + Rg + Cpg;
+
       return M.inverse() * F;
     }
 
@@ -193,7 +193,7 @@ namespace ATK
   void Triode2Filter<DataType, TriodeFunction>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true>(CommonCathodeTriodeFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, iterations, true>(CommonCathodeTriodeFunction(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       Co, Ck, // C

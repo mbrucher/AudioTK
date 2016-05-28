@@ -43,7 +43,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::default_output;
   private:
-    std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true> > optimizer;
+    const static int iterations = 10;
+    std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, iterations, true> > optimizer;
 
     const DataType_ Rp;
     const DataType_ Rg;
