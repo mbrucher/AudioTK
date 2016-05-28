@@ -42,6 +42,9 @@ namespace ATK
     DataType_ E1_Ex1;
     
   public:
+    /// For non static models
+    const DataType_ Cpg;
+
     /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
@@ -101,15 +104,15 @@ namespace ATK
     }
     
     /// Constructor
-    EnhancedKorenTriodeFunction(DataType_ a, DataType_ b, DataType_ c, DataType_ Vphi, DataType_ gamma, DataType_ mu, DataType_ Kp, DataType_ Vct, DataType_ Kvb, DataType_ Kvb2, DataType_ Kg, DataType_ Ex)
-    :a(a), b(b), c(c), Vphi(Vphi), gamma(gamma), mu(mu), Kp(Kp), Vct(Vct), Kvb(Kvb), Kvb2(Kvb2), Kg(Kg), Ex(Ex)
+    EnhancedKorenTriodeFunction(DataType_ a, DataType_ b, DataType_ c, DataType_ Vphi, DataType_ gamma, DataType_ mu, DataType_ Kp, DataType_ Vct, DataType_ Kvb, DataType_ Kvb2, DataType_ Kg, DataType_ Ex, DataType_ Cpg)
+    :a(a), b(b), c(c), Vphi(Vphi), gamma(gamma), mu(mu), Kp(Kp), Vct(Vct), Kvb(Kvb), Kvb2(Kvb2), Kg(Kg), Ex(Ex), Cpg(Cpg)
     {
     }
 
     /// Build a new triode function for a filter (12AX7/ECC83)
     static EnhancedKorenTriodeFunction build_standard_function()
     {
-      return EnhancedKorenTriodeFunction(17.32, 21238.8, 163757, -0.2227, 1.444, 105, 578.2, 0.378, 50, 18.8, 1335, 1.277);
+      return EnhancedKorenTriodeFunction(17.32, 21238.8, 163757, -0.2227, 1.444, 105, 578.2, 0.378, 50, 18.8, 1335, 1.277, 1.7e-9);
     }
 
   };

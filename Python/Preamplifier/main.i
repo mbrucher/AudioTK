@@ -13,5 +13,6 @@
 %include "../Core/BaseFilter.i"
 %include "TransistorClassAFilter.i"
 %include "TriodeFilter.i"
+%include "Triode2Filter.i"
 
 #endif

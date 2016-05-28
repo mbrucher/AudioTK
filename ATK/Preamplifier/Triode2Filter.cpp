@@ -1,10 +1,10 @@
 /**
- * \file TriodeFilter.cpp
+ * \file Triode2Filter.cpp
  */
 
 #include "EnhancedKorenTriodeFunction.h"
 #include "KorenTriodeFunction.h"
-#include "TriodeFilter.h"
+#include "Triode2Filter.h"
 
 #include <cassert>
 
@@ -14,7 +14,7 @@
 namespace ATK
 {
   template <typename DataType_, typename TriodeFunction>
-  class TriodeFilter<DataType_, TriodeFunction>::CommonCathodeTriodeFunction
+  class Triode2Filter<DataType_, TriodeFunction>::CommonCathodeTriodeFunction
   {
     const DataType_ Rp;
     const DataType_ Rg;
@@ -169,25 +169,25 @@ namespace ATK
   };
 
   template <typename DataType, typename TriodeFunction>
-  TriodeFilter<DataType, TriodeFunction>::TriodeFilter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function)
+  Triode2Filter<DataType, TriodeFunction>::Triode2Filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function)
   :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), tube_function(std::move(tube_function))
   {
     input_delay = output_delay = 1;
   }
 
   template <typename DataType, typename TriodeFunction>
-  TriodeFilter<DataType, TriodeFunction>::TriodeFilter(TriodeFilter&& other)
+  Triode2Filter<DataType, TriodeFunction>::Triode2Filter(Triode2Filter&& other)
   :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), tube_function(std::move(other.tube_function))
   {
   }
 
   template<typename DataType,  typename TriodeFunction>
-  TriodeFilter<DataType, TriodeFunction>::~TriodeFilter()
+  Triode2Filter<DataType, TriodeFunction>::~Triode2Filter()
   {
   }
 
   template<typename DataType,  typename TriodeFunction>
-  void TriodeFilter<DataType, TriodeFunction>::setup()
+  void Triode2Filter<DataType, TriodeFunction>::setup()
   {
     Parent::setup();
     optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, 10, true>(CommonCathodeTriodeFunction(static_cast<DataType>(1. / input_sampling_rate),
@@ -199,7 +199,7 @@ namespace ATK
   }
 
   template<typename DataType, typename TriodeFunction>
-  void TriodeFilter<DataType, TriodeFunction>::full_setup()
+  void Triode2Filter<DataType, TriodeFunction>::full_setup()
   {
     Eigen::Matrix<DataType, 3, 1> y0;
     y0 << VBias, 0, 0;
@@ -223,7 +223,7 @@ namespace ATK
   }
 
   template<typename DataType, typename TriodeFunction>
-  void TriodeFilter<DataType, TriodeFunction>::process_impl(int64_t size) const
+  void Triode2Filter<DataType, TriodeFunction>::process_impl(int64_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
 
@@ -236,17 +236,17 @@ namespace ATK
   }
 
   template<typename DataType, typename TriodeFunction>
-  TriodeFilter<DataType, TriodeFunction> TriodeFilter<DataType, TriodeFunction>::build_standard_filter()
+  Triode2Filter<DataType, TriodeFunction> Triode2Filter<DataType, TriodeFunction>::build_standard_filter()
   {
-    return TriodeFilter<DataType, TriodeFunction>(200e3, 220e3, 220e3, 1e3, //R
+    return Triode2Filter<DataType, TriodeFunction>(200e3, 220e3, 220e3, 1e3, //R
       300, // VBias
       22e-9, 1e-6, // C
       TriodeFunction::build_standard_function() // tube
       );
   }
 
-  template class TriodeFilter<float, KorenTriodeFunction<float> >;
-  template class TriodeFilter<double, KorenTriodeFunction<double> >;
-  template class TriodeFilter<float, EnhancedKorenTriodeFunction<float> >;
-  template class TriodeFilter<double, EnhancedKorenTriodeFunction<double> >;
+  template class Triode2Filter<float, KorenTriodeFunction<float> >;
+  template class Triode2Filter<double, KorenTriodeFunction<double> >;
+  template class Triode2Filter<float, EnhancedKorenTriodeFunction<float> >;
+  template class Triode2Filter<double, EnhancedKorenTriodeFunction<double> >;
 }

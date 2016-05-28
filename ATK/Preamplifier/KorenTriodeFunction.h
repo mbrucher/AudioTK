@@ -32,6 +32,9 @@ namespace ATK
     fmath::PowGenerator Ex_1;
     
   public:
+    /// For non static models
+    const DataType_ Cpg;
+    
     /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
@@ -98,15 +101,15 @@ namespace ATK
     }
     
     /// Constructor
-    KorenTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex)
-    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex), Ex_1(Ex - 1)
+    KorenTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex, DataType_ Cpg)
+    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex), Ex_1(Ex - 1), Cpg(Cpg)
     {
     }
     
     /// Build a new triode function for a filter (12AX7/ECC83)
     static KorenTriodeFunction build_standard_function()
     {
-      return KorenTriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4);
+      return KorenTriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4, 1.7e-9);
     }
 
   };
