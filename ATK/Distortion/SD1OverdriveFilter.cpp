@@ -18,27 +18,25 @@ namespace ATK
   public:
     typedef DataType_ DataType;
   protected:
-    const DataType A;
-    const DataType B;
+    const DataType dt;
+    const DataType R;
     const DataType R1;
+    const DataType C;
     const DataType Q;
     DataType drive;
     const DataType is;
     const DataType vt;
 
-    DataType oldy0;
-    DataType oldexpy0;
-    DataType oldinvexpy0;
-    DataType oldy1;
-    DataType oldexpy1;
-    DataType oldinvexpy1;
+    DataType ieq;
+    DataType i;
+
+    DataType expdiode_y1_p;
+    DataType expdiode_y1_m;
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-    :A(dt / (2 * C) + R), B(dt / (2 * C) - R), R1(R1), Q(Q), drive(0.5), is(is), vt(vt)
+      :dt(dt), R(R), R1(R1), C(C), Q(Q), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
     {
-      oldy0 = oldy1 = 0;
-      oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
     
     void set_drive(DataType drive)
@@ -48,45 +46,23 @@ namespace ATK
     
     std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
-      auto x0 = input[-1];
       auto x1 = input[0];
-      auto y0 = output[-1];
-      y0 -= x0;
       y1 -= x1;
-      DataType expdiode_y1_p = std::exp(y1 / vt);
-      DataType expdiode_y1_m = 1 / expdiode_y1_p;
-      
-      DataType expdiode_y0_p;
-      DataType expdiode_y0_m;
-	  
-	    if(y0 == oldy0)
-	    {
-	      expdiode_y0_p = oldexpy0;
-	      expdiode_y0_m = oldinvexpy0;
-	    }
-	    else if(y0 == oldy1)
-	    {
-	      expdiode_y0_p = oldexpy1;
-	      expdiode_y0_m = oldinvexpy1;
-	    }
-	    else
-	    {
-	      expdiode_y0_p = std::exp(y0 / vt);
-	      expdiode_y0_m = 1 / expdiode_y0_p;
-	    }
-	  
-      oldy0 = y0;
-      oldexpy0 = expdiode_y0_p;
-      oldinvexpy0 = expdiode_y0_m;
+      expdiode_y1_p = std::exp(y1 / vt);
+      expdiode_y1_m = 1 / expdiode_y1_p;
 
-      oldy1 = y1;
-      oldexpy1 = expdiode_y1_p;
-      oldinvexpy1 = expdiode_y1_m;
-  
       DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
       DataType diode1_derivative = is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt;
-      DataType diode0 = is * (expdiode_y0_p - 2 * expdiode_y0_m + 1);
-      return std::make_pair(x0 - x1 + y1 * (A / drive) + y0 * (B / drive) + A * diode1 + B * diode0, (A / drive) + A * diode1_derivative);
+
+      i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+
+      return std::make_pair(y1 / drive + diode1 - i, 1 / drive + diode1_derivative);
+    }
+    
+    void update_state(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
+    {
+      auto x1 = input[0];
+      ieq = 4 / dt * C * (x1 - i * R) - ieq;
     }
 
     DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
@@ -96,27 +72,31 @@ namespace ATK
       auto y0 = output[-1];
       return affine_estimate(x0, x1, y0);
     }
-    
+
     DataType id_estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
     }
-    
+
     DataType linear_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;
-      if(y0 == 0)
+      if (y0 == 0)
         return 0;
-      auto sinh = is * (oldexpy1 - oldinvexpy1);
-      return (x1 - x0 - y0 * (B / drive) - B * sinh) / (A * sinh / y0 + (A / drive)) + x1;
+      auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
+      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+
+      return i / (sinh / y0 + (1 / drive)) + x1;
     }
-    
+
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;
-      auto sinh = is * (oldexpy1 - oldinvexpy1);
-      auto cosh = is * (oldexpy1 + oldinvexpy1);
-      return (x1 - x0 - y0 * (B / drive) - B * sinh - A * (sinh - y0 / vt * cosh) ) / (A * cosh / vt + (A / drive)) + x1;
+      auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
+      auto cosh = is * (expdiode_y1_p + 2 * expdiode_y1_m);
+      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+
+      return (i - (sinh - y0 / vt * cosh)) / (cosh / vt + (1 / drive)) + x1;
     }
   };
   
@@ -163,6 +143,7 @@ namespace ATK
     for(int64_t i = 0; i < size; ++i)
     {
       optimizer->optimize(input + i, output + i);
+      optimizer->get_function().update_state(input + i, output + i);
     }
   }
 
