@@ -18,11 +18,11 @@ namespace ATK
   public:
     typedef DataType_ DataType;
   protected:
-    const DataType dt;
     const DataType R;
     const DataType R1;
-    const DataType C;
     const DataType Q;
+    const DataType C;
+    const DataType C1;
     DataType drive;
     const DataType is;
     const DataType vt;
@@ -34,8 +34,8 @@ namespace ATK
     DataType expdiode_y1_m;
 
   public:
-    TS9OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-      :dt(dt), R(R), R1(R1), C(C), Q(Q), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
+    TS9OverdriveFunction(DataType dt, DataType R, DataType R1, DataType Q, DataType C, DataType C1, DataType is, DataType vt)
+      :R(R), R1(R1), Q(Q), C(2 * C / dt), C1(2 * C1 / dt), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
     {
     }
     
@@ -51,10 +51,10 @@ namespace ATK
       expdiode_y1_p = std::exp(y1 / vt);
       expdiode_y1_m = 1 / expdiode_y1_p;
 
-      DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
-      DataType diode1_derivative = is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt;
+      DataType diode1 = is * (expdiode_y1_p - expdiode_y1_m );
+      DataType diode1_derivative = is * (expdiode_y1_p + expdiode_y1_m) / vt;
 
-      i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+      i = (C * x1 - ieq) / (1 + R * C);
 
       return std::make_pair(y1 / drive + diode1 - i, 1 / drive + diode1_derivative);
     }
@@ -62,7 +62,7 @@ namespace ATK
     void update_state(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
       auto x1 = input[0];
-      ieq = 4 / dt * C * (x1 - i * R) - ieq;
+      ieq = 2 * C * (x1 - i * R) - ieq;
     }
 
     DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
@@ -78,23 +78,12 @@ namespace ATK
       return y0;
     }
 
-    DataType linear_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      y0 -= x0;
-      if (y0 == 0)
-        return 0;
-      auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
-      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
-
-      return i / (sinh / y0 + (1 / drive)) + x1;
-    }
-
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;
-      auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
-      auto cosh = is * (expdiode_y1_p + 2 * expdiode_y1_m);
-      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+      auto sinh = is * (expdiode_y1_p - expdiode_y1_m );
+      auto cosh = is * (expdiode_y1_p + expdiode_y1_m);
+      auto i = (C * x1 - ieq) / (1 + R * C);
 
       return (i - (sinh - y0 / vt * cosh)) / (cosh / vt + (1 / drive)) + x1;
     }
@@ -118,8 +107,8 @@ namespace ATK
   {
     Parent::setup();
     optimizer.reset(new ScalarNewtonRaphson<TS9OverdriveFunction, 10, true>(TS9OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
-      static_cast<DataType>(4.7e3), static_cast<DataType>(0.047e-6), static_cast<DataType>(33e3),
-      static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
+      static_cast<DataType>(4.7e3), static_cast<DataType>(51e3), static_cast<DataType>(500e3),
+      static_cast<DataType>(0.047e-6), static_cast<DataType>(51e-12), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
 
     optimizer->get_function().set_drive(drive);
   }

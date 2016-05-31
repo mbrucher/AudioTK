@@ -18,7 +18,6 @@ namespace ATK
   public:
     typedef DataType_ DataType;
   protected:
-    const DataType dt;
     const DataType R;
     const DataType R1;
     const DataType C;
@@ -35,7 +34,7 @@ namespace ATK
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-      :dt(dt), R(R), R1(R1), C(C), Q(Q), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
+      :R(R), R1(R1), C(2 * C / dt), Q(Q), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
     {
     }
     
@@ -54,7 +53,7 @@ namespace ATK
       DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
       DataType diode1_derivative = is * (expdiode_y1_p + 2 * expdiode_y1_m) / vt;
 
-      i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+      i = (C * x1 - ieq) / (1 + R * C);
 
       return std::make_pair(y1 / drive + diode1 - i, 1 / drive + diode1_derivative);
     }
@@ -62,7 +61,7 @@ namespace ATK
     void update_state(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
       auto x1 = input[0];
-      ieq = 4 / dt * C * (x1 - i * R) - ieq;
+      ieq = 2 * C * (x1 - i * R) - ieq;
     }
 
     DataType estimate(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
@@ -78,23 +77,12 @@ namespace ATK
       return y0;
     }
 
-    DataType linear_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      y0 -= x0;
-      if (y0 == 0)
-        return 0;
-      auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
-      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
-
-      return i / (sinh / y0 + (1 / drive)) + x1;
-    }
-
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;
       auto sinh = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);
       auto cosh = is * (expdiode_y1_p + 2 * expdiode_y1_m);
-      auto i = (2 * C * x1 / dt - ieq) / (1 + 2 * R * C / dt);
+      auto i = (C * x1 - ieq) / (1 + R * C);
 
       return (i - (sinh - y0 / vt * cosh)) / (cosh / vt + (1 / drive)) + x1;
     }
