@@ -2,7 +2,7 @@
  * \ file SD1ToneFilter.cpp
  */
 
-#include <ATK/EQ/SD1ToneFilter.h>
+#include <ATK/EQ/PedalToneStackFilter.h>
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>

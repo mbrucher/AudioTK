@@ -1,9 +1,9 @@
 /**
- * \file SD1ToneFilter.h
+ * \file PedalToneStackFilter.h
  */
 
-#ifndef ATK_EQ_SD1TONEFILTERFILTER_H
-#define ATK_EQ_SD1TONEFILTERFILTER_H
+#ifndef ATK_EQ_PEDALTONESTACKFILTER_H
+#define ATK_EQ_PEDALTONESTACKFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 

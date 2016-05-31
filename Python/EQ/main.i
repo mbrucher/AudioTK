@@ -28,7 +28,7 @@
 %include "TimeVaryingSecondOrderFilter.i"
 %include "TimeVaryingSecondOrderSVFFilter.i"
 
-%include "SD1ToneFilter.i"
+%include "PedalToneStackFilter.i"
 %include "ToneStackFilter.i"
 
 #endif

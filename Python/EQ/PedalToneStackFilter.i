@@ -1,6 +1,6 @@
 
 %{
-#include <ATK/EQ/SD1ToneFilter.h>
+#include <ATK/EQ/PedalToneStackFilter.h>
 %}
 
 namespace ATK

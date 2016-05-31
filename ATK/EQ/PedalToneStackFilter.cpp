@@ -1,10 +1,10 @@
 /**
- * \file SD1ToneFilter.cpp
+ * \file PedalToneStackFilter.cpp
  */
 
 #include <boost/math/tools/polynomial.hpp>
 
-#include "SD1ToneFilter.h"
+#include "PedalToneStackFilter.h"
 #include "IIRFilter.h"
 
 namespace ATK
