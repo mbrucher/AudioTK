@@ -131,7 +131,7 @@ The *Distortion* module contains filters simulation distortion circuits.
 * **DiodeClipperFilter** is a Newton-Raphson simulation of a diode clipper
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of another diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
-* **SVFSD1OverdriveFilter** is a variation of the previous overdrive
+* **TS9OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Ibanez Tube Screamer/TS9/TS808 pedal
 
 Reverberation module
 --------------------
@@ -147,4 +147,13 @@ Special module
 The *Special* module contains specific/special filters.
 
 * **ConvolutionFilter** is a filter based on an FFT implementation with 0 latency
+
+Preamplification module
+-----------------------
+
+* EnhancedKorenFunction is a model of the triode transfer functions based on Ivan Cohen's work
+* KorenFunction is a model of the triode transfer functions based on Koren's model
+* TransistorClassAFilter is a solid state class A filter
+* TriodeFilter is a triode based filter
+* Triode2Filter is a triode based filter with a grid-plate capacitor
 
