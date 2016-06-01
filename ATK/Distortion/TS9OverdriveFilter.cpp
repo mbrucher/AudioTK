@@ -22,7 +22,6 @@ namespace ATK
     const DataType R1;
     const DataType Q;
     const DataType C;
-    const DataType C1;
     DataType drive;
     const DataType is;
     const DataType vt;
@@ -34,8 +33,8 @@ namespace ATK
     DataType expdiode_y1_m;
 
   public:
-    TS9OverdriveFunction(DataType dt, DataType R, DataType R1, DataType Q, DataType C, DataType C1, DataType is, DataType vt)
-      :R(R), R1(R1), Q(Q), C(2 * C / dt), C1(2 * C1 / dt), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
+    TS9OverdriveFunction(DataType dt, DataType R, DataType R1, DataType Q, DataType C, DataType is, DataType vt)
+      :R(R), R1(R1), Q(Q), C(2 * C / dt), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
     {
     }
     
@@ -108,7 +107,7 @@ namespace ATK
     Parent::setup();
     optimizer.reset(new ScalarNewtonRaphson<TS9OverdriveFunction, num_iterations, true>(TS9OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
       static_cast<DataType>(4.7e3), static_cast<DataType>(51e3), static_cast<DataType>(500e3),
-      static_cast<DataType>(0.047e-6), static_cast<DataType>(51e-12), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
+      static_cast<DataType>(0.047e-6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
 
     optimizer->get_function().set_drive(drive);
   }
