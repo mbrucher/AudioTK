@@ -106,7 +106,7 @@ namespace ATK
   void TS9OverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    optimizer.reset(new ScalarNewtonRaphson<TS9OverdriveFunction, 10, true>(TS9OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer.reset(new ScalarNewtonRaphson<TS9OverdriveFunction, num_iterations, true>(TS9OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
       static_cast<DataType>(4.7e3), static_cast<DataType>(51e3), static_cast<DataType>(500e3),
       static_cast<DataType>(0.047e-6), static_cast<DataType>(51e-12), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
 
