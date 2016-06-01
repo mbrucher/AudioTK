@@ -50,7 +50,7 @@ namespace ATK
     DataType drive;
     
   private:
-    static const int num_iterations = 10;
+    static const int num_iterations = 30;
     std::unique_ptr<ScalarNewtonRaphson<TS9OverdriveFunction, num_iterations, true> > optimizer;
   };
 }
