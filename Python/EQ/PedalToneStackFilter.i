@@ -15,6 +15,17 @@ namespace ATK
     void set_tone(DataType alpha);
     DataType get_tone() const;
   };
+
+  template<class DataType>
+  class TS9ToneCoefficients: public BaseFilter
+  {
+  public:
+    TS9ToneCoefficients();
+    ~TS9ToneCoefficients();
+    
+    void set_tone(DataType alpha);
+    DataType get_tone() const;
+  };
 }
 
 %template(FloatSD1ToneCoefficients) ATK::SD1ToneCoefficients<float>;
@@ -25,3 +36,12 @@ namespace ATK
 
 IIRFilterExtend(ATK::IIRFilter<ATK::SD1ToneCoefficients<float> >, float);
 IIRFilterExtend(ATK::IIRFilter<ATK::SD1ToneCoefficients<double> >, double);
+
+%template(FloatTS9ToneCoefficients) ATK::TS9ToneCoefficients<float>;
+%template(DoubleTS9ToneCoefficients) ATK::TS9ToneCoefficients<double>;
+
+%template(FloatTS9ToneFilter) ATK::IIRFilter<ATK::TS9ToneCoefficients<float> >;
+%template(DoubleTS9ToneFilter) ATK::IIRFilter<ATK::TS9ToneCoefficients<double> >;
+
+IIRFilterExtend(ATK::IIRFilter<ATK::TS9ToneCoefficients<float> >, float);
+IIRFilterExtend(ATK::IIRFilter<ATK::TS9ToneCoefficients<double> >, double);
