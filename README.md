@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 Changelog
 ---------
 ### 1.3.1
+* Added a 1 - input filter with Python wrappers
 * Removed the old SD1 filter, replaced it definitely with the SVF version
 * Added a TS9 overdrive filter (SD1 without the asymmetry) with Python wrappers
 * Added a Tube2Filter with wrappers, adding the plate-grid capacitor in the equations, stabilizing them better (requires Eigen)

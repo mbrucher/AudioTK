@@ -115,8 +115,9 @@ The *Dynamic* module contains filters enabling compressor construction.
 * **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
 * **AttackReleaseHysteresisFilter** is a filter modulating an input with an Attack and a Release envelope specification and a hysteresis mode
 * **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
-* **GainExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does
+* **GainExpanderFilter** is a filter that changes an input signal (a gain) like an expander/noise gate does
 * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
+* **GainSwellFilter** is a filter that changes an input signal (a gain) like aan auto swell does
 * **PowerFilter** is a filter that outputs an AR(1)-filtered version of the squared input signal
 * **RelativePowerFilter** is a filter that outputs the squared input signal divided by an AR(1)-filtered version of the squared input signal
 * **GainColoredCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does with an additional color component
