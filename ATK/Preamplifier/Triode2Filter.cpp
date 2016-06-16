@@ -146,7 +146,7 @@ namespace ATK
     {
     }
 
-    std::pair<Vector, Matrix> operator()(const Vector& y1)
+    Vector operator()(const Vector& y1)
     {
       auto Ib = tube_function.Lb(y1(1) - y1(2), y1(0) - y1(2));
       auto Ic = tube_function.Lc(y1(1) - y1(2), y1(0) - y1(2));
@@ -167,7 +167,7 @@ namespace ATK
         Ib_Vce * Rg, 1 + Rg * Ib_Vbe, -Rg * (Ib_Vbe + Ib_Vce),
         -(Ic_Vce + Ib_Vce) * Rk, -(Ic_Vbe + Ib_Vbe) * Rk, 1 + (Ic_Vbe + Ic_Vce + Ib_Vbe + Ib_Vce) * Rk;
 
-      return std::make_pair(F, M);
+      return M.inverse() * F;
     }
   };
 
