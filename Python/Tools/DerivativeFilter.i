@@ -14,8 +14,8 @@ namespace ATK
   };
 }
 
-%template(Int16DerivativeFilter) ATK::DerivativeFilter<std::int16_t>;
-%template(Int32DerivativeFilter) ATK::DerivativeFilter<std::int32_t>;
-%template(Int64DerivativeFilter) ATK::DerivativeFilter<std::int64_t>;
+%template(Int16DerivativeFilter) ATK::DerivativeFilter<int16_t>;
+%template(Int32DerivativeFilter) ATK::DerivativeFilter<int32_t>;
+%template(Int64DerivativeFilter) ATK::DerivativeFilter<int64_t>;
 %template(FloatDerivativeFilter) ATK::DerivativeFilter<float>;
 %template(DoubleDerivativeFilter) ATK::DerivativeFilter<double>;

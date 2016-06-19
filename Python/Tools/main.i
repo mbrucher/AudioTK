@@ -21,6 +21,7 @@
 %include "MaxFilter.i"
 %include "MSFilter.i"
 %include "OffsetVolumeFilter.i"
+%include "OneMinusFilter.i"
 %include "OversamplingFilter.i"
 %include "PanFilter.i"
 %include "SumFilter.i"

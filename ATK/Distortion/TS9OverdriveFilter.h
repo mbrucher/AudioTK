@@ -1,9 +1,9 @@
 /**
- * \file SVFSD1OverdriveFilter.h
+ * \file TS9OverdriveFilter.h
  */
 
-#ifndef ATK_DISTORTION_SVFSD1OVERDRIVEFILTER_H
-#define ATK_DISTORTION_SVFSD1OVERDRIVEFILTER_H
+#ifndef ATK_DISTORTION_TS9OVERDRIVEFILTER_H
+#define ATK_DISTORTION_TS9OVERDRIVEFILTER_H
 
 #include <memory>
 
@@ -15,11 +15,11 @@ namespace ATK
   template<typename Function, int max_iterations, bool check_convergence>
   class ScalarNewtonRaphson;
 
-  /// SD1 filter, based on a trapezoidal rule
+  /// TS9 filter, based on a trapezoidal rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT SVFSD1OverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT TS9OverdriveFilter: public TypedBaseFilter<DataType_>
   {
-    class SD1OverdriveFunction;
+    class TS9OverdriveFunction;
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
@@ -38,9 +38,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    SVFSD1OverdriveFilter();
+    TS9OverdriveFilter();
     /// Destructor
-    ~SVFSD1OverdriveFilter();
+    ~TS9OverdriveFilter();
 
     void set_drive(DataType drive);
 
@@ -50,7 +50,8 @@ namespace ATK
     DataType drive;
     
   private:
-    std::unique_ptr<ScalarNewtonRaphson<SD1OverdriveFunction, 10, true> > optimizer;
+    static const int num_iterations = 30;
+    std::unique_ptr<ScalarNewtonRaphson<TS9OverdriveFunction, num_iterations, true> > optimizer;
   };
 }
 

@@ -102,8 +102,7 @@ namespace ATK
 #if ATK_PROFILING == 1
         ++nb_iterations;
 #endif
-        auto all = function(i, input, output, y1);
-        Vector cx = all.second.inverse() * all.first;
+        auto cx = function(i, input, output, y1);
         auto yk = y1 - cx;
         if((cx.array().abs() < precision).all())
         {

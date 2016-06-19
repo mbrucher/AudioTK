@@ -115,8 +115,9 @@ The *Dynamic* module contains filters enabling compressor construction.
 * **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
 * **AttackReleaseHysteresisFilter** is a filter modulating an input with an Attack and a Release envelope specification and a hysteresis mode
 * **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
-* **GainExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does
+* **GainExpanderFilter** is a filter that changes an input signal (a gain) like an expander/noise gate does
 * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
+* **GainSwellFilter** is a filter that changes an input signal (a gain) like aan auto swell does
 * **PowerFilter** is a filter that outputs an AR(1)-filtered version of the squared input signal
 * **RelativePowerFilter** is a filter that outputs the squared input signal divided by an AR(1)-filtered version of the squared input signal
 * **GainColoredCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does with an additional color component
@@ -131,7 +132,7 @@ The *Distortion* module contains filters simulation distortion circuits.
 * **DiodeClipperFilter** is a Newton-Raphson simulation of a diode clipper
 * **SimpleOverdriveFilter** is a Newton-Raphson simulation of another diode clipper
 * **SD1OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Boss SD1 pedal
-* **SVFSD1OverdriveFilter** is a variation of the previous overdrive
+* **TS9OverdriveFilter** is a Newton-Raphson simulation of the oversdrive section of the Ibanez Tube Screamer/TS9/TS808 pedal
 
 Reverberation module
 --------------------
@@ -147,4 +148,13 @@ Special module
 The *Special* module contains specific/special filters.
 
 * **ConvolutionFilter** is a filter based on an FFT implementation with 0 latency
+
+Preamplification module
+-----------------------
+
+* EnhancedKorenFunction is a model of the triode transfer functions based on Ivan Cohen's work
+* KorenFunction is a model of the triode transfer functions based on Koren's model
+* TransistorClassAFilter is a solid state class A filter
+* TriodeFilter is a triode based filter
+* Triode2Filter is a triode based filter with a grid-plate capacitor
 

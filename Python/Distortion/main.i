@@ -14,6 +14,6 @@
 %include "DiodeClipperFilter.i"
 %include "SimpleOverdriveFilter.i"
 %include "SD1OverdriveFilter.i"
-%include "SVFSD1OverdriveFilter.i"
+%include "TS9OverdriveFilter.i"
 
 #endif

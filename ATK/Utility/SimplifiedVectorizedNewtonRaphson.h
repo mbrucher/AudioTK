@@ -53,8 +53,7 @@ namespace ATK
       int j;
       for(j = 0; j < max_iterations; ++j)
       {
-        auto all = function(y1);
-        Vector cx = all.second.inverse() * all.first;
+        Vector cx = function(y1);
         auto maximum = cx.maxCoeff();
         auto minimum = cx.minCoeff();
         auto r = std::max(maximum, -minimum);

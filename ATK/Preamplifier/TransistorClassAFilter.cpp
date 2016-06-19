@@ -145,7 +145,7 @@ namespace ATK
       icoeq = -2 * Co * output[2][i] - icoeq;
     }
 
-    std::pair<Vector, Matrix> operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
+    Vector operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
       std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((y1(3) - y1(0)) / Vt), std::exp((y1(3) - y1(2)) / Vt));
 
@@ -175,7 +175,7 @@ namespace ATK
         -Ic_Vbe, Ro, -Ic_Vbc + Ro + Rp, (Ic_Vbe + Ic_Vbc),
         -Ib_Vbe, 0, -Ib_Vbc, (Ib_Vbc + Ib_Vbe) + Rg2 + Rg1 + Cg;
 
-      return std::make_pair(F, M);
+      return M.inverse() * F;
     }
 
   };
@@ -208,7 +208,7 @@ namespace ATK
     {
     }
 
-    std::pair<Vector, Matrix> operator()(const Vector& y1)
+    Vector operator()(const Vector& y1)
     {
       std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((y1(2) - y1(1)) / Vt), std::exp((y1(2) - y1(0)) / Vt));
 
@@ -232,7 +232,7 @@ namespace ATK
         (Ib_Vbc + Ic_Vbc) * Rk, 1 + (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk, -(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk,
         -Ib_Vbc * R, -Ib_Vbe * R, 1 + (Ib_Vbe + Ib_Vbc) * R;
 
-      return std::make_pair(F, M);
+      return M.inverse() * F;
     }
   };
 
