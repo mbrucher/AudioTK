@@ -112,7 +112,7 @@ namespace ATK
   void RLSFilter<DataType_>::set_P(const Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic>& P)
   {
     assert(P.rows() == P.cols());
-    assert(P.rows() == size);
+    assert(P.rows() == global_size);
     this->P = P;
   }
   
@@ -125,7 +125,7 @@ namespace ATK
   template<typename DataType_>
   void RLSFilter<DataType_>::set_w(const Eigen::Matrix<DataType_, Eigen::Dynamic, 1>& w)
   {
-    assert(w.rows() == size);
+    assert(w.rows() == global_size);
     this->w = w;
   }
   
