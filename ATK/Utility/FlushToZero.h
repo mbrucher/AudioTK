@@ -23,8 +23,17 @@ namespace ATK
     ~FlushToZero();
 
   protected:
+#ifdef _MSC_VER
+    /// State to which the denormal flag must be set to
+    unsigned int previous_state;
+#else
+  #ifdef __GNUC__
+    int previous_state;
+  #else
     /// State to which the denormal flag must be set to
     fenv_t previous_state;
+  #endif
+#endif
   };
 }
 
