@@ -4,7 +4,6 @@
 
 #include <ATK/Utility/FlushToZero.h>
 
-
 namespace ATK
 {
   FlushToZero::FlushToZero()
