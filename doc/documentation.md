@@ -3,6 +3,17 @@ Documentation
 
 This is a small list of the different files and the implemented algorithms.
 
+Utility module
+------------
+
+This module contains a set of basic general purpose classes:
+
+* **Exp**, an exponential approcimation with a LUT and a 2-order Taylor expansion
+* **FFT**, a class that exposes a FFT and iFFT (if compiled with FFTW)
+* **FlushToZero**, a RAII class to activate flush denormals to zero behavior on some platforms
+* **ScalarNewtonRaphson**, an optimization class for scalar ODEs
+* **VectorizedNewtonRaphson**, an optimization class for vector ODEs
+
 Core module
 -----------
 
@@ -47,7 +58,7 @@ If you have access to **libsndfile** you should use these filters instead:
 Tools module
 ------------
 
-The *Tools* has two kind of classes: filters and general purpose classes.
+The *Tools* contains simple but useful filters.
 
 * **ApplyGainFilter** is a filter that multiplies two input signals together
 * **CachedCosinusGeneratorFilter** is a filter that outputs a cached cosinus
@@ -63,12 +74,6 @@ The *Tools* has two kind of classes: filters and general purpose classes.
 * **SumFilter** sums two input signals in one
 * **VolumeFilter** multiplies input signal by a certain amount
 * **WhitenoiseGeneratorFilter** is a filter that outputs a white noise
-
-The general purpose classes are:
-
-* **Exp**, an exponential approcimation with a LUT and a 2-order Taylor expansion
-* **FFT**, a class that exposes a FFT and iFFT (if compiled with FFTW)
-* **SclarNewtonRaphson**, an optimization class for scalar ODEs
 
 EQ module
 ---------
