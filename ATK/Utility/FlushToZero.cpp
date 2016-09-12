@@ -25,8 +25,6 @@ namespace ATK
 #elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
     previous_state = _mm_getcsr() & _MM_DENORMALS_ZERO_MASK;
     _mm_setcsr(_mm_getcsr() | (_MM_DENORMALS_ZERO_ON));
-#elif defined(__GNUC__) && defined(__ARM_NEON__)
-    previous_state = ieee_status(FE_IEEE_FLUSHZERO, FE_IEEE_FLUSHZERO);
 #endif
   }
   
@@ -39,8 +37,6 @@ namespace ATK
     fesetenv(&previous_state);
 #elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
     _mm_setcsr((_mm_getcsr() & ~_MM_DENORMALS_ZERO_MASK));
-#elif defined(__GNUC__) && defined(__ARM_NEON__)
-    ieee_status(FE_IEEE_FLUSHZERO, previous_state & FE_IEEE_FLUSHZERO);
 #endif
   }
 }

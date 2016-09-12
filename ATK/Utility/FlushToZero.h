@@ -30,8 +30,6 @@ namespace ATK
     fenv_t previous_state;
 #elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
     int previous_state;
-#elif defined(__GNUC__) && defined(__ARM_NEON__)
-    unsigned int previous_state;
 #endif
   };
 }
