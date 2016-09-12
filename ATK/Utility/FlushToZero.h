@@ -23,16 +23,15 @@ namespace ATK
     ~FlushToZero();
 
   protected:
-#ifdef _MSC_VER
-    /// State to which the denormal flag must be set to
+/// State to which the denormal flag must be set to
+#if defined(_MSC_VER)
     unsigned int previous_state;
-#else
-  #ifdef __GNUC__
-    int previous_state;
-  #else
-    /// State to which the denormal flag must be set to
+#elif defined(__APPLE__)
     fenv_t previous_state;
-  #endif
+#elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
+    int previous_state;
+#elif defined(__GNUC__) && defined(__ARM_NEON__)
+    unsigned int previous_state;
 #endif
   };
 }
