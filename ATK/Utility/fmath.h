@@ -37,27 +37,16 @@
 #include <cstring> // for memcpy
 
 #if defined(_WIN32) && !defined(__GNUC__)
-#include <intrin.h>
-#ifndef MIE_ALIGN
-#define MIE_ALIGN(x) __declspec(align(x))
-#endif
-#else
-#ifndef __GNUC_PREREQ
-#define __GNUC_PREREQ(major, minor) ((((__GNUC__) << 16) + (__GNUC_MINOR__)) >= (((major) << 16) + (minor)))
-#endif
-#if __GNUC_PREREQ(4, 4) || !defined(__GNUC__)
+# include <intrin.h>
+# ifndef MIE_ALIGN
+#  define MIE_ALIGN(x) __declspec(align(x))
+# endif
+#elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
 /* GCC >= 4.4 and non-GCC compilers */
-#include <x86intrin.h>
-#elif __GNUC_PREREQ(4, 1)
-/* GCC 4.1, 4.2, and 4.3 do not have x86intrin.h, directly include SSE2 header */
-#include <emmintrin.h>
+# include <x86intrin.h>
 #endif
 #ifndef MIE_ALIGN
-#define MIE_ALIGN(x) __attribute__((aligned(x)))
-#endif
-#endif
-#ifndef MIE_PACK
-#define MIE_PACK(x, y, z, w) ((x) * 64 + (y) * 16 + (z) * 4 + (w))
+# define MIE_ALIGN(x) __attribute__((aligned(x)))
 #endif
 
 namespace fmath {
@@ -234,6 +223,10 @@ namespace fmath {
     
   } // fmath::local
   
+#if defined(__GNUC__) && defined(__ARM_NEON__)
+  using std::exp;
+  using std::log;
+#else
   inline float exp(float x)
   {
     using namespace local;
@@ -278,180 +271,7 @@ namespace fmath {
     memcpy(&did, &u, sizeof(did));
     return y * did;
   }
-  
-  /*
-   px : pointer to array of double
-   n : size of array(assume multiple of 2 or 4)
-   */
-  inline void exp_v(double *px, size_t n)
-  {
-    using namespace local;
-    const ExpdVar<>& c = C<>::expdVar;
-    const double b = double(3ULL << 51);
-#ifdef __AVX2__
-    size_t r = n & 3;
-    n &= ~3;
-    const __m256d mC1 = _mm256_set1_pd(c.C1[0]);
-    const __m256d mC2 = _mm256_set1_pd(c.C2[0]);
-    const __m256d mC3 = _mm256_set1_pd(c.C3[0]);
-    const __m256d ma = _mm256_set1_pd(c.a);
-    const __m256d mra = _mm256_set1_pd(c.ra);
-    const __m256i madj = _mm256_set1_epi64x(c.adj);
-    const __m256i maskSbit = _mm256_set1_epi64x(mask(c.sbit));
-    const __m256d expMax = _mm256_set1_pd(709.78272569338397);
-    const __m256d expMin = _mm256_set1_pd(-708.39641853226408);
-    for (size_t i = 0; i < n; i += 4) {
-      __m256d x = _mm256_load_pd(px);
-      x = _mm256_min_pd(x, expMax);
-      x = _mm256_max_pd(x, expMin);
-      
-      __m256d d = _mm256_mul_pd(x, ma);
-      d = _mm256_add_pd(d, _mm256_set1_pd(b));
-      __m256i adr = _mm256_and_si256(_mm256_castpd_si256(d), maskSbit);
-      __m256i iax = _mm256_i64gather_epi64((const long long*)c.tbl, adr, 8);
-      __m256d t = _mm256_sub_pd(_mm256_mul_pd(_mm256_sub_pd(d, _mm256_set1_pd(b)), mra), x);
-      __m256i u = _mm256_castpd_si256(d);
-      u = _mm256_add_epi64(u, madj);
-      u = _mm256_srli_epi64(u, c.sbit);
-      u = _mm256_slli_epi64(u, 52);
-      u = _mm256_or_si256(u, iax);
-      __m256d y = _mm256_mul_pd(_mm256_sub_pd(mC3, t), _mm256_mul_pd(t, t));
-      y = _mm256_mul_pd(y, mC2);
-      y = _mm256_add_pd(_mm256_sub_pd(y, t), mC1);
-      _mm256_store_pd(px, _mm256_mul_pd(y, _mm256_castsi256_pd(u)));
-      px += 4;
-    }
-#else
-    size_t r = n & 1;
-    n &= ~1;
-    const __m128d mC1 = _mm_set1_pd(c.C1[0]);
-    const __m128d mC2 = _mm_set1_pd(c.C2[0]);
-    const __m128d mC3 = _mm_set1_pd(c.C3[0]);
-    const __m128d ma = _mm_set1_pd(c.a);
-    const __m128d mra = _mm_set1_pd(c.ra);
-#if defined(__x86_64__) || defined(_WIN64)
-    const __m128i madj = _mm_set1_epi64x(c.adj);
-#else
-    const __m128i madj = _mm_set_epi32(0, c.adj, 0, c.adj);
-#endif
-    const __m128d expMax = _mm_set1_pd(709.78272569338397);
-    const __m128d expMin = _mm_set1_pd(-708.39641853226408);
-    for (size_t i = 0; i < n; i += 2) {
-      __m128d x = _mm_load_pd(px);
-      x = _mm_min_pd(x, expMax);
-      x = _mm_max_pd(x, expMin);
-      
-      __m128d d = _mm_mul_pd(x, ma);
-      d = _mm_add_pd(d, _mm_set1_pd(b));
-      int adr0 = _mm_cvtsi128_si32(_mm_castpd_si128(d)) & mask(c.sbit);
-      int adr1 = _mm_cvtsi128_si32(_mm_srli_si128(_mm_castpd_si128(d), 8)) & mask(c.sbit);
-      
-      __m128i iaxL = _mm_castpd_si128(_mm_load_sd((const double*)&c.tbl[adr0]));
-      __m128i iax = _mm_castpd_si128(_mm_load_sd((const double*)&c.tbl[adr1]));
-      iax = _mm_unpacklo_epi64(iaxL, iax);
-      
-      __m128d t = _mm_sub_pd(_mm_mul_pd(_mm_sub_pd(d, _mm_set1_pd(b)), mra), x);
-      __m128i u = _mm_castpd_si128(d);
-      u = _mm_add_epi64(u, madj);
-      u = _mm_srli_epi64(u, c.sbit);
-      u = _mm_slli_epi64(u, 52);
-      u = _mm_or_si128(u, iax);
-      __m128d y = _mm_mul_pd(_mm_sub_pd(mC3, t), _mm_mul_pd(t, t));
-      y = _mm_mul_pd(y, mC2);
-      y = _mm_add_pd(_mm_sub_pd(y, t), mC1);
-      _mm_store_pd(px, _mm_mul_pd(y, _mm_castsi128_pd(u)));
-      px += 2;
-    }
-#endif
-    for (size_t i = 0; i < r; i++) {
-      px[i] = exp(px[i]);
-    }
-  }
-  
-  inline __m128 exp_ps(__m128 x)
-  {
-    using namespace local;
-    const ExpVar<>& expVar = C<>::expVar;
-    
-    __m128i limit = _mm_castps_si128(_mm_and_ps(x, *cast_to<__m128>(expVar.i7fffffff)));
-    int over = _mm_movemask_epi8(_mm_cmpgt_epi32(limit, *cast_to<__m128i>(expVar.maxX)));
-    if (over) {
-      x = _mm_min_ps(x, _mm_load_ps(expVar.maxX));
-      x = _mm_max_ps(x, _mm_load_ps(expVar.minX));
-    }
-    
-    __m128i r = _mm_cvtps_epi32(_mm_mul_ps(x, *cast_to<__m128>(expVar.a)));
-    __m128 t = _mm_sub_ps(x, _mm_mul_ps(_mm_cvtepi32_ps(r), *cast_to<__m128>(expVar.b)));
-    t = _mm_add_ps(t, *cast_to<__m128>(expVar.f1));
-    
-    __m128i v4 = _mm_and_si128(r, *cast_to<__m128i>(expVar.mask_s));
-    __m128i u4 = _mm_add_epi32(r, *cast_to<__m128i>(expVar.i127s));
-    u4 = _mm_srli_epi32(u4, expVar.s);
-    u4 = _mm_slli_epi32(u4, 23);
-    
-#ifdef __AVX2__ // fast?
-    __m128i ti = _mm_i32gather_epi32((const int*)expVar.tbl, v4, 4);
-    __m128 t0 = _mm_castsi128_ps(ti);
-#else
-    unsigned int v0, v1, v2, v3;
-    v0 = _mm_cvtsi128_si32(v4);
-    v1 = _mm_extract_epi16(v4, 2);
-    v2 = _mm_extract_epi16(v4, 4);
-    v3 = _mm_extract_epi16(v4, 6);
-#if 1
-    __m128 t0, t1, t2, t3;
-    
-    t0 = _mm_castsi128_ps(_mm_set1_epi32(expVar.tbl[v0]));
-    t1 = _mm_castsi128_ps(_mm_set1_epi32(expVar.tbl[v1]));
-    t2 = _mm_castsi128_ps(_mm_set1_epi32(expVar.tbl[v2]));
-    t3 = _mm_castsi128_ps(_mm_set1_epi32(expVar.tbl[v3]));
-    
-    t1 = _mm_movelh_ps(t1, t3);
-    t1 = _mm_castsi128_ps(_mm_slli_epi64(_mm_castps_si128(t1), 32));
-    t0 = _mm_movelh_ps(t0, t2);
-    t0 = _mm_castsi128_ps(_mm_srli_epi64(_mm_castps_si128(t0), 32));
-    t0 = _mm_or_ps(t0, t1);
-#else
-    __m128i ti = _mm_castps_si128(_mm_load_ss((const float*)&expVar.tbl[v0]));
-    ti = _mm_insert_epi32(ti, expVar.tbl[v1], 1);
-    ti = _mm_insert_epi32(ti, expVar.tbl[v2], 2);
-    ti = _mm_insert_epi32(ti, expVar.tbl[v3], 3);
-    __m128 t0 = _mm_castsi128_ps(ti);
-#endif
-#endif
-    t0 = _mm_or_ps(t0, _mm_castsi128_ps(u4));
-    
-    t = _mm_mul_ps(t, t0);
-    
-    return t;
-  }
-#ifdef __AVX2__
-  inline __m256 exp_ps256(__m256 x)
-  {
-    using namespace local;
-    const ExpVar<>& expVar = C<>::expVar;
-    
-    __m256i limit = _mm256_castps_si256(_mm256_and_ps(x, *(const __m256*)expVar.i7fffffff));
-    int over = _mm256_movemask_epi8(_mm256_cmpgt_epi32(limit, *(const __m256i*)expVar.maxX));
-    if (over) {
-      x = _mm256_min_ps(x, _mm256_load_ps(expVar.maxX));
-      x = _mm256_max_ps(x, _mm256_load_ps(expVar.minX));
-    }
-    __m256i r = _mm256_cvtps_epi32(_mm256_mul_ps(x, *(const __m256*)expVar.a));
-    __m256 t = _mm256_sub_ps(x, _mm256_mul_ps(_mm256_cvtepi32_ps(r), *(const __m256*)expVar.b));
-    t = _mm256_add_ps(t, *(const __m256*)expVar.f1);
-    __m256i v8 = _mm256_and_si256(r, *(const __m256i*)expVar.mask_s);
-    __m256i u8 = _mm256_add_epi32(r, *(const __m256i*)expVar.i127s);
-    u8 = _mm256_srli_epi32(u8, expVar.s);
-    u8 = _mm256_slli_epi32(u8, 23);
-    __m256i ti = _mm256_i32gather_epi32((const int*)expVar.tbl, v8, 4);
-    __m256 t0 = _mm256_castsi256_ps(ti);
-    t0 = _mm256_or_ps(t0, _mm256_castsi256_ps(u8));
-    t = _mm256_mul_ps(t, t0);
-    return t;
-  }
-#endif
-  
+
   inline float log(float x)
   {
     using namespace local;
@@ -468,41 +288,8 @@ namespace fmath {
     return f;
   }
   
-  inline __m128 log_ps(__m128 x)
-  {
-    using namespace local;
-    const LogVar<>& logVar = C<>::logVar;
-    
-    __m128i xi = _mm_castps_si128(x);
-    __m128i idx = _mm_srli_epi32(_mm_and_si128(xi, *cast_to<__m128i>(logVar.m2)), (23 - logVar.LEN));
-    __m128 a  = _mm_cvtepi32_ps(_mm_sub_epi32(_mm_and_si128(xi, *cast_to<__m128i>(logVar.m1)), *cast_to<__m128i>(logVar.m5)));
-    __m128 b2 = _mm_cvtepi32_ps(_mm_and_si128(xi, *cast_to<__m128i>(logVar.m3)));
-    
-    a = _mm_mul_ps(a, *cast_to<__m128>(logVar.m4)); // c_log2
-    
-    unsigned int i0 = _mm_cvtsi128_si32(idx);
-    
-    unsigned int i1 = _mm_extract_epi16(idx, 2);
-    unsigned int i2 = _mm_extract_epi16(idx, 4);
-    unsigned int i3 = _mm_extract_epi16(idx, 6);
-    
-    __m128 app, rev;
-    __m128i L = _mm_loadl_epi64(cast_to<__m128i>(&logVar.tbl[i0].app));
-    __m128i H = _mm_loadl_epi64(cast_to<__m128i>(&logVar.tbl[i1].app));
-    __m128 t = _mm_castsi128_ps(_mm_unpacklo_epi64(L, H));
-    L = _mm_loadl_epi64(cast_to<__m128i>(&logVar.tbl[i2].app));
-    H = _mm_loadl_epi64(cast_to<__m128i>(&logVar.tbl[i3].app));
-    rev = _mm_castsi128_ps(_mm_unpacklo_epi64(L, H));
-    app = _mm_shuffle_ps(t, rev, MIE_PACK(2, 0, 2, 0));
-    rev = _mm_shuffle_ps(t, rev, MIE_PACK(3, 1, 3, 1));
-    
-    a = _mm_add_ps(a, app);
-    rev = _mm_mul_ps(b2, rev);
-    return _mm_add_ps(a, rev);
-  }
-  
   inline float log2(float x) { return fmath::log(x) * 1.442695f; }
-  
+#endif
   /*
    for given y > 0
    get f_y(x) := pow(x, y) for x >= 0
