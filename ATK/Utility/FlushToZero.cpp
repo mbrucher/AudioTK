@@ -11,9 +11,6 @@
 #define _MM_DENORMALS_ZERO_MASK   0x0040
 #define _MM_DENORMALS_ZERO_ON     0x0040
 #define _MM_DENORMALS_ZERO_OFF    0x0000
-#elif defined(__GNUC__) && defined(__ARM_NEON__)
-/* GCC-compatible compiler, targeting ARM with NEON */
-#include <arm_neon.h>
 #endif
 
 namespace ATK
@@ -29,6 +26,7 @@ namespace ATK
     previous_state = _mm_getcsr() & _MM_DENORMALS_ZERO_MASK;
     _mm_setcsr(_mm_getcsr() | (_MM_DENORMALS_ZERO_ON));
 #elif defined(__GNUC__) && defined(__ARM_NEON__)
+    previous_state = ieee_status(FE_IEEE_FLUSHZERO, FE_IEEE_FLUSHZERO);
 #endif
   }
   
@@ -42,6 +40,7 @@ namespace ATK
 #elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
     _mm_setcsr((_mm_getcsr() & ~_MM_DENORMALS_ZERO_MASK));
 #elif defined(__GNUC__) && defined(__ARM_NEON__)
+    ieee_status(FE_IEEE_FLUSHZERO, previous_state & FE_IEEE_FLUSHZERO);
 #endif
   }
 }
