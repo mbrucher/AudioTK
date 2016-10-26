@@ -160,6 +160,7 @@ add_subdirectory(ATK)
 if(ENABLE_TESTS)
   find_package(Boost REQUIRED unit_test_framework timer system)
   add_subdirectory(tests)
+  add_subdirectory(profiling)
 endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
