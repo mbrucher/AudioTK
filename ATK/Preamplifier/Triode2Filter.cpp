@@ -4,6 +4,7 @@
 
 #include "EnhancedKorenTriodeFunction.h"
 #include "KorenTriodeFunction.h"
+#include "LeachTriodeFunction.h"
 #include "Triode2Filter.h"
 
 #include <cassert>
@@ -57,33 +58,6 @@ namespace ATK
       return y0;
     }
     
-    /*Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
-    {
-      auto Ib = tube_function.Lb(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
-      auto Ic = tube_function.Lc(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
-      
-      auto Ib_Vbe = tube_function.Lb_Vbe(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
-      auto Ib_Vce = tube_function.Lb_Vce(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
-      
-      auto Ic_Vbe = tube_function.Lc_Vbe(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
-      auto Ic_Vce = tube_function.Lc_Vce(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
-      
-      Vector y0(Vector::Zero());
-      Matrix M(Matrix::Zero());
-      
-      y0 << -ickeq - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vce * (output[2][i - 1] - output[0][i - 1]) + Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vce * (output[2][i - 1] - output[0][i - 1])),
-      -icoeq,
-        VBias * Rp - (Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vce * (output[2][i - 1] - output[0][i - 1])),
-        input[0][i] * Rg - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vce * (output[2][i - 1] - output[0][i - 1]));
-      
-      M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
-        0, Ro + Co, Ro, 0,
-        -(Ic_Vbe + Ic_Vce), Ro, Rp + Ro + Ic_Vce, Ic_Vbe,
-        -(Ib_Vbe + Ib_Vce), 0, Ib_Vce, Ib_Vbe + Rg;
-      
-      return M.inverse() * y0;
-    }*/
-
     void update_state(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       ickeq = 2 * Ck * output[1][i] - ickeq;
@@ -248,6 +222,8 @@ namespace ATK
       );
   }
 
+  template class Triode2Filter<float, LeachTriodeFunction<float> >;
+  template class Triode2Filter<double, LeachTriodeFunction<double> >;
   template class Triode2Filter<float, KorenTriodeFunction<float> >;
   template class Triode2Filter<double, KorenTriodeFunction<double> >;
   template class Triode2Filter<float, EnhancedKorenTriodeFunction<float> >;
