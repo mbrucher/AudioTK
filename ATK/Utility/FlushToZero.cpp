@@ -17,7 +17,7 @@ namespace ATK
 {
   FlushToZero::FlushToZero()
   {
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__INTEL_COMPILER)
     _controlfp_s(&previous_state, _MCW_DN, _DN_FLUSH);
 #elif defined(__APPLE__)
     fegetenv(&previous_state);
@@ -30,7 +30,7 @@ namespace ATK
   
   FlushToZero::~FlushToZero()
   {
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__INTEL_COMPILER)
     unsigned int new_state;
     _controlfp_s(&new_state, _MCW_DN, previous_state);
 #elif defined(__APPLE__)
