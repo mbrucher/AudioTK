@@ -16,7 +16,7 @@ int main(int argc, char** argv)
   filter.set_input_sampling_rate(1024 * 64);
   filter.set_output_sampling_rate(1024 * 64);
   filter.set_cut_frequency(100);
-  filter.set_order(3);
+  filter.set_order(7);
 
   filter.set_input_port(0, &generator, 0);
 
