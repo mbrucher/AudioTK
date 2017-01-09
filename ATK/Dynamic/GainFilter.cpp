@@ -116,15 +116,18 @@ namespace ATK
   {
     auto gainLUT_ptr = gainLUT.data();
 
-    for(int i = 0; i < LUTsize; ++i)
+    for (int i = 0; i < LUTsize; i += 16)
     {
-      if(resetRequest)
+      if (resetRequest)
       {
         i = 0;
         resetRequest = false;
         gainLUT_ptr = gainLUT.data();
       }
-      *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i) / LUTprecision);
+      for (int j = 0; j < 16; ++j)
+      {
+        *(gainLUT_ptr++) = computeGain(static_cast<DataType>(16 * i + j) / LUTprecision);
+      }
     }
     isRunning = false;
   }
