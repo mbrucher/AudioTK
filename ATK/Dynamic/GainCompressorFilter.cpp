@@ -14,17 +14,11 @@ namespace ATK
   GainCompressorFilter<DataType_>::GainCompressorFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
-    recomputeLUT();
   }
   
   template<typename DataType_>
   GainCompressorFilter<DataType_>::~GainCompressorFilter()
   {
-    //Future has to be deleted in child destructor as it uses computeGain
-    if(recomputeFuture.valid())
-    {
-      recomputeFuture.wait();
-    }
   }
 
   template<typename DataType_>
@@ -55,4 +49,6 @@ namespace ATK
 
   template class GainCompressorFilter<float>;
   template class GainCompressorFilter<double>;
+  template class GainFilter<GainCompressorFilter<float>>;
+  template class GainFilter<GainCompressorFilter<double>>;
 }

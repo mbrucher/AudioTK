@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainColoredExpanderFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(10);
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_0_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainColoredExpanderFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
 
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_2_test
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainColoredExpanderFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(2);
@@ -120,7 +120,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_4_test
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainColoredExpanderFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(2);
@@ -152,7 +152,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_always_more_1_test )
   
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
   
-  ATK::GainColoredExpanderFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(1);
@@ -184,7 +184,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_always_less_1_test )
   
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
   
-  ATK::GainColoredExpanderFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(1);

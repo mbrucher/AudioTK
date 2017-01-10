@@ -11,6 +11,7 @@
 %nodefaultctor;
 
 %include "../Core/BaseFilter.i"
+%include "GainFilter.i"
 %include "AttackReleaseFilter.i"
 %include "AttackReleaseHysteresisFilter.i"
 %include "GainColoredCompressorFilter.i"

@@ -14,17 +14,11 @@ namespace ATK
   GainLimiterFilter<DataType_>::GainLimiterFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
-    recomputeLUT();
   }
 
   template<typename DataType_>
   GainLimiterFilter<DataType_>::~GainLimiterFilter()
   {
-    //Future has to be deleted in child destructor as it uses computeGain
-    if(recomputeFuture.valid())
-    {
-      recomputeFuture.wait();
-    }
   }
 
   template<typename DataType_>
@@ -53,7 +47,8 @@ namespace ATK
     return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40));
   }
 
-
   template class GainLimiterFilter<float>;
   template class GainLimiterFilter<double>;
+  template class GainFilter<GainLimiterFilter<float>>;
+  template class GainFilter<GainLimiterFilter<double>>;
 }

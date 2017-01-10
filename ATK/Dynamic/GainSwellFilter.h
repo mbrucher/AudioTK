@@ -14,19 +14,16 @@ namespace ATK
 {
   /// Gain "swell". Diminishes the global gain below the input signal
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT GainSwellFilter : public GainFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT GainSwellFilter : public ParentGainFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
-    typedef GainFilter<DataType_> Parent;
-    using typename Parent::DataType;
+    typedef ParentGainFilter<DataType_> Parent;
     using Parent::ratio;
-    using Parent::recomputeFuture;
-    using Parent::recomputeLUT;
-    using Parent::start_recomputeLUT;
 
     DataType_ softness;
   public:
+    using typename Parent::DataType;
     /*!
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
@@ -39,11 +36,11 @@ namespace ATK
 
     /// Sets the softness of the knee of the filter (positive value)
     void set_softness(DataType_ softness);
-    /// Retrieves the softness afctor
+    /// Retrieves the softness factor
     DataType_ get_softness() const;
 
   protected:
-    DataType_ computeGain(DataType_ value) const override final;
+    DataType_ computeGain(DataType_ value) const;
   };
 }
 

@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainLimiterFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(10);
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_0_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainLimiterFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
 
@@ -88,7 +88,7 @@ BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_threshold_05_test )
 
   boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
 
-  ATK::GainLimiterFilter<float> filter(1);
+  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(0.5);

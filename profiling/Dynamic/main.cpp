@@ -24,7 +24,7 @@ int main(int argc, char** argv)
   ATK::AttackReleaseFilter<double> attackReleaseFilter;
   attackReleaseFilter.set_input_sampling_rate(1024 * 64);
   attackReleaseFilter.set_output_sampling_rate(1024 * 64);
-  ATK::GainColoredCompressorFilter<double> gainCompressorFilter(1, 256*1024);
+  ATK::GainFilter<ATK::GainColoredCompressorFilter<double>> gainCompressorFilter(1, 256*1024);
   gainCompressorFilter.set_input_sampling_rate(1024 * 64);
   gainCompressorFilter.set_output_sampling_rate(1024 * 64);
   ATK::ApplyGainFilter<double> applyGainFilter;
