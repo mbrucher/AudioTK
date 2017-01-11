@@ -18,10 +18,11 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
-### 1.3.3
+### 1.4.0
 * Added a LeachTriodeFunction for simpler tube filters
 * Added Intel Compiler support
 * Vectorized FIR part of IIRFilter
+* Refactored gain filters to enable vectorization
 * 256 bits alignment of internal arrays (with or without delay, the first element to process will be 256-bits aligned)
 
 ### 1.3.2
