@@ -155,7 +155,7 @@ endif(LIBSNDFILE_FOUND)
 
 if(ATK_BUILD_PYTHON)
   find_package(swig REQUIRED)
-  find_package(Numpy REQUIRED)
+  find_package(NumPy REQUIRED)
 endif(ATK_BUILD_PYTHON)
 
 find_package(FFTW)
