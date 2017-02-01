@@ -5,6 +5,7 @@
 #ifndef ATK_DYNAMIC_GAINFILTER_H
 #define ATK_DYNAMIC_GAINFILTER_H
 
+#include <cassert>
 #include <atomic>
 #include <future>
 #include <vector>
@@ -70,7 +71,9 @@ namespace ATK
   template<class ParentFilter>
   class GainFilter: public ParentFilter
   {
-  using ParentFilter::DataType;
+    using ParentFilter::DataType;
+    using ParentFilter::nb_input_ports;
+    using ParentFilter::nb_output_ports;
 
   public:
     GainFilter(int nb_channels = 1, size_t LUTsize = 128 * 1024, size_t LUTprecision = 64)
@@ -98,7 +101,7 @@ namespace ATK
 
     virtual void process_impl(int64_t size) const override final
     {
-//      assert(nb_input_ports == nb_output_ports);
+      assert(nb_input_ports == nb_output_ports);
 
       if (isRunning)
       {
@@ -115,11 +118,11 @@ namespace ATK
     {
       for (int channel = 0; channel < nb_output_ports; ++channel)
       {
-        const DataType* ATK_RESTRICT input = converted_inputs[channel];
-        DataType* ATK_RESTRICT output = outputs[channel];
+        const auto* ATK_RESTRICT input = converted_inputs[channel];
+        auto* ATK_RESTRICT output = outputs[channel];
         for (int64_t i = 0; i < size; ++i)
         {
-          DataType value = *(input++) * threshold;
+          auto value = *(input++) * threshold;
           int step = static_cast<int>(value * LUTprecision);
           if (step >= LUTsize)
           {
@@ -135,8 +138,8 @@ namespace ATK
     {
       for (int channel = 0; channel < nb_output_ports; ++channel)
       {
-        const DataType* ATK_RESTRICT input = converted_inputs[channel];
-        DataType* ATK_RESTRICT output = outputs[channel];
+        const auto* ATK_RESTRICT input = converted_inputs[channel];
+        auto* ATK_RESTRICT output = outputs[channel];
         for (int64_t i = 0; i < size; ++i)
         {
           *(output++) = computeGain(*(input++) * threshold);
