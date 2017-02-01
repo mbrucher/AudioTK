@@ -18,8 +18,16 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 1.4.0
+* Added a LeachTriodeFunction for simpler tube filters
+* Added Intel Compiler support
+* Vectorized FIR part of IIRFilter
+* Refactored gain filters to enable vectorization
+* 256 bits alignment of internal arrays (with or without delay, the first element to process will be 256-bits aligned)
+
 ### 1.3.2
 * Starting support for ARM platforms (not optimized yet)
+* Added a FlushToZero class used in Python interface so that it is activated when process() is called
 * Added a FlushToZero class used in Python interface so that it is activated when process() is called
 
 ### 1.3.1

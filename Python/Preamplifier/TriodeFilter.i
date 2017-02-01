@@ -2,11 +2,17 @@
 %{
 #include <ATK/Preamplifier/EnhancedKorenTriodeFunction.h>
 #include <ATK/Preamplifier/KorenTriodeFunction.h>
+#include <ATK/Preamplifier/LeachTriodeFunction.h>
 #include <ATK/Preamplifier/TriodeFilter.h>
 %}
 
 namespace ATK
 {
+  template<typename DataType>
+  class LeachTriodeFunction
+  {
+  };
+
   template<typename DataType>
   class KorenTriodeFunction
   {
@@ -25,6 +31,8 @@ namespace ATK
   };
 }
 
+%template(FloatLeachTriodeFilter) ATK::TriodeFilter<float, ATK::LeachTriodeFunction<float> >;
+%template(DoubleLeachTriodeFilter) ATK::TriodeFilter<double, ATK::LeachTriodeFunction<double>>;
 %template(FloatKorenTriodeFilter) ATK::TriodeFilter<float, ATK::KorenTriodeFunction<float> >;
 %template(DoubleKorenTriodeFilter) ATK::TriodeFilter<double, ATK::KorenTriodeFunction<double>>;
 %template(FloatEnhancedKorenTriodeFilter) ATK::TriodeFilter<float, ATK::EnhancedKorenTriodeFunction<float> >;
@@ -40,6 +48,8 @@ namespace ATK
 }
 %enddef
 
+TubeExtend(ATK::TriodeFilter,float, ATK::LeachTriodeFunction);
+TubeExtend(ATK::TriodeFilter,double, ATK::LeachTriodeFunction);
 TubeExtend(ATK::TriodeFilter,float, ATK::KorenTriodeFunction);
 TubeExtend(ATK::TriodeFilter,double, ATK::KorenTriodeFunction);
 TubeExtend(ATK::TriodeFilter,float, ATK::EnhancedKorenTriodeFunction);

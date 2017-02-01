@@ -14,17 +14,11 @@ namespace ATK
   GainExpanderFilter<DataType_>::GainExpanderFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
-    recomputeLUT();
   }
 
   template<typename DataType_>
   GainExpanderFilter<DataType_>::~GainExpanderFilter()
   {
-    //Future has to be deleted in child destructor as it uses computeGain
-    if(recomputeFuture.valid())
-    {
-      recomputeFuture.wait();
-    }
   }
 
   template<typename DataType_>
@@ -55,4 +49,6 @@ namespace ATK
 
   template class GainExpanderFilter<float>;
   template class GainExpanderFilter<double>;
+  template class GainFilter<GainExpanderFilter<float>>;
+  template class GainFilter<GainExpanderFilter<double>>;
 }

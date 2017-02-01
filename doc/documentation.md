@@ -157,8 +157,9 @@ The *Special* module contains specific/special filters.
 Preamplification module
 -----------------------
 
-* EnhancedKorenFunction is a model of the triode transfer functions based on Ivan Cohen's work
-* KorenFunction is a model of the triode transfer functions based on Koren's model
+* EnhancedKorenFunction is a model of the triode transfer functions based on Ivan Cohen model
+* KorenFunction is a model of the triode transfer functions based on Koren model
+* LeachFunction is a model of the triode transfer functions based on Leach model
 * TransistorClassAFilter is a solid state class A filter
 * TriodeFilter is a triode based filter
 * Triode2Filter is a triode based filter with a grid-plate capacitor

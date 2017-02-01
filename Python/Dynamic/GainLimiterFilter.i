@@ -20,5 +20,7 @@ namespace ATK
   };
 }
 
-%template(FloatGainLimiterFilter) ATK::GainLimiterFilter<float>;
-%template(DoubleGainLimiterFilter) ATK::GainLimiterFilter<double>;
+%template() ATK::GainLimiterFilter<float>;
+%template() ATK::GainLimiterFilter<double>;
+%template(FloatGainLimiterFilter) ATK::GainFilter<ATK::GainLimiterFilter<float>>;
+%template(DoubleGainLimiterFilter) ATK::GainFilter<ATK::GainLimiterFilter<double>>;

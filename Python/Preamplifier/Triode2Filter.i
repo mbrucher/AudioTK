@@ -2,6 +2,7 @@
 %{
 #include <ATK/Preamplifier/EnhancedKorenTriodeFunction.h>
 #include <ATK/Preamplifier/KorenTriodeFunction.h>
+#include <ATK/Preamplifier/LeachTriodeFunction.h>
 #include <ATK/Preamplifier/Triode2Filter.h>
 %}
 

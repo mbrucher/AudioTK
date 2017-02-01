@@ -18,6 +18,8 @@
 
 namespace
 {
+  const size_t alignment = 32;
+
   typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double> ConversionTypes;
 
   template<typename Vector, typename DataType>
@@ -123,12 +125,16 @@ namespace ATK
       auto input_size = converted_inputs_size[i];
       if(input_size < size)
       {
-        std::unique_ptr<DataType[]> temp(new DataType[input_delay + size]);
+        std::unique_ptr<DataType[]> temp(new DataType[input_delay + size + (alignment - 1) / sizeof(DataType)]);
+        auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
+        size_t space;
+        std::align(alignment, sizeof(DataType), my_temp_ptr, space);
+        auto temp_ptr = reinterpret_cast<DataType*>(my_temp_ptr);
         if(input_size == 0)
         {
           for(int j = 0; j < input_delay; ++j)
           {
-            temp[j] = default_input[i];
+            temp_ptr[j] = default_input[i];
           }
         }
         else
@@ -136,12 +142,12 @@ namespace ATK
           const auto input_ptr = converted_inputs[i];
           for(int j = 0; j < input_delay; ++j)
           {
-            temp[j] = input_ptr[last_size + j - input_delay];
+            temp_ptr[j] = input_ptr[last_size + j - input_delay];
           }
         }
         
         converted_inputs_delay[i] = std::move(temp);
-        converted_inputs[i] = converted_inputs_delay[i].get() + input_delay;
+        converted_inputs[i] = temp_ptr + input_delay;
         converted_inputs_size[i] = size;
       }
       else
@@ -165,12 +171,16 @@ namespace ATK
       auto output_size = outputs_size[i];
       if(output_size < size)
       {
-        std::unique_ptr<DataType[]> temp(new DataType[output_delay + size]);
+        std::unique_ptr<DataType[]> temp(new DataType[output_delay + size + (alignment - 1) / sizeof(DataType)]);
+        auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
+        size_t space;
+        std::align(alignment, sizeof(DataType), my_temp_ptr, space);
+        auto temp_ptr = reinterpret_cast<DataType*>(my_temp_ptr);
         if(output_size == 0)
         {
           for(int j = 0; j < output_delay; ++j)
           {
-            temp[j] = default_output[i];
+            temp_ptr[j] = default_output[i];
           }
         }
         else
@@ -178,12 +188,12 @@ namespace ATK
           const auto output_ptr = outputs[i];
           for(int j = 0; j < output_delay; ++j)
           {
-            temp[j] = output_ptr[last_size + j - output_delay];
+            temp_ptr[j] = output_ptr[last_size + j - output_delay];
           }
         }
         
         outputs_delay[i] = std::move(temp);
-        outputs[i] = outputs_delay[i].get() + output_delay;
+        outputs[i] = temp_ptr + output_delay;
         outputs_size[i] = size;
       }
       else

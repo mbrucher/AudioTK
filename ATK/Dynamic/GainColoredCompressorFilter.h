@@ -14,18 +14,16 @@ namespace ATK
 {
   /// Colored gain "compressor". Computes a new amplitude/volume gain based on threshold, slope and the power of the input signal
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT GainColoredCompressorFilter : public GainFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT GainColoredCompressorFilter : public ParentGainFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
-    typedef GainFilter<DataType_> Parent;
-    using typename Parent::DataType;
+    typedef ParentGainFilter<DataType_> Parent;
     using Parent::ratio;
-    using Parent::recomputeFuture;
-    using Parent::recomputeLUT;
     using Parent::start_recomputeLUT;
 
   public:
+    using typename Parent::DataType;
     /*!
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
@@ -53,7 +51,7 @@ namespace ATK
     /// Returns the quality factor
     DataType_ get_quality() const;
 
-    DataType_ computeGain(DataType_ value) const override final;
+    DataType_ computeGain(DataType_ value) const;
   private:
     DataType_ softness;
     DataType_ color;

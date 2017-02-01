@@ -14,17 +14,11 @@ namespace ATK
   GainSwellFilter<DataType_>::GainSwellFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
-    recomputeLUT();
   }
   
   template<typename DataType_>
   GainSwellFilter<DataType_>::~GainSwellFilter()
   {
-    //Future has to be deleted in child destructor as it uses computeGain
-    if(recomputeFuture.valid())
-    {
-      recomputeFuture.wait();
-    }
   }
 
   template<typename DataType_>
@@ -55,4 +49,6 @@ namespace ATK
 
   template class GainSwellFilter<float>;
   template class GainSwellFilter<double>;
+  template class GainFilter<GainSwellFilter<float>>;
+  template class GainFilter<GainSwellFilter<double>>;
 }
