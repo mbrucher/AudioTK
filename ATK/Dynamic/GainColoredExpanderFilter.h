@@ -20,6 +20,7 @@ namespace ATK
     /// Simplify parent calls
     typedef ParentGainFilter<DataType_> Parent;
     using Parent::ratio;
+    using Parent::start_recomputeLUT;
 
   private:
     DataType_ softness;

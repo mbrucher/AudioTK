@@ -66,12 +66,15 @@ namespace ATK
   class GainFilter: public ParentFilter
   {
     typedef ParentFilter Parent;
+    using typename Parent::DataType;
     using Parent::converted_inputs_size;
     using Parent::outputs_size;
     using Parent::converted_inputs;
-    using Parent::DataType;
+    using Parent::outputs;
+    using Parent::threshold;
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
+    using Parent::computeGain;
     using Parent::LUTsize;
     using Parent::LUTprecision;
     using Parent::gainLUT;
