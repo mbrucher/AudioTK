@@ -28,7 +28,6 @@ Changelog
 ### 1.3.2
 * Starting support for ARM platforms (not optimized yet)
 * Added a FlushToZero class used in Python interface so that it is activated when process() is called
-* Added a FlushToZero class used in Python interface so that it is activated when process() is called
 
 ### 1.3.1
 * Added a 1 - input filter with Python wrappers
