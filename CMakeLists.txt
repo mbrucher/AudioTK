@@ -99,6 +99,13 @@ else(WIN32)
       message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support C++11.")
    endif(COMPILER_SUPPORTS_CXX11)
 
+   CHECK_CXX_COMPILER_FLAG("-pthread" COMPILER_SUPPORTS_PTHREAD)
+   if(COMPILER_SUPPORTS_PTHREAD)
+     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+   else(COMPILER_SUPPORTS_CXX11)
+      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -pthread.")
+   endif(COMPILER_SUPPORTS_PTHREAD)
+
   CHECK_CXX_COMPILER_FLAG("-opt-report:2 -opt-report-phase=vec" COMPILER_SUPPORTS_vectorreport1)
   if(COMPILER_SUPPORTS_vectorreport1)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -opt-report:2 -opt-report-phase=vec")

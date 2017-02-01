@@ -44,9 +44,6 @@ set_target_properties (ATKDynamic PROPERTIES
 )
 
 target_link_libraries(ATKDynamic ATKCore)
-if(LINUX)
-target_link_libraries(ATKDynamic pthread)
-endif(LINUX)
 
 stagedebug(ATKDynamic)
 
