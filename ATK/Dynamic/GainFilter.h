@@ -26,12 +26,6 @@ namespace ATK
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
-    using Parent::converted_inputs;
-    using Parent::outputs;
-    using Parent::nb_input_ports;
-    using Parent::nb_output_ports;
 
   public:
     /*!
@@ -71,9 +65,16 @@ namespace ATK
   template<class ParentFilter>
   class GainFilter: public ParentFilter
   {
-    using ParentFilter::DataType;
-    using ParentFilter::nb_input_ports;
-    using ParentFilter::nb_output_ports;
+    typedef ParentFilter Parent;
+    using Parent::converted_inputs_size;
+    using Parent::outputs_size;
+    using Parent::converted_inputs;
+    using Parent::DataType;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
+    using Parent::LUTsize;
+    using Parent::LUTprecision;
+    using Parent::gainLUT;
 
   public:
     GainFilter(int nb_channels = 1, size_t LUTsize = 128 * 1024, size_t LUTprecision = 64)
