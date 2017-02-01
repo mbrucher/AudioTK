@@ -54,3 +54,5 @@ before_script:
 script:
   - pwd
   - make
+  - make test
+
