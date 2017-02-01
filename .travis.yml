@@ -2,16 +2,47 @@ sudo: required
 dist: precise
 language: cpp
 
-compiler:
-  - gcc-5
-  - gcc-6
-  - clang-3.6
-  - clang-3.7
+matrix:
+   include:
+     - compiler: gcc-5
+       addons:
+         apt:
+           sources:
+             - ubuntu-toolchain-r-test
+           packages:
+             - g++-5 libfftw3-dev libeigen3-dev
+       env: COMPILER=g++-5
+     - compiler: gcc-6
+       addons:
+         apt:
+           sources:
+             - ubuntu-toolchain-r-test
+           packages:
+             - g++-6 libfftw3-dev libeigen3-dev
+       env: COMPILER=g++-6
+     - compiler: clang-3.6
+       addons:
+         apt:
+           sources:
+             - ubuntu-toolchain-r-test
+             - llvm-toolchain-precise-3.6
+           packages:
+             - clang-3.6 libfftw3-dev libeigen3-dev
+       env: COMPILER=clang++-3.6
+     - compiler: clang-3.7
+       addons:
+         apt:
+           sources:
+             - ubuntu-toolchain-r-test
+             - llvm-toolchain-precise-3.7
+           packages:
+             - clang-3.7 libfftw3-dev libeigen3-dev
+       env: COMPILER=clang++-3.7
 
 before_install:
   - sudo add-apt-repository -y ppa:boost-latest/ppa
   - sudo apt-get update -qq
-  - sudo apt-get install libboost-test1.55-dev libboost-system1.55-dev libboost-timer1.55-dev libfftw3-dev libeigen3-dev
+  - sudo apt-get install libboost-test1.55-dev libboost-system1.55-dev libboost-timer1.55-dev
 
 before_script:
   - mkdir build
