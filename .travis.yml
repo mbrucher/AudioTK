@@ -10,10 +10,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-5
-            - libfftw3-dev
-            - libboost-all-dev
-            - libeigen3-dev
+            - g++-5 libfftw3-dev libeigen3-dev
       env: COMPILER=g++-5
     - compiler: gcc
       addons:
@@ -21,10 +18,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-6
-            - libfftw3-dev
-            - libboost-all-dev
-            - libeigen3-dev
+            - g++-6 libfftw3-dev libeigen3-dev
       env: COMPILER=g++-6
     - compiler: clang
       addons:
@@ -33,10 +27,7 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.6
           packages:
-            - clang-3.6
-            - libfftw3-dev
-            - libboost-all-dev
-            - libeigen3-dev
+            - clang-3.6 libfftw3-dev libeigen3-dev
       env: COMPILER=clang++-3.6
     - compiler: clang
       addons:
@@ -45,12 +36,15 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.7
           packages:
-            - clang-3.7
-            - libfftw3-dev
-            - libboost-all-dev
-            - libeigen3-dev
+            - clang-3.7 libfftw3-dev libeigen3-dev
       env: COMPILER=clang++-3.7
 
+before_install:
+  - sudo add-apt-repository -y ppa:boost-latest/ppa
+  - sudo apt-get update -qq
+  - sudo apt-get install libboost-filesystem1.55-dev libboost-program-options1.55-dev libboost-serialization1.55-dev libboost-test1.55-dev libboost-regex1.55-dev
+ 
+      
 before_script:
   - mkdir build
   - cd build
