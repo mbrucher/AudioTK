@@ -22,5 +22,7 @@ namespace ATK
   };
 }
 
+%template() ATK::GainMaxColoredExpanderFilter<float>;
+%template() ATK::GainMaxColoredExpanderFilter<double>;
 %template(FloatGainMaxColoredExpanderFilter) ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>>;
 %template(DoubleGainMaxColoredExpanderFilter) ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<double>>;

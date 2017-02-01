@@ -19,5 +19,7 @@ namespace ATK
   };
 }
 
+%template() ATK::GainColoredCompressorFilter<float>;
+%template() ATK::GainColoredCompressorFilter<double>;
 %template(FloatGainColoredCompressorFilter) ATK::GainFilter<ATK::GainColoredCompressorFilter<float>>;
 %template(DoubleGainColoredCompressorFilter) ATK::GainFilter<ATK::GainColoredCompressorFilter<double>>;

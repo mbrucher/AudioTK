@@ -19,5 +19,7 @@ namespace ATK
   };
 }
 
+%template() ATK::GainColoredExpanderFilter<float>;
+%template() ATK::GainColoredExpanderFilter<double>;
 %template(FloatGainColoredExpanderFilter) ATK::GainFilter<ATK::GainColoredExpanderFilter<float>>;
 %template(DoubleGainColoredExpanderFilter) ATK::GainFilter<ATK::GainColoredExpanderFilter<double>>;

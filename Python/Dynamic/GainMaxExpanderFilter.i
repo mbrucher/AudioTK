@@ -18,5 +18,7 @@ namespace ATK
   };
 }
 
+%template() ATK::GainMaxExpanderFilter<float>;
+%template() ATK::GainMaxExpanderFilter<double>;
 %template(FloatGainMaxExpanderFilter) ATK::GainFilter<ATK::GainMaxExpanderFilter<float>>;
 %template(DoubleGainMaxExpanderFilter) ATK::GainFilter<ATK::GainMaxExpanderFilter<double>>;

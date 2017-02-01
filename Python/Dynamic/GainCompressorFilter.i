@@ -14,5 +14,7 @@ namespace ATK
   };
 }
 
+%template() ATK::GainCompressorFilter<float>;
+%template() ATK::GainCompressorFilter<double>;
 %template(FloatGainCompressorFilter) ATK::GainFilter<ATK::GainCompressorFilter<float>>;
 %template(DoubleGainCompressorFilter) ATK::GainFilter<ATK::GainCompressorFilter<double>>;
