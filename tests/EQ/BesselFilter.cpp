@@ -13,7 +13,7 @@
 #include <boost/test/unit_test.hpp>
 
 #define PROCESSSIZE (1024*64)
-
+/*
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_1k_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;
@@ -477,3 +477,4 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_200_test )
   
   checker.process(PROCESSSIZE);
 }
+*/
