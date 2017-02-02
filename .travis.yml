@@ -66,7 +66,7 @@ before_install:
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export DEBIAN_FRONTEND=noninteractive
   - mkdir -p $BOOST_ROOT
-  - tar jxf boost_1_56_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
+  - tar jxf boost_1_61_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
 
 install: 
     # Build boost libraries
