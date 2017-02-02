@@ -81,5 +81,5 @@ before_script:
 script:
   - pwd
   - make
-  - make test
+  - CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
