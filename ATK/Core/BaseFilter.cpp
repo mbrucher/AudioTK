@@ -6,6 +6,7 @@
 
 #include <cassert>
 #include <cstdint>
+#include <iostream>
 #include <stdexcept>
 
 #include <boost/lexical_cast.hpp>
@@ -21,16 +22,17 @@ namespace ATK
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
    latency(0), is_reset(false)
-  {
 #if ATK_PROFILING == 1
-    input_conversion_time = 0;
-    output_conversion_time = 0;
-    process_time = 0;
+  , input_conversion_time(0), output_conversion_time(0), process_time(0)
 #endif
+  {
   }
   
   BaseFilter::BaseFilter(BaseFilter&& other)
   :nb_input_ports(other.nb_input_ports), nb_output_ports(other.nb_output_ports), input_sampling_rate(other.input_sampling_rate), output_sampling_rate(other.output_sampling_rate), connections(std::move(other.connections)), input_delay(other.input_delay), output_delay(std::move(other.output_delay)), latency(std::move(other.latency)), is_reset(std::move(other.is_reset))
+#if ATK_PROFILING == 1
+  , input_conversion_time(0), output_conversion_time(0), process_time(0)
+#endif
   {
     
   }
@@ -39,9 +41,9 @@ namespace ATK
   {
 #if ATK_PROFILING == 1
     std::cerr << "Object of type " << class_name << std::endl;
-    std::cerr << "Input conversion time " << input_conversion_time / 1e9 << "s" << std::endl;
-    std::cerr << "Output conversion time " << output_conversion_time / 1e9 << "s" << std::endl;
-    std::cerr << "Process time " << process_time / 1e9 << "s" << std::endl;
+    std::cerr << "Input conversion time " << std::chrono::duration_cast<std::chrono::microseconds>(input_conversion_time).count() << "us" << std::endl;
+    std::cerr << "Output conversion time " << std::chrono::duration_cast<std::chrono::microseconds>(output_conversion_time).count() << "us" << std::endl;
+    std::cerr << "Process time " << std::chrono::duration_cast<std::chrono::microseconds>(process_time).count() << "us" << std::endl;
 #endif
   }
   
@@ -166,22 +168,25 @@ namespace ATK
       it->second->process_conditionnally(size * input_sampling_rate / output_sampling_rate);
     }
 #if ATK_PROFILING == 1
-    boost::timer::cpu_timer timer;
+    auto timer = std::chrono::steady_clock::now();
 #endif
     prepare_process(size * input_sampling_rate / output_sampling_rate);
 #if ATK_PROFILING == 1
-    boost::timer::cpu_times const input_elapsed_times(timer.elapsed());
-    input_conversion_time += (input_elapsed_times.system + input_elapsed_times.user);
+    auto timer2 = std::chrono::steady_clock::now();
+    input_conversion_time += (timer2 - timer);
+    timer = timer2;
 #endif
     prepare_outputs(size);
 #if ATK_PROFILING == 1
-    boost::timer::cpu_times const output_elapsed_times(timer.elapsed());
-    output_conversion_time += (output_elapsed_times.system + output_elapsed_times.user);
+    timer2 = std::chrono::steady_clock::now();
+    output_conversion_time += (timer2 - timer);
+    timer = timer2;
 #endif
     process_impl(size);
 #if ATK_PROFILING == 1
-    boost::timer::cpu_times const process_elapsed_times(timer.elapsed());
-    process_time += (process_elapsed_times.system + process_elapsed_times.user);
+    timer2 = std::chrono::steady_clock::now();
+    process_time += (timer2 - timer);
+    timer = timer2;
 #endif
     is_reset = false;
     last_size = size;
