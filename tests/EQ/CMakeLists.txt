@@ -1,7 +1,8 @@
 
 FILE(GLOB_RECURSE
     ATK_EQ_TEST_SRC
-    *.cpp
+main.cpp
+ChamberlinFilter.cpp
 )
 
 FILE(GLOB_RECURSE
