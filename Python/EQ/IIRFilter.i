@@ -1,12 +1,13 @@
 
 %{
 #include <ATK/EQ/IIRFilter.h>
+#include <boost/align/aligned_allocator.hpp>
 %}
 
 %include <std_vector.i>
 
-%template(FloatVector) std::vector<float>;
-%template(DoubleVector) std::vector<double>;
+%template(FloatVector) std::vector<float, boost::alignment::aligned_allocator<float, 32>>;
+%template(DoubleVector) std::vector<double, boost::alignment::aligned_allocator<double, 32>>;
 
 namespace ATK
 {
@@ -22,11 +23,11 @@ namespace ATK
 
 %define IIRFilterExtend(name, T)
 %extend name {
-  std::vector<T> get_coefficients_in()
+  std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_in()
   {
     return (*self).get_coefficients_in();
   }
-  std::vector<T> get_coefficients_out()
+  std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_out()
   {
     return (*self).get_coefficients_out();
   }
@@ -35,7 +36,7 @@ namespace ATK
 
 %define FIRFilterExtend(name, T)
 %extend name {
-  std::vector<T> get_coefficients_in()
+  std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_in()
   {
     return (*self).get_coefficients_in();
   }

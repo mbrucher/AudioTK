@@ -20,6 +20,7 @@ namespace ATK
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
+    using typename Parent::AlignedVector;
     using Parent::converted_inputs_size;
     using Parent::outputs_size;
     using Parent::converted_inputs;
@@ -98,13 +99,13 @@ namespace ATK
     }
     
     /// Returns the vector of internal coefficients for the MA section 
-    const std::vector<DataType>& get_coefficients_in() const
+    const AlignedVector& get_coefficients_in() const
     {
       return coefficients_in;
     }
     
     /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
-    const std::vector<DataType>& get_coefficients_out() const
+    const AlignedVector& get_coefficients_out() const
     {
       return coefficients_out;
     }

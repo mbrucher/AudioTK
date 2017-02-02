@@ -25,8 +25,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!
@@ -59,8 +59,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!
@@ -93,8 +93,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!
@@ -126,8 +126,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!

@@ -25,9 +25,9 @@ namespace ATK
     const static int out_order = 0;
 
     /// MA polynome
-    std::vector<DataType> coefficients_in;
+    AlignedVector coefficients_in;
     /// There only to use IIRFilter, but won't actually be used, as out_order in always 0
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_out;
 
   public:
     /*!
@@ -37,7 +37,7 @@ namespace ATK
     CustomFIRCoefficients(int nb_channels = 1);
 
     /// Set custom coefficients for the FIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)
-    void set_coefficients_in(std::vector<DataType> coefficients_in);
+    void set_coefficients_in(const std::vector<DataType>& coefficients_in);
   };
 }
 

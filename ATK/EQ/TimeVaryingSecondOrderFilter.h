@@ -20,8 +20,8 @@ namespace ATK
 
     const static int in_order=2;
     const static int out_order=2;
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
 
     double min_frequency;
     double max_frequency;

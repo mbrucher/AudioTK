@@ -46,8 +46,8 @@ namespace
     k = f.real();
   }
   
-  template<typename DataType>
-  void create_default_chebyshev2_coeffs(size_t order, DataType ripple, DataType Wn, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_default_chebyshev2_coeffs(size_t order, DataType ripple, DataType Wn, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -74,8 +74,8 @@ namespace
     }
   }
   
-  template<typename DataType>
-  void create_bp_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_bp_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -104,8 +104,8 @@ namespace
     }
   }
   
-  template<typename DataType>
-  void create_bs_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_bs_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
