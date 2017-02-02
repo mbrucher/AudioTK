@@ -70,7 +70,7 @@ before_install:
 
 install: 
     # Build boost libraries
-  - (cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test,timer)
+  - (cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=chrono,system,test,timer)
   - (cd $BOOST_ROOT; ./b2 threading=multi --prefix=$HOME -d0 install)
 
 before_script:
