@@ -13,7 +13,7 @@
 #include "config.h"
 
 #if ATK_PROFILING == 1
-#include <boost/timer/timer.hpp>
+#include <chrono>
 #endif
 
 #if ATK_USE_THREADPOOL == 1
@@ -150,9 +150,9 @@ namespace ATK
     bool is_reset;
 #if ATK_PROFILING == 1
     std::string class_name;
-    boost::timer::nanosecond_type input_conversion_time;
-    boost::timer::nanosecond_type output_conversion_time;
-    boost::timer::nanosecond_type process_time;
+    std::chrono::steady_clock::duration input_conversion_time;
+    std::chrono::steady_clock::duration output_conversion_time;
+    std::chrono::steady_clock::duration process_time;
 #endif
 #if ATK_USE_THREADPOOL == 1
     tbb::queuing_mutex mutex;
