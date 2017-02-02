@@ -18,5 +18,5 @@ if(ENABLE_PYTHON)
 endif(ENABLE_PYTHON)
 
 if(EIGEN_FOUND)
-  add_subdirectory(Adaptive)
+#  add_subdirectory(Adaptive)
 endif(EIGEN_FOUND)
