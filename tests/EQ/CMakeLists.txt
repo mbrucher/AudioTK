@@ -3,6 +3,8 @@ FILE(GLOB_RECURSE
     ATK_EQ_TEST_SRC
 main.cpp
 ChamberlinFilter.cpp
+SecondOrderFilter.cpp
+SecondOrderSVFFilter.cpp
 TimeVaryingSecondOrderFilter.cpp
 )
 
