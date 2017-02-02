@@ -66,7 +66,7 @@ namespace ATK
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
       assert(coefficients_in.data());
-      assert(coefficients_out.data());
+      assert(out_order == 0 || coefficients_out.data() != nullptr);
 
       const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
       const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
