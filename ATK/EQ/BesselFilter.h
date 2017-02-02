@@ -50,6 +50,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -84,6 +85,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -117,6 +119,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:

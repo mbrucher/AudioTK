@@ -16,17 +16,18 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::setup;
   protected:
-    /// Order of the MA polynome
+    /// Order of the MA polynomial
     int in_order;
-    /// Order of the AR polynome
+    /// Order of the AR polynomial
     int out_order;
 
-    /// MA polynome
+    /// MA polynomial
     AlignedVector coefficients_in;
-    /// AR polynome with order 0 ommitted and supposed to be -1
+    /// AR polynomial with order 0 ommitted and supposed to be -1
     AlignedVector coefficients_out;
 
   public:
