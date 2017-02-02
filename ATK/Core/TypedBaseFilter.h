@@ -10,6 +10,8 @@
 #include <memory>
 #include <vector>
 
+#include <boost/align/aligned_allocator.hpp>
+
 namespace ATK
 {
   /// Base class for typed filters, contains arrays
@@ -22,6 +24,8 @@ namespace ATK
   public:
     /// To be used by inherited APIs
     typedef DataType_ DataType;
+    /// To be used for filters that require alignement (like EQs)
+    typedef std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > AlignedVector;
 
     /// Base constructor for filters with actual data
     TypedBaseFilter(int nb_input_ports, int nb_output_ports);
@@ -63,9 +67,9 @@ namespace ATK
     /// Current size of the input arrays, without delay
     std::vector<int64_t> converted_inputs_size;
 
-    /// Ouput arrays with the output delay, owned here
+    /// Output arrays with the output delay, owned here
     std::vector<std::unique_ptr<DataType[]> > outputs_delay;
-    /// Ouput arrays, starting from t=0 (without output delay)
+    /// Output arrays, starting from t=0 (without output delay)
     std::vector<DataType *> outputs;
     /// Current size of the output arrays, without delay
     std::vector<int64_t> outputs_size;
