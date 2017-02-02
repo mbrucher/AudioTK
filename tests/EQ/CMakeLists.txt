@@ -3,9 +3,13 @@ FILE(GLOB_RECURSE
     ATK_EQ_TEST_SRC
 main.cpp
 ChamberlinFilter.cpp
+LinkwitzRileyFilter.cpp
+RobertBristowJohnsonFilter.cpp
+SD1ToneFilter.cpp
 SecondOrderFilter.cpp
 SecondOrderSVFFilter.cpp
 TimeVaryingSecondOrderFilter.cpp
+ToneStackFilter.cpp
 )
 
 FILE(GLOB_RECURSE
