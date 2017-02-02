@@ -16,15 +16,17 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::setup;
+
   protected:
-    /// Order of the MA polynome
+    /// Order of the MA polynomial
     int in_order;
     /// Set to 0 so IIRFilter understand that it can bypass the AR section
     const static int out_order = 0;
 
-    /// MA polynome
+    /// MA polynomial
     AlignedVector coefficients_in;
     /// There only to use IIRFilter, but won't actually be used, as out_order in always 0
     AlignedVector coefficients_out;
