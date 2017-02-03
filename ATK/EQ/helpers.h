@@ -161,7 +161,7 @@ namespace
     auto p_size = p.size();
     std::cout << "zpk2ba" << std::endl;
     std::cout << z_size << std::endl;
-    b = boost::math::tools::polynomial<DataType>(k);
+    b = boost::math::tools::polynomial<DataType>({k});
     
     for(int i = 0; i < z_size; ++i)
     {
@@ -184,7 +184,7 @@ namespace
     }
     
     std::cout << p_size << std::endl;
-    a = boost::math::tools::polynomial<DataType>(1);
+    a = boost::math::tools::polynomial<DataType>({1});
     for(size_t i = 0; i < p_size; ++i)
     {
       if(p[i].imag() == 0)
