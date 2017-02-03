@@ -158,6 +158,10 @@ namespace
     
     zpk2ba(fs, z, p, k, b, a);
     
+    std::cout << "final" << std::endl;
+    std::cout << coefficients_in.size() << std::endl;
+    std::cout << coefficients_out.size() << std::endl;
+
     auto in_size = std::min(order + 1, b.size());
     for (size_t i = 0; i < in_size; ++i)
     {
@@ -190,10 +194,6 @@ namespace
     
     zpk2ba(fs, z, p, k, b, a);
     
-    std::cout << "final" << std::endl;
-    std::cout << coefficients_in.size() << std::endl;
-    std::cout << coefficients_out.size() << std::endl;
-
     auto in_size = std::min(order + 1, b.size());
     for (size_t i = 0; i < in_size; ++i)
     {
