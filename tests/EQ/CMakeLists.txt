@@ -1,19 +1,7 @@
 
 FILE(GLOB_RECURSE
     ATK_EQ_TEST_SRC
-main.cpp
-Bessel.cpp
-Butterworth.cpp
-ChamberlinFilter.cpp
-Chebyshev1Filter.cpp
-Chebyshev2Filter.cpp
-LinkwitzRileyFilter.cpp
-RobertBristowJohnsonFilter.cpp
-SD1ToneFilter.cpp
-SecondOrderFilter.cpp
-SecondOrderSVFFilter.cpp
-TimeVaryingSecondOrderFilter.cpp
-ToneStackFilter.cpp
+    *.cpp
 )
 
 FILE(GLOB_RECURSE
