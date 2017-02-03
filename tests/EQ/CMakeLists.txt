@@ -2,6 +2,7 @@
 FILE(GLOB_RECURSE
     ATK_EQ_TEST_SRC
 main.cpp
+Bessel.cpp
 ChamberlinFilter.cpp
 Chebyshev1Filter.cpp
 Chebyshev2Filter.cpp
