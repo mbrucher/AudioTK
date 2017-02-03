@@ -158,11 +158,13 @@ namespace
     
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < std::min(order + 1, b.size()); ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < std::min(order, a.size()-1); ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
@@ -188,11 +190,13 @@ namespace
     
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < std::min(order + 1, b.size()); ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < std::min(order, a.size()-1); ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
@@ -219,12 +223,12 @@ namespace
     zpk2ba(fs, z, p, k, b, a);
     
     auto in_size = std::min(order + 1, b.size());
-    for(size_t i = 0; i < in_size; ++i)
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
     auto out_size = std::min(order, a.size() - 1);
-    for(size_t i = 0; i < out_size; ++i)
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
