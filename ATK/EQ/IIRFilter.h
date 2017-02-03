@@ -59,6 +59,13 @@ namespace ATK
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
+
+      coefficients_out_2.resize(out_order, 0);
+      for (int i = 1; i < out_order; ++i)
+      {
+        coefficients_out_2[i] = coefficients_out[out_order - 1] * coefficients_out[i] + coefficients_out[i - 1];
+      }
+      coefficients_out_2[0] = coefficients_out[out_order - 1] * coefficients_out[0];
     }
     
     virtual void process_impl(int64_t size) const override final
@@ -71,6 +78,7 @@ namespace ATK
         const DataType* ATK_RESTRICT input = converted_inputs[channel] - in_order;
         const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
         const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
+        const DataType* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
         DataType* ATK_RESTRICT output = outputs[channel];
 
         for(int64_t i = 0; i < size; ++i)
@@ -86,30 +94,30 @@ namespace ATK
           }
         }
 
-        int64_t i;
-        for (i = 0; i < size-1; i+=2)
+        if (out_order > 0)
         {
-          DataType tempout = output[i];
-          for (int j = 0; j < out_order; ++j)
+          int64_t i;
+          for (i = 0; i < size - 1; i += 2)
           {
-            tempout += coefficients_out_ptr[j] * output[i - out_order + j];
+            DataType tempout = output[i];
+            DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
+            for (int j = 0; j < out_order; ++j)
+            {
+              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
+            }
+            output[i] = tempout;
+            output[i + 1] = tempout2;
           }
-          output[i] = tempout;
-          tempout = output[i+1];
-          for (int j = 0; j < out_order; ++j)
+          for (; i < size; ++i)
           {
-            tempout += coefficients_out_ptr[j] * output[i+1 - out_order + j];
+            DataType tempout = output[i];
+            for (int j = 0; j < out_order; ++j)
+            {
+              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
+            }
+            output[i] = tempout;
           }
-          output[i+1] = tempout;
-        }
-        for (; i < size; ++i)
-        {
-          DataType tempout = output[i];
-          for (int j = 0; j < out_order; ++j)
-          {
-            tempout += coefficients_out_ptr[j] * output[i - out_order + j];
-          }
-          output[i] = tempout;
         }
       }
     }
@@ -125,6 +133,9 @@ namespace ATK
     {
       return coefficients_out;
     }
+
+  protected:
+    AlignedVector coefficients_out_2;
   };
 
 }
