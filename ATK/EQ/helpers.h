@@ -168,9 +168,14 @@ namespace
       if(z[i].imag() == 0)
       {
         boost::math::tools::polynomial<DataType> poly1({ -z[i].real(), 1 });
-        std::cout << b << std::endl;
-        std::cout << poly1 << std::endl;
-        b *= poly1;
+        if (b.size() == 0)
+        {
+          b = poly1 * k;
+        }
+        else
+        {
+          b *= poly1;
+        }
         std::cout << b << std::endl;
       }
       else if(z[i].imag() < 0)
@@ -178,7 +183,14 @@ namespace
         boost::math::tools::polynomial<DataType> poly2({ z[i].real() * z[i].real() + z[i].imag() * z[i].imag(), -2 * z[i].real(), 1 });
         std::cout << b << std::endl;
         std::cout << poly2 << std::endl;
-        b *= poly2;
+        if (b.size() == 0)
+        {
+          b = poly2 * k;
+        }
+        else
+        {
+          b *= poly2;
+        }
         std::cout << b << std::endl;
       }
     }
