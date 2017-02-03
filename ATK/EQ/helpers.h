@@ -163,6 +163,9 @@ namespace
   {
     auto z_size = z.size();
     auto p_size = p.size();
+    std::cout << "zpk2ba" << std::endl;
+    std::cout << z_size << std::endl;
+    std::cout << p_size << std::endl;
     b = boost::math::tools::polynomial<DataType>(k);
     
     for(int i = 0; i < z_size; ++i)
