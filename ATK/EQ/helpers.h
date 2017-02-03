@@ -6,6 +6,7 @@
 #define ATK_EQ_HELPERS_H
 
 #include <cmath>
+#include <iostream>
 #include <vector>
 
 #include <boost/math/tools/polynomial.hpp>
@@ -19,6 +20,9 @@ namespace
   {
     auto z_size = z.size();
     auto p_size = p.size();
+    std::cout << "zpk_lp2bs" << std::endl;
+    std::cout << z_size << std::endl;
+    std::cout << p_size << std::endl;
     int relative_degree = static_cast<int>(p_size) - static_cast<int>(z_size);
 
     for(size_t i = 0; i < z_size; ++i)
@@ -125,6 +129,9 @@ namespace
   {
     auto z_size = z.size();
     auto p_size = p.size();
+    std::cout << "zpk_bilinear" << std::endl;
+    std::cout << z_size << std::endl;
+    std::cout << p_size << std::endl;
     DataType fs2 = 2 * static_cast<DataType>(fs);
   
     std::complex<DataType> f = 1;

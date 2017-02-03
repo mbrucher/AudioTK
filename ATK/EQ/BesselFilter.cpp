@@ -267,6 +267,8 @@ namespace ATK
   void BesselLowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
+    std::cout << in_order << std::endl;
+    std::cout << out_order << std::endl;
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
