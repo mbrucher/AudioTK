@@ -80,6 +80,6 @@ before_script:
 
 script:
   - pwd
-  - make
+  - make -j 16
   - CTEST_OUTPUT_ON_FAILURE=TRUE make test
 

@@ -2,6 +2,7 @@
  * \ file BesselFilter.cpp
  */
 
+#include <iostream>
 #include <ATK/EQ/BesselFilter.h>
 #include <ATK/EQ/IIRFilter.h>
 
@@ -20,7 +21,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_1k_test )
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
-  
+
   ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);

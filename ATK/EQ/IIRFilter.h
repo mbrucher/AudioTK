@@ -65,12 +65,15 @@ namespace ATK
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
-      
+      assert(coefficients_in.data());
+      assert(out_order == 0 || coefficients_out.data() != nullptr);
+
+      const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+      const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
+
       for(int channel = 0; channel < nb_input_ports; ++channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel] - in_order;
-        const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
-        const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
         DataType* ATK_RESTRICT output = outputs[channel];
 
         for(int64_t i = 0; i < size; ++i)

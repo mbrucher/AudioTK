@@ -9,7 +9,7 @@
 namespace
 {
   template<typename DataType>
-  void create_bessel_analog_coefficients(size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void create_bessel_analog_coefficients(int order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
     k = 1;
     z.clear(); // no zeros for this filter type
@@ -148,21 +148,23 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_bessel_analog_coefficients(order, z, p, k);
+    create_bessel_analog_coefficients(static_cast<int>(order), z, p, k);
     DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
     zpk_lp2lp(warped, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
     
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < std::min(order + 1, b.size()); ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < std::min(order, a.size()-1); ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
@@ -176,23 +178,25 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_bessel_analog_coefficients(order/2, z, p, k);
+    create_bessel_analog_coefficients(static_cast<int>(order/2), z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
     zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
+
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < std::min(order + 1, b.size()); ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < std::min(order, a.size()-1); ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
@@ -206,25 +210,25 @@ namespace
     DataType k;
     
     int fs = 2;
-    create_bessel_analog_coefficients(order/2, z, p, k);
+    create_bessel_analog_coefficients(static_cast<int>(order/2), z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
     zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
+
     zpk2ba(fs, z, p, k, b, a);
     
     auto in_size = std::min(order + 1, b.size());
-    for(size_t i = 0; i < in_size; ++i)
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
     auto out_size = std::min(order, a.size() - 1);
-    for(size_t i = 0; i < out_size; ++i)
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
