@@ -174,12 +174,14 @@ namespace
         DataType temp[2] = {-z[i].real(), 1};
         boost::math::tools::polynomial<DataType> poly1(temp, 1);
         b *= poly1;
+        std::cout << b << std::endl;
       }
       else if(z[i].imag() < 0)
       {
         DataType temp[3] = {z[i].real() * z[i].real() + z[i].imag() * z[i].imag(), -2 * z[i].real(), 1};
         boost::math::tools::polynomial<DataType> poly2(temp, 2);
         b *= poly2;
+        std::cout << b << std::endl;
       }
     }
     
@@ -192,12 +194,14 @@ namespace
         DataType temp[2] = {-p[i].real(), 1};
         boost::math::tools::polynomial<DataType> poly1(temp, 1);
         a *= poly1;
+        std::cout << a << std::endl;
       }
       else if (p[i].imag() < 0)
       {
         DataType temp[3] = {p[i].real() * p[i].real() + p[i].imag() * p[i].imag(), -2 * p[i].real(), 1};
         boost::math::tools::polynomial<DataType> poly2(temp, 2);
         a *= poly2;
+        std::cout << a << std::endl;
       }
     }
   }
