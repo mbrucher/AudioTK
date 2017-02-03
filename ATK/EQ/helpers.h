@@ -6,7 +6,6 @@
 #define ATK_EQ_HELPERS_H
 
 #include <cmath>
-#include <iostream>
 #include <vector>
 
 #include <boost/math/tools/polynomial.hpp>
@@ -159,16 +158,15 @@ namespace
   {
     auto z_size = z.size();
     auto p_size = p.size();
-    std::cout << "zpk2ba" << std::endl;
-    std::cout << z_size << std::endl;
-    b = boost::math::tools::polynomial<DataType>({k});
-    
+
+    b = boost::math::tools::polynomial<DataType>({ k });
+
     for(int i = 0; i < z_size; ++i)
     {
       if(z[i].imag() == 0)
       {
         boost::math::tools::polynomial<DataType> poly1({ -z[i].real(), 1 });
-        if (b.size() == 0)
+        if (b.size() <= 1)
         {
           b = poly1 * k;
         }
@@ -176,14 +174,11 @@ namespace
         {
           b *= poly1;
         }
-        std::cout << b << std::endl;
       }
       else if(z[i].imag() < 0)
       {
         boost::math::tools::polynomial<DataType> poly2({ z[i].real() * z[i].real() + z[i].imag() * z[i].imag(), -2 * z[i].real(), 1 });
-        std::cout << b << std::endl;
-        std::cout << poly2 << std::endl;
-        if (b.size() == 0)
+        if (b.size() <= 1)
         {
           b = poly2 * k;
         }
@@ -191,11 +186,9 @@ namespace
         {
           b *= poly2;
         }
-        std::cout << b << std::endl;
       }
     }
     
-    std::cout << p_size << std::endl;
     a = boost::math::tools::polynomial<DataType>({1});
     for(size_t i = 0; i < p_size; ++i)
     {
@@ -203,13 +196,11 @@ namespace
       {
         boost::math::tools::polynomial<DataType> poly1({ -p[i].real(), 1 });
         a *= poly1;
-        std::cout << a << std::endl;
       }
       else if (p[i].imag() < 0)
       {
         boost::math::tools::polynomial<DataType> poly2({ p[i].real() * p[i].real() + p[i].imag() * p[i].imag(), -2 * p[i].real(), 1 });
         a *= poly2;
-        std::cout << a << std::endl;
       }
     }
   }

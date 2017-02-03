@@ -158,10 +158,6 @@ namespace
     
     zpk2ba(fs, z, p, k, b, a);
     
-    std::cout << "final" << std::endl;
-    std::cout << coefficients_in.size() << std::endl;
-    std::cout << coefficients_out.size() << std::endl;
-
     auto in_size = std::min(order + 1, b.size());
     for (size_t i = 0; i < in_size; ++i)
     {
@@ -271,8 +267,6 @@ namespace ATK
   void BesselLowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
-    std::cout << in_order << std::endl;
-    std::cout << out_order << std::endl;
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     

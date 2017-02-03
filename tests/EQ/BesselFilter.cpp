@@ -23,13 +23,9 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_1k_test )
   generator.set_frequency(1000);
 
   ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
-  std::cout << "OK" << std::endl;
   filter.set_input_sampling_rate(1024*64);
-  std::cout << "OK" << std::endl;
   filter.set_output_sampling_rate(1024*64);
-  std::cout << "OK" << std::endl;
   filter.set_cut_frequency(100);
-  std::cout << "OK" << std::endl;
   filter.set_order(3);
   
   ATK::FFTCheckerFilter<double> checker;
