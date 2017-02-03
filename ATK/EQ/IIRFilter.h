@@ -86,10 +86,26 @@ namespace ATK
           }
         }
 
-        for (int64_t i = 0; i < size; ++i)
+        int64_t i;
+        for (i = 0; i < size-1; i+=2)
         {
           DataType tempout = output[i];
-          for(int j = 0; j < out_order; ++j)
+          for (int j = 0; j < out_order; ++j)
+          {
+            tempout += coefficients_out_ptr[j] * output[i - out_order + j];
+          }
+          output[i] = tempout;
+          tempout = output[i+1];
+          for (int j = 0; j < out_order; ++j)
+          {
+            tempout += coefficients_out_ptr[j] * output[i+1 - out_order + j];
+          }
+          output[i+1] = tempout;
+        }
+        for (; i < size; ++i)
+        {
+          DataType tempout = output[i];
+          for (int j = 0; j < out_order; ++j)
           {
             tempout += coefficients_out_ptr[j] * output[i - out_order + j];
           }
