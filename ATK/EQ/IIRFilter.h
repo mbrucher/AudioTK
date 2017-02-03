@@ -60,12 +60,15 @@ namespace ATK
       input_delay = in_order;
       output_delay = out_order;
 
-      coefficients_out_2.resize(out_order, 0);
-      for (int i = 1; i < out_order; ++i)
+      if (out_order > 0)
       {
-        coefficients_out_2[i] = coefficients_out[out_order - 1] * coefficients_out[i] + coefficients_out[i - 1];
+        coefficients_out_2.resize(out_order, 0);
+        for (int i = 1; i < out_order; ++i)
+        {
+          coefficients_out_2[i] = coefficients_out[out_order - 1] * coefficients_out[i] + coefficients_out[i - 1];
+        }
+        coefficients_out_2[0] = coefficients_out[out_order - 1] * coefficients_out[0];
       }
-      coefficients_out_2[0] = coefficients_out[out_order - 1] * coefficients_out[0];
     }
     
     virtual void process_impl(int64_t size) const override final
