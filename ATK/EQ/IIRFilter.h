@@ -6,6 +6,7 @@
 #define ATK_EQ_IIRFILTER_H
 
 #include <cassert>
+#include <iostream>
 #include <vector>
 
 #include "config.h"
@@ -69,19 +70,31 @@ namespace ATK
         }
         coefficients_out_2[0] = coefficients_out[out_order - 1] * coefficients_out[0];
       }
+      if (out_order > 1)
+      {
+        coefficients_out_3.resize(out_order, 0);
+        for (int i = 2; i < out_order; ++i)
+        {
+          coefficients_out_3[i] = (coefficients_out[out_order - 2] + coefficients_out[out_order - 1] * coefficients_out[out_order - 1]) * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out[i-1] + coefficients_out[i - 2];
+        }
+        coefficients_out_3[1] = (coefficients_out[out_order - 2] + coefficients_out[out_order - 1] * coefficients_out[out_order - 1]) * coefficients_out[1] + coefficients_out[out_order - 1] * coefficients_out[0];
+        coefficients_out_3[0] = (coefficients_out[out_order - 2] + coefficients_out[out_order - 1] * coefficients_out[out_order - 1]) * coefficients_out[0];
+      }
     }
     
     virtual void process_impl(int64_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
-      
+
+      const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+      const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
+      const DataType* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
+      const DataType* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
+
       for(int channel = 0; channel < nb_input_ports; ++channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel] - in_order;
-        const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
-        const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
-        const DataType* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
         DataType* ATK_RESTRICT output = outputs[channel];
 
         for(int64_t i = 0; i < size; ++i)
@@ -97,30 +110,33 @@ namespace ATK
           }
         }
 
-        if (out_order > 0)
+        int64_t i = 0;
+        if (out_order > 1)
         {
-          int64_t i;
-          for (i = 0; i < size - 1; i += 2)
+          for (i = 0; i < size - 2; i += 3)
           {
             DataType tempout = output[i];
             DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
+            DataType tempout3 = output[i] * (coefficients_out_ptr[out_order - 2] + coefficients_out_ptr[out_order - 1] * coefficients_out_ptr[out_order - 1]) + output[i + 1] * coefficients_out_ptr[out_order - 1] + output[i + 2];
             for (int j = 0; j < out_order; ++j)
             {
               tempout += coefficients_out_ptr[j] * output[i - out_order + j];
               tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[i - out_order + j];
             }
             output[i] = tempout;
             output[i + 1] = tempout2;
+            output[i + 2] = tempout3;
           }
-          for (; i < size; ++i)
+        }
+        for (; i < size; ++i)
+        {
+          DataType tempout = output[i];
+          for (int j = 0; j < out_order; ++j)
           {
-            DataType tempout = output[i];
-            for (int j = 0; j < out_order; ++j)
-            {
-              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
-            }
-            output[i] = tempout;
+            tempout += coefficients_out_ptr[j] * output[i - out_order + j];
           }
+          output[i] = tempout;
         }
       }
     }
@@ -139,6 +155,7 @@ namespace ATK
 
   protected:
     AlignedVector coefficients_out_2;
+    AlignedVector coefficients_out_3;
   };
 
 }
