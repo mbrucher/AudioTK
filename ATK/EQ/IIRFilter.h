@@ -75,10 +75,10 @@ namespace ATK
         coefficients_out_3.resize(out_order, 0);
         for (int i = 2; i < out_order; ++i)
         {
-          coefficients_out_3[i] = (coefficients_out[out_order - 2] + coefficients_out[out_order - 1] * coefficients_out[out_order - 1]) * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out[i-1] + coefficients_out[i - 2];
+          coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i] + coefficients_out[i - 2];
         }
-        coefficients_out_3[1] = (coefficients_out[out_order - 2] + coefficients_out[out_order - 1] * coefficients_out[out_order - 1]) * coefficients_out[1] + coefficients_out[out_order - 1] * coefficients_out[0];
-        coefficients_out_3[0] = (coefficients_out[out_order - 2] + coefficients_out[out_order - 1] * coefficients_out[out_order - 1]) * coefficients_out[0];
+        coefficients_out_3[1] = coefficients_out[out_order - 2]  * coefficients_out[1] + coefficients_out[out_order - 1] * coefficients_out_2[1];
+        coefficients_out_3[0] = coefficients_out[out_order - 2]  * coefficients_out[0] + coefficients_out[out_order - 1] * coefficients_out_2[0];
       }
     }
     
@@ -117,7 +117,7 @@ namespace ATK
           {
             DataType tempout = output[i];
             DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
-            DataType tempout3 = output[i] * (coefficients_out_ptr[out_order - 2] + coefficients_out_ptr[out_order - 1] * coefficients_out_ptr[out_order - 1]) + output[i + 1] * coefficients_out_ptr[out_order - 1] + output[i + 2];
+            DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
             for (int j = 0; j < out_order; ++j)
             {
               tempout += coefficients_out_ptr[j] * output[i - out_order + j];
