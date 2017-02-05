@@ -85,6 +85,6 @@ script:
 
 after_script:
   - make install
-  - tar -xvzf AudioTK.tar.gz ${HOME}/ATK/*
+  - tar -cvzf AudioTK.tar.gz ${HOME}/ATK/*
 
 
