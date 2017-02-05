@@ -73,12 +73,26 @@ namespace ATK
       if (out_order > 1)
       {
         coefficients_out_3.resize(out_order, 0);
+        for (int i = 0; i < 2; ++i)
+        {
+          coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i];
+        }
         for (int i = 2; i < out_order; ++i)
         {
           coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i] + coefficients_out[i - 2];
         }
-        coefficients_out_3[1] = coefficients_out[out_order - 2]  * coefficients_out[1] + coefficients_out[out_order - 1] * coefficients_out_2[1];
-        coefficients_out_3[0] = coefficients_out[out_order - 2]  * coefficients_out[0] + coefficients_out[out_order - 1] * coefficients_out_2[0];
+      }
+      if (out_order > 2)
+      {
+        coefficients_out_4.resize(out_order, 0);
+        for (int i = 0; i < 3; ++i)
+        {
+          coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
+        }
+        for (int i = 3; i < out_order; ++i)
+        {
+          coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i] + coefficients_out[i - 3];
+        }
       }
     }
     
@@ -91,6 +105,7 @@ namespace ATK
       const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
       const DataType* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
       const DataType* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
+      const DataType* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
 
       for(int channel = 0; channel < nb_input_ports; ++channel)
       {
@@ -111,22 +126,25 @@ namespace ATK
         }
 
         int64_t i = 0;
-        if (out_order > 1)
+        if (out_order > 2)
         {
-          for (i = 0; i < size - 2; i += 3)
+          for (i = 0; i < size - 3; i += 4)
           {
             DataType tempout = output[i];
             DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
             DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
+            DataType tempout4 = output[i] * coefficients_out_ptr[out_order - 3] + tempout2 * coefficients_out_ptr[out_order - 2] + tempout3 * coefficients_out_ptr[out_order - 1] + output[i + 3];
             for (int j = 0; j < out_order; ++j)
             {
               tempout += coefficients_out_ptr[j] * output[i - out_order + j];
               tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
               tempout3 += coefficients_out_3_ptr[j] * output[i - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[i - out_order + j];
             }
             output[i] = tempout;
             output[i + 1] = tempout2;
             output[i + 2] = tempout3;
+            output[i + 3] = tempout4;
           }
         }
         for (; i < size; ++i)
@@ -156,6 +174,7 @@ namespace ATK
   protected:
     AlignedVector coefficients_out_2;
     AlignedVector coefficients_out_3;
+    AlignedVector coefficients_out_4;
   };
 
 }
