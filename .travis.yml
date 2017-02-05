@@ -76,10 +76,15 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$HOME ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$HOME -DCMAKE_INSTALL_PREFIX=${HOME}/ATK ..
 
 script:
   - pwd
   - make
   - CTEST_OUTPUT_ON_FAILURE=TRUE make test
+
+after_script:
+  - make install
+  - tar -xvzf AudioTK.tar.gz ${HOME}/ATK/*
+
 
