@@ -68,8 +68,8 @@ namespace
     zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b({ 1 });
-    boost::math::tools::polynomial<DataType> a({ 1 });
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
 
     zpk2ba(fs, z, p, k, b, a);
     
@@ -100,8 +100,8 @@ namespace
     zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b({ 1 });
-    boost::math::tools::polynomial<DataType> a({ 1 });
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
 
     zpk2ba(fs, z, p, k, b, a);
     
