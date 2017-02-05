@@ -18,6 +18,9 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+### 1.4.1
+* Vectorized x4 the IIR part of the IIR filter
+
 ### 1.4.0
 * Added a LeachTriodeFunction for simpler tube filters
 * Added Intel Compiler support
