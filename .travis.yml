@@ -3,75 +3,72 @@ dist: precise
 language: cpp
 
 matrix:
-   include:
-     - compiler: gcc
-       os: linux
-       dist: trusty
-       addons:
-         apt:
-           sources:
-             - ubuntu-toolchain-r-test
-           packages:
-             - g++-5
-             - libfftw3-dev
-             - libeigen3-dev
-       env: COMPILER=g++-5
-     - compiler: gcc
-       os: linux
-       dist: trusty
-       addons:
-         apt:
-           sources:
-             - ubuntu-toolchain-r-test
-           packages:
-             - g++-6
-             - libfftw3-dev
-             - libeigen3-dev
-       env: COMPILER=g++-6
-     - compiler: clang-3.8
-       os: linux
-       dist: trusty
-       addons:
-         apt:
-           sources:
-             - ubuntu-toolchain-r-test
-             - llvm-toolchain-precise-3.8
-           packages:
-             - clang-3.8
-             - g++-6
-             - libfftw3-dev
-             - libeigen3-dev
-       env:
-         - COMPILER=clang++-3.8
-     - compiler: clang-3.9
-       os: linux
-       dist: trusty
-       addons:
-         apt:
-           sources:
-             - ubuntu-toolchain-r-test
-             - llvm-toolchain-precise-3.9
-           packages:
-             - clang-3.9
-             - g++-6
-             - libfftw3-dev
-             - libeigen3-dev
-       env:
-         - COMPILER=clang++-3.9
+  include:
+  - compiler: gcc
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-5
+        - libfftw3-dev
+        - libeigen3-dev
+    env: COMPILER=g++-5
+  - compiler: gcc
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-6
+        - libfftw3-dev
+        - libeigen3-dev
+    env: COMPILER=g++-6
+  - compiler: clang-3.8
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.8
+        packages:
+        - clang-3.8
+        - g++-6
+        - libfftw3-dev
+        - libeigen3-dev
+    env:
+    - COMPILER=clang++-3.8
+  - compiler: clang-3.9
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.9
+        packages:
+        - clang-3.9
+        - g++-6
+        - libfftw3-dev
+        - libeigen3-dev
+    env:
+    - COMPILER=clang++-3.9
 
 before_install:
-  # inspiration from url: https://github.com/windoze/fibio/blob/master/.travis.yml
-  # Download boost 1.61 and extract the source archive
   - wget --no-verbose --output-document=boost_1_61_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export DEBIAN_FRONTEND=noninteractive
   - mkdir -p $BOOST_ROOT
   - tar jxf boost_1_61_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
 
-install: 
-    # Build boost libraries
-  - (cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)
-  - (cd $BOOST_ROOT; ./b2 threading=multi --prefix=$HOME -d0 install)
+install:
+  - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
+  - "(cd $BOOST_ROOT; ./b2 threading=multi --prefix=$HOME -d0 install)"
 
 before_script:
   - mkdir build
@@ -79,12 +76,19 @@ before_script:
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$HOME -DCMAKE_INSTALL_PREFIX=${HOME}/ATK ..
 
 script:
-  - pwd
-  - make
-  - CTEST_OUTPUT_ON_FAILURE=TRUE make test
+- pwd
+- make
+- CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
 after_script:
   - make install
   - tar -cvzf AudioTK.tar.gz ${HOME}/ATK/*
 
-
+deploy:
+  provider: releases
+  api_key:
+    secure: ilhQ9vSyOl+QjRiRebj7CuQPYY1OygH3YxEuuFOXVa1cN4iw5yid2igEScLfKB5Xn2x2jMYDqL4bC6nLMHa1GNtCTIhCJrrHhXPeYX1W1EsOtExfAbD1G0QvUoQPZEBnK1Lu2Uf+qiQaH1IEquhzux8dxRCe/qJJzpntoWiLgm6po1giUAyQGsVzKlon4dxhgq08QcYxaQq2snOcKFJVx+zfeELfB7RZeEQXymtlMosMWnoKv3tjtFI5crWWdjD8oYKaTdLEms5EmR/cXAoYZ8jkhW0mTn1j9Ww9gaN4f/AnIlZDyggsdxVsV77rW/Kh6qqUdRbWaAnnpDgozv/HNXkgrFpxNyevIiS/pfbiyIT1zqT+iy4N9ofuc8iWuXncom3tDK/aGU+KS693ZkeLkkOT+FhT3YnIwE7UHeRS/Lqn26FQXQ/u7stuYVxCTrGR+LsfOrQdxmkQVOKicbWlOkU0+JpccaoES+j7SSCGgUkO/5f8bFzTraEu5VCN9pTuMX7TIp8OwS7b13L/TZGPwoeJDBtn5SsUl/1cqpuJbjQvf0KQqp6tJcQ8LjS9K0WrtVB+T2coQC5vYz5pM4RhYcGavj6a9+RM6U13PDvpHgP5ec5zeGbNJ2QKHLZ8s0LiuSMgffhp0vsl8E0nWjpelnSIDPtCLv5xAtk47vn+aiQ=
+  file: AudioTK.tar.gz
+  on:
+    repo: mbrucher/AudioTK
+    tags: true
