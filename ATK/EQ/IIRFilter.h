@@ -80,17 +80,25 @@ namespace ATK
         {
           coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i] + coefficients_out[i - 2];
         }
-      }
-      if (out_order > 2)
-      {
-        coefficients_out_4.resize(out_order, 0);
-        for (int i = 0; i < 3; ++i)
+        if (out_order > 2)
         {
-          coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
+          coefficients_out_4.resize(out_order, 0);
+          for (int i = 0; i < 3; ++i)
+          {
+            coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
+          }
+          for (int i = 3; i < out_order; ++i)
+          {
+            coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i] + coefficients_out[i - 3];
+          }
         }
-        for (int i = 3; i < out_order; ++i)
+        else // out_order = 2
         {
-          coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i] + coefficients_out[i - 3];
+          coefficients_out_4.resize(out_order, 0);
+          for (int i = 0; i < 2; ++i)
+          {
+            coefficients_out_4[i] = coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
+          }
         }
       }
     }
@@ -135,7 +143,30 @@ namespace ATK
             DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
             DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
             DataType tempout4 = output[i] * coefficients_out_ptr[out_order - 3] + tempout2 * coefficients_out_ptr[out_order - 2] + tempout3 * coefficients_out_ptr[out_order - 1] + output[i + 3];
-            for (int j = 0; j < out_order; ++j)
+
+            ATK_VECTORIZE_REMAINDER for (int j = 0; j < out_order; ++j)
+            {
+              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[i - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[i - out_order + j];
+            }
+            output[i] = tempout;
+            output[i + 1] = tempout2;
+            output[i + 2] = tempout3;
+            output[i + 3] = tempout4;
+          }
+        }
+        else if(out_order == 2)
+        {
+          for (i = 0; i < size - 3; i += 4)
+          {
+            DataType tempout = output[i];
+            DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
+            DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
+            DataType tempout4 = tempout2 * coefficients_out_ptr[out_order - 2] + tempout3 * coefficients_out_ptr[out_order - 1] + output[i + 3];
+
+            ATK_VECTORIZE_REMAINDER for (int j = 0; j < out_order; ++j)
             {
               tempout += coefficients_out_ptr[j] * output[i - out_order + j];
               tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
