@@ -17,12 +17,17 @@
 
 #if defined __INTEL_COMPILER
 # define ATK_RESTRICT restrict
+# define ATK_VECTORIZE_REMAINDER __pragma(simd vecremainder)
 #elif defined _MSC_VER
 # define ATK_RESTRICT __restrict
+# define ATK_VECTORIZE_REMAINDER
 #elif defined __GNUC__
 # define ATK_RESTRICT __restrict__
+# define ATK_VECTORIZE_REMAINDER
 #else
 # define ATK_RESTRICT
+# define ATK_VECTORIZE_REMAINDER
 #endif
+
 
 #endif
