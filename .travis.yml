@@ -3,8 +3,6 @@ dist: precise
 language: cpp
 
 matrix:
-  allow_failures:
-    - os: osx
   include:
   - compiler: gcc
     os: linux
@@ -94,7 +92,8 @@ script:
 
 after_script:
   - make install
-  - tar -cvzf AudioTK.tar.gz ${HOME}/ATK/*
+  - cd ${HOME}/ATK
+  - tar -cvzf ../AudioTK.tar.gz *
 
 deploy:
   provider: releases
