@@ -71,7 +71,7 @@ matrix:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen   ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw   ; fi
   - wget --no-verbose --output-document=boost_1_61_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.61.0/boost_1_61_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export DEBIAN_FRONTEND=noninteractive
