@@ -138,7 +138,7 @@ else(WIN32)
 
   int main()
   {
-    std::size_t alignement = 32;
+    std::size_t alignment = 32;
     std::size_t size = 32;
     std::size_t space = 32;
     void* p = nullptr;
