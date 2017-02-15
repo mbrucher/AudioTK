@@ -30,12 +30,11 @@
 #endif
 
 #if defined __GNUC__
-# ifndef __clang__
-#  if __GNUC__ < 5
+# if __GNUC__ == 4
 namespace std
 {
 inline void *align( std::size_t alignment, std::size_t size,
-                    void *&ptr, std::size_t &space ) {
+                    void *&ptr, std::size_t &space ) noexcept {
 	std::uintptr_t pn = reinterpret_cast< std::uintptr_t >( ptr );
 	std::uintptr_t aligned = ( pn + alignment - 1 ) & - alignment;
 	std::size_t padding = aligned - pn;
@@ -44,7 +43,6 @@ inline void *align( std::size_t alignment, std::size_t size,
 	return ptr = reinterpret_cast< void * >( aligned );
 }
 }
-#  endif
 # endif
 #endif
 
