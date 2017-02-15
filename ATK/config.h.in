@@ -30,6 +30,7 @@
 #endif
 
 #ifndef HAS_STD_ALIGN
+#include <cstddef>
 namespace std
 {
 inline void *align( std::size_t alignment, std::size_t size,
