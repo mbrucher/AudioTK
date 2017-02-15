@@ -29,8 +29,7 @@
 # define ATK_VECTORIZE_REMAINDER
 #endif
 
-#if defined __GNUC__
-# if __GNUC__ == 4
+#ifndef HAS_STD_ALIGN
 namespace std
 {
 inline void *align( std::size_t alignment, std::size_t size,
@@ -43,7 +42,6 @@ inline void *align( std::size_t alignment, std::size_t size,
 	return ptr = reinterpret_cast< void * >( aligned );
 }
 }
-# endif
 #endif
 
 #endif
