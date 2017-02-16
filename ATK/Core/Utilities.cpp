@@ -8,7 +8,7 @@
 #include <cstring>
 
 #include <boost/mpl/equal.hpp>
-#include <boost/mpl/vector.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
 #include "TypeTraits.h"
@@ -32,7 +32,7 @@ namespace
   }
   
   template<typename DataType1, typename DataType2>
-  typename boost::disable_if<typename boost::mpl::equal<typename boost::mpl::vector<DataType1>::type, typename boost::mpl::vector<DataType2>::type>::type, void>::type
+  typename boost::disable_if<typename boost::is_same<DataType1, DataType2>::type, void>::type
       convert_to_array(const DataType1* input_array, DataType2* output_array, int64_t size, int offset, int ports)
   {
     for(int i = 0; i < size; ++i)
