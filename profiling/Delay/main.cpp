@@ -23,7 +23,7 @@ int main(int argc, char** argv)
   ATK::FixedDelayLineFilter<double> fixedDelayLineFilter(1024*64);
   fixedDelayLineFilter.set_input_sampling_rate(1024 * 64);
   fixedDelayLineFilter.set_output_sampling_rate(1024 * 64);
-  ATK::UniversalVariableDelayLineFilter<float> filter(48000);
+  ATK::UniversalVariableDelayLineFilter<double> filter(48000);
   filter.set_blend(0.5);
   filter.set_feedback(0.1);
   filter.set_feedforward(1);
