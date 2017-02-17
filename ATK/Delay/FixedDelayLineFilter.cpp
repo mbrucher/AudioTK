@@ -78,7 +78,7 @@ namespace ATK
       memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), (size - delay) * sizeof(DataType_));
     }
 
-    for (int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
+    ATK_VECTORIZE for(int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
     {
       delay_line[i] = delay_line[i + size];
     }
