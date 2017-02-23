@@ -55,21 +55,13 @@ namespace ATK
     /// Compute plate current
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
-      if (Vbe > Vgamma)
-      {
-        return (Vbe - Vgamma) / Rgk;
-      }
-      return 0;
+      return (Vbe - Vgamma) / Rgk;
     }
     
     /// Compute plate current derivative relative to the grid cathode voltage
     DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      if (Vbe > Vgamma)
-      {
-        return 1 / Rgk;
-      }
-      return 0;
+      return 1 / Rgk;
     }
     
     /// Compute plate current derivative relative to the plate cathode voltage
