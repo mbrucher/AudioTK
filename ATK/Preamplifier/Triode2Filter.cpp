@@ -15,7 +15,7 @@
 namespace ATK
 {
   template <typename DataType_, typename TriodeFunction>
-  class Triode2Filter<DataType_, TriodeFunction>::CommonCathodeTriodeFunction
+  class Triode2Filter<DataType_, TriodeFunction>::CommonCathodeTriode2Function
   {
     const DataType_ Rp;
     const DataType_ Rg;
@@ -37,7 +37,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
+    CommonCathodeTriode2Function(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
       :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), Cpg(2 / dt * tube_function.Cpg), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), icpgeq(Cpg * (default_output[3] - default_output[4]) ), tube_function(tube_function)
     {
     }
@@ -100,7 +100,7 @@ namespace ATK
   };
   
   template <typename DataType_, typename TriodeFunction>
-  class CommonCathodeTriodeInitialFunction
+  class CommonCathodeTriode2InitialFunction
   {
     const DataType_ Rp;
     const DataType_ Rg;
@@ -115,7 +115,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 3, 1> Vector;
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
 
-    CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, TriodeFunction& tube_function)
+    CommonCathodeTriode2InitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, TriodeFunction& tube_function)
       :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), tube_function(tube_function)
     {
     }
@@ -167,7 +167,7 @@ namespace ATK
   void Triode2Filter<DataType, TriodeFunction>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, iterations, true>(CommonCathodeTriodeFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriode2Function, 4, iterations, true>(CommonCathodeTriode2Function(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       Co, Ck, // C
@@ -182,7 +182,7 @@ namespace ATK
     y0 << VBias, 0, 0;
     
     // setup default_output
-    SimplifiedVectorizedNewtonRaphson<CommonCathodeTriodeInitialFunction<DataType, TriodeFunction>, 3, 20> custom(CommonCathodeTriodeInitialFunction<DataType, TriodeFunction>(
+    SimplifiedVectorizedNewtonRaphson<CommonCathodeTriode2InitialFunction<DataType, TriodeFunction>, 3, 20> custom(CommonCathodeTriode2InitialFunction<DataType, TriodeFunction>(
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       tube_function // tube
