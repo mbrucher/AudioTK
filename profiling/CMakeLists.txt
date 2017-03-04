@@ -1,3 +1,4 @@
+add_subdirectory(Delay)
 add_subdirectory(Dynamic)
 add_subdirectory(EQ)
 

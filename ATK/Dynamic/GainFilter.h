@@ -166,7 +166,7 @@ namespace ATK
         }
         for (int j = 0; j < 16; ++j)
         {
-          *(gainLUT_ptr++) = computeGain(static_cast<DataType>(16 * i + j) / LUTprecision);
+          *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i + j) / LUTprecision);
         }
       }
       isRunning = false;

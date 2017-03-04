@@ -16,6 +16,7 @@ namespace ATK
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::AlignedVector;
     using Parent::input_sampling_rate;
   protected:
     DataType cut_frequency;
@@ -25,9 +26,9 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
-    
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
+
   public:
     /*!
      * @brief Constructor
@@ -49,6 +50,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -59,9 +61,9 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
-    
+    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
+    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+
   public:
     /*!
      * @brief Constructor
@@ -83,6 +85,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -93,9 +96,9 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
-    
+    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
+    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+
   public:
     /*!
      * @brief Constructor
@@ -116,6 +119,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -126,9 +130,9 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
-    
+    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
+    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+
   public:
     /*!
      * @brief Constructor

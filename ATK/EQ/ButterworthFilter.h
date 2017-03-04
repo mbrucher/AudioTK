@@ -15,6 +15,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -25,8 +26,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!
@@ -49,6 +50,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -59,8 +61,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!
@@ -83,6 +85,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -93,8 +96,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!
@@ -116,6 +119,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -126,8 +130,8 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
     /*!

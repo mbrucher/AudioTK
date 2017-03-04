@@ -25,6 +25,9 @@ IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
 ENDIF(NOT DEFINED PYTHON_INSTALL_FOLDER)
 
 include(CheckCXXCompilerFlag)
+include(CMakePushCheckState)
+include(CheckCXXSourceRuns)
+
 if(WIN32)
   set(MSVC_RUNTIME "Dynamic" CACHE STRING "Set up MSVC Runtime (Dynamic/Static)")
 
@@ -91,6 +94,7 @@ if(WIN32)
      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support /QxAVX /QaxCORE-AVX2.")
   endif(COMPILER_SUPPORTS_AVX)
 
+  add_definitions(-DHAS_STD_ALIGN)
 else(WIN32)
   CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
    if(COMPILER_SUPPORTS_CXX11)
@@ -126,6 +130,30 @@ else(WIN32)
   else(COMPILER_SUPPORTS_ftz)
      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -ftz.")
   endif(COMPILER_SUPPORTS_ftz)
+
+  cmake_push_check_state()
+  set(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -std=c++11")
+  check_cxx_source_runs("
+  #include <memory>
+
+  int main()
+  {
+    std::size_t alignment = 32;
+    std::size_t size = 32;
+    std::size_t space = 32;
+    void* p = nullptr;
+
+    std::align(alignment, size, p, space);
+
+    return 0;
+  }
+" HAS_STD_ALIGN)
+  cmake_pop_check_state()
+
+  if(HAS_STD_ALIGN)
+    add_definitions(-DHAS_STD_ALIGN)
+  endif(HAS_STD_ALIGN)
+
 endif(WIN32)
 
 enable_testing()
@@ -135,7 +163,6 @@ option(ENABLE_PYTHON "Enable the Python wrappers" OFF)
 
 if(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 1)
-  find_package(Boost REQUIRED timer)
 else(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 0)
 endif(ENABLE_PROFILING)
@@ -236,7 +263,7 @@ ENDMACRO(SOURCE_GROUP_BY_FOLDER)
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
-  find_package(Boost REQUIRED unit_test_framework timer system)
+  find_package(Boost REQUIRED unit_test_framework system)
   add_subdirectory(tests)
   add_subdirectory(profiling)
 endif(ENABLE_TESTS)

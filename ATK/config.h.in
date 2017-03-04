@@ -17,12 +17,36 @@
 
 #if defined __INTEL_COMPILER
 # define ATK_RESTRICT restrict
+# define ATK_VECTORIZE __pragma(simd)
+# define ATK_VECTORIZE_REMAINDER __pragma(simd vecremainder)
 #elif defined _MSC_VER
 # define ATK_RESTRICT __restrict
+# define ATK_VECTORIZE
+# define ATK_VECTORIZE_REMAINDER
 #elif defined __GNUC__
 # define ATK_RESTRICT __restrict__
+# define ATK_VECTORIZE
+# define ATK_VECTORIZE_REMAINDER
 #else
 # define ATK_RESTRICT
+# define ATK_VECTORIZE
+# define ATK_VECTORIZE_REMAINDER
+#endif
+
+#ifndef HAS_STD_ALIGN
+#include <cstdint>
+namespace std
+{
+inline void *align( std::size_t alignment, std::size_t size,
+                    void *&ptr, std::size_t &space ) noexcept {
+	std::uintptr_t pn = reinterpret_cast< std::uintptr_t >( ptr );
+	std::uintptr_t aligned = ( pn + alignment - 1 ) & - alignment;
+	std::size_t padding = aligned - pn;
+	if ( space < size + padding ) return nullptr;
+	space -= padding;
+	return ptr = reinterpret_cast< void * >( aligned );
+}
+}
 #endif
 
 #endif

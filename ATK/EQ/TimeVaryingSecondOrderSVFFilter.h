@@ -17,6 +17,7 @@ namespace ATK
   {
   public:
     typedef SVFCoefficients Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;

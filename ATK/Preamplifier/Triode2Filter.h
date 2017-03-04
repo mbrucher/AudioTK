@@ -29,7 +29,7 @@ namespace ATK
   template<typename DataType_, typename TriodeFunction>
   class ATK_PREAMPLIFIER_EXPORT Triode2Filter: public TypedBaseFilter<DataType_>
   {
-    class CommonCathodeTriodeFunction;
+    class CommonCathodeTriode2Function;
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
@@ -44,7 +44,7 @@ namespace ATK
     using Parent::default_output;
   private:
     const static int iterations = 10;
-    std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriodeFunction, 4, iterations, true> > optimizer;
+    std::unique_ptr<VectorizedNewtonRaphson<CommonCathodeTriode2Function, 4, iterations, true> > optimizer;
 
     const DataType_ Rp;
     const DataType_ Rg;

@@ -33,10 +33,11 @@ namespace ATK
 
     void update_delay_line(int64_t max_delay, int64_t size)
     {
+      auto array_size = processed_input.size();
       // Update delay line
-      for (int64_t i = 0; i < max_delay; ++i)
+      ATK_VECTORIZE for (int64_t i = 0; i < max_delay; ++i)
       {
-        processed_input[i] = processed_input[processed_input.size() + i - max_delay];
+        processed_input[i] = processed_input[array_size + i - max_delay];
       }
       delay_line.resize(size);
       processed_input.resize(size + max_delay);
@@ -131,7 +132,7 @@ namespace ATK
     DataType* ATK_RESTRICT fractional_delay = impl->fractional_delay.data();
 
     // Update the delay line
-    for(int64_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(int64_t i = 0; i < size; ++i)
     {
       integer_delay[i] = static_cast<int64_t>(input2[i]);
       assert(integer_delay[i] > 0);
@@ -139,7 +140,7 @@ namespace ATK
       fractional_delay[i] = input2[i] - integer_delay[i];
     }
 
-    for(int64_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(int64_t i = 0; i < size; ++i)
     {
       delay_line[i] = (processed_input[i + max_delay - integer_delay[i]] - impl->last_delay) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
       processed_input[max_delay + i] = input1[i] + feedback * processed_input[max_delay + i - central_delay]; // FB only uses the central delay and is not varying

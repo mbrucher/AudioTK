@@ -19,6 +19,7 @@ namespace
   {
     auto z_size = z.size();
     auto p_size = p.size();
+
     int relative_degree = static_cast<int>(p_size) - static_cast<int>(z_size);
 
     for(size_t i = 0; i < z_size; ++i)
@@ -125,6 +126,7 @@ namespace
   {
     auto z_size = z.size();
     auto p_size = p.size();
+
     DataType fs2 = 2 * static_cast<DataType>(fs);
   
     std::complex<DataType> f = 1;
@@ -156,37 +158,48 @@ namespace
   {
     auto z_size = z.size();
     auto p_size = p.size();
-    b = boost::math::tools::polynomial<DataType>(k);
-    
+
+    b = boost::math::tools::polynomial<DataType>({ k });
+
     for(int i = 0; i < z_size; ++i)
     {
       if(z[i].imag() == 0)
       {
-        DataType temp[2] = {-z[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly1(temp, 1);
-        b *= poly1;
+        boost::math::tools::polynomial<DataType> poly1({ -z[i].real(), 1 });
+        if (b.size() <= 1)
+        {
+          b = poly1 * k;
+        }
+        else
+        {
+          b *= poly1;
+        }
       }
       else if(z[i].imag() < 0)
       {
-        DataType temp[3] = {z[i].real() * z[i].real() + z[i].imag() * z[i].imag(), -2 * z[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly2(temp, 2);
-        b *= poly2;
+        boost::math::tools::polynomial<DataType> poly2({ z[i].real() * z[i].real() + z[i].imag() * z[i].imag(), -2 * z[i].real(), 1 });
+        if (b.size() <= 1)
+        {
+          b = poly2 * k;
+        }
+        else
+        {
+          b *= poly2;
+        }
       }
     }
     
-    a = boost::math::tools::polynomial<DataType>(1);
+    a = boost::math::tools::polynomial<DataType>({1});
     for(size_t i = 0; i < p_size; ++i)
     {
       if(p[i].imag() == 0)
       {
-        DataType temp[2] = {-p[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly1(temp, 1);
+        boost::math::tools::polynomial<DataType> poly1({ -p[i].real(), 1 });
         a *= poly1;
       }
       else if (p[i].imag() < 0)
       {
-        DataType temp[3] = {p[i].real() * p[i].real() + p[i].imag() * p[i].imag(), -2 * p[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly2(temp, 2);
+        boost::math::tools::polynomial<DataType> poly2({ p[i].real() * p[i].real() + p[i].imag() * p[i].imag(), -2 * p[i].real(), 1 });
         a *= poly2;
       }
     }

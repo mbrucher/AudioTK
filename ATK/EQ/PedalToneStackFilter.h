@@ -16,6 +16,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -30,9 +31,9 @@ namespace ATK
     void setup() override;
     
     /// MA part of the filter, based on the electronic components specifications
-    std::vector<DataType> coefficients_in;
+    AlignedVector coefficients_in;
     /// AR part of the filter, based on the electronic components specifications
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_out;
     
   public:
     /*!
@@ -54,6 +55,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -68,9 +70,9 @@ namespace ATK
     void setup() override;
     
     /// MA part of the filter, based on the electronic components specifications
-    std::vector<DataType> coefficients_in;
+    AlignedVector coefficients_in;
     /// AR part of the filter, based on the electronic components specifications
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_out;
     
   public:
     /*!

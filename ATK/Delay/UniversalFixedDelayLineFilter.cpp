@@ -117,32 +117,32 @@ namespace ATK
     int64_t delay_line_usage = std::min(delay, size);
 
     // Update intermediate input
-    for(int64_t i = 0; i < delay_line_usage; ++i)
+    ATK_VECTORIZE for(int64_t i = 0; i < delay_line_usage; ++i)
     {
       processed_input[i] = input[i] + feedback * delay_line[delay_line_size + i - delay];
     }
-    for(int64_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for(int64_t i = delay; i < size; ++i)
     {
       processed_input[i] = input[i] + feedback * processed_input[i - delay];
     }
 
     //update output
-    for(int64_t i = 0; i < delay_line_usage; ++i)
+    ATK_VECTORIZE for(int64_t i = 0; i < delay_line_usage; ++i)
     {
       output[i] = blend * processed_input[i] + feedforward *  delay_line[delay_line_size + i - delay];
     }
-    for(int64_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for(int64_t i = delay; i < size; ++i)
     {
       output[i] = blend * processed_input[i] + feedforward * processed_input[i - delay];
     }
 
     // Update delay line
-    for (int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
+    ATK_VECTORIZE for (int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
     {
       delay_line[i] = delay_line[i + size];
     }
     int64_t minimum = std::max(int64_t(0), int64_t(delay_line_size) - size);
-    for (int64_t i = minimum; i < static_cast<int64_t>(delay_line_size); ++i)
+    ATK_VECTORIZE for (int64_t i = minimum; i < static_cast<int64_t>(delay_line_size); ++i)
     {
       delay_line[i] = processed_input[size + i - delay_line_size];
     }

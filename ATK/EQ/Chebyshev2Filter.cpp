@@ -46,8 +46,8 @@ namespace
     k = f.real();
   }
   
-  template<typename DataType>
-  void create_default_chebyshev2_coeffs(size_t order, DataType ripple, DataType Wn, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_default_chebyshev2_coeffs(size_t order, DataType ripple, DataType Wn, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -59,23 +59,25 @@ namespace
     zpk_lp2lp(warped, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
+
     zpk2ba(fs, z, p, k, b, a);
     
-    for(size_t i = 0; i < std::min(order + 1, b.size()); ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(size_t i = 0; i < std::min(order, a.size()-1); ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
   }
   
-  template<typename DataType>
-  void create_bp_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_bp_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -89,23 +91,25 @@ namespace
     zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
+
     zpk2ba(fs, z, p, k, b, a);
     
-    for(size_t i = 0; i < std::min(order + 1, b.size()); ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(size_t i = 0; i < std::min(order, a.size()-1); ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
   }
   
-  template<typename DataType>
-  void create_bs_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_bs_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
@@ -119,16 +123,18 @@ namespace
     zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
+
     zpk2ba(fs, z, p, k, b, a);
     
-    for(size_t i = 0; i < std::min(order + 1, b.size()); ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(size_t i = 0; i < std::min(order, a.size()-1); ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
