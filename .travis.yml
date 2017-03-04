@@ -90,7 +90,7 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_ROOT -DCMAKE_INSTALL_PREFIX=${HOME}/ATK ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$HOME -DCMAKE_INSTALL_PREFIX=${HOME}/ATK ..
 
 script:
   - pwd
