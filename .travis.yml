@@ -90,7 +90,7 @@ script:
   - make -j 16
   - CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
-after_script:
+after_success:
   - make install
   - cd ${HOME}/ATK
   - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${COMPILER}.tar.gz *
