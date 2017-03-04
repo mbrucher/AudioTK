@@ -20,6 +20,8 @@ Changelog
 ---------
 ### 1.4.1
 * Vectorized x4 the IIR part of the IIR filter
+* Vectorized delay filters
+* Fixed bug in gain filters
 
 ### 1.4.0
 * Added a LeachTriodeFunction for simpler tube filters
