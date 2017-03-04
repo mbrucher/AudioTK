@@ -80,7 +80,6 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw   ; fi
   - wget --no-verbose --output-document=boost_1_63_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
-  - export DEBIAN_FRONTEND=noninteractive
   - mkdir -p $BOOST_ROOT
   - tar jxf boost_1_63_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
 
@@ -91,7 +90,7 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$HOME -DCMAKE_INSTALL_PREFIX=${HOME}/ATK ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_ROOT -DCMAKE_INSTALL_PREFIX=${HOME}/ATK ..
 
 script:
   - pwd
