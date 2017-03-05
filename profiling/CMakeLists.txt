@@ -1,7 +1,6 @@
-add_subdirectory(Delay)
-add_subdirectory(Dynamic)
-add_subdirectory(EQ)
-
-if(EIGEN_FOUND)
-add_subdirectory(Preamplifier)
-endif(EIGEN_FOUND)
+file(GLOB entries *)
+foreach(entry ${entries})
+  if(IS_DIRECTORY ${entry} AND EXISTS ${entry}/CMakeLists.txt)
+    add_subdirectory(${entry})
+  endif()
+endforeach(entry)
