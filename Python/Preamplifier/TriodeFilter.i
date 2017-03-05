@@ -1,5 +1,6 @@
 
 %{
+#include <ATK/Preamplifier/DempwolfTriodeFunction.h>
 #include <ATK/Preamplifier/EnhancedKorenTriodeFunction.h>
 #include <ATK/Preamplifier/KorenTriodeFunction.h>
 #include <ATK/Preamplifier/LeachTriodeFunction.h>
@@ -40,6 +41,8 @@ namespace ATK
 %template(DoubleEnhancedKorenTriodeFilter) ATK::TriodeFilter<double, ATK::EnhancedKorenTriodeFunction<double>>;
 %template(FloatMunroPiazzaTriodeFilter) ATK::TriodeFilter<float, ATK::MunroPiazzaTriodeFunction<float> >;
 %template(DoubleMunroPiazzaTriodeFilter) ATK::TriodeFilter<double, ATK::MunroPiazzaTriodeFunction<double>>;
+%template(FloatDempwolfTriodeFilter) ATK::TriodeFilter<float, ATK::DempwolfTriodeFunction<float> >;
+%template(DoubleDempwolfTriodeFilter) ATK::TriodeFilter<double, ATK::DempwolfTriodeFunction<double>>;
 
 %define TubeExtend(name, T, T2)
 %extend name<T, T2<T> > {
@@ -59,3 +62,5 @@ TubeExtend(ATK::TriodeFilter,float, ATK::EnhancedKorenTriodeFunction);
 TubeExtend(ATK::TriodeFilter,double, ATK::EnhancedKorenTriodeFunction);
 TubeExtend(ATK::TriodeFilter,float, ATK::MunroPiazzaTriodeFunction);
 TubeExtend(ATK::TriodeFilter,double, ATK::MunroPiazzaTriodeFunction);
+TubeExtend(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction);
+TubeExtend(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction);
