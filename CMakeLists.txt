@@ -105,9 +105,10 @@ else(WIN32)
 
    CHECK_CXX_COMPILER_FLAG("-pthread" COMPILER_SUPPORTS_PTHREAD)
    if(COMPILER_SUPPORTS_PTHREAD)
-     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
-   else(COMPILER_SUPPORTS_CXX11)
-      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -pthread.")
+     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
+     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pthread")
+   else(COMPILER_SUPPORTS_PTHREAD)
+      message(STATUS "The linker ${CMAKE_CXX_COMPILER} doesn't support -pthread.")
    endif(COMPILER_SUPPORTS_PTHREAD)
 
   CHECK_CXX_COMPILER_FLAG("-opt-report:2 -opt-report-phase=vec" COMPILER_SUPPORTS_vectorreport1)

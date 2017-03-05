@@ -20,6 +20,8 @@ Changelog
 ---------
 ### 1.4.1
 * Vectorized x4 the IIR part of the IIR filter
+* Vectorized delay filters
+* Fixed bug in gain filters
 
 ### 1.4.0
 * Added a LeachTriodeFunction for simpler tube filters
@@ -30,7 +32,6 @@ Changelog
 
 ### 1.3.2
 * Starting support for ARM platforms (not optimized yet)
-* Added a FlushToZero class used in Python interface so that it is activated when process() is called
 * Added a FlushToZero class used in Python interface so that it is activated when process() is called
 
 ### 1.3.1
