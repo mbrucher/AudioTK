@@ -18,6 +18,10 @@ Audio Toolkit is published under the BSD license.
 
 Changelog
 ---------
+
+### 1.5.0
+* Adding a Munro-Piazza model for tube filters with Python wrappers
+
 ### 1.4.1
 * Vectorized x4 the IIR part of the IIR filter
 * Vectorized delay filters
