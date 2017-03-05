@@ -23,6 +23,9 @@ namespace ATK
     const DataType_ Kg;
     const DataType_ Ex;
     
+    DataType_ muVbeVce;
+    DataType_ muVbeVce2;
+    
     DataType_ tmp;
     DataType_ E2;
     DataType_ lnE2;
@@ -38,17 +41,21 @@ namespace ATK
     /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      if(mu * Vbe + Vce > 0)
-        return K * std::sqrt(mu * Vbe + Vce) * (mu * Vbe + Vce);
+      muVbeVce = mu * Vbe + Vce;
+      if(muVbeVce > 0)
+      {
+        muVbeVce2 = std::sqrt(mu * Vbe + Vce);
+        return K * muVbeVce * muVbeVce2;
+      }
       return 0;
     }
     
     /// Compute grid current derivative relative to the grid cathode voltage
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      if (mu * Vbe + Vce > 0)
+      if (muVbeVce > 0)
       {
-        return K * mu * 1.5 * std::sqrt(mu * Vbe + Vce);
+        return K * mu * 1.5 * muVbeVce2;
       }
       return 0;
     }
@@ -56,9 +63,9 @@ namespace ATK
     /// Compute grid current derivative relative to the plate cathode voltage
     DataType_ Lb_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      if (mu * Vbe + Vce > 0)
+      if (muVbeVce > 0)
       {
-        return K * 1.5 * std::sqrt(mu * Vbe + Vce);
+        return K * 1.5 * muVbeVce2;
       }
       return 0;
     }
