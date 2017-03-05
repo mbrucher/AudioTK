@@ -13,7 +13,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*1024)
+#define PROCESSSIZE (1024)
 
 BOOST_AUTO_TEST_CASE( VolumeFilter_1_test )
 {

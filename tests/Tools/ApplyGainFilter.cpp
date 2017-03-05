@@ -14,7 +14,7 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/scoped_array.hpp>
 
-#define PROCESSSIZE (1024*64)
+#define PROCESSSIZE (1024)
 
 BOOST_AUTO_TEST_CASE( ApplyGainFilter_sinus_test )
 {
