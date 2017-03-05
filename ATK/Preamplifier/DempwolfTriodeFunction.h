@@ -40,7 +40,7 @@ namespace ATK
     /// Compute grid current derivative relative to the grid cathode voltage
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return Gg * (std::exp(Cg * Vbe) / (1 + std::exp(Cg * Vbe))) * std::pow(std::log(1 + std::exp(Cg * Vbe)) / Cg, eta - 1);
+      return Gg * eta * (std::exp(Cg * Vbe) / (1 + std::exp(Cg * Vbe))) * std::pow(std::log(1 + std::exp(Cg * Vbe)) / Cg, eta - 1);
     }
     
     /// Compute grid current derivative relative to the plate cathode voltage
@@ -58,13 +58,13 @@ namespace ATK
     /// Compute plate current derivative relative to the grid cathode voltage
     DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return G * (std::exp(C * (Vce / mu + Vbe)) / (1 + std::exp(C * (Vce / mu + Vbe)))) * std::pow(std::log(1 + std::exp(C * (Vce / mu +  Vbe))) / C, gamma - 1) - Lb_Vbe(Vbe, Vce);
+      return G * gamma * (std::exp(C * (Vce / mu + Vbe)) / (1 + std::exp(C * (Vce / mu + Vbe)))) * std::pow(std::log(1 + std::exp(C * (Vce / mu +  Vbe))) / C, gamma - 1) - Lb_Vbe(Vbe, Vce);
     }
     
     /// Compute plate current derivative relative to the plate cathode voltage
     DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      return G * (std::exp(C * (Vce / mu + Vbe)) / (1 + std::exp(C * (Vce / mu + Vbe)))) * std::pow(std::log(1 + std::exp(C * (Vce / mu +  Vbe))) / C, gamma - 1) / mu;
+      return G * gamma * (std::exp(C * (Vce / mu + Vbe)) / (1 + std::exp(C * (Vce / mu + Vbe)))) * std::pow(std::log(1 + std::exp(C * (Vce / mu +  Vbe))) / C, gamma - 1) / mu;
     }
     
     /// Constructor
