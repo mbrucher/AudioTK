@@ -64,3 +64,18 @@ TubeExtend(ATK::TriodeFilter,float, ATK::MunroPiazzaTriodeFunction);
 TubeExtend(ATK::TriodeFilter,double, ATK::MunroPiazzaTriodeFunction);
 TubeExtend(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction);
 TubeExtend(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction);
+
+%define TubeExtendAlternate(name, T, T2, alternate)
+%extend name<T, T2<T> > {
+  %newobject alternate;
+  static name<T, T2<T> >* alternate()
+  {
+    return new name<T, T2<T> >(name<T, T2<T> >::build_alternate_filter<T2<T>::alternate>());
+  }
+}
+%enddef
+
+TubeExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_2);
+TubeExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_2);

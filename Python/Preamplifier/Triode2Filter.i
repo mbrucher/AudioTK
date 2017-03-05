@@ -29,16 +29,6 @@ namespace ATK
 %template(FloatDempwolfTriode2Filter) ATK::Triode2Filter<float, ATK::DempwolfTriodeFunction<float> >;
 %template(DoubleDempwolfTriode2Filter) ATK::Triode2Filter<double, ATK::DempwolfTriodeFunction<double>>;
 
-%define TubeExtend(name, T, T2)
-%extend name<T, T2<T> > {
-  %newobject build_standard_filter;
-  static name<T, T2<T> >* build_standard_filter()
-  {
-    return new name<T, T2<T> >(name<T, T2<T> >::build_standard_filter());
-  }
-}
-%enddef
-
 TubeExtend(ATK::Triode2Filter,float, ATK::KorenTriodeFunction);
 TubeExtend(ATK::Triode2Filter,double, ATK::KorenTriodeFunction);
 TubeExtend(ATK::Triode2Filter,float, ATK::EnhancedKorenTriodeFunction);
@@ -49,3 +39,8 @@ TubeExtend(ATK::Triode2Filter,float, ATK::MunroPiazzaTriodeFunction);
 TubeExtend(ATK::Triode2Filter,double, ATK::MunroPiazzaTriodeFunction);
 TubeExtend(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction);
 TubeExtend(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction);
+
+TubeExtendAlternate(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction, build_alternate_function_2);
+TubeExtendAlternate(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction, build_alternate_function_2);

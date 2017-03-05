@@ -31,9 +31,6 @@ namespace ATK
     DataType_ lnE2;
     DataType_ E1;
     DataType_ E1_Ex1;
-    
-    fmath::PowGenerator Ex_1;
-    
   public:
     /// For non static models
     const DataType_ Cpg;
@@ -109,7 +106,7 @@ namespace ATK
     
     /// Constructor
     KorenTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ Ex, DataType_ Cpg)
-    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex), Ex_1(Ex - 1), Cpg(Cpg)
+    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), Ex(Ex), Cpg(Cpg)
     {
     }
     

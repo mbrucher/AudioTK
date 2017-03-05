@@ -1,7 +1,6 @@
 /**
  * \file DempwolfTriodeFunction.h
- * from Measures and models of real triodes, for the simulation of guitar amplifiers (Cohen and Helie)
- * https://hal.archives-ouvertes.fr/hal-00811215
+ * http://recherche.ircam.fr/pub/dafx11/Papers/76_e.pdf
  */
 
 #ifndef ATK_PREAMPLIFIER_DEMPWOLFTRIODEFUNCTION_H
@@ -77,6 +76,18 @@ namespace ATK
     static DempwolfTriodeFunction build_standard_function()
     {
       return DempwolfTriodeFunction(1.371e-3, 83.9, 1.349, 4.56, 3.263e-4, 1.156, 11.99, 3.917e-8, 1.7e-12);
+    }
+
+    /// Build a new triode function for a filter (12AX7/ECC83)
+    static DempwolfTriodeFunction build_alternate_function_1()
+    {
+      return DempwolfTriodeFunction(2.242e-3, 103.2, 1.26, 3.40, 6.177e-4, 1.314, 9.901, 8.025e-8, 1.7e-12);
+    }
+
+    /// Build a new triode function for a filter (12AX7/ECC83)
+    static DempwolfTriodeFunction build_alternate_function_2()
+    {
+      return DempwolfTriodeFunction(2.173e-3, 100.2, 1.28, 3.19, 5.911e-4, 1.358, 11.76, 4.527e-8, 1.7e-12);
     }
 
   };

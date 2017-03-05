@@ -2,6 +2,7 @@
  * \file Triode2Filter.cpp
  */
 
+#include "DempwolfTriodeFunction.h"
 #include "EnhancedKorenTriodeFunction.h"
 #include "KorenTriodeFunction.h"
 #include "LeachTriodeFunction.h"
@@ -231,4 +232,6 @@ namespace ATK
   template class Triode2Filter<double, EnhancedKorenTriodeFunction<double> >;
   template class Triode2Filter<float, MunroPiazzaTriodeFunction<float> >;
   template class Triode2Filter<double, MunroPiazzaTriodeFunction<double> >;
+  template class Triode2Filter<float, DempwolfTriodeFunction<float> >;
+  template class Triode2Filter<double, DempwolfTriodeFunction<double> >;
 }
