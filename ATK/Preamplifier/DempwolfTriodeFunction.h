@@ -39,7 +39,7 @@ namespace ATK
     /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      CgVbe = std::exp(Cg * Vbe);
+      CgVbe = fmath::exp(Cg * Vbe);
       lnCgVbe = std::log(1 + CgVbe) / Cg;
       powlnCgVbe = std::pow(lnCgVbe, eta - 1);
       return Ig0 + Gg * lnCgVbe * powlnCgVbe;
@@ -60,7 +60,7 @@ namespace ATK
     /// Compute plate current
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
-      CVceVbe = std::exp(C * (Vce / mu + Vbe));
+      CVceVbe = fmath::exp(C * (Vce / mu + Vbe));
       lnCVceVbe = std::log(1 + CVceVbe) / C;
       powlnCVceVbe = std::pow(lnCVceVbe, gamma - 1);
       return G * lnCVceVbe * powlnCVceVbe - (Ig0 + Gg * lnCgVbe * powlnCgVbe);

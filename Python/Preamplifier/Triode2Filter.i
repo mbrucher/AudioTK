@@ -40,7 +40,9 @@ TubeExtend(ATK::Triode2Filter,double, ATK::MunroPiazzaTriodeFunction);
 TubeExtend(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction);
 TubeExtend(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction);
 
-TubeExtendAlternate(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction, build_alternate_function_1);
-TubeExtendAlternate(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction, build_alternate_function_1);
-TubeExtendAlternate(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction, build_alternate_function_2);
-TubeExtendAlternate(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction, build_alternate_function_2);
+TubeExtendAlternate(ATK::TriodeFilter,float, ATK::KorenTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::TriodeFilter,double, ATK::KorenTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+TubeExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_2);
+TubeExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_2);
