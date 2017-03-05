@@ -33,6 +33,6 @@ if __name__ == "__main__":
   out.tofile("output4_d.dat")
   plt.plot(x[0], out[0], label="Dempwolf")
 
-  plt.legend()
+  plt.legend(loc=4)
   plt.show()
 
