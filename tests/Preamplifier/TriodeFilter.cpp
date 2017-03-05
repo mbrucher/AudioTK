@@ -15,7 +15,7 @@
 
 #define PROCESSSIZE (1024*64)
 
-BOOST_AUTO_TEST_CASE( Preamplifier_TubeFilter_Koren_0_const )
+BOOST_AUTO_TEST_CASE( TriodeFilter_Koren_0_const )
 {
   std::unique_ptr<double[]> data(new double[PROCESSSIZE]);
   for(int64_t i = 0; i < PROCESSSIZE; ++i)
