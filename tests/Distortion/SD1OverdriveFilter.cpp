@@ -1,5 +1,5 @@
 /**
- * \ file SimpleOverdriveFilter.cpp
+ * \ file SD1OverdriveFilter.cpp
  */
 
 #include <fstream>
@@ -12,7 +12,7 @@
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
 
-#include <ATK/Distortion/SimpleOverdriveFilter.h>
+#include <ATK/Distortion/SD1OverdriveFilter.h>
 
 #include <ATK/Mock/TriangleCheckerFilter.h>
 
@@ -26,7 +26,7 @@
 
 #define PROCESSSIZE (1000)
 
-BOOST_AUTO_TEST_CASE( SimpleOverdriveFilter_const_sin1k )
+BOOST_AUTO_TEST_CASE( SD1OverdriveFilter_const_sin1k )
 {
   std::unique_ptr<double[]> data(new double[PROCESSSIZE]);
   {
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE( SimpleOverdriveFilter_const_sin1k )
   
   std::unique_ptr<double[]> datacheck(new double[PROCESSSIZE]);
   {
-    std::ifstream check(ATK_SOURCE_TREE "/tests/data/output4_so.dat", std::ios::binary);
+    std::ifstream check(ATK_SOURCE_TREE "/tests/data/output4_sd1.dat", std::ios::binary);
     check.read(reinterpret_cast<char*>(datacheck.get()), PROCESSSIZE * sizeof(double));
   }
   
@@ -56,9 +56,10 @@ BOOST_AUTO_TEST_CASE( SimpleOverdriveFilter_const_sin1k )
   oversampling_filter.set_output_sampling_rate(48000 * 4);
   oversampling_filter.set_input_port(0, &generator, 0);
   
-  ATK::SimpleOverdriveFilter<double> filter;
+  ATK::SD1OverdriveFilter<double> filter;
   filter.set_input_sampling_rate(48000 * 4);
   filter.set_input_port(0, &oversampling_filter, 0);
+  filter.set_drive(0.9);
   
   ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> > lowfilter;
   lowfilter.set_input_sampling_rate(48000 * 4);
@@ -89,34 +90,4 @@ BOOST_AUTO_TEST_CASE( SimpleOverdriveFilter_const_sin1k )
   checker.set_input_port(0, &volume2, 0);
   
   checker.process(PROCESSSIZE);
-}
-
-BOOST_AUTO_TEST_CASE( SimpleOverdriveFilter_0_const )
-{
-  std::unique_ptr<double[]> data(new double[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
-  {
-    data[i] = 0;
-  }
-  
-  ATK::InPointerFilter<double> generator(data.get(), 1, PROCESSSIZE, false);
-  generator.set_output_sampling_rate(48000);
-  
-  ATK::SimpleOverdriveFilter<double> filter;
-  filter.set_input_sampling_rate(48000);
-  filter.set_output_sampling_rate(48000);
-  filter.set_input_port(0, &generator, 0);
-  
-  std::unique_ptr<double[]> outdata(new double[PROCESSSIZE]);
-  
-  ATK::OutPointerFilter<double> output(outdata.get(), 1, PROCESSSIZE, false);
-  output.set_input_sampling_rate(48000);
-  output.set_input_port(0, &filter, 0);
-  
-  output.process(PROCESSSIZE);
-  
-  for(int64_t i = 0; i < 50; ++i)
-  {
-    BOOST_REQUIRE_SMALL(outdata[i], 1e-10);
-  }
 }

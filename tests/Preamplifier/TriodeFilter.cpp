@@ -4,6 +4,8 @@
 
 #include <fstream>
 
+#include <ATK/config.h>
+
 #include <ATK/EQ/ButterworthFilter.h>
 #include <ATK/EQ/IIRFilter.h>
 
@@ -58,7 +60,7 @@ BOOST_AUTO_TEST_CASE( TriodeFilter_Koren_0_const )
   }
 }
 
-BOOST_AUTO_TEST_CASE( TriodeFilter_Koren_0_const_sin1k )
+BOOST_AUTO_TEST_CASE( TriodeFilter_Koren_const_sin1k )
 {
   std::unique_ptr<double[]> data(new double[PROCESSSIZE]);
   {

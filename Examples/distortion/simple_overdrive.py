@@ -123,15 +123,15 @@ if __name__ == "__main__":
   
   x = np.arange(size).reshape(1, -1) / 48000.
   d = np.sin(x * 2 * np.pi * 100)
-  np.savetxt("input.txt", d)
+  d.tofile("input.dat")
   out = filter_32(d)
-  np.savetxt("output32.txt", out)
+  out.tofile("output32_so.dat")
   out = filter_16(d)
-  np.savetxt("output16.txt", out)
+  out.tofile("output16_so.dat")
   out = filter_8(d)
-  np.savetxt("output8.txt", out)
+  out.tofile("output8_so.dat")
   out = filter_4(d)
-  np.savetxt("output4.txt", out)
+  out.tofile("output4_so.dat")
 
   import matplotlib.pyplot as plt
   plt.plot(x[0], d[0], label="input")
