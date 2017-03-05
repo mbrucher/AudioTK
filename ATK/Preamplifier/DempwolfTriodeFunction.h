@@ -26,6 +26,12 @@ namespace ATK
     const DataType_ Cg;
     const DataType_ Ig0;
     
+    DataType_ CgVbe;
+    DataType_ lnCgVbe;
+    DataType_ powlnCgVbe;
+    DataType_ CVceVbe;
+    DataType_ lnCVceVbe;
+    DataType_ powlnCVceVbe;
   public:
     /// For non static models
     const DataType_ Cpg;
@@ -33,13 +39,16 @@ namespace ATK
     /// Compute grid current
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
-      return Ig0 + Gg * std::pow(std::log(1 + std::exp(Cg * Vbe)) / Cg, eta);
+      CgVbe = std::exp(Cg * Vbe);
+      lnCgVbe = std::log(1 + CgVbe) / Cg;
+      powlnCgVbe = std::pow(lnCgVbe, eta - 1);
+      return Ig0 + Gg * lnCgVbe * powlnCgVbe;
     }
     
     /// Compute grid current derivative relative to the grid cathode voltage
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return Gg * eta * (std::exp(Cg * Vbe) / (1 + std::exp(Cg * Vbe))) * std::pow(std::log(1 + std::exp(Cg * Vbe)) / Cg, eta - 1);
+      return Gg * eta * (CgVbe / (1 + CgVbe)) * powlnCgVbe;
     }
     
     /// Compute grid current derivative relative to the plate cathode voltage
@@ -51,19 +60,22 @@ namespace ATK
     /// Compute plate current
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
-      return G * std::pow(std::log(1 + std::exp(C * (Vce / mu + Vbe))) / C, gamma) - Lb(Vbe, Vce);
+      CVceVbe = std::exp(C * (Vce / mu + Vbe));
+      lnCVceVbe = std::log(1 + CVceVbe) / C;
+      powlnCVceVbe = std::pow(lnCVceVbe, gamma - 1);
+      return G * lnCVceVbe * powlnCVceVbe - (Ig0 + Gg * lnCgVbe * powlnCgVbe);
     }
     
     /// Compute plate current derivative relative to the grid cathode voltage
     DataType_ Lc_Vbe(DataType_ Vbe, DataType_ Vce)
     {
-      return G * gamma * (std::exp(C * (Vce / mu + Vbe)) / (1 + std::exp(C * (Vce / mu + Vbe)))) * std::pow(std::log(1 + std::exp(C * (Vce / mu +  Vbe))) / C, gamma - 1) - Lb_Vbe(Vbe, Vce);
+      return G * gamma * (CVceVbe / (1 + CVceVbe)) * powlnCVceVbe - Lb_Vbe(Vbe, Vce);
     }
     
     /// Compute plate current derivative relative to the plate cathode voltage
     DataType_ Lc_Vce(DataType_ Vbe, DataType_ Vce)
     {
-      return G * gamma * (std::exp(C * (Vce / mu + Vbe)) / (1 + std::exp(C * (Vce / mu + Vbe)))) * std::pow(std::log(1 + std::exp(C * (Vce / mu +  Vbe))) / C, gamma - 1) / mu;
+      return G * gamma * (CVceVbe / (1 + CVceVbe)) * powlnCVceVbe / mu;
     }
     
     /// Constructor
