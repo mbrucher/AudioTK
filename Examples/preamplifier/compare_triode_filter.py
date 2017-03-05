@@ -2,8 +2,8 @@
 
 from enhanced_tube_filter import filter_4 as filter_4_ek
 from leach_tube_filter import filter_4 as filter_4_l
+from munro_piazza_tube_filter import filter_4 as filter_4_mp
 from tube_filter import filter_4 as filter_4_k
-
 
 if __name__ == "__main__":
   import numpy as np
@@ -25,6 +25,9 @@ if __name__ == "__main__":
   out = filter_4_l(d)
   out.tofile("output4_l.dat")
   plt.plot(x[0], out[0], label="Leach")
+  out = filter_4_mp(d)
+  out.tofile("output4_mp.dat")
+  plt.plot(x[0], out[0], label="Munro-Piazza")
 
   plt.legend()
   plt.show()
