@@ -48,7 +48,7 @@ namespace ATK
     if(this->size == size)
       return;
     this->size = size;
-    log2n = static_cast<int>(std::log(size) / std::log(2.));
+    log2n = static_cast<int>(std::lround(std::log(size) / std::log(2.)));
 #if ATK_USE_FFTW == 1
     fftw_free(input_data);
     fftw_free(output_freqs);
