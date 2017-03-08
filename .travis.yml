@@ -94,7 +94,7 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$HOME -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=Release ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$HOME -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=RelWithDebInfo ..
 
 script:
   - pwd
