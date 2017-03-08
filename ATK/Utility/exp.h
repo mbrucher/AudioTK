@@ -27,6 +27,9 @@ namespace ATK
      */
     Exp(DataType_ max, int steps);
 
+    Exp(const Exp&) = delete;
+    Exp& operator=(const Exp&) = delete;
+
     /// Returns the approximation of the natural exponential of the input value
     DataType_ operator()(DataType_ value) const;
 

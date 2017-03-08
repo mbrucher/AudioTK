@@ -46,6 +46,9 @@ namespace ATK
       }
     }
     
+    SimplifiedVectorizedNewtonRaphson(const SimplifiedVectorizedNewtonRaphson&) = delete;
+    SimplifiedVectorizedNewtonRaphson& operator=(const SimplifiedVectorizedNewtonRaphson&) = delete;
+
     /// Optimize the function and sets its internal state
     Vector optimize()
     {
