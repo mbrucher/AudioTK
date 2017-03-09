@@ -41,7 +41,7 @@ namespace ATK
     {
       CgVbe = fmath::exp(Cg * Vbe);
       lnCgVbe = std::log(1 + CgVbe) / Cg;
-      powlnCgVbe = std::pow(lnCgVbe, eta - 1);
+      powlnCgVbe = fmath::pow(lnCgVbe, eta - 1);
       return Ig0 + Gg * lnCgVbe * powlnCgVbe;
     }
     
@@ -62,7 +62,7 @@ namespace ATK
     {
       CVceVbe = fmath::exp(C * (Vce / mu + Vbe));
       lnCVceVbe = std::log(1 + CVceVbe) / C;
-      powlnCVceVbe = std::pow(lnCVceVbe, gamma - 1);
+      powlnCVceVbe = fmath::pow(lnCVceVbe, gamma - 1);
       return G * lnCVceVbe * powlnCVceVbe - (Ig0 + Gg * lnCgVbe * powlnCgVbe);
     }
     

@@ -290,6 +290,17 @@ namespace fmath {
   
   inline float log2(float x) { return fmath::log(x) * 1.442695f; }
 #endif
+
+  inline double pow(double x, double y)
+  {
+    return exp(y * std::log(x));
+  }
+
+  inline float pow(float x, float y)
+  {
+    return exp(y * std::log(x));
+  }
+
   /*
    for given y > 0
    get f_y(x) := pow(x, y) for x >= 0
