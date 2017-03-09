@@ -62,6 +62,10 @@ namespace ATK
       std::cout << "average: " << nb_iterations / double(nb_optimizations) << std::endl;
     }
 #endif
+    
+    ScalarNewtonRaphson(const ScalarNewtonRaphson&) = delete;
+    ScalarNewtonRaphson& operator=(const ScalarNewtonRaphson&) = delete;
+
     /// Optimize the function and sets its internal state
     void optimize(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {

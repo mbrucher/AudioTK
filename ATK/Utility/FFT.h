@@ -31,6 +31,9 @@ namespace ATK
     /// Destructor
     ~FFT();
     
+    FFT(const FFT&) = delete;
+    FFT& operator=(const FFT&) = delete;
+
     /*!
      * @brief Sets a new size for the FFT and creates an associated plan for it
      * @ size is the new size of the plan

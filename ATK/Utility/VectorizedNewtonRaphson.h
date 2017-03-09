@@ -24,7 +24,6 @@ namespace ATK
   template<typename Function, int size, int max_iterations=10, bool check_convergence=true>
   class VectorizedNewtonRaphson
   {
-    
     typedef typename Function::DataType DataType;
     
     Function function;
@@ -65,6 +64,9 @@ namespace ATK
     }
 #endif
     
+    VectorizedNewtonRaphson(const VectorizedNewtonRaphson&) = delete;
+    VectorizedNewtonRaphson& operator=(const VectorizedNewtonRaphson&) = delete;
+
     /// Optimize the function and sets its internal state
     void optimize(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
