@@ -74,7 +74,7 @@ namespace ATK
       {
         tmp = std::sqrt(Kvb + Vce * Vce);
         E2 = 1 + fmath::exp(Kp * (1 / mu + Vbe / tmp));
-        lnE2 = std::log(E2);
+        lnE2 = fmath::log(E2);
         E1 = Vce / Kp * lnE2;
         E1_Ex1 = fmath::pow(E1, Ex - 1);
         return 2 / Kg * E1_Ex1 * E1;

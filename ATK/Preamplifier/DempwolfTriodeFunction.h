@@ -40,7 +40,7 @@ namespace ATK
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
       CgVbe = fmath::exp(Cg * Vbe);
-      lnCgVbe = std::log(1 + CgVbe) / Cg;
+      lnCgVbe = fmath::log(1 + CgVbe) / Cg;
       powlnCgVbe = fmath::pow(lnCgVbe, eta - 1);
       return Ig0 + Gg * lnCgVbe * powlnCgVbe;
     }
@@ -61,7 +61,7 @@ namespace ATK
     DataType_ Lc(DataType_ Vbe, DataType_ Vce)
     {
       CVceVbe = fmath::exp(C * (Vce / mu + Vbe));
-      lnCVceVbe = std::log(1 + CVceVbe) / C;
+      lnCVceVbe = fmath::log(1 + CVceVbe) / C;
       powlnCVceVbe = fmath::pow(lnCVceVbe, gamma - 1);
       return G * lnCVceVbe * powlnCVceVbe - (Ig0 + Gg * lnCgVbe * powlnCgVbe);
     }
