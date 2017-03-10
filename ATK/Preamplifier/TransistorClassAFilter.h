@@ -1,6 +1,6 @@
 /**
  * \file TransistorClassAFilter.h
- * Heavily inspired by Simualtion of a guitar amplifier stage for several triode models (Cohen and Helie)
+ * Heavily inspired by http://www.electronics-tutorials.ws/amplifier/amp_2.html
  */
 
 #ifndef ATK_PREAMPLIFIER_TRANSISTORCLASSAFILTER_H
