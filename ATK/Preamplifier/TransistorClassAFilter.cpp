@@ -6,6 +6,7 @@
 
 #include <cassert>
 
+#include <ATK/Utility/fmath.h>
 #include <ATK/Utility/SimplifiedVectorizedNewtonRaphson.h>
 #include <ATK/Utility/VectorizedNewtonRaphson.h>
 
@@ -111,7 +112,7 @@ namespace ATK
 
     Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((output[3][i - 1] - output[0][i - 1]) / Vt), std::exp((output[3][i - 1] - output[2][i - 1]) / Vt));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((output[3][i - 1] - output[0][i - 1]) / Vt), fmath::exp((output[3][i - 1] - output[2][i - 1]) / Vt));
 
       auto Ib = Lb(exp_y1);
       auto Ic = Lc(exp_y1);
@@ -122,14 +123,12 @@ namespace ATK
       auto Ic_Vbe = Lc_Vbe(exp_y1);
       auto Ic_Vbc = Lc_Vbc(exp_y1);
 
-      Vector y0(Vector::Zero());
-      Matrix M(Matrix::Zero());
-
-      y0 << -ickeq - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1]) + Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vbc * (output[3][i - 1] - output[2][i - 1])),
+      Vector y0(-ickeq - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1]) + Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vbc * (output[3][i - 1] - output[2][i - 1])),
         -icoeq,
         VBias * Rp - (Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vbc * (output[3][i - 1] - output[2][i - 1])),
-        input[0][i] * Cg - icgeq + VBias * Rg1 - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1]));
+        input[0][i] * Cg - icgeq + VBias * Rg1 - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1])));
 
+      Matrix M;
       M << -(Ib_Vbe + Ic_Vbe) - (Rk + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc),
         0, Ro + Co, Ro, 0,
         -Ic_Vbe, Ro, -Ic_Vbc + Ro + Rp, (Ic_Vbe + Ic_Vbc),
@@ -147,7 +146,7 @@ namespace ATK
 
     Vector operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((y1(3) - y1(0)) / Vt), std::exp((y1(3) - y1(2)) / Vt));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(3) - y1(0)) / Vt), fmath::exp((y1(3) - y1(2)) / Vt));
 
       auto Ib = Lb(exp_y1);
       auto Ic = Lc(exp_y1);
@@ -163,13 +162,12 @@ namespace ATK
       auto f3 = Ic + (y1(1) + y1(2)) * Ro + (y1(2) - VBias) * Rp;
       auto f4 = Ib + icgeq + y1(3) * Rg2 + (y1(3) - VBias) * Rg1 + (y1(3) - input[0][i]) * Cg;
 
-      Vector F(Vector::Zero());
-      F << f1,
+      Vector F(f1,
         f2,
         f3,
-        f4;
+        f4);
 
-      Matrix M(Matrix::Zero());
+      Matrix M;
       M << -(Ib_Vbe + Ic_Vbe) - (Rk + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc),
         0, Ro + Co, Ro, 0,
         -Ic_Vbe, Ro, -Ic_Vbc + Ro + Rp, (Ic_Vbe + Ic_Vbc),
@@ -210,7 +208,7 @@ namespace ATK
 
     Vector operator()(const Vector& y1)
     {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(std::exp((y1(2) - y1(1)) / Vt), std::exp((y1(2) - y1(0)) / Vt));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(2) - y1(1)) / Vt), fmath::exp((y1(2) - y1(0)) / Vt));
 
       auto Ib = Lb(exp_y1);
       auto Ic = Lc(exp_y1);
@@ -221,13 +219,12 @@ namespace ATK
       auto Ic_Vbe = Lc_Vbe(exp_y1);
       auto Ic_Vbc = Lc_Vbc(exp_y1);
 
-      Vector F(Vector::Zero());
       auto R = 1 / (1 / Rg1 + 1 / Rg2);
-      F << y1(0) - VBias + Ic * Rp,
+      Vector F(y1(0) - VBias + Ic * Rp,
        y1(1) - (Ib + Ic) * Rk,
-       Ib * R + y1(2) - VBias / Rg1 * R;
+       Ib * R + y1(2) - VBias / Rg1 * R);
       
-      Matrix M(Matrix::Zero());
+      Matrix M;
       M << 1 - Ic_Vbc * Rp, -Ic_Vbe * Rp, (Ic_Vbe + Ic_Vbc) * Rp,
         (Ib_Vbc + Ic_Vbc) * Rk, 1 + (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk, -(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk,
         -Ib_Vbc * R, -Ib_Vbe * R, 1 + (Ib_Vbe + Ib_Vbc) * R;
