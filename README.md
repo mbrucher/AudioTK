@@ -21,6 +21,7 @@ Changelog
 
 ### 1.5.0
 * Adding a Munro-Piazza model for tube filters with Python wrappers
+* Optimized distortion and preamplifier filters by using fmath exp calls
 
 ### 1.4.1
 * Vectorized x4 the IIR part of the IIR filter
@@ -218,6 +219,11 @@ Known Issues
 ------------
 
 * If a plugin uses the same buffers for input and output and the pipeline has two subgraphs, one from left to right and one to left (for instance), then they are processed in order and the second graph would use the result of the first branch. To fix this, add a BufferFilter just after the input filter so that they are all buffered and copied to an intermediate buffer when the first one is used. It adds a copy, so only use this fix when you have this specific configuration for a pipeline.
+
+Additional included dependencies
+--------------------------------
+
+* fmath from herumi (http://homepage1.nifty.com/herumi/)
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=EJFNHPJ5TR6F6)
 
