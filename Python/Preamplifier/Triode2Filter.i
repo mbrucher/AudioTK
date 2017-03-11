@@ -29,20 +29,20 @@ namespace ATK
 %template(FloatDempwolfTriode2Filter) ATK::Triode2Filter<float, ATK::DempwolfTriodeFunction<float> >;
 %template(DoubleDempwolfTriode2Filter) ATK::Triode2Filter<double, ATK::DempwolfTriodeFunction<double>>;
 
-TubeExtend(ATK::Triode2Filter,float, ATK::KorenTriodeFunction);
-TubeExtend(ATK::Triode2Filter,double, ATK::KorenTriodeFunction);
-TubeExtend(ATK::Triode2Filter,float, ATK::EnhancedKorenTriodeFunction);
-TubeExtend(ATK::Triode2Filter,double, ATK::EnhancedKorenTriodeFunction);
-TubeExtend(ATK::Triode2Filter,float, ATK::LeachTriodeFunction);
-TubeExtend(ATK::Triode2Filter,double, ATK::LeachTriodeFunction);
-TubeExtend(ATK::Triode2Filter,float, ATK::MunroPiazzaTriodeFunction);
-TubeExtend(ATK::Triode2Filter,double, ATK::MunroPiazzaTriodeFunction);
-TubeExtend(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction);
-TubeExtend(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction);
+PrampExtend(ATK::Triode2Filter,float, ATK::KorenTriodeFunction);
+PrampExtend(ATK::Triode2Filter,double, ATK::KorenTriodeFunction);
+PrampExtend(ATK::Triode2Filter,float, ATK::EnhancedKorenTriodeFunction);
+PrampExtend(ATK::Triode2Filter,double, ATK::EnhancedKorenTriodeFunction);
+PrampExtend(ATK::Triode2Filter,float, ATK::LeachTriodeFunction);
+PrampExtend(ATK::Triode2Filter,double, ATK::LeachTriodeFunction);
+PrampExtend(ATK::Triode2Filter,float, ATK::MunroPiazzaTriodeFunction);
+PrampExtend(ATK::Triode2Filter,double, ATK::MunroPiazzaTriodeFunction);
+PrampExtend(ATK::Triode2Filter,float, ATK::DempwolfTriodeFunction);
+PrampExtend(ATK::Triode2Filter,double, ATK::DempwolfTriodeFunction);
 
-TubeExtendAlternate(ATK::TriodeFilter,float, ATK::KorenTriodeFunction, build_alternate_function_1);
-TubeExtendAlternate(ATK::TriodeFilter,double, ATK::KorenTriodeFunction, build_alternate_function_1);
-TubeExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_1);
-TubeExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_1);
-TubeExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_2);
-TubeExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_2);
+PrampExtendAlternate(ATK::TriodeFilter,float, ATK::KorenTriodeFunction, build_alternate_function_1);
+PrampExtendAlternate(ATK::TriodeFilter,double, ATK::KorenTriodeFunction, build_alternate_function_1);
+PrampExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+PrampExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+PrampExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_2);
+PrampExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_2);

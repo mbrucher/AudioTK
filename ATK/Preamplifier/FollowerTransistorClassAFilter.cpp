@@ -176,8 +176,8 @@ namespace ATK
   };
 
   template <typename DataType>
-  FollowerTransistorClassAFilter<DataType>::FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function)
-    :Parent(1, 5), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk1(Rk), Rk2(Rk), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), transistor_function(std::move(transistor_function))
+  FollowerTransistorClassAFilter<DataType>::FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function)
+    :Parent(1, 5), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk1(Rk1), Rk2(Rk2), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), transistor_function(std::move(transistor_function))
   {
     input_delay = output_delay = 1;
   }
@@ -242,9 +242,9 @@ namespace ATK
   template<typename DataType_>
   FollowerTransistorClassAFilter<DataType_> FollowerTransistorClassAFilter<DataType_>::build_standard_filter()
   {
-    return FollowerTransistorClassAFilter<DataType_>(1e3, 15e3, 1.5e3, 22e3, 100, //R
-      5, // VBias
-      3.3e-6, 1e-6, 160e-6, // C
+    return FollowerTransistorClassAFilter<DataType_>(10e3, 220e3, 27e3, 1.5e3, 1e3, 8, //R
+      10, // VBias
+      0.47e-6, 4.7e-6, 33e-6, // C
       TransistorFunction<DataType_>::build_standard_function() // transistor
       );
   }

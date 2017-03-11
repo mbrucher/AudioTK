@@ -19,13 +19,14 @@ namespace ATK
   template<typename Function, int size, int max_iterations, bool check_convergence>
   class VectorizedNewtonRaphson;
 
-  /// A class A transistor preamplifier (Ebers-Moll equations)
+  /// A follower class A transistor preamplifier (Ebers-Moll equations)
   /**
    * Output 0 is Vout
-   * Output 1 is Ve
+   * Output 1 is Ve1
    * Output 2 is Vout - Vc
    * Output 3 is Vc
    * Output 4 is Vb
+   * Output 5 is Ve2
    */
   template<typename DataType_>
   class ATK_PREAMPLIFIER_EXPORT FollowerTransistorClassAFilter: public TypedBaseFilter<DataType_>
@@ -63,7 +64,7 @@ namespace ATK
 
   protected:
     /// Build a new preamp filter
-    FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function);
+    FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function);
   public:
     /// Move constructor
     FollowerTransistorClassAFilter(FollowerTransistorClassAFilter&& other);
