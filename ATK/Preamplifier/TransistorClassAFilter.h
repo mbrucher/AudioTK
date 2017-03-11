@@ -62,7 +62,7 @@ namespace ATK
 
   protected:
     /// Build a new preamp filter
-    TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& tube_function);
+    TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function);
   public:
     /// Move constructor
     TransistorClassAFilter(TransistorClassAFilter&& other);
