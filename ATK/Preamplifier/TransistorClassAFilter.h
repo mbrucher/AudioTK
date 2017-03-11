@@ -22,7 +22,7 @@ namespace ATK
   /// A class A transistor preamplifier (Ebers-Moll equations)
   /**
    * Output 0 is Vout
-   * Output 1 is Ve
+   * Output 1 is Vin
    * Output 2 is Vout - Vc
    * Output 3 is Vc
    * Output 4 is Vb

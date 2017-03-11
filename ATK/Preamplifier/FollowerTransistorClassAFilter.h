@@ -22,7 +22,7 @@ namespace ATK
   /// A follower class A transistor preamplifier (Ebers-Moll equations)
   /**
    * Output 0 is Vout
-   * Output 1 is Vi
+   * Output 1 is Vin
    * Output 2 is Ve1
    * Output 3 is Vc
    * Output 4 is Vb
@@ -60,11 +60,12 @@ namespace ATK
     const DataType_ Co;
     const DataType_ Ck;
     
-    TransistorFunction<DataType> transistor_function;
+    TransistorFunction<DataType> transistor_function_1;
+    TransistorFunction<DataType> transistor_function_2;
 
   protected:
     /// Build a new preamp filter
-    FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function);
+    FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function_1, TransistorFunction<DataType>&& transistor_function_2);
   public:
     /// Move constructor
     FollowerTransistorClassAFilter(FollowerTransistorClassAFilter&& other);

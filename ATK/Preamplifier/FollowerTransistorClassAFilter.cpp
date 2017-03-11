@@ -31,7 +31,8 @@ namespace ATK
     DataType_ icgeq;
     DataType_ icoeq;
 
-    TransistorFunction<DataType_>& transistor_function;
+    TransistorFunction<DataType_>& transistor_function_1;
+    TransistorFunction<DataType_>& transistor_function_2;
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 5, 1> Vector;
@@ -39,8 +40,8 @@ namespace ATK
 
     std::pair<DataType, DataType> exp_y0;
 
-    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function, const std::vector<DataType>& default_output)
-      :Rp(1/Rp), Rg1(1/Rg1), Rg2(1/Rg2), Ro(1/Ro), Rk1(1/Rk1), Rk2(1/Rk2), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2]), transistor_function(transistor_function)
+    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function_1, TransistorFunction<DataType_>& transistor_function_2, const std::vector<DataType>& default_output)
+      :Rp(1/Rp), Rg1(1/Rg1), Rg2(1/Rg2), Ro(1/Ro), Rk1(1/Rk1), Rk2(1/Rk2), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2]), transistor_function_1(transistor_function_1), transistor_function_2(transistor_function_2)
     {
     }
 
@@ -62,16 +63,16 @@ namespace ATK
 
     Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((output[3][i - 1] - output[0][i - 1]) / transistor_function.Vt), fmath::exp((output[3][i - 1] - output[2][i - 1]) / transistor_function.Vt));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((output[3][i - 1] - output[0][i - 1]) / transistor_function_1.Vt), fmath::exp((output[3][i - 1] - output[2][i - 1]) / transistor_function_1.Vt));
 
-      auto Ib = transistor_function.Lb(exp_y1);
-      auto Ic = transistor_function.Lc(exp_y1);
+      auto Ib = transistor_function_1.Lb(exp_y1);
+      auto Ic = transistor_function_1.Lc(exp_y1);
 
-      auto Ib_Vbe = transistor_function.Lb_Vbe(exp_y1);
-      auto Ib_Vbc = transistor_function.Lb_Vbc(exp_y1);
+      auto Ib_Vbe = transistor_function_1.Lb_Vbe(exp_y1);
+      auto Ib_Vbc = transistor_function_1.Lb_Vbc(exp_y1);
 
-      auto Ic_Vbe = transistor_function.Lc_Vbe(exp_y1);
-      auto Ic_Vbc = transistor_function.Lc_Vbc(exp_y1);
+      auto Ic_Vbe = transistor_function_1.Lc_Vbe(exp_y1);
+      auto Ic_Vbc = transistor_function_1.Lc_Vbc(exp_y1);
 
       Vector y0;
       y0 << -ickeq - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1]) + Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vbc * (output[3][i - 1] - output[2][i - 1])),
@@ -99,16 +100,16 @@ namespace ATK
 
     Vector operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(3) - y1(0)) / transistor_function.Vt), fmath::exp((y1(3) - y1(2)) / transistor_function.Vt));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(3) - y1(0)) / transistor_function_1.Vt), fmath::exp((y1(3) - y1(2)) / transistor_function_1.Vt));
 
-      auto Ib = transistor_function.Lb(exp_y1);
-      auto Ic = transistor_function.Lc(exp_y1);
+      auto Ib = transistor_function_1.Lb(exp_y1);
+      auto Ic = transistor_function_1.Lc(exp_y1);
 
-      auto Ib_Vbe = transistor_function.Lb_Vbe(exp_y1);
-      auto Ib_Vbc = transistor_function.Lb_Vbc(exp_y1);
+      auto Ib_Vbe = transistor_function_1.Lb_Vbe(exp_y1);
+      auto Ib_Vbc = transistor_function_1.Lb_Vbc(exp_y1);
 
-      auto Ic_Vbe = transistor_function.Lc_Vbe(exp_y1);
-      auto Ic_Vbc = transistor_function.Lc_Vbc(exp_y1);
+      auto Ic_Vbe = transistor_function_1.Lc_Vbe(exp_y1);
+      auto Ic_Vbc = transistor_function_1.Lc_Vbc(exp_y1);
 
       auto f1 = Ib + Ic + ickeq - y1(0) * (Rk1 + Ck);
       auto f2 = icoeq + (y1(1) + y1(2)) * Ro + y1(1) * Co;
@@ -145,29 +146,30 @@ namespace ATK
     const DataType_ Rk;
     const DataType_ VBias;
  
-    TransistorFunction<DataType_>& transistor_function;
+    TransistorFunction<DataType_>& transistor_function_1;
+    TransistorFunction<DataType_>& transistor_function_2;
   public:
     typedef DataType_ DataType;
     typedef Eigen::Matrix<DataType, 3, 1> Vector;
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
 
-    TransistorClassAInitialFunction(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, TransistorFunction<DataType_>& transistor_function)
-      :Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), transistor_function(transistor_function)
+    TransistorClassAInitialFunction(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, TransistorFunction<DataType_>& transistor_function_1, TransistorFunction<DataType_>& transistor_function_2)
+      :Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk(Rk), VBias(VBias), transistor_function_1(transistor_function_1), transistor_function_2(transistor_function_2)
     {
     }
 
     Vector operator()(const Vector& y1)
     {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(2) - y1(1)) / transistor_function.Vt), fmath::exp((y1(2) - y1(0)) / transistor_function.Vt));
+      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(2) - y1(1)) / transistor_function_1.Vt), fmath::exp((y1(2) - y1(0)) / transistor_function_1.Vt));
 
-      auto Ib = transistor_function.Lb(exp_y1);
-      auto Ic = transistor_function.Lc(exp_y1);
+      auto Ib = transistor_function_1.Lb(exp_y1);
+      auto Ic = transistor_function_1.Lc(exp_y1);
 
-      auto Ib_Vbe = transistor_function.Lb_Vbe(exp_y1);
-      auto Ib_Vbc = transistor_function.Lb_Vbc(exp_y1);
+      auto Ib_Vbe = transistor_function_1.Lb_Vbe(exp_y1);
+      auto Ib_Vbc = transistor_function_1.Lb_Vbc(exp_y1);
 
-      auto Ic_Vbe = transistor_function.Lc_Vbe(exp_y1);
-      auto Ic_Vbc = transistor_function.Lc_Vbc(exp_y1);
+      auto Ic_Vbe = transistor_function_1.Lc_Vbe(exp_y1);
+      auto Ic_Vbc = transistor_function_1.Lc_Vbc(exp_y1);
 
       auto R = 1 / (1 / Rg1 + 1 / Rg2);
       Vector F(y1(0) - VBias + Ic * Rp,
@@ -184,15 +186,15 @@ namespace ATK
   };
 
   template <typename DataType>
-  FollowerTransistorClassAFilter<DataType>::FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function)
-    :Parent(1, 5), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk1(Rk1), Rk2(Rk2), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), transistor_function(std::move(transistor_function))
+  FollowerTransistorClassAFilter<DataType>::FollowerTransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function_1, TransistorFunction<DataType>&& transistor_function_2)
+    :Parent(1, 5), Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk1(Rk1), Rk2(Rk2), VBias(VBias), Cg(Cg), Co(Co), Ck(Ck), transistor_function_1(std::move(transistor_function_1)), transistor_function_2(std::move(transistor_function_2))
   {
     input_delay = output_delay = 1;
   }
 
   template <typename DataType>
   FollowerTransistorClassAFilter<DataType>::FollowerTransistorClassAFilter(FollowerTransistorClassAFilter&& other)
-    :Parent(std::move(other)), Rp(other.Rp), Rg1(other.Rg1), Rg2(other.Rg2), Ro(other.Ro), Rk1(other.Rk1), Rk2(other.Rk2), VBias(other.VBias), Cg(other.Cg), Co(other.Co), Ck(other.Ck), transistor_function(std::move(other.transistor_function))
+    :Parent(std::move(other)), Rp(other.Rp), Rg1(other.Rg1), Rg2(other.Rg2), Ro(other.Ro), Rk1(other.Rk1), Rk2(other.Rk2), VBias(other.VBias), Cg(other.Cg), Co(other.Co), Ck(other.Ck), transistor_function_1(std::move(other.transistor_function_1)), transistor_function_2(std::move(other.transistor_function_2))
   {
   }
 
@@ -209,7 +211,8 @@ namespace ATK
       Rp, Rg1, Rg2, Ro, Rk1, Rk2, //R
       VBias, // VBias
       Cg, Co, Ck, // C
-      transistor_function, // transistor
+      transistor_function_1, // transistor
+      transistor_function_2, // transistor
       default_output)));
   }
 
@@ -220,7 +223,8 @@ namespace ATK
     SimplifiedVectorizedNewtonRaphson<TransistorClassAInitialFunction<DataType_>, 3, 10> custom(TransistorClassAInitialFunction<DataType_>(
       Rp, Rg1, Rg2, Ro, Rk1, //R
       VBias, // VBias
-      transistor_function // transistor
+      transistor_function_1, // transistor
+      transistor_function_2 // transistor
       ));
 
     auto stable = custom.optimize();
@@ -252,7 +256,8 @@ namespace ATK
     return FollowerTransistorClassAFilter<DataType_>(10e3, 220e3, 27e3, 1.5e3, 1e3, 8, //R
       10, // VBias
       0.47e-6, 4.7e-6, 33e-6, // C
-      TransistorFunction<DataType_>::build_standard_function() // transistor
+      TransistorFunction<DataType_>::build_standard_function(), // transistor1
+      TransistorFunction<DataType_>::build_standard_function() // transistor2
       );
   }
 
