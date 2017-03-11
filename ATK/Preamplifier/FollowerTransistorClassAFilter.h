@@ -22,8 +22,8 @@ namespace ATK
   /// A follower class A transistor preamplifier (Ebers-Moll equations)
   /**
    * Output 0 is Vout
-   * Output 1 is Ve1
-   * Output 2 is Vout - Vc
+   * Output 1 is Vi
+   * Output 2 is Ve1
    * Output 3 is Vc
    * Output 4 is Vb
    * Output 5 is Ve2
@@ -47,7 +47,7 @@ namespace ATK
     using Parent::default_output;
   private:
     static const int nb_max_iter = 10;
-    std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, nb_max_iter, true> > optimizer;
+    std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 5, nb_max_iter, true> > optimizer;
 
     const DataType_ Rp;
     const DataType_ Rg1;

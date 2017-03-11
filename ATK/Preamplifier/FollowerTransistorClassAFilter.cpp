@@ -20,7 +20,8 @@ namespace ATK
     const DataType_ Rg1;
     const DataType_ Rg2;
     const DataType_ Ro;
-    const DataType_ Rk;
+    const DataType_ Rk1;
+    const DataType_ Rk2;
     const DataType_ VBias;
     const DataType_ Cg;
     const DataType_ Co;
@@ -33,19 +34,19 @@ namespace ATK
     TransistorFunction<DataType_>& transistor_function;
   public:
     typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, 4, 1> Vector;
-    typedef Eigen::Matrix<DataType, 4, 4> Matrix;
+    typedef Eigen::Matrix<DataType, 5, 1> Vector;
+    typedef Eigen::Matrix<DataType, 5, 5> Matrix;
 
     std::pair<DataType, DataType> exp_y0;
 
-    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function, const std::vector<DataType>& default_output)
-      :Rp(1/Rp), Rg1(1/Rg1), Rg2(1/Rg2), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2]), transistor_function(transistor_function)
+    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function, const std::vector<DataType>& default_output)
+      :Rp(1/Rp), Rg1(1/Rg1), Rg2(1/Rg2), Ro(1/Ro), Rk1(1/Rk1), Rk2(1/Rk2), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2]), transistor_function(transistor_function)
     {
     }
 
     Vector estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
-      return affine_estimate(i, input, output);
+      return id_estimate(i, input, output);
     }
 
     Vector id_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
@@ -72,16 +73,19 @@ namespace ATK
       auto Ic_Vbe = transistor_function.Lc_Vbe(exp_y1);
       auto Ic_Vbc = transistor_function.Lc_Vbc(exp_y1);
 
-      Vector y0(-ickeq - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1]) + Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vbc * (output[3][i - 1] - output[2][i - 1])),
+      Vector y0;
+      y0 << -ickeq - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1]) + Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vbc * (output[3][i - 1] - output[2][i - 1])),
         -icoeq,
         VBias * Rp - (Ic - Ic_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ic_Vbc * (output[3][i - 1] - output[2][i - 1])),
-        input[0][i] * Cg - icgeq + VBias * Rg1 - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1])));
+        input[0][i] * Cg - icgeq + VBias * Rg1 - (Ib - Ib_Vbe * (output[3][i - 1] - output[0][i - 1]) - Ib_Vbc * (output[3][i - 1] - output[2][i - 1])),
+        DataType(0);
 
       Matrix M;
-      M << -(Ib_Vbe + Ic_Vbe) - (Rk + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc),
-        0, Ro + Co, Ro, 0,
-        -Ic_Vbe, Ro, -Ic_Vbc + Ro + Rp, (Ic_Vbe + Ic_Vbc),
-        -Ib_Vbe, 0, -Ib_Vbc, (Ib_Vbc + Ib_Vbe) + Rg2 + Rg1 + Cg;
+      M << -(Ib_Vbe + Ic_Vbe) - (Rk1 + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc), 0,
+        0, Ro + Co, Ro, 0, 0,
+        -Ic_Vbe, Ro, -Ic_Vbc + Ro + Rp, (Ic_Vbe + Ic_Vbc), 0,
+        -Ib_Vbe, 0, -Ib_Vbc, (Ib_Vbc + Ib_Vbe) + Rg2 + Rg1 + Cg, 0,
+        0, 0, 0, 0, 0;
 
       return M.inverse() * y0;
     }
@@ -106,21 +110,25 @@ namespace ATK
       auto Ic_Vbe = transistor_function.Lc_Vbe(exp_y1);
       auto Ic_Vbc = transistor_function.Lc_Vbc(exp_y1);
 
-      auto f1 = Ib + Ic + ickeq - y1(0) * (Rk + Ck);
+      auto f1 = Ib + Ic + ickeq - y1(0) * (Rk1 + Ck);
       auto f2 = icoeq + (y1(1) + y1(2)) * Ro + y1(1) * Co;
       auto f3 = Ic + (y1(1) + y1(2)) * Ro + (y1(2) - VBias) * Rp;
       auto f4 = Ib + icgeq + y1(3) * Rg2 + (y1(3) - VBias) * Rg1 + (y1(3) - input[0][i]) * Cg;
+      auto f5 = DataType(0);
 
-      Vector F(f1,
+      Vector F;
+      F << f1,
         f2,
         f3,
-        f4);
+        f4,
+        f5;
 
       Matrix M;
-      M << -(Ib_Vbe + Ic_Vbe) - (Rk + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc),
-        0, Ro + Co, Ro, 0,
-        -Ic_Vbe, Ro, -Ic_Vbc + Ro + Rp, (Ic_Vbe + Ic_Vbc),
-        -Ib_Vbe, 0, -Ib_Vbc, (Ib_Vbc + Ib_Vbe) + Rg2 + Rg1 + Cg;
+      M << -(Ib_Vbe + Ic_Vbe) - (Rk1 + Ck), 0, -(Ib_Vbc + Ic_Vbc), (Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc), 0,
+        0, Ro + Co, Ro, 0, 0,
+        -Ic_Vbe, Ro, -Ic_Vbc + Ro + Rp, (Ic_Vbe + Ic_Vbc), 0,
+        -Ib_Vbe, 0, -Ib_Vbc, (Ib_Vbc + Ib_Vbe) + Rg2 + Rg1 + Cg, 0,
+        0, 0, 0, 0, 0;
 
       return M.inverse() * F;
     }
@@ -197,8 +205,8 @@ namespace ATK
   void FollowerTransistorClassAFilter<DataType_>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, nb_max_iter, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
-      Rp, Rg1, Rg2, Ro, Rk1, //R
+    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 5, nb_max_iter, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
+      Rp, Rg1, Rg2, Ro, Rk1, Rk2, //R
       VBias, // VBias
       Cg, Co, Ck, // C
       transistor_function, // transistor
@@ -233,8 +241,7 @@ namespace ATK
 
     for (int64_t i = 0; i < size; ++i)
     {
-      optimizer->optimize(i, converted_inputs.data(), outputs.data() + 1);
-      outputs[0][i] = outputs[2][i] + outputs[3][i];
+      optimizer->optimize(i, converted_inputs.data(), outputs.data());
       optimizer->get_function().update_state(i, converted_inputs.data(), outputs.data());
     }
   }
