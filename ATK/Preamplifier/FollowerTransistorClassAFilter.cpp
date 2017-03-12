@@ -166,31 +166,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
 
     TransistorClassAInitialFunction(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType VBias, TransistorFunction<DataType_>& transistor_function_1, TransistorFunction<DataType_>& transistor_function_2)
-      :Rp(Rp), Rg1(Rg1), Rg2(Rg2), Ro(Ro), Rk1(Rk1), Rk2(Rk2), VBias(VBias), transistor_function_1(transistor_function_1), transistor_function_2(transistor_function_2)
+      :Rp(1/Rp), Rg1(1/Rg1), Rg2(1/Rg2), Ro(1/Ro), Rk1(1/Rk1), Rk2(1/Rk2), VBias(VBias), transistor_function_1(transistor_function_1), transistor_function_2(transistor_function_2)
     {
-    }
-
-    Vector func(const Vector& y1)
-    {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(2) - y1(0)) / transistor_function_1.Vt), fmath::exp((y1(2) - y1(1)) / transistor_function_1.Vt));
-      
-      auto Ib1 = transistor_function_1.Lb(exp_y1);
-      auto Ic1 = transistor_function_1.Lc(exp_y1);
-      
-      std::pair<DataType, DataType> exp_y2 = std::make_pair(fmath::exp((y1(1) - y1(3)) / transistor_function_2.Vt), fmath::exp((y1(1) - VBias) / transistor_function_2.Vt));
-      
-      auto Ib2 = transistor_function_2.Lb(exp_y2);
-      auto Ic2 = transistor_function_2.Lc(exp_y2);
-      
-      auto f1 = (Ib1 + Ic1) / Rk1 - y1(0);
-      auto f2 = (Ic1 + Ib2) / Rp + (y1(1) - VBias);
-      auto f3 = Ib1 / (Rg1 * Rg2) + y1(2) / Rg1 + (y1(2) - VBias) / Rg2;
-      auto f4 = (Ib2 + Ic2) / Rk2 - y1(3);
-      
-      return Vector (f1,
-               f2,
-               f3,
-               f4);
     }
 
     Vector operator()(const Vector& y1)
@@ -217,10 +194,10 @@ namespace ATK
       auto Ic2_Vbe = transistor_function_2.Lc_Vbe(exp_y2);
       auto Ic2_Vbc = transistor_function_2.Lc_Vbc(exp_y2);
       
-      auto f1 = (Ib1 + Ic1) / Rk1 - y1(0);
-      auto f2 = (Ic1 + Ib2) / Rp + (y1(1) - VBias);
-      auto f3 = Ib1 / (Rg1 * Rg2) + y1(2) / Rg1 + (y1(2) - VBias) / Rg2;
-      auto f4 = (Ib2 + Ic2) / Rk2 - y1(3);
+      auto f1 = Ib1 + Ic1 - y1(0) * Rk1;
+      auto f2 = Ic1 + Ib2 + (y1(1) - VBias) * Rp;
+      auto f3 = Ib1 + y1(2) * Rg2 + (y1(2) - VBias) * Rg1;
+      auto f4 = Ib2 + Ic2 - y1(3) * Rk2;
       
       Vector F(f1,
       f2,
@@ -228,21 +205,15 @@ namespace ATK
       f4);
       
       Matrix M;
-      M << -(Ib1_Vbe + Ic1_Vbe) / Rk1 - 1, -(Ib1_Vbc + Ic1_Vbc) / Rk1, (Ib1_Vbe + Ib1_Vbc + Ic1_Vbe + Ic1_Vbc) / Rk1, 0,
-        (-Ic1_Vbe) / Rp, (-Ic1_Vbc + Ib2_Vbe + Ib2_Vbc) / Rp + 1, (Ic1_Vbe + Ic1_Vbc) / Rp, -Ib2_Vbe / Rp,
-        (-Ib1_Vbe) / Rp, -Ib1_Vbc / Rp, (Ib1_Vbc + Ib1_Vbe) / (Rg1 * Rg2) + 1 / Rg2 + 1 / Rg1, 0,
-        0, (Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc) / Rk2, 0, -1 - (Ib2_Vbe + Ic2_Vbe) / Rk2;
+      M << -Ib1_Vbe - Ic1_Vbe - Rk1, -Ib1_Vbc - Ic1_Vbc, Ib1_Vbe + Ib1_Vbc + Ic1_Vbe + Ic1_Vbc, 0,
+        -Ic1_Vbe, -Ic1_Vbc + Ib2_Vbe + Ib2_Vbc + Rp, Ic1_Vbe + Ic1_Vbc, -Ib2_Vbe,
+        -Ib1_Vbe, -Ib1_Vbc, Ib1_Vbc + Ib1_Vbe + Rg2 + Rg1, 0,
+        0, Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc, 0, -Rk2 - Ib2_Vbe - Ic2_Vbe;
       
-      std::cout << "derivatives" << std::endl;
-      std::cout << ((F - func(y1 + Vector(1e-6, 0, 0, 0))) / 1e-6) << std::endl;
-      std::cout << ((F - func(y1 + Vector(0, 1e-6, 0, 0))) / 1e-6) << std::endl;
-      std::cout << ((F - func(y1 + Vector(0, 0, 1e-6, 0))) / 1e-6) << std::endl;
-      std::cout << ((F - func(y1 + Vector(0, 0, 0, 1e-6))) / 1e-6) << std::endl;
       std::cout << "status" << std::endl;
       std::cout << y1 << std::endl;
-      std::cout << M << std::endl;
-      std::cout << M.inverse() << std::endl << F << std::endl;
-      std::cout << M.inverse() * F << std::endl;
+      std::cout << "cost" << std::endl;
+      std::cout << F << std::endl;
 
       return M.inverse() * F;
     }
@@ -283,13 +254,13 @@ namespace ATK
   void FollowerTransistorClassAFilter<DataType_>::full_setup()
   {
     // setup default_output
-    SimplifiedVectorizedNewtonRaphson<TransistorClassAInitialFunction<DataType_>, 4, 10> custom(TransistorClassAInitialFunction<DataType_>(
+    SimplifiedVectorizedNewtonRaphson<TransistorClassAInitialFunction<DataType_>, 4, 50> custom(TransistorClassAInitialFunction<DataType_>(
       Rp, Rg1, Rg2, Ro, Rk1, Rk2, //R
       VBias, // VBias
       transistor_function_1, // transistor
       transistor_function_2 // transistor
       ),
-      typename TransistorClassAInitialFunction<DataType_>::Vector(0, 0, 0, 0));
+      typename TransistorClassAInitialFunction<DataType_>::Vector(VBias/20, VBias*6/10, VBias/10, VBias/2));
 
     auto stable = custom.optimize();
 

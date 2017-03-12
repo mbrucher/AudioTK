@@ -58,6 +58,13 @@ namespace ATK
     {
       return TransistorFunction(1e-12, 26e-3, 1, 100);
     }
+
+    /// Build a new transistor function for a filter
+    static TransistorFunction build_2n3403()
+    {
+      return TransistorFunction(1e-12, 26e-3, 1, 300);
+    }
+
   };
 }
 
