@@ -210,11 +210,6 @@ namespace ATK
         -Ib1_Vbe, -Ib1_Vbc, Ib1_Vbc + Ib1_Vbe + Rg2 + Rg1, 0,
         0, Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc, 0, -Rk2 - Ib2_Vbe - Ic2_Vbe;
       
-      std::cout << "status" << std::endl;
-      std::cout << y1 << std::endl;
-      std::cout << "cost" << std::endl;
-      std::cout << F << std::endl;
-
       return M.inverse() * F;
     }
   };
