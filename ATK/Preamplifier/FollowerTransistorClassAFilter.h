@@ -22,11 +22,10 @@ namespace ATK
   /// A follower class A transistor preamplifier (Ebers-Moll equations)
   /**
    * Output 0 is Vout
-   * Output 1 is Vin
-   * Output 2 is Ve1
-   * Output 3 is Vc
-   * Output 4 is Vb
-   * Output 5 is Ve2
+   * Output 1 is Ve1
+   * Output 2 is Vc
+   * Output 3 is Vb
+   * Output 4 is Ve2
    */
   template<typename DataType_>
   class ATK_PREAMPLIFIER_EXPORT FollowerTransistorClassAFilter: public TypedBaseFilter<DataType_>
