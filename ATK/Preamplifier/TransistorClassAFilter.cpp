@@ -1,6 +1,6 @@
 /**
- * \file TransistorClassAFilter.cpp
- */
+* \file TransistorClassAFilter.cpp
+*/
 
 #include "TransistorClassAFilter.h"
 #include "TransistorFunction.h"
@@ -39,7 +39,7 @@ namespace ATK
     std::pair<DataType, DataType> exp_y0;
 
     TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function, const std::vector<DataType>& default_output)
-      :Rp(1/Rp), Rg1(1/Rg1), Rg2(1/Rg2), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2]), transistor_function(transistor_function)
+      :Rp(1 / Rp), Rg1(1 / Rg1), Rg2(1 / Rg2), Ro(1 / Ro), Rk(1 / Rk), VBias(VBias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2]), transistor_function(transistor_function)
     {
     }
 
@@ -55,7 +55,6 @@ namespace ATK
       {
         y0.data()[j] = output[j][i - 1];
       }
-
       return y0;
     }
 
@@ -136,7 +135,7 @@ namespace ATK
     const DataType_ Ro;
     const DataType_ Rk;
     const DataType_ VBias;
- 
+
     TransistorFunction<DataType_>& transistor_function;
   public:
     typedef DataType_ DataType;
@@ -163,9 +162,9 @@ namespace ATK
 
       auto R = 1 / (1 / Rg1 + 1 / Rg2);
       Vector F(y1(0) - VBias + Ic * Rp,
-       y1(1) - (Ib + Ic) * Rk,
-       Ib * R + y1(2) - VBias / Rg1 * R);
-      
+        y1(1) - (Ib + Ic) * Rk,
+        Ib * R + y1(2) - VBias / Rg1 * R);
+
       Matrix M;
       M << 1 - Ic_Vbc * Rp, -Ic_Vbe * Rp, (Ic_Vbe + Ic_Vbc) * Rp,
         (Ib_Vbc + Ic_Vbc) * Rk, 1 + (Ib_Vbc + Ic_Vbc) * Rk, -(Ib_Vbe + Ic_Vbe + Ib_Vbc + Ic_Vbc) * Rk,
