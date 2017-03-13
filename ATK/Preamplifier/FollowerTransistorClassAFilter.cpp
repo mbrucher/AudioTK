@@ -129,8 +129,8 @@ namespace ATK
       auto f1 = Ib1 + icgeq + y1(3) * Rg2 + (y1(3) - VBias) * Rg1 + (y1(3) - input[0][i]) * Cg;
       auto f2 = Ib1 + Ic1 + ickeq - y1(1) * (Rk1 + Ck);
       auto f3 = Ic1 + Ib2 + (y1(2) - VBias) * Rp;
-      auto f4 = Ib2 + Ic2 + icoeq + y1(4) * (Co - Rk2) - y1(0) * Co;
-      auto f5 = y1(0) * Ro + icoeq - (y1(0) - y1(4)) * Co;
+      auto f4 = Ib2 + Ic2 - icoeq - y1(4) * (Co + Rk2) + y1(0) * Co;
+      auto f5 = y1(0) * Ro - icoeq + (y1(0) - y1(4)) * Co;
 
       Vector F;
       F << f1,
@@ -143,8 +143,8 @@ namespace ATK
       M << 0, -Ib1_Vbe - Ib1_Vbc, Ib1_Vbc, Ib1_Vbc + Rg2 + Rg1 + Cg, 0,
         0, -Ib1_Vbe - Ib1_Vbc - Ic1_Vbe - Ic1_Vbc - (Rk1 + Ck), Ib1_Vbc + Ic1_Vbc, Ib1_Vbe + Ic1_Vbe, 0,
         0, -Ic1_Vbe, -Ic1_Vbc + Ib2_Vbe + Ib2_Vbc + Rp, Ic1_Vbe, -Ib2_Vbe,
-        -Co, 0, Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc, 0, Co - Rk2 - Ib2_Vbe - Ic2_Vbe,
-        Ro - Co, 0, 0, 0, Co;
+        Co, 0, Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc, 0, -Co - Rk2 - Ib2_Vbe - Ic2_Vbe,
+        Ro + Co, 0, 0, 0, -Co;
 
       return M.inverse() * F;
     }
