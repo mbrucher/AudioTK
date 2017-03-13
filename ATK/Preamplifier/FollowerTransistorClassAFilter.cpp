@@ -132,21 +132,35 @@ namespace ATK
       auto f4 = Ib2 + Ic2 - icoeq - y1(4) * (Co + Rk2) + y1(0) * Co;
       auto f5 = y1(0) * Ro - icoeq + (y1(0) - y1(4)) * Co;
 
+      auto a10 = -Ib1_Vbe - Ib1_Vbc;
+      auto a20 = Ib1_Vbc;
+      auto a30 = Ib1_Vbc + Rg2 + Rg1 + Cg;
+      auto a11 = -Ib1_Vbe - Ib1_Vbc - Ic1_Vbe - Ic1_Vbc - (Rk1 + Ck);
+      auto a21 = Ib1_Vbc + Ic1_Vbc;
+      auto a31 = Ib1_Vbe + Ic1_Vbe;
+      auto a12 = -Ic1_Vbe;
+      auto a22 = -Ic1_Vbc + Ib2_Vbe + Ib2_Vbc + Rp;
+      auto a32 = Ic1_Vbe;
+      auto a42 = -Ib2_Vbe;
+      auto a03 = Co;
+      auto a23 = Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc;
+      auto a43 = -Co - Rk2 - Ib2_Vbe - Ic2_Vbe;
+      auto a04 = Ro + Co;
+      auto a44 = -Co;
+
+      auto invdet = 1 / (-a03*a10*a21*a32*a44 + a03*a10*a22*a31*a44 + a03*a11*a20*a32*a44 - a03*a11*a22*a30*a44 - a03*a12*a20*a31*a44 + a03*a12*a21*a30*a44 + a04*a10*a21*a32*a43 - a04*a10*a22*a31*a43 + a04*a10*a23*a31*a42 - a04*a11*a20*a32*a43 + a04*a11*a22*a30*a43 - a04*a11*a23*a30*a42 + a04*a12*a20*a31*a43 - a04*a12*a21*a30*a43);
+
       Vector F;
-      F << f1,
-        f2,
-        f3,
-        f4,
-        f5;
+      F << f1, f2, f3, f4, f5;
 
       Matrix M;
-      M << 0, -Ib1_Vbe - Ib1_Vbc, Ib1_Vbc, Ib1_Vbc + Rg2 + Rg1 + Cg, 0,
-        0, -Ib1_Vbe - Ib1_Vbc - Ic1_Vbe - Ic1_Vbc - (Rk1 + Ck), Ib1_Vbc + Ic1_Vbc, Ib1_Vbe + Ic1_Vbe, 0,
-        0, -Ic1_Vbe, -Ic1_Vbc + Ib2_Vbe + Ib2_Vbc + Rp, Ic1_Vbe, -Ib2_Vbe,
-        Co, 0, Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc, 0, -Co - Rk2 - Ib2_Vbe - Ic2_Vbe,
-        Ro + Co, 0, 0, 0, -Co;
+      M << a23*a44*(-a11*a32 + a12*a31), a23*a44*(a10*a32 - a12*a30), a23*a44*(-a10*a31 + a11*a30), a44*(-a10*a21*a32 + a10*a22*a31 + a11*a20*a32 - a11*a22*a30 - a12*a20*a31 + a12*a21*a30), a10*a21*a32*a43 - a10*a22*a31*a43 + a10*a23*a31*a42 - a11*a20*a32*a43 + a11*a22*a30*a43 - a11*a23*a30*a42 + a12*a20*a31*a43 - a12*a21*a30*a43,
+        -a03*a21*a32*a44 + a03*a22*a31*a44 + a04*a21*a32*a43 - a04*a22*a31*a43 + a04*a23*a31*a42, a03*a20*a32*a44 - a03*a22*a30*a44 - a04*a20*a32*a43 + a04*a22*a30*a43 - a04*a23*a30*a42, -a03*a20*a31*a44 + a03*a21*a30*a44 + a04*a20*a31*a43 - a04*a21*a30*a43, a04*a42*(-a20*a31 + a21*a30), a03*a42*(a20*a31 - a21*a30),
+        a03*a11*a32*a44 - a03*a12*a31*a44 - a04*a11*a32*a43 + a04*a12*a31*a43, -a03*a10*a32*a44 + a03*a12*a30*a44 + a04*a10*a32*a43 - a04*a12*a30*a43, a03*a10*a31*a44 - a03*a11*a30*a44 - a04*a10*a31*a43 + a04*a11*a30*a43, a04*a42*(a10*a31 - a11*a30), a03*a42*(-a10*a31 + a11*a30),
+        -a03*a11*a22*a44 + a03*a12*a21*a44 + a04*a11*a22*a43 - a04*a11*a23*a42 - a04*a12*a21*a43, a03*a10*a22*a44 - a03*a12*a20*a44 - a04*a10*a22*a43 + a04*a10*a23*a42 + a04*a12*a20*a43, -a03*a10*a21*a44 + a03*a11*a20*a44 + a04*a10*a21*a43 - a04*a11*a20*a43, a04*a42*(-a10*a21 + a11*a20), a03*a42*(a10*a21 - a11*a20),
+        a04*a23*(a11*a32 - a12*a31), a04*a23*(-a10*a32 + a12*a30), a04*a23*(a10*a31 - a11*a30), a04*(a10*a21*a32 - a10*a22*a31 - a11*a20*a32 + a11*a22*a30 + a12*a20*a31 - a12*a21*a30), a03*(-a10*a21*a32 + a10*a22*a31 + a11*a20*a32 - a11*a22*a30 - a12*a20*a31 + a12*a21*a30);
 
-      return M.inverse() * F;
+      return M * F * invdet;
     }
   };
 
