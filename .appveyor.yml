@@ -12,9 +12,9 @@ environment:
 before_build:
   - mkdir -p %FFTW_ROOT%
   - cd %FFTW_ROOT%
-  - wget ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll64.zip -OutFile fftw-3.3.4-dll64.zip
+  - curl -fsS -o fftw-3.3.4-dll64.zip ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll64.zip
   - 7z x fftw-3.3.4-dll64.zip
-  - wget --no-verbose --output-document=boost_1_63_0.zip http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.zip/download
+  -  curl -fsS -o boost_1_63_0.zip http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.zip/download
   - mkdir -p %BOOST_ROOT%
   - cd %BOOST_ROOT%
   - 7z x ..\boost_1_63_0.zip -aoa
