@@ -14,7 +14,7 @@ before_build:
   - cd %FFTW_ROOT%
   - ps: wget ftp://ftp.fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -OutFile fftw-3.3.5-dll64.zip
   - 7z x fftw-3.3.5-dll64.zip
-  - ps: wget --no-verbose --OutFile=boost_1_63_0.zip http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.zip/download
+  - ps: wget http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.zip/download -OutFile boost_1_63_0.zip
   - mkdir -p %BOOST_ROOT%
   - cd %BOOST_ROOT%
   - 7z x ..\boost_1_63_0.zip -aoa
