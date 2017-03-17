@@ -4,8 +4,7 @@ shallow_clone: true
 
 environment:
   ATK_ROOT: c:\projects\ATK
-  BOOST_ROOT: c:\projects\boost
-  BOOST_BUILD: c:\projects\boost-build
+  BOOST_ROOT: C:\Libraries\boost
   FFTW_ROOT: c:\projects\fftw
   PLATFORM: MSVC
 
@@ -14,18 +13,12 @@ before_build:
   - cd %FFTW_ROOT%
   - ps: wget ftp://ftp.fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -OutFile fftw-3.3.5-dll64.zip
   - 7z x fftw-3.3.5-dll64.zip
-  - mkdir -p %BOOST_ROOT%
-  - cd %BOOST_ROOT%
-  - curl -fsS -o boost_1_63_0.zip http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.zip/download
-  - 7z x boost_1_63_0.zip -aoa
-  - .\bootstrap.sh --with-libraries=system,test
-  - .\b2 threading=multi --prefix=%BOOST_BUILD% -d0 install
 
 build_script:
   - cd %ATK_ROOT%
   - mkdir build
   - cd build
-  - cmake -G "NMake Makefiles" -DBOOST_ROOT=%BOOST_BUILD% -DCMAKE_INSTALL_PREFIX=%ATK_ROOT% -DCMAKE_BUILD_TYPE=Release -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib ..
+  - cmake -G "NMake Makefiles" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_ROOT% -DCMAKE_BUILD_TYPE=Release -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib ..
   - nmake
   - nmake RUN_TESTS
 
