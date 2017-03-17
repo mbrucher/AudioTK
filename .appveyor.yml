@@ -1,0 +1,42 @@
+os: Visual Studio 2015
+
+shallow_clone: true
+
+environment:
+  ATK_ROOT: c:\projects\ATK
+  BOOST_ROOT: c:\projects\boost
+  BOOST_BUILD: c:\projects\boost-build
+  FFTW_ROOT: c:\projects\fftw
+  PLATFORM: MSVC
+
+before_install:
+  - mkdir -p %FFTW_ROOT%
+  - cd %FFTW_ROOT%
+  - wget ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll64.zip -OutFile fftw-3.3.4-dll64.zip
+  - 7z x fftw-3.3.4-dll64.zip
+  - wget --no-verbose --output-document=boost_1_63_0.zip http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.zip/download
+  - mkdir -p %BOOST_ROOT%
+  - cd %BOOST_ROOT%
+  - 7z x ..\boost_1_63_0.zip -aoa
+  - "(cd %BOOST_ROOT%; .\bootstrap.sh --with-libraries=system,test)"
+  - "(cd %BOOST_ROOT%; .\b2 threading=multi --prefix=%BOOST_BUILD% -d0 install)"
+
+build_script:
+  - mkdir build
+  - cd build
+  - cmake -G "NMake Makefiles" -DBOOST_ROOT=%BOOST_BUILD% -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=Release -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib ..
+  - nmake
+  - nmake RUN_TESTS
+
+after_build:
+  - make install
+  - cd %ATK_ROOT%
+  - 7z a c:\projects\AudioTK.win.%PLATFORM%.zip * -tzip
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: ilhQ9vSyOl+QjRiRebj7CuQPYY1OygH3YxEuuFOXVa1cN4iw5yid2igEScLfKB5Xn2x2jMYDqL4bC6nLMHa1GNtCTIhCJrrHhXPeYX1W1EsOtExfAbD1G0QvUoQPZEBnK1Lu2Uf+qiQaH1IEquhzux8dxRCe/qJJzpntoWiLgm6po1giUAyQGsVzKlon4dxhgq08QcYxaQq2snOcKFJVx+zfeELfB7RZeEQXymtlMosMWnoKv3tjtFI5crWWdjD8oYKaTdLEms5EmR/cXAoYZ8jkhW0mTn1j9Ww9gaN4f/AnIlZDyggsdxVsV77rW/Kh6qqUdRbWaAnnpDgozv/HNXkgrFpxNyevIiS/pfbiyIT1zqT+iy4N9ofuc8iWuXncom3tDK/aGU+KS693ZkeLkkOT+FhT3YnIwE7UHeRS/Lqn26FQXQ/u7stuYVxCTrGR+LsfOrQdxmkQVOKicbWlOkU0+JpccaoES+j7SSCGgUkO/5f8bFzTraEu5VCN9pTuMX7TIp8OwS7b13L/TZGPwoeJDBtn5SsUl/1cqpuJbjQvf0KQqp6tJcQ8LjS9K0WrtVB+T2coQC5vYz5pM4RhYcGavj6a9+RM6U13PDvpHgP5ec5zeGbNJ2QKHLZ8s0LiuSMgffhp0vsl8E0nWjpelnSIDPtCLv5xAtk47vn+aiQ=
+  artifact: c:\projects\AudioTK.win.%PLATFORM%.tar.gz
+  on:
+    appveyor_repo_tag: true
