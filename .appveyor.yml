@@ -11,7 +11,6 @@ environment:
   PLATFORM: MSVC
 
 init:
-  - echo init step
   - cmake --version
   - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat x86_amd64
   
@@ -22,7 +21,6 @@ before_build:
   - 7z x fftw-3.3.5-dll64.zip
   - ps: lib /machine:x64 /def:libfftw3-3.def
   - ps: lib /machine:x64 /def:libfftw3f-3.def
-  - dir
   - mkdir -p %EIGEN_ROOT%
   - cd %EIGEN_ROOT%
   - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
@@ -35,12 +33,14 @@ before_build:
 build_script:
   - msbuild INSTALL.vcxproj /property:Configuration=Release
 
-test_script:
-  - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
-
 after_build:
   - cd %ATK_OUT%
   - 7z a c:\projects\AudioTK.win.%PLATFORM%.zip * -tzip
+
+test_script:
+  - set PATH=%ATK_OUT%\bin;%FFTW_ROOT%;%PATH%
+  - cd %ATK_ROOT%\build
+  - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
 
 deploy:
   provider: GitHub
