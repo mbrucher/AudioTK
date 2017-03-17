@@ -13,14 +13,16 @@ before_build:
   - cd %FFTW_ROOT%
   - ps: wget ftp://ftp.fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -OutFile fftw-3.3.5-dll64.zip
   - 7z x fftw-3.3.5-dll64.zip
-
-build_script:
   - cd %ATK_ROOT%
   - mkdir build
   - cd build
-  - cmake -G "NMake Makefiles" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_ROOT% -DCMAKE_BUILD_TYPE=Release -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib ..
-  - nmake
-  - nmake RUN_TESTS
+  - cmake -G "NVisual Studio 14 2015 Win64" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_ROOT% -DCMAKE_BUILD_TYPE=Release -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib ..
+
+build:
+  project: INSTALL.vcxproj
+
+test:
+  project: RUN_TESTS.vcxproj
 
 after_build:
   - make install
