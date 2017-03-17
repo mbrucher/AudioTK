@@ -3,7 +3,7 @@ os: Visual Studio 2015
 shallow_clone: true
 
 environment:
-  ATK_ROOT: c:\projects\ATK
+  ATK_ROOT: c:\projects\AudioTK
   BOOST_ROOT: C:\Libraries\boost
   FFTW_ROOT: c:\projects\fftw
   PLATFORM: MSVC
