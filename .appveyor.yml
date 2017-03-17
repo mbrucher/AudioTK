@@ -9,7 +9,7 @@ environment:
   FFTW_ROOT: c:\projects\fftw
   PLATFORM: MSVC
 
-before_install:
+before_build:
   - mkdir -p %FFTW_ROOT%
   - cd %FFTW_ROOT%
   - wget ftp://ftp.fftw.org/pub/fftw/fftw-3.3.4-dll64.zip -OutFile fftw-3.3.4-dll64.zip
