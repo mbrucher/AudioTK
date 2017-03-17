@@ -39,9 +39,11 @@ after_build:
   - 7z a c:\projects\AudioTK.win.%PLATFORM%.zip * -tzip
 
 test_script:
+  - dir %BOOST_ROOT%\lib
   - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib;%FFTW_ROOT%;%PATH%
   - cd %ATK_ROOT%\build
   - set CTEST_OUTPUT_ON_FAILURE=True
+  - tests\Core\release\ATKCore_test.exe
   - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
 
 deploy:
