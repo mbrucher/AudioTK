@@ -10,6 +10,11 @@ environment:
   FFTW_ROOT: c:\projects\fftw
   PLATFORM: MSVC
 
+init:
+  - echo init step
+  - cmake --version
+  - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %PLATFORM%
+  
 before_build:
   - mkdir -p %FFTW_ROOT%
   - cd %FFTW_ROOT%
