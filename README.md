@@ -1,5 +1,6 @@
-AudioTK
-=======
+# AudioTK
+
+[![Travis](https://travis-ci.org/mbrucher/AudioTK.svg?branch=master)](https://travis-ci.org/mbrucher/AudioTK)
 
 Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing.
 
@@ -11,13 +12,11 @@ Sampling rate can be independent between input and output ports, but input sampl
 and output sampling rates are also identical.
 
 
-License
--------
+## License
 
 Audio Toolkit is published under the BSD license.
 
-Changelog
----------
+## Changelog
 
 ### 1.5.0
 * Adding a Munro-Piazza model for tube filters with Python wrappers
@@ -194,8 +193,7 @@ Changelog
 * Volume filter, with gain input in dB and no dB
 * Sum filter
 
-Install
--------
+## Install
 
 ### Requirements
 
@@ -215,13 +213,11 @@ Install
 * Configure your options
 * Run make, Visual Studio or XCode
 
-Known Issues
-------------
+## Known Issues
 
 * If a plugin uses the same buffers for input and output and the pipeline has two subgraphs, one from left to right and one to left (for instance), then they are processed in order and the second graph would use the result of the first branch. To fix this, add a BufferFilter just after the input filter so that they are all buffered and copied to an intermediate buffer when the first one is used. It adds a copy, so only use this fix when you have this specific configuration for a pipeline.
 
-Additional included dependencies
---------------------------------
+## Additional included dependencies
 
 * fmath from herumi (http://homepage1.nifty.com/herumi/)
 
