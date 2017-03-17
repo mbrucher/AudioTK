@@ -9,9 +9,9 @@ FILE(GLOB_RECURSE
     *.h
 )
 
+if(EIGEN_FOUND)
 include_directories(${PROJECT_SOURCE_DIR} ${EIGEN_INCLUDE_DIR})
 
-if(EIGEN_FOUND)
 add_executable(ATKAdaptive_test ${ATK_ADAPTIVE_TEST_SRC} ${ATK_ADAPTIVE_TEST_HEADERS})
 target_link_libraries (ATKAdaptive_test ATKAdaptive ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
