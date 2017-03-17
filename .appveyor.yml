@@ -5,7 +5,7 @@ shallow_clone: true
 environment:
   ATK_ROOT: c:\projects\AudioTK
   ATK_OUT: c:\projects\ATK
-  BOOST_ROOT: C:\Libraries\boost
+  BOOST_ROOT: C:\Libraries\boost_1_63_0
   FFTW_ROOT: c:\projects\fftw
   PLATFORM: MSVC
 
