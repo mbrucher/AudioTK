@@ -5,6 +5,7 @@ shallow_clone: true
 environment:
   ATK_ROOT: c:\projects\AudioTK
   ATK_OUT: c:\projects\ATK
+  EIGEN_ROOT: c:\projects\Eigen
   BOOST_ROOT: C:\Libraries\boost_1_63_0
   FFTW_ROOT: c:\projects\fftw
   PLATFORM: MSVC
@@ -14,13 +15,17 @@ before_build:
   - cd %FFTW_ROOT%
   - ps: wget ftp://ftp.fftw.org/pub/fftw/fftw-3.3.5-dll64.zip -OutFile fftw-3.3.5-dll64.zip
   - 7z x fftw-3.3.5-dll64.zip
+  - mkdir -p %EIGEN_ROOT%
+  - cd %EIGEN_ROOT%
+  - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
+  - 7z x eigen.zip
   - cd %ATK_ROOT%
   - mkdir build
   - cd build
-  - cmake -G "Visual Studio 14 2015 Win64" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DCMAKE_BUILD_TYPE=Release -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib ..
+  - cmake -G "Visual Studio 14 2015 Win64" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DCMAKE_BUILD_TYPE=Release -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_INCLUDE_DIRS=%EIGEN_ROOT% ..
 
 build:
-  project: INSTALL.vcxproj
+  project: INSTALL
 
 test_script:
   - msbuild RUN_TESTS
