@@ -20,6 +20,7 @@ Audio Toolkit is published under the BSD license.
 ## Changelog
 
 ### 1.5.0
+* Adding a follower class solid state preamplifier with Python wrappers
 * Adding a Dempwolf model for tube filters with Python wrappers
 * Adding a Munro-Piazza model for tube filters with Python wrappers
 * Optimized distortion and preamplifier filters by using fmath exp calls
