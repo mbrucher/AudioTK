@@ -62,7 +62,18 @@ namespace ATK
   public:
     /// Builds a standard filter with default triode and circuit parameters
     static Triode2Filter build_standard_filter();
-    
+    /// Build a custom filter with a given tube function contructor
+    template<TriodeFunction function()>
+    static Triode2Filter build_alternate_filter(DataType Rp=200e3, DataType Rg=220e3, DataType Ro=220e3, DataType Rk=1e3,
+                                               DataType VBias=300, DataType Co=22e-9, DataType Ck=1.e-6)
+    {
+      return Triode2Filter<DataType, TriodeFunction>(Rp, Rg, Ro, Rk, //R
+                                                    VBias, // VBias
+                                                    Co, Ck, // C
+                                                    function() // tube
+                                                    );
+    }
+
     /// Move constructor
     Triode2Filter(Triode2Filter&& other);
     /// Destructor

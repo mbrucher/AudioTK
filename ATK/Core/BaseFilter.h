@@ -25,9 +25,9 @@ namespace ATK
   /// Base class for all filters
   class BaseFilter
   {
+  public:
     BaseFilter(const BaseFilter&) = delete;
     BaseFilter& operator=(const BaseFilter&) = delete;
-  public:
     /*!
      * @brief Constructor for the core filter
      * @param nb_input_ports is the total number of input ports of this filter

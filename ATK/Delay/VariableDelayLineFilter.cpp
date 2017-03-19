@@ -29,10 +29,11 @@ namespace ATK
 
     void update_delay_line(int64_t max_delay, int64_t size)
     {
+      auto array_size = delay_line.size();
       // Update delay line
-      for (int64_t i = 0; i < max_delay; ++i)
+      ATK_VECTORIZE for (int64_t i = 0; i < max_delay; ++i)
       {
-        delay_line[i] = delay_line[delay_line.size() + i - max_delay];
+        delay_line[i] = delay_line[array_size + i - max_delay];
       }
       delay_line.resize(size + max_delay);
 
@@ -76,13 +77,13 @@ namespace ATK
 
     memcpy(reinterpret_cast<void*>(delay_line + max_delay), reinterpret_cast<const void*>(input1), size * sizeof(DataType));
 
-    for(int64_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(int64_t i = 0; i < size; ++i)
     {
       integer_delay[i] = static_cast<int64_t>(input2[i]);
       fractional_delay[i] = input2[i] - integer_delay[i];
     }
 
-    for(int64_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(int64_t i = 0; i < size; ++i)
     {
       output[i] = delay_line[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + delay_line[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
     }

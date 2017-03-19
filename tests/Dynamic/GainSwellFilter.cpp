@@ -19,7 +19,7 @@
 BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_test )
 
   output.process(PROCESSSIZE);
   
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1);
   }
@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_test )
 BOOST_AUTO_TEST_CASE( GainSwellFilter_const_0_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 0;
   }
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE( GainSwellFilter_const_0_test )
 
   output.process(PROCESSSIZE);
 
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1); // if input is zero, we still need a gain of 1 to have a progression of 1 for values < threshold
   }
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE( GainSwellFilter_const_0_test )
 BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_threshold_05_ratio_2_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_threshold_05_ratio_2_test )
 
   output.process(PROCESSSIZE);
 
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.490775019, outdata[i], 0.1);
   }
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_threshold_05_ratio_2_test )
 BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_threshold_05_ratio_4_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE( GainSwellFilter_const_1_threshold_05_ratio_4_test )
 
   output.process(PROCESSSIZE);
 
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.240860119, outdata[i], 0.1);
   }

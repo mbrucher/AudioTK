@@ -27,10 +27,13 @@ namespace ATK
      */
     Exp(DataType_ max, int steps);
 
+    Exp(const Exp&) = delete;
+    Exp& operator=(const Exp&) = delete;
+
     /// Returns the approximation of the natural exponential of the input value
     DataType_ operator()(DataType_ value) const;
 
-  protected:
+  private:
     /// The internal LUT table
     std::vector<DataType_> LUT;
     /// Coefficient to unscale the input value from the LUT table

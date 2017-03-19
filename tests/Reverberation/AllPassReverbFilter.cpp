@@ -26,7 +26,7 @@ namespace
     }
     else
     {
-      BOOST_REQUIRE_CLOSE(v1, v2, 0.0001);
+      BOOST_REQUIRE_CLOSE(v1, v2, 0.001);
     }
   }
 }

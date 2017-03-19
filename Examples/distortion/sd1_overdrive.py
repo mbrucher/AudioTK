@@ -161,16 +161,10 @@ def filter_4(input):
 
   inputfilter = DoubleInPointerFilter(input, False)
   inputfilter.set_input_sampling_rate(sample_rate)
-  infilter = DoubleChamberlinFilter()
-  infilter.set_input_sampling_rate(sample_rate)
-  infilter.set_input_port(0, inputfilter, 0)
-  infilter.select(0)
-  infilter.set_attenuation(1)
-  infilter.set_cut_frequency(1000)
   overfilter = DoubleOversampling6points5order_4Filter()
   overfilter.set_input_sampling_rate(sample_rate)
   overfilter.set_output_sampling_rate(sample_rate * 4)
-  overfilter.set_input_port(0, infilter, 0)
+  overfilter.set_input_port(0, inputfilter, 0)
   overdrivefilter = DoubleSD1OverdriveFilter()
   overdrivefilter.set_input_sampling_rate(sample_rate * 4)
   overdrivefilter.set_input_port(0, overfilter, 0)
@@ -207,15 +201,15 @@ if __name__ == "__main__":
   
   x = np.arange(size).reshape(1, -1) / 48000.
   d = np.sin(x * 2 * np.pi * 100)
-  np.savetxt("input.txt", d)
+  d.tofile("input.dat")
   out = filter_32(d)
-  np.savetxt("output32.txt", out)
+  out.tofile("output32_sd1.dat")
   out = filter_16(d)
-  np.savetxt("output16.txt", out)
+  out.tofile("output16_sd1.dat")
   out = filter_8(d)
-  np.savetxt("output8.txt", out)
+  out.tofile("output8_sd1.dat")
   out = filter_4(d)
-  np.savetxt("output4.txt", out)
+  out.tofile("output4_sd1.dat")
 
   import matplotlib.pyplot as plt
   plt.plot(x[0], d[0], label="input")

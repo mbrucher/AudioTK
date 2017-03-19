@@ -6,6 +6,7 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
+#include <ATK/Utility/fmath.h>
 #include <ATK/Utility/ScalarNewtonRaphson.h>
 
 namespace ATK
@@ -43,7 +44,7 @@ namespace ATK
       auto x0 = input[-1];
       auto x1 = input[0];
       auto y0 = output[-1];
-      DataType expdiode_y1_p = std::exp(y1 / vt);
+      DataType expdiode_y1_p = fmath::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       DataType expdiode_y0_p;
       DataType expdiode_y0_m;
@@ -60,7 +61,7 @@ namespace ATK
 	    }
 	    else
 	    {
-	      expdiode_y0_p = std::exp(y0 / vt);
+	      expdiode_y0_p = fmath::exp(y0 / vt);
 	      expdiode_y0_m = 1 / expdiode_y0_p;
 	    }
 	  
@@ -173,7 +174,7 @@ namespace ATK
       auto x0 = input[-1];
       auto x1 = input[0];
       auto y0 = output[-1];
-      DataType expdiode_y1_p = std::exp(y1 / vt);
+      DataType expdiode_y1_p = fmath::exp(y1 / vt);
       DataType expdiode_y1_m = 1 / expdiode_y1_p;
       DataType expdiode_y0_p;
       DataType expdiode_y0_m;
@@ -190,7 +191,7 @@ namespace ATK
       }
       else
       {
-        expdiode_y0_p = std::exp(y0 / vt);
+        expdiode_y0_p = fmath::exp(y0 / vt);
         expdiode_y0_m = 1 / expdiode_y0_p;
       }
       
@@ -223,14 +224,14 @@ namespace ATK
     {
       if(y0 == 0)
         return 0;
-      auto exp = std::exp(y0 / vt);
+      auto exp = fmath::exp(y0 / vt);
       auto sinh = (exp - 1/exp);
       return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
     }
     
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
-      auto exp = std::exp(y0 / vt);
+      auto exp = fmath::exp(y0 / vt);
       auto sinh = (exp - 1/exp);
       auto cosh = (exp + 1/exp);
       return (x1 - x0 + y0 - is * sinh * B - (sinh - y0 / vt * cosh) * is * A) / (is * cosh * A / vt + 1);

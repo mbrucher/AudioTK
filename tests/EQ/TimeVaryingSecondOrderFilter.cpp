@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_1k_te
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_100_t
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -116,7 +116,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_2k_te
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -158,7 +158,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_1
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_1
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -242,7 +242,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_2
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -283,7 +283,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_1k_tes
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -324,7 +324,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_100_te
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -365,7 +365,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_2k_tes
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -405,7 +405,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_1k_tes
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -445,7 +445,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_100_te
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -485,7 +485,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_2k_tes
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -525,7 +525,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_200_te
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -565,7 +565,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighPassCoefficients_1k_te
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
@@ -605,7 +605,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighPassCoefficients_10k_t
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
@@ -645,7 +645,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighPassCoefficients_500_t
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
@@ -686,7 +686,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_1k
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -728,7 +728,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_10
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -769,7 +769,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_20
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
@@ -810,7 +810,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_1
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
@@ -851,7 +851,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_1
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
@@ -892,7 +892,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_5
   filter.set_number_of_steps(12000 - 100 + 1);
 
   boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
-  for(int64_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }

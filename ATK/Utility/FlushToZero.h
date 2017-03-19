@@ -22,6 +22,8 @@ namespace ATK
     
     ~FlushToZero();
 
+    FlushToZero(const FlushToZero&) = delete;
+    FlushToZero& operator=(const FlushToZero&) = delete;
   protected:
 /// State to which the denormal flag must be set to
 #if defined(_MSC_VER)

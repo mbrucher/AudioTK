@@ -2,9 +2,11 @@
  * \file Triode2Filter.cpp
  */
 
+#include "DempwolfTriodeFunction.h"
 #include "EnhancedKorenTriodeFunction.h"
 #include "KorenTriodeFunction.h"
 #include "LeachTriodeFunction.h"
+#include "MunroPiazzaTriodeFunction.h"
 #include "Triode2Filter.h"
 
 #include <cassert>
@@ -82,13 +84,12 @@ namespace ATK
       auto g1 = (y1(2) - VBias) * Rp + (Ic + (y1(1) + y1(2)) * Ro) + (y1(2) - y1(3)) * Cpg - icpgeq;
       auto g2 = (y1(3) - input[0][i]) * Rg + Ib + icpgeq - (y1(2) - y1(3)) * Cpg;
       
-      Vector F(Vector::Zero());
-      F << f1,
+      Vector F(f1,
            f2,
            g1,
-           g2;
+           g2);
 
-      Matrix M(Matrix::Zero());
+      Matrix M;
       M << -(Ib_Vbe + Ic_Vbe + Ib_Vce + Ic_Vce) - (Rk + Ck), 0, (Ib_Vce + Ic_Vce), (Ib_Vbe + Ic_Vbe),
             0, Ro + Co, Ro, 0,
       -(Ic_Vbe + Ic_Vce), Ro, Rp + Ro + Ic_Vce + Cpg, Ic_Vbe - Cpg,
@@ -131,12 +132,11 @@ namespace ATK
       auto Ic_Vbe = tube_function.Lc_Vbe(y1(1) - y1(2), y1(0) - y1(2));
       auto Ic_Vce = tube_function.Lc_Vce(y1(1) - y1(2), y1(0) - y1(2));
 
-      Vector F(Vector::Zero());
-      F << y1(0) - VBias + Ic * Rp,
+      Vector F(y1(0) - VBias + Ic * Rp,
         Ib * Rg + y1(1),
-        y1(2) - (Ib + Ic) * Rk;
+        y1(2) - (Ib + Ic) * Rk);
 
-      Matrix M(Matrix::Zero());
+      Matrix M;
       M << 1 + Rp * Ic_Vce, Rp * Ic_Vbe, -Rp * (Ic_Vbe + Ic_Vce),
         Ib_Vce * Rg, 1 + Rg * Ib_Vbe, -Rg * (Ib_Vbe + Ib_Vce),
         -(Ic_Vce + Ib_Vce) * Rk, -(Ic_Vbe + Ib_Vbe) * Rk, 1 + (Ic_Vbe + Ic_Vce + Ib_Vbe + Ib_Vce) * Rk;
@@ -228,4 +228,8 @@ namespace ATK
   template class Triode2Filter<double, KorenTriodeFunction<double> >;
   template class Triode2Filter<float, EnhancedKorenTriodeFunction<float> >;
   template class Triode2Filter<double, EnhancedKorenTriodeFunction<double> >;
+  template class Triode2Filter<float, MunroPiazzaTriodeFunction<float> >;
+  template class Triode2Filter<double, MunroPiazzaTriodeFunction<double> >;
+  template class Triode2Filter<float, DempwolfTriodeFunction<float> >;
+  template class Triode2Filter<double, DempwolfTriodeFunction<double> >;
 }

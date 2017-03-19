@@ -1,6 +1,6 @@
 /**
  * \file TransistorClassAFilter.h
- * Heavily inspired by Simualtion of a guitar amplifier stage for several triode models (Cohen and Helie)
+ * Heavily inspired by http://www.electronics-tutorials.ws/amplifier/amp_2.html
  */
 
 #ifndef ATK_PREAMPLIFIER_TRANSISTORCLASSAFILTER_H
@@ -10,6 +10,7 @@
 #include <vector>
 
 #include <ATK/Preamplifier/config.h>
+#include <ATK/Preamplifier/TransistorFunction.h>
 
 #include <ATK/Core/TypedBaseFilter.h>
 
@@ -43,7 +44,7 @@ namespace ATK
     using Parent::output_sampling_rate;
     
     using Parent::default_output;
-  protected:
+  private:
     static const int nb_max_iter = 10;
     std::unique_ptr<VectorizedNewtonRaphson<TransistorClassAFunction, 4, nb_max_iter, true> > optimizer;
 
@@ -57,13 +58,11 @@ namespace ATK
     const DataType_ Co;
     const DataType_ Ck;
     
-    const DataType_ Is;
-    const DataType_ Vt;
-    const DataType_ Br;
-    const DataType_ Bf;
-    
+    TransistorFunction<DataType> transistor_function;
+
+  protected:
     /// Build a new preamp filter
-    TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, DataType Is, DataType Vt, DataType Br, DataType Bf);
+    TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function);
   public:
     /// Move constructor
     TransistorClassAFilter(TransistorClassAFilter&& other);

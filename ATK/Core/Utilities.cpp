@@ -16,7 +16,7 @@
 namespace
 {
   template<typename DataType>
-  void convert_to_array(const DataType* input_array, DataType* output_array, int64_t size, int offset, int ports)
+  void convert_to_array(const DataType* input_array, DataType* output_array, int64_t size, int64_t offset, int ports)
   {
     if(ports == 1)
     {
@@ -33,7 +33,7 @@ namespace
   
   template<typename DataType1, typename DataType2>
   typename boost::disable_if<typename boost::is_same<DataType1, DataType2>::type, void>::type
-      convert_to_array(const DataType1* input_array, DataType2* output_array, int64_t size, int offset, int ports)
+      convert_to_array(const DataType1* input_array, DataType2* output_array, int64_t size, int64_t offset, int ports)
   {
     for(int i = 0; i < size; ++i)
     {
@@ -46,7 +46,7 @@ namespace
 namespace ATK
 {
   template<typename DataType1, typename DataType2>
-  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, int64_t size, int offset, int ports)
+  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, int64_t size, int64_t offset, int ports)
   {
     convert_to_array(input_array, output_array, size, offset, ports);
   }

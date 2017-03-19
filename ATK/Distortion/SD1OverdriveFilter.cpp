@@ -8,6 +8,7 @@
 
 #include <boost/math/special_functions/sign.hpp>
 
+#include <ATK/Utility/fmath.h>
 #include <ATK/Utility/ScalarNewtonRaphson.h>
 
 namespace ATK
@@ -47,7 +48,7 @@ namespace ATK
     {
       auto x1 = input[0];
       y1 -= x1;
-      expdiode_y1_p = std::exp(y1 / vt);
+      expdiode_y1_p = fmath::exp(y1 / vt);
       expdiode_y1_m = 1 / expdiode_y1_p;
 
       DataType diode1 = is * (expdiode_y1_p - 2 * expdiode_y1_m + 1);

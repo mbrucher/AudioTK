@@ -1,8 +1,10 @@
 
 %{
+#include <ATK/Preamplifier/DempwolfTriodeFunction.h>
 #include <ATK/Preamplifier/EnhancedKorenTriodeFunction.h>
 #include <ATK/Preamplifier/KorenTriodeFunction.h>
 #include <ATK/Preamplifier/LeachTriodeFunction.h>
+#include <ATK/Preamplifier/MunroPiazzaTriodeFunction.h>
 #include <ATK/Preamplifier/TriodeFilter.h>
 %}
 
@@ -37,20 +39,25 @@ namespace ATK
 %template(DoubleKorenTriodeFilter) ATK::TriodeFilter<double, ATK::KorenTriodeFunction<double>>;
 %template(FloatEnhancedKorenTriodeFilter) ATK::TriodeFilter<float, ATK::EnhancedKorenTriodeFunction<float> >;
 %template(DoubleEnhancedKorenTriodeFilter) ATK::TriodeFilter<double, ATK::EnhancedKorenTriodeFunction<double>>;
+%template(FloatMunroPiazzaTriodeFilter) ATK::TriodeFilter<float, ATK::MunroPiazzaTriodeFunction<float> >;
+%template(DoubleMunroPiazzaTriodeFilter) ATK::TriodeFilter<double, ATK::MunroPiazzaTriodeFunction<double>>;
+%template(FloatDempwolfTriodeFilter) ATK::TriodeFilter<float, ATK::DempwolfTriodeFunction<float> >;
+%template(DoubleDempwolfTriodeFilter) ATK::TriodeFilter<double, ATK::DempwolfTriodeFunction<double>>;
 
-%define TubeExtend(name, T, T2)
-%extend name<T, T2<T> > {
-  %newobject build_standard_filter;
-  static name<T, T2<T> >* build_standard_filter()
-  {
-    return new name<T, T2<T> >(name<T, T2<T> >::build_standard_filter());
-  }
-}
-%enddef
+PreampExtend(ATK::TriodeFilter,float, ATK::LeachTriodeFunction);
+PreampExtend(ATK::TriodeFilter,double, ATK::LeachTriodeFunction);
+PreampExtend(ATK::TriodeFilter,float, ATK::KorenTriodeFunction);
+PreampExtend(ATK::TriodeFilter,double, ATK::KorenTriodeFunction);
+PreampExtend(ATK::TriodeFilter,float, ATK::EnhancedKorenTriodeFunction);
+PreampExtend(ATK::TriodeFilter,double, ATK::EnhancedKorenTriodeFunction);
+PreampExtend(ATK::TriodeFilter,float, ATK::MunroPiazzaTriodeFunction);
+PreampExtend(ATK::TriodeFilter,double, ATK::MunroPiazzaTriodeFunction);
+PreampExtend(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction);
+PreampExtend(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction);
 
-TubeExtend(ATK::TriodeFilter,float, ATK::LeachTriodeFunction);
-TubeExtend(ATK::TriodeFilter,double, ATK::LeachTriodeFunction);
-TubeExtend(ATK::TriodeFilter,float, ATK::KorenTriodeFunction);
-TubeExtend(ATK::TriodeFilter,double, ATK::KorenTriodeFunction);
-TubeExtend(ATK::TriodeFilter,float, ATK::EnhancedKorenTriodeFunction);
-TubeExtend(ATK::TriodeFilter,double, ATK::EnhancedKorenTriodeFunction);
+PreampExtendAlternate(ATK::TriodeFilter,float, ATK::KorenTriodeFunction, build_alternate_function_1);
+PreampExtendAlternate(ATK::TriodeFilter,double, ATK::KorenTriodeFunction, build_alternate_function_1);
+PreampExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+PreampExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_1);
+PreampExtendAlternate(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction, build_alternate_function_2);
+PreampExtendAlternate(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction, build_alternate_function_2);

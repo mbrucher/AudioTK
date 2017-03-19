@@ -18,7 +18,7 @@
 
 #include <boost/scoped_array.hpp>
 
-#define PROCESSSIZE (1024*1024)
+#define PROCESSSIZE (1024)
 
 BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_1_0_test )
 {
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_1_1_test )
   volumefilter.set_offset(1);
 
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = -1;
   }
