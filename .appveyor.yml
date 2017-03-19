@@ -83,11 +83,15 @@ test_script:
   - set CTEST_OUTPUT_ON_FAILURE=True
   - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
 
+artifacts: 
+  - path: c:\projects\AudioTK.%PLATFORM%.%OUTPUT%.zip
+    name: package
+
 deploy:
   provider: GitHub
-  description: 'Audio Toolkit Visual Studio files'
+  description: 'Audio Toolkit files'
   auth_token:
     secure: jkxOmoTMtVlBIlIlVlxiGzV+4AX9NMjfT0hzTS3JxNtjGken02XG0FaDESBDxS0+
-  artifact: c:\projects\AudioTK.%PLATFORM%.%OUTPUT%.tar.gz
+  artifact: package
   on:
     appveyor_repo_tag: true
