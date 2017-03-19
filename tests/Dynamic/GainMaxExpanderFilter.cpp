@@ -21,7 +21,7 @@
 BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_test )
 
   output.process(PROCESSSIZE);
   
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1);
   }
@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_test )
 BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_0_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 0;
   }
@@ -71,7 +71,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_0_test )
 
   output.process(PROCESSSIZE);
 
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(outdata[i], 0.f, 1.f);
   }
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_0_test )
 BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_2_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_2_test )
 
   output.process(PROCESSSIZE);
 
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.700553358, outdata[i], 0.1);
   }
@@ -113,7 +113,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_2_test )
 BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_4_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_4_test )
 
   output.process(PROCESSSIZE);
 
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.389224231, outdata[i], 0.1);
   }
@@ -145,7 +145,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_4_test )
 BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_4_max_reduction_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_4_max_redu
 
   output.process(PROCESSSIZE);
 
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_GE(outdata[i], .1);
   }

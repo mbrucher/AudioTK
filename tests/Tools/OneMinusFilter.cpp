@@ -19,7 +19,7 @@
 BOOST_AUTO_TEST_CASE( OneMinusFilter_sinus_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -39,7 +39,7 @@ BOOST_AUTO_TEST_CASE( OneMinusFilter_sinus_test )
 
   output.process(PROCESSSIZE);
   
-  for(int64_t i = 0; i < PROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(data[i] + outdata[i], 1., 0.0001);
   }
