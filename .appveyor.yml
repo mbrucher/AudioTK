@@ -66,6 +66,7 @@ before_build:
   - cd %EIGEN_ROOT%
   - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
   - 7z x eigen.zip
+  - dir
   - cd %ATK_ROOT%
   - mkdir build
   - cd build

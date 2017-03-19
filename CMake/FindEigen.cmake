@@ -91,7 +91,7 @@ LIST(APPEND EIGEN_CHECK_INCLUDE_DIRS
   /usr/include)
 # Additional suffixes to try appending to each search path.
 file(GLOB_RECURSE EIGEN_CHECK_PATH_SUFFIXES eigen*)
-
+MESSAGE(status ${EIGEN_CHECK_PATH_SUFFIXES})
 # Search supplied hint directories first if supplied.
 FIND_PATH(EIGEN_INCLUDE_DIR
   NAMES Eigen/Core
@@ -101,8 +101,8 @@ FIND_PATH(EIGEN_INCLUDE_DIR
 IF (NOT EIGEN_INCLUDE_DIR OR
     NOT EXISTS ${EIGEN_INCLUDE_DIR})
   EIGEN_REPORT_NOT_FOUND(
-    "Could not find eigen3 include directory, set EIGEN_INCLUDE_DIR to "
-    "path to eigen3 include directory, e.g. /usr/local/include/eigen3.")
+    "Could not find eigen include directory, set EIGEN_INCLUDE_DIR to "
+    "path to eigen include directory, e.g. /usr/local/include/eigen3.")
 ENDIF (NOT EIGEN_INCLUDE_DIR OR
        NOT EXISTS ${EIGEN_INCLUDE_DIR})
 # Mark internally as found, then verify. EIGEN_REPORT_NOT_FOUND() unsets
