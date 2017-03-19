@@ -87,7 +87,7 @@ deploy:
   provider: GitHub
   description: 'Audio Toolkit Visual Studio files'
   auth_token:
-    secure: 26308e192108c79e6899c934198b2bcb1275e2fe
+    secure: a58436dfd705c6d589eb37eab1c8091155aa0436
   artifact: c:\projects\AudioTK.%PLATFORM%.%OUTPUT%.tar.gz
   on:
     appveyor_repo_tag: true
