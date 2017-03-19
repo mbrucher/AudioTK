@@ -72,10 +72,10 @@ namespace ATK
 
     int64_t delay_line_usage = std::min(delay, size);
 
-    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - delay), delay_line_usage * sizeof(DataType_));
+    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - delay), static_cast<std::size_t>(delay_line_usage * sizeof(DataType_)));
     if(size - delay > 0)
     {
-      memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), (size - delay) * sizeof(DataType_));
+      memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), static_cast<std::size_t>((size - delay) * sizeof(DataType_)));
     }
 
     ATK_VECTORIZE for(int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
@@ -85,7 +85,7 @@ namespace ATK
     int64_t minimum = std::max(int64_t(0), int64_t(delay_line_size) - size);
     if (static_cast<int64_t>(delay_line_size) > minimum)
     {
-      memcpy(reinterpret_cast<void*>(delay_line + minimum), reinterpret_cast<const void*>(input + size + minimum - delay_line_size), (delay_line_size - minimum) * sizeof(DataType_));
+      memcpy(reinterpret_cast<void*>(delay_line + minimum), reinterpret_cast<const void*>(input + size + minimum - delay_line_size), static_cast<std::size_t>((delay_line_size - minimum) * sizeof(DataType_)));
     }
   }
   

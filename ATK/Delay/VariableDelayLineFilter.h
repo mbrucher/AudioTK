@@ -34,7 +34,7 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    VariableDelayLineFilter(int max_delay);
+    VariableDelayLineFilter(std::size_t max_delay);
     /// Destructor
     ~VariableDelayLineFilter();
 
@@ -46,7 +46,7 @@ namespace ATK
     std::unique_ptr<VDLF_Impl> impl;
     
     /// Max delay for the delay line
-    int64_t max_delay;
+    std::size_t max_delay;
   };
 }
 

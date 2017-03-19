@@ -34,14 +34,14 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    UniversalVariableDelayLineFilter(int max_delay);
+    UniversalVariableDelayLineFilter(std::size_t max_delay);
     /// Destructor
     ~UniversalVariableDelayLineFilter();
 
     /// Sets the central delay
-    void set_central_delay(int central_delay);
+    void set_central_delay(std::size_t central_delay);
     /// Gets the central delay
-    int get_central_delay() const;
+    std::size_t get_central_delay() const;
 
     /// Sets the blend (between -1 and 1)
     void set_blend(DataType_ blend);
@@ -66,8 +66,8 @@ namespace ATK
     std::unique_ptr<UVDLF_Impl> impl;
 
     /// Max delay for the delay line
-    int64_t max_delay;
-    int central_delay;
+    std::size_t max_delay;
+    std::size_t central_delay;
     DataType_ blend;
     DataType_ feedback;
     DataType_ feedforward;

@@ -34,18 +34,18 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    StereoUniversalFixedDelayLineFilter(int max_delay);
+    StereoUniversalFixedDelayLineFilter(std::size_t max_delay);
     /// Destructor
     ~StereoUniversalFixedDelayLineFilter();
 
     /// Sets the initial delay from channel 1
-    void set_delay_ch1(int delay);
+    void set_delay_ch1(std::size_t delay);
     /// Gets the initial delay from channel 1
-    int get_delay_ch1() const;
+    std::size_t get_delay_ch1() const;
     /// Sets the initial delay from channel 2
-    void set_delay_ch2(int delay);
+    void set_delay_ch2(std::size_t delay);
     /// Gets the initial delay from channel 2
-    int get_delay_ch2() const;
+    std::size_t get_delay_ch2() const;
 
     /// Sets the blend of channel 1 (between -1 and 1)
     void set_blend_ch1(DataType_ blend);
@@ -97,10 +97,10 @@ namespace ATK
   private:
     // internal state
     std::unique_ptr<SUFDLF_Impl> impl;
-    int delay_l;
-    int delay_r;
+    std::size_t delay_l;
+    std::size_t delay_r;
     /// Max delay for the delay line
-    int max_delay;
+    std::size_t max_delay;
     DataType_ blend_l;
     DataType_ blend_r;
     DataType_ feedback_l_l;

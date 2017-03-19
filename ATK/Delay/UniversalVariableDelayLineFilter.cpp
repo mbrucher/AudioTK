@@ -26,16 +26,16 @@ namespace ATK
     std::vector<DataType> fractional_delay;
     DataType last_delay;
 
-    UVDLF_Impl(int max_delay)
+    UVDLF_Impl(std::size_t max_delay)
       :processed_input(max_delay, 0), last_delay(0)
     {
     }
 
-    void update_delay_line(int64_t max_delay, int64_t size)
+    void update_delay_line(std::size_t max_delay, int64_t size)
     {
       auto array_size = processed_input.size();
       // Update delay line
-      ATK_VECTORIZE for (int64_t i = 0; i < max_delay; ++i)
+      ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
       {
         processed_input[i] = processed_input[array_size + i - max_delay];
       }
@@ -47,7 +47,7 @@ namespace ATK
   };
 
   template<typename DataType_>
-  UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(int max_delay)
+  UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(std::size_t max_delay)
     :Parent(2, 1), impl(new UVDLF_Impl(max_delay)), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
   {
   }
@@ -59,13 +59,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalVariableDelayLineFilter<DataType_>::set_central_delay(int central_delay)
+  void UniversalVariableDelayLineFilter<DataType_>::set_central_delay(std::size_t central_delay)
   {
     this->central_delay = central_delay;
   }
 
   template<typename DataType_>
-  int UniversalVariableDelayLineFilter<DataType_>::get_central_delay() const
+  std::size_t UniversalVariableDelayLineFilter<DataType_>::get_central_delay() const
   {
     return central_delay;
   }

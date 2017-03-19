@@ -20,16 +20,16 @@ namespace ATK
     std::vector<DataType> processed_input_l;
     std::vector<DataType> processed_input_r;
 
-    SUFDLF_Impl(int max_delay)
+    SUFDLF_Impl(std::size_t max_delay)
       :processed_input_l(max_delay, 0), processed_input_r(max_delay, 0)
     {
     }
 
-    void update_delay_line(int max_delay)
+    void update_delay_line(std::size_t max_delay)
     {
       auto array_size_r = processed_input_l.size();
       // Update delay line
-      ATK_VECTORIZE for (int64_t i = 0; i < max_delay; ++i)
+      ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
       {
         processed_input_l[i] = processed_input_l[array_size_r + i - max_delay];
         processed_input_r[i] = processed_input_r[array_size_r + i - max_delay];
@@ -38,7 +38,7 @@ namespace ATK
   };
 
   template<typename DataType_>
-  StereoUniversalFixedDelayLineFilter<DataType_>::StereoUniversalFixedDelayLineFilter(int max_delay)
+  StereoUniversalFixedDelayLineFilter<DataType_>::StereoUniversalFixedDelayLineFilter(std::size_t max_delay)
     :Parent(2, 2), impl(new SUFDLF_Impl(max_delay)), delay_l(0), delay_r(0), max_delay(max_delay), blend_l(0), blend_r(0),
     feedback_l_l(0), feedback_l_r(0), feedback_r_l(0), feedback_r_r(0), feedforward_l_l(1), feedforward_l_r(0), feedforward_r_l(0), feedforward_r_r(1)
   {
@@ -50,9 +50,9 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch1(int delay)
+  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch1(std::size_t delay)
   {
-    if(delay <= 0)
+    if(delay == 0)
     {
       throw std::out_of_range("Delay must be strictly positive");
     }
@@ -65,13 +65,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch1() const
+  std::size_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch1() const
   {
     return delay_l;
   }
 
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch2(int delay)
+  void StereoUniversalFixedDelayLineFilter<DataType_>::set_delay_ch2(std::size_t delay)
   {
     if(delay <= 0)
     {
@@ -86,7 +86,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch2() const
+  std::size_t StereoUniversalFixedDelayLineFilter<DataType_>::get_delay_ch2() const
   {
     return delay_r;
   }

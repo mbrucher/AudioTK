@@ -36,7 +36,7 @@ namespace ATK
       int64_t i = std::min(size, mysize - offset);
       for(int j = 0; j < channels; ++j)
       {
-        memcpy(reinterpret_cast<void*>(&array[offset + (j * mysize)]), reinterpret_cast<const void*>(converted_inputs[j]), std::min(size, mysize - offset) * sizeof(DataType));
+        memcpy(reinterpret_cast<void*>(&array[offset + (j * mysize)]), reinterpret_cast<const void*>(converted_inputs[j]), static_cast<size_t>(i) * sizeof(DataType));
       }
       for(; i < size; ++i)
       {

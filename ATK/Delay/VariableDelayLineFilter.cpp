@@ -22,16 +22,16 @@ namespace ATK
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
 
-    VDLF_Impl(int max_delay)
+    VDLF_Impl(std::size_t max_delay)
       :delay_line(max_delay, 0)
     {
     }
 
-    void update_delay_line(int64_t max_delay, int64_t size)
+    void update_delay_line(std::size_t max_delay, int64_t size)
     {
       auto array_size = delay_line.size();
       // Update delay line
-      ATK_VECTORIZE for (int64_t i = 0; i < max_delay; ++i)
+      ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
       {
         delay_line[i] = delay_line[array_size + i - max_delay];
       }
@@ -44,7 +44,7 @@ namespace ATK
 
 
   template<typename DataType_>
-  VariableDelayLineFilter<DataType_>::VariableDelayLineFilter(int max_delay)
+  VariableDelayLineFilter<DataType_>::VariableDelayLineFilter(std::size_t max_delay)
     :Parent(2, 1), impl(new VDLF_Impl(max_delay)), max_delay(max_delay)
   {
   }

@@ -20,7 +20,7 @@ namespace
   {
     if(ports == 1)
     {
-      memcpy(reinterpret_cast<void*>(output_array), reinterpret_cast<const void*>(input_array + offset), size * sizeof(DataType));
+      memcpy(reinterpret_cast<void*>(output_array), reinterpret_cast<const void*>(input_array + offset), static_cast<std::size_t>(size * sizeof(DataType)));
     }
     else
     {
