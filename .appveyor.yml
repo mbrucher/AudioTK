@@ -16,7 +16,9 @@ environment:
       BITS: 32
       MSVC_PLATFORM: x86
       SHORT_MSVC_PLATFORM: x86
-      COMPILER: Visual Studio 14 2015 
+      COMPILER: Visual Studio 14 2015
+      OUTPUT: static-x86
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_STATIC_LIBRARIES=On -DMSVC_RUNTIME=Static"
 
     # 64 bits
     - FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -24,6 +26,26 @@ environment:
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
       COMPILER: Visual Studio 14 2015 Win64
+      OUTPUT: static-x64
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_STATIC_LIBRARIES=On -DMSVC_RUNTIME=Static"
+
+    # 32 bits
+    - FFTW_NAME: fftw-3.3.5-dll32.zip
+      BITS: 32
+      MSVC_PLATFORM: x86
+      SHORT_MSVC_PLATFORM: x86
+      COMPILER: Visual Studio 14 2015 
+      OUTPUT: dynamic-x86
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_STATIC_LIBRARIES=On"
+
+    # 64 bits
+    - FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 14 2015 Win64
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_STATIC_LIBRARIES=On"
 
 init:
   - cmake --version
@@ -43,7 +65,7 @@ before_build:
   - cd %ATK_ROOT%
   - mkdir build
   - cd build
-  - cmake -G "%COMPILER%" -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_INCLUDE_DIRS=%EIGEN_ROOT% ..
+  - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_INCLUDE_DIRS=%EIGEN_ROOT% ..
 
 build_script:
   - msbuild INSTALL.vcxproj /property:Configuration=Release
@@ -62,6 +84,6 @@ deploy:
   provider: GitHub
   auth_token:
     secure: ilhQ9vSyOl+QjRiRebj7CuQPYY1OygH3YxEuuFOXVa1cN4iw5yid2igEScLfKB5Xn2x2jMYDqL4bC6nLMHa1GNtCTIhCJrrHhXPeYX1W1EsOtExfAbD1G0QvUoQPZEBnK1Lu2Uf+qiQaH1IEquhzux8dxRCe/qJJzpntoWiLgm6po1giUAyQGsVzKlon4dxhgq08QcYxaQq2snOcKFJVx+zfeELfB7RZeEQXymtlMosMWnoKv3tjtFI5crWWdjD8oYKaTdLEms5EmR/cXAoYZ8jkhW0mTn1j9Ww9gaN4f/AnIlZDyggsdxVsV77rW/Kh6qqUdRbWaAnnpDgozv/HNXkgrFpxNyevIiS/pfbiyIT1zqT+iy4N9ofuc8iWuXncom3tDK/aGU+KS693ZkeLkkOT+FhT3YnIwE7UHeRS/Lqn26FQXQ/u7stuYVxCTrGR+LsfOrQdxmkQVOKicbWlOkU0+JpccaoES+j7SSCGgUkO/5f8bFzTraEu5VCN9pTuMX7TIp8OwS7b13L/TZGPwoeJDBtn5SsUl/1cqpuJbjQvf0KQqp6tJcQ8LjS9K0WrtVB+T2coQC5vYz5pM4RhYcGavj6a9+RM6U13PDvpHgP5ec5zeGbNJ2QKHLZ8s0LiuSMgffhp0vsl8E0nWjpelnSIDPtCLv5xAtk47vn+aiQ=
-  artifact: c:\projects\AudioTK.%PLATFORM%.%SHORT_MSVC_PLATFORM%.tar.gz
+  artifact: c:\projects\AudioTK.%PLATFORM%.%OUTPUT%.tar.gz
   on:
     appveyor_repo_tag: true

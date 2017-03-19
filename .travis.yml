@@ -19,7 +19,7 @@ matrix:
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
-    - ADDITONAL_CMAKE_FLAGS=
+    - ADDITONAL_CMAKE_FLAGS=-DENABLE_STATIC_LIBRARIES=On
   - compiler: gcc
     os: linux
     dist: trusty
@@ -35,7 +35,7 @@ matrix:
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
-    - ADDITONAL_CMAKE_FLAGS=
+    - ADDITONAL_CMAKE_FLAGS=-DENABLE_STATIC_LIBRARIES=On
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -53,7 +53,7 @@ matrix:
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
-    - ADDITONAL_CMAKE_FLAGS=
+    - ADDITONAL_CMAKE_FLAGS=-DENABLE_STATIC_LIBRARIES=On
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -77,13 +77,13 @@ matrix:
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-8.2
-    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386;x86_64\""
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_STATIC_LIBRARIES=On -DCMAKE_OSX_ARCHITECTURES=\"i386;x86_64\""
   - os: osx
     osx_image: xcode7.3
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
-    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386;x86_64\""
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_STATIC_LIBRARIES=On -DCMAKE_OSX_ARCHITECTURES=\"i386;x86_64\""
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
