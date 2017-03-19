@@ -94,6 +94,7 @@ file(GLOB EIGEN_CANDIDATES ${EIGEN_ROOT}/eigen*)
 LIST(APPEND EIGEN_CHECK_PATH_SUFFIXES
   eigen3 # Default root directory for Eigen.
   Eigen/include/eigen3 ) # Windows (for C:/Program Files prefix).
+MESSAGE(status ${EIGEN_ROOT})
 MESSAGE(status ${EIGEN_CANDIDATES})
 # Search supplied hint directories first if supplied.
 FIND_PATH(EIGEN_INCLUDE_DIR
