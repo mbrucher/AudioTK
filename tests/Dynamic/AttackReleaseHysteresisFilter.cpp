@@ -19,11 +19,11 @@
 BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_triangle_test )
 {
   boost::scoped_array<float> data(new float[PROCESSSIZE]);
-  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[i] = i / 48000;
   }
-  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[PROCESSSIZE/2 + i] = (PROCESSSIZE/2 - i) / 48000;
   }
@@ -45,11 +45,11 @@ BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_triangle_test )
 
   output.process(PROCESSSIZE);
   
-  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     BOOST_REQUIRE_GE(data[i], outdata[i]);
   }
-  for(int64_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     BOOST_REQUIRE_GE(outdata[PROCESSSIZE/2+i], outdata[PROCESSSIZE/2+i-1]);
   }
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_release_custom_test )
   
   output.process(CUSTOMPROCESSSIZE);
   
-  for(int64_t i = 0; i < CUSTOMPROCESSSIZE; ++i)
+  for(ptrdiff_t i = 0; i < CUSTOMPROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(target[i], outdata[i], .001);
   }
