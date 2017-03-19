@@ -90,14 +90,19 @@ LIST(APPEND EIGEN_CHECK_INCLUDE_DIRS
   /opt/local/include
   /usr/include)
 # Additional suffixes to try appending to each search path.
-file(GLOB EIGEN_CHECK_PATH_SUFFIXES ${EIGEN_INCLUDE_DIRS}/eigen*)
+file(GLOB EIGEN_CANDIDATES ${EIGEN_ROOT}/eigen*)
+LIST(APPEND EIGEN_CHECK_PATH_SUFFIXES
+  eigen3 # Default root directory for Eigen.
+  Eigen/include/eigen3 ) # Windows (for C:/Program Files prefix).
+
 # Search supplied hint directories first if supplied.
 FIND_PATH(EIGEN_INCLUDE_DIR
   NAMES Eigen/Core
   PATHS ${EIGEN_INCLUDE_DIR_HINTS}
   ${EIGEN_CHECK_INCLUDE_DIRS}
-  ${EIGEN_CHECK_PATH_SUFFIXES}
-  ${EIGEN_INCLUDE_DIRS})
+  ${EIGEN_CANDIDATES}
+  PATH_SUFFIXES ${EIGEN_CHECK_PATH_SUFFIXES})
+
 IF (NOT EIGEN_INCLUDE_DIR OR
     NOT EXISTS ${EIGEN_INCLUDE_DIR})
   EIGEN_REPORT_NOT_FOUND(
