@@ -171,7 +171,7 @@ namespace ATK
       auto output_size = outputs_size[i];
       if(output_size < size)
       {
-        std::unique_ptr<DataType[]> temp(new DataType[static_cast<unsigned int>(output_delay + size + (alignment - 1) / sizeof(DataType)]));
+        std::unique_ptr<DataType[]> temp(new DataType[static_cast<unsigned int>(output_delay + size + (alignment - 1) / sizeof(DataType))]);
         auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
         size_t space;
         std::align(alignment, sizeof(DataType), my_temp_ptr, space);
