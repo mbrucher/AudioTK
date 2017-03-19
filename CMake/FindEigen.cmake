@@ -90,7 +90,7 @@ LIST(APPEND EIGEN_CHECK_INCLUDE_DIRS
   /opt/local/include
   /usr/include)
 # Additional suffixes to try appending to each search path.
-file(GLOB_RECURSE EIGEN_CHECK_PATH_SUFFIXES ${DEIGEN_INCLUDE_DIRS}/eigen*)
+file(GLOB EIGEN_CHECK_PATH_SUFFIXES ${DEIGEN_INCLUDE_DIRS}/eigen*)
 # Search supplied hint directories first if supplied.
 FIND_PATH(EIGEN_INCLUDE_DIR
   NAMES Eigen/Core
