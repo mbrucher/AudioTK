@@ -84,7 +84,7 @@ test_script:
   - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
 
 artifacts: 
-  - path: c:\projects\AudioTK.%PLATFORM%.%OUTPUT%.zip
+  - path: ..\AudioTK.%PLATFORM%.%OUTPUT%.zip
     name: package
 
 deploy:
