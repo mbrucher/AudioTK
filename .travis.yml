@@ -19,6 +19,7 @@ matrix:
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
+    - ADDITONAL_CMAKE_FLAGS=
   - compiler: gcc
     os: linux
     dist: trusty
@@ -34,6 +35,7 @@ matrix:
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
+    - ADDITONAL_CMAKE_FLAGS=
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -51,6 +53,7 @@ matrix:
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
+    - ADDITONAL_CMAKE_FLAGS=
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -68,16 +71,19 @@ matrix:
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
+    - ADDITONAL_CMAKE_FLAGS=
   - os: osx
     osx_image: xcode8.2
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-8.2
+    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386;x86_64\""
   - os: osx
     osx_image: xcode7.3
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
+    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386;x86_64\""
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
@@ -96,7 +102,7 @@ before_script:
   - mkdir build
   - cd build
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export CMAKE_BUILD_TYPE="Release"          ; fi
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE ..
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE ${ADDITONAL_CMAKE_FLAGS} ..
 
 script:
   - pwd
