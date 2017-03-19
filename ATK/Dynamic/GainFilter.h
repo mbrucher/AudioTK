@@ -127,7 +127,7 @@ namespace ATK
         for (int64_t i = 0; i < size; ++i)
         {
           auto value = *(input++) * threshold;
-          int step = static_cast<int>(value * LUTprecision);
+          size_t step = static_cast<size_t>(value * LUTprecision);
           if (step >= LUTsize)
           {
             step = static_cast<int>(LUTsize) - 1;
@@ -156,7 +156,7 @@ namespace ATK
     {
       auto gainLUT_ptr = gainLUT.data();
 
-      for (int i = 0; i < LUTsize; i += 16)
+      for (size_t i = 0; i < LUTsize; i += 16)
       {
         if (resetRequest)
         {
