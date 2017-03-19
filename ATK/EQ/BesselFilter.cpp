@@ -316,7 +316,7 @@ namespace ATK
   
   template <typename DataType>
   BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients(int nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
   
@@ -359,7 +359,7 @@ namespace ATK
   
   template <typename DataType>
   BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients(int nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
   

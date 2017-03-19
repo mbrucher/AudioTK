@@ -161,7 +161,7 @@ namespace
 
     b = boost::math::tools::polynomial<DataType>({ k });
 
-    for(int i = 0; i < z_size; ++i)
+    for(size_t i = 0; i < z_size; ++i)
     {
       if(z[i].imag() == 0)
       {

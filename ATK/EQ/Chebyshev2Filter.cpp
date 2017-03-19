@@ -35,11 +35,11 @@ namespace
     }
     
     std::complex<DataType> f = 1;
-    for(int i = 0; i < p.size(); ++i)
+    for(size_t i = 0; i < p.size(); ++i)
     {
       f *= - p[i];
     }
-    for(int i = 0; i < z.size(); ++i)
+    for(size_t i = 0; i < z.size(); ++i)
     {
       f /= - z[i];
     }
@@ -248,7 +248,7 @@ namespace ATK
   
   template <typename DataType>
   Chebyshev2BandPassCoefficients<DataType>::Chebyshev2BandPassCoefficients(int nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
   {
   }
   
@@ -304,7 +304,7 @@ namespace ATK
   
   template <typename DataType>
   Chebyshev2BandStopCoefficients<DataType>::Chebyshev2BandStopCoefficients(int nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
   {
   }
   
