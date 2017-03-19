@@ -21,7 +21,7 @@ add_library(ATKMock_static
     ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
 )
 
-set_target_properties (ATKIO_static PROPERTIES
+set_target_properties (ATKMock_static PROPERTIES
     FOLDER C++/static
 )
 
