@@ -93,7 +93,7 @@ namespace ATK
         }
 
         output[i] = current_coeffs_in[in_order] * input[i] + state[0];
-        for(int j = 0; j < state.size() - 1; ++j)
+        for(size_t j = 0; j < state.size() - 1; ++j)
         {
           state[j] = state[j + 1];
         }

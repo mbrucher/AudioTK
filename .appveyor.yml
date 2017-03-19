@@ -18,7 +18,7 @@ environment:
       COMPILER: Visual Studio 14 2015
       OUTPUT: static-x86
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=Off"
-      PLATFORM: MSVC-14
+      PLATFORM: msvc-14
 
     # 64 bits
     - FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -28,7 +28,7 @@ environment:
       COMPILER: Visual Studio 14 2015 Win64
       OUTPUT: static-x64
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=Off"
-      PLATFORM: MSVC-14
+      PLATFORM: msvc-14
 
     # 32 bits
     - FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -38,7 +38,7 @@ environment:
       COMPILER: Visual Studio 14 2015 
       OUTPUT: dynamic-x86
       ADDITONAL_CMAKE_FLAGS:
-      PLATFORM: MSVC-14
+      PLATFORM: msvc-14
 
     # 64 bits
     - FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -48,7 +48,7 @@ environment:
       COMPILER: Visual Studio 14 2015 Win64
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS:
-      PLATFORM: MSVC-14
+      PLATFORM: msvc-14
 
 init:
   - cmake --version
