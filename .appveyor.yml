@@ -32,10 +32,10 @@ init:
 before_build:
   - mkdir -p %FFTW_ROOT%
   - cd %FFTW_ROOT%
-  - ps: wget ftp://ftp.fftw.org/pub/fftw/%FFTW_NAME% -OutFile %FFTW_NAME%
+  - ps: wget ftp://ftp.fftw.org/pub/fftw/$env:FFTW_NAME -OutFile $env:FFTW_NAME
   - 7z x %FFTW_NAME%
-  - ps: lib /machine:%SHORT_MSVC_PLATFORM% /def:libfftw3-3.def
-  - ps: lib /machine:%SHORT_MSVC_PLATFORM% /def:libfftw3f-3.def
+  - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3-3.def
+  - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3f-3.def
   - mkdir -p %EIGEN_ROOT%
   - cd %EIGEN_ROOT%
   - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
