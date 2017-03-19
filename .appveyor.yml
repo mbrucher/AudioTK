@@ -72,7 +72,7 @@ build_script:
 
 after_build:
   - cd %ATK_OUT%
-  - 7z a c:\projects\AudioTK.%PLATFORM%.%SHORT_MSVC_PLATFORM%.zip * -tzip
+  - 7z a c:\projects\AudioTK.%PLATFORM%.%OUTPUT%.zip * -tzip
 
 test_script:
   - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-msvc-14.0;%FFTW_ROOT%;%PATH%
