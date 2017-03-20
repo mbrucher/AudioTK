@@ -32,11 +32,11 @@ namespace ATK
   }
   
   template<class DataType_>
-  void TriangleGeneratorFilter<DataType_>::process_impl(int64_t size) const
+  void TriangleGeneratorFilter<DataType_>::process_impl(std::size_t size) const
   {    
     double real_increment = 2. / output_sampling_rate * frequency;
     
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
       if(state >= 1)

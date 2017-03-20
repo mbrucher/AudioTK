@@ -235,7 +235,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(int64_t size) const
+  void StereoUniversalFixedDelayLineFilter<DataType_>::process_impl(std::size_t size) const
   {
     impl->update_delay_line(max_delay);
 
@@ -254,7 +254,7 @@ namespace ATK
     DataType* ATK_RESTRICT processed_input_l = impl->processed_input_l.data();
     DataType* ATK_RESTRICT processed_input_r = impl->processed_input_r.data();
 
-    ATK_VECTORIZE for(int64_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(std::size_t i = 0; i < size; ++i)
     {
       delay_line_l[i] = processed_input_l[i + max_delay - delay_l];
       delay_line_r[i] = processed_input_r[i + max_delay - delay_r];

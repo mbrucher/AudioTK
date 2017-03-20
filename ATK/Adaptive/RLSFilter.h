@@ -32,14 +32,14 @@ namespace ATK
      * @brief Creates the filter with a given size
      * @param size is the size of the underlying MA filter
      */
-    RLSFilter(int64_t size);
+    RLSFilter(std::size_t size);
     /// Destructor
     ~RLSFilter();
     
     /// Changes the underlying size
-    void set_size(int64_t size);
+    void set_size(std::size_t size);
     /// Retrieve the size
-    int64_t get_size() const;
+    std::size_t get_size() const;
 
     typedef Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic> PType;
     typedef Eigen::Matrix<DataType_, Eigen::Dynamic, 1> wType;
@@ -64,7 +64,7 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    virtual void process_impl(int64_t size) const;
+    virtual void process_impl(std::size_t size) const;
     
     typedef Eigen::Map<const wType> xType;
     
@@ -72,7 +72,7 @@ namespace ATK
     void learn(const xType& x, DataType_ target, DataType_ actual) const;
     
   private:
-    int64_t global_size;
+    std::size_t global_size;
     mutable PType P;
     mutable wType w;
     DataType memory;

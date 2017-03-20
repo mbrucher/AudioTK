@@ -33,9 +33,9 @@ namespace ATK
     using Parent::output_sampling_rate;
   protected:
     /// Current amount of data in the buffer
-    mutable int64_t split_position;
+    mutable unsigned int split_position;
     /// Size of the individual FFTs that are processed
-    int split_size;
+    unsigned int split_size;
     
     /// FFT object for fast FFT/iFFT
     FFT<DataType> processor;
@@ -58,7 +58,7 @@ namespace ATK
     void process_new_chunk(int64_t position) const;
 
     /// Process the first split_size elements of the convolution
-    void process_impulse_beginning(int64_t processed_size, int64_t position) const;
+    void process_impulse_beginning(int64_t processed_size, unsigned int position) const;
 
   public:
     /// Build a new convolution filter
@@ -74,9 +74,9 @@ namespace ATK
     * @brief Set the split size
     * @param split_size is the size of the individual FFTs
     */
-    void set_split_size(int split_size);
+    void set_split_size(unsigned int split_size);
     
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
     
     void setup() override final;
     

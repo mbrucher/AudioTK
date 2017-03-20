@@ -37,7 +37,7 @@ namespace ATK
     void setup() override final;
     /// Write sthe wav standard header
     void write_header() const;
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
 
   public:
     /*!
@@ -46,7 +46,7 @@ namespace ATK
      */
     OutWavFilter(const std::string& filename);
     
-    virtual void set_nb_input_ports(int nb_ports) override final;
+    virtual void set_nb_input_ports(std::size_t nb_ports) override final;
   };
 }
 #endif

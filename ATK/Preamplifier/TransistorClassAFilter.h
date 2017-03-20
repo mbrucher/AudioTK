@@ -16,7 +16,7 @@
 
 namespace ATK
 {
-  template<typename Function, int size, int max_iterations, bool check_convergence>
+  template<typename Function, std::size_t size, std::size_t max_iterations, bool check_convergence>
   class VectorizedNewtonRaphson;
 
   /// A class A transistor preamplifier (Ebers-Moll equations)
@@ -76,7 +76,7 @@ namespace ATK
      */
     static TransistorClassAFilter build_standard_filter();
 
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
 
     void setup() override final;
     void full_setup() override final;

@@ -23,7 +23,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void ConvolutionFilter<DataType_>::set_split_size(int split_size)
+  void ConvolutionFilter<DataType_>::set_split_size(unsigned int split_size)
   {
     this->split_size = split_size;
     setup();
@@ -47,7 +47,7 @@ namespace ATK
     
     // The size is twice as big than the impulse, less
     partial_frequency_impulse.assign(split_size * 2 * (nb_splits - 1), 0);
-    for(int i = 1; i < nb_splits; ++i)
+    for(std::size_t i = 1; i < nb_splits; ++i)
     {
       processor.process_forward(impulse.data() + i * split_size, partial_frequency_impulse.data() + (i - 1) * split_size * 2, split_size);
     }
@@ -60,7 +60,7 @@ namespace ATK
   template<typename DataType_>
   void ConvolutionFilter<DataType_>::compute_convolutions() const
   {
-    for(int i = 0; i < split_size; ++i)
+    for(unsigned int i = 0; i < split_size; ++i)
     {
       temp_out_buffer[i] = temp_out_buffer[i + split_size];
       temp_out_buffer[i + split_size] = 0;
@@ -78,7 +78,7 @@ namespace ATK
       const DataType* ATK_RESTRICT buffer_ptr = reinterpret_cast<const DataType*>(buffer.data());
       const DataType* ATK_RESTRICT partial_frequency_impulse_ptr = partial_frequency_impulse_ptr_orig + offset;
       // Add the frequency result of this partial FFT
-      for(int64_t i = 0; i < split_size; ++i)
+      for(unsigned int i = 0; i < split_size; ++i)
       {
         DataType br1 = *(buffer_ptr++);
         DataType bi1 = *(buffer_ptr++);
@@ -98,7 +98,7 @@ namespace ATK
 
     std::vector<DataType> ifft_result(2*split_size, 0);
     processor.process_backward(result.data(), ifft_result.data(), 2*split_size);
-    for(int i = 0; i < 2*split_size; ++i)
+    for(unsigned int i = 0; i < 2*split_size; ++i)
     {
       temp_out_buffer[i] += ifft_result[i] * split_size * 2;
     }
@@ -118,37 +118,37 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ConvolutionFilter<DataType_>::process_impulse_beginning(int64_t processed_size, int64_t size_to_process) const
+  void ConvolutionFilter<DataType_>::process_impulse_beginning(int64_t processed_size, unsigned int size_to_process) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0] + processed_size;
     const DataType* ATK_RESTRICT impulse_ptr = impulse.data();
     DataType* ATK_RESTRICT output = outputs[0] + processed_size;
 
-    for(int64_t i = 0; i < size_to_process; ++i)
+    for(unsigned int i = 0; i < size_to_process; ++i)
     {
       output[i] = temp_out_buffer[split_position + i];
     }
 
-    for(int j = 0; j < input_delay + 1; ++j)
+    for(unsigned int j = 0; j < input_delay + 1; ++j)
     {
-      for(int64_t i = 0; i < size_to_process; ++i)
+      for(unsigned int i = 0; i < size_to_process; ++i)
       {
-        output[i] += impulse_ptr[j] * input[i - j];
+        output[i] += impulse_ptr[j] * input[static_cast<int>(i) - static_cast<int>(j)];
       }
     }
   }
 
   template<typename DataType_>
-  void ConvolutionFilter<DataType_>::process_impl(int64_t size) const
+  void ConvolutionFilter<DataType_>::process_impl(std::size_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
     
-    int64_t processed_size = 0;
+    unsigned int processed_size = 0;
     do
     {
       // We can only process split_size elements at a time, but if we already have some elements in the buffer,
       // we need to take them into account.
-      int64_t size_to_process = std::min(static_cast<int64_t>(split_size) - split_position, size - processed_size);
+      unsigned int size_to_process = std::min(split_size - split_position, static_cast<unsigned int>(size) - processed_size);
 
       process_impulse_beginning(processed_size, size_to_process);
 

@@ -50,7 +50,7 @@ namespace ATK
     
   protected:
     void setup() override final;
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
 
   private:
     int selected;

@@ -22,7 +22,7 @@ namespace ATK
 
   protected:
     /// Order of the MA polynomial
-    int in_order;
+    unsigned int in_order;
     /// Set to 0 so IIRFilter understand that it can bypass the AR section
     const static int out_order = 0;
 
@@ -36,7 +36,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    CustomFIRCoefficients(int nb_channels = 1);
+    CustomFIRCoefficients(unsigned int nb_channels = 1);
 
     /// Set custom coefficients for the FIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)
     void set_coefficients_in(const std::vector<DataType>& coefficients_in);

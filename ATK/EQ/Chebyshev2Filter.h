@@ -22,8 +22,8 @@ namespace ATK
     DataType cut_frequency;
     DataType ripple;
     
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
     void setup() override;
     
@@ -35,7 +35,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2LowPassCoefficients(int nb_channels = 1);
+    Chebyshev2LowPassCoefficients(unsigned int nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -44,7 +44,7 @@ namespace ATK
     void set_ripple(DataType_ ripple);
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
-    void set_order(int order);
+    void set_order(unsigned int order);
   };
   
   template<typename DataType_>
@@ -60,8 +60,8 @@ namespace ATK
     DataType cut_frequency;
     DataType ripple;
     
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
     void setup() override;
     
@@ -73,7 +73,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2HighPassCoefficients(int nb_channels = 1);
+    Chebyshev2HighPassCoefficients(unsigned int nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -82,7 +82,7 @@ namespace ATK
     void set_ripple(DataType_ ripple);
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
-    void set_order(int order);
+    void set_order(unsigned int order);
   };
   
   template<typename DataType_>
@@ -98,8 +98,8 @@ namespace ATK
     std::pair<DataType, DataType> cut_frequencies;
     DataType ripple;
     
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
     void setup() override;
     
@@ -111,7 +111,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2BandPassCoefficients(int nb_channels = 1);
+    Chebyshev2BandPassCoefficients(unsigned int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
     void set_cut_frequencies(DataType_ f0, DataType_ f1);
@@ -119,7 +119,7 @@ namespace ATK
     void set_ripple(DataType_ ripple);
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
-    void set_order(int order);
+    void set_order(unsigned int order);
   };
   
   template<typename DataType_>
@@ -135,8 +135,8 @@ namespace ATK
     std::pair<DataType, DataType> cut_frequencies;
     DataType ripple;
     
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
     void setup() override;
     
@@ -148,7 +148,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2BandStopCoefficients(int nb_channels = 1);
+    Chebyshev2BandStopCoefficients(unsigned int nb_channels = 1);
     
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
     void set_cut_frequencies(DataType_ f0, DataType_ f1);
@@ -156,7 +156,7 @@ namespace ATK
     void set_ripple(DataType_ ripple);
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
-    void set_order(int order);
+    void set_order(unsigned int order);
   };
 }
 

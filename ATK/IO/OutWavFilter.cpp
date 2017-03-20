@@ -39,12 +39,12 @@ namespace ATK
   }
 
   template<typename DataType>
-  void OutWavFilter<DataType>::process_impl(int64_t size) const
+  void OutWavFilter<DataType>::process_impl(std::size_t size) const
   {
     std::size_t nb_inputs = converted_inputs.size();
     std::vector<DataType> buffer(nb_inputs * size);
     
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       for(std::size_t j = 0; j < nb_inputs; ++j)
       {
@@ -57,7 +57,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void OutWavFilter<DataType>::set_nb_input_ports(int nb_ports)
+  void OutWavFilter<DataType>::set_nb_input_ports(std::size_t nb_ports)
   {
     Parent::set_nb_input_ports(nb_ports);
     setup();

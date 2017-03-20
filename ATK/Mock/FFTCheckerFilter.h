@@ -33,7 +33,7 @@ namespace ATK
     void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     virtual void setup() override final;
 
   private:

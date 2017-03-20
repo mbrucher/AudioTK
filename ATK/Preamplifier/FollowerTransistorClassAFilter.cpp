@@ -49,12 +49,12 @@ namespace ATK
     {
     }
 
-    Vector estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       return id_estimate(i, input, output);
     }
 
-    Vector id_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector id_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       Vector y0 = Vector::Zero();
       for (int j = 0; j < vector_size; ++j)
@@ -65,7 +65,7 @@ namespace ATK
       return y0;
     }
 
-    Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector affine_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((output[3][i - 1] - output[1][i - 1]) / transistor_function_1.Vt), fmath::exp((output[3][i - 1] - output[2][i - 1]) / transistor_function_1.Vt));
 
@@ -126,14 +126,14 @@ namespace ATK
       return M * F * invdet;
     }
 
-    void update_state(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    void update_state(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       ickeq = 2 * Ck * output[1][i] - ickeq;
       icgeq = 2 * Cg * (input[0][i] - output[3][i]) - icgeq;
       icoeq = 2 * Co * (output[0][i] - output[4][i]) - icoeq;
     }
 
-    Vector operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
+    Vector operator()(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
       std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((y1(3) - y1(1)) / transistor_function_1.Vt), fmath::exp((y1(3) - y1(2)) / transistor_function_1.Vt));
 
@@ -316,11 +316,11 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void FollowerTransistorClassAFilter<DataType_>::process_impl(int64_t size) const
+  void FollowerTransistorClassAFilter<DataType_>::process_impl(std::size_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
 
-    for (int64_t i = 0; i < size; ++i)
+    for (std::size_t i = 0; i < size; ++i)
     {
       optimizer->optimize(i, converted_inputs.data(), outputs.data());
       optimizer->get_function().update_state(i, converted_inputs.data(), outputs.data());

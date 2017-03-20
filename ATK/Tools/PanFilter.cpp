@@ -53,7 +53,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void PanFilter<DataType_>::process_impl(int64_t size) const
+  void PanFilter<DataType_>::process_impl(std::size_t size) const
   {
     double left_coeff = 1;
     double right_coeff = 1;
@@ -89,7 +89,7 @@ namespace ATK
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output0 = outputs[0];
     DataType* ATK_RESTRICT output1 = outputs[1];
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       *(output0++) = static_cast<DataType>(left_coeff * *input);
       *(output1++) = static_cast<DataType>(right_coeff * *(input++));

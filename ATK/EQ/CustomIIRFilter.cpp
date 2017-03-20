@@ -13,7 +13,7 @@
 namespace ATK
 {
   template <typename DataType>
-  CustomIIRCoefficients<DataType>::CustomIIRCoefficients(int nb_channels)
+  CustomIIRCoefficients<DataType>::CustomIIRCoefficients(unsigned int nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }

@@ -17,7 +17,7 @@
 
 namespace ATK
 {
-  BaseFilter::BaseFilter(int nb_input_ports, int nb_output_ports)
+  BaseFilter::BaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports)
   :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
@@ -74,13 +74,13 @@ namespace ATK
     setup();
   }
 
-  void BaseFilter::set_input_port(int input_port, BaseFilter* filter, int output_port)
+  void BaseFilter::set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port)
   {
-    if(output_port < 0 || output_port >= filter->nb_output_ports)
+    if(output_port >= filter->nb_output_ports)
     {
       throw std::runtime_error("Output port does not exist for this filter");
     }
-    if(input_port >= 0 && input_port < nb_input_ports)
+    if(input_port < nb_input_ports)
     {
       connections[input_port] = std::make_pair(output_port, filter);
       if(filter->get_output_sampling_rate() != get_input_sampling_rate())
@@ -94,7 +94,7 @@ namespace ATK
     }
   }
   
-  void BaseFilter::set_input_sampling_rate(int rate)
+  void BaseFilter::set_input_sampling_rate(std::size_t rate)
   {
     input_sampling_rate = rate;
     if(output_sampling_rate == 0)
@@ -104,47 +104,47 @@ namespace ATK
     full_setup();
   }
   
-  int BaseFilter::get_input_sampling_rate() const
+  std::size_t BaseFilter::get_input_sampling_rate() const
   {
     return input_sampling_rate;
   }
   
-  void BaseFilter::set_output_sampling_rate(int rate)
+  void BaseFilter::set_output_sampling_rate(std::size_t rate)
   {
     output_sampling_rate = rate;
     full_setup();
   }
   
-  int BaseFilter::get_output_sampling_rate() const
+  std::size_t BaseFilter::get_output_sampling_rate() const
   {
     return output_sampling_rate;
   }
 
-  int BaseFilter::get_input_delay() const
+  std::size_t BaseFilter::get_input_delay() const
   {
     return input_delay;
   }
 
-  int BaseFilter::get_output_delay() const
+  std::size_t BaseFilter::get_output_delay() const
   {
     return output_delay;
   }
 
-  void BaseFilter::process(int64_t size)
+  void BaseFilter::process(std::size_t size)
   {
     reset();
     process_conditionnally(size);
   }
 
 #if ATK_USE_THREADPOOL == 1
-  void BaseFilter::process_parallel(int64_t size)
+  void BaseFilter::process_parallel(std::size_t size)
   {
     reset();
     process_conditionnally_parallel(size);
   }
 #endif
 
-  void BaseFilter::process_conditionnally(int64_t size)
+  void BaseFilter::process_conditionnally(std::size_t size)
   {
     if(size == 0)
     {
@@ -193,7 +193,7 @@ namespace ATK
   }
 
 #if ATK_USE_THREADPOOL == 1
-  void BaseFilter::process_conditionnally_parallel(int64_t size)
+  void BaseFilter::process_conditionnally_parallel(std::size_t size)
   {
     if (size == 0)
     {
@@ -244,40 +244,40 @@ namespace ATK
   }
 #endif
 
-  int BaseFilter::get_nb_input_ports() const
+  std::size_t BaseFilter::get_nb_input_ports() const
   {
     return nb_input_ports;
   }
 
-  void BaseFilter::set_nb_input_ports(int nb_ports)
+  void BaseFilter::set_nb_input_ports(std::size_t nb_ports)
   {
     connections.resize(nb_ports, std::make_pair(-1, nullptr));
     nb_input_ports = nb_ports;
   }
   
-  int BaseFilter::get_nb_output_ports() const
+  std::size_t BaseFilter::get_nb_output_ports() const
   {
     return nb_output_ports;
   }
   
-  void BaseFilter::set_nb_output_ports(int nb_ports)
+  void BaseFilter::set_nb_output_ports(std::size_t nb_ports)
   {
     nb_output_ports = nb_ports;
   }
   
-  void BaseFilter::set_latency(uint64_t latency)
+  void BaseFilter::set_latency(std::size_t latency)
   {
     this->latency = latency;
   }
 
-  uint64_t BaseFilter::get_latency() const
+  std::size_t BaseFilter::get_latency() const
   {
     return latency;
   }
 
-  uint64_t BaseFilter::get_global_latency() const
+  std::size_t BaseFilter::get_global_latency() const
   {
-    uint64_t global_latency = 0;
+    std::size_t global_latency = 0;
     for(auto it = connections.begin(); it != connections.end(); ++it)
     {
       if(it->second == nullptr)

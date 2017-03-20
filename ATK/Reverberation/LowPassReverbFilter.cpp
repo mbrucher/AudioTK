@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  LowPassReverbFilter<DataType_>::LowPassReverbFilter(int max_delay)
+  LowPassReverbFilter<DataType_>::LowPassReverbFilter(std::size_t max_delay)
     :Parent(1, 1), delay(0), feedback(0), cutoff(0)
   {
     output_delay = max_delay;
@@ -24,13 +24,13 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void LowPassReverbFilter<DataType_>::set_delay(int64_t delay)
+  void LowPassReverbFilter<DataType_>::set_delay(std::size_t delay)
   {
-    if(delay < 0)
+    if(delay == 0)
     {
-      throw std::out_of_range("Delay must be positive");
+      throw std::out_of_range("Delay must be strictly positive");
     }
-    if(delay + 1 >= static_cast<int64_t>(output_delay))
+    if(delay + 1 >= output_delay)
     {
       throw std::out_of_range("Delay must be less than delay line size - 1");
     }
@@ -39,7 +39,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int64_t LowPassReverbFilter<DataType_>::get_delay() const
+  std::size_t LowPassReverbFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -77,11 +77,11 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void LowPassReverbFilter<DataType_>::process_impl(int64_t size) const
+  void LowPassReverbFilter<DataType_>::process_impl(std::size_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       output[i] = feedback * output[i - delay] + input[i - delay] + cutoff * (output[i - 1] - input[i - delay - 1]);
     }

@@ -121,7 +121,7 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(int nb_channels)
+  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -140,7 +140,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void ButterworthLowPassCoefficients<DataType>::set_order(int order)
+  void ButterworthLowPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -157,7 +157,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(int nb_channels)
+  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -176,7 +176,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void ButterworthHighPassCoefficients<DataType>::set_order(int order)
+  void ButterworthHighPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -198,7 +198,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(int nb_channels)
+  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
@@ -224,7 +224,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void ButterworthBandPassCoefficients<DataType>::set_order(int order)
+  void ButterworthBandPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();
@@ -241,7 +241,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(int nb_channels)
+  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
@@ -267,7 +267,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void ButterworthBandStopCoefficients<DataType>::set_order(int order)
+  void ButterworthBandStopCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();

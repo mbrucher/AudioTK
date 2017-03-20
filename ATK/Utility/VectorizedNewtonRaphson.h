@@ -21,7 +21,7 @@ namespace ATK
   /*!
    * A NR optimizer, 10 iterations max
    */
-  template<typename Function, int size, int max_iterations=10, bool check_convergence=true>
+  template<typename Function, std::size_t size, std::size_t max_iterations=10, bool check_convergence=true>
   class VectorizedNewtonRaphson
   {
     typedef typename Function::DataType DataType;
@@ -68,13 +68,13 @@ namespace ATK
     VectorizedNewtonRaphson& operator=(const VectorizedNewtonRaphson&) = delete;
 
     /// Optimize the function and sets its internal state
-    void optimize(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    void optimize(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
 #if ATK_PROFILING == 1
       ++nb_optimizations;
 #endif
       auto res = optimize_impl(i, input, output);
-      for(int j = 0; j < size; ++j)
+      for(std::size_t j = 0; j < size; ++j)
       {
         output[j][i] = res.data()[j];
       }
@@ -94,11 +94,11 @@ namespace ATK
 
   protected:
     /// Just optimize the function
-    Vector optimize_impl(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector optimize_impl(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       Vector y1 = function.estimate(i, input, output);
       
-      int j;
+      std::size_t j;
       for(j = 0; j < max_iterations; ++j)
       {
 #if ATK_PROFILING == 1
@@ -115,7 +115,7 @@ namespace ATK
       if(check_convergence && j == max_iterations)
       {
         Vector y0;
-        for(int j = 0; j < size; ++j)
+        for(std::size_t j = 0; j < size; ++j)
         {
           y0.data()[j] = output[j][i-1];
         }

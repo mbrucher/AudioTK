@@ -11,8 +11,8 @@
 namespace ATK
 {
   template<typename DataType_>
-  RLSFilter<DataType_>::RLSFilter(int64_t size)
-  :Parent(1, 1), global_size(size), P(PType::Identity(size, size)/size), w(wType::Zero(size, 1)), memory(.99), learning(false)
+  RLSFilter<DataType_>::RLSFilter(std::size_t size)
+  :Parent(1, 1), global_size(size), P(PType::Identity(size, size)/size), w(wType::Zero(size, DataType_(1))), memory(.99), learning(false)
   {
     input_delay = size;
   }
@@ -23,7 +23,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void RLSFilter<DataType_>::set_size(int64_t size)
+  void RLSFilter<DataType_>::set_size(std::size_t size)
   {
     if(size < 0)
     {
@@ -37,7 +37,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int64_t RLSFilter<DataType_>::get_size() const
+  std::size_t RLSFilter<DataType_>::get_size() const
   {
     return global_size;
   }
@@ -76,12 +76,12 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void RLSFilter<DataType_>::process_impl(int64_t size) const
+  void RLSFilter<DataType_>::process_impl(std::size_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
     
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       xType x(input - global_size + i, global_size, 1);
       

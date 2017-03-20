@@ -31,7 +31,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonLowPassCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonLowPassCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -64,7 +64,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonHighPassCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonHighPassCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -97,7 +97,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandPassCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonBandPassCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -130,7 +130,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandPass2Coefficients(int nb_channels = 1);
+    RobertBristowJohnsonBandPass2Coefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -163,7 +163,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandStopCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonBandStopCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -196,7 +196,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonAllPassCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonAllPassCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -230,7 +230,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandPassPeakCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonBandPassPeakCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -268,7 +268,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonLowShelvingCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonLowShelvingCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -306,7 +306,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonHighShelvingCoefficients(int nb_channels = 1);
+    RobertBristowJohnsonHighShelvingCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!

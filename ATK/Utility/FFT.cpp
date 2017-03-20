@@ -43,7 +43,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFT<DataType_>::set_size(int64_t size)
+  void FFT<DataType_>::set_size(std::size_t size)
   {
     if(this->size == size)
       return;
@@ -72,16 +72,16 @@ namespace ATK
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process(const DataType_* input, int64_t input_size) const
+  void FFT<DataType_>::process(const DataType_* input, std::size_t input_size) const
   {
     double factor = 1 << log2n;
 #if ATK_USE_FFTW == 1
-    for(int j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       input_data[j][0] = input[j] / factor;
       input_data[j][1] = 0;
     }
-    for(int j = std::min(input_size, size); j < size; ++j)
+    for(std::size_t j = std::min(input_size, size); j < size; ++j)
     {
       input_data[j][0] = 0;
       input_data[j][1] = 0;
@@ -89,12 +89,12 @@ namespace ATK
     fftw_execute(fft_plan);
 #endif
 #if ATK_USE_ACCELERATE == 1
-    for(int j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       splitData.realp[j] = input[j] / factor;
       splitData.imagp[j] = 0;
     }
-    for(int j = std::min(input_size, size); j < size; ++j)
+    for(std::size_t j = std::min(input_size, size); j < size; ++j)
     {
       splitData.realp[j] = 0;
       splitData.imagp[j] = 0;
@@ -104,10 +104,10 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFT<DataType_>::process_forward(const DataType_* input, std::complex<DataType_>* output, int64_t input_size) const
+  void FFT<DataType_>::process_forward(const DataType_* input, std::complex<DataType_>* output, std::size_t input_size) const
   {
     process(input, input_size);
-    for(int j = 0; j < size; ++j)
+    for(std::size_t j = 0; j < size; ++j)
     {
 #if ATK_USE_FFTW == 1
       output[j] = std::complex<DataType_>(output_freqs[j][0], output_freqs[j][1]);
@@ -119,28 +119,28 @@ namespace ATK
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, int64_t input_size) const
+  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, std::size_t input_size) const
   {
 #if ATK_USE_FFTW == 1
-    for(int j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       output_freqs[j][0] = input[j].real();
       output_freqs[j][1] = input[j].imag();
     }
     fftw_execute(fft_reverse_plan);
-    for(int j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       output[j] = input_data[j][0];
     }
 #endif
 #if ATK_USE_ACCELERATE == 1
-    for(int j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       splitData.realp[j] = input[j].real();
       splitData.imagp[j] = input[j].imag();
     }
     vDSP_fft_zipD(fftSetup, &splitData, 1, log2n, FFT_BACKWARD);
-    for(int j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       output[j] = splitData.realp[j];
     }
@@ -151,7 +151,7 @@ namespace ATK
   void FFT<DataType_>::get_amp(std::vector<DataType_>& amp) const
   {
     amp.assign(size / 2 + 1, 0);
-    for(int64_t i = 0; i < size / 2 + 1; ++i)
+    for(std::size_t i = 0; i < size / 2 + 1; ++i)
     {
 #if ATK_USE_FFTW == 1
       amp[i] = output_freqs[i][0] * output_freqs[i][0];
@@ -170,7 +170,7 @@ namespace ATK
   void FFT<DataType_>::get_angle(std::vector<DataType_>& angle) const
   {
     angle.assign(size / 2 + 1, 0);
-    for(int64_t i = 0; i < size / 2 + 1; ++i)
+    for(std::size_t i = 0; i < size / 2 + 1; ++i)
     {
 #if ATK_USE_FFTW == 1
       angle[i] = std::arg(std::complex<DataType_>(output_freqs[i][0], output_freqs[i][1]));

@@ -103,7 +103,7 @@ namespace ATK
     /// Indicates to start recomputing the LUT from the start, used when asked to change LUT parameters when the LUT is recomputed
     std::atomic<bool> resetRequest;
 
-    virtual void process_impl(int64_t size) const override final
+    virtual void process_impl(std::size_t size) const override final
     {
       assert(nb_input_ports == nb_output_ports);
 
@@ -118,13 +118,13 @@ namespace ATK
     }
 
     /// Computes the gain based on the LUT
-    void process_impl_LUT(int64_t size) const
+    void process_impl_LUT(std::size_t size) const
     {
-      for (int channel = 0; channel < nb_output_ports; ++channel)
+      for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
       {
         const auto* ATK_RESTRICT input = converted_inputs[channel];
         auto* ATK_RESTRICT output = outputs[channel];
-        for (int64_t i = 0; i < size; ++i)
+        for (std::size_t i = 0; i < size; ++i)
         {
           auto value = *(input++) * threshold;
           size_t step = static_cast<size_t>(value * LUTprecision);
@@ -138,13 +138,13 @@ namespace ATK
     }
 
     /// Computes the gain directly
-    void process_impl_direct(int64_t size) const
+    void process_impl_direct(std::size_t size) const
     {
-      for (int channel = 0; channel < nb_output_ports; ++channel)
+      for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
       {
         const auto* ATK_RESTRICT input = converted_inputs[channel];
         auto* ATK_RESTRICT output = outputs[channel];
-        for (int64_t i = 0; i < size; ++i)
+        for (std::size_t i = 0; i < size; ++i)
         {
           *(output++) = computeGain(*(input++) * threshold);
         }
@@ -164,7 +164,7 @@ namespace ATK
           resetRequest = false;
           gainLUT_ptr = gainLUT.data();
         }
-        for (int j = 0; j < 16; ++j)
+        for (unsigned int j = 0; j < 16; ++j)
         {
           *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i + j) / LUTprecision);
         }

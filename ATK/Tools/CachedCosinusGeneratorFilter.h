@@ -54,11 +54,11 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     virtual void setup() override final;
     
   private:
-    mutable int64_t indice;
+    mutable std::size_t indice;
     int periods;
     int seconds;
     DataType_ volume;

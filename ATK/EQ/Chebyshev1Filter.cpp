@@ -145,7 +145,7 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  Chebyshev1LowPassCoefficients<DataType>::Chebyshev1LowPassCoefficients(int nb_channels)
+  Chebyshev1LowPassCoefficients<DataType>::Chebyshev1LowPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -177,7 +177,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void Chebyshev1LowPassCoefficients<DataType>::set_order(int order)
+  void Chebyshev1LowPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -194,7 +194,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  Chebyshev1HighPassCoefficients<DataType>::Chebyshev1HighPassCoefficients(int nb_channels)
+  Chebyshev1HighPassCoefficients<DataType>::Chebyshev1HighPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -226,7 +226,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void Chebyshev1HighPassCoefficients<DataType>::set_order(int order)
+  void Chebyshev1HighPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -248,7 +248,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  Chebyshev1BandPassCoefficients<DataType>::Chebyshev1BandPassCoefficients(int nb_channels)
+  Chebyshev1BandPassCoefficients<DataType>::Chebyshev1BandPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -287,7 +287,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void Chebyshev1BandPassCoefficients<DataType>::set_order(int order)
+  void Chebyshev1BandPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();
@@ -304,7 +304,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  Chebyshev1BandStopCoefficients<DataType>::Chebyshev1BandStopCoefficients(int nb_channels)
+  Chebyshev1BandStopCoefficients<DataType>::Chebyshev1BandStopCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -343,7 +343,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void Chebyshev1BandStopCoefficients<DataType>::set_order(int order)
+  void Chebyshev1BandStopCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();

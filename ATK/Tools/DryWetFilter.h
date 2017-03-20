@@ -40,7 +40,7 @@ namespace ATK
     double get_dry() const;
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     
   private:
     /// Amount of dry signal, between 0 and 1

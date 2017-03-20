@@ -40,7 +40,7 @@ namespace ATK
     void set_volume_db(double volume_db);
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     
   private:
     double volume;

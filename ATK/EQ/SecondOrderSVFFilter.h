@@ -31,12 +31,12 @@ namespace ATK
     using Parent::m2;
 
   public:
-    SecondOrderSVFFilter(int nb_channels = 1);
+    SecondOrderSVFFilter(unsigned int nb_channels = 1);
     ~SecondOrderSVFFilter();
     
   protected:
     void full_setup() override final;
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
 
     struct SVFState;
     std::unique_ptr<SVFState[]> state;
@@ -62,7 +62,7 @@ namespace ATK
     DataType m2;
 
   public:
-    SecondOrderSVFBaseCoefficients(int nb_channels);
+    SecondOrderSVFBaseCoefficients(unsigned int nb_channels);
 
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -95,7 +95,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFLowPassCoefficients(int nb_channels);
+    SecondOrderSVFLowPassCoefficients(unsigned int nb_channels);
 
   protected:
     void setup();
@@ -119,7 +119,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFBandPassCoefficients(int nb_channels);
+    SecondOrderSVFBandPassCoefficients(unsigned int nb_channels);
 
   protected:
     void setup();
@@ -143,7 +143,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFHighPassCoefficients(int nb_channels);
+    SecondOrderSVFHighPassCoefficients(unsigned int nb_channels);
 
   protected:
     void setup();
@@ -167,7 +167,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFNotchCoefficients(int nb_channels);
+    SecondOrderSVFNotchCoefficients(unsigned int nb_channels);
 
   protected:
     void setup();
@@ -191,7 +191,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFPeakCoefficients(int nb_channels);
+    SecondOrderSVFPeakCoefficients(unsigned int nb_channels);
 
   protected:
     void setup();
@@ -215,7 +215,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFBellCoefficients(int nb_channels);
+    SecondOrderSVFBellCoefficients(unsigned int nb_channels);
 
     /// Sets the gain of the bell
     void set_gain(DataType_ gain);
@@ -245,7 +245,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFLowShelfCoefficients(int nb_channels);
+    SecondOrderSVFLowShelfCoefficients(unsigned int nb_channels);
 
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);
@@ -275,7 +275,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFHighShelfCoefficients(int nb_channels);
+    SecondOrderSVFHighShelfCoefficients(unsigned int nb_channels);
     
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);

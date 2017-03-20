@@ -103,7 +103,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::process_impl(int64_t size) const
+  void UniversalFixedDelayLineFilter<DataType_>::process_impl(std::size_t size) const
   {
     impl->processed_input.resize(size);
 
@@ -114,35 +114,35 @@ namespace ATK
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = impl->delay_line.size();
 
-    int64_t delay_line_usage = std::min(delay, static_cast<std::size_t>(size));
+    std::size_t delay_line_usage = std::min(delay, size);
 
     // Update intermediate input
-    ATK_VECTORIZE for(int64_t i = 0; i < delay_line_usage; ++i)
+    ATK_VECTORIZE for(std::size_t i = 0; i < delay_line_usage; ++i)
     {
       processed_input[i] = input[i] + feedback * delay_line[delay_line_size + i - delay];
     }
-    ATK_VECTORIZE for(int64_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for(std::size_t i = delay; i < size; ++i)
     {
       processed_input[i] = input[i] + feedback * processed_input[i - delay];
     }
 
     //update output
-    ATK_VECTORIZE for(int64_t i = 0; i < delay_line_usage; ++i)
+    ATK_VECTORIZE for(std::size_t i = 0; i < delay_line_usage; ++i)
     {
       output[i] = blend * processed_input[i] + feedforward *  delay_line[delay_line_size + i - delay];
     }
-    ATK_VECTORIZE for(int64_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for(std::size_t i = delay; i < size; ++i)
     {
       output[i] = blend * processed_input[i] + feedforward * processed_input[i - delay];
     }
 
+    auto minimum = delay_line_size > size ? delay_line_size - size : 0;
     // Update delay line
-    ATK_VECTORIZE for (int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
+    ATK_VECTORIZE for (std::size_t i = 0; i < minimum; ++i)
     {
       delay_line[i] = delay_line[i + size];
     }
-    int64_t minimum = std::max(int64_t(0), int64_t(delay_line_size) - size);
-    ATK_VECTORIZE for (int64_t i = minimum; i < static_cast<int64_t>(delay_line_size); ++i)
+    ATK_VECTORIZE for (std::size_t i = minimum; i < delay_line_size; ++i)
     {
       delay_line[i] = processed_input[size + i - delay_line_size];
     }

@@ -31,7 +31,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    AttackReleaseHysteresisFilter(int nb_channels = 1);
+    AttackReleaseHysteresisFilter(unsigned int nb_channels = 1);
     /// destructor
     ~AttackReleaseHysteresisFilter();
 
@@ -61,7 +61,7 @@ namespace ATK
     DataType_ get_release_hysteresis() const;
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     
   private:
     DataType_ attack;

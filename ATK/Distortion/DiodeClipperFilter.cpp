@@ -128,11 +128,11 @@ namespace ATK
   }
 
   template <typename DataType>
-  void DiodeClipperFilter<DataType>::process_impl(int64_t size) const
+  void DiodeClipperFilter<DataType>::process_impl(std::size_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       optimizer->optimize(input + i, output + i);
     }
@@ -257,11 +257,11 @@ namespace ATK
   }
   
   template <typename DataType>
-  void BackwardDiodeClipperFilter<DataType>::process_impl(int64_t size) const
+  void BackwardDiodeClipperFilter<DataType>::process_impl(std::size_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       optimizer->optimize(input + i, output + i);
     }
@@ -290,7 +290,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void ForwardDiodeClipperFilter<DataType>::process_impl(int64_t size) const
+  void ForwardDiodeClipperFilter<DataType>::process_impl(std::size_t size) const
   {
     DataType dt = static_cast<DataType>(1. / input_sampling_rate);
     DataType R = 10000;
@@ -300,7 +300,7 @@ namespace ATK
     
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       output[i] = output[i-1] + dt * ((input[i] - output[i-1]) / (R * C) - (2 * is / C * sinh(output[i-1] / vt)));
     }

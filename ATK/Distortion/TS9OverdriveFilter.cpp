@@ -125,11 +125,11 @@ namespace ATK
   }
 
   template <typename DataType>
-  void TS9OverdriveFilter<DataType>::process_impl(int64_t size) const
+  void TS9OverdriveFilter<DataType>::process_impl(std::size_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       optimizer->optimize(input + i, output + i);
       optimizer->get_function().update_state(input + i, output + i);

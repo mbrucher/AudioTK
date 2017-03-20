@@ -24,13 +24,13 @@ namespace
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-  convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int64_t size, int type)
+  convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
   }
 
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
-      convert_array(ATK::BaseFilter* filter, int port, DataType* converted_input, int64_t size, int type)
+      convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
     if(type != 0)
     {
@@ -48,7 +48,7 @@ namespace
 namespace ATK
 {
   template<typename DataType>
-  TypedBaseFilter<DataType>::TypedBaseFilter(int nb_input_ports, int nb_output_ports)
+  TypedBaseFilter<DataType>::TypedBaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports)
   :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, 0), default_output(nb_output_ports, 0)
   {
   }
@@ -66,7 +66,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::set_nb_input_ports(int nb_ports)
+  void TypedBaseFilter<DataType>::set_nb_input_ports(std::size_t nb_ports)
   {
     if(nb_ports == nb_input_ports)
       return;
@@ -78,7 +78,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::set_nb_output_ports(int nb_ports)
+  void TypedBaseFilter<DataType>::set_nb_output_ports(std::size_t nb_ports)
   {
     if(nb_ports == nb_output_ports)
       return;
@@ -90,12 +90,12 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::process_impl(int64_t size) const
+  void TypedBaseFilter<DataType>::process_impl(std::size_t size) const
   {
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_process(int64_t size)
+  void TypedBaseFilter<DataType>::prepare_process(std::size_t size)
   {
     convert_inputs(size);
   }
@@ -107,15 +107,15 @@ namespace ATK
   }
 
   template<typename DataType>
-  DataType* TypedBaseFilter<DataType>::get_output_array(int port)
+  DataType* TypedBaseFilter<DataType>::get_output_array(std::size_t port)
   {
     return outputs[port];
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::convert_inputs(int64_t size)
+  void TypedBaseFilter<DataType>::convert_inputs(std::size_t size)
   {
-    for(int i = 0; i < nb_input_ports; ++i)
+    for(unsigned int i = 0; i < nb_input_ports; ++i)
     {
       if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
       {
@@ -132,7 +132,7 @@ namespace ATK
         auto temp_ptr = reinterpret_cast<DataType*>(my_temp_ptr);
         if(input_size == 0)
         {
-          for(int j = 0; j < input_delay; ++j)
+          for(unsigned int j = 0; j < input_delay; ++j)
           {
             temp_ptr[j] = default_input[i];
           }
@@ -140,7 +140,7 @@ namespace ATK
         else
         {
           const auto input_ptr = converted_inputs[i];
-          for(int j = 0; j < input_delay; ++j)
+          for(unsigned int j = 0; j < input_delay; ++j)
           {
             temp_ptr[j] = input_ptr[last_size + j - input_delay];
           }
@@ -154,7 +154,7 @@ namespace ATK
       {
         auto my_last_size = last_size * input_sampling_rate / output_sampling_rate;
         const auto input_ptr = converted_inputs[i];
-        for(int j = 0; j < input_delay; ++j)
+        for(unsigned int j = 0; j < input_delay; ++j)
         {
           input_ptr[j - input_delay] = input_ptr[my_last_size + j - input_delay];
         }
@@ -164,9 +164,9 @@ namespace ATK
   }
   
   template<typename DataType>
-  void TypedBaseFilter<DataType>::prepare_outputs(int64_t size)
+  void TypedBaseFilter<DataType>::prepare_outputs(std::size_t size)
   {
-    for(int i = 0; i < nb_output_ports; ++i)
+    for(unsigned int i = 0; i < nb_output_ports; ++i)
     {
       auto output_size = outputs_size[i];
       if(output_size < size)
@@ -178,7 +178,7 @@ namespace ATK
         auto temp_ptr = reinterpret_cast<DataType*>(my_temp_ptr);
         if(output_size == 0)
         {
-          for(int j = 0; j < output_delay; ++j)
+          for(unsigned int j = 0; j < output_delay; ++j)
           {
             temp_ptr[j] = default_output[i];
           }
@@ -186,7 +186,7 @@ namespace ATK
         else
         {
           const auto output_ptr = outputs[i];
-          for(int j = 0; j < output_delay; ++j)
+          for(unsigned int j = 0; j < output_delay; ++j)
           {
             temp_ptr[j] = output_ptr[last_size + j - output_delay];
           }
@@ -199,7 +199,7 @@ namespace ATK
       else
       {
         const auto output_ptr = outputs[i];
-        for(int j = 0; j < output_delay; ++j)
+        for(unsigned int j = 0; j < output_delay; ++j)
         {
           output_ptr[j - output_delay] = output_ptr[last_size + j - output_delay];
         }
@@ -224,7 +224,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void TypedBaseFilter<DataType>::set_input_port(int input_port, BaseFilter* filter, int output_port)
+  void TypedBaseFilter<DataType>::set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port)
   {
     Parent::set_input_port(input_port, filter, output_port);
     converted_inputs_size[input_port] = 0;

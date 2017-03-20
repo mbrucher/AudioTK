@@ -32,7 +32,7 @@ namespace ATK
     ~MaxFilter();
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
   };
 }
 

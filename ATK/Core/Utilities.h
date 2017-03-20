@@ -22,7 +22,7 @@ namespace ATK
      * @param offset
      * @param ports
      */
-    static void convert_array(const DataType1* input_array, DataType2* output_array, int64_t size, int64_t offset = 0, int ports = 1);
+    static void convert_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset = 0, int ports = 1);
   };
 }
 

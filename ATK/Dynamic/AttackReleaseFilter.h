@@ -31,7 +31,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    AttackReleaseFilter(int nb_channels = 1);
+    AttackReleaseFilter(unsigned int nb_channels = 1);
     /// destructor
     ~AttackReleaseFilter();
 
@@ -45,7 +45,7 @@ namespace ATK
     DataType_ get_release() const;
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     
   private:
     DataType_ attack;
