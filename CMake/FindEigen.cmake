@@ -106,7 +106,7 @@ FIND_PATH(EIGEN_INCLUDE_DIR
 IF (NOT EIGEN_INCLUDE_DIR OR
     NOT EXISTS ${EIGEN_INCLUDE_DIR})
   EIGEN_REPORT_NOT_FOUND(
-    "Could not find eigen include directory, set EIGEN_INCLUDE_DIR to "
+    "Could not find eigen include directory, set EIGEN_ROOT to "
     "path to eigen include directory, e.g. /usr/local/include/eigen3.")
 ENDIF (NOT EIGEN_INCLUDE_DIR OR
        NOT EXISTS ${EIGEN_INCLUDE_DIR})
