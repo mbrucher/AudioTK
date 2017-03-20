@@ -117,7 +117,7 @@ namespace ATK
 
       for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
       {
-        const DataType* ATK_RESTRICT input = converted_inputs[channel] - in_order;
+        const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
         DataType* ATK_RESTRICT output = outputs[channel];
 
         for(std::size_t i = 0; i < size; ++i)
@@ -145,10 +145,10 @@ namespace ATK
 
             ATK_VECTORIZE_REMAINDER for (unsigned int j = 0; j < out_order; ++j)
             {
-              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
-              tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
-              tempout3 += coefficients_out_3_ptr[j] * output[i - out_order + j];
-              tempout4 += coefficients_out_4_ptr[j] * output[i - out_order + j];
+              tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
             }
             output[i] = tempout;
             output[i + 1] = tempout2;
@@ -167,10 +167,10 @@ namespace ATK
 
             ATK_VECTORIZE_REMAINDER for (unsigned int j = 0; j < out_order; ++j)
             {
-              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
-              tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
-              tempout3 += coefficients_out_3_ptr[j] * output[i - out_order + j];
-              tempout4 += coefficients_out_4_ptr[j] * output[i - out_order + j];
+              tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
             }
             output[i] = tempout;
             output[i + 1] = tempout2;

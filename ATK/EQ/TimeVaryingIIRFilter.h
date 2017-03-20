@@ -99,11 +99,11 @@ namespace ATK
 
         for(unsigned int j = 0; j < in_order; ++j)
         {
-          state[j] += input[i] * current_coeffs_in[in_order - j - 1];
+          state[j] += input[i] * current_coeffs_in[in_order - static_cast<int64_t>(j) - 1];
         }
         for(unsigned int j = 0; j < out_order; ++j)
         {
-          state[j] += output[i] * current_coeffs_out[out_order - j - 1];
+          state[j] += output[i] * current_coeffs_out[out_order - static_cast<int64_t>(j) - 1];
         }
       }
     }
