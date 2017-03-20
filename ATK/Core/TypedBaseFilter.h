@@ -79,9 +79,7 @@ private:
   /// Input arrays with the input delay, owned here
   CustomDataSize converted_inputs_delay;
   /// Output arrays with the output delay, owned here
-  std::vector<std::unique_ptr<DataType[]> > outputs_delay;
-  /// Current size of the output arrays, without delay
-  std::vector<std::size_t> outputs_size;
+  CustomDataSize outputs_delay;
   };
 }
 

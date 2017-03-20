@@ -22,7 +22,6 @@ namespace ATK
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::outputs_size;
     using Parent::outputs;
     using Parent::output_sampling_rate;
     using Parent::set_output_sampling_rate;

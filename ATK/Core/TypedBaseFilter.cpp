@@ -49,15 +49,17 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports, nullptr), outputs(nb_output_ports, nullptr), default_input(nb_input_ports, 0), default_output(nb_output_ports, 0), converted_inputs_delay(nb_input_ports), outputs_delay(nb_output_ports), outputs_size(nb_output_ports, 0)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports, nullptr), outputs(nb_output_ports, nullptr), default_input(nb_input_ports, 0), default_output(nb_output_ports, 0), converted_inputs_delay(nb_input_ports), outputs_delay(nb_output_ports)
   {
     for (auto& input : converted_inputs_delay)
       input.second = 0;
+    for (auto& output : outputs_delay)
+      output.second = 0;
   }
 
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(TypedBaseFilter&& other)
-  :Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
+  :Parent(std::move(other)), converted_inputs(std::move(other.converted_inputs)), outputs(std::move(other.outputs)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output)), converted_inputs_delay(std::move(other.converted_inputs_delay)), outputs_delay(std::move(other.outputs_delay))
   {
     
   }
@@ -86,9 +88,10 @@ namespace ATK
     if(nb_ports == nb_output_ports)
       return;
     Parent::set_nb_output_ports(nb_ports);
-    outputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_ports);
+    outputs_delay = CustomDataSize(nb_ports);
+    for (auto& output : outputs_delay)
+      output.second = 0;
     outputs.assign(nb_ports, nullptr);
-    outputs_size.assign(nb_ports, 0);
     default_output.assign(nb_ports, 0);
   }
 
@@ -170,7 +173,7 @@ namespace ATK
   {
     for(unsigned int i = 0; i < nb_output_ports; ++i)
     {
-      auto output_size = outputs_size[i];
+      auto output_size = outputs_delay[i].second;
       if(output_size < size)
       {
         std::unique_ptr<DataType[]> temp(new DataType[static_cast<unsigned int>(output_delay + size + (alignment - 1) / sizeof(DataType))]);
@@ -194,9 +197,8 @@ namespace ATK
           }
         }
         
-        outputs_delay[i] = std::move(temp);
+        outputs_delay[i] = std::make_pair(std::move(temp), size);
         outputs[i] = temp_ptr + output_delay;
-        outputs_size[i] = size;
       }
       else
       {
@@ -219,9 +221,10 @@ namespace ATK
     converted_inputs.assign(nb_input_ports, nullptr);
 
     // Reset output arrays
-    outputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_output_ports);
+    outputs_delay = CustomDataSize(nb_output_ports);
+    for (auto& output : outputs_delay)
+      output.second = 0;
     outputs.assign(nb_output_ports, nullptr);
-    outputs_size.assign(nb_output_ports, 0);
 
     Parent::full_setup();
   }

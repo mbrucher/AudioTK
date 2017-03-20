@@ -30,10 +30,30 @@
         </Synthetic>
         <Synthetic Name="Outputs" Condition="nb_output_ports != 0">
           <DisplayString>Output content</DisplayString>
+          <Expand>
+            <Synthetic Name="Size">
+              <DisplayString>Output sizes</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>nb_output_ports</Size>
+                  <ValuePointer>outputs_delay._Mypair._Myval2._Myfirst</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Raw data">
+              <DisplayString>Output data</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>nb_output_ports</Size>
+                  <ValuePointer>outputs_delay._Mypair._Myval2._Myfirst</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+          </Expand>
         </Synthetic>
       </Expand>
   </Type>
-  <Type Name="ATK::TypedBaseFilter&lt;*&gt;::DataSize">
+  <Type Name="std::pair&lt;std::unique_ptr&lt;*[]&gt;, std::size_t&gt;">
     <Expand>
       <ArrayItems>
         <Size>second</Size>
