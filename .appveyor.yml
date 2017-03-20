@@ -67,6 +67,7 @@ before_build:
   - 7z x eigen.zip
   - echo %EIGEN_ROOT%
   - dir
+  - dir %EIGEN_ROOT%eigen*
   - cd %ATK_ROOT%
   - mkdir build
   - cd build
