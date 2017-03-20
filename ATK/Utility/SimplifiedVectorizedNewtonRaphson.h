@@ -37,15 +37,24 @@ namespace ATK
      *   It is a functor taking x[n-1], x[n], y[n-1] and an estimate y[n], returning the value of the cost function and its derivative according to y[n]
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
-    SimplifiedVectorizedNewtonRaphson(Function&& function, Vector y0 = Vector::Zero(), DataType precision = 0)
-    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(y0)
+    SimplifiedVectorizedNewtonRaphson(Function&& function, DataType precision = 0)
+    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(Vector::Zero())
     {
       if(precision == 0)
       {
         this->precision = std::sqrt(std::numeric_limits<DataType>::epsilon());
       }
     }
-    
+
+    SimplifiedVectorizedNewtonRaphson(Function&& function, Vector y0, DataType precision = 0)
+    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(y0)
+    {
+      if (precision == 0)
+      {
+        this->precision = std::sqrt(std::numeric_limits<DataType>::epsilon());
+      }
+    }
+
     SimplifiedVectorizedNewtonRaphson(const SimplifiedVectorizedNewtonRaphson&) = delete;
     SimplifiedVectorizedNewtonRaphson& operator=(const SimplifiedVectorizedNewtonRaphson&) = delete;
 
