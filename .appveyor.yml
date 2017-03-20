@@ -17,7 +17,7 @@ environment:
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 14 2015
       OUTPUT: static-x86
-      ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=Off"
+      ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       MSVC_VERSION: msvc-14
 
     # 64 bits
@@ -27,7 +27,7 @@ environment:
       SHORT_MSVC_PLATFORM: x64
       COMPILER: Visual Studio 14 2015 Win64
       OUTPUT: static-x64
-      ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=Off"
+      ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       MSVC_VERSION: msvc-14
 
     # 32 bits
@@ -66,8 +66,6 @@ before_build:
   - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
   - 7z x eigen.zip
   - echo %EIGEN_ROOT%
-  - dir
-  - dir %EIGEN_ROOT%eigen*
   - cd %ATK_ROOT%
   - mkdir build
   - cd build
