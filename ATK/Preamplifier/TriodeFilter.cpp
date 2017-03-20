@@ -208,7 +208,7 @@ namespace ATK
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       tube_function // tube
-      ), y0);
+      ), std::move(y0));
 
     auto stable = custom.optimize();
 
