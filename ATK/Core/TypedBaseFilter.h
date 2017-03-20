@@ -34,6 +34,9 @@ namespace ATK
     /// Destructor
     virtual ~TypedBaseFilter();
     
+    TypedBaseFilter(const TypedBaseFilter&) = delete;
+    TypedBaseFilter& operator=(const TypedBaseFilter&) = delete;
+
     /**
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
@@ -60,25 +63,25 @@ namespace ATK
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(std::size_t size);
 
-    /// Input arrays with the input delay, owned here
-    std::vector<std::unique_ptr<DataType[]> > converted_inputs_delay;
     /// Input arrays, starting from t=0 (without input delay)
     std::vector<DataType *> converted_inputs;
-    /// Current size of the input arrays, without delay
-    std::vector<std::size_t> converted_inputs_size;
 
-    /// Output arrays with the output delay, owned here
-    std::vector<std::unique_ptr<DataType[]> > outputs_delay;
     /// Output arrays, starting from t=0 (without output delay)
     std::vector<DataType *> outputs;
-    /// Current size of the output arrays, without delay
-    std::vector<std::size_t> outputs_size;
 
     /// A vector containing the default values for the input arrays
     std::vector<DataType> default_input;
     /// A vector containing the default values for the output arrays
     std::vector<DataType> default_output;
-
+private:
+  typedef std::pair<std::unique_ptr<DataType[]>, std::size_t> DataSize;
+  typedef std::vector<DataSize> CustomDataSize;
+  /// Input arrays with the input delay, owned here
+  CustomDataSize converted_inputs_delay;
+  /// Output arrays with the output delay, owned here
+  std::vector<std::unique_ptr<DataType[]> > outputs_delay;
+  /// Current size of the output arrays, without delay
+  std::vector<std::size_t> outputs_size;
   };
 }
 

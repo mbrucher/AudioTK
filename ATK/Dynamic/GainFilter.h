@@ -67,8 +67,6 @@ namespace ATK
   {
     typedef ParentFilter Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::threshold;

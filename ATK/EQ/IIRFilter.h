@@ -22,8 +22,6 @@ namespace ATK
     typedef Coefficients Parent;
     using typename Parent::DataType;
     using typename Parent::AlignedVector;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;

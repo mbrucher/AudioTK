@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDelay_static
     STATIC
-    ${ATK_DELAY_SRC} ${ATK_DELAY_HEADERS}
+    ${ATK_DELAY_SRC} ${ATK_DELAY_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKDelay_static PROPERTIES
@@ -36,7 +36,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKDelay
     SHARED
-    ${ATK_DELAY_SRC} ${ATK_DELAY_HEADERS}
+    ${ATK_DELAY_SRC} ${ATK_DELAY_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKDelay PROPERTIES

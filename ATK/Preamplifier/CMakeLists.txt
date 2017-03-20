@@ -17,7 +17,7 @@ include_directories(${PROJECT_SOURCE_DIR} ${EIGEN_INCLUDE_DIRS})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKPreamplifier_static
     STATIC
-    ${ATK_PREAMPLIFIER_SRC} ${ATK_PREAMPLIFIER_HEADERS}
+    ${ATK_PREAMPLIFIER_SRC} ${ATK_PREAMPLIFIER_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKPreamplifier_static PROPERTIES
@@ -37,7 +37,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKPreamplifier
     SHARED
-    ${ATK_PREAMPLIFIER_SRC} ${ATK_PREAMPLIFIER_HEADERS}
+    ${ATK_PREAMPLIFIER_SRC} ${ATK_PREAMPLIFIER_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKPreamplifier PROPERTIES

@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDynamic_static
     STATIC
-    ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS}
+    ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKDynamic_static PROPERTIES
@@ -36,7 +36,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKDynamic
     SHARED
-    ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS}
+    ${ATK_DYNAMIC_SRC} ${ATK_DYNAMIC_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKDynamic PROPERTIES

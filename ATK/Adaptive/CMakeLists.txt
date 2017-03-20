@@ -17,7 +17,7 @@ include_directories(${PROJECT_SOURCE_DIR} ${EIGEN_INCLUDE_DIRS})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKAdaptive_static
     STATIC
-    ${ATK_ADAPTIVE_SRC} ${ATK_ADAPTIVE_HEADERS}
+    ${ATK_ADAPTIVE_SRC} ${ATK_ADAPTIVE_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKAdaptive_static PROPERTIES
@@ -37,7 +37,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKAdaptive
     SHARED
-    ${ATK_ADAPTIVE_SRC} ${ATK_ADAPTIVE_HEADERS}
+    ${ATK_ADAPTIVE_SRC} ${ATK_ADAPTIVE_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKAdaptive PROPERTIES

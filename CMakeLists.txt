@@ -30,6 +30,9 @@ include(CMakePushCheckState)
 include(CheckCXXSourceRuns)
 
 if(WIN32)
+  SET(NATVIS_FILE ${PROJECT_SOURCE_DIR}/atk.natvis)
+  SET_SOURCE_FILES_PROPERTIES(${NATVIS_FILE} LANGUAGE natvis)
+
   set(MSVC_RUNTIME "Dynamic" CACHE STRING "Set up MSVC Runtime (Dynamic/Static)")
 
   if("${MSVC_RUNTIME}" STREQUAL "Static")

@@ -14,7 +14,7 @@ SOURCE_GROUP_BY_FOLDER(ATK_CORE)
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKCore_static
     STATIC
-    ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
+    ${ATK_CORE_SRC} ${ATK_CORE_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKCore_static PROPERTIES
@@ -34,7 +34,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKCore
     SHARED
-    ${ATK_CORE_SRC} ${ATK_CORE_HEADERS}
+    ${ATK_CORE_SRC} ${ATK_CORE_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKCore PROPERTIES

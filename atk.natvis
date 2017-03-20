@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">  
+  <Type Name="ATK::TypedBaseFilter&lt;*&gt;">  
+      <DisplayString>{{ input_ports={nb_input_ports}  output_ports={nb_output_ports} }}</DisplayString>  
+      <Expand>
+        <Item Name="[input_ports]" ExcludeView="simple">nb_input_ports</Item>
+        <Item Name="[output_ports]" ExcludeView="simple">nb_output_ports</Item>
+        <Synthetic Name="Inputs" Condition="nb_input_ports != 0">
+          <DisplayString>Input content</DisplayString>
+          <Expand>
+            <Synthetic Name="Size">
+              <DisplayString>Input sizes</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>nb_input_ports</Size>
+                  <ValuePointer>converted_inputs_delay._Mypair._Myval2._Myfirst</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Raw data">
+              <DisplayString>Input data</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>nb_input_ports</Size>
+                  <ValuePointer>converted_inputs_delay._Mypair._Myval2._Myfirst</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+          </Expand>
+        </Synthetic>
+        <Synthetic Name="Outputs" Condition="nb_output_ports != 0">
+          <DisplayString>Output content</DisplayString>
+        </Synthetic>
+      </Expand>
+  </Type>
+  <Type Name="ATK::TypedBaseFilter&lt;*&gt;::DataSize">
+    <Expand>
+      <ArrayItems>
+        <Size>second</Size>
+        <ValuePointer>first._Mypair._Myval2</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+</AutoVisualizer>

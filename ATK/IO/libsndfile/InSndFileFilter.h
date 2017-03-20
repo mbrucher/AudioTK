@@ -5,9 +5,8 @@
 #ifndef ATK_IO_INSNDFILEFILTER_H
 #define ATK_IO_INSNDFILEFILTER_H
 
+#include <memory>
 #include <string>
-
-#include <boost/scoped_ptr.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>
 
@@ -30,9 +29,9 @@ namespace ATK
     using Parent::set_nb_output_ports;
     
   private:
-    boost::scoped_ptr<SndfileHandle> stream;
+    std::unique_ptr<SndfileHandle> stream;
   protected:
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
   public:
     /*!
      * @brief Constructor

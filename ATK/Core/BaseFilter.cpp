@@ -165,12 +165,12 @@ namespace ATK
         throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
       }
       assert(output_sampling_rate);
-      it->second->process_conditionnally(size * input_sampling_rate / output_sampling_rate);
+      it->second->process_conditionnally(uint64_t(size) * input_sampling_rate / output_sampling_rate);
     }
 #if ATK_PROFILING == 1
     auto timer = std::chrono::steady_clock::now();
 #endif
-    prepare_process(size * input_sampling_rate / output_sampling_rate);
+    prepare_process(uint64_t(size) * input_sampling_rate / output_sampling_rate);
 #if ATK_PROFILING == 1
     auto timer2 = std::chrono::steady_clock::now();
     input_conversion_time += (timer2 - timer);

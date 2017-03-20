@@ -31,13 +31,13 @@ namespace ATK
   }
   
   template<typename DataType>
-  void OutSndFileFilter<DataType>::process_impl(int64_t size) const
+  void OutSndFileFilter<DataType>::process_impl(std::size_t size) const
   {
     std::vector<DataType> temp(size * converted_inputs.size());
     
-    for(long i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
-      for(int j = 0; j < converted_inputs.size(); ++j)
+      for(std::size_t j = 0; j < converted_inputs.size(); ++j)
       {
         temp[j + i * converted_inputs.size()] = converted_inputs[j][i];
       }
