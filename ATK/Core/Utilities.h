@@ -5,7 +5,7 @@
 #ifndef ATK_CORE_UTILITIES_H
 #define ATK_CORE_UTILITIES_H
 
-#include <cstdint>
+#include <cstddef>
 #include "config.h"
 
 namespace ATK
