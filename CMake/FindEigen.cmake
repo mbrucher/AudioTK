@@ -33,7 +33,7 @@
 # This module defines the following variables:
 #
 # EIGEN_FOUND: TRUE iff Eigen is found.
-# EIGEN_INCLUDE_DIRS: Include directories for Eigen.
+# EIGEN_INCLUDE_DIR: Include directories for Eigen.
 #
 # EIGEN_VERSION: Extracted from Eigen/src/Core/util/Macros.h
 # EIGEN_WORLD_VERSION: Equal to 3 if EIGEN_VERSION = 3.2.0
@@ -56,8 +56,7 @@
 # explicitly defines a cache variable), then they will be used verbatim,
 # bypassing the HINTS variables and other hard-coded search locations.
 #
-# EIGEN_INCLUDE_DIR: Include directory for CXSparse, not including the
-#                    include directory of any dependencies.
+# EIGEN_ROOT: Include directory
 # Called if we failed to find Eigen or any of it's required dependencies,
 # unsets all public (designed to be used externally) variables and reports
 # error message at priority depending upon [REQUIRED/QUIET/<NONE>] argument.
