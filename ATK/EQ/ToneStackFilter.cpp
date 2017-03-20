@@ -22,7 +22,6 @@ namespace ATK
     
   }
 
-
   template<typename DataType>
   void ToneStackCoefficients<DataType>::setup()
   {
@@ -56,11 +55,11 @@ namespace ATK
       + middle*(C1*C2*C3*R3*R3*R4 + C1*C2*C3*R1*R3*R3 - C1*C2*C3*R1*R3*R4)
       + low*C1*C2*C3*R1*R2*R4 + C1*C2*C3*R1*R3*R4);
 
-    for(int i = 0; i < in_order + 1; ++i)
+    for(unsigned int i = 0; i < in_order + 1; ++i)
     {
       coefficients_in[i] = b[i] / a[out_order];
     }
-    for(int i = 0; i < out_order; ++i)
+    for(unsigned int i = 0; i < out_order; ++i)
     {
       coefficients_out[i] = -a[i] / a[out_order];
     }
