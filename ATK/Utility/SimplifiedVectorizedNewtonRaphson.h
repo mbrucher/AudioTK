@@ -46,14 +46,15 @@ namespace ATK
       }
     }
 
-    SimplifiedVectorizedNewtonRaphson(Function&& function, Vector y0, DataType precision = 0)
-    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(y0)
+    SimplifiedVectorizedNewtonRaphson(Function&& function, Vector&& y0, DataType precision = 0)
+      :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(y0)
     {
       if (precision == 0)
       {
         this->precision = std::sqrt(std::numeric_limits<DataType>::epsilon());
       }
     }
+
 
     SimplifiedVectorizedNewtonRaphson(const SimplifiedVectorizedNewtonRaphson&) = delete;
     SimplifiedVectorizedNewtonRaphson& operator=(const SimplifiedVectorizedNewtonRaphson&) = delete;

@@ -302,8 +302,7 @@ namespace ATK
       VBias, // VBias
       transistor_function_1, // transistor
       transistor_function_2 // transistor
-      ),
-      typename TransistorClassAInitialFunction<DataType_>::Vector(VBias / 20, VBias * 6 / 10, VBias / 10, VBias / 2));
+      ), typename TransistorClassAInitialFunction<DataType_>::Vector(VBias / 20, VBias * 6 / 10, VBias / 10, VBias / 2));
 
     auto stable = custom.optimize();
 
