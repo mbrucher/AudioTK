@@ -146,7 +146,7 @@ namespace ATK
         else
         {
           const auto input_ptr = converted_inputs[i];
-          for(unsigned int j = 0; j < input_delay; ++j)
+          for(int j = 0; j < static_cast<int>(input_delay); ++j)
           {
             temp_ptr[j] = input_ptr[last_size + j - input_delay];
           }
@@ -157,9 +157,9 @@ namespace ATK
       }
       else
       {
-        auto my_last_size = last_size * input_sampling_rate / output_sampling_rate;
+        auto my_last_size = static_cast<int64_t>(last_size) * input_sampling_rate / output_sampling_rate;
         const auto input_ptr = converted_inputs[i];
-        for(unsigned int j = 0; j < input_delay; ++j)
+        for(int j = 0; j < static_cast<int>(input_delay); ++j)
         {
           input_ptr[j - input_delay] = input_ptr[my_last_size + j - input_delay];
         }
@@ -191,7 +191,7 @@ namespace ATK
         else
         {
           const auto output_ptr = outputs[i];
-          for(unsigned int j = 0; j < output_delay; ++j)
+          for(int j = 0; j < static_cast<int>(output_delay); ++j)
           {
             temp_ptr[j] = output_ptr[last_size + j - output_delay];
           }
@@ -203,7 +203,7 @@ namespace ATK
       else
       {
         const auto output_ptr = outputs[i];
-        for(unsigned int j = 0; j < output_delay; ++j)
+        for(int j = 0; j < static_cast<int>(output_delay); ++j)
         {
           output_ptr[j - output_delay] = output_ptr[last_size + j - output_delay];
         }
