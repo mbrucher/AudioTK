@@ -13,42 +13,42 @@
               <Expand>
                 <ArrayItems>
                   <Size>nb_input_ports</Size>
-                  <ValuePointer>input_size._Mypair._Myval2._Myfirst</ValuePointer>
+                  <ValuePointer>converted_inputs_size._Mypair._Myval2._Myfirst</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Input 1" Condition="nb_input_ports>0">
-              <DisplayString>{{ Size={input_size._Mypair._Myval2._Myfirst[0]}}}</DisplayString>
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[0]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>input_size._Mypair._Myval2._Myfirst[0]</Size>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[0]</Size>
                   <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[0]</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Input 2" Condition="nb_input_ports>1">
-              <DisplayString>{{ Size={input_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>input_size._Mypair._Myval2._Myfirst[1]</Size>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[1]</Size>
                   <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[1]</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Input 3" Condition="nb_input_ports>2">
-              <DisplayString>{{ Size={input_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>input_size._Mypair._Myval2._Myfirst[2]</Size>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[2]</Size>
                   <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[2]</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Input 4" Condition="nb_input_ports>3">
-              <DisplayString>{{ Size={input_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>input_size._Mypair._Myval2._Myfirst[3]</Size>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[3]</Size>
                   <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[3]</ValuePointer>
                 </ArrayItems>
               </Expand>
@@ -63,42 +63,42 @@
               <Expand>
                 <ArrayItems>
                   <Size>nb_output_ports</Size>
-                  <ValuePointer>output_size._Mypair._Myval2._Myfirst</ValuePointer>
+                  <ValuePointer>outputs_size._Mypair._Myval2._Myfirst</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Output 1" Condition="nb_output_ports>0">
-              <DisplayString>{{ Size={output_size._Mypair._Myval2._Myfirst[0]}}}</DisplayString>
+              <DisplayString>{{ Size={outputs_size._Mypair._Myval2._Myfirst[0]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>output_size._Mypair._Myval2._Myfirst[0]</Size>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[0]</Size>
                   <ValuePointer>outputs._Mypair._Myval2._Myfirst[0]</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Output 2" Condition="nb_output_ports>1">
-              <DisplayString>{{Size={output_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
+              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>output_size._Mypair._Myval2._Myfirst[1]</Size>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[1]</Size>
                   <ValuePointer>outputs._Mypair._Myval2._Myfirst[1]</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Output 3" Condition="nb_output_ports>2">
-              <DisplayString>{{output_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
+              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>output_size._Mypair._Myval2._Myfirst[2]</Size>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[2]</Size>
                   <ValuePointer>outputs._Mypair._Myval2._Myfirst[2]</ValuePointer>
                 </ArrayItems>
               </Expand>
             </Synthetic>
             <Synthetic Name="Output 4" Condition="nb_output_ports>3">
-              <DisplayString>{{Size={output_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
+              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
-                  <Size>output_size._Mypair._Myval2._Myfirst[3]</Size>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[3]</Size>
                   <ValuePointer>outputs._Mypair._Myval2._Myfirst[3]</ValuePointer>
                 </ArrayItems>
               </Expand>

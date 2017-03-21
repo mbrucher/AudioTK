@@ -49,26 +49,14 @@ namespace ATK
 {
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs(nb_input_ports, nullptr), outputs(nb_output_ports, nullptr), default_input(nb_input_ports, 0), default_output(nb_output_ports, 0), converted_inputs_delay(nb_input_ports), outputs_delay(nb_output_ports)
+    :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, 0), default_output(nb_output_ports, 0)
   {
-    for (auto& input : converted_inputs_delay)
-      input.second = 0;
-    for (auto& output : outputs_delay)
-      output.second = 0;
-#ifndef NDEBUG
-    input_size.assign(nb_input_ports, 0);
-    output_size.assign(nb_input_ports, 0);
-#endif
   }
 
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(TypedBaseFilter&& other)
-  :Parent(std::move(other)), converted_inputs(std::move(other.converted_inputs)), outputs(std::move(other.outputs)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output)), converted_inputs_delay(std::move(other.converted_inputs_delay)), outputs_delay(std::move(other.outputs_delay))
+    : Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), converted_inputs_size(std::move(other.converted_inputs_size)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
   {
-#ifndef NDEBUG
-    input_size = std::move(other.input_size);
-    output_size = std::move(other.output_size);
-#endif
   }
 
   template<typename DataType>
@@ -82,14 +70,10 @@ namespace ATK
     if(nb_ports == nb_input_ports)
       return;
     Parent::set_nb_input_ports(nb_ports);
-    converted_inputs_delay = CustomDataSize(nb_ports);
-    for (auto& input : converted_inputs_delay)
-      input.second = 0;
+    converted_inputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
+    converted_inputs_size.assign(nb_ports, 0);
     default_input.assign(nb_ports, 0);
-#ifndef NDEBUG
-    input_size.assign(nb_input_ports, 0);
-#endif
   }
   
   template<typename DataType>
@@ -98,14 +82,10 @@ namespace ATK
     if(nb_ports == nb_output_ports)
       return;
     Parent::set_nb_output_ports(nb_ports);
-    outputs_delay = CustomDataSize(nb_ports);
-    for (auto& output : outputs_delay)
-      output.second = 0;
+    outputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_ports);
     outputs.assign(nb_ports, nullptr);
+    outputs_size.assign(nb_ports, 0);
     default_output.assign(nb_ports, 0);
-#ifndef NDEBUG
-    output_size.assign(nb_output_ports, 0);
-#endif
   }
 
   template<typename DataType>
@@ -139,12 +119,10 @@ namespace ATK
       if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
       {
         converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataType>* >(connections[i].second)->get_output_array(connections[i].first);
-#ifndef NDEBUG
-        input_size[i] = size;
-#endif
+        converted_inputs_size[i] = size;
         continue;
       }
-      auto input_size = converted_inputs_delay[i].second;
+      auto input_size = converted_inputs_size[i];
       if(input_size < size)
       {
         std::unique_ptr<DataType[]> temp(new DataType[static_cast<unsigned int>(input_delay + size + (alignment - 1) / sizeof(DataType))]);
@@ -168,11 +146,9 @@ namespace ATK
           }
         }
         
-        converted_inputs_delay[i] = std::make_pair(std::move(temp), size);
+        converted_inputs_delay[i] = std::move(temp);
         converted_inputs[i] = temp_ptr + input_delay;
-#ifndef NDEBUG
-        this->input_size[i] = size;
-#endif
+        converted_inputs_size[i] = size;
       }
       else
       {
@@ -192,7 +168,7 @@ namespace ATK
   {
     for(unsigned int i = 0; i < nb_output_ports; ++i)
     {
-      auto output_size = outputs_delay[i].second;
+      auto output_size = outputs_size[i];
       if(output_size < size)
       {
         std::unique_ptr<DataType[]> temp(new DataType[static_cast<unsigned int>(output_delay + size + (alignment - 1) / sizeof(DataType))]);
@@ -216,11 +192,9 @@ namespace ATK
           }
         }
         
-        outputs_delay[i] = std::make_pair(std::move(temp), size);
+        outputs_delay[i] = std::move(temp);
         outputs[i] = temp_ptr + output_delay;
-#ifndef NDEBUG
-        this->output_size[i] = size;
-#endif
+        outputs_size[i] = size;
       }
       else
       {
@@ -237,21 +211,14 @@ namespace ATK
   void TypedBaseFilter<DataType>::full_setup()
   {
     // Reset input arrays
-    converted_inputs_delay = CustomDataSize(nb_input_ports);
-    for(auto& input: converted_inputs_delay)
-      input.second = 0;
+    converted_inputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_input_ports);
     converted_inputs.assign(nb_input_ports, nullptr);
+    converted_inputs_size.assign(nb_input_ports, 0);
 
     // Reset output arrays
-    outputs_delay = CustomDataSize(nb_output_ports);
-    for (auto& output : outputs_delay)
-      output.second = 0;
+    outputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_output_ports);
     outputs.assign(nb_output_ports, nullptr);
-
-#ifndef NDEBUG
-    input_size.assign(nb_input_ports, 0);
-    output_size.assign(nb_output_ports, 0);
-#endif
+    outputs_size.assign(nb_output_ports, 0);
 
     Parent::full_setup();
   }
@@ -260,7 +227,7 @@ namespace ATK
   void TypedBaseFilter<DataType>::set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port)
   {
     Parent::set_input_port(input_port, filter, output_port);
-    converted_inputs_delay[input_port].second = 0;
+    converted_inputs_size[input_port] = 0;
   }
 
   template class TypedBaseFilter<std::int16_t>;
