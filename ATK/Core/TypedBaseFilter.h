@@ -80,6 +80,10 @@ private:
   CustomDataSize converted_inputs_delay;
   /// Output arrays with the output delay, owned here
   CustomDataSize outputs_delay;
+#ifndef NDEBUG
+  std::vector<std::size_t> input_size;
+  std::vector<std::size_t> output_size;
+#endif
   };
 }
 

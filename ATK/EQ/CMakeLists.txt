@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKEQ_static
     STATIC
-    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
+    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKEQ_static PROPERTIES
@@ -36,7 +36,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKEQ
     SHARED
-    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
+    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKEQ PROPERTIES

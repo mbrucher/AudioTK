@@ -55,13 +55,20 @@ namespace ATK
       input.second = 0;
     for (auto& output : outputs_delay)
       output.second = 0;
+#ifndef NDEBUG
+    input_size.assign(nb_input_ports, 0);
+    output_size.assign(nb_input_ports, 0);
+#endif
   }
 
   template<typename DataType>
   TypedBaseFilter<DataType>::TypedBaseFilter(TypedBaseFilter&& other)
   :Parent(std::move(other)), converted_inputs(std::move(other.converted_inputs)), outputs(std::move(other.outputs)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output)), converted_inputs_delay(std::move(other.converted_inputs_delay)), outputs_delay(std::move(other.outputs_delay))
   {
-    
+#ifndef NDEBUG
+    input_size = std::move(other.input_size);
+    output_size = std::move(other.output_size);
+#endif
   }
 
   template<typename DataType>
@@ -80,6 +87,9 @@ namespace ATK
       input.second = 0;
     converted_inputs.assign(nb_ports, nullptr);
     default_input.assign(nb_ports, 0);
+#ifndef NDEBUG
+    input_size.assign(nb_input_ports, 0);
+#endif
   }
   
   template<typename DataType>
@@ -93,6 +103,9 @@ namespace ATK
       output.second = 0;
     outputs.assign(nb_ports, nullptr);
     default_output.assign(nb_ports, 0);
+#ifndef NDEBUG
+    output_size.assign(nb_output_ports, 0);
+#endif
   }
 
   template<typename DataType>
@@ -126,6 +139,9 @@ namespace ATK
       if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
       {
         converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataType>* >(connections[i].second)->get_output_array(connections[i].first);
+#ifndef NDEBUG
+        input_size[i] = size;
+#endif
         continue;
       }
       auto input_size = converted_inputs_delay[i].second;
@@ -154,6 +170,9 @@ namespace ATK
         
         converted_inputs_delay[i] = std::make_pair(std::move(temp), size);
         converted_inputs[i] = temp_ptr + input_delay;
+#ifndef NDEBUG
+        this->input_size[i] = size;
+#endif
       }
       else
       {
@@ -199,6 +218,9 @@ namespace ATK
         
         outputs_delay[i] = std::make_pair(std::move(temp), size);
         outputs[i] = temp_ptr + output_delay;
+#ifndef NDEBUG
+        this->output_size[i] = size;
+#endif
       }
       else
       {
@@ -225,6 +247,11 @@ namespace ATK
     for (auto& output : outputs_delay)
       output.second = 0;
     outputs.assign(nb_output_ports, nullptr);
+
+#ifndef NDEBUG
+    input_size.assign(nb_input_ports, 0);
+    output_size.assign(nb_output_ports, 0);
+#endif
 
     Parent::full_setup();
   }

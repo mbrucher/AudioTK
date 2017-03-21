@@ -11,7 +11,7 @@ FILE(GLOB_RECURSE
 
 if(EIGEN_FOUND)
 include_directories(${PROJECT_SOURCE_DIR})
-add_executable(ATKPreamplifier_profile ${ATK_PREAMPLIFIER_PROFILE_SRC} ${ATK_PREAMPLIFIER_PROFILE_HEADERS})
+add_executable(ATKPreamplifier_profile ${ATK_PREAMPLIFIER_PROFILE_SRC} ${ATK_PREAMPLIFIER_PROFILE_HEADERS} ${NATVIS_FILE})
 target_link_libraries (ATKPreamplifier_profile ATKPreamplifier ATKTools ATKMock ATKCore)
 
 set_target_properties (ATKPreamplifier_profile PROPERTIES

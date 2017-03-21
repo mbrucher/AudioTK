@@ -10,7 +10,7 @@ FILE(GLOB_RECURSE
 )
 
 include_directories(${PROJECT_SOURCE_DIR})
-add_executable(ATKReverberation_test ${ATK_REVERBERATION_TEST_SRC} ${ATK_REVERBERATION_TEST_HEADERS})
+add_executable(ATKReverberation_test ${ATK_REVERBERATION_TEST_SRC} ${ATK_REVERBERATION_TEST_HEADERS} ${NATVIS_FILE})
 target_link_libraries (ATKReverberation_test ATKReverberation ATKMock ATKTools ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 add_test(AudioTKReverberation ATKReverberation_test --log_level=message)

@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKTools_static
     STATIC
-    ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
+    ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKTools_static PROPERTIES
@@ -36,7 +36,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKTools
     SHARED
-    ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS}
+    ${ATK_TOOLS_SRC} ${ATK_TOOLS_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKTools PROPERTIES
