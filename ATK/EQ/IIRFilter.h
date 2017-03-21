@@ -183,7 +183,7 @@ namespace ATK
           DataType tempout = output[i];
           for (unsigned int j = 0; j < out_order; ++j)
           {
-            tempout += coefficients_out_ptr[j] * output[i - out_order + j];
+            tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
           }
           output[i] = tempout;
         }

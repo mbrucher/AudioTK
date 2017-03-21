@@ -30,7 +30,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
 
-    DataType tempm[2] = {static_cast<DataType>(-2 * input_sampling_rate), static_cast<DataType>(2 * input_sampling_rate)};
+    DataType tempm[2] = {static_cast<DataType>(-2) * input_sampling_rate, static_cast<DataType>(2) * input_sampling_rate};
     DataType tempp[2] = {static_cast<DataType>(1), static_cast<DataType>(1)};
     boost::math::tools::polynomial<DataType> poly1(tempm, 1);
     boost::math::tools::polynomial<DataType> poly2(tempp, 1);
