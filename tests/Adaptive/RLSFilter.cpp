@@ -115,8 +115,8 @@ BOOST_AUTO_TEST_CASE( RLSFilter_learning_test )
   sum.set_input_sampling_rate(48000);
   sum.set_output_sampling_rate(48000);
   
-  std::unique_ptr<float[]> outdata(new float[PROCESSSIZE]);
-  ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
+  std::array<float, PROCESSSIZE> outdata;
+  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
   
   filter.set_input_port(0, &generator, 0);
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE( RLSFilter_learning_test )
   
   output.process(PROCESSSIZE);
   
-  for(std::int64_t i = 10; i < PROCESSSIZE; ++i) // let the RLS filter start learning first
+  for(std::int64_t i = 100; i < PROCESSSIZE; ++i) // let the RLS filter start learning first
   {
     BOOST_REQUIRE_SMALL(std::abs(outdata[i]), 0.1f);
   }

@@ -25,9 +25,9 @@ namespace ATK
   template<typename DataType_>
   void RLSFilter<DataType_>::set_size(std::size_t size)
   {
-    if(size < 0)
+    if(size == 0)
     {
-      throw std::out_of_range("Size must be positive");
+      throw std::out_of_range("Size must be strictly positive");
     }
 
     P = PType::Identity(size, size) / size;
@@ -45,7 +45,7 @@ namespace ATK
   template<typename DataType_>
   void RLSFilter<DataType_>::set_memory(DataType_ memory)
   {
-    if(memory > 1)
+    if(memory >= 1)
     {
       throw std::out_of_range("Memory must be less than 1");
     }
