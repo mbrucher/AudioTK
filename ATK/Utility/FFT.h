@@ -18,6 +18,9 @@
 #if ATK_USE_ACCELERATE == 1
 #include <Accelerate/Accelerate.h>
 #endif
+#if ATK_USE_IPP == 1
+#include <ipp.h>
+#endif
 
 namespace ATK
 {
@@ -84,6 +87,13 @@ namespace ATK
 #if ATK_USE_ACCELERATE == 1
     FFTSetupD fftSetup;
     DSPDoubleSplitComplex splitData;
+#endif
+#if ATK_USE_IPP == 1
+    Ipp64fc *pSrc;
+    Ipp64fc *pDst;
+    IppsDFTSpec_C_64fc* pDFTSpec;
+    Ipp8u* pDFTInitBuf;
+    Ipp8u* pDFTWorkBuf;
 #endif
   };
 }
