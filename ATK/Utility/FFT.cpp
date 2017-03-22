@@ -18,6 +18,9 @@ namespace ATK
 #if ATK_USE_ACCELERATE == 1
   :fftSetup(nullptr)
 #endif
+#if ATK_USE_IPP == 1
+  :pSrc(nullptr), pDst(nullptr), pDFTSpec(nullptr), pDFTInitBuf(nullptr), pDFTWorkBuf(nullptr)
+#endif
   {
 #if ATK_USE_ACCELERATE == 1
     splitData.realp = nullptr;
@@ -39,6 +42,18 @@ namespace ATK
     delete[] splitData.imagp;
     vDSP_destroy_fftsetupD(fftSetup);
     delete[] output_freqs;
+#endif
+#if ATK_USE_IPP == 1
+    if (pSrc)
+      ippFree(pSrc);
+    if (pDst)
+      ippFree(pDst);
+    if (pDFTSpec)
+      ippFree(pDFTSpec);
+    if (pDFTInitBuf)
+      ippFree(pDFTInitBuf);
+    if (pDFTWorkBuf)
+      ippFree(pDFTWorkBuf);
 #endif
   }
   
@@ -69,6 +84,30 @@ namespace ATK
     splitData.imagp = new double[size];
     fftSetup = vDSP_create_fftsetupD(log2n, FFT_RADIX2);
 #endif
+#if ATK_USE_IPP == 1
+    if (pSrc)
+      ippFree(pSrc);
+    if (pDst)
+      ippFree(pDst);
+    if (pDFTSpec)
+      ippFree(pDFTSpec);
+    if (pDFTInitBuf)
+      ippFree(pDFTInitBuf);
+    if (pDFTWorkBuf)
+      ippFree(pDFTWorkBuf);
+    int sizeDFTSpec, sizeDFTInitBuf, sizeDFTWorkBuf;
+    ippsDFTGetSize_C_64fc(size, IPP_FFT_NODIV_BY_ANY, ippAlgHintAccurate, &sizeDFTSpec, &sizeDFTInitBuf, &sizeDFTWorkBuf);
+
+    pDFTSpec = (IppsDFTSpec_C_64fc*) ippsMalloc_8u(sizeDFTSpec);
+    pDFTInitBuf = ippsMalloc_8u(sizeDFTInitBuf);
+    pDFTWorkBuf = ippsMalloc_8u(sizeDFTWorkBuf);
+    pSrc = ippsMalloc_64fc(size);
+    pDst = ippsMalloc_64fc(size);
+    ippsDFTInit_C_64fc(size, IPP_FFT_NODIV_BY_ANY, ippAlgHintAccurate, pDFTSpec, pDFTInitBuf);
+    if (pDFTInitBuf)
+      ippFree(pDFTInitBuf);
+    pDFTInitBuf = nullptr;
+#endif
   }
 
   template<class DataType_>
@@ -89,18 +128,32 @@ namespace ATK
     fftw_execute(fft_plan);
 #endif
 #if ATK_USE_ACCELERATE == 1
-    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       splitData.realp[j] = input[j] / factor;
       splitData.imagp[j] = 0;
     }
-    for(std::size_t j = std::min(input_size, size); j < size; ++j)
+    for (std::size_t j = std::min(input_size, size); j < size; ++j)
     {
       splitData.realp[j] = 0;
       splitData.imagp[j] = 0;
     }
     vDSP_fft_zipD(fftSetup, &splitData, 1, log2n, FFT_FORWARD);
 #endif
+#if ATK_USE_IPP == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      pSrc[j].re = input[j] / factor;
+      pSrc[j].im = 0;
+    }
+    for (std::size_t j = std::min(input_size, size); j < size; ++j)
+    {
+      pSrc[j].re = 0;
+      pSrc[j].im = 0;
+    }
+    ippsDFTFwd_CToC_64fc(pSrc, pDst, pDFTSpec, pDFTWorkBuf);
+#endif
+
   }
   
   template<class DataType_>
@@ -114,6 +167,9 @@ namespace ATK
 #endif
 #if ATK_USE_ACCELERATE == 1
       output[j] = std::complex<DataType_>(splitData.realp[j], splitData.imagp[j]);
+#endif
+#if ATK_USE_IPP == 1
+      output[j] = std::complex<DataType_>(pDst[j].re, pDst[j].im);
 #endif
     }
   }
@@ -134,15 +190,27 @@ namespace ATK
     }
 #endif
 #if ATK_USE_ACCELERATE == 1
-    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       splitData.realp[j] = input[j].real();
       splitData.imagp[j] = input[j].imag();
     }
     vDSP_fft_zipD(fftSetup, &splitData, 1, log2n, FFT_BACKWARD);
-    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
     {
       output[j] = splitData.realp[j];
+    }
+#endif
+#if ATK_USE_IPP == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      pDst[j].re = input[j].real();
+      pDst[j].im = input[j].imag();
+    }
+    ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pDFTWorkBuf);
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = pDst[j].re;
     }
 #endif
   }
@@ -163,6 +231,11 @@ namespace ATK
       amp[i] += splitData.imagp[j] * splitData.imagp[j];
       amp[i] = std::sqrt(amp[i]);
 #endif
+#if ATK_USE_IPP == 1
+      amp[i] = pDst[i].re * pDst[i].re;
+      amp[i] += pDst[i].im * pDst[i].im;
+      amp[i] = std::sqrt(amp[i]);
+#endif
     }
   }
   
@@ -177,6 +250,9 @@ namespace ATK
 #endif
 #if ATK_USE_ACCELERATE == 1
       angle[i] = std::arg(std::complex<DataType_>(splitData.realp[j], splitData.imagp[j]));
+#endif
+#if ATK_USE_IPP == 1
+      angle[i] = std::arg(std::complex<DataType_>(pDst[i].re, pDst[i].im));
 #endif
     }
   }

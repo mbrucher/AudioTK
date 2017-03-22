@@ -24,6 +24,11 @@
 # Created: 30 Dec 2010 by Vladimir Dudnik (vladimir.dudnik@intel.com)
 #
 
+if("${MSVC_RUNTIME}" STREQUAL "Static")
+else("${MSVC_RUNTIME}" STREQUAL "Static")
+set(BUILD_WITH_DYNAMIC_IPP True)
+endif("${MSVC_RUNTIME}" STREQUAL "Static")
+
 unset(HAVE_IPP CACHE)
 unset(HAVE_IPP_ICV_ONLY)
 unset(IPP_ROOT_DIR)
@@ -127,15 +132,15 @@ macro(ipp_detect_version)
 
   macro(_ipp_add_library name)
     # dynamic linking is only supported for standalone version of IPP
-    if (BUILD_WITH_DYNAMIC_IPP AND NOT HAVE_IPP_ICV_ONLY)
-      set(IPP_LIB_PREFIX ${CMAKE_SHARED_LIBRARY_PREFIX})
-      set(IPP_LIB_SUFFIX ${CMAKE_SHARED_LIBRARY_SUFFIX})
+    if (BUILD_WITH_DYNAMIC_IPP)
+      set(IPP_LIB_PREFIX ${CMAKE_IMPORT_LIBRARY_PREFIX})
+      set(IPP_LIB_SUFFIX ${CMAKE_IMPORT_LIBRARY_SUFFIX})
     else ()
       set(IPP_LIB_PREFIX ${CMAKE_STATIC_LIBRARY_PREFIX})
       set(IPP_LIB_SUFFIX ${CMAKE_STATIC_LIBRARY_SUFFIX})
     endif ()
     if (EXISTS ${IPP_LIBRARY_DIR}/${IPP_LIB_PREFIX}${IPP_PREFIX}${name}${IPP_SUFFIX}${IPP_LIB_SUFFIX})
-      if (BUILD_WITH_DYNAMIC_IPP AND NOT HAVE_IPP_ICV_ONLY)
+      if (BUILD_WITH_DYNAMIC_IPP)
         # When using dynamic libraries from standalone IPP it is your responsibility to install those on the target system
         list(APPEND IPP_LIBRARIES ${IPP_LIBRARY_DIR}/${IPP_LIB_PREFIX}${IPP_PREFIX}${name}${IPP_SUFFIX}${IPP_LIB_SUFFIX})
       else ()
@@ -153,14 +158,14 @@ macro(ipp_detect_version)
 
   set(IPP_PREFIX "ipp")
   if(${IPP_VERSION_STR} VERSION_LESS "8.0")
-    if (BUILD_WITH_DYNAMIC_IPP AND NOT HAVE_IPP_ICV_ONLY)
+    if (BUILD_WITH_DYNAMIC_IPP)
       set(IPP_SUFFIX "")      # dynamic not threaded libs suffix IPP 7.x
     else ()
       set(IPP_SUFFIX "_l")    # static not threaded libs suffix IPP 7.x
     endif ()
   else ()
     if(WIN32)
-      if (BUILD_WITH_DYNAMIC_IPP AND NOT HAVE_IPP_ICV_ONLY)
+      if (BUILD_WITH_DYNAMIC_IPP)
         set(IPP_SUFFIX "")    # dynamic not threaded libs suffix IPP 8.x for Windows
       else ()
         set(IPP_SUFFIX "mt")  # static not threaded libs suffix IPP 8.x for Windows
@@ -172,43 +177,6 @@ macro(ipp_detect_version)
 
   _ipp_add_library(s)
   _ipp_add_library(core)
-
-  if(UNIX AND IPP_VERSION_MAJOR LESS 2017)
-    get_filename_component(INTEL_COMPILER_LIBRARY_DIR ${IPP_ROOT_DIR}/../lib REALPATH)
-    if(NOT EXISTS ${INTEL_COMPILER_LIBRARY_DIR})
-      get_filename_component(INTEL_COMPILER_LIBRARY_DIR ${IPP_ROOT_DIR}/../compiler/lib REALPATH)
-    endif()
-    if(NOT EXISTS ${INTEL_COMPILER_LIBRARY_DIR})
-      _ipp_not_supported("IPP configuration error: can't find Intel compiler library dir ${INTEL_COMPILER_LIBRARY_DIR}")
-    endif()
-    if(NOT APPLE)
-      if(IPP_X64)
-        if(NOT EXISTS ${INTEL_COMPILER_LIBRARY_DIR}/intel64)
-          message(SEND_ERROR "Intel compiler EM64T libraries not found")
-        endif()
-        set(INTEL_COMPILER_LIBRARY_DIR ${INTEL_COMPILER_LIBRARY_DIR}/intel64)
-      else()
-        if(NOT EXISTS ${INTEL_COMPILER_LIBRARY_DIR}/ia32)
-          message(SEND_ERROR "Intel compiler IA32 libraries not found")
-        endif()
-        set(INTEL_COMPILER_LIBRARY_DIR ${INTEL_COMPILER_LIBRARY_DIR}/ia32)
-      endif()
-    endif()
-
-    macro(_ipp_add_compiler_library name)
-      if (EXISTS ${INTEL_COMPILER_LIBRARY_DIR}/${IPP_LIB_PREFIX}${name}${CMAKE_SHARED_LIBRARY_SUFFIX})
-        list(APPEND IPP_LIBRARIES ${INTEL_COMPILER_LIBRARY_DIR}/${IPP_LIB_PREFIX}${name}${CMAKE_SHARED_LIBRARY_SUFFIX})
-      else()
-        message(STATUS "Can't find compiler library: ${name} at ${INTEL_COMPILER_LIBRARY_DIR}/${IPP_LIB_PREFIX}${name}${CMAKE_SHARED_LIBRARY_SUFFIX}")
-      endif()
-    endmacro()
-
-    _ipp_add_compiler_library(irc)
-    _ipp_add_compiler_library(imf)
-    _ipp_add_compiler_library(svml)
-  endif()
-
-  #message(STATUS "IPP libs: ${IPP_LIBRARIES}")
 endmacro()
 
 file(TO_CMAKE_PATH "${IPPROOT}" __IPPROOT)
