@@ -23,5 +23,5 @@ namespace ATK
     bool get_learning() const;  };
 }
 
-%template(FloatFixedRLSFilter) ATK::RLSFilter<float>;
-%template(DoubleFixedRLSFilter) ATK::RLSFilter<double>;
+%template(FloatRLSFilter) ATK::RLSFilter<float>;
+%template(DoubleRLSFilter) ATK::RLSFilter<double>;
