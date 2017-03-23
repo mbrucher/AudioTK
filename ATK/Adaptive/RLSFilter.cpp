@@ -104,7 +104,7 @@ namespace ATK
     
     wType g = (P * xreverse) / (memory + xreverse.transpose() * P * xreverse);
     PType pupdate = (g * (xreverse.transpose() * P));
-    P = (P - (pupdate+pupdate.transpose())/2) / memory;
+    P = (P - (pupdate+pupdate.transpose())/2) * memory;
     w = w + alpha * g;
   }
   
