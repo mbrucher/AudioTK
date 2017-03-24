@@ -12,6 +12,8 @@
 
 #include <ATK/Tools/SumFilter.h>
 
+#include <Eigen/Core>
+
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
@@ -85,7 +87,7 @@ BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )
   filter.set_memory(.99);
   Eigen::Matrix<float, Eigen::Dynamic, 1> w(1);
   w << 1;
-  filter.set_w(w);
+  filter.set_w(w.data());
 
   ATK::SumFilter<float> sum;
   sum.set_input_sampling_rate(48000);
