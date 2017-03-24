@@ -82,7 +82,7 @@ namespace ATK
     }
 
     impl->P = RLSFilterImpl::PType::Identity(size, size) / size;
-    impl->w = RLSFilterImpl::wType(size, 1);
+    impl->w = typename RLSFilterImpl::wType(size, 1);
     input_delay = size+1;
     this->global_size = size;
   }
@@ -134,7 +134,7 @@ namespace ATK
     
     for(std::size_t i = 0; i < size; ++i)
     {
-      RLSFilterImpl::xType x(input - global_size + i, global_size, 1);
+      typename RLSFilterImpl::xType x(input - global_size + i, global_size, 1);
       
       // compute next sample
       output[i] = impl->w.transpose() * x.reverse();
