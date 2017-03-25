@@ -19,6 +19,8 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.0.0
+* Added a RLSFilter with Python wrappers
+* Support for IPP as a FFT backend
 * Refactored the API for global unsigned consistency
 
 ### 1.5.0

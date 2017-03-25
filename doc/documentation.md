@@ -9,7 +9,7 @@ Utility module
 This module contains a set of basic general purpose classes:
 
 * **Exp**, an exponential approcimation with a LUT and a 2-order Taylor expansion
-* **FFT**, a class that exposes a FFT and iFFT (if compiled with FFTW)
+* **FFT**, a class that exposes a FFT and iFFT (if compiled with FFTW, Accelerate or IPP)
 * **FlushToZero**, a RAII class to activate flush denormals to zero behavior on some platforms
 * **ScalarNewtonRaphson**, an optimization class for scalar ODEs
 * **VectorizedNewtonRaphson**, an optimization class for vector ODEs
@@ -167,3 +167,9 @@ Preamplification module
 * **TriodeFilter** is a triode based filter
 * **Triode2Filter** is a triode based filter with a grid-plate capacitor
 
+Adaptive module
+---------------
+
+The *Adaptive* module contains filters that evolve based on their input.
+
+* **RLSFilter** is a filter based on Recursive Least Square algorithm (Haykin)

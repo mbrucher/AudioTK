@@ -1,5 +1,6 @@
 /**
  * \file RLSFilter.h
+ * From Adaptive Filter Theory, Haykin
  */
 
 #ifndef ATK_ADAPTIVE_RLSFILTER_H
