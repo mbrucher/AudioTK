@@ -5,205 +5,31 @@
 #ifndef ATK_EQ_IIRFILTER_H
 #define ATK_EQ_IIRFILTER_H
 
-#include <cmath>
+#include <algorithm>
+#include <cassert>
 #include <vector>
-
-#include <boost/math/tools/polynomial.hpp>
 
 #include "config.h"
 
-/// Namespace to build filters based on their zpk description
-namespace
-{
-  /// Transform the Wn=1 low pass analog filter in a Wn=Wn low pass filter
-  template<typename DataType>
-  void zpk_lp2lp(DataType Wn, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
-  {
-    int relative_degree = p.size() - z.size();
-    
-    for(int i = 0; i < z.size(); ++i)
-    {
-      z[i] *= Wn;
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      p[i] *= Wn;
-    }
-    
-    k *= std::pow(Wn, relative_degree);
-  }
-
-  /// Transform the Wn=1 low pass analog filter in a Wn=Wn, bw=bw band pass filter
-  template<typename DataType>
-  void zpk_lp2bp(DataType Wn, DataType bw, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
-  {
-    int relative_degree = p.size() - z.size();
-    
-    for(int i = 0; i < z.size(); ++i)
-    {
-      z[i] *= bw/2;
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      p[i] *= bw/2;
-    }
-    
-    std::vector<std::complex<DataType> > zbp;
-    std::vector<std::complex<DataType> > pbp;
-
-    for(int i = 0; i < z.size(); ++i)
-    {
-      zbp.push_back(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
-      zbp.push_back(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      pbp.push_back(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
-      pbp.push_back(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
-    }
-
-    zbp.resize(zbp.size() + relative_degree, 0);
-    z.swap(zbp);
-    p.swap(pbp);
-    
-    k *= std::pow(bw, relative_degree);
-  }
-  
-  /// Transform the Wn=1 low pass analog filter in a Wn=Wn, bw=bw band stop filter
-  template<typename DataType>
-  void zpk_lp2bs(DataType Wn, DataType bw, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
-  {
-    int relative_degree = p.size() - z.size();
-  
-    std::complex<DataType> f = 1;
-    for(int i = 0; i < z.size(); ++i)
-    {
-      f *= - z[i];
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      f /= - p[i];
-    }
-    k *= f.real();
-
-    for(int i = 0; i < z.size(); ++i)
-    {
-      z[i] = bw / 2 / z[i];
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      p[i] = bw / 2 / p[i];
-    }
-    
-    std::vector<std::complex<DataType> > zbs;
-    std::vector<std::complex<DataType> > pbs;
-    
-    for(int i = 0; i < z.size(); ++i)
-    {
-      zbs.push_back(z[i] + std::sqrt(z[i]*z[i] - Wn*Wn));
-      zbs.push_back(z[i] - std::sqrt(z[i]*z[i] - Wn*Wn));
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      pbs.push_back(p[i] + std::sqrt(p[i]*p[i] - Wn*Wn));
-      pbs.push_back(p[i] - std::sqrt(p[i]*p[i] - Wn*Wn));
-    }
-    
-    zbs.resize(zbs.size() + relative_degree, std::complex<DataType>(0, Wn));
-    zbs.resize(zbs.size() + relative_degree, std::complex<DataType>(0, -Wn));
-    z.swap(zbs);
-    p.swap(pbs);
-  }
-
-  /// Apply a bilinear transform on z, p, k
-  template<typename DataType>
-  void zpk_bilinear(int fs, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
-  {
-    DataType fs2 = 2 * fs;
-  
-    std::complex<DataType> f = 1;
-    for(int i = 0; i < z.size(); ++i)
-    {
-      f *= fs2 - z[i];
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      f /= fs2 - p[i];
-    }
-    k *= f.real();
-    
-    for(int i = 0; i < z.size(); ++i)
-    {
-      z[i] = (fs2 + z[i]) / (fs2 - z[i]);
-    }
-    for(int i = 0; i < p.size(); ++i)
-    {
-      p[i] = (fs2 + p[i]) / (fs2 - p[i]);
-    }
-    
-    z.resize(p.size(), -1);
-  }
-
-  /// Transforms the z, p, k coefficients in b, a form
-  template<typename DataType>
-  void zpk2ba(int fs, const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, boost::math::tools::polynomial<DataType>& b, boost::math::tools::polynomial<DataType>& a)
-  {
-    b = boost::math::tools::polynomial<DataType>(k);
-    
-    for(int i = 0; i < z.size(); ++i)
-    {
-      if(z[i].imag() == 0)
-      {
-        DataType temp[2] = {-z[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly1(temp, 1);
-        b *= poly1;
-      }
-      else if(z[i].imag() < 0)
-      {
-        DataType temp[3] = {z[i].real() * z[i].real() + z[i].imag() * z[i].imag(), -2 * z[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly2(temp, 2);
-        b *= poly2;
-      }
-    }
-    
-    a = boost::math::tools::polynomial<DataType>(1);
-    for(int i = 0; i < p.size(); ++i)
-    {
-      if(p[i].imag() == 0)
-      {
-        DataType temp[2] = {-p[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly1(temp, 1);
-        a *= poly1;
-      }
-      else if (p[i].imag() < 0)
-      {
-        DataType temp[3] = {p[i].real() * p[i].real() + p[i].imag() * p[i].imag(), -2 * p[i].real(), 1};
-        boost::math::tools::polynomial<DataType> poly2(temp, 2);
-        a *= poly2;
-      }
-    }
-  }
-}
-
 namespace ATK
 {
-  /**
-   * IIR filter template class
-   */
+  /// IIR filter template class (Direct Form I)
   template<class Coefficients >
   class ATK_EQ_EXPORT IIRFilter: public Coefficients
   {
   public:
+    /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
+    using typename Parent::AlignedVector;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
     
     using Parent::in_order;
     using Parent::out_order;
@@ -212,44 +38,174 @@ namespace ATK
     using Parent::setup;
     
   public:
-    void setup()
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    IIRFilter(unsigned int nb_channels = 1)
+      :Parent(nb_channels)
+    {
+    }
+
+    /// Move constructor
+    IIRFilter(IIRFilter&& other)
+    :Parent(std::move(other))
+    {
+    }
+
+    void setup() override final
     {
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
-    }
-    
-    virtual void process_impl(std::int64_t size)
-    {
-      assert(input_sampling_rate == output_sampling_rate);
-      
-      DataType tempout = 0;
-      
-      for(std::int64_t i = 0; i < size; ++i)
-      {
-        tempout = coefficients_in[in_order] * converted_inputs[0][i];
 
-        for(int j = 0; j < in_order; ++j)
+      if (out_order > 0)
+      {
+        coefficients_out_2.resize(out_order, 0);
+        for (unsigned int i = 1; i < out_order; ++i)
         {
-          tempout += coefficients_in[j] * converted_inputs[0][i - in_order + j];
+          coefficients_out_2[i] = coefficients_out[out_order - 1] * coefficients_out[i] + coefficients_out[i - 1];
         }
-        for(int j = 0; j < out_order; ++j)
+        coefficients_out_2[0] = coefficients_out[out_order - 1] * coefficients_out[0];
+      }
+      if (out_order > 1)
+      {
+        coefficients_out_3.resize(out_order, 0);
+        for (unsigned int i = 0; i < 2; ++i)
         {
-          tempout += coefficients_out[j] * outputs[0][i - out_order + j];
+          coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i];
         }
-        outputs[0][i] = tempout;
+        for (unsigned int i = 2; i < out_order; ++i)
+        {
+          coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i] + coefficients_out[i - 2];
+        }
+        if (out_order > 2)
+        {
+          coefficients_out_4.resize(out_order, 0);
+          for (unsigned int i = 0; i < 3; ++i)
+          {
+            coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
+          }
+          for (unsigned int i = 3; i < out_order; ++i)
+          {
+            coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i] + coefficients_out[i - 3];
+          }
+        }
+        else // out_order = 2
+        {
+          coefficients_out_4.resize(out_order, 0);
+          for (unsigned int i = 0; i < 2; ++i)
+          {
+            coefficients_out_4[i] = coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
+          }
+        }
       }
     }
     
-    const std::vector<DataType>& get_coefficients_in() const
+    virtual void process_impl(std::size_t size) const override final
+    {
+      assert(input_sampling_rate == output_sampling_rate);
+      assert(nb_input_ports == nb_output_ports);
+      assert(coefficients_in.data());
+      assert(out_order == 0 || coefficients_out.data() != nullptr);
+
+      const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+      const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
+      const DataType* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
+      const DataType* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
+      const DataType* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
+
+      for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+      {
+        const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
+        DataType* ATK_RESTRICT output = outputs[channel];
+
+        for(std::size_t i = 0; i < size; ++i)
+        {
+          output[i] = 0;
+        }
+
+        for (unsigned int j = 0; j < in_order + 1; ++j)
+        {
+          for (std::size_t i = 0; i < size; ++i)
+          {
+            output[i] += coefficients_in_ptr[j] * input[i + j];
+          }
+        }
+
+        std::size_t i = 0;
+        if (out_order > 2)
+        {
+          for (i = 0; i < std::min(size - 3, size); i += 4)
+          {
+            DataType tempout = output[i];
+            DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
+            DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
+            DataType tempout4 = output[i] * coefficients_out_ptr[out_order - 3] + tempout2 * coefficients_out_ptr[out_order - 2] + tempout3 * coefficients_out_ptr[out_order - 1] + output[i + 3];
+
+            ATK_VECTORIZE_REMAINDER for (unsigned int j = 0; j < out_order; ++j)
+            {
+              tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+            }
+            output[i] = tempout;
+            output[i + 1] = tempout2;
+            output[i + 2] = tempout3;
+            output[i + 3] = tempout4;
+          }
+        }
+        else if(out_order == 2)
+        {
+          for (i = 0; i < std::min(size - 3, size); i += 4)
+          {
+            DataType tempout = output[i];
+            DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
+            DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
+            DataType tempout4 = tempout2 * coefficients_out_ptr[out_order - 2] + tempout3 * coefficients_out_ptr[out_order - 1] + output[i + 3];
+
+            ATK_VECTORIZE_REMAINDER for (unsigned int j = 0; j < out_order; ++j)
+            {
+              tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+            }
+            output[i] = tempout;
+            output[i + 1] = tempout2;
+            output[i + 2] = tempout3;
+            output[i + 3] = tempout4;
+          }
+        }
+        for (; i < size; ++i)
+        {
+          DataType tempout = output[i];
+          for (unsigned int j = 0; j < out_order; ++j)
+          {
+            tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+          }
+          output[i] = tempout;
+        }
+      }
+    }
+    
+    /// Returns the vector of internal coefficients for the MA section 
+    const AlignedVector& get_coefficients_in() const
     {
       return coefficients_in;
     }
     
-    const std::vector<DataType>& get_coefficients_out() const
+    /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
+    const AlignedVector& get_coefficients_out() const
     {
       return coefficients_out;
     }
+
+  protected:
+    AlignedVector coefficients_out_2;
+    AlignedVector coefficients_out_3;
+    AlignedVector coefficients_out_4;
   };
 
 }

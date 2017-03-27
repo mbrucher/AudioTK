@@ -4,6 +4,8 @@
 
 #include "OversamplingFilter.h"
 
+#include <cassert>
+
 namespace ATK
 {
   template<class DataType_>
@@ -122,59 +124,64 @@ namespace ATK
   }
 
   template<class DataType, class Coefficients>
-  OversamplingFilter<DataType, Coefficients>::OversamplingFilter()
-    :TypedBaseFilter<DataType>(1, 1)
+  OversamplingFilter<DataType, Coefficients>::OversamplingFilter(int nb_channels)
+    :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
     input_delay = Coefficients::points;
   }
 
   template<class DataType, class Coefficients>
-  void OversamplingFilter<DataType, Coefficients>::process_impl(std::int64_t size)
+  void OversamplingFilter<DataType, Coefficients>::process_impl(std::size_t size) const
   {
     assert(input_sampling_rate * Coefficients::oversampling_factor == output_sampling_rate);
-    
-    for(int i = 0; i < size / Coefficients::oversampling_factor; ++i)
+    assert(nb_input_ports == nb_output_ports);
+
+    for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
     {
-      DataType even[Coefficients::points / 2];
-      for(int j = 0; j < Coefficients::points / 2; ++j)
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
+      for(std::size_t i = 0; i < size / Coefficients::oversampling_factor; ++i)
       {
-        even[j] = converted_inputs[0][i - input_delay + Coefficients::points / 2 + j] + converted_inputs[0][i - input_delay + Coefficients::points / 2 - 1 - j];
-      }
-      DataType odd[Coefficients::points / 2];
-      for(int j = 0; j < Coefficients::points / 2; ++j)
-      {
-        odd[j] = converted_inputs[0][i - input_delay + Coefficients::points / 2 + j] - converted_inputs[0][i - input_delay + Coefficients::points / 2 - 1 - j];
-      }
-      
-      DataType c[Coefficients::order + 1];
-      
-      for(int j = 0; j < Coefficients::order + 1; j += 2)
-      {
-        c[j] = 0;
-        for(int k = 0; k < Coefficients::points / 2; ++k)
+        DataType even[Coefficients::points / 2];
+        for(unsigned int j = 0; j < Coefficients::points / 2; ++j)
         {
-          c[j] += even[k] * coeffs.coeffs[j][k];
+          even[j] = input[i - Coefficients::points + Coefficients::points / 2 + j] + input[i - Coefficients::points + Coefficients::points / 2 - 1 - j];
         }
-      }
-      for(int j = 1; j < Coefficients::order + 1; j += 2)
-      {
-        c[j] = 0;
-        for(int k = 0; k < Coefficients::points / 2; ++k)
+        DataType odd[Coefficients::points / 2];
+        for(unsigned int j = 0; j < Coefficients::points / 2; ++j)
         {
-          c[j] += odd[k] * coeffs.coeffs[j][k];
+          odd[j] = input[i - Coefficients::points + Coefficients::points / 2 + j] - input[i - Coefficients::points + Coefficients::points / 2 - 1 - j];
         }
-      }
-      
-      for (int j = 0; j < Coefficients::oversampling_factor; ++j)
-      {
-        DataType z = static_cast<DataType>(j) / Coefficients::oversampling_factor - 1 / 2.;
-        
-        DataType temp = 0;
-        for(int k = Coefficients::order; k >= 0; --k)
+        DataType c[Coefficients::order + 1];
+
+        for(unsigned int j = 0; j < Coefficients::order + 1; j += 2)
         {
-          temp = temp * z + c[k];
+          c[j] = 0;
+          for(unsigned int k = 0; k < Coefficients::points / 2; ++k)
+          {
+            c[j] += even[k] * coeffs.coeffs[j][k];
+          }
         }
-        outputs[0][Coefficients::oversampling_factor * i + j] = temp;
+        for(unsigned int j = 1; j < Coefficients::order + 1; j += 2)
+        {
+          c[j] = 0;
+          for(unsigned int k = 0; k < Coefficients::points / 2; ++k)
+          {
+            c[j] += odd[k] * coeffs.coeffs[j][k];
+          }
+        }
+
+        for (unsigned int j = 0; j < Coefficients::oversampling_factor; ++j)
+        {
+          DataType z = static_cast<DataType>(j) / Coefficients::oversampling_factor - static_cast<DataType>(1 / 2.);
+
+          DataType temp = 0;
+          for(unsigned int k = 0; k <= Coefficients::order; ++k)
+          {
+            temp = temp * z + c[Coefficients::order - k];
+          }
+          *(output++) = temp;
+        }
       }
     }
   }

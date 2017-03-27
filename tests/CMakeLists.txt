@@ -1,9 +1,8 @@
-add_subdirectory(Core)
-add_subdirectory(Mock)
-add_subdirectory(Tools)
-add_subdirectory(EQ)
-add_subdirectory(Distortion)
-add_subdirectory(IO)
 
-add_subdirectory(Python)
+file(GLOB entries *)
+foreach(entry ${entries})
+  if(IS_DIRECTORY ${entry} AND EXISTS ${entry}/CMakeLists.txt)
+    add_subdirectory(${entry})
+  endif()
+endforeach(entry)
 

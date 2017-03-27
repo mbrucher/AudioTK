@@ -37,25 +37,25 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFTCheckerFilter<DataType_>::process_impl(std::int64_t size)
+  void FFTCheckerFilter<DataType_>::process_impl(std::size_t size) const
   {
-    for(std::int64_t i = 0; i < size/input_sampling_rate; ++i)
+    for(std::size_t i = 0; i < size/input_sampling_rate; ++i)
     {
-      FFTimpl->process(converted_inputs[0] + i * input_sampling_rate);
+      FFTimpl->process(converted_inputs[0] + i * input_sampling_rate, input_sampling_rate);
       std::vector<DataType_> output_freqs;
       FFTimpl->get_amp(output_freqs);
       
-      for(int j = 0; j < frequency_checks.size(); ++j)
+      for(std::size_t j = 0; j < frequency_checks.size(); ++j)
       {
         DataType amp = output_freqs[frequency_checks[j].first];
         DataType amp_check = frequency_checks[j].second * frequency_checks[j].second;
-        if(amp_check == 0)
+        if(amp_check < 0.001)
         {
-          BOOST_REQUIRE_SMALL(amp, 0.01);
+          BOOST_REQUIRE_SMALL(amp, 0.001);
         }
         else
         {
-          BOOST_REQUIRE_CLOSE(amp, amp_check, 0.01);
+          BOOST_REQUIRE_CLOSE(2*amp, amp_check, 0.1);
         }
       }
     }

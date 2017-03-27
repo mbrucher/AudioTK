@@ -6,7 +6,7 @@
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -16,7 +16,7 @@
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -46,7 +46,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -62,7 +62,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.8381526756247699));
+  frequency_checks.push_back(std::make_pair(100, 0.8413951416367915));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2LowPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -166,7 +166,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -182,7 +182,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.8378857690525952));
+  frequency_checks.push_back(std::make_pair(100, 0.8413951415475837));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -196,7 +196,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -226,7 +226,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2HighPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_1k_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.840901090032031));
+  frequency_checks.push_back(std::make_pair(1000, 0.8413951423132554));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -286,7 +286,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -302,7 +302,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.8329326383759733));
+  frequency_checks.push_back(std::make_pair(100, 0.8337339391384047));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -316,7 +316,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -346,7 +346,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -362,7 +362,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_200_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.8387964924902226));
+  frequency_checks.push_back(std::make_pair(200, 0.8413950585465586));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -376,7 +376,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
@@ -392,7 +392,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_1k_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.8408746065667635));
+  frequency_checks.push_back(std::make_pair(1000, 0.8413951519207091));
   frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
@@ -406,7 +406,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
@@ -436,7 +436,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
@@ -466,7 +466,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
@@ -482,7 +482,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_Chebyshev2BandStopCoefficients_200_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.8389293572756432));
+  frequency_checks.push_back(std::make_pair(200, 0.8413938019260473));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   

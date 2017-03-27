@@ -1,4 +1,4 @@
-/**
+ /**
  * \file Chebyshev1Filter.h
  */
 
@@ -13,122 +13,150 @@ namespace ATK
   class Chebyshev1LowPassCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
     DataType cut_frequency;
     DataType ripple;
     
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
-    void setup();
+    void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
-    Chebyshev1LowPassCoefficients();
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    Chebyshev1LowPassCoefficients(unsigned int nb_channels = 1);
     
-    void set_cut_frequency(DataType cut_frequency);
-    DataType get_cut_frequency() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
-    
-    void set_order(int order);
+    /// Sets the cut or central frequency of the filter
+    void set_cut_frequency(DataType_ cut_frequency);
+    /// Returns the cut or central frequency
+    DataType_ get_cut_frequency() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
+    /// Sets the order of the IIR filter
+    void set_order(unsigned int order);
   };
   
   template<typename DataType_>
   class Chebyshev1HighPassCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
     DataType cut_frequency;
     DataType ripple;
 
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
-    void setup();
+    void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
-    Chebyshev1HighPassCoefficients();
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    Chebyshev1HighPassCoefficients(unsigned int nb_channels = 1);
     
-    void set_cut_frequency(DataType cut_frequency);
-    DataType get_cut_frequency() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
-    
-    void set_order(int order);
+    /// Sets the cut or central frequency of the filter
+    void set_cut_frequency(DataType_ cut_frequency);
+    /// Returns the cut or central frequency
+    DataType_ get_cut_frequency() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
+    /// Sets the order of the IIR filter
+    void set_order(unsigned int order);
   };
   
   template<typename DataType_>
   class Chebyshev1BandPassCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
     std::pair<DataType, DataType> cut_frequencies;
     DataType ripple;
 
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
-    void setup();
+    void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
-    Chebyshev1BandPassCoefficients();
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    Chebyshev1BandPassCoefficients(unsigned int nb_channels = 1);
     
-    void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
-    void set_cut_frequencies(DataType f0, DataType f1);
-    std::pair<DataType, DataType> get_cut_frequencies() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
-
-    void set_order(int order);
+    void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    std::pair<DataType_, DataType_> get_cut_frequencies() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
+    /// Sets the order of the IIR filter
+    void set_order(unsigned int order);
   };
   
   template<typename DataType_>
   class Chebyshev1BandStopCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
+    using typename Parent::AlignedVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
     std::pair<DataType, DataType> cut_frequencies;
     DataType ripple;
 
-    int in_order;
-    int out_order;
+    unsigned int in_order;
+    unsigned int out_order;
     
-    void setup();
+    void setup() override;
     
-    std::vector<DataType> coefficients_in;
-    std::vector<DataType> coefficients_out;
+    AlignedVector coefficients_in;
+    AlignedVector coefficients_out;
     
   public:
-    Chebyshev1BandStopCoefficients();
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    Chebyshev1BandStopCoefficients(unsigned int nb_channels = 1);
     
-    void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies);
-    void set_cut_frequencies(DataType f0, DataType f1);
-    std::pair<DataType, DataType> get_cut_frequencies() const;
-    void set_ripple(DataType cut_frequency);
-    DataType get_ripple() const;
-
-    void set_order(int order);
+    void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    std::pair<DataType_, DataType_> get_cut_frequencies() const;
+    void set_ripple(DataType_ cut_frequency);
+    DataType_ get_ripple() const;
+    /// Sets the order of the IIR filter
+    void set_order(unsigned int order);
   };
 }
 

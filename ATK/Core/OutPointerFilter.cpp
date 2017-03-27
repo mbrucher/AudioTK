@@ -4,13 +4,14 @@
 
 #include "OutPointerFilter.h"
 
-#include <cstdint>
+#include <algorithm>
+#include <cstring>
 
 namespace ATK
 {
   template<typename DataType>
-  OutPointerFilter<DataType>::OutPointerFilter(DataType* array, int channels, std::int64_t size, bool interleaved)
-  :TypedBaseFilter<DataType>(channels, 0), offset(0), array(array), mysize(size), channels(channels), interleaved(interleaved)
+  OutPointerFilter<DataType>::OutPointerFilter(DataType* array, int channels, std::size_t size, bool interleaved)
+  :TypedBaseFilter<DataType>(static_cast<int>(interleaved?size:channels), 0), offset(0), array(array), mysize(interleaved?channels:size), channels(static_cast<int>(interleaved?size:channels)), interleaved(interleaved)
   {
   }
   
@@ -20,14 +21,36 @@ namespace ATK
   }
   
   template<typename DataType>
-  void OutPointerFilter<DataType>::process_impl(std::int64_t size)
+  void OutPointerFilter<DataType>::set_pointer(DataType* array, std::size_t size)
   {
-    std::int64_t i;
-    for(i = 0; i < size && (i + offset < mysize); ++i)
+    this->array = array;
+    mysize = size;
+    offset = 0;
+  }
+
+  template<typename DataType>
+  void OutPointerFilter<DataType>::process_impl(std::size_t size) const
+  {
+    if(!interleaved)
     {
-      for(int j = 0; j < channels; ++j)
+      auto i = std::min(size, mysize - offset);
+      if (mysize < offset)
       {
-        array[channels * offset + (interleaved ? (j + i * channels) : (j * mysize + i))] = converted_inputs[j][i];
+        i = 0;
+      }
+      for(unsigned int j = 0; j < channels; ++j)
+      {
+        memcpy(reinterpret_cast<void*>(&array[offset + (j * mysize)]), reinterpret_cast<const void*>(converted_inputs[j]), static_cast<size_t>(i) * sizeof(DataType));
+      }
+    }
+    else
+    {
+      for(std::size_t i = 0; i < size && (i + offset < mysize); ++i)
+      {
+        for(unsigned int j = 0; j < channels; ++j)
+        {
+          array[channels * offset + (j + i * channels)] = converted_inputs[j][i];
+        }
       }
     }
     
@@ -36,7 +59,7 @@ namespace ATK
   
   template class OutPointerFilter<std::int16_t>;
   template class OutPointerFilter<std::int32_t>;
-  template class OutPointerFilter<std::int64_t>;
+  template class OutPointerFilter<int64_t>;
   template class OutPointerFilter<float>;
   template class OutPointerFilter<double>;
 }

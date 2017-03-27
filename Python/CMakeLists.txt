@@ -10,10 +10,12 @@ SET(CMAKE_SWIG_FLAGS "")
 
 string(REGEX REPLACE ".*/(python[0-9]\\.[0-9])" "\\1" PYTHON_FOLDER ${PYTHON_INCLUDE_DIR})
 
-add_subdirectory(Core)
-add_subdirectory(Tools)
-add_subdirectory(EQ)
-add_subdirectory(Distortion)
+file(GLOB entries *)
+foreach(entry ${entries})
+  if(IS_DIRECTORY ${entry} AND EXISTS ${entry}/CMakeLists.txt)
+    add_subdirectory(${entry})
+  endif()
+endforeach(entry)
 
-INSTALL(FILES __init__.py DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${PYTHON_FOLDER}/site-packages/ATK)
+INSTALL(FILES __init__.py DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK)
 

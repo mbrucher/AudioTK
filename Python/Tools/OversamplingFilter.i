@@ -34,7 +34,7 @@ namespace ATK
   class OversamplingFilter : public BaseFilter
   {
   public:
-    OversamplingFilter();
+    OversamplingFilter(int nb_channels = 1);
     ~OversamplingFilter();
     virtual void process_impl(long size);
   };

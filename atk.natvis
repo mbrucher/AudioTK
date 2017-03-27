@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">  
+  <Type Name="ATK::TypedBaseFilter&lt;*&gt;">  
+      <DisplayString>{{ input_ports={nb_input_ports}  output_ports={nb_output_ports} }}</DisplayString>  
+      <Expand>
+        <Item Name="[input_ports]" ExcludeView="simple">nb_input_ports</Item>
+        <Item Name="[output_ports]" ExcludeView="simple">nb_output_ports</Item>
+        <Synthetic Name="Inputs" Condition="nb_input_ports != 0">
+          <DisplayString>Input content</DisplayString>
+          <Expand>
+            <Synthetic Name="Size">
+              <DisplayString>Input sizes</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>nb_input_ports</Size>
+                  <ValuePointer>converted_inputs_size._Mypair._Myval2._Myfirst</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Input 1" Condition="nb_input_ports>0">
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[0]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[0]</Size>
+                  <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[0]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Input 2" Condition="nb_input_ports>1">
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[1]</Size>
+                  <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[1]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Input 3" Condition="nb_input_ports>2">
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[2]</Size>
+                  <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[2]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Input 4" Condition="nb_input_ports>3">
+              <DisplayString>{{ Size={converted_inputs_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>converted_inputs_size._Mypair._Myval2._Myfirst[3]</Size>
+                  <ValuePointer>converted_inputs._Mypair._Myval2._Myfirst[3]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+          </Expand>
+        </Synthetic>
+        <Synthetic Name="Outputs" Condition="nb_output_ports != 0">
+          <DisplayString>Output content</DisplayString>
+          <Expand>
+            <Synthetic Name="Size">
+              <DisplayString>Output sizes</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>nb_output_ports</Size>
+                  <ValuePointer>outputs_size._Mypair._Myval2._Myfirst</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Output 1" Condition="nb_output_ports>0">
+              <DisplayString>{{ Size={outputs_size._Mypair._Myval2._Myfirst[0]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[0]</Size>
+                  <ValuePointer>outputs._Mypair._Myval2._Myfirst[0]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Output 2" Condition="nb_output_ports>1">
+              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[1]</Size>
+                  <ValuePointer>outputs._Mypair._Myval2._Myfirst[1]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Output 3" Condition="nb_output_ports>2">
+              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[2]</Size>
+                  <ValuePointer>outputs._Mypair._Myval2._Myfirst[2]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+            <Synthetic Name="Output 4" Condition="nb_output_ports>3">
+              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
+              <Expand>
+                <ArrayItems>
+                  <Size>outputs_size._Mypair._Myval2._Myfirst[3]</Size>
+                  <ValuePointer>outputs._Mypair._Myval2._Myfirst[3]</ValuePointer>
+                </ArrayItems>
+              </Expand>
+            </Synthetic>
+           </Expand>
+        </Synthetic>
+      </Expand>
+  </Type>
+  <Type Name="std::pair&lt;std::unique_ptr&lt;*[]&gt;, std::size_t&gt;">
+    <Expand>
+      <Item Name="data" ExcludeView="simple">first._Mypair._Myval2,second</Item>
+    </Expand>
+  </Type>
+</AutoVisualizer>

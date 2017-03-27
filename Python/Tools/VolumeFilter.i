@@ -9,7 +9,7 @@ namespace ATK
   class VolumeFilter: public BaseFilter
   {
   public:
-    VolumeFilter();
+    VolumeFilter(int nb_channels = 1);
     ~VolumeFilter();
     void set_volume(double volume);
     void set_volume_db(double volume_db);

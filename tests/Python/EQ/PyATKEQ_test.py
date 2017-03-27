@@ -5,7 +5,7 @@ from nose.tools import raises
 def DoubleBandPassCoefficientsIIRFilter_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
-  from ATK.EQ import DoubleBandPassCoefficientsIIRFilter
+  from ATK.EQ import DoubleSecondOrderBandPassFilter
 
   from numpy.testing import assert_almost_equal
   
@@ -13,7 +13,7 @@ def DoubleBandPassCoefficientsIIRFilter_test():
   output = np.ascontiguousarray(np.zeros(1000, dtype=np.float64)[None,:])
 
   inputfilter = DoubleInPointerFilter(input, False)
-  EQfilter = DoubleBandPassCoefficientsIIRFilter()
+  EQfilter = DoubleSecondOrderBandPassFilter()
   outputfilter = DoubleOutPointerFilter(output, False)
 
   inputfilter.set_output_sampling_rate(48000)

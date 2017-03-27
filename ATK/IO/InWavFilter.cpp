@@ -15,11 +15,11 @@ namespace
   template<typename DataType1, typename DataType2>
   void convert(std::vector<std::vector<DataType1> >& outputs, const std::vector<char>& inputs)
   {
-    int nbChannels = outputs.size();
-    std::int64_t size = outputs[0].size();
-    for(int j = 0; j < nbChannels; ++j)
+    std::size_t nbChannels = outputs.size();
+    std::size_t size = outputs[0].size();
+    for(std::size_t j = 0; j < nbChannels; ++j)
     {
-      ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, nbChannels);
+      ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, static_cast<int>(nbChannels));
     }
   }
 }
@@ -28,26 +28,51 @@ namespace ATK
 {
   template<typename DataType>
   InWavFilter<DataType>::InWavFilter(const std::string& filename)
-  :TypedBaseFilter<DataType>(0, 0)
+  :TypedBaseFilter<DataType>(0, 0), filename(filename)
   {
-    wavstream.open(filename.c_str());
+    wavstream.open(filename.c_str(), std::ios_base::binary);
     if(!wavstream.good())
     {
       throw std::runtime_error("Could not open WAV file " + filename);
     }
-    wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader) + sizeof(WavFormat) + sizeof(WavData));
+    // Read wave header
+    wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader));
+
+    // Get the format block
+    wavstream.read(reinterpret_cast<char*>(&format), 4+4);
+    if(format.FormatBlocID[0] != 'f') // OK, assume we have bext instead
+    {
+      wavstream.seekg(static_cast<int32_t>(wavstream.tellg()) + format.BlocSize);
+      wavstream.read(reinterpret_cast<char*>(&format), sizeof(WavFormat));
+    }
+    else
+    {
+      wavstream.read(reinterpret_cast<char*>(&format) + 4 + 4, sizeof(WavFormat) - 4 - 4);
+    }
+
+    // Get the data block
+    wavstream.read(reinterpret_cast<char*>(&data), sizeof(WavData));
+    while(data.DataBlocID[0] != 'd')
+    {
+      wavstream.seekg(static_cast<int32_t>(wavstream.tellg()) + data.DataSize);
+      wavstream.read(reinterpret_cast<char*>(&data), sizeof(WavData));
+    }
+
+    offset = wavstream.tellg();
+    wavstream.close();
+
     set_nb_output_ports(format.NbChannels);
     set_output_sampling_rate(format.Frequence);
     temp_arrays.resize(format.NbChannels);
   }
 
   template<typename DataType>
-  void InWavFilter<DataType>::process_impl(std::int64_t size)
+  void InWavFilter<DataType>::process_impl(std::size_t size) const
   {
     assert(output_sampling_rate == format.Frequence);
     read_from_file(size);
 
-    for(std::int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {
@@ -57,12 +82,17 @@ namespace ATK
   }
   
   template<typename DataType>
-  void InWavFilter<DataType>::read_from_file(std::int64_t size)
+  void InWavFilter<DataType>::read_from_file(std::size_t size) const
   {
+    if(!wavstream.is_open())
+    {
+      wavstream.open(filename.c_str(), std::ios_base::binary);
+      wavstream.seekg(offset);
+    }
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
     wavstream.read(buffer.data(), buffer.size());
-    
-    if(temp_arrays[0].size() < size)
+
+    if(temp_arrays[0].size() != static_cast<std::size_t>(size))
     {
       for(int j = 0; j < format.NbChannels; ++j)
       {
@@ -94,7 +124,7 @@ namespace ATK
   
   template class InWavFilter<std::int16_t>;
   template class InWavFilter<std::int32_t>;
-  template class InWavFilter<std::int64_t>;
+  template class InWavFilter<int64_t>;
   template class InWavFilter<float>;
   template class InWavFilter<double>;
 }

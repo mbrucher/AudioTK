@@ -20,5 +20,6 @@ import_array();
 
 %include "BaseFilter.i"
 %include "PointerFilter.i"
+%include "PipelineGlobalSinkFilter.i"
 
 #endif

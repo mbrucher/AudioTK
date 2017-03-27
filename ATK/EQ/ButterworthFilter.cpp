@@ -6,6 +6,7 @@
 #include <boost/math/tools/polynomial.hpp>
 
 #include "ButterworthFilter.h"
+#include "helpers.h"
 #include "IIRFilter.h"
 
 namespace
@@ -22,43 +23,45 @@ namespace
     }
   }
   
-  template<typename DataType>
-  void create_default_coeffs(int order, DataType Wn, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_default_coeffs(size_t order, DataType Wn, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
     DataType k;
     
     int fs = 2;
-    create_butterworth_analog_coefficients(order, z, p, k);
+    create_butterworth_analog_coefficients(static_cast<int>(order), z, p, k);
     DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
     zpk_lp2lp(warped, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
+
     zpk2ba(fs, z, p, k, b, a);
-    
-    for(int i = 0; i < order + 1; ++i)
+
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < order; ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
   }
 
-  template<typename DataType>
-  void create_bp_coeffs(int order, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_bp_coeffs(size_t order, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
     DataType k;
     
     int fs = 2;
-    create_butterworth_analog_coefficients(order/2, z, p, k);
+    create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
@@ -67,28 +70,30 @@ namespace
     
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
-    
+
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < order + 1; ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < order; ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
   }
   
-  template<typename DataType>
-  void create_bs_coeffs(int order, DataType wc1, DataType wc2, std::vector<DataType>& coefficients_in, std::vector<DataType>& coefficients_out)
+  template<typename DataType, typename Container>
+  void create_bs_coeffs(size_t order, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
     DataType k;
     
     int fs = 2;
-    create_butterworth_analog_coefficients(order/2, z, p, k);
+    create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
@@ -97,14 +102,16 @@ namespace
     
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
-    
+
     zpk2ba(fs, z, p, k, b, a);
     
-    for(int i = 0; i < order + 1; ++i)
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    for(int i = 0; i < order; ++i)
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
@@ -114,26 +121,26 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients()
-  :Parent(1, 1), cut_frequency(0), in_order(1), out_order(1)
+  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(unsigned int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
   
-  template <typename DataType>
-  void ButterworthLowPassCoefficients<DataType>::set_cut_frequency(DataType cut_frequency)
+  template <typename DataType_>
+  void ButterworthLowPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
 
-  template <typename DataType>
-  typename ButterworthLowPassCoefficients<DataType>::DataType ButterworthLowPassCoefficients<DataType>::get_cut_frequency() const
+  template <typename DataType_>
+  DataType_ ButterworthLowPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
 
   template <typename DataType>
-  void ButterworthLowPassCoefficients<DataType>::set_order(int order)
+  void ButterworthLowPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -150,26 +157,26 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients()
-  :Parent(1, 1), cut_frequency(0), in_order(1), out_order(1)
+  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(unsigned int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
   
-  template <typename DataType>
-  void ButterworthHighPassCoefficients<DataType>::set_cut_frequency(DataType cut_frequency)
+  template <typename DataType_>
+  void ButterworthHighPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
-  template <typename DataType>
-  typename ButterworthHighPassCoefficients<DataType>::DataType ButterworthHighPassCoefficients<DataType>::get_cut_frequency() const
+  template <typename DataType_>
+  DataType_ ButterworthHighPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
   
   template <typename DataType>
-  void ButterworthHighPassCoefficients<DataType>::set_order(int order)
+  void ButterworthHighPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -191,33 +198,33 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients()
-  :Parent(1, 1), cut_frequencies(0, 0), in_order(1), out_order(1)
+  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(unsigned int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
 
-  template <typename DataType>
-  void ButterworthBandPassCoefficients<DataType>::set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies)
+  template <typename DataType_>
+  void ButterworthBandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
 
-  template <typename DataType>
-  void ButterworthBandPassCoefficients<DataType>::set_cut_frequencies(DataType f0, DataType f1)
+  template <typename DataType_>
+  void ButterworthBandPassCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
 
-  template <typename DataType>
-  std::pair<typename ButterworthBandPassCoefficients<DataType>::DataType, typename ButterworthBandPassCoefficients<DataType>::DataType> ButterworthBandPassCoefficients<DataType>::get_cut_frequencies() const
+  template <typename DataType_>
+  std::pair<DataType_, DataType_> ButterworthBandPassCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }
 
   template <typename DataType>
-  void ButterworthBandPassCoefficients<DataType>::set_order(int order)
+  void ButterworthBandPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();
@@ -234,33 +241,33 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients()
-  :Parent(1, 1), cut_frequencies(0, 0), in_order(1), out_order(1)
+  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(unsigned int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
   
-  template <typename DataType>
-  void ButterworthBandStopCoefficients<DataType>::set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies)
+  template <typename DataType_>
+  void ButterworthBandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
   
-  template <typename DataType>
-  void ButterworthBandStopCoefficients<DataType>::set_cut_frequencies(DataType f0, DataType f1)
+  template <typename DataType_>
+  void ButterworthBandStopCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
   
-  template <typename DataType>
-  std::pair<typename ButterworthBandStopCoefficients<DataType>::DataType, typename ButterworthBandStopCoefficients<DataType>::DataType> ButterworthBandStopCoefficients<DataType>::get_cut_frequencies() const
+  template <typename DataType_>
+  std::pair<DataType_, DataType_> ButterworthBandStopCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }
   
   template <typename DataType>
-  void ButterworthBandStopCoefficients<DataType>::set_order(int order)
+  void ButterworthBandStopCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();

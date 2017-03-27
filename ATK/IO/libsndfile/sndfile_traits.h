@@ -10,11 +10,13 @@
 
 namespace ATK
 {
+  /// Empty traits
   template<typename DataType>
   struct SndfileTraits
   {
   };
 
+  /// Traits for integer 16bits
   template<>
   struct SndfileTraits<std::int16_t>
   {
@@ -24,6 +26,7 @@ namespace ATK
     }
   };
   
+  /// Traits for integer 32bits
   template<>
   struct SndfileTraits<std::int32_t>
   {
@@ -33,6 +36,7 @@ namespace ATK
     }
   };
   
+  /// Traits for float 32bits
   template<>
   struct SndfileTraits<float>
   {
@@ -42,6 +46,7 @@ namespace ATK
     }
   };
 
+  /// Traits for float 64bits
   template<>
   struct SndfileTraits<double>
   {

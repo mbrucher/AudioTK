@@ -4,6 +4,7 @@
 
 #include "DecimationFilter.h"
 
+#include <cassert>
 #include <cstdint>
 
 namespace ATK
@@ -34,20 +35,25 @@ namespace ATK
   }
   
   template<class DataType>
-  void DecimationFilter<DataType>::process_impl(std::int64_t size)
-  {    
-    for(int j = 0; j < outputs_size.size(); ++j)
+  void DecimationFilter<DataType>::process_impl(std::size_t size) const
+  {
+    assert(nb_input_ports == nb_output_ports);
+
+    for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
     {
-      for(std::int64_t i = 0; i < size; ++i)
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output = outputs[channel];
+      for(std::size_t i = 0; i < size; ++i)
       {
-        outputs[j][i] = converted_inputs[j][i * decimation];
+        *(output++) = *input;
+        input += decimation;
       }
     }
   }
   
   template class DecimationFilter<std::int16_t>;
   template class DecimationFilter<std::int32_t>;
-  template class DecimationFilter<std::int64_t>;
+  template class DecimationFilter<int64_t>;
   template class DecimationFilter<float>;
   template class DecimationFilter<double>;
 }

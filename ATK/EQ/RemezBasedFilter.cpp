@@ -9,10 +9,11 @@
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
 
-#include <Eigen/Dense>
-
 #include "FIRFilter.h"
 #include "RemezBasedFilter.h"
+
+#if ATK_EIGEN == 1
+#include <Eigen/Dense>
 
 namespace
 {
@@ -38,7 +39,7 @@ namespace
     std::vector<DataType> objective;
 
   public:
-    RemezBuilder(int order, const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
+    RemezBuilder(unsigned int order, const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
     :dist(0, grid_size - 1), M((order - 1) / 2), target(target)
     {
       grid.resize(grid_size);
@@ -157,7 +158,7 @@ namespace ATK
   }
   
   template<class DataType>
-  void RemezBasedCoefficients<DataType>::set_order(int order)
+  void RemezBasedCoefficients<DataType>::set_order(unsigned int order)
   {
     if(order % 2 == 0)
     {
@@ -193,3 +194,5 @@ namespace ATK
   template class FIRFilter<RemezBasedCoefficients<double> >;
 
 }
+
+#endif

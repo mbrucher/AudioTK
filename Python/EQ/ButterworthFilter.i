@@ -3,9 +3,6 @@
 #include <ATK/EQ/ButterworthFilter.h>
 %}
 
-%template(FloatVector) std::vector<float>;
-%template(DoubleVector) std::vector<double>;
-
 namespace ATK
 {
   template<class DataType>

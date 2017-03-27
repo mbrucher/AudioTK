@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_to_double_int32_t )
 
 BOOST_AUTO_TEST_CASE( TypeTraits_test_to_double_int64_t )
 {
-  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int64_t>::to_double(std::numeric_limits<std::int64_t>::min()), -1);
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<int64_t>::to_double(std::numeric_limits<int64_t>::min()), -1);
 }
 
 BOOST_AUTO_TEST_CASE( TypeTraits_test_from_double_int16_t )
@@ -35,5 +35,5 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_from_double_int32_t )
 
 BOOST_AUTO_TEST_CASE( TypeTraits_test_from_double_int64_t )
 {
-  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int64_t>::from_double(-1), std::numeric_limits<std::int64_t>::min());
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<int64_t>::from_double(-1), std::numeric_limits<int64_t>::min());
 }

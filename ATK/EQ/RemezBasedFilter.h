@@ -7,6 +7,8 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#if ATK_EIGEN == 1
+
 namespace ATK
 {
   /**
@@ -22,7 +24,7 @@ namespace ATK
   protected:
     std::vector<std::pair<std::pair<DataType, DataType>, DataType> > target;
     
-    int in_order;
+    unsigned int in_order;
     
     void setup();
     
@@ -36,8 +38,10 @@ namespace ATK
     const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& get_template() const;
     
     /// Order of the FIR filter
-    void set_order(int order);
+    void set_order(unsigned int order);
   };
 }
+
+#endif
 
 #endif

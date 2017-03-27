@@ -6,7 +6,7 @@
 #include <ATK/EQ/IIRFilter.h>
 
 #include <ATK/Mock/FFTCheckerFilter.h>
-#include <ATK/Mock/SinusGeneratorFilter.h>
+#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -16,12 +16,12 @@
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::IIRFilter<ATK::BandPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
@@ -45,12 +45,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::IIRFilter<ATK::BandPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.8399495266820497));
+  frequency_checks.push_back(std::make_pair(100, 0.8408964152537104));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -74,12 +74,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
   
-  ATK::IIRFilter<ATK::BandPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
@@ -103,12 +103,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
@@ -133,12 +133,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 1.413087701586034));
+  frequency_checks.push_back(std::make_pair(100, 1.4142135623730931));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -163,12 +163,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
   
-  ATK::IIRFilter<ATK::BandPassPeakCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_Q(1);
@@ -191,14 +191,101 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BandPassPeakCoefficients_2k_test )
   checker.process(PROCESSSIZE);
 }
 
+BOOST_AUTO_TEST_CASE( IIRFilter_AllPassCoefficients_1k_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(1000);
+
+  ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_Q(.1);
+  filter.set_cut_frequency(100);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 1));
+  frequency_checks.push_back(std::make_pair(10000, 0));
+  checker.set_checks(frequency_checks);
+
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+
+  filter.process(1024*64);
+
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_AllPassCoefficients_100_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(100);
+
+  ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_Q(.1);
+  filter.set_cut_frequency(100);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(10, 0));
+  frequency_checks.push_back(std::make_pair(100, 1));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+
+  filter.process(1024*64);
+
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_AllPassCoefficients_2k_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(2000);
+
+  ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+  filter.set_Q(.1);
+  filter.set_cut_frequency(100);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  frequency_checks.push_back(std::make_pair(2000, 1));
+  checker.set_checks(frequency_checks);
+
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+
+  filter.process(1024*64);
+
+  checker.process(PROCESSSIZE);
+}
+
 BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::IIRFilter<ATK::LowPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -221,12 +308,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::IIRFilter<ATK::LowPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -235,7 +322,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_100_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(10, 0));
-  frequency_checks.push_back(std::make_pair(100, 0.8399580865576376));
+  frequency_checks.push_back(std::make_pair(100, 0.8408964152537146));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -249,12 +336,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_2k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(2000);
   
-  ATK::IIRFilter<ATK::LowPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -277,12 +364,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_2k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
   
-  ATK::IIRFilter<ATK::LowPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -291,7 +378,7 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_200_test )
   checker.set_input_sampling_rate(1024*64);
   std::vector<std::pair<int, double> > frequency_checks;
   frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(200, 0.49220974122133615));
+  frequency_checks.push_back(std::make_pair(200, 0.49246840910199763));
   frequency_checks.push_back(std::make_pair(1000, 0));
   checker.set_checks(frequency_checks);
   
@@ -305,12 +392,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowPassCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_HighPassCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::IIRFilter<ATK::HighPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderHighPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -333,12 +420,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_HighPassCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_HighPassCoefficients_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
   
-  ATK::IIRFilter<ATK::HighPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderHighPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -361,12 +448,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_HighPassCoefficients_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_HighPassCoefficients_500_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(500);
   
-  ATK::IIRFilter<ATK::HighPassCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderHighPassCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -389,12 +476,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_HighPassCoefficients_500_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LowShelvingCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::IIRFilter<ATK::LowShelvingCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -418,12 +505,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowShelvingCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LowShelvingCoefficients_100_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::IIRFilter<ATK::LowShelvingCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -447,12 +534,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowShelvingCoefficients_100_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LowShelvingCoefficients_200_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(200);
   
-  ATK::IIRFilter<ATK::LowShelvingCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(100);
@@ -476,12 +563,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LowShelvingCoefficients_200_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_HighShelvingCoefficients_1k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::IIRFilter<ATK::HighShelvingCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -505,12 +592,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_HighShelvingCoefficients_1k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_HighShelvingCoefficients_10k_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(10000);
   
-  ATK::IIRFilter<ATK::HighShelvingCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);
@@ -534,12 +621,12 @@ BOOST_AUTO_TEST_CASE( IIRFilter_HighShelvingCoefficients_10k_test )
 
 BOOST_AUTO_TEST_CASE( IIRFilter_HighShelvingCoefficients_500_test )
 {
-  ATK::SinusGeneratorFilter<double> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(1024*64);
   generator.set_amplitude(1);
   generator.set_frequency(500);
   
-  ATK::IIRFilter<ATK::HighShelvingCoefficients<double> > filter;
+  ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<double> > filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*64);
   filter.set_cut_frequency(1000);

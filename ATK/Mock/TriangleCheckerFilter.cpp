@@ -20,7 +20,7 @@ namespace
   template<class DataType>
   typename boost::enable_if<typename boost::is_floating_point<DataType>::type>::type compare(DataType v1, DataType v2)
   {
-    if(std::abs(v1) < 1e-6 || std::abs(v2) < 1e-5)
+    if(std::abs(v1) < 1e-5 || std::abs(v2) < 1e-5)
     {
       BOOST_REQUIRE_SMALL(v1, static_cast<DataType>(1e-5));
       BOOST_REQUIRE_SMALL(v2, static_cast<DataType>(1e-5));
@@ -52,7 +52,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void TriangleCheckerFilter<DataType_>::set_amplitude(DataType amplitude)
+  void TriangleCheckerFilter<DataType_>::set_amplitude(DataType_ amplitude)
   {
     this->amplitude = amplitude;
   }
@@ -64,11 +64,11 @@ namespace ATK
   }
 
   template<class DataType_>
-  void TriangleCheckerFilter<DataType_>::process_impl(std::int64_t size)
+  void TriangleCheckerFilter<DataType_>::process_impl(std::size_t size) const
   {
     double real_increment = 2. / input_sampling_rate * frequency;
     
-    for(std::int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
       if(state >= 1)
@@ -87,7 +87,7 @@ namespace ATK
 
   template class TriangleCheckerFilter<std::int16_t>;
   template class TriangleCheckerFilter<std::int32_t>;
-  template class TriangleCheckerFilter<std::int64_t>;
+  template class TriangleCheckerFilter<int64_t>;
   template class TriangleCheckerFilter<float>;
   template class TriangleCheckerFilter<double>;
 }

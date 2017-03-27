@@ -11,27 +11,33 @@
 
 namespace ATK
 {
+  /// A triangle signal generator for test purposes
   template<class DataType_>
   class ATK_MOCK_EXPORT TriangleGeneratorFilter : public TypedBaseFilter<DataType_>
   {
   public:
+    /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::outputs_size;
     using Parent::outputs;
     using Parent::output_sampling_rate;
 
+    /// Constructor
     TriangleGeneratorFilter();
+    /// Destructor
     virtual ~TriangleGeneratorFilter();
     
+    /// Sets the amplitude of the triangle
     void set_amplitude(DataType_ amplitude);
+    /// Sets the frequency of the triangle
     void set_frequency(int frequency);
     
   protected:
-    virtual void process_impl(std::int64_t size);
+    virtual void process_impl(std::size_t size) const override final;
 
-    double state;
-    bool ascending;
+  private:
+    mutable double state;
+    mutable bool ascending;
     DataType_ amplitude;
     int frequency;
   };

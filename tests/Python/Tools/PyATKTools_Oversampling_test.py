@@ -27,7 +27,7 @@ def Oversampling_2_test():
   
   outputfilter.process(2000)
 
-  assert_almost_equal(ref[:,994:-6], output[:,1000:], decimal=2)
+  assert_almost_equal(ref[:,994:-6], output[:,1000:], decimal=1)
 
 def Oversampling_4_test():
   import numpy as np
@@ -54,7 +54,7 @@ def Oversampling_4_test():
   
   outputfilter.process(4000)
 
-  assert_almost_equal(ref[:,988:-12], output[:,1000:], decimal=2)
+  assert_almost_equal(ref[:,988:-12], output[:,1000:], decimal=1)
 
 def Oversampling_8_test():
   import numpy as np
@@ -81,7 +81,7 @@ def Oversampling_8_test():
   
   outputfilter.process(8000)
   
-  assert_almost_equal(ref[:,976:-24], output[:,1000:], decimal=2)
+  assert_almost_equal(ref[:,976:-24], output[:,1000:], decimal=1)
 
 def Oversampling_16_test():
   import numpy as np
@@ -108,7 +108,7 @@ def Oversampling_16_test():
   
   outputfilter.process(16000)
 
-  assert_almost_equal(ref[:,952:-48], output[:,1000:], decimal=2)
+  assert_almost_equal(ref[:,952:-48], output[:,1000:], decimal=1)
 
 
 def Oversampling_32_test():
@@ -136,5 +136,5 @@ def Oversampling_32_test():
   
   outputfilter.process(32000)
   
-  assert_almost_equal(ref[:,904:-96], output[:,1000:], decimal=2)
+  assert_almost_equal(ref[:,904:-96], output[:,1000:], decimal=1)
 

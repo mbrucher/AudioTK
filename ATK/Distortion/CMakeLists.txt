@@ -9,17 +9,51 @@ FILE(GLOB_RECURSE
     *.h
 )
 
-add_definitions(-DBUILD_ATK_DISTORTION)
+SOURCE_GROUP_BY_FOLDER(ATK_DISTORTION)
 
 include_directories(${PROJECT_SOURCE_DIR})
+
+if(ENABLE_STATIC_LIBRARIES)
+add_library(ATKDistortion_static
+    STATIC
+    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS} ${NATVIS_FILE}
+)
+
+set_target_properties (ATKDistortion_static PROPERTIES
+    FOLDER C++/static
+)
+
+INSTALL(TARGETS ATKDistortion_static
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    )
+endif(ENABLE_STATIC_LIBRARIES)
+
+if(ENABLE_SHARED_LIBRARIES)
+add_definitions(-DBUILD_ATK_DISTORTION)
+add_definitions(-DATK_SHARED)
+
 add_library(ATKDistortion
     SHARED
-    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
+    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS} ${NATVIS_FILE}
 )
-target_link_libraries(ATKDistortion ATKCore)
+
+set_target_properties (ATKDistortion PROPERTIES
+    FOLDER C++/shared
+)
+
+target_link_libraries(ATKDistortion ATKCore ATKUtility)
+
+stagedebug(ATKDistortion)
 
 INSTALL(TARGETS ATKDistortion
     RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin/ COMPONENT libraries
     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
     ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/ COMPONENT libraries
+    )
+endif(ENABLE_SHARED_LIBRARIES)
+
+INSTALL(FILES ${ATK_DISTORTION_HEADERS}
+   DESTINATION ${CMAKE_INSTALL_PREFIX}/include/ATK/Distortion
     )
