@@ -29,7 +29,9 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
-    
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
+
     using Parent::in_order;
     using Parent::input_delay;
     using Parent::setup;
