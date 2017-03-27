@@ -196,8 +196,11 @@ namespace ATK
       }
     }
     
-    RemezBuilder<DataType> builder(in_order, target);
-    coefficients_in = builder.build();
+    if (in_order > 0)
+    {
+      RemezBuilder<DataType> builder(in_order, target);
+      coefficients_in = builder.build();
+    }
   }
   
   template class RemezBasedCoefficients<float>;
