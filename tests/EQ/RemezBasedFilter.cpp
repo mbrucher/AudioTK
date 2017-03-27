@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(FIRFilter_Remez_bad_template_test)
   filter.set_order(15);
   std::vector<std::pair<std::pair<double, double>, std::pair<double, double>> > target;
   target.push_back(std::make_pair(std::make_pair(0, 0.4), std::make_pair(1, 1)));
-  target.push_back(std::make_pair(std::make_pair(0.5, 1), std::make_pair(0, 2)));
+  target.push_back(std::make_pair(std::make_pair(0, 1), std::make_pair(0, 2)));
 
   BOOST_CHECK_THROW(filter.set_template(target), std::runtime_error);
 }
