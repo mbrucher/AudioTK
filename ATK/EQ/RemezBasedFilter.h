@@ -36,9 +36,12 @@ namespace ATK
     AlignedVector coefficients_in;
     
   public:
-  /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template
-    RemezBasedCoefficients();
-    
+    /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template
+    RemezBasedCoefficients(unsigned int nb_channels = 1);
+
+    /// Move constructor
+    RemezBasedCoefficients(RemezBasedCoefficients&& other);
+
     /// Sets the template for the algorithm, pair of range of reduced frequencies + amplitude
     void set_template(const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& target);
     /// Retrieves the template

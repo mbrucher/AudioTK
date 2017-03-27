@@ -6,6 +6,7 @@
 #define ATK_EQ_FIRFILTER_H
 
 #include <cassert>
+#include <cstdint>
 #include <vector>
 
 #include <ATK/config.h>
@@ -37,6 +38,21 @@ namespace ATK
     using Parent::setup;
     
   public:
+    /*!
+     * @brief Constructor
+     * @param nb_channels is the number of input and output channels
+     */
+    FIRFilter(unsigned int nb_channels = 1)
+      :Parent(nb_channels)
+    {
+    }
+
+    /// Move constructor
+    FIRFilter(FIRFilter&& other)
+    :Parent(std::move(other))
+    {
+    }
+
     void setup()
     {
       Parent::setup();

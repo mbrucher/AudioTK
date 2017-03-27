@@ -6,11 +6,11 @@
 namespace ATK
 {
   template<class Coefficients>
-  class IIRFilter: public Coefficients
+  class FIRFilter: public Coefficients
   {
   public:
-    IIRFilter(int nb_channels = 1);
-    ~IIRFilter();
+    FIRFilter(int nb_channels = 1);
+    ~FIRFilter();
     void process(long size);
   };
 }

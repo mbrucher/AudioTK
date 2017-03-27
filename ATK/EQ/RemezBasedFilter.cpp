@@ -146,12 +146,17 @@ namespace
 namespace ATK
 {
   template<class DataType>
-  RemezBasedCoefficients<DataType>::RemezBasedCoefficients()
-  :Parent(1, 1), in_order(0)
+  RemezBasedCoefficients<DataType>::RemezBasedCoefficients(unsigned int nb_channels)
+    :Parent(nb_channels, nb_channels), in_order(0)
   {
-    
   }
-  
+
+  template<class DataType>
+  RemezBasedCoefficients<DataType>::RemezBasedCoefficients(RemezBasedCoefficients&& other)
+    :Parent(std::move(other)), target(std::move(target)), in_order(std::move(in_order)), coefficients_in(std::move(coefficients_in))
+  {
+  }
+
   template<class DataType>
   void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& target)
   {
@@ -200,7 +205,6 @@ namespace ATK
   
   template class FIRFilter<RemezBasedCoefficients<float> >;
   template class FIRFilter<RemezBasedCoefficients<double> >;
-
 }
 
 #endif
