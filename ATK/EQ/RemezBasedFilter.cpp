@@ -57,11 +57,10 @@ namespace
       coeffs.assign(M * 2 + 1, 0);
       indices.assign(M + 2, -1);
       
-      /*for(std::size_t i = 0; i < indices.size(); ++i)
+      for(std::size_t i = 0; i < indices.size(); ++i)
       {
         indices[i] = pickup_new_indice(indices);
-      }*/
-      indices = std::vector<unsigned int>{ 51, 101, 341, 361, 531, 671, 701, 851 };
+      }
       
       weights.assign(grid_size, 0);
       objective.assign(grid_size, 0);
