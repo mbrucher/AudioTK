@@ -113,7 +113,7 @@ namespace
 
       for (unsigned int i = 0; i < M; ++i)
       {
-        coeffs[i] = coeffs[2*M-2-i] = x[M+1-i];
+        coeffs[i] = coeffs[2*M-2-i] = x[M+1-i]/2;
       }
       coeffs[M+1] = x[0];
 
