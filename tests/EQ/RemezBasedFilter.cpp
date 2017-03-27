@@ -16,6 +16,32 @@
 
 #define PROCESSSIZE (1024*64)
 
+BOOST_AUTO_TEST_CASE(FIRFilter_Remez_bad_template_test)
+{
+  ATK::FIRFilter<ATK::RemezBasedCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024 * 64);
+  filter.set_output_sampling_rate(1024 * 64);
+  filter.set_order(15);
+  std::vector<std::pair<std::pair<double, double>, double> > target;
+  target.push_back(std::make_pair(std::make_pair(0, 0.4), 1));
+  target.push_back(std::make_pair(std::make_pair(0, 1), 0));
+
+  BOOST_CHECK_THROW(filter.set_template(target), std::runtime_error);
+}
+
+BOOST_AUTO_TEST_CASE(FIRFilter_Remez_even_order_test)
+{
+  ATK::FIRFilter<ATK::RemezBasedCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024 * 64);
+  filter.set_output_sampling_rate(1024 * 64);
+  std::vector<std::pair<std::pair<double, double>, double> > target;
+  target.push_back(std::make_pair(std::make_pair(0, 0.4), 1));
+  target.push_back(std::make_pair(std::make_pair(0., 1), 0));
+  filter.set_template(target);
+
+  BOOST_CHECK_THROW(filter.set_order(14), std::runtime_error);
+}
+
 BOOST_AUTO_TEST_CASE( FIRFilter_Remez_LowPassCoefficients_16k_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;

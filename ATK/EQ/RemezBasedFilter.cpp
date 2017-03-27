@@ -20,12 +20,12 @@ namespace
   template<class DataType>
   class RemezBuilder
   {
-    const static int grid_size = 1024; // grid size, power of two better for FFT
+    const static unsigned int grid_size = 1024; // grid size, power of two better for FFT
 
     boost::random::mt19937 gen;
     boost::random::uniform_int_distribution<> dist;
 
-    int M;
+    unsigned int M;
     std::vector<DataType> grid;
     std::vector<std::pair<std::pair<DataType, DataType>, DataType> > target;
     
@@ -43,7 +43,7 @@ namespace
     :dist(0, grid_size - 1), M((order - 1) / 2), target(target)
     {
       grid.resize(grid_size);
-      for(int i = 0; i < grid_size; ++i)
+      for(unsigned int i = 0; i < grid_size; ++i)
       {
         grid[i] = i * boost::math::constants::pi<DataType>() / grid_size;
       }
@@ -51,7 +51,7 @@ namespace
     
     void init()
     {
-      coeffs.assign(M + 2, 0);
+      coeffs.assign(M * 2 + 1, 0);
       indices.assign(M + 2, -1);
       
       for(std::size_t i = 0; i < indices.size(); ++i)
@@ -84,22 +84,22 @@ namespace
       init();
       
       Eigen::Matrix<DataType, Eigen::Dynamic, Eigen::Dynamic> A(M+2, M+2);
-      for(int i = 0; i < M+2; ++i)
+      for(unsigned int i = 0; i < M+2; ++i)
       {
-        for(int j = 0; j < M+1; ++j)
+        for(unsigned int j = 0; j < M+1; ++j)
         {
           A(i, j) = std::cos(grid[indices[i]] * j);
         }
       }
       int flag = -1;
-      for(int i = 0; i < M+2; ++i)
+      for(unsigned int i = 0; i < M+2; ++i)
       {
         A(i, M+1) = flag / weights[indices[i]];
         flag = -flag;
       }
       
       Eigen::Matrix<DataType, Eigen::Dynamic, 1> b(M+2, 1);
-      for(int i = 0; i < M+2; ++i)
+      for(unsigned int i = 0; i < M+2; ++i)
       {
         b(i) = objective[indices[i]];
       }
@@ -107,6 +107,13 @@ namespace
       std::cout << "Here is the vector b:\n" << b << std::endl;
       Eigen::Matrix<DataType, Eigen::Dynamic, 1> x = A.colPivHouseholderQr().solve(b);
       std::cout << "Here is the result vector x:\n" << x << std::endl;
+
+      for (unsigned int i = 0; i < M; ++i)
+      {
+        coeffs[i] = coeffs[2*M-2-i] = x[M+1-i];
+      }
+      coeffs[M+1] = x[0];
+
       return coeffs;
     }
     
@@ -130,8 +137,6 @@ namespace
         }
       }
     }
-    
-    
   };
 }
 
@@ -162,7 +167,7 @@ namespace ATK
   {
     if(order % 2 == 0)
     {
-      throw std::range_error("Need an even filter order");
+      throw std::range_error("Need an odd filter order");
     }
     in_order = order;
     setup();

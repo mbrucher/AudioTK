@@ -8,6 +8,7 @@
 #include <cassert>
 #include <vector>
 
+#include <ATK/config.h>
 #include "config.h"
 
 namespace ATK
@@ -40,22 +41,33 @@ namespace ATK
       input_delay = in_order;
     }
     
-    virtual void process_impl(std::int64_t size)
+    virtual void process_impl(std::size_t size) const override
     {
       assert(input_sampling_rate == output_sampling_rate);
-      
-      DataType tempout = 0;
-      
-      for(long i = 0; i < size; ++i)
+      assert(nb_input_ports == nb_output_ports);
+      assert(coefficients_in.data());
+
+      const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+
+      for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
       {
-        tempout = coefficients_in[in_order] * converted_inputs[0][i];
-        
-        for(int j = 0; j < in_order; ++j)
+        const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
+        DataType* ATK_RESTRICT output = outputs[channel];
+
+        for (std::size_t i = 0; i < size; ++i)
         {
-          tempout += coefficients_in[j] * converted_inputs[0][i - in_order + j];
+          output[i] = 0;
         }
-        outputs[0][i] = tempout;
+
+        for (unsigned int j = 0; j < in_order + 1; ++j)
+        {
+          for (std::size_t i = 0; i < size; ++i)
+          {
+            output[i] += coefficients_in_ptr[j] * input[i + j];
+          }
+        }
       }
+
     }
     
     const std::vector<DataType>& get_coefficients_in() const
