@@ -21,25 +21,28 @@ namespace ATK
   public:
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::AlignedVector;
     using Parent::input_sampling_rate;
   protected:
-    /// Target template that the user gave
-    std::vector<std::pair<std::pair<DataType, DataType>, DataType> > target;
+    /**
+     * Target template that the user gave. First pair is the bandwidth, second pair is the target amplitude and the associated weight
+     */
+    std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > > target;
     /// Oarger of the polynomial we can use
     unsigned int in_order;
     /// Launches the computation
     void setup();
     /// Final coefficients
-    std::vector<DataType> coefficients_in;
+    AlignedVector coefficients_in;
     
   public:
   /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template
     RemezBasedCoefficients();
     
     /// Sets the template for the algorithm, pair of range of reduced frequencies + amplitude
-    void set_template(const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target);
+    void set_template(const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& target);
     /// Retrieves the template
-    const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& get_template() const;
+    const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& get_template() const;
     
     /// Order of the FIR filter
     void set_order(unsigned int order);

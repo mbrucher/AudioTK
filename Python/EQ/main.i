@@ -22,6 +22,8 @@
 %include "Chebyshev1Filter.i"
 %include "Chebyshev2Filter.i"
 %include "CustomIIRFilter.i"
+
+%include "FIRFilter.i"
 %include "CustomFIRFilter.i"
 
 %include "TimeVaryingIIRFilter.i"

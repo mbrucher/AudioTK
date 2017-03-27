@@ -22,8 +22,8 @@ namespace ATK
   public:
     typedef Coefficients Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
+    using typename Parent::AlignedVector;
+
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
@@ -70,7 +70,8 @@ namespace ATK
 
     }
     
-    const std::vector<DataType>& get_coefficients_in() const
+    /// Returns the vector of internal coefficients for the MA section 
+    const AlignedVector& get_coefficients_in() const
     {
       return coefficients_in;
     }

@@ -20,6 +20,9 @@ namespace
   template<class DataType>
   class RemezBuilder
   {
+  public:
+    typedef typename ATK::TypedBaseFilter<DataType>::AlignedVector AlignedVector;
+  private:
     const static unsigned int grid_size = 1024; // grid size, power of two better for FFT
 
     boost::random::mt19937 gen;
@@ -27,19 +30,19 @@ namespace
 
     unsigned int M;
     std::vector<DataType> grid;
-    std::vector<std::pair<std::pair<DataType, DataType>, DataType> > target;
+    std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> > target;
     
     /// Computed coefficients
-    std::vector<DataType> coeffs;
+    AlignedVector coeffs;
     /// Selected indices
-    std::vector<int> indices;
+    std::vector<unsigned int> indices;
     /// Weight function on the grid
     std::vector<DataType> weights;
     /// Objective function on the grid
     std::vector<DataType> objective;
 
   public:
-    RemezBuilder(unsigned int order, const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
+    RemezBuilder(unsigned int order, const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> >& target)
     :dist(0, grid_size - 1), M((order - 1) / 2), target(target)
     {
       grid.resize(grid_size);
@@ -69,12 +72,12 @@ namespace
         {
           ++current_template;
         }
-        weights[i] = 1; //to update once we have weights for template
-        objective[i] = target[current_template].second;
+        weights[i] = target[current_template].second.second;
+        objective[i] = target[current_template].second.first;
       }
     }
     
-    std::vector<DataType> build()
+    AlignedVector build()
     {
       if(target.empty())
       {
@@ -118,7 +121,7 @@ namespace
     }
     
   protected:
-    int pickup_new_indice(const std::vector<int>& indices)
+    int pickup_new_indice(const std::vector<unsigned int>& indices)
     {
       while(true)
       {
@@ -150,14 +153,14 @@ namespace ATK
   }
   
   template<class DataType>
-  void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<DataType, DataType>, DataType> >& target)
+  void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& target)
   {
     this->target = target;
     setup();
   }
   
   template<class DataType>
-  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType>, typename RemezBasedCoefficients<DataType>::DataType> >& RemezBasedCoefficients<DataType>::get_template() const
+  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType>, std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType> > >& RemezBasedCoefficients<DataType>::get_template() const
   {
     return target;
   }
