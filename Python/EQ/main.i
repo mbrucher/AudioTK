@@ -10,6 +10,15 @@
 %nodefaultdtor;
 %nodefaultctor;
 
+%{
+#include <boost/align/aligned_allocator.hpp>
+%}
+
+%include <std_vector.i>
+
+%template(FloatVector) std::vector<float, boost::alignment::aligned_allocator<float, 32>>;
+%template(DoubleVector) std::vector<double, boost::alignment::aligned_allocator<double, 32>>;
+
 %include "../Core/BaseFilter.i"
 %include "ChamberlinFilter.i"
 %include "IIRFilter.i"
