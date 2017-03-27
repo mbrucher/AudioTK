@@ -41,7 +41,7 @@ Ks = 2
 wp = 0.4*np.pi
 ws = 0.5*np.pi
 wo = (wp+ws)/2
-L = 1000
+L = 1024
 w = np.arange(L)*np.pi/L
 W = Kp*(w<=wp) + Ks*(w>=ws)
 D = w <= wo
@@ -51,14 +51,14 @@ R = M+2
 m = np.arange(M+1)
 s = (-1)**(np.arange(1, R+1))
 
-k = np.array([51, 101, 341, 361, 531, 671, 701, 851])-1
+k = np.array([51, 101, 341, 361, 531, 671, 701, 851])
 
 it = 0
 
 while True:
   print("Iteration " + str(it))
   print(w[k]/np.pi)
-  
+
   temp = np.vstack((np.cos(w[k]*m.reshape(-1,1)), s/W[k])).T
   x = linalg.solve(temp, D[k])
   
@@ -90,6 +90,7 @@ while True:
   print(errk)
   
   v = etap(errk)
+  v = v[:R]
   print(v)
   newk = newk[v]
   errk = errk[v]
