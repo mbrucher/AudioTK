@@ -67,6 +67,7 @@ while True:
   print("Max error", delta)
   
   h = np.hstack((a[:0:-1], 2*a[0], a[1:]))/2
+  print("Current coeffs", h)
   
   A = firamp(h, L, w)
   err = (A-D)*W
@@ -77,6 +78,7 @@ while True:
   plt.show()
   newk = np.sort(np.hstack((locmax(err), locmax(-err))))
   errk = (A[newk]-D[newk])*W[newk]
+  print("Selected errors", newk)
   print("New error", np.vstack((w[newk]/np.pi,errk)).T)
   
   SN = 1e-8
@@ -84,17 +86,18 @@ while True:
   newk = newk[v]
   errk = errk[v]
   
+  print("Selected errors", newk)
   print("New error after SN check", np.vstack((w[newk]/np.pi,errk)).T)
   
   v = etap(errk)
   v = v[:R]
-  print("Selected errors", v)
   newk = newk[v]
   errk = errk[v]
   
+  print("Selected errors", newk)
   print("New error after monotony check", np.vstack((w[newk]/np.pi,errk)).T)
 
-  if (np.max(errk) - abs(delta))/abs(delta) < SN:
+  if (np.max(np.abs(errk)) - abs(delta))/abs(delta) < SN:
     break
   
   k = newk

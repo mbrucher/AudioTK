@@ -32,6 +32,7 @@ import_array();
 
 %include "FIRFilter.i"
 %include "CustomFIRFilter.i"
+%include "RemezBasedFilter.i"
 
 %include "TimeVaryingIIRFilter.i"
 %include "TimeVaryingSecondOrderFilter.i"
