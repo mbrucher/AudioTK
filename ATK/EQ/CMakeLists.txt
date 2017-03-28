@@ -47,7 +47,7 @@ set_target_properties (ATKEQ PROPERTIES
     FOLDER C++/shared
 )
 
-target_link_libraries(ATKEQ ATKTools ATKCore)
+target_link_libraries(ATKEQ ATKTools ATKUtility ATKCore)
 
 stagedebug(ATKEQ)
 

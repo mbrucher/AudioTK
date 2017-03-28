@@ -2,18 +2,17 @@
  * \file RemezBasedFilter.cpp
  */
 
-#include <iostream>
 #include <vector>
 
 #include <boost/math/constants/constants.hpp>
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_int_distribution.hpp>
 
 #include "FIRFilter.h"
 #include "RemezBasedFilter.h"
 
 #if ATK_EIGEN == 1
 #include <Eigen/Dense>
+
+#include <ATK/Utility/FFT.h>
 
 namespace
 {
@@ -24,9 +23,7 @@ namespace
     typedef typename ATK::TypedBaseFilter<DataType>::AlignedVector AlignedVector;
   private:
     const static unsigned int grid_size = 1024; // grid size, power of two better for FFT
-
-    boost::random::mt19937 gen;
-    boost::random::uniform_int_distribution<> dist;
+    constexpr static DataType SN = 1e-8;
 
     unsigned int M;
     std::vector<DataType> grid;
@@ -40,27 +37,30 @@ namespace
     std::vector<DataType> weights;
     /// Objective function on the grid
     std::vector<DataType> objective;
+    /// Alternate signs
+    std::vector<int> s;
+
+    ATK::FFT<DataType> fft_processor;
 
   public:
     RemezBuilder(unsigned int order, const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> >& target)
-    :dist(0, grid_size - 1), M((order - 1) / 2), target(target)
+    :M(order / 2), target(target)
     {
       grid.resize(grid_size);
       for(unsigned int i = 0; i < grid_size; ++i)
       {
         grid[i] = i * boost::math::constants::pi<DataType>() / grid_size;
       }
+      fft_processor.set_size(2 * grid_size);
     }
     
     void init()
     {
       coeffs.assign(M * 2 + 1, 0);
       indices.assign(M + 2, -1);
+      s.assign(M+2, 0);
       
-      for(std::size_t i = 0; i < indices.size(); ++i)
-      {
-        indices[i] = pickup_new_indice(indices);
-      }
+      indices = std::vector<unsigned int>{ 51, 101, 341, 361, 531, 671, 701, 851 };
       
       weights.assign(grid_size, 0);
       objective.assign(grid_size, 0);
@@ -68,12 +68,27 @@ namespace
       int current_template = 0;
       for(int i = 0; i < grid_size; ++i)
       {
-        if(grid[i] / boost::math::constants::pi<DataType>() > target[current_template].first.second && current_template + 1 < target.size())
+        auto reduced_freq = grid[i] / boost::math::constants::pi<DataType>();
+        if(reduced_freq > target[current_template].first.second && current_template + 1 < target.size())
         {
           ++current_template;
         }
-        weights[i] = target[current_template].second.second;
-        objective[i] = target[current_template].second.first;
+        if (reduced_freq < target[current_template].first.first || reduced_freq > target[current_template].first.second)
+        {
+          weights[i] = 0;
+          objective[i] = 0;
+        }
+        else
+        {
+          weights[i] = target[current_template].second.second;
+          objective[i] = target[current_template].second.first;
+        }
+      }
+      int flag = -1;
+      for (unsigned int i = 0; i < M + 2; ++i)
+      {
+        s[i] = flag;
+        flag = -flag;
       }
     }
     
@@ -85,60 +100,184 @@ namespace
         return coeffs;
       }
       init();
-      
-      Eigen::Matrix<DataType, Eigen::Dynamic, Eigen::Dynamic> A(M+2, M+2);
-      for(unsigned int i = 0; i < M+2; ++i)
+      while(true)
       {
-        for(unsigned int j = 0; j < M+1; ++j)
+        Eigen::Matrix<DataType, Eigen::Dynamic, Eigen::Dynamic> A(M + 2, M + 2);
+        for (unsigned int i = 0; i < M + 2; ++i)
         {
-          A(i, j) = std::cos(grid[indices[i]] * j);
+          for (unsigned int j = 0; j < M + 1; ++j)
+          {
+            A(i, j) = std::cos(grid[indices[i]] * j);
+          }
         }
-      }
-      int flag = -1;
-      for(unsigned int i = 0; i < M+2; ++i)
-      {
-        A(i, M+1) = flag / weights[indices[i]];
-        flag = -flag;
-      }
-      
-      Eigen::Matrix<DataType, Eigen::Dynamic, 1> b(M+2, 1);
-      for(unsigned int i = 0; i < M+2; ++i)
-      {
-        b(i) = objective[indices[i]];
-      }
-      std::cout << "Here is the matrix A:\n" << A << std::endl;
-      std::cout << "Here is the vector b:\n" << b << std::endl;
-      Eigen::Matrix<DataType, Eigen::Dynamic, 1> x = A.colPivHouseholderQr().solve(b);
-      std::cout << "Here is the result vector x:\n" << x << std::endl;
+        for (unsigned int i = 0; i < M + 2; ++i)
+        {
+          A(i, M + 1) = s[i] / weights[indices[i]];
+        }
 
-      for (unsigned int i = 0; i < M; ++i)
-      {
-        coeffs[i] = coeffs[2*M-2-i] = x[M+1-i]/2;
+        Eigen::Matrix<DataType, Eigen::Dynamic, 1> b(M + 2, 1);
+        for (unsigned int i = 0; i < M + 2; ++i)
+        {
+          b(i) = objective[indices[i]];
+        }
+        Eigen::Matrix<DataType, Eigen::Dynamic, 1> x = A.colPivHouseholderQr().solve(b);
+
+        for (unsigned int i = 0; i < M; ++i)
+        {
+          coeffs[i] = coeffs[2 * M - i] = x[M - i] / 2;
+        }
+        coeffs[M] = x[0];
+        auto delta = std::abs(x[M + 1]); // maximum cost
+
+        auto newerr = compute_new_error();
+        auto new_indices = locmax(newerr);
+
+        filter_SN(delta, new_indices, newerr);
+        filter_monotony(new_indices, newerr);
+
+        DataType max = 0;
+        for (auto indice : new_indices)
+        {
+          max = std::max(max, std::abs(newerr[indice]));
+        }
+
+        if ((max - delta) / delta < SN)
+          break;
+
+        indices = std::move(new_indices);
       }
-      coeffs[M+1] = x[0];
 
       return coeffs;
     }
     
-  protected:
-    int pickup_new_indice(const std::vector<unsigned int>& indices)
+  private:
+    /// Creates a spectral response for a given set of coeffs through an FFT
+    std::vector<DataType> firamp() const
     {
-      while(true)
+      std::vector<std::complex<DataType>> output(grid_size * 2);
+      fft_processor.process_forward(coeffs.data(), output.data(), coeffs.size());
+      std::vector<DataType> amp(grid_size);
+      for (std::size_t i = 0; i < grid_size; ++i)
       {
-        int trial = dist(gen);
-        if(std::find(indices.begin(), indices.end(), trial) == indices.end()) // not already used
+        amp[i] = (std::complex<DataType>(std::cos(M * grid[i]), std::sin(M * grid[i])) * output[i]).real() * grid_size * 2;
+      }
+      return amp;
+    }
+
+    std::vector<DataType> compute_new_error() const
+    {
+      auto fir_result = firamp();
+      std::vector<DataType> newerr(grid_size);
+      for (std::size_t i = 0; i < grid_size; ++i)
+      {
+        newerr[i] = (fir_result[i] - objective[i]) * weights[i];
+      }
+
+      return newerr;
+    }
+
+    // Finds min and max
+    std::vector<unsigned int> locmax(const std::vector<DataType>& data) const
+    {
+      std::vector<unsigned int> v;
+
+      std::vector<DataType> temp1;
+      std::vector<DataType> temp2;
+      temp1.push_back(data[0] - 1);
+      for (std::size_t i = 0; i < data.size() - 1; ++i)
+      {
+        temp1.push_back(data[i]);
+        temp2.push_back(data[i + 1]);
+      }
+      temp2.push_back(data.back() - 1);
+
+      for (std::size_t i = 0; i < data.size(); ++i)
+      {
+        if ((data[i] > temp1[i]) && (data[i] > temp2[i]))
         {
-          DataType relative_freq = grid[trial] / boost::math::constants::pi<DataType>();
-          for(std::size_t j = 0; j + 1 < target.size(); ++j)
-          {
-            if(relative_freq > target[j].first.second && relative_freq < target[j + 1].first.first)
-            {
-              continue;
-            }
-          }
-          return trial;
+          v.push_back(i);
         }
       }
+
+      temp1.clear();
+      temp2.clear();
+      temp1.push_back(-data[0] - 1);
+      for (std::size_t i = 0; i < data.size() - 1; ++i)
+      {
+        temp1.push_back(-data[i]);
+        temp2.push_back(-data[i + 1]);
+      }
+      temp2.push_back(-data.back() - 1);
+
+      for (std::size_t i = 0; i < data.size(); ++i)
+      {
+        if ((-data[i] > temp1[i]) && (-data[i] > temp2[i]))
+        {
+          v.push_back(i);
+        }
+      }
+
+      std::sort(v.begin(), v.end());
+
+      return v;
+    }
+
+    void filter_SN(DataType delta, std::vector<unsigned int>& indices, const std::vector<DataType>& err) const
+    {
+      std::vector<unsigned int> new_indices;
+
+      for (auto indice : indices)
+      {
+        if (std::abs(err[indice]) > (delta - SN))
+        {
+          new_indices.push_back(indice);
+        }
+      }
+
+      indices = std::move(new_indices);
+    }
+
+    std::vector<unsigned int> etap(const std::vector<DataType>& data) const
+    {
+      std::vector<unsigned int> v;
+      auto xe = data[0];
+      std::size_t xv = 0;
+      for (std::size_t i = 1; i < data.size(); ++i)
+      {
+        if (std::signbit(data[i]) == std::signbit(xe))
+        {
+          if (std::abs(data[i]) > std::abs(xe))
+          {
+            xe = data[i];
+            xv = i;
+          }
+        }
+        else
+        {
+          v.push_back(xv);
+          xe = data[i];
+          xv = i;
+        }
+      }
+      v.push_back(xv);
+      return v;
+    }
+
+    void filter_monotony(std::vector<unsigned int>& indices, const std::vector<DataType>& err) const
+    {
+      std::vector<DataType> filtered_err;
+      for (auto indice : indices)
+      {
+        filtered_err.push_back(err[indice]);
+      }
+
+      auto selected_indices = etap(filtered_err);
+      std::vector<unsigned int> new_indices;
+      for (unsigned int i = 0; i < M + 2; ++i)
+      {
+        new_indices.push_back(indices[selected_indices[i]]);
+      }
+      indices = std::move(new_indices);
     }
   };
 }
@@ -173,9 +312,9 @@ namespace ATK
   template<class DataType>
   void RemezBasedCoefficients<DataType>::set_order(unsigned int order)
   {
-    if(order % 2 == 0)
+    if(order % 2 == 1)
     {
-      throw std::range_error("Need an odd filter order");
+      throw std::range_error("Need an even filter order (considering order 0 has 1 coefficients)");
     }
     in_order = order;
     setup();
@@ -203,10 +342,8 @@ namespace ATK
     }
   }
   
-  template class RemezBasedCoefficients<float>;
   template class RemezBasedCoefficients<double>;
   
-  template class FIRFilter<RemezBasedCoefficients<float> >;
   template class FIRFilter<RemezBasedCoefficients<double> >;
 }
 

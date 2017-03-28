@@ -57,46 +57,42 @@ it = 0
 
 while True:
   print("Iteration " + str(it))
-  print(w[k]/np.pi)
+  print("Selected frequencies", w[k]/np.pi)
 
   temp = np.vstack((np.cos(w[k]*m.reshape(-1,1)), s/W[k])).T
   x = linalg.solve(temp, D[k])
   
   a = x[:-1]
   delta = x[-1]
-  print(delta)
+  print("Max error", delta)
   
   h = np.hstack((a[:0:-1], 2*a[0], a[1:]))/2
   
   A = firamp(h, L, w)
   err = (A-D)*W
-  print(w[k]/np.pi)
-  print(err[k])
+  print("Final error", np.vstack((w[k]/np.pi,err[k])).T)
               
   plt.plot(w, err)
   plt.scatter(w[k], err[k], c='g')
   plt.show()
   newk = np.sort(np.hstack((locmax(err), locmax(-err))))
   errk = (A[newk]-D[newk])*W[newk]
-  print(w[newk]/np.pi)
-  print(errk)
+  print("New error", np.vstack((w[newk]/np.pi,errk)).T)
   
   SN = 1e-8
   v = np.abs(errk) >= (np.abs(delta) - SN)
   newk = newk[v]
   errk = errk[v]
   
-  print(w[newk]/np.pi)
-  print(errk)
+  print("New error after SN check", np.vstack((w[newk]/np.pi,errk)).T)
   
   v = etap(errk)
   v = v[:R]
-  print(v)
+  print("Selected errors", v)
   newk = newk[v]
   errk = errk[v]
   
-  print(w[newk]/np.pi)
-  print(errk)
+  print("New error after monotony check", np.vstack((w[newk]/np.pi,errk)).T)
 
   if (np.max(errk) - abs(delta))/abs(delta) < SN:
     break
