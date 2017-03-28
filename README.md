@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.0.0
+* Added a RemezBasedCoefficients with Python wrappers to be used with FIRFilter to generate a FIR filter from a template
 * Added a RLSFilter with Python wrappers
 * Support for IPP as a FFT backend
 * Refactored the API for global unsigned consistency

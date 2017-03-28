@@ -80,26 +80,32 @@ EQ module
 
 The *EQ* module contains a lot of different filter types.
 
-* **BesselFilter** is an implementation of Bessel filters
-* **ButterworthFilter** is an implementation of Butterworth filters
 * **ChamberlinFilter** is an implementation of the Chamberlin state filter
-* **Chebyshev1Filter** is an implementation of Chebyshev type 1 filters
-* **Chebyshev2Filter** is an implementation of Chebyshev type 2 filters
-* **LinkwitzRileyFilter** is an implementation of filters (low pass and high pass second orders) that can be summed together for a flat response
-* **RobertBristowJohnsonFilter** is an implementation of RBJ second order filters
-* **SecondOrderFilter** is an implementation of second order filters
-* **SecondOrderSVFFilter** is an implementation of second order SVF filters from cytomic
 
-* **SD1ToneFilter** is an implementation of the Boss SD1 pedal tone section
-* **ToneStackFilter** is an implementation of a tone stack section found in several guitar amplifiers
+* **BesselCoefficients** is an implementation of Bessel coefficients
+* **ButterworthCoefficients** is an implementation of Butterworth coefficients
+* **Chebyshev1Coefficients** is an implementation of Chebyshev type 1 coefficients
+* **Chebyshev2Coefficients** is an implementation of Chebyshev type 2 coefficients
+* **LinkwitzRileyCoefficients** is an implementation of coefficients (low pass and high pass second orders) that can be summed together for a flat response
+* **RobertBristowJohnsonCoefficients** is an implementation of RBJ second order coefficients
+* **SecondOrderCoefficients** is an implementation of second order coefficients
+* **SD1ToneCoefficients** is an implementation of the Boss SD1 pedal tone section
+* **ToneStackCoefficients** is an implementation of a tone stack section found in several guitar amplifiers
+* **CustomIIRFilter** helps designing custom IIR coefficients
+* **IIRFilter** is an implementation of DF1 IIR filters for the previous coefficients
 
-* **CustomIIRFilter** helps designing custom IIR filters
+* **SecondOrderSVFCoefficients** is an implementation of second order SVF coefficients from cytomic
+* **SecondOrderSVFFilter** is an implementation of second order SVF filters for the previous coefficients
+
+* **RemezeBasedFilter** helps designing custom FIR filters from a template
 * **CustomFIRFilter** helps designing custom FIR filters
+* **FIRFilter** is an implementation of DF1 FIR filters for the previous coefficients
 
-* **IIRFilter** is the base class for IIR filters (Direct Form 1)
-
-* **TimeVaryingSecondOrderFilter** is an implementation of time varying second order filters
+* **TimeVaryingSecondOrderCoefficients** is an implementation of time varying second order filters
 * **TimeVaryingIIRFilter** is the base class for time varying IIR filters
+
+* **TimeVaryingSecondOrderSVFCoefficients** is an implementation of second order SVF coefficients from cytomic for time-varying parameters
+* **TimeVaryingSecondOrderSVFFilter** is an implementation of second order SVF filters for the previous coefficients
 
 Delay module
 ------------

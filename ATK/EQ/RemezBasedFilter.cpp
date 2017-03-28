@@ -60,8 +60,6 @@ namespace
       indices.assign(M + 2, -1);
       s.assign(M+2, 0);
       
-      indices = std::vector<unsigned int>{ 51, 101, 341, 361, 531, 671, 701, 851 };
-      
       weights.assign(grid_size, 0);
       objective.assign(grid_size, 0);
 
@@ -90,6 +88,28 @@ namespace
         s[i] = flag;
         flag = -flag;
       }
+      indices = set_starting_conditions();
+    }
+
+    std::vector<unsigned int> set_starting_conditions() const
+    {
+      std::vector<unsigned int> indices;
+
+      std::vector<unsigned int> valid_indices;
+      for (std::size_t i = 0; i < grid_size; ++i)
+      {
+        if (weights[i] != 0)
+        {
+          valid_indices.push_back(i);
+        }
+      }
+
+      for (unsigned int i = 0; i < M + 2; ++i)
+      {
+        indices.push_back(valid_indices[std::round(valid_indices.size() / (M + 4.) * (i + 1))]);
+      }
+
+      return indices;
     }
     
     AlignedVector build()
