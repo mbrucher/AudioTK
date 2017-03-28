@@ -13,6 +13,10 @@ SOURCE_GROUP_BY_FOLDER(ATK_EQ)
 
 include_directories(${PROJECT_SOURCE_DIR})
 
+if(EIGEN_FOUND)
+  include_directories(${EIGEN_INCLUDE_DIRS})
+endif(EIGEN_FOUND)
+
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKEQ_static
     STATIC
@@ -43,7 +47,7 @@ set_target_properties (ATKEQ PROPERTIES
     FOLDER C++/shared
 )
 
-target_link_libraries(ATKEQ ATKTools ATKCore)
+target_link_libraries(ATKEQ ATKTools ATKUtility ATKCore)
 
 stagedebug(ATKEQ)
 

@@ -2,6 +2,7 @@
  * \file Chebyshev2Filter.cpp
  */
 
+#include <boost/math/constants/constants.hpp>
 #include <boost/math/special_functions/asinh.hpp>
 
 #include "Chebyshev2Filter.h"

@@ -11,7 +11,6 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 add_subdirectory(Tools)
-
 add_subdirectory(IO)
 
 add_subdirectory(EQ)

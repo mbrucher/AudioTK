@@ -113,6 +113,14 @@ if __name__ == "__main__":
   print("Signal to noise ratio: " + str(np.mean(ref**2)/np.mean((ref - d1)**2)))
   print("Signal to remaining noise ratio: " + str(np.mean(ref**2)/np.mean((d1 - ref - out1)**2)))
   
+  from scipy import signal
+  print(filter.rls.get_coefficients_in())
+  w, h = signal.freqz(filter.rls.get_coefficients_in())
+  plt.figure()
+  plt.loglog(w, np.abs(h), label="RLS filter")
+  plt.grid(True)
+  plt.title("Frequency response")
+
   from scipy.fftpack import fft
   
   freqs = np.arange(size//2+1)

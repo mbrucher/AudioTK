@@ -9,7 +9,7 @@
 
 namespace ATK
 {
-  /// Creates a custom FIR filter  when used as the coefficients class with IIRFilter
+  /// Creates a custom FIR filter  when used as the coefficients class with FIRFilter
   template<typename DataType_>
   class CustomFIRCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -23,13 +23,9 @@ namespace ATK
   protected:
     /// Order of the MA polynomial
     unsigned int in_order;
-    /// Set to 0 so IIRFilter understand that it can bypass the AR section
-    const static int out_order = 0;
 
     /// MA polynomial
     AlignedVector coefficients_in;
-    /// There only to use IIRFilter, but won't actually be used, as out_order in always 0
-    AlignedVector coefficients_out;
 
   public:
     /*!

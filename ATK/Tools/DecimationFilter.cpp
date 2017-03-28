@@ -30,7 +30,7 @@ namespace ATK
     }
     else
     {
-      decimation = (input_sampling_rate / output_sampling_rate);
+      decimation = static_cast<int>(input_sampling_rate / output_sampling_rate);
     }
   }
   

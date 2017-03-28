@@ -20,8 +20,21 @@ namespace ATK
     /// Sets the learning mode
     void set_learning(bool learning);
     /// Am I in learning mode or not?
-    bool get_learning() const;  };
+    bool get_learning() const;
+  };
 }
 
 %template(FloatRLSFilter) ATK::RLSFilter<float>;
 %template(DoubleRLSFilter) ATK::RLSFilter<double>;
+
+%define RLSFilterExtend(name, T)
+%extend name {
+  std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_in()
+  {
+    return std::vector<T, boost::alignment::aligned_allocator<T, 32>>((*self).get_w(), (*self).get_w() + (*self).get_size());;
+  }
+}
+%enddef
+
+RLSFilterExtend(ATK::RLSFilter<float>, float);
+RLSFilterExtend(ATK::RLSFilter<double>, double);

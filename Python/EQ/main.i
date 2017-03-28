@@ -4,8 +4,15 @@
 #define SWIG_FILE_WITH_INIT
 #define PY_ARRAY_UNIQUE_SYMBOL PyArray_API
 %}
+%include "../Core/numpy.i"
+%fragment("NumPy_Fragments");
 
-%module(package="Tools", docstring="Python interface to ATK Tools module") EQ
+%init
+%{
+import_array();
+%}
+
+%module(package="EQ", docstring="Python interface to ATK EQ module") EQ
 
 %nodefaultdtor;
 %nodefaultctor;
@@ -22,7 +29,10 @@
 %include "Chebyshev1Filter.i"
 %include "Chebyshev2Filter.i"
 %include "CustomIIRFilter.i"
+
+%include "FIRFilter.i"
 %include "CustomFIRFilter.i"
+%include "RemezBasedFilter.i"
 
 %include "TimeVaryingIIRFilter.i"
 %include "TimeVaryingSecondOrderFilter.i"
