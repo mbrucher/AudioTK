@@ -31,7 +31,7 @@ namespace ATK
      * @brief Creates the filter with a given size
      * @param size is the size of the underlying MA filter
      */
-    LMSFilter(std::size_t size);
+    LMSFilter(std::size_t size, DataType_ alpha, DataType_ mu);
     /// Destructor
     ~LMSFilter();
     
@@ -39,6 +39,15 @@ namespace ATK
     void set_size(std::size_t size);
     /// Retrieve the size
     std::size_t get_size() const;
+
+    /// Sets the memory of the LMS algorithm
+    void set_memory(DataType_ memory);
+    /// Retrieves the memory
+    DataType_ get_memory() const;
+    /// Sets mu of the LMS algorithm
+    void set_mu(DataType_ mu);
+    /// Retrieves mu
+    DataType_ get_mu() const;
 
   protected:
     virtual void process_impl(std::size_t size) const;
