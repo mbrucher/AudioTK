@@ -26,7 +26,7 @@ namespace ATK
     DataType_ mu;
 
     LMSFilterImpl(std::size_t size)
-    :w(wType::Zero(size, 1))
+    :w(wType::Zero(size, 1)), alpha(.99), mu(0.05)
     {
     }
 
@@ -38,11 +38,9 @@ namespace ATK
   };
 
   template<typename DataType_>
-  LMSFilter<DataType_>::LMSFilter(std::size_t size, DataType_ alpha, DataType_ mu)
+  LMSFilter<DataType_>::LMSFilter(std::size_t size)
   :Parent(2, 1), impl(new LMSFilterImpl(size)), global_size(size)
   {
-    set_memory(alpha);
-    set_memory(mu);
     input_delay = size + 1;
   }
   
@@ -125,6 +123,12 @@ namespace ATK
 
       impl->update(x, output[i] - ref[i]);
     }
+  }
+
+  template<typename DataType_>
+  const DataType_* LMSFilter<DataType_>::get_w() const
+  {
+    return impl->w.data();
   }
 
   template class LMSFilter<float>;
