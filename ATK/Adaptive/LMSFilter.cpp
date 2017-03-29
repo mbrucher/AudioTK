@@ -5,7 +5,6 @@
 #include "LMSFilter.h"
 
 #include <cstdint>
-#include <iostream>
 #include <stdexcept>
 
 #include <Eigen/Core>
@@ -121,7 +120,7 @@ namespace ATK
       typename LMSFilterImpl::xType x(input - global_size + i, global_size, 1);
       output[i] = impl->w.dot(x);
 
-      impl->update(x, output[i] - ref[i]);
+      impl->update(x, ref[i] - output[i]);
     }
   }
 

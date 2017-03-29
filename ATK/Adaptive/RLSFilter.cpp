@@ -5,7 +5,6 @@
 #include "RLSFilter.h"
 
 #include <cstdint>
-#include <iostream>
 #include <stdexcept>
 
 #include <Eigen/Core>
