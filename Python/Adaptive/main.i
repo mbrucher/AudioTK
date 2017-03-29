@@ -18,6 +18,7 @@ import_array();
 %nodefaultctor;
 
 %include "../Core/BaseFilter.i"
+%include "LMSFilter.i"
 %include "RLSFilter.i"
 
 #endif
