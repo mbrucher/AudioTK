@@ -5,7 +5,6 @@
 #include "RLSFilter.h"
 
 #include <cstdint>
-#include <iostream>
 #include <stdexcept>
 
 #include <Eigen/Core>
@@ -21,7 +20,7 @@ namespace ATK
     typedef Eigen::Map<const wType> xType;
 
     RLSFilterImpl(std::size_t size)
-      :P(PType::Identity(size, size) / size), w(wType::Zero(size, DataType_(1))), memory(.99)
+      :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size, 1)), memory(.99)
     {
     }
 
@@ -63,9 +62,9 @@ namespace ATK
 
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(std::size_t size)
-  :Parent(1, 1), global_size(size), impl(new RLSFilterImpl(size)), learning(false)
+  :Parent(1, 1), impl(new RLSFilterImpl(size)), global_size(size), learning(false)
   {
-    input_delay = size;
+    input_delay = size + 1;
   }
   
   template<typename DataType_>
@@ -81,7 +80,7 @@ namespace ATK
       throw std::out_of_range("Size must be strictly positive");
     }
 
-    impl->P = RLSFilterImpl::PType::Identity(size, size) / size;
+    impl->P = RLSFilterImpl::PType::Identity(size, size) / DataType(size);
     impl->w = typename RLSFilterImpl::wType(size, 1);
     input_delay = size+1;
     this->global_size = size;

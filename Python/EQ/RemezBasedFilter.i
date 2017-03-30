@@ -1,6 +1,6 @@
 
 %{
-#include <ATK/EQ/CustomFIRFilter.h>
+#include <ATK/EQ/RemezBasedFilter.h>
 %}
 
 %include <std_vector.i>
