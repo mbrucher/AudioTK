@@ -34,11 +34,20 @@ namespace ATK
       w = alpha * w + mu * error * x;
     }
 
+    void update_normalized(const xType& x, DataType error)
+    {
+      w = alpha * w + mu * error * x / (std::numeric_limits<DataType>::epsilon() + x.squaredNorm());
+    }
+
+    void update_signerror(const xType& x, DataType error)
+    {
+      w = alpha * w + mu * std::copysign(1, error) * x;
+    }
   };
 
   template<typename DataType_>
   LMSFilter<DataType_>::LMSFilter(std::size_t size)
-  :Parent(2, 1), impl(new LMSFilterImpl(size)), global_size(size)
+  :Parent(2, 1), impl(new LMSFilterImpl(size)), mode(Mode::NORMAL), global_size(size)
   {
     input_delay = size + 1;
   }
@@ -109,18 +118,32 @@ namespace ATK
   }
 
   template<typename DataType_>
+  void LMSFilter<DataType_>::set_mode(Mode mode)
+  {
+    this->mode = mode;
+  }
+
+  template<typename DataType_>
+  typename LMSFilter<DataType_>::Mode LMSFilter<DataType_>::get_mode() const
+  {
+    return mode;
+  }
+
+  template<typename DataType_>
   void LMSFilter<DataType_>::process_impl(std::size_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     const DataType* ATK_RESTRICT ref = converted_inputs[1];
     DataType* ATK_RESTRICT output = outputs[0];
     
+    auto update_function = mode == Mode::NORMAL ? &LMSFilterImpl::update : (mode == Mode::NORMALIZED ? &LMSFilterImpl::update_normalized : &LMSFilterImpl::update_signerror);
+
     for(std::size_t i = 0; i < size; ++i)
     {
       typename LMSFilterImpl::xType x(input - global_size + i, global_size, 1);
-      output[i] = impl->w.dot(x);
+      output[i] = impl->w.conjugate().dot(x);
 
-      impl->update(x, ref[i] - output[i]);
+      std::invoke(update_function, impl, x, std::conj(ref[i] - output[i]));
     }
   }
 

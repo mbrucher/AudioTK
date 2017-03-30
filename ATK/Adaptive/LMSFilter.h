@@ -29,6 +29,8 @@ namespace ATK
   public:
     /**
      * @brief Creates the filter with a given size
+     * An LMS filter is an adaptive filter that tries to match its second input with a linear combination of the first input, outputing the difference 
+     * of the reference and the estimate.
      * @param size is the size of the underlying MA filter
      */
     LMSFilter(std::size_t size);
@@ -44,7 +46,7 @@ namespace ATK
     void set_memory(DataType_ memory);
     /// Retrieves the memory
     DataType_ get_memory() const;
-    /// Sets mu of the LMS algorithm
+    /// Sets mu of the LMS algorithm, should be less than 2/((size+1) * maximum of the DSP of the input signal)
     void set_mu(DataType_ mu);
     /// Retrieves mu
     DataType_ get_mu() const;
@@ -52,10 +54,23 @@ namespace ATK
     /// Retrieves w
     const DataType_* get_w() const;
 
+    enum class Mode
+    {
+      NORMAL,
+      NORMALIZED,
+      SIGNERROR
+    };
+
+    /// Sets the way the filter is updated
+    void set_mode(Mode mode);
+    /// Retrieves the way the filter is updated
+    Mode get_mode() const;
+
   protected:
     virtual void process_impl(std::size_t size) const;
     
   private:
+    Mode mode;
     std::size_t global_size;
   };
 }
