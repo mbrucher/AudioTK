@@ -15,7 +15,6 @@ namespace ATK
   ApplyGainFilter<DataType_>::ApplyGainFilter(int nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
-    output_delay = 1;
   }
   
   template<typename DataType_>
