@@ -10,7 +10,7 @@
 
 #include <Eigen/Core>
 
-#include <ATK/Core/typeTraits.h>
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {

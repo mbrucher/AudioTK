@@ -32,6 +32,11 @@ namespace ATK
     {
       return static_cast<DataType>(-el * std::numeric_limits<DataType>::min());
     }
+
+    static DataType conj(DataType el)
+    {
+      return el;
+    }
   };
 
   /// Special case for 24bits
@@ -101,6 +106,11 @@ namespace ATK
     {
       return static_cast<DataType>(el);
     }
+
+    static DataType conj(DataType el)
+    {
+      return el;
+    }
   };
 
   /// Traits to handle conversion complex floating point numbers from/to double
@@ -119,6 +129,11 @@ namespace ATK
     static DataType from_double(Scalar el)
     {
       return static_cast<DataType>(el);
+    }
+
+    static DataType conj(DataType el)
+    {
+      return std::conj(el);
     }
   };
 

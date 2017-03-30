@@ -9,6 +9,8 @@
 
 #include <Eigen/Core>
 
+#include <ATK/Core/TypeTraits.h>
+
 namespace ATK
 {
   template<typename DataType_>
@@ -143,7 +145,7 @@ namespace ATK
       typename LMSFilterImpl::xType x(input - global_size + i, global_size, 1);
       output[i] = impl->w.conjugate().dot(x);
 
-      (impl.get()->*update_function)(x, std::conj(ref[i] - output[i]));
+      (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
     }
   }
 
