@@ -6,6 +6,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <complex>
 #include <cstdint>
 
 namespace ATK
@@ -42,4 +43,6 @@ namespace ATK
   
   template class ApplyGainFilter<float>;
   template class ApplyGainFilter<double>;
+  template class ApplyGainFilter<std::complex<float>>;
+  template class ApplyGainFilter<std::complex<double>>;
 }

@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <complex>
 #include <stdexcept>
 
 namespace ATK
@@ -150,4 +151,6 @@ namespace ATK
 
   template class UniversalFixedDelayLineFilter<float>;
   template class UniversalFixedDelayLineFilter<double>;
+  template class UniversalFixedDelayLineFilter<std::complex<float>>;
+  template class UniversalFixedDelayLineFilter<std::complex<double>>;
 }

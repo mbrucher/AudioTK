@@ -5,10 +5,12 @@
 #include "RLSFilter.h"
 
 #include <cstdint>
-#include <iostream>
+#include <complex>
 #include <stdexcept>
 
 #include <Eigen/Core>
+
+#include <ATK/Core/typeTraits.h>
 
 namespace ATK
 {
@@ -30,9 +32,9 @@ namespace ATK
       auto alpha = target - actual;
       auto xreverse = x.reverse();
 
-      wType g = (P * xreverse) / (memory + xreverse.transpose() * P * xreverse);
-      PType pupdate = (g * (xreverse.transpose() * P));
-      w = w + alpha * g;
+      wType g = (P * xreverse) / (xreverse.adjoint() * P * xreverse + memory);
+      PType pupdate = (g * (xreverse.adjoint() * P));
+      w = w + std::conj(alpha) * g;
       P = (P - (pupdate + pupdate.transpose()) / 2) * memory;
     }
 
@@ -58,7 +60,7 @@ namespace ATK
 
     PType P;
     wType w;
-    DataType memory;
+    double memory;
   };
 
   template<typename DataType_>
@@ -94,7 +96,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void RLSFilter<DataType_>::set_memory(DataType_ memory)
+  void RLSFilter<DataType_>::set_memory(double memory)
   {
     if(memory >= 1)
     {
@@ -109,7 +111,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  DataType_ RLSFilter<DataType_>::get_memory() const
+  double RLSFilter<DataType_>::get_memory() const
   {
     return impl->memory;
   }
@@ -137,7 +139,7 @@ namespace ATK
       typename RLSFilterImpl::xType x(input - global_size + i, global_size, 1);
       
       // compute next sample
-      output[i] = impl->w.transpose() * x.reverse();
+      output[i] = impl->w.adjoint() * x.reverse();
       
       if(learning)
       {

@@ -7,6 +7,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <complex>
 
 #include <boost/math/constants/constants.hpp>
 
@@ -41,6 +42,12 @@ namespace ATK
   template class CustomIIRCoefficients<float>;
   template class CustomIIRCoefficients<double>;
   
-  template class IIRFilter<CustomIIRCoefficients<float> >;
-  template class IIRFilter<CustomIIRCoefficients<double> >;
+  template class CustomIIRCoefficients<std::complex<float>>;
+  template class CustomIIRCoefficients<std::complex<double>>;
+
+  template class IIRFilter<CustomIIRCoefficients<float>>;
+  template class IIRFilter<CustomIIRCoefficients<double>>;
+
+  template class IIRFilter<CustomIIRCoefficients<std::complex<float>>>;
+  template class IIRFilter<CustomIIRCoefficients<std::complex<double>>>;
 }

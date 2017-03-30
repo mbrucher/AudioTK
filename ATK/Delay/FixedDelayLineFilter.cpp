@@ -5,7 +5,7 @@
 #include "FixedDelayLineFilter.h"
 
 #include <algorithm>
-#include <cstring>
+#include <complex>
 #include <stdexcept>
 
 namespace ATK
@@ -91,4 +91,6 @@ namespace ATK
   
   template class FixedDelayLineFilter<float>;
   template class FixedDelayLineFilter<double>;
+  template class FixedDelayLineFilter<std::complex<float>>;
+  template class FixedDelayLineFilter<std::complex<double>>;
 }

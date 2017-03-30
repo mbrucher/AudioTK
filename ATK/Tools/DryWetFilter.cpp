@@ -6,7 +6,10 @@
 
 #include <cassert>
 #include <cmath>
+#include <complex>
 #include <cstdint>
+
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -52,14 +55,16 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        output[i] = static_cast<DataType>(input0[i] * dry + input1[i] * (1 - dry));
+        output[i] = static_cast<DataType>(static_cast<TypeTraits<DataType>::Scalar>(input0[i]) * static_cast<TypeTraits<DataType>::Scalar>(dry) + static_cast<TypeTraits<DataType>::Scalar>(input1[i]) * static_cast<TypeTraits<DataType>::Scalar>(1 - dry));
       }
     }
   }
   
   template class DryWetFilter<std::int16_t>;
   template class DryWetFilter<std::int32_t>;
-  template class DryWetFilter<int64_t>;
+  template class DryWetFilter<std::int64_t>;
   template class DryWetFilter<float>;
   template class DryWetFilter<double>;
+  template class DryWetFilter<std::complex<float>>;
+  template class DryWetFilter<std::complex<double>>;
 }

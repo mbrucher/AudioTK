@@ -5,6 +5,7 @@
 #include "DecimationFilter.h"
 
 #include <cassert>
+#include <complex>
 #include <cstdint>
 
 namespace ATK
@@ -56,4 +57,6 @@ namespace ATK
   template class DecimationFilter<int64_t>;
   template class DecimationFilter<float>;
   template class DecimationFilter<double>;
+  template class DecimationFilter<std::complex<float>>;
+  template class DecimationFilter<std::complex<double>>;
 }

@@ -50,9 +50,9 @@ namespace ATK
     const DataType_* get_w() const;
 
     /// Sets the memory of the RLS algorithm
-    void set_memory(DataType_ memory);
+    void set_memory(double memory);
     /// Retrieves the memory
-    DataType_ get_memory() const;
+    double get_memory() const;
 
     /// Sets the learning mode
     void set_learning(bool learning);

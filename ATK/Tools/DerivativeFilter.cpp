@@ -6,6 +6,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <complex>
 #include <cstdint>
 
 namespace ATK
@@ -40,9 +41,11 @@ namespace ATK
     }
   }
   
-  template class DerivativeFilter<int16_t>;
-  template class DerivativeFilter<int32_t>;
-  template class DerivativeFilter<int64_t>;
+  template class DerivativeFilter<std::int16_t>;
+  template class DerivativeFilter<std::int32_t>;
+  template class DerivativeFilter<std::int64_t>;
   template class DerivativeFilter<float>;
   template class DerivativeFilter<double>;
+  template class DerivativeFilter<std::complex<float>>;
+  template class DerivativeFilter<std::complex<double>>;
 }

@@ -5,9 +5,12 @@
 #include "PanFilter.h"
 
 #include <cmath>
+#include <complex>
 #include <cstdint>
 
 #include <boost/math/constants/constants.hpp>
+
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -91,15 +94,17 @@ namespace ATK
     DataType* ATK_RESTRICT output1 = outputs[1];
     for(std::size_t i = 0; i < size; ++i)
     {
-      *(output0++) = static_cast<DataType>(left_coeff * *input);
-      *(output1++) = static_cast<DataType>(right_coeff * *(input++));
+      output0[i] = static_cast<DataType>(static_cast<TypeTraits<DataType>::Scalar>(left_coeff) * static_cast<TypeTraits<DataType>::Scalar>(input[i]));
+      output1[i] = static_cast<DataType>(static_cast<TypeTraits<DataType>::Scalar>(right_coeff) * static_cast<TypeTraits<DataType>::Scalar>(input[i]));
     }
     
   }
   
   template class PanFilter<std::int16_t>;
   template class PanFilter<std::int32_t>;
-  template class PanFilter<int64_t>;
+  template class PanFilter<std::int64_t>;
   template class PanFilter<float>;
   template class PanFilter<double>;
+  template class PanFilter<std::complex<float>>;
+  template class PanFilter<std::complex<double>>;
 }
