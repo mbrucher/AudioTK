@@ -19,7 +19,7 @@
 namespace
 {
   template<class DataType>
-  std::enable_if_t<!std::is_integral_v<DataType>> compare(DataType v1, DataType v2)
+  typename std::enable_if<!std::is_integral<DataType>::value>::type compare(DataType v1, DataType v2)
   {
     if(std::abs(v1) < 1e-5 || std::abs(v2) < 1e-5)
     {
@@ -36,7 +36,7 @@ namespace
   }
 
   template<class DataType>
-  std::enable_if_t<std::is_integral_v<DataType>> compare(DataType v1, DataType v2)
+  typename std::enable_if<std::is_integral<DataType>::value>::type compare(DataType v1, DataType v2)
   {
     BOOST_REQUIRE_EQUAL(v1, v2);
   }

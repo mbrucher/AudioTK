@@ -34,7 +34,7 @@ namespace ATK
 
       wType g = (P * xreverse) / (xreverse.adjoint() * P * xreverse + memory);
       PType pupdate = (g * (xreverse.adjoint() * P));
-      w = w + std::conj(alpha) * g;
+      w = w + TypeTraits<DataType>::conj(alpha) * g;
       P = (P - (pupdate + pupdate.transpose()) / 2) * memory;
     }
 

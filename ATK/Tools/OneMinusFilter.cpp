@@ -35,7 +35,7 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        output[i] = static_cast<DataType>(static_cast<TypeTraits<DataType>::Scalar>(1) - static_cast<TypeTraits<DataType>::Scalar>(input[i]));
+        output[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(1) - static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
       }
     }
   }
