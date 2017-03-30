@@ -6,6 +6,7 @@
 
 #include <complex>
 #include <cstdint>
+#include <cstring>
 
 #include <boost/mpl/equal.hpp>
 #include <boost/type_traits/is_same.hpp>
