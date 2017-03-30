@@ -37,3 +37,4 @@ Examples/*.txt
 *.txt
 *.bundle
 Doxygen/
+*.dat

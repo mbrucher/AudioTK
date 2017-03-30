@@ -31,9 +31,9 @@ namespace ATK
       auto alpha = target - actual;
       auto xreverse = x.reverse();
 
-      wType g = (P * xreverse) / (memory + xreverse.transpose() * P * xreverse);
-      PType pupdate = (g * (xreverse.transpose() * P));
-      w = w + alpha * g;
+      wType g = (P * xreverse) / (xreverse.adjoint() * P * xreverse + memory);
+      PType pupdate = (g * (xreverse.adjoint() * P));
+      w = w + TypeTraits<DataType>::conj(alpha) * g;
       P = (P - (pupdate + pupdate.transpose()) / 2) * memory;
     }
 

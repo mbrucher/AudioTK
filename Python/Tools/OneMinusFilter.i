@@ -14,8 +14,5 @@ namespace ATK
   };
 }
 
-%template(Int16OneMinusFilter) ATK::OneMinusFilter<int16_t>;
-%template(Int32OneMinusFilter) ATK::OneMinusFilter<int32_t>;
-%template(Int64OneMinusFilter) ATK::OneMinusFilter<int64_t>;
 %template(FloatOneMinusFilter) ATK::OneMinusFilter<float>;
 %template(DoubleOneMinusFilter) ATK::OneMinusFilter<double>;
