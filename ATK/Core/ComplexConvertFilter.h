@@ -5,18 +5,20 @@
 #ifndef ATK_CORE_COMPLEXCONVERTFILTER_H
 #define ATK_CORE_COMPLEXCONVERTFILTER_H
 
+#include <complex>
+
 #include "TypedBaseFilter.h"
 #include "config.h"
 
 namespace ATK
 {
   /// Converts two real channels into a complex one
-  template<typename DataType_, typename DataType__>
-  class ATK_CORE_EXPORT RealToComplexFilter final : public TypedBaseFilter<DataType_, DataType__>
+  template<typename DataType_>
+  class ATK_CORE_EXPORT RealToComplexFilter final : public TypedBaseFilter<DataType_, std::complex<DataType_>>
   {
   protected:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_, DataType__> Parent;
+    typedef TypedBaseFilter<DataType_, std::complex<DataType_>> Parent;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
@@ -36,12 +38,12 @@ namespace ATK
   };
 
   /// Converts a complex channels into a two real one
-  template<typename DataType_, typename DataType__>
-  class ATK_CORE_EXPORT ComplexToRealFilter final : public TypedBaseFilter<DataType_, DataType__>
+  template<typename DataType_>
+  class ATK_CORE_EXPORT ComplexToRealFilter final : public TypedBaseFilter<std::complex<DataType_>, DataType_>
   {
   protected:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_, DataType__> Parent;
+    typedef TypedBaseFilter<std::complex<DataType_>, DataType_> Parent;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;

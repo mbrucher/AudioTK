@@ -80,7 +80,7 @@ namespace
   {
     if (type != 0)
     {
-      convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+      convert_complex_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
     }
     else
     {
@@ -148,7 +148,7 @@ namespace ATK
   template<typename DataType_, typename DataType__>
   int TypedBaseFilter<DataType_, DataType__>::get_type() const
   {
-    return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType>::type >::value;
+    return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType__>::type >::value;
   }
 
   template<typename DataType_, typename DataType__>

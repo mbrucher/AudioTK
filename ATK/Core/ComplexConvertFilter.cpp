@@ -11,19 +11,19 @@
 
 namespace ATK
 {
-  template<typename DataType_, typename DataType__>
-  RealToComplexFilter<DataType_, DataType__>::RealToComplexFilter(int nb_channels)
+  template<typename DataType_>
+  RealToComplexFilter<DataType_>::RealToComplexFilter(int nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
   }
   
-  template<typename DataType_, typename DataType__>
-  RealToComplexFilter<DataType_, DataType__>::~RealToComplexFilter()
+  template<typename DataType_>
+  RealToComplexFilter<DataType_>::~RealToComplexFilter()
   {
   }
 
-  template<typename DataType_, typename DataType__>
-  void RealToComplexFilter<DataType_, DataType__>::process_impl(std::size_t size) const
+  template<typename DataType_>
+  void RealToComplexFilter<DataType_>::process_impl(std::size_t size) const
   {
     assert(nb_input_ports == 2*nb_output_ports);
 
@@ -34,28 +34,28 @@ namespace ATK
       auto* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        output[i] = DataType__(input1[i], input2[i]);
+        output[i] = std::complex<DataType_>(input1[i], input2[i]);
       }
     }
   }
 
-  template<typename DataType_, typename DataType__>
-  ComplexToRealFilter<DataType_, DataType__>::ComplexToRealFilter(int nb_channels)
+  template<typename DataType_>
+  ComplexToRealFilter<DataType_>::ComplexToRealFilter(int nb_channels)
     :Parent(nb_channels, 2 * nb_channels)
   {
   }
 
-  template<typename DataType_, typename DataType__>
-  ComplexToRealFilter<DataType_, DataType__>::~ComplexToRealFilter()
+  template<typename DataType_>
+  ComplexToRealFilter<DataType_>::~ComplexToRealFilter()
   {
   }
 
-  template<typename DataType_, typename DataType__>
-  void ComplexToRealFilter<DataType_, DataType__>::process_impl(std::size_t size) const
+  template<typename DataType_>
+  void ComplexToRealFilter<DataType_>::process_impl(std::size_t size) const
   {
     assert(2* nb_input_ports == nb_output_ports);
 
-    for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
+    for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
     {
       const auto* ATK_RESTRICT input = converted_inputs[channel];
       auto* ATK_RESTRICT output1 = outputs[2 * channel];
@@ -68,8 +68,8 @@ namespace ATK
     }
   }
 
-  template class RealToComplexFilter<float, std::complex<float>>;
-  template class RealToComplexFilter<double, std::complex<double>>;
-  template class ComplexToRealFilter<std::complex<float>, float>;
-  template class ComplexToRealFilter<std::complex<double>, double>;
+  template class RealToComplexFilter<float>;
+  template class RealToComplexFilter<double>;
+  template class ComplexToRealFilter<float>;
+  template class ComplexToRealFilter<double>;
 }
