@@ -5,6 +5,7 @@
 #ifndef ATK_CORE_TYPETRAITS_H
 #define ATK_CORE_TYPETRAITS_H
 
+#include <complex>
 #include <cstdint>
 #include <limits>
 
@@ -28,6 +29,11 @@ namespace ATK
     static DataType from_double(double el)
     {
       return static_cast<DataType>(-el * std::numeric_limits<DataType>::min());
+    }
+
+    static DataType conj(DataType el)
+    {
+      return el;
     }
   };
 
@@ -81,6 +87,32 @@ namespace ATK
   template<typename DataType>
   struct RealTypeTraits
   {
+    typedef double Scalar;
+
+    /// Converts to a double
+    static Scalar to_double(DataType el)
+    {
+      return static_cast<Scalar>(el);
+    }
+
+    /// Converts from a double
+    static DataType from_double(Scalar el)
+    {
+      return static_cast<DataType>(el);
+    }
+
+    static DataType conj(DataType el)
+    {
+      return el;
+    }
+  };
+
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<typename DataType>
+  struct ComplexRealTypeTraits
+  {
+    typedef std::complex<double> Scalar;
+
     /// Converts to a double
     static double to_double(DataType el)
     {
@@ -92,11 +124,17 @@ namespace ATK
     {
       return static_cast<DataType>(el);
     }
+
+    static DataType conj(DataType el)
+    {
+      return std::conj(el);
+    }
   };
 
   /// Comment base class for conversion type traits
   template<typename DataType>
-  struct TypeTraits : public std::conditional<std::is_floating_point_v<DataType>, RealTypeTraits<DataType>, IntegralTypeTraits<DataType>>::type
+  struct TypeTraits : public std::conditional<std::is_class_v<DataType>, ComplexRealTypeTraits<DataType>,
+    typename std::conditional<std::is_floating_point_v<DataType>, RealTypeTraits<DataType>, IntegralTypeTraits<DataType>>::type>::type
   {
   };
 

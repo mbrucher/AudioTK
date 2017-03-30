@@ -9,6 +9,8 @@
 
 #include <Eigen/Core>
 
+#include <ATK/Core/TypeTraits.h>
+
 namespace ATK
 {
   template<typename DataType_>
