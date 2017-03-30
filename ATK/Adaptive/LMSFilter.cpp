@@ -143,7 +143,7 @@ namespace ATK
       typename LMSFilterImpl::xType x(input - global_size + i, global_size, 1);
       output[i] = impl->w.conjugate().dot(x);
 
-      std::invoke(update_function, impl, x, std::conj(ref[i] - output[i]));
+      (impl.get()->*update_function)(x, std::conj(ref[i] - output[i]));
     }
   }
 
