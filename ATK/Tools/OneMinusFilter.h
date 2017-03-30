@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Computes 1 - input for all channels
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT OneMinusFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT OneMinusFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Warps an analog frequency to a numeric one
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT TanFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT TanFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

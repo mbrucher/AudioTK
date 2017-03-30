@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Creates a stereo signal with a specific pan law
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT PanFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT PanFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

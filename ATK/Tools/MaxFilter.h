@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Returns the maximum of two signals in one
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT MaxFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT MaxFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

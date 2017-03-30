@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Scales input signals
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT VolumeFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT VolumeFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

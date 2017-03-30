@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Mixes two signals together
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT DryWetFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT DryWetFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

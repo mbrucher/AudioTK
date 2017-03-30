@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Generates a cosinus signal from a cache
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT CachedCosinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT CachedCosinusGeneratorFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

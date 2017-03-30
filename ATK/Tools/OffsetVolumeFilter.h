@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Scales a signal
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT OffsetVolumeFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT OffsetVolumeFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

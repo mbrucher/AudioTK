@@ -12,7 +12,7 @@ namespace ATK
 {
   /// A middle side filter, splitting L/R signals in (L+R) and (L-R)
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT MiddleSideFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT MiddleSideFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

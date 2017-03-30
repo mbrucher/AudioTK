@@ -15,7 +15,7 @@ namespace ATK
 {
   /// A uniform noise generator
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT WhiteNoiseGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT WhiteNoiseGeneratorFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
