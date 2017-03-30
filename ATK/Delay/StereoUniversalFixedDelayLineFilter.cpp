@@ -5,6 +5,7 @@
 #include "StereoUniversalFixedDelayLineFilter.h"
 
 #include <cmath>
+#include <cstring>
 #include <complex>
 #include <stdexcept>
 
