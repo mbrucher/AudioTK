@@ -5,11 +5,12 @@
 #ifndef ATK_CORE_TYPETRAITS_H
 #define ATK_CORE_TYPETRAITS_H
 
+#include <complex>
 #include <cstdint>
 #include <limits>
+#include <type_traits>
 
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace ATK
@@ -94,9 +95,27 @@ namespace ATK
     }
   };
 
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<typename DataType>
+  struct ComplexRealTypeTraits
+  {
+    /// Converts to a double
+    static std::complex<double> to_double(DataType el)
+    {
+      return static_cast<std::complex<double>>(el);
+    }
+
+    /// Converts from a double
+    static DataType from_double(std::complex<double> el)
+    {
+      return static_cast<DataType>(el);
+    }
+  };
+
   /// Common base class for conversion type traits
   template<typename DataType>
-  struct TypeTraits : public boost::mpl::if_<typename boost::is_floating_point<DataType>::type, RealTypeTraits<DataType>, IntegralTypeTraits<DataType> >::type
+  struct TypeTraits : public std::conditional_t<std::is_class_v<DataType>, ComplexRealTypeTraits<DataType>,
+      std::conditional_t<std::is_floating_point_v<DataType>, RealTypeTraits<DataType>, IntegralTypeTraits<DataType>>>
   {
   };
 

@@ -4,7 +4,9 @@
 
 #include "TypedBaseFilter.h"
 
+#include <complex>
 #include <cstdint>
+#include <type_traits>
 
 #include <boost/mpl/distance.hpp>
 #include <boost/mpl/empty.hpp>
@@ -12,6 +14,7 @@
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/vector.hpp>
+#include <boost/type_traits.hpp>
 #include <boost/utility/enable_if.hpp>
 
 #include "Utilities.h"
@@ -20,21 +23,64 @@ namespace
 {
   const size_t alignment = 32;
 
-  typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double> ConversionTypes;
+  typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double, std::complex<float>, std::complex<double>> ConversionTypes;
+
+  template<typename Vector, typename DataType>
+  typename boost::enable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  {
+    convert_scalar_array<Vector, DataType>(filter, port, converted_input, size, type);
+  }
+
+  template<typename Vector, typename DataType>
+  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  {
+    convert_complex_array<Vector, DataType>(filter, port, converted_input, size, type);
+  }
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-  convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
+    throw std::runtime_error("Cannot convert types for these filters");
+  }
+
+  template<typename Vector, typename DataType>
+  typename boost::enable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
+    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  {
+    if(type != 0)
+    {
+      convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+    }
+    else
+    {
+      typedef typename boost::mpl::front<Vector>::type InputOriginalType;
+      InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
+      ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
+    }
+  }
+
+  template<typename Vector, typename DataType>
+  typename boost::disable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
+    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  {
+    convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+  }
+
+  template<typename Vector, typename DataType>
+  typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
+    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  {
+    throw std::runtime_error("Can't convert types");
   }
 
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
-      convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
-    if(type != 0)
+    if (type != 0)
     {
-      convert_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+      convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
     }
     else
     {
@@ -70,7 +116,7 @@ namespace ATK
     if(nb_ports == nb_input_ports)
       return;
     Parent::set_nb_input_ports(nb_ports);
-    converted_inputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_ports);
+    converted_inputs_delay = std::vector<std::unique_ptr<DataTypeInput[]> >(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
     default_input.assign(nb_ports, 0);
@@ -82,7 +128,7 @@ namespace ATK
     if(nb_ports == nb_output_ports)
       return;
     Parent::set_nb_output_ports(nb_ports);
-    outputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_ports);
+    outputs_delay = std::vector<std::unique_ptr<DataTypeOutput[]> >(nb_ports);
     outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
     default_output.assign(nb_ports, 0);
@@ -118,18 +164,18 @@ namespace ATK
     {
       if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
       {
-        converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataType>* >(connections[i].second)->get_output_array(connections[i].first);
+        converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataTypeInput>* >(connections[i].second)->get_output_array(connections[i].first);
         converted_inputs_size[i] = size;
         continue;
       }
       auto input_size = converted_inputs_size[i];
       if(input_size < size)
       {
-        std::unique_ptr<DataType[]> temp(new DataType[static_cast<unsigned int>(input_delay + size + (alignment - 1) / sizeof(DataType))]);
+        std::unique_ptr<DataTypeInput[]> temp(new DataTypeInput[static_cast<unsigned int>(input_delay + size + (alignment - 1) / sizeof(DataTypeInput))]);
         auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
         size_t space;
-        std::align(alignment, sizeof(DataType), my_temp_ptr, space);
-        auto temp_ptr = reinterpret_cast<DataType*>(my_temp_ptr);
+        std::align(alignment, sizeof(DataTypeInput), my_temp_ptr, space);
+        auto temp_ptr = reinterpret_cast<DataTypeInput*>(my_temp_ptr);
         if(input_size == 0)
         {
           for(unsigned int j = 0; j < input_delay; ++j)
@@ -159,7 +205,7 @@ namespace ATK
           input_ptr[j - input_delay] = input_ptr[my_last_size + j - input_delay];
         }
       }
-      convert_array<ConversionTypes, DataType>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
+      convert_array<ConversionTypes, DataTypeInput>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
     }
   }
   
@@ -171,11 +217,11 @@ namespace ATK
       auto output_size = outputs_size[i];
       if(output_size < size)
       {
-        std::unique_ptr<DataType[]> temp(new DataType[static_cast<unsigned int>(output_delay + size + (alignment - 1) / sizeof(DataType))]);
+        std::unique_ptr<DataTypeOutput[]> temp(new DataTypeOutput[static_cast<unsigned int>(output_delay + size + (alignment - 1) / sizeof(DataTypeOutput))]);
         auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
         size_t space;
-        std::align(alignment, sizeof(DataType), my_temp_ptr, space);
-        auto temp_ptr = reinterpret_cast<DataType*>(my_temp_ptr);
+        std::align(alignment, sizeof(DataTypeOutput), my_temp_ptr, space);
+        auto temp_ptr = reinterpret_cast<DataTypeOutput*>(my_temp_ptr);
         if(output_size == 0)
         {
           for(unsigned int j = 0; j < output_delay; ++j)
@@ -211,12 +257,12 @@ namespace ATK
   void TypedBaseFilter<DataType_, DataType__>::full_setup()
   {
     // Reset input arrays
-    converted_inputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_input_ports);
+    converted_inputs_delay = std::vector<std::unique_ptr<DataTypeInput[]> >(nb_input_ports);
     converted_inputs.assign(nb_input_ports, nullptr);
     converted_inputs_size.assign(nb_input_ports, 0);
 
     // Reset output arrays
-    outputs_delay = std::vector<std::unique_ptr<DataType[]> >(nb_output_ports);
+    outputs_delay = std::vector<std::unique_ptr<DataTypeOutput[]> >(nb_output_ports);
     outputs.assign(nb_output_ports, nullptr);
     outputs_size.assign(nb_output_ports, 0);
 
@@ -235,4 +281,13 @@ namespace ATK
   template class TypedBaseFilter<int64_t>;
   template class TypedBaseFilter<float>;
   template class TypedBaseFilter<double>;
+
+  template class TypedBaseFilter<std::complex<float>>;
+  template class TypedBaseFilter<std::complex<double>>;
+
+  // These class allows to build a complex filter from 2 real inputs
+  template class TypedBaseFilter<float, std::complex<float>>;
+  template class TypedBaseFilter<double, std::complex<double>>;
+  template class TypedBaseFilter<std::complex<float>, float>;
+  template class TypedBaseFilter<std::complex<double>, double>;
 }

@@ -2,6 +2,7 @@
  * \file TypedBaseFilter.cpp
  */
 
+#include <complex>
 #include <cstdint>
 
 #include <ATK/Core/TypedBaseFilter.h>
@@ -31,14 +32,24 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_int64_t )
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<int64_t> filter(0, 0));
 }
 
-BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_float )
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_float)
 {
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<float> filter(0, 0));
 }
 
-BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_double )
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_double)
 {
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<double> filter(0, 0));
+}
+
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_complex_float)
+{
+  BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<float>> filter(0, 0));
+}
+
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_xomplex_double)
+{
+  BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<double>> filter(0, 0));
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int16_t )
