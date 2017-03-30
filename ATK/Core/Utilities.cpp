@@ -32,7 +32,7 @@ namespace
   }
   
   template<typename DataType1, typename DataType2>
-  std::enable_if_t<!std::is_same_v<DataType1, DataType2>> convert_to_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset, int ports)
+  typename std::enable_if<!std::is_same_v<DataType1, DataType2>>::type convert_to_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset, int ports)
   {
     for(std::size_t i = 0; i < size; ++i)
     {

@@ -124,8 +124,8 @@ namespace ATK
 
   /// Common base class for conversion type traits
   template<typename DataType>
-  struct TypeTraits : public std::conditional_t<std::is_class_v<DataType>, ComplexRealTypeTraits<DataType>,
-      std::conditional_t<std::is_floating_point_v<DataType>, RealTypeTraits<DataType>, IntegralTypeTraits<DataType>>>
+  struct TypeTraits : public std::conditional<std::is_class_v<DataType>, ComplexRealTypeTraits<DataType>,
+    typename std::conditional<std::is_floating_point_v<DataType>, RealTypeTraits<DataType>, IntegralTypeTraits<DataType>>::type>::type
   {
   };
 
