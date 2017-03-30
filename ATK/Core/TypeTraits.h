@@ -94,7 +94,7 @@ namespace ATK
     }
   };
 
-  /// Comment base class for conversion type traits
+  /// Common base class for conversion type traits
   template<typename DataType>
   struct TypeTraits : public boost::mpl::if_<typename boost::is_floating_point<DataType>::type, RealTypeTraits<DataType>, IntegralTypeTraits<DataType> >::type
   {
