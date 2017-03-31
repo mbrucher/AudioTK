@@ -50,3 +50,5 @@ namespace ATK
 
 %template(FloatStereoUniversalFixedDelayLineFilter) ATK::StereoUniversalFixedDelayLineFilter<float>;
 %template(DoubleStereoUniversalFixedDelayLineFilter) ATK::StereoUniversalFixedDelayLineFilter<double>;
+%template(ComplexFloatStereoUniversalFixedDelayLineFilter) ATK::StereoUniversalFixedDelayLineFilter<std::complex<float>>;
+%template(ComplexDoubleStereoUniversalFixedDelayLineFilter) ATK::StereoUniversalFixedDelayLineFilter<std::complex<double>>;

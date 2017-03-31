@@ -19,3 +19,5 @@ namespace ATK
 %template(Int64DecimationFilter) ATK::DecimationFilter<std::int64_t>;
 %template(FloatDecimationFilter) ATK::DecimationFilter<float>;
 %template(DoubleDecimationFilter) ATK::DecimationFilter<double>;
+%template(ComplexFloatDecimationFilter) ATK::DecimationFilter<std::complex<float>>;
+%template(ComplexDoubleDecimationFilter) ATK::DecimationFilter<std::complex<double>>;

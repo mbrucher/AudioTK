@@ -31,3 +31,5 @@ namespace ATK
 %template(Int64PanFilter) ATK::PanFilter<std::int64_t>;
 %template(FloatPanFilter) ATK::PanFilter<float>;
 %template(DoublePanFilter) ATK::PanFilter<double>;
+%template(ComplexFloatPanFilter) ATK::PanFilter<std::complex<float>>;
+%template(ComplexDoublePanFilter) ATK::PanFilter<std::complex<double>>;

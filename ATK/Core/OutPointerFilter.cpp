@@ -5,6 +5,7 @@
 #include "OutPointerFilter.h"
 
 #include <algorithm>
+#include <complex>
 #include <cstring>
 
 namespace ATK
@@ -59,7 +60,9 @@ namespace ATK
   
   template class OutPointerFilter<std::int16_t>;
   template class OutPointerFilter<std::int32_t>;
-  template class OutPointerFilter<int64_t>;
+  template class OutPointerFilter<std::int64_t>;
   template class OutPointerFilter<float>;
   template class OutPointerFilter<double>;
+  template class OutPointerFilter<std::complex<float>>;
+  template class OutPointerFilter<std::complex<double>>;
 }

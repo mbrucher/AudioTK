@@ -19,3 +19,5 @@ namespace ATK
 
 %template(FloatFixedDelayLineFilter) ATK::FixedDelayLineFilter<float>;
 %template(DoubleFixedDelayLineFilter) ATK::FixedDelayLineFilter<double>;
+%template(ComplexFloatFixedDelayLineFilter) ATK::FixedDelayLineFilter<std::complex<float>>;
+%template(ComplexDoubleFixedDelayLineFilter) ATK::FixedDelayLineFilter<std::complex<double>>;

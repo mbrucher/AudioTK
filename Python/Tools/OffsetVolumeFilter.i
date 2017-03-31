@@ -12,13 +12,15 @@ namespace ATK
     OffsetVolumeFilter(int nb_channels = 1);
     ~OffsetVolumeFilter();
 
-    void set_volume(double volume);
-    double get_volume() const;
+    void set_volume(DataType volume);
+    DataType get_volume() const;
 
-    void set_offset(double offset);
-    double get_offset() const;
+    void set_offset(DataType offset);
+    DataType get_offset() const;
   };
 }
 
 %template(FloatOffsetVolumeFilter) ATK::OffsetVolumeFilter<float>;
 %template(DoubleOffsetVolumeFilter) ATK::OffsetVolumeFilter<double>;
+%template(ComplexFloatOffsetVolumeFilter) ATK::OffsetVolumeFilter<std::complex<float>>;
+%template(ComplexDoubleOffsetVolumeFilter) ATK::OffsetVolumeFilter<std::complex<double>>;
