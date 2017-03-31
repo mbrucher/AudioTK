@@ -2,13 +2,10 @@ sudo: required
 dist: precise
 language: python
 
-python:
-  - "2.7"
-  - "3.4"
-
 matrix:
   include:
   - compiler: gcc
+    python: "2.7"
     os: linux
     dist: trusty
     addons:
@@ -26,6 +23,7 @@ matrix:
     - PLATFORM=gcc-5
     - ADDITONAL_CMAKE_FLAGS=
   - compiler: gcc
+    python: "2.7"
     os: linux
     dist: trusty
     addons:
@@ -43,6 +41,7 @@ matrix:
     - PLATFORM=gcc-6
     - ADDITONAL_CMAKE_FLAGS=
   - compiler: clang-3.8
+    python: "2.7"
     os: linux
     dist: trusty
     addons:
@@ -62,6 +61,7 @@ matrix:
     - PLATFORM=clang-3.8
     - ADDITONAL_CMAKE_FLAGS=
   - compiler: clang-3.9
+    python: "2.7"
     os: linux
     dist: trusty
     addons:
@@ -82,12 +82,14 @@ matrix:
     - ADDITONAL_CMAKE_FLAGS=
   - os: osx
     osx_image: xcode8.2
+    python: "2.7"
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-8.2
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
   - os: osx
     osx_image: xcode7.3
+    python: "2.7"
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
