@@ -17,7 +17,7 @@ namespace ATK
 {
   /// A zero-delay convolution filter based on FFT
   template<typename DataType_>
-  class ATK_SPECIAL_EXPORT ConvolutionFilter: public TypedBaseFilter<DataType_>
+  class ATK_SPECIAL_EXPORT ConvolutionFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

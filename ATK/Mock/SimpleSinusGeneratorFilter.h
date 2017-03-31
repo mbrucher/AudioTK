@@ -13,7 +13,7 @@ namespace ATK
 {
   /// Filter creating a sinus signal (usng std::sin, so not precise enough and fast enough)
   template<class DataType_>
-  class ATK_MOCK_EXPORT SimpleSinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT SimpleSinusGeneratorFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

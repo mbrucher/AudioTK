@@ -12,7 +12,7 @@
 namespace ATK
 {
   /// Class that can be used to process a pipeline that has more than one final sink. By adding these sinks to this filter, the processing is done for all sinks.
-  class ATK_CORE_EXPORT PipelineGlobalSinkFilter : public BaseFilter
+  class ATK_CORE_EXPORT PipelineGlobalSinkFilter final : public BaseFilter
   {
   protected:
     /// Simplify parent calls

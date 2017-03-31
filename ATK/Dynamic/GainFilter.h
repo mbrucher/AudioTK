@@ -63,7 +63,7 @@ namespace ATK
   };
 
   template<class ParentFilter>
-  class GainFilter: public ParentFilter
+  class GainFilter final : public ParentFilter
   {
     typedef ParentFilter Parent;
     using typename Parent::DataType;

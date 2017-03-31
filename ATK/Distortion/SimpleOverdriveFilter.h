@@ -19,7 +19,7 @@ namespace ATK
   
   /// Diode clipper filter, based on a trapezoidal rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT SimpleOverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT SimpleOverdriveFilter final : public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
   public:
@@ -51,7 +51,7 @@ namespace ATK
 
   /// Diode clipper filter, based on a backward Euler rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT BackwardSimpleOverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT BackwardSimpleOverdriveFilter final : public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
   public:
@@ -83,7 +83,7 @@ namespace ATK
 
   /// Diode clipper filter, based on a forward Euler rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT ForwardSimpleOverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT ForwardSimpleOverdriveFilter final : public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
   public:

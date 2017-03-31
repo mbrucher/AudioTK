@@ -28,7 +28,7 @@ namespace ATK
    * Output 4 is Ve2
    */
   template<typename DataType_>
-  class ATK_PREAMPLIFIER_EXPORT FollowerTransistorClassAFilter: public TypedBaseFilter<DataType_>
+  class ATK_PREAMPLIFIER_EXPORT FollowerTransistorClassAFilter final : public TypedBaseFilter<DataType_>
   {
     class TransistorClassAFunction;
   public:

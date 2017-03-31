@@ -18,7 +18,7 @@ namespace ATK
    * FIR filter template class
    */
   template<class Coefficients >
-  class ATK_EQ_EXPORT FIRFilter: public Coefficients
+  class ATK_EQ_EXPORT FIRFilter final : public Coefficients
   {
   public:
     typedef Coefficients Parent;

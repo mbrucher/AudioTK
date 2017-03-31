@@ -17,7 +17,7 @@ namespace ATK
 
   /// TS9 filter, based on a trapezoidal rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT TS9OverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT TS9OverdriveFilter final : public TypedBaseFilter<DataType_>
   {
     class TS9OverdriveFunction;
   public:

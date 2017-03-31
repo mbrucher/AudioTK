@@ -15,7 +15,7 @@ namespace ATK
 {
   /// IIR filter template class (Direct Form I)
   template<class Coefficients >
-  class ATK_EQ_EXPORT IIRFilter: public Coefficients
+  class ATK_EQ_EXPORT IIRFilter final : public Coefficients
   {
   public:
     /// Simplify parent calls

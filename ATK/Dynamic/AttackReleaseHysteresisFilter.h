@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Creates an output signal with the filter power of the input (computed with an AR1 with hysteresis)
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT AttackReleaseHysteresisFilter : public TypedBaseFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT AttackReleaseHysteresisFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

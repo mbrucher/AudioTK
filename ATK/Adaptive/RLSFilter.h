@@ -13,7 +13,7 @@ namespace ATK
 {
   /// RLS implementation as a filter
   template<typename DataType_>
-  class ATK_ADAPTIVE_EXPORT RLSFilter : public TypedBaseFilter<DataType_>
+  class ATK_ADAPTIVE_EXPORT RLSFilter final : public TypedBaseFilter<DataType_>
   {
     class RLSFilterImpl;
     std::unique_ptr<RLSFilterImpl> impl;

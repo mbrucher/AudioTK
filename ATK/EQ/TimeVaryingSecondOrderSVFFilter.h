@@ -13,7 +13,7 @@ namespace ATK
 {
   /// Second order SVF main filter class with time varying frequency
   template<typename SVFCoefficients>
-  class ATK_EQ_EXPORT TimeVaryingSecondOrderSVFFilter: public SVFCoefficients
+  class ATK_EQ_EXPORT TimeVaryingSecondOrderSVFFilter final : public SVFCoefficients
   {
   public:
     typedef SVFCoefficients Parent;

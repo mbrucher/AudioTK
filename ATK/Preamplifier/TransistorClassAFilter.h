@@ -28,7 +28,7 @@ namespace ATK
    * Output 4 is Vb
    */
   template<typename DataType_>
-  class ATK_PREAMPLIFIER_EXPORT TransistorClassAFilter: public TypedBaseFilter<DataType_>
+  class ATK_PREAMPLIFIER_EXPORT TransistorClassAFilter final : public TypedBaseFilter<DataType_>
   {
     class TransistorClassAFunction;
   public:

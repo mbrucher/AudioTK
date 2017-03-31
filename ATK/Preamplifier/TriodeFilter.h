@@ -27,7 +27,7 @@ namespace ATK
    * Output 4 is Vb
    */
   template<typename DataType_, typename TriodeFunction>
-  class ATK_PREAMPLIFIER_EXPORT TriodeFilter: public TypedBaseFilter<DataType_>
+  class ATK_PREAMPLIFIER_EXPORT TriodeFilter final : public TypedBaseFilter<DataType_>
   {
     class CommonCathodeTriodeFunction;
   public:

@@ -17,7 +17,7 @@ namespace ATK
 {
   /// Simple wav source, not as robust as the SndFile version
   template<typename DataType_>
-  class ATK_IO_EXPORT InWavFilter: public TypedBaseFilter<DataType_>
+  class ATK_IO_EXPORT InWavFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

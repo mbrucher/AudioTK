@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Fixed delay line for fixed delays
   template<typename DataType_>
-  class ATK_DELAY_EXPORT UniversalFixedDelayLineFilter : public TypedBaseFilter<DataType_>
+  class ATK_DELAY_EXPORT UniversalFixedDelayLineFilter final : public TypedBaseFilter<DataType_>
   {
     class UFDLF_Impl;
   protected:

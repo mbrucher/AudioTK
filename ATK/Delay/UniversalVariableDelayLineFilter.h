@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Variable delay line. Second port drives the delay. This delay must always be lower than max_delay-1, superior to 1
   template<typename DataType_>
-  class ATK_DELAY_EXPORT UniversalVariableDelayLineFilter : public TypedBaseFilter<DataType_>
+  class ATK_DELAY_EXPORT UniversalVariableDelayLineFilter final : public TypedBaseFilter<DataType_>
   {
     class UVDLF_Impl;
   protected:

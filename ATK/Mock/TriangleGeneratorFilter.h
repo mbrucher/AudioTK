@@ -13,7 +13,7 @@ namespace ATK
 {
   /// A triangle signal generator for test purposes
   template<class DataType_>
-  class ATK_MOCK_EXPORT TriangleGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT TriangleGeneratorFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

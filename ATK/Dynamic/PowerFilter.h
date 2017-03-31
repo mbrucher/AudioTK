@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Creates an output signal with the filtered power of the input (computed with an AR1)
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT PowerFilter : public TypedBaseFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT PowerFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

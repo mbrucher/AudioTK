@@ -11,7 +11,7 @@ namespace ATK
 {
   /// Filter allowing to input data from an array
   template<typename DataType_>
-  class ATK_CORE_EXPORT InPointerFilter : public TypedBaseFilter<DataType_>
+  class ATK_CORE_EXPORT InPointerFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

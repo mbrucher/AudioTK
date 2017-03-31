@@ -13,7 +13,7 @@ namespace ATK
 {
   /// LMS implementation as a filter
   template<typename DataType_>
-  class ATK_ADAPTIVE_EXPORT LMSFilter : public TypedBaseFilter<DataType_>
+  class ATK_ADAPTIVE_EXPORT LMSFilter final : public TypedBaseFilter<DataType_>
   {
     class LMSFilterImpl;
     std::unique_ptr<LMSFilterImpl> impl;

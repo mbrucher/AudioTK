@@ -16,7 +16,7 @@ namespace ATK
 {
   /// A source filter for sound files supported by lbsnd
   template<typename DataType_>
-  class InSndFileFilter: public TypedBaseFilter<DataType_>
+  class InSndFileFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

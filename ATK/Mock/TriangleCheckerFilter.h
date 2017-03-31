@@ -13,7 +13,7 @@ namespace ATK
 {
   ///  Filter that checks that the input is a synced triangle signal
   template<class DataType_>
-  class ATK_MOCK_EXPORT TriangleCheckerFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT TriangleCheckerFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

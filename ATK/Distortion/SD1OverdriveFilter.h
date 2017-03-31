@@ -17,7 +17,7 @@ namespace ATK
 
   /// SD1 filter, based on a trapezoidal rule
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT SD1OverdriveFilter: public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT SD1OverdriveFilter final : public TypedBaseFilter<DataType_>
   {
     class SD1OverdriveFunction;
   public:

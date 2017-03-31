@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Fixed delay line, max_delay should always be higher than the actual delay
   template<typename DataType_>
-  class ATK_DELAY_EXPORT FixedDelayLineFilter : public TypedBaseFilter<DataType_>
+  class ATK_DELAY_EXPORT FixedDelayLineFilter final : public TypedBaseFilter<DataType_>
   {
     class FDLF_Impl;
   protected:

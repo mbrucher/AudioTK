@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Simple all pass reverb filter
   template<typename DataType_>
-  class ATK_REVERBERATION_EXPORT AllPassReverbFilter : public TypedBaseFilter<DataType_>
+  class ATK_REVERBERATION_EXPORT AllPassReverbFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

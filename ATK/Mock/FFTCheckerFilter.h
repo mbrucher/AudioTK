@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Checks the input signal has a specific spectrum template
   template<class DataType_>
-  class ATK_MOCK_EXPORT FFTCheckerFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT FFTCheckerFilter final: public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
