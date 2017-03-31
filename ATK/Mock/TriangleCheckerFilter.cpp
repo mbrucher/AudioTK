@@ -5,34 +5,38 @@
 #include "TriangleCheckerFilter.h"
 
 #include <cmath>
+#include <complex>
 #include <cstdint>
 #include <cstdlib>
-
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <type_traits>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
+#include <ATK/Core/TypeTraits.h>
+
 namespace
 {
   template<class DataType>
-  typename boost::enable_if<typename boost::is_floating_point<DataType>::type>::type compare(DataType v1, DataType v2)
+  typename std::enable_if<!std::is_integral<DataType>::value>::type compare(DataType v1, DataType v2)
   {
     if(std::abs(v1) < 1e-5 || std::abs(v2) < 1e-5)
     {
-      BOOST_REQUIRE_SMALL(v1, static_cast<DataType>(1e-5));
-      BOOST_REQUIRE_SMALL(v2, static_cast<DataType>(1e-5));
+      auto absv1 = std::abs(static_cast<typename ATK::TypeTraits<DataType>::Scalar>(v1));
+      auto absv2 = std::abs(static_cast<typename ATK::TypeTraits<DataType>::Scalar>(v2));
+      BOOST_REQUIRE_SMALL(absv1, 1e-5);
+      BOOST_REQUIRE_SMALL(absv2, 1e-5);
     }
     else
     {
-      BOOST_REQUIRE_CLOSE(v1, v2, 0.0001);
+      auto diff = std::abs(static_cast<typename ATK::TypeTraits<DataType>::Scalar>((v1 - v2) / (v1 + v2)));
+      BOOST_REQUIRE_SMALL(diff, 1e-5);
     }
   }
 
   template<class DataType>
-  typename boost::disable_if<typename boost::is_floating_point<DataType>::type>::type compare(DataType v1, DataType v2)
+  typename std::enable_if<std::is_integral<DataType>::value>::type compare(DataType v1, DataType v2)
   {
     BOOST_REQUIRE_EQUAL(v1, v2);
   }
@@ -81,13 +85,15 @@ namespace ATK
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      compare(converted_inputs[0][i], static_cast<DataType>(amplitude * state));
+      compare(converted_inputs[0][i], static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(amplitude) * state));
     }
   }
 
   template class TriangleCheckerFilter<std::int16_t>;
   template class TriangleCheckerFilter<std::int32_t>;
-  template class TriangleCheckerFilter<int64_t>;
+  template class TriangleCheckerFilter<std::int64_t>;
   template class TriangleCheckerFilter<float>;
   template class TriangleCheckerFilter<double>;
+  template class TriangleCheckerFilter<std::complex<float>>;
+  template class TriangleCheckerFilter<std::complex<double>>;
 }

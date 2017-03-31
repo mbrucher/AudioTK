@@ -5,6 +5,7 @@
 #include "OffsetVolumeFilter.h"
 
 #include <cmath>
+#include <complex>
 #include <cstdint>
 
 namespace ATK
@@ -62,4 +63,6 @@ namespace ATK
   
   template class OffsetVolumeFilter<float>;
   template class OffsetVolumeFilter<double>;
+  template class OffsetVolumeFilter<std::complex<float>>;
+  template class OffsetVolumeFilter<std::complex<double>>;
 }

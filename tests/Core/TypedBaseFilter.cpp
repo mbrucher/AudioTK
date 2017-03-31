@@ -2,6 +2,7 @@
  * \file TypedBaseFilter.cpp
  */
 
+#include <complex>
 #include <cstdint>
 
 #include <ATK/Core/TypedBaseFilter.h>
@@ -31,14 +32,24 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_int64_t )
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<int64_t> filter(0, 0));
 }
 
-BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_float )
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_float)
 {
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<float> filter(0, 0));
 }
 
-BOOST_AUTO_TEST_CASE( TypedBaseFilter_constructor_test_double )
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_double)
 {
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<double> filter(0, 0));
+}
+
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_complex_float)
+{
+  BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<float>> filter(0, 0));
+}
+
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_xomplex_double)
+{
+  BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<double>> filter(0, 0));
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int16_t )
@@ -178,6 +189,54 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_throw_triangle_test )
   checker.set_amplitude(1000000);
   checker.set_frequency(1000);
   
+  BOOST_CHECK_THROW(checker.process(PROCESSSIZE), std::runtime_error);
+}
+
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_int_connect_to_complex_test)
+{
+  ATK::TriangleGeneratorFilter<std::int32_t> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1 << 30);
+  generator.set_frequency(1000);
+
+  ATK::TriangleCheckerFilter<std::complex<float>> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(.5);
+  checker.set_frequency(1000);
+
+  checker.set_input_port(0, &generator, 0);
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_complex_connect_to_complex_test)
+{
+  ATK::TriangleGeneratorFilter<std::complex<float>> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(.5);
+  generator.set_frequency(1000);
+
+  ATK::TriangleCheckerFilter<std::complex<float>> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(.5);
+  checker.set_frequency(1000);
+
+  checker.set_input_port(0, &generator, 0);
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_complex_connect_to_int_test)
+{
+  ATK::TriangleGeneratorFilter<std::complex<float>> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1 << 30);
+  generator.set_frequency(1000);
+
+  ATK::TriangleCheckerFilter<std::int32_t> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(.5);
+  checker.set_frequency(1000);
+
+  checker.set_input_port(0, &generator, 0);
   BOOST_CHECK_THROW(checker.process(PROCESSSIZE), std::runtime_error);
 }
 

@@ -6,6 +6,7 @@
 
 #include <algorithm>
 #include <cstring>
+#include <complex>
 #include <stdexcept>
 
 namespace ATK
@@ -37,9 +38,9 @@ namespace ATK
   template<typename DataType_>
   void FixedDelayLineFilter<DataType_>::set_delay(std::size_t delay)
   {
-    if(delay < 0)
+    if(delay == 0)
     {
-      throw std::out_of_range("Delay must be positive");
+      throw std::out_of_range("Delay must be strictly positive");
     }
     if(delay >= impl->delay_line.size())
     {
@@ -91,4 +92,6 @@ namespace ATK
   
   template class FixedDelayLineFilter<float>;
   template class FixedDelayLineFilter<double>;
+  template class FixedDelayLineFilter<std::complex<float>>;
+  template class FixedDelayLineFilter<std::complex<double>>;
 }

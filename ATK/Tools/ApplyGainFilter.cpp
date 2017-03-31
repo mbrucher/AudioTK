@@ -6,6 +6,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <complex>
 #include <cstdint>
 
 namespace ATK
@@ -14,7 +15,6 @@ namespace ATK
   ApplyGainFilter<DataType_>::ApplyGainFilter(int nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
-    output_delay = 1;
   }
   
   template<typename DataType_>
@@ -42,4 +42,6 @@ namespace ATK
   
   template class ApplyGainFilter<float>;
   template class ApplyGainFilter<double>;
+  template class ApplyGainFilter<std::complex<float>>;
+  template class ApplyGainFilter<std::complex<double>>;
 }

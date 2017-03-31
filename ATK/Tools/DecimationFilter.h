@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Slows the sampling rate of an input signal by a constant rate
   template<class DataType_>
-  class ATK_TOOLS_EXPORT DecimationFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT DecimationFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

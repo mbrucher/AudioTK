@@ -5,6 +5,7 @@
 #include "CustomFIRFilter.h"
 #include "FIRFilter.h"
 
+#include <complex>
 #include <cassert>
 #include <cmath>
 
@@ -31,6 +32,12 @@ namespace ATK
   template class CustomFIRCoefficients<float>;
   template class CustomFIRCoefficients<double>;
   
-  template class FIRFilter<CustomFIRCoefficients<float> >;
-  template class FIRFilter<CustomFIRCoefficients<double> >;
+  template class CustomFIRCoefficients<std::complex<float>>;
+  template class CustomFIRCoefficients<std::complex<double>>;
+
+  template class FIRFilter<CustomFIRCoefficients<float>>;
+  template class FIRFilter<CustomFIRCoefficients<double>>;
+
+  template class FIRFilter<CustomFIRCoefficients<std::complex<float>>>;
+  template class FIRFilter<CustomFIRCoefficients<std::complex<double>>>;
 }

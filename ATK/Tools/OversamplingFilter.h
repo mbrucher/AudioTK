@@ -132,7 +132,7 @@ namespace ATK
 
   /// The base class for oversampling, given a coefficient class, changing the output rate by a constant power of 2
   template<class DataType_, class Coefficients>
-  class ATK_TOOLS_EXPORT OversamplingFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT OversamplingFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

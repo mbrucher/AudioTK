@@ -5,6 +5,7 @@
 #include "RLSFilter.h"
 
 #include <cstdint>
+#include <complex>
 #include <stdexcept>
 
 #include <Eigen/Core>
@@ -31,7 +32,7 @@ namespace ATK
       auto alpha = target - actual;
       auto xreverse = x.reverse();
 
-      wType g = (P * xreverse) / (xreverse.adjoint() * P * xreverse + memory);
+      wType g = (P * xreverse) / ((xreverse.adjoint() * P * xreverse)(0,0) + static_cast<DataType>(memory));
       PType pupdate = (g * (xreverse.adjoint() * P));
       w = w + TypeTraits<DataType>::conj(alpha) * g;
       P = (P - (pupdate + pupdate.transpose()) / 2) * memory;
@@ -59,7 +60,7 @@ namespace ATK
 
     PType P;
     wType w;
-    DataType memory;
+    double memory;
   };
 
   template<typename DataType_>
@@ -95,7 +96,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void RLSFilter<DataType_>::set_memory(DataType_ memory)
+  void RLSFilter<DataType_>::set_memory(double memory)
   {
     if(memory >= 1)
     {
@@ -110,7 +111,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  DataType_ RLSFilter<DataType_>::get_memory() const
+  double RLSFilter<DataType_>::get_memory() const
   {
     return impl->memory;
   }
@@ -138,7 +139,7 @@ namespace ATK
       typename RLSFilterImpl::xType x(input - global_size + i, global_size, 1);
       
       // compute next sample
-      output[i] = impl->w.transpose() * x.reverse();
+      output[i] = impl->w.adjoint().dot(x.reverse());
       
       if(learning)
       {
@@ -174,4 +175,6 @@ namespace ATK
 
   template class RLSFilter<float>;
   template class RLSFilter<double>;
+  template class RLSFilter<std::complex<float>>;
+  template class RLSFilter<std::complex<double>>;
 }

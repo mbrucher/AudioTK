@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Generates a sinus signal from a cache
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT CachedSinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT CachedSinusGeneratorFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

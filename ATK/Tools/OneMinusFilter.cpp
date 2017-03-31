@@ -6,7 +6,10 @@
 
 #include <cassert>
 #include <cmath>
+#include <complex>
 #include <cstdint>
+
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -32,14 +35,13 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        *(output++) = 1 - *(input++);
+        output[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(1) - static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
       }
     }
   }
   
-  template class OneMinusFilter<int16_t>;
-  template class OneMinusFilter<int32_t>;
-  template class OneMinusFilter<int64_t>;
   template class OneMinusFilter<float>;
   template class OneMinusFilter<double>;
+  template class OneMinusFilter<std::complex<float>>;
+  template class OneMinusFilter<std::complex<double>>;
 }

@@ -16,7 +16,7 @@ namespace ATK
    * Even channels are signal, odd channels are gains, results is the product of both
    */
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT ApplyGainFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT ApplyGainFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
@@ -26,7 +26,6 @@ namespace ATK
     using Parent::outputs;
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
-    using Parent::output_delay;
 
   public:
     /*!

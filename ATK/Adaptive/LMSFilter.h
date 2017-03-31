@@ -43,13 +43,13 @@ namespace ATK
     std::size_t get_size() const;
 
     /// Sets the memory of the LMS algorithm
-    void set_memory(DataType_ memory);
+    void set_memory(double memory);
     /// Retrieves the memory
-    DataType_ get_memory() const;
+    double get_memory() const;
     /// Sets mu of the LMS algorithm, should be less than 2/((size+1) * maximum of the DSP of the input signal)
-    void set_mu(DataType_ mu);
+    void set_mu(double mu);
     /// Retrieves mu
-    DataType_ get_mu() const;
+    double get_mu() const;
 
     /// Retrieves w
     const DataType_* get_w() const;

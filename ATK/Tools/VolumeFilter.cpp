@@ -5,7 +5,10 @@
 #include "VolumeFilter.h"
 
 #include <cmath>
+#include <complex>
 #include <cstdint>
+
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -43,14 +46,16 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        *(output++) = static_cast<DataType>(volume * *(input++));
+        output[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(volume) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
       }
     }
   }
   
   template class VolumeFilter<std::int16_t>;
   template class VolumeFilter<std::int32_t>;
-  template class VolumeFilter<int64_t>;
+  template class VolumeFilter<std::int64_t>;
   template class VolumeFilter<float>;
   template class VolumeFilter<double>;
+  template class VolumeFilter<std::complex<float>>;
+  template class VolumeFilter<std::complex<double>>;
 }

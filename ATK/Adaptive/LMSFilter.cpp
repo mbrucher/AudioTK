@@ -4,6 +4,7 @@
 
 #include "LMSFilter.h"
 
+#include <complex>
 #include <cstdint>
 #include <stdexcept>
 
@@ -22,9 +23,9 @@ namespace ATK
 
     wType w;
     /// Memory factor
-    DataType_ alpha;
+    double alpha;
     /// line search
-    DataType_ mu;
+    double mu;
 
     LMSFilterImpl(std::size_t size)
     :w(wType::Zero(size, 1)), alpha(.99), mu(0.05)
@@ -33,18 +34,18 @@ namespace ATK
 
     void update(const xType& x, DataType error)
     {
-      w = alpha * w + mu * error * x;
+      w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error * x;
     }
 
     void update_normalized(const xType& x, DataType error)
     {
-      w = alpha * w + mu * error * x / (std::numeric_limits<DataType>::epsilon() + x.squaredNorm());
+      w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error * x / (std::numeric_limits<DataType>::epsilon() + static_cast<DataType>(x.squaredNorm()));
     }
 
-    void update_signerror(const xType& x, DataType error)
+/*    void update_signerror(const xType& x, DataType error)
     {
       w = alpha * w + mu * std::copysign(1, error) * x;
-    }
+    }*/
   };
 
   template<typename DataType_>
@@ -78,7 +79,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void LMSFilter<DataType_>::set_memory(DataType_ memory)
+  void LMSFilter<DataType_>::set_memory(double memory)
   {
     if (memory >= 1)
     {
@@ -93,13 +94,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ LMSFilter<DataType_>::get_memory() const
+  double LMSFilter<DataType_>::get_memory() const
   {
     return impl->alpha;
   }
 
   template<typename DataType_>
-  void LMSFilter<DataType_>::set_mu(DataType_ mu)
+  void LMSFilter<DataType_>::set_mu(double mu)
   {
     if (mu >= 1)
     {
@@ -114,7 +115,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ LMSFilter<DataType_>::get_mu() const
+  double LMSFilter<DataType_>::get_mu() const
   {
     return impl->mu;
   }
@@ -138,7 +139,7 @@ namespace ATK
     const DataType* ATK_RESTRICT ref = converted_inputs[1];
     DataType* ATK_RESTRICT output = outputs[0];
     
-    auto update_function = mode == Mode::NORMAL ? &LMSFilterImpl::update : (mode == Mode::NORMALIZED ? &LMSFilterImpl::update_normalized : &LMSFilterImpl::update_signerror);
+    auto update_function = mode == Mode::NORMAL ? &LMSFilterImpl::update : (/*mode == Mode::NORMALIZED ?*/ &LMSFilterImpl::update_normalized /*: &LMSFilterImpl::update_signerror*/);
 
     for(std::size_t i = 0; i < size; ++i)
     {
@@ -157,4 +158,5 @@ namespace ATK
 
   template class LMSFilter<float>;
   template class LMSFilter<double>;
+  template class LMSFilter<std::complex<double>>;
 }

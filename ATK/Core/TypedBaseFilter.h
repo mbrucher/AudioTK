@@ -15,7 +15,7 @@
 namespace ATK
 {
   /// Base class for typed filters, contains arrays
-  template<typename DataType_>
+  template<typename DataType_, typename DataType__ = DataType_>
   class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter
   {
   protected:
@@ -24,6 +24,10 @@ namespace ATK
   public:
     /// To be used by inherited APIs
     typedef DataType_ DataType;
+    /// To be used by inherited APIs
+    typedef DataType_ DataTypeInput;
+    /// To be used by inherited APIs
+    typedef DataType__ DataTypeOutput;
     /// To be used for filters that require alignment (like EQs)
     typedef std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > AlignedVector;
 
@@ -41,7 +45,7 @@ namespace ATK
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
-    DataType* get_output_array(std::size_t port);
+    DataType__* get_output_array(std::size_t port);
 
     virtual void set_nb_input_ports(std::size_t nb_ports) override;
     virtual void set_nb_output_ports(std::size_t nb_ports) override;
@@ -64,23 +68,23 @@ namespace ATK
     void convert_inputs(std::size_t size);
 
     /// Input arrays with the input delay, owned here
-    std::vector<std::unique_ptr<DataType[]> > converted_inputs_delay;
+    std::vector<std::unique_ptr<DataTypeInput[]> > converted_inputs_delay;
     /// Input arrays, starting from t=0 (without input delay)
-    std::vector<DataType *> converted_inputs;
+    std::vector<DataTypeInput*> converted_inputs;
     /// Current size of the input arrays, without delay
     std::vector<std::size_t> converted_inputs_size;
 
     /// Output arrays with the output delay, owned here
-    std::vector<std::unique_ptr<DataType[]> > outputs_delay;
+    std::vector<std::unique_ptr<DataTypeOutput[]> > outputs_delay;
     /// Output arrays, starting from t=0 (without output delay)
-    std::vector<DataType *> outputs;
+    std::vector<DataTypeOutput*> outputs;
     /// Current size of the output arrays, without delay
     std::vector<std::size_t> outputs_size;
 
     /// A vector containing the default values for the input arrays
-    std::vector<DataType> default_input;
+    std::vector<DataTypeInput> default_input;
     /// A vector containing the default values for the output arrays
-    std::vector<DataType> default_output;
+    std::vector<DataTypeOutput> default_output;
   };
 }
 

@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Sums two signqls together
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT SumFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT SumFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

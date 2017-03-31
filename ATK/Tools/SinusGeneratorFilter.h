@@ -14,7 +14,7 @@ namespace ATK
 {
   /// A sin/cos generator
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT SinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT SinusGeneratorFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

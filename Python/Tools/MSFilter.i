@@ -19,3 +19,5 @@ namespace ATK
 %template(Int64MiddleSideFilter) ATK::MiddleSideFilter<std::int64_t>;
 %template(FloatMiddleSideFilter) ATK::MiddleSideFilter<float>;
 %template(DoubleMiddleSideFilter) ATK::MiddleSideFilter<double>;
+%template(ComplexFloatMiddleSideFilter) ATK::MiddleSideFilter<std::complex<float>>;
+%template(ComplexDoubleMiddleSideFilter) ATK::MiddleSideFilter<std::complex<double>>;

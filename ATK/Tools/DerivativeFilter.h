@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Does a discrete derivation of the input channels
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT DerivativeFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT DerivativeFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

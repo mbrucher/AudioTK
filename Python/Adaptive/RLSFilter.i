@@ -26,6 +26,8 @@ namespace ATK
 
 %template(FloatRLSFilter) ATK::RLSFilter<float>;
 %template(DoubleRLSFilter) ATK::RLSFilter<double>;
+%template(ComplexFloatRLSFilter) ATK::RLSFilter<std::complex<float>>;
+%template(ComplexDoubleRLSFilter) ATK::RLSFilter<std::complex<double>>;
 
 %define RLSFilterExtend(name, T)
 %extend name {
@@ -38,3 +40,5 @@ namespace ATK
 
 RLSFilterExtend(ATK::RLSFilter<float>, float);
 RLSFilterExtend(ATK::RLSFilter<double>, double);
+RLSFilterExtend(ATK::RLSFilter<std::complex<float>>, std::complex<float>);
+RLSFilterExtend(ATK::RLSFilter<std::complex<double>>, std::complex<double>);

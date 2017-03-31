@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Buffers input signals
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT BufferFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT BufferFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls

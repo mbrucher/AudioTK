@@ -5,7 +5,8 @@
 #include "StereoUniversalFixedDelayLineFilter.h"
 
 #include <cmath>
-#include <cstdint>
+#include <cstring>
+#include <complex>
 #include <stdexcept>
 
 namespace ATK
@@ -266,4 +267,6 @@ namespace ATK
   
   template class StereoUniversalFixedDelayLineFilter<float>;
   template class StereoUniversalFixedDelayLineFilter<double>;
+  template class StereoUniversalFixedDelayLineFilter<std::complex<float>>;
+  template class StereoUniversalFixedDelayLineFilter<std::complex<double>>;
 }
