@@ -13,14 +13,14 @@ namespace ATK
     ~LMSFilter();
     
     /// Sets the memory of the LMS algorithm
-    void set_memory(DataType memory);
+    void set_memory(double memory);
     /// Retrieves the memory
-    DataType get_memory() const;
+    double get_memory() const;
 
     /// Sets mu
-    void set_mu(DataType mu);
+    void set_mu(double mu);
     /// Retrieves mu
-    DataType get_mu() const;
+    double get_mu() const;
 
     enum class Mode
     {

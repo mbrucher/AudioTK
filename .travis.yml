@@ -1,6 +1,10 @@
 sudo: required
 dist: precise
-language: cpp
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
 
 matrix:
   include:
@@ -16,6 +20,7 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
@@ -32,6 +37,7 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
@@ -50,6 +56,7 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
@@ -68,6 +75,7 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
@@ -87,12 +95,13 @@ matrix:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile  ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile swig ; fi
   - wget --no-verbose --output-document=boost_1_63_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
   - mkdir -p $BOOST_ROOT
   - tar jxf boost_1_63_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
+  - pip install numpy
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
@@ -103,6 +112,7 @@ before_script:
   - cd build
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export CMAKE_BUILD_TYPE="Release"          ; fi
   - cmake -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -DENABLE_STATIC_LIBRARIES=ON ${ADDITONAL_CMAKE_FLAGS} ..
+  - export PYTHONPATH=${HOME}/ATK/python${TRAVIS_PYTHON_VERSION}/site-packages:${PYTHON}
 
 script:
   - pwd

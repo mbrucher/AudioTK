@@ -13,9 +13,9 @@ namespace ATK
     ~RLSFilter();
     
     /// Sets the memory of the RLS algorithm
-    void set_memory(DataType memory);
+    void set_memory(double memory);
     /// Retrieves the memory
-    DataType get_memory() const;
+    double get_memory() const;
 
     /// Sets the learning mode
     void set_learning(bool learning);
