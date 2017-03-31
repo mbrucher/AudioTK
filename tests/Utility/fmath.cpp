@@ -60,7 +60,7 @@ BOOST_AUTO_TEST_CASE(fmath_log10_double_test)
 
 BOOST_AUTO_TEST_CASE(fmath_pow_float_test)
 {
-  for (int i = 1; i < 100; ++i)
+  for (int i = 1; i < 10; ++i)
   {
     BOOST_REQUIRE_CLOSE(std::pow(10, float(i)), fmath::pow(10, float(i)), 0.001);
   }
