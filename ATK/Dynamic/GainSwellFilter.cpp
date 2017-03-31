@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <stdexcept>
 
+#include <ATK/Utility/fmath.h>
+
 namespace ATK
 {
   template<typename DataType_>
@@ -43,7 +45,7 @@ namespace ATK
   {
     if(value == 0)
       return 1;
-    DataType diff = 10 * std::log10(value);
+    DataType diff = 10 * fmath::log10(value);
     return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * ratio));
   }
 
