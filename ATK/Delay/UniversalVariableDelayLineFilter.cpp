@@ -141,9 +141,10 @@ namespace ATK
 
     ATK_VECTORIZE for(std::size_t i = 0; i < size; ++i)
     {
-      delay_line[i] = (processed_input[i + max_delay - integer_delay[i]]) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
+      delay_line[i] = (processed_input[i + max_delay - integer_delay[i]] - impl->last_delay) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1];
       processed_input[max_delay + i] = input1[i] + feedback * processed_input[max_delay + i - central_delay]; // FB only uses the central delay and is not varying
       output[i] = blend * processed_input[max_delay + i] + feedforward * delay_line[i];
+      impl->last_delay = delay_line[i]; // the reason why the test is not that simple!
     }
   }
   
