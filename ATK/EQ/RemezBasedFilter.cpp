@@ -312,7 +312,7 @@ namespace ATK
 
   template<class DataType>
   RemezBasedCoefficients<DataType>::RemezBasedCoefficients(RemezBasedCoefficients&& other)
-    :Parent(std::move(other)), target(std::move(target)), in_order(std::move(in_order)), coefficients_in(std::move(coefficients_in))
+    :Parent(std::move(other)), target(std::move(other.target)), in_order(std::move(other.in_order)), coefficients_in(std::move(other.coefficients_in))
   {
   }
 

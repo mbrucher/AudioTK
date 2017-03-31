@@ -53,7 +53,7 @@ namespace ATK
     {
     }
 
-    void setup()
+    void setup() override
     {
       Parent::setup();
       input_delay = in_order;
