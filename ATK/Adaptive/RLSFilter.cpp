@@ -32,7 +32,7 @@ namespace ATK
       auto alpha = target - actual;
       auto xreverse = x.reverse();
 
-      wType g = (P * xreverse) / (xreverse.adjoint() * P * xreverse + memory);
+      wType g = (P * xreverse) / ((xreverse.adjoint() * P * xreverse)(0,0) + static_cast<DataType>(memory));
       PType pupdate = (g * (xreverse.adjoint() * P));
       w = w + TypeTraits<DataType>::conj(alpha) * g;
       P = (P - (pupdate + pupdate.transpose()) / 2) * memory;
@@ -175,4 +175,6 @@ namespace ATK
 
   template class RLSFilter<float>;
   template class RLSFilter<double>;
+  template class RLSFilter<std::complex<float>>;
+  template class RLSFilter<std::complex<double>>;
 }

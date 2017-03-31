@@ -3,6 +3,8 @@
 %{
 #define SWIG_FILE_WITH_INIT
 #define PY_ARRAY_UNIQUE_SYMBOL PyArray_API
+
+#icnlude <complex>
 %}
 %include "../Core/numpy.i"
 %fragment("NumPy_Fragments");
