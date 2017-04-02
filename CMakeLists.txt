@@ -184,10 +184,10 @@ else(WIN32)
 
     return 0;
   }
-" HAS_STD_ALIGN)
+" HAS_STD_ALIGN2)
   cmake_pop_check_state()
 
-  if(HAS_STD_ALIGN)
+  if(HAS_STD_ALIGN2)
     add_definitions(-DHAS_STD_ALIGN)
   endif(HAS_STD_ALIGN)
 
