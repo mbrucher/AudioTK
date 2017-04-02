@@ -21,18 +21,18 @@ def filter(inputl, inputr, blend_ch1=0, blend_ch2=0,
   delayfilter.set_input_sampling_rate(sample_rate)
   delayfilter.set_input_port(0, infilterL, 0)
   delayfilter.set_input_port(1, infilterR, 0)
-  delayfilter.set_delay_ch1(4800) #50ms
-  delayfilter.set_delay_ch2(3600) #37.5ms
-  delayfilter.set_blend_ch1(blend_ch1)
-  delayfilter.set_blend_ch1(blend_ch2)
-  delayfilter.set_feedback_ch1_ch1(feedback_ch1_ch1)
-  delayfilter.set_feedback_ch1_ch2(feedback_ch1_ch2)
-  delayfilter.set_feedback_ch2_ch1(feedback_ch2_ch1)
-  delayfilter.set_feedback_ch2_ch2(feedback_ch2_ch2)
-  delayfilter.set_feedforward_ch1_ch1(feedforward_ch1_ch1)
-  delayfilter.set_feedforward_ch1_ch2(feedforward_ch1_ch2)
-  delayfilter.set_feedforward_ch2_ch1(feedforward_ch2_ch1)
-  delayfilter.set_feedforward_ch2_ch2(feedforward_ch2_ch2)
+  delayfilter.set_delay(0, 4800) #50ms
+  delayfilter.set_delay(1, 3600) #37.5ms
+  delayfilter.set_blend(0, blend_ch1)
+  delayfilter.set_blend(1, blend_ch2)
+  delayfilter.set_feedback(0, 0, feedback_ch1_ch1)
+  delayfilter.set_feedback(0, 1, feedback_ch1_ch2)
+  delayfilter.set_feedback(1, 0, feedback_ch2_ch1)
+  delayfilter.set_feedback(1, 1, feedback_ch2_ch2)
+  delayfilter.set_feedforward(0, 0, feedforward_ch1_ch1)
+  delayfilter.set_feedforward(0, 1, feedforward_ch1_ch2)
+  delayfilter.set_feedforward(1, 0, feedforward_ch2_ch1)
+  delayfilter.set_feedforward(1, 1, feedforward_ch2_ch2)
   
   outfilterl = DoubleOutPointerFilter(outputl, False)
   outfilterl.set_input_sampling_rate(sample_rate)
