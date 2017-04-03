@@ -12,11 +12,11 @@
 #include <ATK/Mock/TriangleCheckerFilter.h>
 #include <ATK/Mock/TriangleGeneratorFilter.h>
 
+#include <array>
+
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
-
-#include <boost/scoped_array.hpp>
 
 #define PROCESSSIZE (1024)
 
@@ -53,13 +53,13 @@ BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_1_1_test )
   volumefilter.set_output_sampling_rate(48000);
   volumefilter.set_offset(1);
 
-  boost::scoped_array<float> data(new float[PROCESSSIZE]);
+  std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = -1;
   }
 
-  ATK::InPointerFilter<float> constantfilter(data.get(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<float> constantfilter(data.data(), 1, PROCESSSIZE, false);
   constantfilter.set_output_sampling_rate(48000);
   
   ATK::SumFilter<float> sumfilter;

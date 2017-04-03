@@ -12,13 +12,12 @@
 #include <boost/test/unit_test.hpp>
 
 #include <boost/math/constants/constants.hpp>
-#include <boost/scoped_array.hpp>
 
 #define PROCESSSIZE (1024*64)
 
 BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )
 {
-  boost::scoped_array<float> data(new float[PROCESSSIZE]);
+  std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[i] = i / 48000;
@@ -28,10 +27,10 @@ BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )
     data[PROCESSSIZE/2 + i] = (PROCESSSIZE/2 - i) / 48000;
   }
   
-  ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  boost::scoped_array<float> outdata(new float[PROCESSSIZE]);
+  std::array<float, PROCESSSIZE> outdata;
 
   ATK::AttackReleaseFilter<float> filter(1);
   filter.set_attack(std::exp(-1./(48000 * 1e-3)));
@@ -39,7 +38,7 @@ BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
 
-  ATK::OutPointerFilter<float> output(outdata.get(), 1, PROCESSSIZE, false);
+  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
   output.set_input_port(0, &filter, 0);
 

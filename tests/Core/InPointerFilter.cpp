@@ -5,7 +5,6 @@
 #include <cmath>
 
 #include <boost/math/constants/constants.hpp>
-#include <boost/scoped_array.hpp>
 
 #include <ATK/Core/InPointerFilter.h>
 
@@ -22,13 +21,13 @@
 
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
 {
-  boost::scoped_array<float> data(new float[PROCESSSIZE]);
+  std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
   
-  ATK::InPointerFilter<float> generator(data.get(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
   ATK::SimpleSinusGeneratorFilter<float> check;
@@ -53,13 +52,13 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
 
 BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
 {
-  boost::scoped_array<double> data(new double[PROCESSSIZE]);
+  std::array<double, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
   
-  ATK::InPointerFilter<double> generator(data.get(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
   ATK::SimpleSinusGeneratorFilter<double> check;
@@ -84,14 +83,14 @@ BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
 
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
 {
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[2*i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
     data[2*i+1] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
   }
   
-  ATK::InPointerFilter<float> generator(data.get(), PROCESSSIZE, 2, true);
+  ATK::InPointerFilter<float> generator(data.data(), PROCESSSIZE, 2, true);
   generator.set_output_sampling_rate(48000);
   
   ATK::SimpleSinusGeneratorFilter<float> check1;
@@ -129,7 +128,7 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
 
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
 {
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
@@ -139,7 +138,7 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
     data[i+PROCESSSIZE] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
   }
   
-  ATK::InPointerFilter<float> generator(data.get(), 2, PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator(data.data(), 2, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
   ATK::SimpleSinusGeneratorFilter<float> check1;

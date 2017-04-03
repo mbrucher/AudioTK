@@ -10,11 +10,11 @@
 #include <ATK/Mock/FFTCheckerFilter.h>
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
+#include <array>
+
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
-
-#include <boost/scoped_array.hpp>
 
 #define PROCESSSIZE (1024*64)
 
@@ -33,13 +33,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_1k_te
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -74,13 +74,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_100_t
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -115,13 +115,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_2k_te
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -157,13 +157,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_1
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
   
   ATK::FFTCheckerFilter<double> checker;
@@ -199,13 +199,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_1
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
   
   ATK::FFTCheckerFilter<double> checker;
@@ -241,13 +241,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_2
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
   
   ATK::FFTCheckerFilter<double> checker;
@@ -282,13 +282,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_1k_tes
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -323,13 +323,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_100_te
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -364,13 +364,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_2k_tes
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -404,13 +404,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_1k_tes
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -444,13 +444,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_100_te
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -484,13 +484,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_2k_tes
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -524,13 +524,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowPassCoefficients_200_te
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -564,13 +564,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighPassCoefficients_1k_te
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -604,13 +604,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighPassCoefficients_10k_t
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -644,13 +644,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighPassCoefficients_500_t
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -685,13 +685,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_1k
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
   
   ATK::FFTCheckerFilter<double> checker;
@@ -727,13 +727,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_10
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -768,13 +768,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_20
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 100;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
 
   ATK::FFTCheckerFilter<double> checker;
@@ -809,13 +809,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_1
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
   
   ATK::FFTCheckerFilter<double> checker;
@@ -850,13 +850,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_1
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
   
   ATK::FFTCheckerFilter<double> checker;
@@ -891,13 +891,13 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_5
   filter.set_max_frequency(12000);
   filter.set_number_of_steps(12000 - 100 + 1);
 
-  boost::scoped_array<float> data(new float[2*PROCESSSIZE]);
+  std::array<float, 2*PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = 1000;
   }
 
-  ATK::InPointerFilter<float> generator2(data.get(), 1, 2*PROCESSSIZE, false);
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
   generator2.set_output_sampling_rate(1024*64);
   
   ATK::FFTCheckerFilter<double> checker;
