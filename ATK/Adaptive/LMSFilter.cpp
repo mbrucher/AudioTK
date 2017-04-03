@@ -48,6 +48,17 @@ namespace ATK
     {
       w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x;
     }
+
+    void update_signdata(const xType& x, DataType error)
+    {
+      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error * x.array() / (x.cwiseAbs().cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
+    }
+
+    void update_signsign(const xType& x, DataType error)
+    {
+      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x.array() / (x.cwiseAbs().cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
+    }
+
     UpdateFunction select(Mode mode)
     {
       switch (mode)
@@ -58,6 +69,10 @@ namespace ATK
         return &LMSFilterImpl::update_normalized;
       case Mode::SIGNERROR:
         return &LMSFilterImpl::update_signerror;
+      case Mode::SIGNDATA:
+        return &LMSFilterImpl::update_signdata;
+      case Mode::SIGNSIGN:
+        return &LMSFilterImpl::update_signsign;
 
       default:
         return &LMSFilterImpl::update;
