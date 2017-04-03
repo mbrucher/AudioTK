@@ -52,7 +52,6 @@ namespace ATK
   template<typename DataType_>
   VariableDelayLineFilter<DataType_>::~VariableDelayLineFilter()
   {
-    
   }
 
   template<typename DataType_>
