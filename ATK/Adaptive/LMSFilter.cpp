@@ -32,6 +32,8 @@ namespace ATK
     {
     }
 
+    typedef void (LMSFilterImpl::*UpdateFunction)(const xType& x, DataType error);
+
     void update(const xType& x, DataType error)
     {
       w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error * x;
@@ -42,10 +44,25 @@ namespace ATK
       w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error * x / (std::numeric_limits<DataType>::epsilon() + static_cast<DataType>(x.squaredNorm()));
     }
 
-/*    void update_signerror(const xType& x, DataType error)
+    void update_signerror(const xType& x, DataType error)
     {
-      w = alpha * w + mu * std::copysign(1, error) * x;
-    }*/
+      w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x;
+    }
+    UpdateFunction select(Mode mode)
+    {
+      switch (mode)
+      {
+      case Mode::NORMAL:
+        return &LMSFilterImpl::update;
+      case Mode::NORMALIZED:
+        return &LMSFilterImpl::update_normalized;
+      case Mode::SIGNERROR:
+        return &LMSFilterImpl::update_signerror;
+
+      default:
+        return &LMSFilterImpl::update;
+      }
+    }
   };
 
   template<typename DataType_>
@@ -139,7 +156,7 @@ namespace ATK
     const DataType* ATK_RESTRICT ref = converted_inputs[1];
     DataType* ATK_RESTRICT output = outputs[0];
     
-    auto update_function = mode == Mode::NORMAL ? &LMSFilterImpl::update : (/*mode == Mode::NORMALIZED ?*/ &LMSFilterImpl::update_normalized /*: &LMSFilterImpl::update_signerror*/);
+    auto update_function = impl->select(mode);
 
     for(std::size_t i = 0; i < size; ++i)
     {
