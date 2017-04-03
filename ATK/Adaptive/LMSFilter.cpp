@@ -190,5 +190,6 @@ namespace ATK
 
   template class LMSFilter<float>;
   template class LMSFilter<double>;
+  template class LMSFilter<std::complex<float>>;
   template class LMSFilter<std::complex<double>>;
 }
