@@ -51,12 +51,12 @@ namespace ATK
 
     void update_signdata(const xType& x, DataType error)
     {
-      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error * x.array() / (x.cwiseAbs().cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
+      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error * x.array() / (x.cwiseAbs().template cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
     }
 
     void update_signsign(const xType& x, DataType error)
     {
-      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x.array() / (x.cwiseAbs().cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
+      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x.array() / (x.cwiseAbs().template cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
     }
 
     UpdateFunction select(Mode mode)
