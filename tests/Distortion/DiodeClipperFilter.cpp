@@ -2,6 +2,7 @@
  * \ file DiodeClipperFilter.cpp
  */
 
+#include <array>
 #include <fstream>
 
 #include <ATK/config.h>
@@ -29,22 +30,22 @@
 
 BOOST_AUTO_TEST_CASE( DiodeClipperFilter_const_sin1k )
 {
-  std::unique_ptr<double[]> data(new double[PROCESSSIZE]);
+  std::array<double, PROCESSSIZE> data;
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/input1.dat", std::ios::binary);
-    input.read(reinterpret_cast<char*>(data.get()), PROCESSSIZE * sizeof(double));
+    input.read(reinterpret_cast<char*>(data.data()), PROCESSSIZE * sizeof(double));
   }
   
-  ATK::InPointerFilter<double> generator(data.get(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
-  std::unique_ptr<double[]> datacheck(new double[PROCESSSIZE]);
+  std::array<double, PROCESSSIZE> datacheck;
   {
     std::ifstream check(ATK_SOURCE_TREE "/tests/data/output4_dc.dat", std::ios::binary);
-    check.read(reinterpret_cast<char*>(datacheck.get()), PROCESSSIZE * sizeof(double));
+    check.read(reinterpret_cast<char*>(datacheck.data()), PROCESSSIZE * sizeof(double));
   }
   
-  ATK::InPointerFilter<double> check(datacheck.get(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<double> check(datacheck.data(), 1, PROCESSSIZE, false);
   check.set_output_sampling_rate(48000);
   
   ATK::VolumeFilter<double> volume;
