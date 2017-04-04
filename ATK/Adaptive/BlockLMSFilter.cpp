@@ -33,7 +33,7 @@ namespace ATK
     std::size_t accumulate_block_size;
 
     BlockLMSFilterImpl(std::size_t size)
-    :w(wType::Zero(size)), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0)
+    :w(wType::Zero(size)), accumulated_change(wType::Zero(size)), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0)
     {
     }
 
@@ -141,6 +141,7 @@ namespace ATK
       throw std::out_of_range("Block size must be strictly positive");
     }
     impl->accumulate_block_size = 0;
+    impl->accumulated_change = BlockLMSFilterImpl::wType::Zero(size);
     impl->block_size = size;
   }
 
@@ -215,7 +216,7 @@ namespace ATK
 
     for(std::size_t i = 0; i < size; ++i)
     {
-      typename BlockLMSFilterImpl::xType x(input - input_delay - 1 + i, input_delay - 1, 1);
+      typename BlockLMSFilterImpl::xType x(input - input_delay - 1 + i, input_delay - 1);
       output[i] = impl->w.conjugate().dot(x);
 
       (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
