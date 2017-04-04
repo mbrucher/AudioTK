@@ -28,7 +28,7 @@ namespace ATK
     double mu;
 
     LMSFilterImpl(std::size_t size)
-    :w(wType::Zero(size, 1)), alpha(.99), mu(0.05)
+    :w(wType::Zero(size)), alpha(.99), mu(0.05)
     {
     }
 

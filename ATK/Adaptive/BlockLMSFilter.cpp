@@ -22,43 +22,62 @@ namespace ATK
     typedef Eigen::Map<const wType> xType;
 
     wType w;
+    /// Accumulated block update
+    wType accumulated_change;
     /// Memory factor
     double alpha;
     /// line search
     double mu;
     /// block size
     std::size_t block_size;
+    std::size_t accumulate_block_size;
 
     BlockLMSFilterImpl(std::size_t size)
-    :w(wType::Zero(size, 1)), alpha(.99), mu(0.05), block_size(size)
+    :w(wType::Zero(size)), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0)
     {
     }
 
     typedef void (BlockLMSFilterImpl::*UpdateFunction)(const xType& x, DataType error);
 
+    void apply_update()
+    {
+      ++accumulate_block_size;
+      if (accumulate_block_size == block_size)
+      {
+        w = static_cast<DataType>(alpha) * w + accumulated_change;
+        accumulated_change = wType::Zero(w.rows());
+        accumulate_block_size = 0;
+      }
+    }
+
     void update(const xType& x, DataType error)
     {
-      w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error * x;
+      accumulated_change += static_cast<DataType>(mu) * error * x;
+      apply_update();
     }
 
     void update_normalized(const xType& x, DataType error)
     {
-      w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error * x / (std::numeric_limits<DataType>::epsilon() + static_cast<DataType>(x.squaredNorm()));
+      accumulated_change += static_cast<DataType>(mu) * error * x / (std::numeric_limits<DataType>::epsilon() + static_cast<DataType>(x.squaredNorm()));
+      apply_update();
     }
 
     void update_signerror(const xType& x, DataType error)
     {
-      w = static_cast<DataType>(alpha) * w + static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x;
+      accumulated_change += static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x;
+      apply_update();
     }
 
     void update_signdata(const xType& x, DataType error)
     {
-      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error * x.array() / (x.cwiseAbs().template cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
+      accumulated_change += (static_cast<DataType>(mu) * error * x.array() / (x.cwiseAbs().template cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()))).matrix();
+      apply_update();
     }
 
     void update_signsign(const xType& x, DataType error)
     {
-      w = static_cast<DataType>(alpha) * w.array() + static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x.array() / (x.cwiseAbs().template cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()));
+      accumulated_change += (static_cast<DataType>(mu) * error / (std::numeric_limits<DataType>::epsilon() + std::abs(error)) * x.array() / (x.cwiseAbs().template cast<DataType>().array() + static_cast<DataType>(std::numeric_limits<DataType>::epsilon()))).matrix();
+      apply_update();
     }
 
     UpdateFunction select(Mode mode)
@@ -105,7 +124,7 @@ namespace ATK
     input_delay = size + 1;
     auto block_size = impl->block_size;
     impl.reset(new BlockLMSFilterImpl(size));
-    impl->block_size = block_size;
+    set_block_size(block_size);
   }
 
   template<typename DataType_>
@@ -121,7 +140,7 @@ namespace ATK
     {
       throw std::out_of_range("Block size must be strictly positive");
     }
-
+    impl->accumulate_block_size = 0;
     impl->block_size = size;
   }
 

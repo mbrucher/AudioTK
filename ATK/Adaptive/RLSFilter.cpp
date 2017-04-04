@@ -23,7 +23,7 @@ namespace ATK
     typedef Eigen::Map<const wType> xType;
 
     RLSFilterImpl(std::size_t size)
-      :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size, 1)), memory(.99)
+      :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size)), memory(.99)
     {
     }
 
