@@ -29,7 +29,7 @@ namespace ATK
   public:
     /**
      * @brief Creates the filter with a given size
-     * An LMS filter is an adaptive filter that tries to match its second input with a linear combination of the first input, outputing the difference 
+     * An LMS filter is an adaptive filter that tries to match its second input with a linear combination of the first input, outputting the difference 
      * of the reference and the estimate.
      * @param size is the size of the underlying MA filter
      */
@@ -51,7 +51,7 @@ namespace ATK
     /// Retrieves mu
     double get_mu() const;
 
-    /// Retrieves w
+    /// Retrieves the coefficients
     const DataType_* get_w() const;
 
     enum class Mode
@@ -73,7 +73,6 @@ namespace ATK
     
   private:
     Mode mode;
-    std::size_t global_size;
   };
 }
 

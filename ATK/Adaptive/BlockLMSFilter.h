@@ -29,8 +29,8 @@ namespace ATK
   public:
     /**
      * @brief Creates the filter with a given size
-     * An LMS filter is an adaptive filter that tries to match its second input with a linear combination of the first input, outputing the difference 
-     * of the reference and the estimate.
+     * An LMS filter is an adaptive filter that tries to match its second input with a linear combination of the first input, outputting the difference 
+     * of the reference and the estimate. The block variant only updates the coefficients each time a block is processed.
      * @param size is the size of the underlying MA filter
      */
     BlockLMSFilter(std::size_t size);
@@ -41,6 +41,10 @@ namespace ATK
     void set_size(std::size_t size);
     /// Retrieve the size
     std::size_t get_size() const;
+    /// Changes the block size
+    void set_block_size(std::size_t size);
+    /// Retrieve the block size
+    std::size_t get_block_size() const;
 
     /// Sets the memory of the LMS algorithm
     void set_memory(double memory);
@@ -51,7 +55,7 @@ namespace ATK
     /// Retrieves mu
     double get_mu() const;
 
-    /// Retrieves w
+    /// Retrieves the coefficients
     const DataType_* get_w() const;
 
     enum class Mode
@@ -73,7 +77,6 @@ namespace ATK
     
   private:
     Mode mode;
-    std::size_t global_size;
   };
 }
 

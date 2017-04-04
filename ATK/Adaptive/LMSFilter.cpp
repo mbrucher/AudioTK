@@ -82,7 +82,7 @@ namespace ATK
 
   template<typename DataType_>
   LMSFilter<DataType_>::LMSFilter(std::size_t size)
-  :Parent(2, 1), impl(new LMSFilterImpl(size)), mode(Mode::NORMAL), global_size(size)
+  :Parent(2, 1), impl(new LMSFilterImpl(size)), mode(Mode::NORMAL)
   {
     input_delay = size + 1;
   }
@@ -100,14 +100,14 @@ namespace ATK
       throw std::out_of_range("Size must be strictly positive");
     }
 
-    input_delay = size+1;
-    this->global_size = size;
+    input_delay = size + 1;
+    impl.reset(new LMSFilterImpl(size));
   }
 
   template<typename DataType_>
   std::size_t LMSFilter<DataType_>::get_size() const
   {
-    return global_size;
+    return input_delay - 1;
   }
   
   template<typename DataType_>
@@ -175,7 +175,7 @@ namespace ATK
 
     for(std::size_t i = 0; i < size; ++i)
     {
-      typename LMSFilterImpl::xType x(input - global_size + i, global_size, 1);
+      typename LMSFilterImpl::xType x(input - input_delay - 1 + i, input_delay - 1, 1);
       output[i] = impl->w.conjugate().dot(x);
 
       (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
