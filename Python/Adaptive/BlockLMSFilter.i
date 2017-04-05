@@ -24,7 +24,6 @@ namespace ATK
   };
 }
 
-%template(FloatBlockLMSFilter) ATK::BlockLMSFilter<float>;
 %template(DoubleBlockLMSFilter) ATK::BlockLMSFilter<double>;
 
 %define BlockLMSFilterExtend(name, T)
@@ -36,5 +35,4 @@ namespace ATK
 }
 %enddef
 
-BlockLMSFilterExtend(ATK::BlockLMSFilter<float>, float);
 BlockLMSFilterExtend(ATK::BlockLMSFilter<double>, double);
