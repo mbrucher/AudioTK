@@ -2,6 +2,9 @@
  * \ file BlockLMSFilter.cpp
  */
 
+#include <array>
+#include <fstream>
+
 #include <ATK/Adaptive/BlockLMSFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>
@@ -20,7 +23,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024)
+#define PROCESSSIZE (1200)
 
 BOOST_AUTO_TEST_CASE(BlockLMSFilter_size_negative_test)
 {
@@ -48,24 +51,34 @@ BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_positive1_test )
 
 BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_99_test )
 {
-  ATK::SimpleSinusGeneratorFilter<float> generator;
+  std::array<double, PROCESSSIZE> data;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/input_lms.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(data.data()), PROCESSSIZE * sizeof(double));
+  }
+
+  ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
-  generator.set_amplitude(1);
-  generator.set_frequency(1000);
-  
-  ATK::BlockLMSFilter<float> filter(10);
+
+  ATK::BlockLMSFilter<double> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
-  filter.set_memory(.99);
-  
-  ATK::TriangleCheckerFilter<float> checker;
-  checker.set_input_sampling_rate(48000);
-  checker.set_amplitude(0);
-  checker.set_frequency(1000);
-  
+  filter.set_memory(.999);
+  filter.set_mu(.0001);
+
   filter.set_input_port(0, &generator, 0);
   filter.set_input_port(1, &generator, 0);
-  checker.set_input_port(0, &filter, 0);
-  
-  //checker.process(PROCESSSIZE);
+
+  filter.process(PROCESSSIZE);
+
+  std::array<double, PROCESSSIZE> outdata;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_blocklms.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(outdata.data()), PROCESSSIZE * sizeof(double));
+  }
+
+  for (unsigned int i = 0; i < PROCESSSIZE; ++i)
+  {
+    BOOST_CHECK_CLOSE(outdata[i], filter.get_output_array(0)[i], 0.0001);
+  }
 }

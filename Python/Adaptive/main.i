@@ -20,6 +20,7 @@ import_array();
 %nodefaultctor;
 
 %include "../Core/BaseFilter.i"
+%include "BlockLMSFilter.i"
 %include "LMSFilter.i"
 %include "RLSFilter.i"
 
