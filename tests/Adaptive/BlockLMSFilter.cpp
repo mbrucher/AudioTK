@@ -76,7 +76,7 @@ BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_999_test )
   output.set_input_port(0, &filter, 0);
 
   filter.process(100);
-  output.process(PROCESSSIZE);
+//  output.process(PROCESSSIZE);
 
   std::array<double, PROCESSSIZE> ref;
   {

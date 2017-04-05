@@ -98,7 +98,7 @@ namespace ATK
       input_data[j][0] = input[j] / factor;
       input_data[j][1] = 0;
     }
-    for(std::size_t j = std::min(input_size, size); j < size; ++j)
+    for(std::size_t j = input_size; j < size; ++j)
     {
       input_data[j][0] = 0;
       input_data[j][1] = 0;
@@ -111,7 +111,7 @@ namespace ATK
       pSrc[j].re = input[j] / factor;
       pSrc[j].im = 0;
     }
-    for (std::size_t j = std::min(input_size, size); j < size; ++j)
+    for (std::size_t j = input_size; j < size; ++j)
     {
       pSrc[j].re = 0;
       pSrc[j].im = 0;
@@ -140,25 +140,25 @@ namespace ATK
   void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, std::size_t input_size) const
   {
 #if ATK_USE_FFTW == 1
-    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < size; ++j)
     {
       output_freqs[j][0] = input[j].real();
       output_freqs[j][1] = input[j].imag();
     }
     fftw_execute(fft_reverse_plan);
-    for(std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for(std::size_t j = 0; j < input_size; ++j)
     {
       output[j] = input_data[j][0];
     }
 #endif
 #if ATK_USE_IPP == 1
-    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < size; ++j)
     {
       pDst[j].re = input[j].real();
       pDst[j].im = input[j].imag();
     }
     ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pDFTWorkBuf);
-    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < input_size; ++j)
     {
       output[j] = pDst[j].re;
     }
@@ -175,7 +175,7 @@ namespace ATK
       input_data[j][0] = std::real(input[j]) / factor;
       input_data[j][1] = std::imag(input[j]) / factor;
     }
-    for (std::size_t j = std::min(input_size, size); j < size; ++j)
+    for (std::size_t j = input_size; j < size; ++j)
     {
       input_data[j][0] = 0;
       input_data[j][1] = 0;
@@ -188,7 +188,7 @@ namespace ATK
       pSrc[j].re = std::real(input[j]) / factor;
       pSrc[j].im = std::imag(input[j]) / factor;
     }
-    for (std::size_t j = std::min(input_size, size); j < size; ++j)
+    for (std::size_t j = input_size; j < size; ++j)
     {
       pSrc[j].re = 0;
       pSrc[j].im = 0;
@@ -217,25 +217,25 @@ namespace ATK
   void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size) const
   {
 #if ATK_USE_FFTW == 1
-    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < size; ++j)
     {
       output_freqs[j][0] = input[j].real();
       output_freqs[j][1] = input[j].imag();
     }
     fftw_execute(fft_reverse_plan);
-    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < input_size; ++j)
     {
       output[j] = std::complex<DataType_>(input_data[j][0], input_data[j][1]);
   }
 #endif
 #if ATK_USE_IPP == 1
-    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < size; ++j)
     {
       pDst[j].re = input[j].real();
       pDst[j].im = input[j].imag();
     }
     ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pDFTWorkBuf);
-    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    for (std::size_t j = 0; j < input_size; ++j)
     {
       output[j] = std::complex<DataType_>(pDst[j].re, pDst[j].im);
     }

@@ -65,7 +65,7 @@ namespace ATK
         fft.process_forward(block_input.data(), block_fft2.data(), block_size * 2);
         for(std::size_t i = 0; i < 2 * block_size; ++i)
         {
-          block_fft[i] = block_fft2[i] * wfft(i, 0) * std::complex<double>(block_size * 2); // Diagonal U
+          block_fft[i] = block_fft2[i] * wfft(i, 0) * std::complex<double>(block_size * 2); // Diagonal U * FFT factor
         }
         fft.process_backward(block_fft.data(), block_ifft.data(), block_size * 2);
         for (std::size_t i = 0; i < block_size; ++i)
@@ -75,13 +75,15 @@ namespace ATK
         }
         std::fill(block_ifft.begin(), block_ifft.begin() + block_size, 0);
         fft.process_forward(block_ifft.data(), block_fft.data(), block_size * 2); // FFT of the error stored in ifft
-        for (std::size_t i = 0; i < block_size; ++i)
+        for (std::size_t i = 0; i < 2 * block_size; ++i)
         {
-          block_fft[i] = std::conj(block_fft2[i]) * block_fft[i] * std::complex<double>(block_size * 2);
+          block_fft[i] = std::conj(block_fft2[i]) * block_fft[i] * std::complex<double>(block_size * 2); // diagonal * FFT factor
         }
         fft.process_backward(block_fft.data(), block_ifft.data(), 2 * block_size);
         fft.process_forward(block_ifft.data(), block_fft.data(), block_size);
         wfft = alpha * wfft + static_cast<std::complex<double>>(mu) * cxType(block_fft.data(), 2 * block_size);
+        fft.process_backward(block_fft.data(), block_ifft.data(), block_size);
+        std::cout << xType(block_ifft.data(), block_size).transpose() << std::endl;
 
         accumulate_block_size = 0;
         std::memcpy(&block_input[0], &block_input[block_size], block_size * sizeof(DataType_));
