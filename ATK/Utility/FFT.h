@@ -15,9 +15,6 @@
 #if ATK_USE_FFTW == 1
 #include <fftw3.h>
 #endif
-#if ATK_USE_ACCELERATE == 1
-#include <Accelerate/Accelerate.h>
-#endif
 #if ATK_USE_IPP == 1
 #include <ipp.h>
 #endif
@@ -95,7 +92,6 @@ namespace ATK
 
   protected:
 	  std::size_t size;
-	  int log2n;
 
 #if ATK_USE_FFTW == 1
     fftw_plan fft_plan;
@@ -103,12 +99,7 @@ namespace ATK
     fftw_complex* input_data;
     fftw_complex* output_freqs;
 #endif
-    
-#if ATK_USE_ACCELERATE == 1
-    FFTSetupD fftSetup;
-    DSPDoubleSplitComplex splitData;
-#endif
-#if ATK_USE_IPP == 1
+    #if ATK_USE_IPP == 1
     Ipp64fc *pSrc;
     Ipp64fc *pDst;
     IppsDFTSpec_C_64fc* pDFTSpec;
