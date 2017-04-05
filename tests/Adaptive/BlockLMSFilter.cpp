@@ -49,7 +49,7 @@ BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_positive1_test )
   BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
 }
 
-BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_99_test )
+BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_999_test )
 {
   std::array<double, PROCESSSIZE> data;
   {
@@ -66,15 +66,21 @@ BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_99_test )
   filter.set_memory(.999);
   filter.set_mu(.0001);
 
+  std::array<double, PROCESSSIZE> outdata;
+  ATK::OutPointerFilter<double> output(outdata.data(), 1, PROCESSSIZE, false);
+  output.set_input_sampling_rate(48000);
+  output.set_output_sampling_rate(48000);
+
   filter.set_input_port(0, &generator, 0);
   filter.set_input_port(1, &generator, 0);
+  output.set_input_port(0, &filter, 0);
 
-  filter.process(PROCESSSIZE);
+  output.process(PROCESSSIZE);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::array<double, PROCESSSIZE> ref;
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_blocklms.dat", std::ios::binary);
-    input.read(reinterpret_cast<char*>(outdata.data()), PROCESSSIZE * sizeof(double));
+    input.read(reinterpret_cast<char*>(ref.data()), PROCESSSIZE * sizeof(double));
   }
 
   for (unsigned int i = 0; i < PROCESSSIZE; ++i)
