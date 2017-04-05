@@ -58,25 +58,8 @@ namespace ATK
     /// Retrieves the coefficients
     const DataType_* get_w() const;
 
-    enum class Mode
-    {
-      NORMAL,
-      NORMALIZED,
-      SIGNERROR,
-      SIGNDATA,
-      SIGNSIGN
-    };
-
-    /// Sets the way the filter is updated
-    void set_mode(Mode mode);
-    /// Retrieves the way the filter is updated
-    Mode get_mode() const;
-
   protected:
     virtual void process_impl(std::size_t size) const;
-    
-  private:
-    Mode mode;
   };
 }
 

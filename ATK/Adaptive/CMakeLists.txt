@@ -44,7 +44,7 @@ set_target_properties (ATKAdaptive PROPERTIES
     FOLDER C++/shared
 )
 
-target_link_libraries(ATKAdaptive ATKCore)
+target_link_libraries(ATKAdaptive ATKUtility ATKCore)
 
 stagedebug(ATKAdaptive)
 

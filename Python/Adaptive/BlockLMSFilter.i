@@ -21,18 +21,6 @@ namespace ATK
     void set_mu(double mu);
     /// Retrieves mu
     double get_mu() const;
-
-    enum class Mode
-    {
-      NORMAL,
-      NORMALIZED,
-      SIGNERROR
-    };
-
-    /// Sets the way the filter is updated
-    void set_mode(Mode mode);
-    /// Retrieves the way the filter is updated
-    Mode get_mode() const;
   };
 }
 

@@ -214,7 +214,112 @@ namespace ATK
     }
 #endif
   }
-  
+
+  template<class DataType_>
+  void FFT<DataType_>::process(const std::complex<DataType_>* input, std::size_t input_size) const
+  {
+    double factor = 1 << log2n;
+#if ATK_USE_FFTW == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      input_data[j][0] = std::real(input[j]) / factor;
+      input_data[j][1] = std::imag(input[j]) / factor;
+    }
+    for (std::size_t j = std::min(input_size, size); j < size; ++j)
+    {
+      input_data[j][0] = 0;
+      input_data[j][1] = 0;
+    }
+    fftw_execute(fft_plan);
+#endif
+#if ATK_USE_ACCELERATE == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      splitData.realp[j] = std::real(input[j]) / factor;
+      splitData.imagp[j] = std::imag(input[j]) / factor;
+    }
+    for (std::size_t j = std::min(input_size, size); j < size; ++j)
+    {
+      splitData.realp[j] = 0;
+      splitData.imagp[j] = 0;
+    }
+    vDSP_fft_zipD(fftSetup, &splitData, 1, log2n, FFT_FORWARD);
+#endif
+#if ATK_USE_IPP == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      pSrc[j].re = std::real(input[j]) / factor;
+      pSrc[j].im = std::imag(input[j]) / factor;
+    }
+    for (std::size_t j = std::min(input_size, size); j < size; ++j)
+    {
+      pSrc[j].re = 0;
+      pSrc[j].im = 0;
+    }
+    ippsDFTFwd_CToC_64fc(pSrc, pDst, pDFTSpec, pDFTWorkBuf);
+#endif
+
+  }
+
+  template<class DataType_>
+  void FFT<DataType_>::process_forward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size) const
+  {
+    process(input, input_size);
+    for (std::size_t j = 0; j < size; ++j)
+    {
+#if ATK_USE_FFTW == 1
+      output[j] = std::complex<DataType_>(output_freqs[j][0], output_freqs[j][1]);
+#endif
+#if ATK_USE_ACCELERATE == 1
+      output[j] = std::complex<DataType_>(splitData.realp[j], splitData.imagp[j]);
+#endif
+#if ATK_USE_IPP == 1
+      output[j] = std::complex<DataType_>(pDst[j].re, pDst[j].im);
+#endif
+    }
+  }
+
+  template<class DataType_>
+  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size) const
+  {
+#if ATK_USE_FFTW == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      output_freqs[j][0] = input[j].real();
+      output_freqs[j][1] = input[j].imag();
+    }
+    fftw_execute(fft_reverse_plan);
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = std::complex<DataType_>(input_data[j][0], input_data[j][1]);
+  }
+#endif
+#if ATK_USE_ACCELERATE == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      splitData.realp[j] = input[j].real();
+      splitData.imagp[j] = input[j].imag();
+    }
+    vDSP_fft_zipD(fftSetup, &splitData, 1, log2n, FFT_BACKWARD);
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = std::complex<DataType_>(splitData.realp[j], splitData.imagp[j]);
+    }
+#endif
+#if ATK_USE_IPP == 1
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      pDst[j].re = input[j].real();
+      pDst[j].im = input[j].imag();
+    }
+    ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pDFTWorkBuf);
+    for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+    {
+      output[j] = std::complex<DataType_>(pDst[j].re, pDst[j].im);
+    }
+#endif
+  }
+
   template<class DataType_>
   void FFT<DataType_>::get_amp(std::vector<DataType_>& amp) const
   {

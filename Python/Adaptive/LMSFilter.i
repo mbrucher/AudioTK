@@ -26,7 +26,9 @@ namespace ATK
     {
       NORMAL,
       NORMALIZED,
-      SIGNERROR
+      SIGNERROR,
+      SIGNDATA,
+      SIGNSIGN
     };
 
     /// Sets the way the filter is updated
