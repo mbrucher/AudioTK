@@ -6,6 +6,7 @@
 
 #include <complex>
 #include <cstdint>
+#include <iostream>
 #include <stdexcept>
 
 #include <Eigen/Core>
@@ -19,12 +20,26 @@ namespace ATK
   class BlockLMSFilter<DataType_>::BlockLMSFilterImpl
   {
   public:
+    typedef Eigen::Matrix<std::complex<double>, Eigen::Dynamic, 1> cwType;
+    typedef Eigen::Map<const cwType> cxType;
     typedef Eigen::Matrix<DataType_, Eigen::Dynamic, 1> wType;
     typedef Eigen::Map<const wType> xType;
 
-    wType w;
-    /// Accumulated block update
-    wType accumulated_change;
+    /// FFT of the current coefficients
+    cwType wfft;
+    /// Current accumulated input
+    std::vector<DataType_> block_input;
+    /// Current accumulated ref
+    std::vector<DataType_> block_ref;
+    /// Current accumulated error
+    std::vector<DataType_> block_error;
+
+    /// Temporary storage
+    std::vector<std::complex<double> > block_fft;
+    /// Temporary storage
+    std::vector<std::complex<double> > block_fft2;
+    /// Temporary storage
+    std::vector<DataType_> block_ifft;
 
     FFT<double> fft;
     /// Memory factor
@@ -36,27 +51,49 @@ namespace ATK
     std::size_t accumulate_block_size;
 
     BlockLMSFilterImpl(std::size_t size)
-    :w(wType::Zero(size)), accumulated_change(wType::Zero(size)), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0)
+    :wfft(cwType::Zero(2*size)), block_input(2 * size, DataType_(0)), block_ref(size, DataType_(0)), block_error(size, DataType_(0)),
+     block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0)
     {
       fft.set_size(2 * size);
     }
-
-    typedef void (BlockLMSFilterImpl::*UpdateFunction)(const xType& x, DataType error);
 
     void apply_update()
     {
       ++accumulate_block_size;
       if (accumulate_block_size == block_size)
       {
-        w = static_cast<DataType>(alpha) * w + accumulated_change;
-        accumulated_change = wType::Zero(w.rows());
+        fft.process_forward(block_input.data(), block_fft2.data(), block_size * 2);
+        for(std::size_t i = 0; i < 2 * block_size; ++i)
+        {
+          block_fft[i] = block_fft2[i] * wfft(i, 0) * std::complex<double>(block_size * 2); // Diagonal U
+        }
+        fft.process_backward(block_fft.data(), block_ifft.data(), block_size * 2);
+        for (std::size_t i = 0; i < block_size; ++i)
+        {
+          block_ifft[block_size + i] = block_ref[i] - block_ifft[block_size + i]; // error on last elements of Y
+          block_error[i] = block_ifft[block_size + i];
+        }
+        std::fill(block_ifft.begin(), block_ifft.begin() + block_size, 0);
+        fft.process_forward(block_ifft.data(), block_fft.data(), block_size * 2); // FFT of the error stored in ifft
+        for (std::size_t i = 0; i < block_size; ++i)
+        {
+          block_fft[i] = std::conj(block_fft2[i]) * block_fft[i] * std::complex<double>(block_size * 2);
+        }
+        fft.process_backward(block_fft.data(), block_ifft.data(), 2 * block_size);
+        fft.process_forward(block_ifft.data(), block_fft.data(), block_size);
+        wfft = alpha * wfft + static_cast<std::complex<double>>(mu) * cxType(block_fft.data(), 2 * block_size);
+
         accumulate_block_size = 0;
+        std::memcpy(&block_input[0], &block_input[block_size], block_size * sizeof(DataType_));
       }
     }
 
-    void update(const xType& x, DataType error)
+    void update(DataType input, DataType ref, DataType& error)
     {
-      accumulated_change += static_cast<DataType>(mu) * error * x;
+      block_input[block_size + accumulate_block_size] = input;
+      error = block_ref[accumulate_block_size] - block_error[accumulate_block_size];
+      block_ref[accumulate_block_size] = ref;
+
       apply_update();
     }
   };
@@ -101,8 +138,12 @@ namespace ATK
       throw std::out_of_range("Block size must be strictly positive");
     }
     impl->accumulate_block_size = 0;
-    impl->accumulated_change = BlockLMSFilterImpl::wType::Zero(size);
     impl->block_size = size;
+    impl->block_input.assign(2 * size, 0);
+    impl->block_ref.assign(size, 0);
+    impl->block_fft.assign(2 * size, 0);
+    impl->block_fft2.assign(2 * size, 0);
+    impl->block_ifft.assign(2 * size, 0);
   }
 
   template<typename DataType_>
@@ -162,21 +203,16 @@ namespace ATK
     
     for(std::size_t i = 0; i < size; ++i)
     {
-      typename BlockLMSFilterImpl::xType x(input - input_delay - 1 + i, input_delay - 1);
-      output[i] = impl->w.conjugate().dot(x);
-
-      impl.get()->update(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
+      impl.get()->update(input[i], ref[i], output[i]);
     }
   }
 
   template<typename DataType_>
   const DataType_* BlockLMSFilter<DataType_>::get_w() const
   {
-    return impl->w.data();
+    return nullptr;
   }
 
-  template class BlockLMSFilter<float>;
   template class BlockLMSFilter<double>;
-  template class BlockLMSFilter<std::complex<float>>;
   template class BlockLMSFilter<std::complex<double>>;
 }
