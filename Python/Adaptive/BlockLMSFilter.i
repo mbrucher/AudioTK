@@ -1,16 +1,16 @@
 
 %{
-#include <ATK/Adaptive/LMSFilter.h>
+#include <ATK/Adaptive/BlockLMSFilter.h>
 %}
 
 namespace ATK
 {
   template<class DataType>
-  class LMSFilter: public BaseFilter
+  class BlockLMSFilter: public BaseFilter
   {
   public:
-    LMSFilter(std::size_t size);
-    ~LMSFilter();
+    BlockLMSFilter(std::size_t size);
+    ~BlockLMSFilter();
     
     /// Sets the memory of the LMS algorithm
     void set_memory(double memory);
@@ -22,20 +22,6 @@ namespace ATK
     /// Retrieves mu
     double get_mu() const;
 
-    enum class Mode
-    {
-      NORMAL,
-      NORMALIZED,
-      SIGNERROR,
-      SIGNDATA,
-      SIGNSIGN
-    };
-
-    /// Sets the way the filter is updated
-    void set_mode(Mode mode);
-    /// Retrieves the way the filter is updated
-    Mode get_mode() const;
-
     /// Sets the learning mode
     void set_learning(bool learning);
     /// Am I in learning mode or not?
@@ -44,10 +30,9 @@ namespace ATK
   };
 }
 
-%template(FloatLMSFilter) ATK::LMSFilter<float>;
-%template(DoubleLMSFilter) ATK::LMSFilter<double>;
+%template(DoubleBlockLMSFilter) ATK::BlockLMSFilter<double>;
 
-%define LMSFilterExtend(name, T)
+%define BlockLMSFilterExtend(name, T)
 %extend name {
   std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_in()
   {
@@ -56,5 +41,4 @@ namespace ATK
 }
 %enddef
 
-LMSFilterExtend(ATK::LMSFilter<float>, float);
-LMSFilterExtend(ATK::LMSFilter<double>, double);
+BlockLMSFilterExtend(ATK::BlockLMSFilter<double>, double);
