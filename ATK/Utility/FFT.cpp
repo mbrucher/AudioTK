@@ -12,11 +12,12 @@ namespace ATK
 {
   template<class DataType_>
   FFT<DataType_>::FFT()
+  :size(0),
 #if ATK_USE_FFTW == 1
-  :size(0), fft_plan(nullptr), fft_reverse_plan(nullptr), input_data(nullptr), output_freqs(nullptr)
+  fft_plan(nullptr), fft_reverse_plan(nullptr), input_data(nullptr), output_freqs(nullptr)
 #endif
 #if ATK_USE_IPP == 1
-  :pSrc(nullptr), pDst(nullptr), pDFTSpec(nullptr), pDFTInitBuf(nullptr), pDFTWorkBuf(nullptr)
+  pSrc(nullptr), pDst(nullptr), pDFTSpec(nullptr), pDFTInitBuf(nullptr), pDFTWorkBuf(nullptr)
 #endif
   {
   }
