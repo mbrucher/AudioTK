@@ -6,7 +6,6 @@
 
 #include <complex>
 #include <cstdint>
-#include <iostream>
 #include <stdexcept>
 
 #include <Eigen/Core>
@@ -49,10 +48,11 @@ namespace ATK
     /// block size
     std::size_t block_size;
     std::size_t accumulate_block_size;
+    bool learning;
 
     BlockLMSFilterImpl(std::size_t size)
     :wfft(cwType::Zero(2*size)), block_input(2 * size, DataType_(0)), block_ref(size, DataType_(0)), block_error(size, DataType_(0)),
-     block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0)
+     block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0), learning(true)
     {
       fft.set_size(2 * size);
     }
@@ -73,17 +73,18 @@ namespace ATK
           block_ifft[block_size + i] = block_ref[i] - block_ifft[block_size + i]; // error on last elements of Y
           block_error[i] = block_ifft[block_size + i];
         }
-        std::fill(block_ifft.begin(), block_ifft.begin() + block_size, 0);
-        fft.process_forward(block_ifft.data(), block_fft.data(), block_size * 2); // FFT of the error stored in ifft
-        for (std::size_t i = 0; i < 2 * block_size; ++i)
+        if (learning)
         {
-          block_fft[i] = std::conj(block_fft2[i]) * block_fft[i] * std::complex<double>(block_size * 2); // diagonal * FFT factor
+          std::fill(block_ifft.begin(), block_ifft.begin() + block_size, 0);
+          fft.process_forward(block_ifft.data(), block_fft.data(), block_size * 2); // FFT of the error stored in ifft
+          for (std::size_t i = 0; i < 2 * block_size; ++i)
+          {
+            block_fft[i] = std::conj(block_fft2[i]) * block_fft[i] * std::complex<double>(block_size * 2); // diagonal * FFT factor
+          }
+          fft.process_backward(block_fft.data(), block_ifft.data(), 2 * block_size);
+          fft.process_forward(block_ifft.data(), block_fft.data(), block_size);
+          wfft = alpha * wfft + static_cast<std::complex<double>>(mu) * cxType(block_fft.data(), 2 * block_size);
         }
-        fft.process_backward(block_fft.data(), block_ifft.data(), 2 * block_size);
-        fft.process_forward(block_ifft.data(), block_fft.data(), block_size);
-        wfft = alpha * wfft + static_cast<std::complex<double>>(mu) * cxType(block_fft.data(), 2 * block_size);
-        fft.process_backward(block_fft.data(), block_ifft.data(), block_size);
-        std::cout << xType(block_ifft.data(), block_size).transpose() << std::endl;
 
         accumulate_block_size = 0;
         std::memcpy(&block_input[0], &block_input[block_size], block_size * sizeof(DataType_));
@@ -104,7 +105,11 @@ namespace ATK
   BlockLMSFilter<DataType_>::BlockLMSFilter(std::size_t size)
   :Parent(2, 1), impl(new BlockLMSFilterImpl(size))
   {
-    input_delay = size + 1;
+    if (size == 0)
+    {
+      throw std::out_of_range("Size must be strictly positive");
+    }
+    // former input delay for the non fast version is input_delay = size - 1;
   }
   
   template<typename DataType_>
@@ -119,8 +124,6 @@ namespace ATK
     {
       throw std::out_of_range("Size must be strictly positive");
     }
-
-    input_delay = size + 1;
     auto block_size = impl->block_size;
     impl.reset(new BlockLMSFilterImpl(size));
     set_block_size(block_size);
@@ -213,6 +216,18 @@ namespace ATK
   const DataType_* BlockLMSFilter<DataType_>::get_w() const
   {
     return nullptr;
+  }
+
+  template<typename DataType_>
+  void BlockLMSFilter<DataType_>::set_learning(bool learning)
+  {
+    impl->learning = learning;
+  }
+
+  template<typename DataType_>
+  bool BlockLMSFilter<DataType_>::get_learning() const
+  {
+    return impl->learning;
   }
 
   template class BlockLMSFilter<double>;

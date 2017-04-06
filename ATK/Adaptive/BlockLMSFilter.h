@@ -58,6 +58,11 @@ namespace ATK
     /// Retrieves the coefficients
     const DataType_* get_w() const;
 
+    /// Sets the learning mode
+    void set_learning(bool learning);
+    /// Am I in learning mode or not?
+    bool get_learning() const;
+
   protected:
     virtual void process_impl(std::size_t size) const;
   };

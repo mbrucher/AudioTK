@@ -21,6 +21,12 @@ namespace ATK
     void set_mu(double mu);
     /// Retrieves mu
     double get_mu() const;
+
+    /// Sets the learning mode
+    void set_learning(bool learning);
+    /// Am I in learning mode or not?
+    bool get_learning() const;
+
   };
 }
 
