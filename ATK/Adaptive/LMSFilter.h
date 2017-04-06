@@ -68,12 +68,19 @@ namespace ATK
     /// Retrieves the way the filter is updated
     Mode get_mode() const;
 
+    /// Sets the learning mode
+    void set_learning(bool learning);
+    /// Am I in learning mode or not?
+    bool get_learning() const;
+
   protected:
     virtual void process_impl(std::size_t size) const;
+    bool learning;
     
   private:
     Mode mode;
   };
+
 }
 
 #endif

@@ -84,7 +84,7 @@ namespace ATK
   LMSFilter<DataType_>::LMSFilter(std::size_t size)
   :Parent(2, 1), impl(new LMSFilterImpl(size)), mode(Mode::NORMAL)
   {
-    input_delay = size + 1;
+    input_delay = size - 1;
   }
   
   template<typename DataType_>
@@ -100,14 +100,14 @@ namespace ATK
       throw std::out_of_range("Size must be strictly positive");
     }
 
-    input_delay = size + 1;
+    input_delay = size - 1;
     impl.reset(new LMSFilterImpl(size));
   }
 
   template<typename DataType_>
   std::size_t LMSFilter<DataType_>::get_size() const
   {
-    return input_delay - 1;
+    return input_delay + 1;
   }
   
   template<typename DataType_>
@@ -175,7 +175,7 @@ namespace ATK
 
     for(std::size_t i = 0; i < size; ++i)
     {
-      typename LMSFilterImpl::xType x(input - input_delay - 1 + i, input_delay - 1, 1);
+      typename LMSFilterImpl::xType x(input - input_delay + i, input_delay + 1, 1);
       output[i] = impl->w.conjugate().dot(x);
 
       (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
@@ -186,6 +186,18 @@ namespace ATK
   const DataType_* LMSFilter<DataType_>::get_w() const
   {
     return impl->w.data();
+  }
+
+  template<typename DataType_>
+  void LMSFilter<DataType_>::set_learning(bool learning)
+  {
+    this->learning = learning;
+  }
+
+  template<typename DataType_>
+  bool LMSFilter<DataType_>::get_learning() const
+  {
+    return learning;
   }
 
   template class LMSFilter<float>;

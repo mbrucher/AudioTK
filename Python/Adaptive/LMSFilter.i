@@ -35,6 +35,12 @@ namespace ATK
     void set_mode(Mode mode);
     /// Retrieves the way the filter is updated
     Mode get_mode() const;
+
+    /// Sets the learning mode
+    void set_learning(bool learning);
+    /// Am I in learning mode or not?
+    bool get_learning() const;
+
   };
 }
 
