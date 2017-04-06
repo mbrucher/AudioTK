@@ -82,7 +82,7 @@ namespace ATK
 
   template<typename DataType_>
   LMSFilter<DataType_>::LMSFilter(std::size_t size)
-  :Parent(2, 1), impl(new LMSFilterImpl(size)), mode(Mode::NORMAL)
+  :Parent(2, 1), impl(new LMSFilterImpl(size)), learning(true), mode(Mode::NORMAL)
   {
     input_delay = size - 1;
   }
@@ -177,8 +177,8 @@ namespace ATK
     {
       typename LMSFilterImpl::xType x(input - input_delay + i, input_delay + 1, 1);
       output[i] = impl->w.conjugate().dot(x);
-
-      (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
+      if(learning)
+        (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
     }
   }
 
