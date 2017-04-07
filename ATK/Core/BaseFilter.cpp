@@ -6,8 +6,11 @@
 
 #include <cassert>
 #include <cstdint>
-#include <iostream>
 #include <stdexcept>
+
+#if ATK_PROFILING == 1
+#include <iostream>
+#endif
 
 #if ATK_USE_THREADPOOL == 1
 #include <tbb/task_group.h>
@@ -258,7 +261,7 @@ namespace ATK
   void BaseFilter::set_nb_input_ports(std::size_t nb_ports)
   {
     connections.resize(nb_ports, std::make_pair(-1, nullptr));
-    input_mandatory_connection.reset(nb_ports);
+    input_mandatory_connection.resize(nb_ports);
     nb_input_ports = nb_ports;
   }
   
