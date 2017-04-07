@@ -9,8 +9,6 @@
 #include <iostream>
 #include <stdexcept>
 
-#include <boost/lexical_cast.hpp>
-
 #if ATK_USE_THREADPOOL == 1
 #include <tbb/task_group.h>
 #endif
@@ -158,14 +156,18 @@ namespace ATK
     {
       return;
     }
-    for(auto it = connections.begin(); it != connections.end(); ++it)
+    for(std::size_t port = 0; port < connections.size(); ++port)
     {
-      if(it->second == nullptr)
+      if(connections[port].second == nullptr)
       {
-        throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
+        if(!input_mandatory_connection[port])
+          throw std::runtime_error("Input port " + std::to_string(port) + " is not connected");
       }
-      assert(output_sampling_rate);
-      it->second->process_conditionnally(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+      else
+      {
+        assert(output_sampling_rate);
+        connections[port].second->process_conditionnally(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+      }
     }
 #if ATK_PROFILING == 1
     auto timer = std::chrono::steady_clock::now();
@@ -210,14 +212,19 @@ namespace ATK
         return;
       }
       tbb::task_group g;
-      for (auto it = connections.begin(); it != connections.end(); ++it)
+      for(std::size_t port = 0; port < connections.size(); ++port)
       {
-        if (it->second == nullptr)
+        if(connections[port].second == nullptr)
         {
-          throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
+          if(!input_mandatory_connection[port])
+          throw std::runtime_error("Input port " + std::to_string(port) + " is not connected");
         }
-        auto filter = it->second;
-        g.run([=]{filter->process_conditionnally_parallel(size * input_sampling_rate / output_sampling_rate); });
+        else
+        {
+          assert(output_sampling_rate);
+          auto filter = connections[port];
+          g.run([=]{filter->process_conditionnally_parallel(size * input_sampling_rate / output_sampling_rate); });
+        }
       }
       g.wait();
 #if ATK_PROFILING == 1
@@ -252,9 +259,15 @@ namespace ATK
   void BaseFilter::set_nb_input_ports(std::size_t nb_ports)
   {
     connections.resize(nb_ports, std::make_pair(-1, nullptr));
+    input_mandatory_connection.reset(nb_ports);
     nb_input_ports = nb_ports;
   }
   
+  void BaseFilter::allow_inactive_connection(unsigned int port)
+  {
+    input_mandatory_connection[port] = true;
+  }
+
   std::size_t BaseFilter::get_nb_output_ports() const
   {
     return nb_output_ports;
@@ -282,7 +295,7 @@ namespace ATK
     {
       if(it->second == nullptr)
       {
-        throw std::runtime_error("Input port " + boost::lexical_cast<std::string>(it - connections.begin()) + " is not connected");
+        throw std::runtime_error("Input port " + std::to_string(it - connections.begin()) + " is not connected");
       }
       
       global_latency = std::max(global_latency, it->second->get_global_latency());
