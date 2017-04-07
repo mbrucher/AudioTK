@@ -6,8 +6,6 @@
 
 #include <stdexcept>
 
-#include <boost/lexical_cast.hpp>
-
 #include <ATK/Core/Utilities.h>
 
 namespace
@@ -118,7 +116,7 @@ namespace ATK
         convert<DataType, double>(temp_arrays, buffer);
         break;
       default:
-        throw std::runtime_error("Don't know how to process bits per sample=" + boost::lexical_cast<std::string>(format.BitsPerSample));
+      throw std::runtime_error("Don't know how to process bits per sample=" + std::to_string(format.BitsPerSample));
     }
   }
   

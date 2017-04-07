@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.0.0
+* Allow new filters to have unconnected inputs (can only be changed inside a filter)
 * Refactored the stereo universal delay line to allow more simultaneous channels (renamed to MultipleUniversalDelayLineFilter)
 * ATK now allows complex-valued filters with filters to convert from real from/to complex
 * Added a BlockLMSFilter with Python wrappers
