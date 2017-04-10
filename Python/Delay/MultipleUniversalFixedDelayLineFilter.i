@@ -16,16 +16,16 @@ namespace ATK
     void set_delay(unsigned int channel, std::size_t delay);
     std::size_t get_delay(unsigned int channel) const;
 
-    void set_blend(unsigned int channel, double blend);
-    double get_blend(unsigned int channel) const;
+    void set_blend(unsigned int channel, DataType blend);
+    DataType get_blend(unsigned int channel) const;
 
     /// Set the feedback from channel to channel
-    void set_feedback(unsigned int from_channel, unsigned int to_channel, double feedback);
-    double get_feedback(unsigned int from_channel, unsigned int to_channel) const;
+    void set_feedback(unsigned int from_channel, unsigned int to_channel, DataType feedback);
+    DataType get_feedback(unsigned int from_channel, unsigned int to_channel) const;
 
     /// Set the feedforward from channel to channel
-    void set_feedforward(unsigned int from_channel, unsigned int to_channel, double feedforward);
-    double get_feedforward(unsigned int from_channel, unsigned int to_channel) const;
+    void set_feedforward(unsigned int from_channel, unsigned int to_channel, DataType feedforward);
+    DataType get_feedforward(unsigned int from_channel, unsigned int to_channel) const;
   };
 }
 
