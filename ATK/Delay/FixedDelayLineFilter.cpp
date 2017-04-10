@@ -8,7 +8,6 @@
 #include <cstring>
 #include <complex>
 #include <stdexcept>
-#include <iostream>
 
 namespace ATK
 {
@@ -74,42 +73,11 @@ namespace ATK
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = impl->delay_line.size();
 
-    auto size_before_index = impl->index < delay ? std::max(int64_t(0), static_cast<int64_t>(delay) - static_cast<int64_t>(delay_line_size - impl->index)) : std::min(size, delay + size - impl->index);
-    auto size_after_index = impl->index < delay ? std::min(delay - impl->index, impl->index) : 0;
+    auto size_before_index = std::min(impl->index, impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index): 0) : std::min(size, delay));
+    auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
-    std::cout << "size" << size << std::endl;
-    std::cout << "index" << impl->index << std::endl;
-    std::cout << "after index" << size_after_index << std::endl;
-    std::cout << "before index" << size_before_index << std::endl;
-    
-    for(std::size_t i = impl->index; i < delay_line_size; ++i)
-    {
-      std::cout << delay_line[i] << "\t";
-    }
-    std::cout << std::endl;
-    std::cout << std::endl;
-    for(std::size_t i = 0; i < impl->index; ++i)
-    {
-      std::cout << delay_line[i] << "\t";
-    }
-    std::cout << std::endl;
-
-    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - size_after_index), static_cast<std::size_t>(size_after_index * sizeof(DataType_)));
-/*    if(size_after_index > 0)
-    {
-      std::cout << "first output" << output[0] << std::endl;
-      std::cout << "index of first" << impl->index << std::endl;
-      std::cout << "index of first" << (delay_line_size - size_after_index) << std::endl;
-      std::cout << "index of before" << (impl->index - size_before_index) << std::endl;
-      std::cout << "address of delay" << delay_line << std::endl;
-      std::cout << "address of first index" << delay_line[impl->index] << std::endl;
-      std::cout << "address of first index ops " << delay_line[delay_line_size - size_after_index] << std::endl;
-    }*/
-    memcpy(reinterpret_cast<void*>(output + size_after_index), reinterpret_cast<const void*>(delay_line), static_cast<std::size_t>(size_before_index * sizeof(DataType_)));
-/*    if(size_before_index > 0)
-    {
-      std::cout << "second output" << output[size_after_index] << std::endl;
-    }*/
+    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - (delay - impl->index)), static_cast<std::size_t>(size_after_index * sizeof(DataType_)));
+    memcpy(reinterpret_cast<void*>(output + size_after_index), reinterpret_cast<const void*>(delay_line + size_after_index + impl->index - delay), static_cast<std::size_t>(size_before_index * sizeof(DataType_)));
 
     if(size > delay)
     {
