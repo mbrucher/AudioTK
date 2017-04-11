@@ -15,7 +15,7 @@
 
 namespace ATK
 {
-  template<typename Function, int size, int max_iterations, bool check_convergence>
+  template<typename Function, std::size_t size, std::size_t max_iterations, bool check_convergence>
   class VectorizedNewtonRaphson;
 
   /// A tube preamplifier
@@ -27,7 +27,7 @@ namespace ATK
    * Output 4 is Vb
    */
   template<typename DataType_, typename TriodeFunction>
-  class ATK_PREAMPLIFIER_EXPORT TriodeFilter: public TypedBaseFilter<DataType_>
+  class ATK_PREAMPLIFIER_EXPORT TriodeFilter final : public TypedBaseFilter<DataType_>
   {
     class CommonCathodeTriodeFunction;
   public:
@@ -78,7 +78,7 @@ namespace ATK
     /// Destructor
     ~TriodeFilter();
 
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
     
     void full_setup() override final;
     void setup() override final;

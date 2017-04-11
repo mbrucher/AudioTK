@@ -13,13 +13,12 @@ namespace ATK
 {
   /// Filter creating a sinus signal (usng std::sin, so not precise enough and fast enough)
   template<class DataType_>
-  class ATK_MOCK_EXPORT SimpleSinusGeneratorFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT SimpleSinusGeneratorFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::outputs_size;
     using Parent::outputs;
     using Parent::output_sampling_rate;
     
@@ -34,7 +33,7 @@ namespace ATK
     void set_frequency(int frequency);
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
 
   private:
     mutable double state;

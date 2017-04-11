@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDistortion_static
     STATIC
-    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
+    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKDistortion_static PROPERTIES
@@ -36,7 +36,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKDistortion
     SHARED
-    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS}
+    ${ATK_DISTORTION_SRC} ${ATK_DISTORTION_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKDistortion PROPERTIES

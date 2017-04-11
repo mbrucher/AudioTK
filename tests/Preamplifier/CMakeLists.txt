@@ -10,9 +10,9 @@ FILE(GLOB_RECURSE
 )
 
 if(EIGEN_FOUND)
-include_directories(${PROJECT_SOURCE_DIR} ${EIGEN_INCLUDE_DIR})
+include_directories(${PROJECT_SOURCE_DIR})
 
-add_executable(ATKPreamplifier_test ${ATK_PREAMPLIFIER_TEST_SRC} ${ATK_PREAMPLIFIER_TEST_HEADERS})
+add_executable(ATKPreamplifier_test ${ATK_PREAMPLIFIER_TEST_SRC} ${ATK_PREAMPLIFIER_TEST_HEADERS} ${NATVIS_FILE})
 target_link_libraries (ATKPreamplifier_test ATKPreamplifier ATKEQ ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 add_test(AudioTKPreamplifier ATKPreamplifier_test --log_level=message)

@@ -28,6 +28,7 @@
 #ifndef ATK_UTILITY_FMATH_H
 #define ATK_UTILITY_FMATH_H
 
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <cassert>
@@ -229,24 +230,7 @@ namespace fmath {
 #else
   inline float exp(float x)
   {
-    using namespace local;
-    const ExpVar<>& expVar = C<>::expVar;
-    
-    __m128 x1 = _mm_set_ss(x);
-    
-    int limit = _mm_cvtss_si32(x1) & 0x7fffffff;
-    if (limit > ExpVar<>::f88) {
-      x1 = _mm_min_ss(x1, _mm_load_ss(expVar.maxX));
-      x1 = _mm_max_ss(x1, _mm_load_ss(expVar.minX));
-    }
-    
-    int r = _mm_cvtss_si32(_mm_mul_ss(x1, _mm_load_ss(expVar.a)));
-    unsigned int v = r & mask(expVar.s);
-    float t = _mm_cvtss_f32(x1) - r * expVar.b[0];
-    int u = r >> expVar.s;
-    fi fi;
-    fi.i = ((u + 127) << 23) | expVar.tbl[v];
-    return (1 + t) * fi.f;
+    return std::exp(x); // This version had a really big error. Too bad, the double version is OK
   }
   
   inline double exp(double x)
@@ -304,6 +288,12 @@ namespace fmath {
   inline float pow(float x, float y)
   {
     return exp(y * fmath::log(x));
+  }
+
+  template<typename T>
+  T log10(T x)
+  {
+    return log(x) / log(static_cast<T>(10));
   }
 
   /*

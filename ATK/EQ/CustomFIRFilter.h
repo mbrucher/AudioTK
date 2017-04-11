@@ -9,7 +9,7 @@
 
 namespace ATK
 {
-  /// Creates a custom FIR filter  when used as the coefficients class with IIRFilter
+  /// Creates a custom FIR filter  when used as the coefficients class with FIRFilter
   template<typename DataType_>
   class CustomFIRCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -22,21 +22,17 @@ namespace ATK
 
   protected:
     /// Order of the MA polynomial
-    int in_order;
-    /// Set to 0 so IIRFilter understand that it can bypass the AR section
-    const static int out_order = 0;
+    unsigned int in_order;
 
     /// MA polynomial
     AlignedVector coefficients_in;
-    /// There only to use IIRFilter, but won't actually be used, as out_order in always 0
-    AlignedVector coefficients_out;
 
   public:
     /*!
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    CustomFIRCoefficients(int nb_channels = 1);
+    CustomFIRCoefficients(unsigned int nb_channels = 1);
 
     /// Set custom coefficients for the FIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)
     void set_coefficients_in(const std::vector<DataType>& coefficients_in);

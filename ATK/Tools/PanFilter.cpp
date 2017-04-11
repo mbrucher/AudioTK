@@ -5,9 +5,12 @@
 #include "PanFilter.h"
 
 #include <cmath>
+#include <complex>
 #include <cstdint>
 
 #include <boost/math/constants/constants.hpp>
+
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -53,7 +56,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void PanFilter<DataType_>::process_impl(int64_t size) const
+  void PanFilter<DataType_>::process_impl(std::size_t size) const
   {
     double left_coeff = 1;
     double right_coeff = 1;
@@ -89,17 +92,19 @@ namespace ATK
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output0 = outputs[0];
     DataType* ATK_RESTRICT output1 = outputs[1];
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
-      *(output0++) = static_cast<DataType>(left_coeff * *input);
-      *(output1++) = static_cast<DataType>(right_coeff * *(input++));
+      output0[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(left_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
+      output1[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(right_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
     }
     
   }
   
   template class PanFilter<std::int16_t>;
   template class PanFilter<std::int32_t>;
-  template class PanFilter<int64_t>;
+  template class PanFilter<std::int64_t>;
   template class PanFilter<float>;
   template class PanFilter<double>;
+  template class PanFilter<std::complex<float>>;
+  template class PanFilter<std::complex<double>>;
 }

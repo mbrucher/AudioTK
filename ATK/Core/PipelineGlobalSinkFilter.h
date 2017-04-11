@@ -12,7 +12,7 @@
 namespace ATK
 {
   /// Class that can be used to process a pipeline that has more than one final sink. By adding these sinks to this filter, the processing is done for all sinks.
-  class ATK_CORE_EXPORT PipelineGlobalSinkFilter : public BaseFilter
+  class ATK_CORE_EXPORT PipelineGlobalSinkFilter final : public BaseFilter
   {
   protected:
     /// Simplify parent calls
@@ -41,9 +41,9 @@ namespace ATK
      */
     void set_parallel(bool parallel);
   protected:
-    virtual void process_impl(int64_t size) const override final;
-    virtual void prepare_process(int64_t size) override final;
-    virtual void prepare_outputs(int64_t size) override final;
+    virtual void process_impl(std::size_t size) const override final;
+    virtual void prepare_process(std::size_t size) override final;
+    virtual void prepare_outputs(std::size_t size) override final;
 
     /// List of filters in this sink
     std::vector<BaseFilter*> filters;

@@ -11,7 +11,7 @@
 #include <ATK/Tools/SumFilter.h>
 
 #include <ATK/EQ/CustomFIRFilter.h>
-#include <ATK/EQ/IIRFilter.h>
+#include <ATK/EQ/FIRFilter.h>
 #include <ATK/Special/ConvolutionFilter.h>
 
 #define BOOST_TEST_DYN_LINK
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
     impulse.push_back(i / 10000.);
   }
   
-  ATK::IIRFilter<ATK::CustomFIRCoefficients<double> > filter;
+  ATK::FIRFilter<ATK::CustomFIRCoefficients<double> > filter;
   filter.set_input_sampling_rate(48000);
   filter.set_coefficients_in(std::vector<double>(impulse.rbegin(), impulse.rend()));
 

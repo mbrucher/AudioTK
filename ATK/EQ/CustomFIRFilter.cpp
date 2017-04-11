@@ -3,8 +3,9 @@
  */
 
 #include "CustomFIRFilter.h"
-#include "IIRFilter.h"
+#include "FIRFilter.h"
 
+#include <complex>
 #include <cassert>
 #include <cmath>
 
@@ -13,7 +14,7 @@
 namespace ATK
 {
   template <typename DataType>
-  CustomFIRCoefficients<DataType>::CustomFIRCoefficients(int nb_channels)
+  CustomFIRCoefficients<DataType>::CustomFIRCoefficients(unsigned int nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }
@@ -31,6 +32,12 @@ namespace ATK
   template class CustomFIRCoefficients<float>;
   template class CustomFIRCoefficients<double>;
   
-  template class IIRFilter<CustomFIRCoefficients<float> >;
-  template class IIRFilter<CustomFIRCoefficients<double> >;
+  template class CustomFIRCoefficients<std::complex<float>>;
+  template class CustomFIRCoefficients<std::complex<double>>;
+
+  template class FIRFilter<CustomFIRCoefficients<float>>;
+  template class FIRFilter<CustomFIRCoefficients<double>>;
+
+  template class FIRFilter<CustomFIRCoefficients<std::complex<float>>>;
+  template class FIRFilter<CustomFIRCoefficients<std::complex<double>>>;
 }

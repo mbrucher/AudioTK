@@ -12,14 +12,12 @@ namespace ATK
 {
   /// Creates an output signal with the filter power of the input (computed with an AR1)
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT AttackReleaseFilter : public TypedBaseFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT AttackReleaseFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
@@ -31,7 +29,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    AttackReleaseFilter(int nb_channels = 1);
+    AttackReleaseFilter(unsigned int nb_channels = 1);
     /// destructor
     ~AttackReleaseFilter();
 
@@ -45,7 +43,7 @@ namespace ATK
     DataType_ get_release() const;
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     
   private:
     DataType_ attack;

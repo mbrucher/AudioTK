@@ -10,7 +10,7 @@ FILE(GLOB_RECURSE
 )
 
 include_directories(${PROJECT_SOURCE_DIR})
-add_executable(ATKDynamic_test ${ATK_DYNAMIC_TEST_SRC} ${ATK_DYNAMIC_TEST_HEADERS})
+add_executable(ATKDynamic_test ${ATK_DYNAMIC_TEST_SRC} ${ATK_DYNAMIC_TEST_HEADERS} ${NATVIS_FILE})
 target_link_libraries (ATKDynamic_test ATKDynamic ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
 add_test(AudioTKDynamic ATKDynamic_test --log_level=message)

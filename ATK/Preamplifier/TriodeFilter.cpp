@@ -42,12 +42,12 @@ namespace ATK
     {
     }
 
-    Vector estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       return affine_estimate(i, input, output);
     }
     
-    Vector id_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector id_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       Vector y0 = Vector::Zero();
       for (int j = 0; j < 4; ++j)
@@ -58,7 +58,7 @@ namespace ATK
       return y0;
     }
     
-    Vector affine_estimate(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector affine_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       auto Ib = tube_function.Lb(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
       auto Ic = tube_function.Lc(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
@@ -83,13 +83,13 @@ namespace ATK
       return M.inverse() * y0;
     }
 
-    void update_state(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    void update_state(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       ickeq = 2 * Ck * output[1][i] - ickeq;
       icoeq = -2 * Co * output[2][i] - icoeq;
     }
 
-    Vector operator()(int64_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
+    Vector operator()(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
       auto Ib = tube_function.Lb(y1(3) - y1(0), y1(2) - y1(0));
       auto Ic = tube_function.Lc(y1(3) - y1(0), y1(2) - y1(0));
@@ -208,7 +208,7 @@ namespace ATK
       Rp, Rg, Ro, Rk, //R
       VBias, // VBias
       tube_function // tube
-      ), y0);
+      ), std::move(y0));
 
     auto stable = custom.optimize();
 
@@ -222,11 +222,11 @@ namespace ATK
   }
 
   template<typename DataType, typename TriodeFunction>
-  void TriodeFilter<DataType, TriodeFunction>::process_impl(int64_t size) const
+  void TriodeFilter<DataType, TriodeFunction>::process_impl(std::size_t size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
 
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       optimizer->optimize(i, converted_inputs.data(), outputs.data() + 1);
       outputs[0][i] = outputs[2][i] + outputs[3][i];

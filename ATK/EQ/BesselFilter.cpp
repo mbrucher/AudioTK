@@ -2,6 +2,8 @@
  * \file BesselFilter.cpp
  */
 
+#include <boost/math/constants/constants.hpp>
+
 #include "BesselFilter.h"
 #include "helpers.h"
 #include "IIRFilter.h"
@@ -238,7 +240,7 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients(int nb_channels)
+  BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -257,7 +259,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void BesselLowPassCoefficients<DataType>::set_order(int order)
+  void BesselLowPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -274,7 +276,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients(int nb_channels)
+  BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -293,7 +295,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void BesselHighPassCoefficients<DataType>::set_order(int order)
+  void BesselHighPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = order;
     setup();
@@ -315,8 +317,8 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients(int nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients(unsigned int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
   
@@ -341,7 +343,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void BesselBandPassCoefficients<DataType>::set_order(int order)
+  void BesselBandPassCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();
@@ -358,8 +360,8 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients(int nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients(unsigned int nb_channels)
+  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
   
@@ -384,7 +386,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  void BesselBandStopCoefficients<DataType>::set_order(int order)
+  void BesselBandStopCoefficients<DataType>::set_order(unsigned int order)
   {
     in_order = out_order = 2 * order;
     setup();

@@ -12,14 +12,12 @@ namespace ATK
 {
   /// Warps an analog frequency to a numeric one
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT TanFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT TanFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
@@ -37,7 +35,7 @@ namespace ATK
     ~TanFilter();
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     virtual void setup() override final;
   private:
     double coeff;

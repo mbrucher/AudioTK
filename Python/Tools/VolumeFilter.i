@@ -21,3 +21,5 @@ namespace ATK
 %template(Int64VolumeFilter) ATK::VolumeFilter<std::int64_t>;
 %template(FloatVolumeFilter) ATK::VolumeFilter<float>;
 %template(DoubleVolumeFilter) ATK::VolumeFilter<double>;
+%template(ComplexFloatVolumeFilter) ATK::VolumeFilter<std::complex<float>>;
+%template(ComplexDoubleVolumeFilter) ATK::VolumeFilter<std::complex<double>>;

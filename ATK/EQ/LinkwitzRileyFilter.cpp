@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType>
-  LinkwitzRileyLowPassCoefficients<DataType>::LinkwitzRileyLowPassCoefficients(int nb_channels)
+  LinkwitzRileyLowPassCoefficients<DataType>::LinkwitzRileyLowPassCoefficients(unsigned int nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -32,7 +32,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  LinkwitzRileyHighPassCoefficients<DataType>::LinkwitzRileyHighPassCoefficients(int nb_channels)
+  LinkwitzRileyHighPassCoefficients<DataType>::LinkwitzRileyHighPassCoefficients(unsigned int nb_channels)
     :Parent(nb_channels)
   {
   }

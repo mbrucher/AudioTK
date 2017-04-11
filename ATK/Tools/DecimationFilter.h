@@ -12,14 +12,12 @@ namespace ATK
 {
   /// Slows the sampling rate of an input signal by a constant rate
   template<class DataType_>
-  class ATK_TOOLS_EXPORT DecimationFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT DecimationFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::input_sampling_rate;
@@ -40,7 +38,7 @@ namespace ATK
     ~DecimationFilter();
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     void setup() override final;
   };
 }

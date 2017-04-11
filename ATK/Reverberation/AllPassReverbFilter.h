@@ -14,7 +14,7 @@ namespace ATK
 {
   /// Simple all pass reverb filter
   template<typename DataType_>
-  class ATK_REVERBERATION_EXPORT AllPassReverbFilter : public TypedBaseFilter<DataType_>
+  class ATK_REVERBERATION_EXPORT AllPassReverbFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
@@ -30,24 +30,24 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    AllPassReverbFilter(int max_delay);
+    AllPassReverbFilter(std::size_t max_delay);
     /// Destructor
     ~AllPassReverbFilter();
 
     /// Changes the delay used for the filter
-    void set_delay(int64_t delay);
+    void set_delay(std::size_t delay);
     /// Returns the elay used for the system
-    int64_t get_delay() const;
+    std::size_t get_delay() const;
 
     /// Sets feedback amount (between -1 and 1)
     void set_feedback(DataType_ feedback);
     /// Gets feedback amount
     DataType_ get_feedback() const;
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
 
   private:
-    int64_t delay;
+    std::size_t delay;
     DataType_ feedback;
   };
 }

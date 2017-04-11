@@ -18,7 +18,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKMock_static
     STATIC
-    ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
+    ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKMock_static PROPERTIES
@@ -38,7 +38,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKMock
     SHARED
-    ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS}
+    ${ATK_MOCK_SRC} ${ATK_MOCK_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKMock PROPERTIES

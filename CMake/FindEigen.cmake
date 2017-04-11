@@ -33,7 +33,7 @@
 # This module defines the following variables:
 #
 # EIGEN_FOUND: TRUE iff Eigen is found.
-# EIGEN_INCLUDE_DIRS: Include directories for Eigen.
+# EIGEN_INCLUDE_DIR: Include directories for Eigen.
 #
 # EIGEN_VERSION: Extracted from Eigen/src/Core/util/Macros.h
 # EIGEN_WORLD_VERSION: Equal to 3 if EIGEN_VERSION = 3.2.0
@@ -56,8 +56,7 @@
 # explicitly defines a cache variable), then they will be used verbatim,
 # bypassing the HINTS variables and other hard-coded search locations.
 #
-# EIGEN_INCLUDE_DIR: Include directory for CXSparse, not including the
-#                    include directory of any dependencies.
+# EIGEN_ROOT: Include directory
 # Called if we failed to find Eigen or any of it's required dependencies,
 # unsets all public (designed to be used externally) variables and reports
 # error message at priority depending upon [REQUIRED/QUIET/<NONE>] argument.
@@ -90,7 +89,9 @@ LIST(APPEND EIGEN_CHECK_INCLUDE_DIRS
   /opt/local/include
   /usr/include)
 # Additional suffixes to try appending to each search path.
+file(GLOB EIGEN_CANDIDATES ${EIGEN_ROOT}/*)
 LIST(APPEND EIGEN_CHECK_PATH_SUFFIXES
+  /
   eigen3 # Default root directory for Eigen.
   Eigen/include/eigen3 ) # Windows (for C:/Program Files prefix).
 # Search supplied hint directories first if supplied.
@@ -98,12 +99,14 @@ FIND_PATH(EIGEN_INCLUDE_DIR
   NAMES Eigen/Core
   PATHS ${EIGEN_INCLUDE_DIR_HINTS}
   ${EIGEN_CHECK_INCLUDE_DIRS}
+  ${EIGEN_CANDIDATES}
   PATH_SUFFIXES ${EIGEN_CHECK_PATH_SUFFIXES})
+
 IF (NOT EIGEN_INCLUDE_DIR OR
     NOT EXISTS ${EIGEN_INCLUDE_DIR})
   EIGEN_REPORT_NOT_FOUND(
-    "Could not find eigen3 include directory, set EIGEN_INCLUDE_DIR to "
-    "path to eigen3 include directory, e.g. /usr/local/include/eigen3.")
+    "Could not find eigen include directory, set EIGEN_ROOT to "
+    "path to eigen include directory, e.g. /usr/local/include/eigen3.")
 ENDIF (NOT EIGEN_INCLUDE_DIR OR
        NOT EXISTS ${EIGEN_INCLUDE_DIR})
 # Mark internally as found, then verify. EIGEN_REPORT_NOT_FOUND() unsets

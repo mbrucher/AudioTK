@@ -12,14 +12,12 @@ namespace ATK
 {
   /// Creates an output signal with the relative filtered power of the input (computed with an AR1)
   template<typename DataType_>
-  class ATK_DYNAMIC_EXPORT RelativePowerFilter : public TypedBaseFilter<DataType_>
+  class ATK_DYNAMIC_EXPORT RelativePowerFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
@@ -41,7 +39,7 @@ namespace ATK
     DataType_ get_memory() const;
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     
   private:
     DataType_ memory_factor;

@@ -18,8 +18,6 @@ namespace ATK
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::input_sampling_rate;
@@ -50,7 +48,7 @@ namespace ATK
     
   protected:
     void setup() override final;
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
 
   private:
     int selected;

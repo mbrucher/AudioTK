@@ -74,12 +74,14 @@ matrix:
     - ADDITONAL_CMAKE_FLAGS=
   - os: osx
     osx_image: xcode8.2
+    python: "3.4"
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-8.2
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
   - os: osx
     osx_image: xcode7.3
+    python: "3.4"
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
@@ -87,12 +89,13 @@ matrix:
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile  ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile ; fi
   - wget --no-verbose --output-document=boost_1_63_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
   - mkdir -p $BOOST_ROOT
   - tar jxf boost_1_63_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
+  - pip install numpy
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"

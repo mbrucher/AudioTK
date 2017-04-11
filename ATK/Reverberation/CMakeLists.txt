@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKReverberation_static
     STATIC
-    ${ATK_REVERBERATION_SRC} ${ATK_REVERBERATION_HEADERS}
+    ${ATK_REVERBERATION_SRC} ${ATK_REVERBERATION_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKReverberation_static PROPERTIES
@@ -36,7 +36,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKReverberation
     SHARED
-    ${ATK_REVERBERATION_SRC} ${ATK_REVERBERATION_HEADERS}
+    ${ATK_REVERBERATION_SRC} ${ATK_REVERBERATION_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKReverberation PROPERTIES

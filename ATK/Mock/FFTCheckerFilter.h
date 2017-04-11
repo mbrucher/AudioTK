@@ -14,13 +14,12 @@ namespace ATK
 {
   /// Checks the input signal has a specific spectrum template
   template<class DataType_>
-  class ATK_MOCK_EXPORT FFTCheckerFilter : public TypedBaseFilter<DataType_>
+  class ATK_MOCK_EXPORT FFTCheckerFilter final: public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;
     
@@ -33,7 +32,7 @@ namespace ATK
     void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
     virtual void setup() override final;
 
   private:

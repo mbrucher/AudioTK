@@ -66,29 +66,29 @@ namespace ATK
   {
     indice = 0;
     cache.resize(output_sampling_rate * seconds);
-    for(int i = 0; i < cache.size(); ++i)
+    for(std::size_t i = 0; i < cache.size(); ++i)
     {
       cache[i] = static_cast<DataType>(std::cos(2 * boost::math::constants::pi<double>() * (i+1) * periods / seconds / output_sampling_rate));
     }
   }
 
   template<typename DataType_>
-  void CachedCosinusGeneratorFilter<DataType_>::process_impl(int64_t size) const
+  void CachedCosinusGeneratorFilter<DataType_>::process_impl(std::size_t size) const
   {
     DataType* ATK_RESTRICT output = outputs[0];
-    int64_t processed = 0;
+    std::size_t processed = 0;
     while(processed < size)
     {
-      int64_t to_copy = std::min(size - processed, int64_t(cache.size()) - indice);
+      auto to_copy = std::min(size - processed, cache.size() - indice);
       memcpy(reinterpret_cast<void*>(output + processed), reinterpret_cast<const void*>(cache.data() + indice), to_copy * sizeof(DataType_));
       indice += to_copy;
       processed += to_copy;
-      if(indice >= static_cast<int64_t>(cache.size()))
+      if(indice >= cache.size())
       {
         indice = 0;
       }
     }
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       output[i] = static_cast<DataType>(offset + volume * output[i]);
     }

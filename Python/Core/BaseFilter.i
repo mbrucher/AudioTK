@@ -27,5 +27,24 @@ namespace ATK
 		  }
     }
   };
+}
 
+%{
+#include <boost/align/aligned_allocator.hpp>
+%}
+
+%include <std_vector.i>
+
+%template(FloatVector) std::vector<float, boost::alignment::aligned_allocator<float, 32>>;
+%template(DoubleVector) std::vector<double, boost::alignment::aligned_allocator<double, 32>>;
+
+%typemap(out) std::vector<float, boost::alignment::aligned_allocator<float, 32>> {
+    npy_intp length = $1.size();
+    $result = PyArray_SimpleNew(1, &length, NPY_FLOAT);
+    memcpy(PyArray_DATA((PyArrayObject*)$result),$1.data(),sizeof(float)*length);
+}
+%typemap(out) std::vector<double, boost::alignment::aligned_allocator<double, 32>> {
+    npy_intp length = $1.size();
+    $result = PyArray_SimpleNew(1, &length, NPY_DOUBLE);
+    memcpy(PyArray_DATA((PyArrayObject*)$result),$1.data(),sizeof(double)*length);
 }

@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType>
-  RobertBristowJohnsonLowPassCoefficients<DataType>::RobertBristowJohnsonLowPassCoefficients(int nb_channels)
+  RobertBristowJohnsonLowPassCoefficients<DataType>::RobertBristowJohnsonLowPassCoefficients(unsigned int nb_channels)
     :Parent(nb_channels), Q(1)
   {
   }
@@ -49,7 +49,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  RobertBristowJohnsonHighPassCoefficients<DataType>::RobertBristowJohnsonHighPassCoefficients(int nb_channels)
+  RobertBristowJohnsonHighPassCoefficients<DataType>::RobertBristowJohnsonHighPassCoefficients(unsigned int nb_channels)
     :Parent(nb_channels), Q(1)
   {
   }
@@ -88,7 +88,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  RobertBristowJohnsonBandPassCoefficients<DataType>::RobertBristowJohnsonBandPassCoefficients(int nb_channels)
+  RobertBristowJohnsonBandPassCoefficients<DataType>::RobertBristowJohnsonBandPassCoefficients(unsigned int nb_channels)
     :Parent(nb_channels), Q(1)
   {
   }
@@ -127,7 +127,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  RobertBristowJohnsonBandPass2Coefficients<DataType>::RobertBristowJohnsonBandPass2Coefficients(int nb_channels)
+  RobertBristowJohnsonBandPass2Coefficients<DataType>::RobertBristowJohnsonBandPass2Coefficients(unsigned int nb_channels)
     :Parent(nb_channels), Q(1)
   {
   }
@@ -166,7 +166,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  RobertBristowJohnsonBandStopCoefficients<DataType>::RobertBristowJohnsonBandStopCoefficients(int nb_channels)
+  RobertBristowJohnsonBandStopCoefficients<DataType>::RobertBristowJohnsonBandStopCoefficients(unsigned int nb_channels)
   :Parent(nb_channels), Q(1)
   {
   }
@@ -205,7 +205,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  RobertBristowJohnsonAllPassCoefficients<DataType>::RobertBristowJohnsonAllPassCoefficients(int nb_channels)
+  RobertBristowJohnsonAllPassCoefficients<DataType>::RobertBristowJohnsonAllPassCoefficients(unsigned int nb_channels)
     :Parent(nb_channels), Q(1)
   {
   }
@@ -244,7 +244,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  RobertBristowJohnsonBandPassPeakCoefficients<DataType>::RobertBristowJohnsonBandPassPeakCoefficients(int nb_channels)
+  RobertBristowJohnsonBandPassPeakCoefficients<DataType>::RobertBristowJohnsonBandPassPeakCoefficients(unsigned int nb_channels)
   :Parent(nb_channels), Q(1)
   {
   }
@@ -300,7 +300,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  RobertBristowJohnsonLowShelvingCoefficients<DataType>::RobertBristowJohnsonLowShelvingCoefficients(int nb_channels)
+  RobertBristowJohnsonLowShelvingCoefficients<DataType>::RobertBristowJohnsonLowShelvingCoefficients(unsigned int nb_channels)
   :Parent(nb_channels), Q(1), gain(1)
   {
   }
@@ -357,7 +357,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  RobertBristowJohnsonHighShelvingCoefficients<DataType>::RobertBristowJohnsonHighShelvingCoefficients(int nb_channels)
+  RobertBristowJohnsonHighShelvingCoefficients<DataType>::RobertBristowJohnsonHighShelvingCoefficients(unsigned int nb_channels)
   :Parent(nb_channels), Q(1), gain(1)
   {
   }

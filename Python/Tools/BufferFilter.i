@@ -19,3 +19,5 @@ namespace ATK
 %template(Int64BufferFilter) ATK::BufferFilter<std::int64_t>;
 %template(FloatBufferFilter) ATK::BufferFilter<float>;
 %template(DoubleBufferFilter) ATK::BufferFilter<double>;
+%template(ComplexFloatBufferFilter) ATK::BufferFilter<std::complex<float>>;
+%template(ComplexDoubleBufferFilter) ATK::BufferFilter<std::complex<double>>;

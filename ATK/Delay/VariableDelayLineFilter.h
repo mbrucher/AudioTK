@@ -14,15 +14,13 @@ namespace ATK
 {
   /// Variable delay line. Second port drives the delay. This delay must always be lower than max_delay
   template<typename DataType_>
-  class ATK_DELAY_EXPORT VariableDelayLineFilter : public TypedBaseFilter<DataType_>
+  class ATK_DELAY_EXPORT VariableDelayLineFilter final : public TypedBaseFilter<DataType_>
   {
     class VDLF_Impl;
   protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
@@ -34,19 +32,19 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    VariableDelayLineFilter(int max_delay);
+    VariableDelayLineFilter(std::size_t max_delay);
     /// Destructor
     ~VariableDelayLineFilter();
 
     virtual void full_setup() override final;
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
 
   private:
     std::unique_ptr<VDLF_Impl> impl;
     
     /// Max delay for the delay line
-    int64_t max_delay;
+    std::size_t max_delay;
   };
 }
 

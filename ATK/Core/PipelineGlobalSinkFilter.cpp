@@ -48,15 +48,15 @@ namespace ATK
     activate_parallel = parallel;
   }
 
-  void PipelineGlobalSinkFilter::prepare_process(int64_t size)
+  void PipelineGlobalSinkFilter::prepare_process(std::size_t size)
   {
   }
 
-  void PipelineGlobalSinkFilter::prepare_outputs( int64_t size )
+  void PipelineGlobalSinkFilter::prepare_outputs(std::size_t size )
   {
   }
 
-  void PipelineGlobalSinkFilter::process_impl( int64_t size ) const
+  void PipelineGlobalSinkFilter::process_impl(std::size_t size ) const
   {
     for (auto it = filters.begin(); it != filters.end(); ++it)
     {

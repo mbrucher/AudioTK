@@ -24,8 +24,8 @@ namespace ATK
 %template(FloatCustomFIRCoefficients) ATK::CustomFIRCoefficients<float>;
 %template(DoubleCustomFIRCoefficients) ATK::CustomFIRCoefficients<double>;
 
-%template(FloatCustomFIRFilter) ATK::IIRFilter<ATK::CustomFIRCoefficients<float> >;
-%template(DoubleCustomFIRFilter) ATK::IIRFilter<ATK::CustomFIRCoefficients<double> >;
+%template(FloatCustomFIRFilter) ATK::FIRFilter<ATK::CustomFIRCoefficients<float> >;
+%template(DoubleCustomFIRFilter) ATK::FIRFilter<ATK::CustomFIRCoefficients<double> >;
 
-FIRFilterExtend(ATK::IIRFilter<ATK::CustomFIRCoefficients<float> >, float);
-FIRFilterExtend(ATK::IIRFilter<ATK::CustomFIRCoefficients<double> >, double);
+FIRFilterExtend(ATK::FIRFilter<ATK::CustomFIRCoefficients<float> >, float);
+FIRFilterExtend(ATK::FIRFilter<ATK::CustomFIRCoefficients<double> >, double);

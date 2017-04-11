@@ -21,21 +21,21 @@ namespace ATK
     std::vector<DataType> processed_input;
 
     /// Integer portion of the delay for the last processed chunk
-    std::vector<int64_t> integer_delay;
+    std::vector<std::size_t> integer_delay;
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
     DataType last_delay;
 
-    UVDLF_Impl(int max_delay)
+    UVDLF_Impl(std::size_t max_delay)
       :processed_input(max_delay, 0), last_delay(0)
     {
     }
 
-    void update_delay_line(int64_t max_delay, int64_t size)
+    void update_delay_line(std::size_t max_delay, std::size_t size)
     {
       auto array_size = processed_input.size();
       // Update delay line
-      ATK_VECTORIZE for (int64_t i = 0; i < max_delay; ++i)
+      ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
       {
         processed_input[i] = processed_input[array_size + i - max_delay];
       }
@@ -47,7 +47,7 @@ namespace ATK
   };
 
   template<typename DataType_>
-  UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(int max_delay)
+  UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(std::size_t max_delay)
     :Parent(2, 1), impl(new UVDLF_Impl(max_delay)), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
   {
   }
@@ -59,13 +59,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalVariableDelayLineFilter<DataType_>::set_central_delay(int central_delay)
+  void UniversalVariableDelayLineFilter<DataType_>::set_central_delay(std::size_t central_delay)
   {
     this->central_delay = central_delay;
   }
 
   template<typename DataType_>
-  int UniversalVariableDelayLineFilter<DataType_>::get_central_delay() const
+  std::size_t UniversalVariableDelayLineFilter<DataType_>::get_central_delay() const
   {
     return central_delay;
   }
@@ -119,7 +119,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalVariableDelayLineFilter<DataType_>::process_impl(int64_t size) const
+  void UniversalVariableDelayLineFilter<DataType_>::process_impl(std::size_t size) const
   {
     impl->update_delay_line(max_delay, size);
     const DataType* ATK_RESTRICT input1 = converted_inputs[0]; // samples
@@ -128,21 +128,20 @@ namespace ATK
 
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     DataType* ATK_RESTRICT processed_input = impl->processed_input.data();
-    int64_t* ATK_RESTRICT integer_delay = impl->integer_delay.data();
+    std::size_t* ATK_RESTRICT integer_delay = impl->integer_delay.data();
     DataType* ATK_RESTRICT fractional_delay = impl->fractional_delay.data();
 
     // Update the delay line
-    ATK_VECTORIZE for(int64_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(std::size_t i = 0; i < size; ++i)
     {
-      integer_delay[i] = static_cast<int64_t>(input2[i]);
-      assert(integer_delay[i] > 0);
-      assert(integer_delay[i] < (max_delay - 1));
+      auto rounded = static_cast<std::size_t>(input2[i]);
+      integer_delay[i] = rounded >= max_delay ? 0 : rounded;
       fractional_delay[i] = input2[i] - integer_delay[i];
     }
 
-    ATK_VECTORIZE for(int64_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(std::size_t i = 0; i < size; ++i)
     {
-      delay_line[i] = (processed_input[i + max_delay - integer_delay[i]] - impl->last_delay) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
+      delay_line[i] = (processed_input[i + max_delay - integer_delay[i]] - impl->last_delay) * (1 - fractional_delay[i]) + processed_input[i + max_delay - integer_delay[i] - 1];
       processed_input[max_delay + i] = input1[i] + feedback * processed_input[max_delay + i - central_delay]; // FB only uses the central delay and is not varying
       output[i] = blend * processed_input[max_delay + i] + feedforward * delay_line[i];
       impl->last_delay = delay_line[i]; // the reason why the test is not that simple!

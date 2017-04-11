@@ -17,13 +17,12 @@ namespace ATK
 {
   /// Simple wav source, not as robust as the SndFile version
   template<typename DataType_>
-  class ATK_IO_EXPORT InWavFilter: public TypedBaseFilter<DataType_>
+  class ATK_IO_EXPORT InWavFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::outputs_size;
     using Parent::outputs;
     using Parent::output_sampling_rate;
     using Parent::set_output_sampling_rate;
@@ -38,7 +37,7 @@ namespace ATK
     WavData data;
     std::streamoff offset;
         
-    void read_from_file(int64_t size) const;
+    void read_from_file(std::size_t size) const;
 
   public:
     /*!
@@ -47,7 +46,7 @@ namespace ATK
     */
     InWavFilter(const std::string& filename);
   protected:
-    void process_impl(int64_t size) const override final;
+    void process_impl(std::size_t size) const override final;
   };
 }
 #endif

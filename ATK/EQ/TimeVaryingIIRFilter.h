@@ -15,14 +15,12 @@ namespace ATK
 {
   /// IIR filter template class for time varying frequencies. Transposed Direct Form II
   template<class Coefficients >
-  class ATK_EQ_EXPORT TimeVaryingIIRFilter: public Coefficients
+  class ATK_EQ_EXPORT TimeVaryingIIRFilter final : public Coefficients
   {
   public:
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
@@ -60,7 +58,7 @@ namespace ATK
       state.resize(std::max(input_delay, output_delay), 0);
     }
     
-    virtual void process_impl(int64_t size) const override final
+    virtual void process_impl(std::size_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       
@@ -72,7 +70,7 @@ namespace ATK
       const DataType* ATK_RESTRICT input = converted_inputs[0];
       const DataType* ATK_RESTRICT cut_frequencies = converted_inputs[1];
       DataType* ATK_RESTRICT output = outputs[0];
-      for(int64_t i = 0; i < size; ++i)
+      for(std::size_t i = 0; i < size; ++i)
       {
         int frequency_index = static_cast<int>((cut_frequencies[i] - min_frequency) * scale);
         if(frequency_index < 0)
@@ -83,29 +81,29 @@ namespace ATK
         {
           frequency_index = number_of_steps - 1;
         }
-        for(int j = 0; j < in_order+1; ++j)
+        for(unsigned int j = 0; j < in_order+1; ++j)
         {
           current_coeffs_in[j] = static_cast<DataType>(current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory));
         }
-        for(int j = 0; j < out_order; ++j)
+        for(unsigned int j = 0; j < out_order; ++j)
         {
           current_coeffs_out[j] = static_cast<DataType>(current_coeffs_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory));
         }
 
         output[i] = current_coeffs_in[in_order] * input[i] + state[0];
-        for(int j = 0; j < state.size() - 1; ++j)
+        for(size_t j = 0; j < state.size() - 1; ++j)
         {
           state[j] = state[j + 1];
         }
         state[state.size() - 1] = 0;
 
-        for(int j = 0; j < in_order; ++j)
+        for(unsigned int j = 0; j < in_order; ++j)
         {
-          state[j] += input[i] * current_coeffs_in[in_order - j - 1];
+          state[j] += input[i] * current_coeffs_in[in_order - static_cast<int64_t>(j) - 1];
         }
-        for(int j = 0; j < out_order; ++j)
+        for(unsigned int j = 0; j < out_order; ++j)
         {
-          state[j] += output[i] * current_coeffs_out[out_order - j - 1];
+          state[j] += output[i] * current_coeffs_out[out_order - static_cast<int64_t>(j) - 1];
         }
       }
     }

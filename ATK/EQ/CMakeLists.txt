@@ -13,10 +13,14 @@ SOURCE_GROUP_BY_FOLDER(ATK_EQ)
 
 include_directories(${PROJECT_SOURCE_DIR})
 
+if(EIGEN_FOUND)
+  include_directories(${EIGEN_INCLUDE_DIRS})
+endif(EIGEN_FOUND)
+
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKEQ_static
     STATIC
-    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
+    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKEQ_static PROPERTIES
@@ -36,14 +40,14 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKEQ
     SHARED
-    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS}
+    ${ATK_EQ_SRC} ${ATK_EQ_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKEQ PROPERTIES
     FOLDER C++/shared
 )
 
-target_link_libraries(ATKEQ ATKTools ATKCore)
+target_link_libraries(ATKEQ ATKTools ATKUtility ATKCore)
 
 stagedebug(ATKEQ)
 

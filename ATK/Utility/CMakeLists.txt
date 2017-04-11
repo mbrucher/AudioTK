@@ -16,7 +16,7 @@ include_directories(${PROJECT_SOURCE_DIR})
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKUtility_static
     STATIC
-    ${ATK_UTILITY_SRC} ${ATK_UTILITY_HEADERS}
+    ${ATK_UTILITY_SRC} ${ATK_UTILITY_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKUtility_static PROPERTIES
@@ -36,7 +36,7 @@ add_definitions(-DATK_SHARED)
 
 add_library(ATKUtility
     SHARED
-    ${ATK_UTILITY_SRC} ${ATK_UTILITY_HEADERS}
+    ${ATK_UTILITY_SRC} ${ATK_UTILITY_HEADERS} ${NATVIS_FILE}
 )
 
 set_target_properties (ATKUtility PROPERTIES

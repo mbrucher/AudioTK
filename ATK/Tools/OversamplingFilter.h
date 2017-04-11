@@ -132,14 +132,12 @@ namespace ATK
 
   /// The base class for oversampling, given a coefficient class, changing the output rate by a constant power of 2
   template<class DataType_, class Coefficients>
-  class ATK_TOOLS_EXPORT OversamplingFilter : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT OversamplingFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::input_delay;
@@ -157,7 +155,7 @@ namespace ATK
     */
     OversamplingFilter(int nb_channels = 1);
     
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
   };
 }
 

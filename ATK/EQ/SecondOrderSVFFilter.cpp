@@ -23,7 +23,7 @@ namespace ATK
   };
   
   template<typename SVFCoefficients>
-  SecondOrderSVFFilter<SVFCoefficients>::SecondOrderSVFFilter(int nb_channels)
+  SecondOrderSVFFilter<SVFCoefficients>::SecondOrderSVFFilter(unsigned int nb_channels)
   :SVFCoefficients(nb_channels), state(new SVFState[nb_channels])
   {
   }
@@ -40,16 +40,16 @@ namespace ATK
   }
 
   template<typename DataType>
-  void SecondOrderSVFFilter<DataType>::process_impl(int64_t size) const
+  void SecondOrderSVFFilter<DataType>::process_impl(std::size_t size) const
   {
     assert(nb_input_ports == nb_output_ports);
     
-    for(int j = 0; j < nb_input_ports; ++j)
+    for(unsigned int j = 0; j < nb_input_ports; ++j)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[j];
       DataType* ATK_RESTRICT output = outputs[j];
       
-      for(int64_t i = 0; i < size; ++i)
+      for(std::size_t i = 0; i < size; ++i)
       {
         DataType v3 = input[i] - state[j].iceq2;
         DataType v1 = a1 * state[j].iceq1 + a2 * v3;
@@ -63,7 +63,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  SecondOrderSVFBaseCoefficients<DataType>::SecondOrderSVFBaseCoefficients(int nb_channels)
+  SecondOrderSVFBaseCoefficients<DataType>::SecondOrderSVFBaseCoefficients(unsigned int nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), cut_frequency(0), Q(1)
   {
   }
@@ -95,7 +95,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFLowPassCoefficients<DataType_>::SecondOrderSVFLowPassCoefficients(int nb_channels)
+  SecondOrderSVFLowPassCoefficients<DataType_>::SecondOrderSVFLowPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -114,7 +114,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFBandPassCoefficients<DataType_>::SecondOrderSVFBandPassCoefficients(int nb_channels)
+  SecondOrderSVFBandPassCoefficients<DataType_>::SecondOrderSVFBandPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -133,7 +133,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFHighPassCoefficients<DataType_>::SecondOrderSVFHighPassCoefficients(int nb_channels)
+  SecondOrderSVFHighPassCoefficients<DataType_>::SecondOrderSVFHighPassCoefficients(unsigned int nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -152,7 +152,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFNotchCoefficients<DataType_>::SecondOrderSVFNotchCoefficients(int nb_channels)
+  SecondOrderSVFNotchCoefficients<DataType_>::SecondOrderSVFNotchCoefficients(unsigned int nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -171,7 +171,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFPeakCoefficients<DataType_>::SecondOrderSVFPeakCoefficients(int nb_channels)
+  SecondOrderSVFPeakCoefficients<DataType_>::SecondOrderSVFPeakCoefficients(unsigned int nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -190,7 +190,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFBellCoefficients<DataType_>::SecondOrderSVFBellCoefficients(int nb_channels)
+  SecondOrderSVFBellCoefficients<DataType_>::SecondOrderSVFBellCoefficients(unsigned int nb_channels)
   :Parent(nb_channels), gain(0)
   {
     
@@ -223,7 +223,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFLowShelfCoefficients<DataType_>::SecondOrderSVFLowShelfCoefficients(int nb_channels)
+  SecondOrderSVFLowShelfCoefficients<DataType_>::SecondOrderSVFLowShelfCoefficients(unsigned int nb_channels)
   :Parent(nb_channels), gain(0)
   {
     
@@ -256,7 +256,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderSVFHighShelfCoefficients<DataType_>::SecondOrderSVFHighShelfCoefficients(int nb_channels)
+  SecondOrderSVFHighShelfCoefficients<DataType_>::SecondOrderSVFHighShelfCoefficients(unsigned int nb_channels)
   :Parent(nb_channels), gain(0)
   {
   }

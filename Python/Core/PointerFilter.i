@@ -7,6 +7,8 @@
 
 %apply (float* INPLACE_ARRAY2, int DIM1, int DIM2) {(float* array, int channels, int64_t size)}
 %apply (double* INPLACE_ARRAY2, int DIM1, int DIM2) {(double* array, int channels, int64_t size)}
+%apply (std::complex<float>* INPLACE_ARRAY2, int DIM1, int DIM2) {(std::complex<float>* array, int channels, int64_t size)}
+%apply (std::complex<double>* INPLACE_ARRAY2, int DIM1, int DIM2) {(std::complex<double>* array, int channels, int64_t size)}
 
 namespace ATK
 {
@@ -22,6 +24,8 @@ namespace ATK
 
 %template(FloatInPointerFilter) ATK::InPointerFilter<float>;
 %template(DoubleInPointerFilter) ATK::InPointerFilter<double>;
+%template(ComplexFloatInPointerFilter) ATK::InPointerFilter<std::complex<float>>;
+%template(ComplexDoubleInPointerFilter) ATK::InPointerFilter<std::complex<double>>;
 
 namespace ATK
 {
@@ -37,3 +41,5 @@ namespace ATK
 
 %template(FloatOutPointerFilter) ATK::OutPointerFilter<float>;
 %template(DoubleOutPointerFilter) ATK::OutPointerFilter<double>;
+%template(ComplexFloatOutPointerFilter) ATK::OutPointerFilter<std::complex<float>>;
+%template(ComplexDoubleOutPointerFilter) ATK::OutPointerFilter<std::complex<double>>;

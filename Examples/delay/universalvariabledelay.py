@@ -6,17 +6,17 @@ from ATK.Tools import DoubleCachedSinusGeneratorFilter
 
 sample_rate = 96000
 
-def filter(input, blend=0, feedback=0, feedforward=1):
+import matplotlib.pyplot as plt
+
+def filter(input, delay, blend=0, feedback=0, feedforward=1):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
   infilter.set_input_sampling_rate(sample_rate)
 
-  generator = DoubleCachedSinusGeneratorFilter(1, 1)
-  generator.set_output_sampling_rate(sample_rate)
-  generator.set_volume(1e-3*sample_rate)
-  generator.set_offset(1.5e-3*sample_rate)
+  generator = DoubleInPointerFilter(delay, False)
+  generator.set_input_sampling_rate(sample_rate)
 
   delayfilter = DoubleUniversalVariableDelayLineFilter(5000)
   delayfilter.set_input_sampling_rate(sample_rate)
@@ -35,11 +35,17 @@ def filter(input, blend=0, feedback=0, feedforward=1):
 
 if __name__ == "__main__":
   import numpy as np
-  size = 960000
+  size = 200
   
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / sample_rate
   d = np.sin(x * 2 * np.pi * 1000)
+  delay = (1.5e-3 + 1.e-3 * np.sin(x * 2 * np.pi*10)) * sample_rate
 
   np.savetxt("input.txt", d)
-  out = filter(d, feedforward=-1, blend=1, feedback=-.5)
+  out = filter(d, delay, feedforward=-1, blend=1, feedback=-.5)
   np.savetxt("output.txt", out)
+  plt.plot(x[0], d[0], label="Input")
+  plt.plot(x[0], out[0], label="Output")
+  plt.legend()
+  plt.grid(True)
+  plt.show()

@@ -40,7 +40,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SD1ToneCoefficients(int nb_channels = 1);
+    SD1ToneCoefficients(unsigned int nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(DataType_ alpha);
@@ -79,7 +79,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    TS9ToneCoefficients(int nb_channels = 1);
+    TS9ToneCoefficients(unsigned int nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(DataType_ alpha);

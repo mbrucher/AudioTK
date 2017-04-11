@@ -14,15 +14,13 @@ namespace ATK
 {
   /// Fixed delay line, max_delay should always be higher than the actual delay
   template<typename DataType_>
-  class ATK_DELAY_EXPORT FixedDelayLineFilter : public TypedBaseFilter<DataType_>
+  class ATK_DELAY_EXPORT FixedDelayLineFilter final : public TypedBaseFilter<DataType_>
   {
     class FDLF_Impl;
   protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
@@ -34,23 +32,23 @@ namespace ATK
      * @brief construct the filter with a maximum delay line size
      * @param max-delay is the maximum delay allowed
      */
-    FixedDelayLineFilter(int max_delay);
+    FixedDelayLineFilter(std::size_t max_delay);
     /// Destructor
     ~FixedDelayLineFilter();
     
     /// Changes the delay used for the filter
-    void set_delay(int64_t delay);
+    void set_delay(std::size_t delay);
     /// Returns the elay used for the system
-    int64_t get_delay() const;
+    std::size_t get_delay() const;
 
     virtual void full_setup() override final;
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
 
   private:
     std::unique_ptr<FDLF_Impl> impl;
 
-    int64_t delay;
+    std::size_t delay;
   };
 }
 

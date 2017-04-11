@@ -3,6 +3,8 @@
 %{
 #define SWIG_FILE_WITH_INIT
 #define PY_ARRAY_UNIQUE_SYMBOL PyArray_API
+
+#include <complex>
 %}
 
 %module(package="Tools", docstring="Python interface to ATK Tools module") Tools

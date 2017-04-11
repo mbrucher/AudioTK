@@ -14,14 +14,12 @@ namespace ATK
 {
   /// Simple low pass reverb filter
   template<typename DataType_>
-  class ATK_REVERBERATION_EXPORT LowPassReverbFilter : public TypedBaseFilter<DataType_>
+  class ATK_REVERBERATION_EXPORT LowPassReverbFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::input_delay;
     using Parent::outputs;
@@ -34,14 +32,14 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    LowPassReverbFilter(int max_delay);
+    LowPassReverbFilter(std::size_t max_delay);
     /// Destructor
     ~LowPassReverbFilter();
 
     /// Changes the delay used for the filter
-    void set_delay(int64_t delay);
+    void set_delay(std::size_t delay);
     /// Returns the elay used for the system
-    int64_t get_delay() const;
+    std::size_t get_delay() const;
 
     /// Sets feedback amount (sum of cutoff and feedback must be between 0 and 1)
     void set_feedback(DataType_ feedback);
@@ -52,9 +50,9 @@ namespace ATK
     /// Gets cutoff amount
     DataType_ get_cutoff() const;
   protected:
-    virtual void process_impl(int64_t size) const override final;
+    virtual void process_impl(std::size_t size) const override final;
   private:
-    int64_t delay;
+    std::size_t delay;
     DataType_ feedback;
     DataType_ cutoff;
   };

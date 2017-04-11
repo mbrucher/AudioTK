@@ -34,7 +34,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRileyLowPassCoefficients(int nb_channels = 1);
+    LinkwitzRileyLowPassCoefficients(unsigned int nb_channels = 1);
   };
 
   /// Linkwitz-Riley high pass filter coefficients to be used with IIRFilter
@@ -62,7 +62,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRileyHighPassCoefficients(int nb_channels = 1);
+    LinkwitzRileyHighPassCoefficients(unsigned int nb_channels = 1);
   };
 }
 

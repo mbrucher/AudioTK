@@ -5,6 +5,9 @@
 #include "TriangleGeneratorFilter.h"
 
 #include <cstdint>
+#include <complex>
+
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -32,11 +35,11 @@ namespace ATK
   }
   
   template<class DataType_>
-  void TriangleGeneratorFilter<DataType_>::process_impl(int64_t size) const
+  void TriangleGeneratorFilter<DataType_>::process_impl(std::size_t size) const
   {    
     double real_increment = 2. / output_sampling_rate * frequency;
     
-    for(int64_t i = 0; i < size; ++i)
+    for(std::size_t i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
       if(state >= 1)
@@ -49,13 +52,15 @@ namespace ATK
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      outputs[0][i] = static_cast<DataType_>(amplitude * state);
+      outputs[0][i] = static_cast<DataType_>(static_cast<typename TypeTraits<DataType>::Scalar>(amplitude) * state);
     }
   }
   
   template class TriangleGeneratorFilter<std::int16_t>;
   template class TriangleGeneratorFilter<std::int32_t>;
-  template class TriangleGeneratorFilter<int64_t>;
+  template class TriangleGeneratorFilter<std::int64_t>;
   template class TriangleGeneratorFilter<float>;
   template class TriangleGeneratorFilter<double>;
+  template class TriangleGeneratorFilter<std::complex<float>>;
+  template class TriangleGeneratorFilter<std::complex<double>>;
 }

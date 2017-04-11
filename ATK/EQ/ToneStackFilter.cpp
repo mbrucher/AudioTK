@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType>
-  ToneStackCoefficients<DataType>::ToneStackCoefficients(int nb_channels)
+  ToneStackCoefficients<DataType>::ToneStackCoefficients(unsigned int nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(0), R2(0), R3(0), R4(0), C1(0), C2(0), C3(0), low(.5), middle(.5), high(.5)
   {
   }
@@ -22,7 +22,6 @@ namespace ATK
     
   }
 
-
   template<typename DataType>
   void ToneStackCoefficients<DataType>::setup()
   {
@@ -31,7 +30,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
 
-    DataType tempm[2] = {static_cast<DataType>(-2 * input_sampling_rate), static_cast<DataType>(2 * input_sampling_rate)};
+    DataType tempm[2] = {static_cast<DataType>(-2) * input_sampling_rate, static_cast<DataType>(2) * input_sampling_rate};
     DataType tempp[2] = {static_cast<DataType>(1), static_cast<DataType>(1)};
     boost::math::tools::polynomial<DataType> poly1(tempm, 1);
     boost::math::tools::polynomial<DataType> poly2(tempp, 1);
@@ -56,11 +55,11 @@ namespace ATK
       + middle*(C1*C2*C3*R3*R3*R4 + C1*C2*C3*R1*R3*R3 - C1*C2*C3*R1*R3*R4)
       + low*C1*C2*C3*R1*R2*R4 + C1*C2*C3*R1*R3*R4);
 
-    for(int i = 0; i < in_order + 1; ++i)
+    for(unsigned int i = 0; i < in_order + 1; ++i)
     {
       coefficients_in[i] = b[i] / a[out_order];
     }
-    for(int i = 0; i < out_order; ++i)
+    for(unsigned int i = 0; i < out_order; ++i)
     {
       coefficients_out[i] = -a[i] / a[out_order];
     }

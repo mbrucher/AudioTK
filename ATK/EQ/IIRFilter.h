@@ -5,6 +5,7 @@
 #ifndef ATK_EQ_IIRFILTER_H
 #define ATK_EQ_IIRFILTER_H
 
+#include <algorithm>
 #include <cassert>
 #include <vector>
 
@@ -14,15 +15,13 @@ namespace ATK
 {
   /// IIR filter template class (Direct Form I)
   template<class Coefficients >
-  class ATK_EQ_EXPORT IIRFilter: public Coefficients
+  class ATK_EQ_EXPORT IIRFilter final : public Coefficients
   {
   public:
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
     using typename Parent::AlignedVector;
-    using Parent::converted_inputs_size;
-    using Parent::outputs_size;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
@@ -43,7 +42,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    IIRFilter(int nb_channels = 1)
+    IIRFilter(unsigned int nb_channels = 1)
       :Parent(nb_channels)
     {
     }
@@ -63,7 +62,7 @@ namespace ATK
       if (out_order > 0)
       {
         coefficients_out_2.resize(out_order, 0);
-        for (int i = 1; i < out_order; ++i)
+        for (unsigned int i = 1; i < out_order; ++i)
         {
           coefficients_out_2[i] = coefficients_out[out_order - 1] * coefficients_out[i] + coefficients_out[i - 1];
         }
@@ -72,22 +71,22 @@ namespace ATK
       if (out_order > 1)
       {
         coefficients_out_3.resize(out_order, 0);
-        for (int i = 0; i < 2; ++i)
+        for (unsigned int i = 0; i < 2; ++i)
         {
           coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i];
         }
-        for (int i = 2; i < out_order; ++i)
+        for (unsigned int i = 2; i < out_order; ++i)
         {
           coefficients_out_3[i] = coefficients_out[out_order - 2]  * coefficients_out[i] + coefficients_out[out_order - 1] * coefficients_out_2[i] + coefficients_out[i - 2];
         }
         if (out_order > 2)
         {
           coefficients_out_4.resize(out_order, 0);
-          for (int i = 0; i < 3; ++i)
+          for (unsigned int i = 0; i < 3; ++i)
           {
             coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
           }
-          for (int i = 3; i < out_order; ++i)
+          for (unsigned int i = 3; i < out_order; ++i)
           {
             coefficients_out_4[i] = coefficients_out[out_order - 3]  * coefficients_out[i] + coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i] + coefficients_out[i - 3];
           }
@@ -95,7 +94,7 @@ namespace ATK
         else // out_order = 2
         {
           coefficients_out_4.resize(out_order, 0);
-          for (int i = 0; i < 2; ++i)
+          for (unsigned int i = 0; i < 2; ++i)
           {
             coefficients_out_4[i] = coefficients_out[out_order - 2] * coefficients_out_2[i] + coefficients_out[out_order - 1] * coefficients_out_3[i];
           }
@@ -103,7 +102,7 @@ namespace ATK
       }
     }
     
-    virtual void process_impl(int64_t size) const override final
+    virtual void process_impl(std::size_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
@@ -116,40 +115,40 @@ namespace ATK
       const DataType* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
       const DataType* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
 
-      for(int channel = 0; channel < nb_input_ports; ++channel)
+      for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
       {
-        const DataType* ATK_RESTRICT input = converted_inputs[channel] - in_order;
+        const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
         DataType* ATK_RESTRICT output = outputs[channel];
 
-        for(int64_t i = 0; i < size; ++i)
+        for(std::size_t i = 0; i < size; ++i)
         {
           output[i] = 0;
         }
 
-        for (int j = 0; j < in_order + 1; ++j)
+        for (unsigned int j = 0; j < in_order + 1; ++j)
         {
-          for (int64_t i = 0; i < size; ++i)
+          for (std::size_t i = 0; i < size; ++i)
           {
             output[i] += coefficients_in_ptr[j] * input[i + j];
           }
         }
 
-        int64_t i = 0;
+        std::size_t i = 0;
         if (out_order > 2)
         {
-          for (i = 0; i < size - 3; i += 4)
+          for (i = 0; i < std::min(size - 3, size); i += 4)
           {
             DataType tempout = output[i];
             DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
             DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
             DataType tempout4 = output[i] * coefficients_out_ptr[out_order - 3] + tempout2 * coefficients_out_ptr[out_order - 2] + tempout3 * coefficients_out_ptr[out_order - 1] + output[i + 3];
 
-            ATK_VECTORIZE_REMAINDER for (int j = 0; j < out_order; ++j)
+            ATK_VECTORIZE_REMAINDER for (unsigned int j = 0; j < out_order; ++j)
             {
-              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
-              tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
-              tempout3 += coefficients_out_3_ptr[j] * output[i - out_order + j];
-              tempout4 += coefficients_out_4_ptr[j] * output[i - out_order + j];
+              tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
             }
             output[i] = tempout;
             output[i + 1] = tempout2;
@@ -159,19 +158,19 @@ namespace ATK
         }
         else if(out_order == 2)
         {
-          for (i = 0; i < size - 3; i += 4)
+          for (i = 0; i < std::min(size - 3, size); i += 4)
           {
             DataType tempout = output[i];
             DataType tempout2 = output[i] * coefficients_out_ptr[out_order - 1] + output[i + 1];
             DataType tempout3 = output[i] * coefficients_out_ptr[out_order - 2] + tempout2 * coefficients_out_ptr[out_order - 1] + output[i + 2];
             DataType tempout4 = tempout2 * coefficients_out_ptr[out_order - 2] + tempout3 * coefficients_out_ptr[out_order - 1] + output[i + 3];
 
-            ATK_VECTORIZE_REMAINDER for (int j = 0; j < out_order; ++j)
+            ATK_VECTORIZE_REMAINDER for (unsigned int j = 0; j < out_order; ++j)
             {
-              tempout += coefficients_out_ptr[j] * output[i - out_order + j];
-              tempout2 += coefficients_out_2_ptr[j] * output[i - out_order + j];
-              tempout3 += coefficients_out_3_ptr[j] * output[i - out_order + j];
-              tempout4 += coefficients_out_4_ptr[j] * output[i - out_order + j];
+              tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout2 += coefficients_out_2_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout3 += coefficients_out_3_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+              tempout4 += coefficients_out_4_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
             }
             output[i] = tempout;
             output[i + 1] = tempout2;
@@ -182,9 +181,9 @@ namespace ATK
         for (; i < size; ++i)
         {
           DataType tempout = output[i];
-          for (int j = 0; j < out_order; ++j)
+          for (unsigned int j = 0; j < out_order; ++j)
           {
-            tempout += coefficients_out_ptr[j] * output[i - out_order + j];
+            tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
           }
           output[i] = tempout;
         }

@@ -28,13 +28,12 @@ namespace ATK
     AlignedVector coefficients_out;
 
     void setup() override;
-
   public:
     /*!
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderBaseCoefficients(int nb_channels = 1);
+    SecondOrderBaseCoefficients(unsigned int nb_channels = 1);
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
     /// Returns the cut or central frequency
@@ -60,13 +59,12 @@ namespace ATK
     
   protected:
     void setup() override;
-    
   public:
     /*!
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderBandPassCoefficients(int nb_channels = 1);
+    SecondOrderBandPassCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -97,7 +95,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderLowPassCoefficients(int nb_channels = 1);
+    SecondOrderLowPassCoefficients(unsigned int nb_channels = 1);
   };
   
   /// Coefficients for a second order highpass filter
@@ -120,7 +118,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderHighPassCoefficients(int nb_channels = 1);
+    SecondOrderHighPassCoefficients(unsigned int nb_channels = 1);
   };
 
   /// Coefficients for a second order bandpass peak filter
@@ -148,7 +146,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderBandPassPeakCoefficients(int nb_channels = 1);
+    SecondOrderBandPassPeakCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -188,7 +186,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderAllPassCoefficients(int nb_channels = 1);
+    SecondOrderAllPassCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -222,7 +220,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderLowShelvingCoefficients(int nb_channels = 1);
+    SecondOrderLowShelvingCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);
@@ -253,7 +251,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderHighShelvingCoefficients(int nb_channels = 1);
+    SecondOrderHighShelvingCoefficients(unsigned int nb_channels = 1);
 
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);

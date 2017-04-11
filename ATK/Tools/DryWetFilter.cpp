@@ -6,7 +6,10 @@
 
 #include <cassert>
 #include <cmath>
+#include <complex>
 #include <cstdint>
+
+#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -41,25 +44,27 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void DryWetFilter<DataType_>::process_impl(int64_t size) const
+  void DryWetFilter<DataType_>::process_impl(std::size_t size) const
   {
     assert(nb_input_ports == 2 * nb_output_ports);
     
-    for(int channel = 0; channel < nb_output_ports; ++channel)
+    for(unsigned int channel = 0; channel < nb_output_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input0 = converted_inputs[2 * channel];
       const DataType* ATK_RESTRICT input1 = converted_inputs[2 * channel + 1];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(int64_t i = 0; i < size; ++i)
+      for(std::size_t i = 0; i < size; ++i)
       {
-        output[i] = static_cast<DataType>(input0[i] * dry + input1[i] * (1 - dry));
+        output[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(input0[i]) * static_cast<typename TypeTraits<DataType>::Scalar>(dry) + static_cast<typename TypeTraits<DataType>::Scalar>(input1[i]) * static_cast<typename TypeTraits<DataType>::Scalar>(1 - dry));
       }
     }
   }
   
   template class DryWetFilter<std::int16_t>;
   template class DryWetFilter<std::int32_t>;
-  template class DryWetFilter<int64_t>;
+  template class DryWetFilter<std::int64_t>;
   template class DryWetFilter<float>;
   template class DryWetFilter<double>;
+  template class DryWetFilter<std::complex<float>>;
+  template class DryWetFilter<std::complex<double>>;
 }

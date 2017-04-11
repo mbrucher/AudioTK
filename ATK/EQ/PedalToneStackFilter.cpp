@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType>
-  SD1ToneCoefficients<DataType>::SD1ToneCoefficients(int nb_channels)
+  SD1ToneCoefficients<DataType>::SD1ToneCoefficients(unsigned int nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(10e3), R2(22e3), R3(470), R4(10e3),
     C1(static_cast<DataType>(0.018e-6)), C2(static_cast<DataType>(0.027e-6)), C3(static_cast<DataType>(0.01e-6)), alpha(1)
   {
@@ -24,7 +24,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
 
-    DataType tempm[2] = {static_cast<DataType>(-2 * input_sampling_rate), static_cast<DataType>(2 * input_sampling_rate)};
+    DataType tempm[2] = {static_cast<DataType>(-2) * input_sampling_rate, static_cast<DataType>(2) * input_sampling_rate};
     DataType tempp[2] = {static_cast<DataType>(1), static_cast<DataType>(1)};
     boost::math::tools::polynomial<DataType> poly1(tempm, 1);
     boost::math::tools::polynomial<DataType> poly2(tempp, 1);
@@ -40,11 +40,11 @@ namespace ATK
     a += poly2 * poly1 * (C2*R3+R1*C1+alpha*(1-alpha)*R2*C2+(1-alpha)*C2*R1);
     a += poly1 * poly1 * (C1*R1*(R3*C2+alpha*(1-alpha)*R2*C2));
 
-    for(int i = 0; i < in_order + 1; ++i)
+    for(unsigned int i = 0; i < in_order + 1; ++i)
     {
       coefficients_in[i] = b[i] / a[out_order];
     }
-    for(int i = 0; i < out_order; ++i)
+    for(unsigned int i = 0; i < out_order; ++i)
     {
       coefficients_out[i] = -a[i] / a[out_order];
     }
@@ -69,7 +69,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  TS9ToneCoefficients<DataType>::TS9ToneCoefficients(int nb_channels)
+  TS9ToneCoefficients<DataType>::TS9ToneCoefficients(unsigned int nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(1e3), R2(10e3), R3(1e3), R4(220), P(22e3),
   C1(static_cast<DataType>(0.022e-6)), C2(static_cast<DataType>(0.022e-6)), alpha(1)
   {
@@ -98,11 +98,11 @@ namespace ATK
     a += poly2 * poly1 * ((1-alpha) * C2 * (alpha * P * R2 + R1 * alpha * P + R1 * R2) + R4 * C2 * (R2 + R1) + R1 * C1 * R2);
     a += poly1 * poly1 * (C2 * R4 * C1 * R2 * R1 + (1-alpha) * C2 * R1 * P * C1 * R2);
     
-    for(int i = 0; i < in_order + 1; ++i)
+    for(unsigned int i = 0; i < in_order + 1; ++i)
     {
       coefficients_in[i] = b[i] / a[out_order];
     }
-    for(int i = 0; i < out_order; ++i)
+    for(unsigned int i = 0; i < out_order; ++i)
     {
       coefficients_out[i] = -a[i] / a[out_order];
     }

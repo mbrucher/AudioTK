@@ -19,3 +19,5 @@ namespace ATK
 %template(Int64SumFilter) ATK::SumFilter<std::int64_t>;
 %template(FloatSumFilter) ATK::SumFilter<float>;
 %template(DoubleSumFilter) ATK::SumFilter<double>;
+%template(ComplexFloatSumFilter) ATK::SumFilter<std::complex<float>>;
+%template(ComplexDoubleSumFilter) ATK::SumFilter<std::complex<double>>;

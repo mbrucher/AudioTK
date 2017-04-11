@@ -6,6 +6,8 @@
 
 #include <algorithm>
 #include <cmath>
+#include <complex>
+#include <cstring>
 #include <stdexcept>
 
 namespace ATK
@@ -15,17 +17,17 @@ namespace ATK
   {
   public:
     std::vector<DataType> delay_line;
-    std::vector<DataType> processed_input;
+    std::size_t index;
 
-    UFDLF_Impl(int64_t max_delay)
-      :delay_line(max_delay, 0)
+    UFDLF_Impl(std::size_t max_delay)
+      :delay_line(max_delay, 0), index(0)
     {
     }
   };
 
   template<typename DataType_>
-  UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(int max_delay)
-    :Parent(1, 1), impl(new UFDLF_Impl(max_delay)), delay(0), blend(0), feedback(0), feedforward(1)
+  UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(std::size_t max_delay)
+    :Parent(1, 2), impl(new UFDLF_Impl(max_delay)), delay(0), blend(0), feedback(0), feedforward(1)
   {
   }
   
@@ -35,13 +37,13 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::set_delay(int64_t delay)
+  void UniversalFixedDelayLineFilter<DataType_>::set_delay(std::size_t delay)
   {
-    if(delay < 0)
+    if(delay == 0)
     {
-      throw std::out_of_range("Delay must be positive");
+      throw std::out_of_range("Delay must be strictly positive");
     }
-    if(delay >= static_cast<int64_t>(impl->delay_line.size()))
+    if(delay >= impl->delay_line.size())
     {
       throw std::out_of_range("Delay must be less than delay line size");
     }
@@ -50,7 +52,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  int64_t UniversalFixedDelayLineFilter<DataType_>::get_delay() const
+  std::size_t UniversalFixedDelayLineFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -100,54 +102,77 @@ namespace ATK
   {
     // reset the delay line
     impl->delay_line.assign(impl->delay_line.size(), 0);
+    impl->index = 0;
   }
 
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::process_impl(int64_t size) const
+  void UniversalFixedDelayLineFilter<DataType_>::process_impl(std::size_t size) const
   {
-    impl->processed_input.resize(size);
-
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
+    DataType* ATK_RESTRICT processed_input = outputs[1];
 
-    DataType* ATK_RESTRICT processed_input = impl->processed_input.data();
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = impl->delay_line.size();
 
-    int64_t delay_line_usage = std::min(delay, size);
+    auto size_before_index = std::min(impl->index, impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index) : 0) : std::min(size, delay));
+    auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
     // Update intermediate input
-    ATK_VECTORIZE for(int64_t i = 0; i < delay_line_usage; ++i)
+    ATK_VECTORIZE for (std::size_t i = 0; i < size_after_index; ++i)
     {
-      processed_input[i] = input[i] + feedback * delay_line[delay_line_size + i - delay];
+      processed_input[i] = input[i] + feedback * delay_line[delay_line_size + i - (delay - impl->index)];
     }
-    ATK_VECTORIZE for(int64_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for (std::size_t i = 0; i < size_before_index; ++i)
+    {
+      processed_input[i + size_after_index] = input[i + size_after_index] + feedback * delay_line[i + size_after_index + impl->index - delay];
+    }
+    ATK_VECTORIZE for(std::size_t i = delay; i < size; ++i)
     {
       processed_input[i] = input[i] + feedback * processed_input[i - delay];
     }
 
     //update output
-    ATK_VECTORIZE for(int64_t i = 0; i < delay_line_usage; ++i)
+    ATK_VECTORIZE for (std::size_t i = 0; i < size_after_index; ++i)
     {
-      output[i] = blend * processed_input[i] + feedforward *  delay_line[delay_line_size + i - delay];
+      output[i] = blend * processed_input[i] + feedforward *  delay_line[delay_line_size + i - (delay - impl->index)];
     }
-    ATK_VECTORIZE for(int64_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for (std::size_t i = 0; i < size_before_index; ++i)
+    {
+      output[i + size_after_index] = blend * processed_input[i + size_after_index] + feedforward * delay_line[i + size_after_index + impl->index - delay];
+    }
+    ATK_VECTORIZE for (std::size_t i = delay; i < size; ++i)
     {
       output[i] = blend * processed_input[i] + feedforward * processed_input[i - delay];
     }
 
-    // Update delay line
-    ATK_VECTORIZE for (int64_t i = 0; i < int64_t(delay_line_size) - size; ++i)
+
+    if (size > delay_line_size)
     {
-      delay_line[i] = delay_line[i + size];
+      impl->index = 0;
+      memcpy(reinterpret_cast<void*>(delay_line), reinterpret_cast<const void*>(processed_input + size - delay_line_size), delay_line_size * sizeof(DataType_));
     }
-    int64_t minimum = std::max(int64_t(0), int64_t(delay_line_size) - size);
-    ATK_VECTORIZE for (int64_t i = minimum; i < static_cast<int64_t>(delay_line_size); ++i)
+    else
     {
-      delay_line[i] = processed_input[size + i - delay_line_size];
+      auto new_index = std::min(impl->index + size, delay_line_size);
+      auto first_size = new_index - impl->index;
+      memcpy(reinterpret_cast<void*>(delay_line + impl->index), reinterpret_cast<const void*>(processed_input), first_size * sizeof(DataType_));
+      auto second_size = size - first_size;
+
+      if (impl->index + size > delay_line_size)
+      {
+        impl->index = second_size;
+        memcpy(reinterpret_cast<void*>(delay_line), reinterpret_cast<const void*>(processed_input + first_size), second_size * sizeof(DataType_));
+      }
+      else
+      {
+        impl->index = new_index;
+      }
     }
   }
 
   template class UniversalFixedDelayLineFilter<float>;
   template class UniversalFixedDelayLineFilter<double>;
+  template class UniversalFixedDelayLineFilter<std::complex<float>>;
+  template class UniversalFixedDelayLineFilter<std::complex<double>>;
 }
