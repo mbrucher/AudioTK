@@ -9,7 +9,7 @@ Utility module
 This module contains a set of basic general purpose classes:
 
 * **Exp**, an exponential approcimation with a LUT and a 2-order Taylor expansion
-* **FFT**, a class that exposes a FFT and iFFT (if compiled with FFTW, Accelerate or IPP)
+* **FFT**, a class that exposes a FFT and iFFT (if compiled with FFTW or IPP)
 * **FlushToZero**, a RAII class to activate flush denormals to zero behavior on some platforms
 * **ScalarNewtonRaphson**, an optimization class for scalar ODEs
 * **VectorizedNewtonRaphson**, an optimization class for vector ODEs
@@ -163,6 +163,8 @@ The *Special* module contains specific/special filters.
 Preamplification module
 -----------------------
 
+The *Preamplification* module contains filters that simulate preamplifiers.
+
 * **EnhancedKorenFunction** is a model of the triode transfer functions based on a model by Ivan Cohen
 * **KorenFunction** is a model of the triode transfer functions based on a Koren model
 * **LeachFunction** is a model of the triode transfer functions based on a Leach model
@@ -178,4 +180,6 @@ Adaptive module
 
 The *Adaptive* module contains filters that evolve based on their input.
 
-* **RLSFilter** is a filter based on Recursive Least Square algorithm (Haykin)
+* **LMSFilter** is a filter based on the Least Mean Square algorithm (Haykin)
+* **BlockLMSFilter** is a filter based on the block variant of the Least Mean Square algorithm (Haykin)
+* **RLSFilter** is a filter based on the Recursive Least Square algorithm (Haykin)
