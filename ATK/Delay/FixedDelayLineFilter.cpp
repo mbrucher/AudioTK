@@ -16,9 +16,10 @@ namespace ATK
   {
   public:
     std::vector<DataType> delay_line;
+    std::size_t index;
 
     FDLF_Impl(std::size_t max_delay)
-      :delay_line(max_delay, 0)
+      :delay_line(max_delay, 0), index(0)
     {
     }
   };
@@ -61,6 +62,7 @@ namespace ATK
   {
     // reset the delay line
     impl->delay_line.assign(impl->delay_line.size(), 0);
+    impl->index = 0;
   }
 
   template<typename DataType_>
@@ -71,22 +73,38 @@ namespace ATK
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = impl->delay_line.size();
 
-    std::size_t delay_line_usage = std::min(delay, size);
+    auto size_before_index = std::min(impl->index, impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index): 0) : std::min(size, delay));
+    auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
-    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - delay), static_cast<std::size_t>(delay_line_usage * sizeof(DataType_)));
+    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - (delay - impl->index)), static_cast<std::size_t>(size_after_index * sizeof(DataType_)));
+    memcpy(reinterpret_cast<void*>(output + size_after_index), reinterpret_cast<const void*>(delay_line + size_after_index + impl->index - delay), static_cast<std::size_t>(size_before_index * sizeof(DataType_)));
+
     if(size > delay)
     {
       memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), static_cast<std::size_t>((size - delay) * sizeof(DataType_)));
     }
 
-    auto minimum = delay_line_size > size ? delay_line_size - size : 0;
-    ATK_VECTORIZE for(std::size_t i = 0; i < minimum; ++i)
+    if(size > delay_line_size)
     {
-      delay_line[i] = delay_line[i + size];
+      impl->index = 0;
+      memcpy(reinterpret_cast<void*>(delay_line), reinterpret_cast<const void*>(input + size - delay_line_size), delay_line_size * sizeof(DataType_));
     }
-    if (delay_line_size > minimum)
+    else
     {
-      memcpy(reinterpret_cast<void*>(delay_line + minimum), reinterpret_cast<const void*>(input + size + minimum - delay_line_size), (delay_line_size - minimum) * sizeof(DataType_));
+      auto new_index = std::min(impl->index + size, delay_line_size);
+      auto first_size = new_index - impl->index;
+      memcpy(reinterpret_cast<void*>(delay_line + impl->index), reinterpret_cast<const void*>(input), first_size * sizeof(DataType_));
+      auto second_size = size - first_size;
+      
+      if(impl->index + size > delay_line_size)
+      {
+        impl->index = second_size;
+        memcpy(reinterpret_cast<void*>(delay_line), reinterpret_cast<const void*>(input + first_size), second_size * sizeof(DataType_));
+      }
+      else
+      {
+        impl->index = new_index;
+      }
     }
   }
   

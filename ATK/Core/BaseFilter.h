@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include <boost/dynamic_bitset.hpp>
+
 #include <ATK/config.h>
 #include "config.h"
 
@@ -122,6 +124,8 @@ namespace ATK
     /// Prepares the filter by resizing the outputs arrays
     virtual void prepare_outputs(std::size_t size) = 0;
     
+    void allow_inactive_connection(unsigned int port);
+    
     /// Use this call to recompute internal parameters
     ATK_CORE_EXPORT virtual void setup();
 
@@ -147,6 +151,7 @@ namespace ATK
     std::size_t last_size;
 
   private:
+    boost::dynamic_bitset<> input_mandatory_connection;
     bool is_reset;
 #if ATK_PROFILING == 1
     std::string class_name;

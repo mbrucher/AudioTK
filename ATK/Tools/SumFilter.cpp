@@ -30,7 +30,7 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
     for(std::size_t i = 0; i < size; ++i)
     {
-      *(output++) = static_cast<DataType>(*(input0++) + *(input1++));
+      output[i] = static_cast<DataType>(input0[i] + input1[i]);
     }
   }
   

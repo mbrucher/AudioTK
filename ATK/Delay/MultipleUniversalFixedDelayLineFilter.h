@@ -43,19 +43,19 @@ namespace ATK
     std::size_t get_delay(unsigned int channel) const;
     
     /// Sets the blend of channel 1 (between -1 and 1)
-    void set_blend(unsigned int channel, double blend);
+    void set_blend(unsigned int channel, DataType_ blend);
     /// Gets the blend of a channel
-    double get_blend(unsigned int channel) const;
+    DataType_ get_blend(unsigned int channel) const;
     
     /// Sets the feedback from channel to channel
-    void set_feedback(unsigned int from_channel, unsigned int to_channel, double feedback);
+    void set_feedback(unsigned int from_channel, unsigned int to_channel, DataType_ feedback);
     /// Gets the feedback from channel to channel
-    double get_feedback(unsigned int from_channel, unsigned int to_channel) const;
+    DataType_ get_feedback(unsigned int from_channel, unsigned int to_channel) const;
     
     /// Sets the feedforward from channel to channel
-    void set_feedforward(unsigned int from_channel, unsigned int to_channel, double feedforward);
+    void set_feedforward(unsigned int from_channel, unsigned int to_channel, DataType_ feedforward);
     /// Gets the feedforward from channel to channel
-    double get_feedforward(unsigned int from_channel, unsigned int to_channel) const;
+    DataType_ get_feedforward(unsigned int from_channel, unsigned int to_channel) const;
 
     virtual void full_setup() override final;
   protected:
@@ -67,9 +67,9 @@ namespace ATK
     std::array<std::size_t, nb_channels> delay;
     /// Max delay for the delay line
     std::size_t max_delay;
-    std::array<double, nb_channels> blend;
-    std::array<double, nb_channels*nb_channels> feedback;
-    std::array<double, nb_channels*nb_channels> feedforward;
+    std::array<DataType_, nb_channels> blend;
+    std::array<DataType_, nb_channels*nb_channels> feedback;
+    std::array<DataType_, nb_channels*nb_channels> feedforward;
   };
 }
 

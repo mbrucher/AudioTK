@@ -77,7 +77,7 @@
               </Expand>
             </Synthetic>
             <Synthetic Name="Output 2" Condition="nb_output_ports>1">
-              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
+              <DisplayString>{{ Size={outputs_size._Mypair._Myval2._Myfirst[1]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
                   <Size>outputs_size._Mypair._Myval2._Myfirst[1]</Size>
@@ -86,7 +86,7 @@
               </Expand>
             </Synthetic>
             <Synthetic Name="Output 3" Condition="nb_output_ports>2">
-              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
+              <DisplayString>{{ Size={outputs_size._Mypair._Myval2._Myfirst[2]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
                   <Size>outputs_size._Mypair._Myval2._Myfirst[2]</Size>
@@ -95,7 +95,7 @@
               </Expand>
             </Synthetic>
             <Synthetic Name="Output 4" Condition="nb_output_ports>3">
-              <DisplayString>{{Size={outputs_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
+              <DisplayString>{{ Size={outputs_size._Mypair._Myval2._Myfirst[3]}}}</DisplayString>
               <Expand>
                 <ArrayItems>
                   <Size>outputs_size._Mypair._Myval2._Myfirst[3]</Size>
