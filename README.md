@@ -18,6 +18,7 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.0.1
 ### 2.0.0
 * Refactored fixed line delays (performance improvement)
 * Allow new filters to have unconnected inputs (can only be changed inside a filter)
