@@ -23,6 +23,7 @@ namespace ATK
     std::size_t index;
 
     SUFDLF_Impl(std::size_t max_delay)
+      :index(0)
     {
       for(unsigned int channel = 0; channel < nb_channels; ++channel)
       {
