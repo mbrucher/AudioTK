@@ -7,6 +7,7 @@
 #include <cmath>
 #include <cstring>
 #include <complex>
+#include <numeric>
 #include <stdexcept>
 
 #include <ATK/Core/TypeTraits.h>
@@ -139,8 +140,26 @@ namespace ATK
       impl->delay_line[channel].resize(size);
       impl->processed_input[channel].resize(max_delay + size);
     }
+    
+    // Start of the actual impl, will try to remove the lines above
+    
+    std::size_t max_processing_size = std::accumulate(delay.begin(), delay.end(), size, [](std::size_t a, std::size_t b)
+                {
+                  return std::min(a - 1, b - 1) + 1;// stupid way of turning 0 in max(), so that they are not counted in the minimum
+                });
 
-    ATK_VECTORIZE for(std::size_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(std::size_t i = 0; i < size; i += max_processing_size)
+    {
+      auto processing_size = std::min(max_processing_size, size - i);
+      process_impl(processing_size, i);
+    }
+  }
+
+  
+  template<class DataType, unsigned int nb_channels>
+  void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::process_impl(std::size_t size, std::size_t offset) const
+  {
+    ATK_VECTORIZE for(std::size_t i = offset; i < offset + size; ++i)
     {
       auto j = i + max_delay;
       for(unsigned int channel = 0; channel < nb_channels; ++channel)
@@ -165,7 +184,7 @@ namespace ATK
       }
     }
   }
-  
+
   template class MultipleUniversalFixedDelayLineFilter<float, 2>;
   template class MultipleUniversalFixedDelayLineFilter<double, 2>;
   template class MultipleUniversalFixedDelayLineFilter<std::complex<float>, 2>;
