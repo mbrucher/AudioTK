@@ -135,7 +135,7 @@ namespace ATK
     //update output
     ATK_VECTORIZE for (std::size_t i = 0; i < size_after_index; ++i)
     {
-      output[i] = blend * processed_input[i] + feedforward *  delay_line[delay_line_size + i - (delay - impl->index)];
+      output[i] = blend * processed_input[i] + feedforward * delay_line[delay_line_size + i - (delay - impl->index)];
     }
     ATK_VECTORIZE for (std::size_t i = 0; i < size_before_index; ++i)
     {

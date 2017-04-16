@@ -19,7 +19,7 @@
 #include <boost/math/constants/constants.hpp>
 
 #define PROCESSSIZE (1024*64)
-
+/*
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel100_delay50_test )
 {
   std::array<float, PROCESSSIZE> data;
@@ -367,3 +367,4 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
     BOOST_REQUIRE_SMALL(outdata[i], 0.0001f);
   }
 }
+*/
