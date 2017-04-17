@@ -21,7 +21,7 @@ def update_changelog(new_version):
   for line in fileinput.input(files=("Readme.md",), inplace=True):
     sys.stdout.write(line)
     if line.startswith("## Changelog"):
-      sys.stdout.write("### %s\n" % new_version)
+      sys.stdout.write("### %s\n\n" % new_version)
 
 if __name__ == "__main__":
   update_appveyor(sys.argv[1])

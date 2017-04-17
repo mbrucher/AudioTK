@@ -233,7 +233,7 @@ BOOST_AUTO_TEST_CASE(TypedBaseFilter_complex_connect_to_int_test)
 
   ATK::TriangleCheckerFilter<std::int32_t> checker;
   checker.set_input_sampling_rate(48000);
-  checker.set_amplitude(.5);
+  checker.set_amplitude(65536);
   checker.set_frequency(1000);
 
   checker.set_input_port(0, &generator, 0);
