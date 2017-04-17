@@ -9,6 +9,7 @@
 
 namespace ATK
 {
+  /// RBJ low pass filter
   template<typename DataType_>
   class RobertBristowJohnsonLowPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -42,6 +43,7 @@ namespace ATK
     DataType_ get_Q() const;
   };
 
+  /// RBJ high pass filter
   template<typename DataType_>
   class RobertBristowJohnsonHighPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -75,6 +77,7 @@ namespace ATK
     DataType_ get_Q() const;
   };
 
+  /// RBJ band pass filter
   template<typename DataType_>
   class RobertBristowJohnsonBandPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -108,6 +111,7 @@ namespace ATK
     DataType_ get_Q() const;
   };
 
+  /// RBJ band pass filter
   template<typename DataType_>
   class RobertBristowJohnsonBandPass2Coefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -141,6 +145,7 @@ namespace ATK
     DataType_ get_Q() const;
   };
 
+  /// RBJ band stop filter
   template<typename DataType_>
   class RobertBristowJohnsonBandStopCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -174,6 +179,7 @@ namespace ATK
     DataType_ get_Q() const;
   };
 
+  /// RBJ all pass filter
   template<typename DataType_>
   class RobertBristowJohnsonAllPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -207,6 +213,7 @@ namespace ATK
     DataType_ get_Q() const;
   };
 
+  /// RBJ band peak filter
   template<typename DataType_>
   class RobertBristowJohnsonBandPassPeakCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -245,6 +252,7 @@ namespace ATK
     DataType_ get_gain() const;
   };
 
+  /// RBJ low shelf filter
   template<typename DataType_>
   class RobertBristowJohnsonLowShelvingCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
@@ -283,6 +291,7 @@ namespace ATK
     DataType_ get_gain() const;
 };
 
+  /// RBJ high shelf filter
   template<typename DataType_>
   class RobertBristowJohnsonHighShelvingCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {

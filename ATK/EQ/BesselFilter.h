@@ -30,7 +30,9 @@ namespace ATK
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
 
   public:
@@ -69,8 +71,10 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+    /// Coefficients of the MA part of the IIR filter
+    AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
+    AlignedVector coefficients_out;
 
   public:
     /*!
@@ -107,9 +111,11 @@ namespace ATK
     unsigned int out_order;
     
     void setup() override;
-    
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+
+    /// Coefficients of the MA part of the IIR filter
+    AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
+    AlignedVector coefficients_out;
 
   public:
     /*!
@@ -149,8 +155,10 @@ namespace ATK
     
     void setup() override;
     
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+    /// Coefficients of the MA part of the IIR filter
+    AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
+    AlignedVector coefficients_out;
 
   public:
     /*!

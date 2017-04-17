@@ -32,7 +32,9 @@ namespace ATK
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:
@@ -77,7 +79,9 @@ namespace ATK
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:
@@ -122,7 +126,9 @@ namespace ATK
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:
@@ -169,7 +175,9 @@ namespace ATK
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:

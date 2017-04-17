@@ -28,7 +28,7 @@ namespace ATK
   public:
     /*!
     * @brief construct the filter with a maximum delay line size
-    * @param max-delay is the maximum delay allowed
+    * @param max_delay is the maximum delay allowed
     */
     AllPassReverbFilter(std::size_t max_delay);
     /// Destructor
