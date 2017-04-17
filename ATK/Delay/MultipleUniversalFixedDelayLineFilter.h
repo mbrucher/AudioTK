@@ -1,5 +1,5 @@
 /**
- * \file MultipleUniversalFixedDelayLineFilter
+ * \file MultipleUniversalFixedDelayLineFilter.h
  */
 
 #ifndef ATK_DELAY_MULTIPLEUNIVERSALFIXEDDELAYFILTER_H
@@ -31,7 +31,7 @@ namespace ATK
   public:
     /*!
     * @brief construct the filter with a maximum delay line size
-    * @param max-delay is the maximum delay allowed
+    * @param max_delay is the maximum delay allowed
     */
     MultipleUniversalFixedDelayLineFilter(std::size_t max_delay);
     /// Destructor
@@ -62,6 +62,8 @@ namespace ATK
     virtual void process_impl(std::size_t size) const override final;
 
   private:
+    void process_impl(std::size_t size, std::size_t offset) const;
+
     // internal state
     std::unique_ptr<SUFDLF_Impl> impl;
     std::array<std::size_t, nb_channels> delay;
