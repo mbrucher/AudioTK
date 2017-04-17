@@ -161,7 +161,7 @@ namespace ATK
 
         for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
         {
-          outputs[nb_channels + to_channel][offset + i] += feedback[to_channel * nb_channels + channel] * impl->delay_line[to_channel][delay_line_size + i - (delay[channel] - impl->index)];
+          outputs[nb_channels + to_channel][offset + i] += feedback[to_channel * nb_channels + channel] * impl->delay_line[channel][delay_line_size + i - (delay[channel] - impl->index)];
         }
       }
       ATK_VECTORIZE for (std::size_t i = 0; i < size_before_index[channel]; ++i)
@@ -170,7 +170,7 @@ namespace ATK
 
         for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
         {
-          outputs[nb_channels + to_channel][offset + i + size_after_index[channel]] += feedback[to_channel * nb_channels + channel] * impl->delay_line[to_channel][i + size_after_index[channel] + impl->index - delay[channel]];
+          outputs[nb_channels + to_channel][offset + i + size_after_index[channel]] += feedback[to_channel * nb_channels + channel] * impl->delay_line[channel][i + size_after_index[channel] + impl->index - delay[channel]];
         }
       }
       ATK_VECTORIZE for (std::size_t i = delay[channel]; i < size; ++i)
@@ -179,7 +179,7 @@ namespace ATK
 
         for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
         {
-          outputs[nb_channels + to_channel][offset + i] += feedback[to_channel * nb_channels + channel] * outputs[nb_channels + to_channel][offset + i - delay[channel]];
+          outputs[nb_channels + to_channel][offset + i] += feedback[to_channel * nb_channels + channel] * outputs[nb_channels + channel][offset + i - delay[channel]];
         }
       }
     }
@@ -193,7 +193,7 @@ namespace ATK
 
         for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
         {
-          outputs[nb_channels + to_channel][offset + i] += feedforward[to_channel * nb_channels + channel] * impl->delay_line[to_channel][delay_line_size + i - (delay[channel] - impl->index)];
+          outputs[to_channel][offset + i] += feedforward[to_channel * nb_channels + channel] * impl->delay_line[channel][delay_line_size + i - (delay[channel] - impl->index)];
         }
       }
       ATK_VECTORIZE for (std::size_t i = 0; i < size_before_index[channel]; ++i)
@@ -202,7 +202,7 @@ namespace ATK
 
         for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
         {
-          outputs[to_channel][offset + i + size_after_index[channel]] += feedforward[to_channel * nb_channels + channel] * impl->delay_line[to_channel][i + size_after_index[channel] + impl->index - delay[channel]];
+          outputs[to_channel][offset + i + size_after_index[channel]] += feedforward[to_channel * nb_channels + channel] * impl->delay_line[channel][i + size_after_index[channel] + impl->index - delay[channel]];
         }
       }
       ATK_VECTORIZE for (std::size_t i = delay[channel]; i < size; ++i)
@@ -211,7 +211,7 @@ namespace ATK
 
         for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
         {
-          outputs[to_channel][offset + i] += feedforward[to_channel * nb_channels + channel] * outputs[nb_channels + to_channel][offset + i - delay[channel]];
+          outputs[to_channel][offset + i] += feedforward[to_channel * nb_channels + channel] * outputs[nb_channels + channel][offset + i - delay[channel]];
         }
       }
     }
@@ -234,7 +234,7 @@ namespace ATK
       }
       auto second_size = size - first_size;
       
-      if (impl->index + size > delay_line_size)
+      if (impl->index + size >= delay_line_size)
       {
         impl->index = second_size;
         for(unsigned int channel = 0; channel < nb_channels; ++channel)
