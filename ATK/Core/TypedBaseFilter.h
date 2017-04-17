@@ -52,11 +52,12 @@ namespace ATK
 
     virtual void full_setup() override;
 
+    /// Connects this filter input to another's output
     virtual void set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port) override final;
     
-  protected:
-
+  private:
     virtual int get_type() const override;
+  protected:
     /// This implementation does nothing
     virtual void process_impl(std::size_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays

@@ -109,7 +109,7 @@ namespace ATK
     /// Starts processing without calling reset
     void process_conditionnally(std::size_t size);
 #if ATK_USE_THREADPOOL == 1
-    /// Starts pqrqllel processing without calling reset
+    /// Starts parallel processing without calling reset
     void process_conditionnally_parallel(std::size_t size);
 #endif
     /// Resets the internal state of the filter (mandatory before processing a new clip in a DAW for instance)
@@ -123,7 +123,7 @@ namespace ATK
     virtual void prepare_process(std::size_t size) = 0;
     /// Prepares the filter by resizing the outputs arrays
     virtual void prepare_outputs(std::size_t size) = 0;
-    
+    /// Changes the internal check to allow a disconnected input port
     void allow_inactive_connection(unsigned int port);
     
     /// Use this call to recompute internal parameters
