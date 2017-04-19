@@ -1,5 +1,5 @@
 /**
- * \ file MultipleUniversalFixedDelayLineFilter
+ * \ file MultipleUniversalFixedDelayLineFilter.cpp
  */
 
 #include <ATK/Delay/MultipleUniversalFixedDelayLineFilter.h>
