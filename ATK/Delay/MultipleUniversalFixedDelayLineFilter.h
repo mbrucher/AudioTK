@@ -41,17 +41,17 @@ namespace ATK
     void set_delay(unsigned int channel, std::size_t delay);
     /// Gets the initial delay from a channel
     std::size_t get_delay(unsigned int channel) const;
-    
+
     /// Sets the blend of channel 1 (between -1 and 1)
     void set_blend(unsigned int channel, DataType_ blend);
     /// Gets the blend of a channel
     DataType_ get_blend(unsigned int channel) const;
-    
+
     /// Sets the feedback from channel to channel
     void set_feedback(unsigned int from_channel, unsigned int to_channel, DataType_ feedback);
     /// Gets the feedback from channel to channel
     DataType_ get_feedback(unsigned int from_channel, unsigned int to_channel) const;
-    
+
     /// Sets the feedforward from channel to channel
     void set_feedforward(unsigned int from_channel, unsigned int to_channel, DataType_ feedforward);
     /// Gets the feedforward from channel to channel
@@ -62,8 +62,6 @@ namespace ATK
     virtual void process_impl(std::size_t size) const override final;
 
   private:
-    void process_impl(std::size_t size, std::size_t offset) const;
-
     // internal state
     std::unique_ptr<SUFDLF_Impl> impl;
     std::array<std::size_t, nb_channels> delay;
