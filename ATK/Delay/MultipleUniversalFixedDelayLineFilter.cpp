@@ -147,20 +147,20 @@ namespace ATK
       {
         impl->delay_line[channel][i] = impl->processed_input[channel][j - delay[channel]];
       }
-      for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
+      for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
-        impl->processed_input[from_channel][j] = converted_inputs[from_channel][i];
-        for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
+        impl->processed_input[to_channel][j] = converted_inputs[to_channel][i];
+        for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
-          impl->processed_input[from_channel][j] += feedback[from_channel * nb_channels + to_channel] * impl->delay_line[to_channel][i];
+          impl->processed_input[to_channel][j] += feedback[from_channel * nb_channels + to_channel] * impl->delay_line[from_channel][i];
         }
       }
-      for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
+      for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
-        outputs[from_channel][i] = blend[from_channel] * impl->processed_input[from_channel][j];
-        for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
+        outputs[to_channel][i] = blend[to_channel] * impl->processed_input[to_channel][j];
+        for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
-          outputs[from_channel][i] += feedforward[from_channel * nb_channels + to_channel] * impl->delay_line[to_channel][i];
+          outputs[to_channel][i] += feedforward[from_channel * nb_channels + to_channel] * impl->delay_line[from_channel][i];
         }
       }
     }
