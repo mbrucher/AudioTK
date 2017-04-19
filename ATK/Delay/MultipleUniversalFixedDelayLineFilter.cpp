@@ -152,7 +152,7 @@ namespace ATK
         impl->processed_input[from_channel][j] = converted_inputs[from_channel][i];
         for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
         {
-          impl->processed_input[from_channel][j] += feedback[from_channel * nb_channels + to_channel] * impl->processed_input[to_channel][j - delay[to_channel]];
+          impl->processed_input[from_channel][j] += feedback[from_channel * nb_channels + to_channel] * impl->delay_line[to_channel][i];
         }
       }
       for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
