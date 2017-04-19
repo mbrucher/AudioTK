@@ -19,7 +19,8 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.0.1
-* Refactored MultipleUniversalFixedDelayLineFilter
+* Added a Feedback Delay Netwrok filter (FDN) with Hadamard mixing matrix with Python wrappers
+* Fixed MultipleUniversalFixedDelayLineFilter parameters
 
 ### 2.0.0
 * Refactored fixed line delays (performance improvement)
