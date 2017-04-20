@@ -69,9 +69,6 @@ namespace ATK
     std::array<std::size_t, nb_channels> delay;
     /// Max delay for the delay line
     std::size_t max_delay;
-    std::array<DataType_, nb_channels> ingain;
-    std::array<DataType_, nb_channels> feedback;
-    std::array<DataType_, nb_channels> outgain;
   };
 }
 

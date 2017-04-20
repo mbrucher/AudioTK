@@ -25,30 +25,26 @@ namespace ATK
     typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
 
     std::vector<Vector> delay_line;
+    std::vector<Vector> processed_input;
     const Matrix transition;
-    std::array<std::vector<DataType>, nb_channels> processed_input;
+    Vector ingain;
+    Vector outgain;
+    Vector feedback;
 
     HFDN_Impl(std::size_t max_delay)
-    :transition(create())
+      :transition(create()), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
     {
       // reset the delay line
-      for (unsigned int channel = 0; channel < nb_channels; ++channel)
-      {
-        processed_input[channel].assign(max_delay, 0);
-      }
-
+      processed_input.assign(max_delay, Vector::Zero());
     }
 
     void update_delay_line(std::size_t max_delay)
     {
-      auto array_size = processed_input[0].size();
+      auto array_size = processed_input.size();
       // Update delay line
       ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
       {
-        for (unsigned int channel = 0; channel < nb_channels; ++channel)
-        {
-          processed_input[channel][i] = processed_input[channel][array_size + i - max_delay];
-        }
+        processed_input[i] = processed_input[array_size + i - max_delay];
       }
     }
 
@@ -72,10 +68,7 @@ namespace ATK
   HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::HadamardFeedbackDelayNetworkFilter(std::size_t max_delay)
     :Parent(1, 1), impl(new HFDN_Impl(max_delay)), max_delay(max_delay)
   {
-    delay.fill(max_delay-1);
-    ingain.fill(0);
-    feedback.fill(0);
-    outgain.fill(0);
+    delay.fill(max_delay - 1);
   }
 
   template<class DataType, unsigned int nb_channels>
@@ -107,13 +100,13 @@ namespace ATK
   template<class DataType_, unsigned int nb_channels>
   void HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::set_ingain(unsigned int channel, DataType_ ingain)
   {
-    this->ingain[channel] = ingain;
+    impl->ingain(channel) = ingain;
   }
 
   template<class DataType_, unsigned int nb_channels>
   DataType_ HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::get_ingain(unsigned int channel) const
   {
-    return ingain[channel];
+    return impl->ingain(channel);
   }
 
   template<class DataType_, unsigned int nb_channels>
@@ -123,35 +116,32 @@ namespace ATK
     {
       throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
     }
-    this->feedback[channel] = feedback;
+    impl->feedback(channel) = feedback;
   }
 
   template<class DataType_, unsigned int nb_channels>
   DataType_ HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::get_feedback(unsigned int channel) const
   {
-    return feedback[channel];
+    return impl->feedback(channel);
   }
 
   template<class DataType_, unsigned int nb_channels>
   void HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::set_outgain(unsigned int channel, DataType_ outgain)
   {
-    this->outgain[channel] = outgain;
+    impl->outgain(channel) = outgain;
   }
 
   template<class DataType_, unsigned int nb_channels>
   DataType_ HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::get_outgain(unsigned int channel) const
   {
-    return outgain[channel];
+    return impl->outgain(channel);
   }
 
   template<class DataType, unsigned int nb_channels>
   void HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::full_setup()
   {
     // reset the delay line
-    for (unsigned int channel = 0; channel < nb_channels; ++channel)
-    {
-      impl->processed_input[channel].assign(max_delay, 0);
-    }
+    impl->processed_input.assign(max_delay, HFDN_Impl::Vector::Zero());
   }
 
   template<class DataType, unsigned int nb_channels>
@@ -163,33 +153,18 @@ namespace ATK
     DataType* ATK_RESTRICT output = outputs[0];
 
     impl->delay_line.resize(size);
-    for (unsigned int channel = 0; channel < nb_channels; ++channel)
-    {
-      impl->processed_input[channel].resize(max_delay + size);
-    }
+    impl->processed_input.resize(max_delay + size);
 
-    ATK_VECTORIZE for (std::size_t i = 0; i < size; ++i)
+    for (std::size_t i = 0; i < size; ++i)
     {
       auto j = i + max_delay;
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
-        impl->delay_line[i](channel) = impl->processed_input[channel][j - delay[channel]];
+        impl->delay_line[i](channel) = impl->processed_input[j - delay[channel]](channel);
       }
-      for (unsigned int channel = 0; channel < nb_channels; ++channel)
-      {
-        impl->processed_input[channel][j] = ingain[channel] * input[i];
-      }
-      auto all_feedback = impl->mix(impl->delay_line[i]);
-      for (unsigned int channel = 0; channel < nb_channels; ++channel)
-      {
-        impl->processed_input[channel][j] += feedback[channel] * all_feedback(channel);
-      }
+      impl->processed_input[j] = (impl->ingain * input[i]).array() + impl->mix(impl->delay_line[i]).array() * impl->feedback.array();
 
-      output[i] = 0;
-      for (unsigned int channel = 0; channel < nb_channels; ++channel)
-      {
-        output[i] += outgain[channel] * impl->delay_line[i](channel);
-      }
+      output[i] = impl->outgain.dot(impl->delay_line[i]);
     }
   }
 
