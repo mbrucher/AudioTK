@@ -26,26 +26,15 @@ namespace ATK
 
     std::vector<Vector> delay_line;
     std::vector<Vector> processed_input;
+    int64_t index;
     const Matrix transition;
     Vector ingain;
     Vector outgain;
     Vector feedback;
 
     HFDN_Impl(std::size_t max_delay)
-      :transition(create()), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
+      :transition(create()), processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
     {
-      // reset the delay line
-      processed_input.assign(max_delay, Vector::Zero());
-    }
-
-    void update_delay_line(std::size_t max_delay)
-    {
-      auto array_size = processed_input.size();
-      // Update delay line
-      ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
-      {
-        processed_input[i] = processed_input[array_size + i - max_delay];
-      }
     }
 
     Vector mix(const Vector& x) const
@@ -66,7 +55,7 @@ namespace ATK
 
   template<class DataType, unsigned int nb_channels>
   HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::HadamardFeedbackDelayNetworkFilter(std::size_t max_delay)
-    :Parent(1, 1), impl(new HFDN_Impl(max_delay)), max_delay(max_delay)
+    :Parent(1, 2), impl(new HFDN_Impl(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
   }
@@ -147,24 +136,30 @@ namespace ATK
   template<class DataType, unsigned int nb_channels>
   void HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::process_impl(std::size_t size) const
   {
-    impl->update_delay_line(max_delay);
-
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
 
     impl->delay_line.resize(size);
-    impl->processed_input.resize(max_delay + size);
 
     for (std::size_t i = 0; i < size; ++i)
     {
-      auto j = i + max_delay;
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
-        impl->delay_line[i](channel) = impl->processed_input[j - delay[channel]](channel);
+        auto j = impl->index - static_cast<int64_t>(delay[channel]);
+        if (j < 0)
+        {
+          j += max_delay;
+        }
+
+        impl->delay_line[i](channel) = impl->processed_input[j](channel);
       }
-      impl->processed_input[j] = (impl->ingain * input[i]).array() + impl->mix(impl->delay_line[i]).array() * impl->feedback.array();
+      impl->processed_input[impl->index] = (impl->ingain * input[i]).array() + impl->mix(impl->delay_line[i]).array() * impl->feedback.array();
 
       output[i] = impl->outgain.dot(impl->delay_line[i]);
+
+      ++impl->index;
+      if(impl->index == max_delay)
+        impl->index = 0;
     }
   }
 
