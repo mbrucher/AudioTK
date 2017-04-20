@@ -11,6 +11,8 @@
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
 
+#if ATK_EIGEN == 1
+
 namespace ATK
 {
   /// A stereo/ping-pong delay effect
@@ -73,4 +75,5 @@ namespace ATK
   };
 }
 
+#endif
 #endif

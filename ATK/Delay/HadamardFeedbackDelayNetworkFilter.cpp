@@ -4,6 +4,8 @@
 
 #include "HadamardFeedbackDelayNetworkFilter.h"
 
+#if ATK_EIGEN == 1
+
 #include <cmath>
 #include <cstring>
 #include <complex>
@@ -11,13 +13,19 @@
 
 #include <ATK/Core/TypeTraits.h>
 
+#include <Eigen/Dense>
+
 namespace ATK
 {
   template<class DataType, unsigned int nb_channels>
   class HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::HFDN_Impl
   {
   public:
-    std::array<std::vector<DataType>, nb_channels> delay_line;
+    typedef Eigen::Matrix<DataType, nb_channels, 1> Vector;
+    typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
+
+    std::vector<Vector> delay_line;
+    Matrix transition;
     std::array<std::vector<DataType>, nb_channels> processed_input;
 
     HFDN_Impl(std::size_t max_delay)
@@ -27,6 +35,11 @@ namespace ATK
       {
         processed_input[channel].assign(max_delay, 0);
       }
+
+      transition << 1, 1, 1, 1,
+                    1, -1, 1, -1,
+                    -1, -1, 1, 1,
+                    -1, 1, 1, -1;
     }
 
     void update_delay_line(std::size_t max_delay)
@@ -137,9 +150,9 @@ namespace ATK
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
 
+    impl->delay_line.resize(size);
     for (unsigned int channel = 0; channel < nb_channels; ++channel)
     {
-      impl->delay_line[channel].resize(size);
       impl->processed_input[channel].resize(max_delay + size);
     }
 
@@ -148,7 +161,7 @@ namespace ATK
       auto j = i + max_delay;
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
-        impl->delay_line[channel][i] = impl->processed_input[channel][j - delay[channel]];
+        impl->delay_line[i](channel) = impl->processed_input[channel][j - delay[channel]];
       }
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
@@ -160,25 +173,18 @@ namespace ATK
       }
 
       output[i] = 0;
+      HFDN_Impl::Vector all_feedback = impl->transition * impl->delay_line[i];
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
-        output[i] += outgain[channel] * impl->delay_line[channel][i];
+        output[i] += outgain[channel] * all_feedback(channel);
       }
     }
   }
-
-  template class HadamardFeedbackDelayNetworkFilter<float, 2>;
-  template class HadamardFeedbackDelayNetworkFilter<double, 2>;
-  template class HadamardFeedbackDelayNetworkFilter<std::complex<float>, 2>;
-  template class HadamardFeedbackDelayNetworkFilter<std::complex<double>, 2>;
 
   template class HadamardFeedbackDelayNetworkFilter<float, 4>;
   template class HadamardFeedbackDelayNetworkFilter<double, 4>;
   template class HadamardFeedbackDelayNetworkFilter<std::complex<float>, 4>;
   template class HadamardFeedbackDelayNetworkFilter<std::complex<double>, 4>;
-
-  template class HadamardFeedbackDelayNetworkFilter<float, 8>;
-  template class HadamardFeedbackDelayNetworkFilter<double, 8>;
-  template class HadamardFeedbackDelayNetworkFilter<std::complex<float>, 8>;
-  template class HadamardFeedbackDelayNetworkFilter<std::complex<double>, 8>;
 }
+
+#endif

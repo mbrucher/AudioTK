@@ -13,6 +13,10 @@ SOURCE_GROUP_BY_FOLDER(ATK_DELAY)
 
 include_directories(${PROJECT_SOURCE_DIR})
 
+if(EIGEN_FOUND)
+  include_directories(${EIGEN_INCLUDE_DIRS})
+endif(EIGEN_FOUND)
+
 if(ENABLE_STATIC_LIBRARIES)
 add_library(ATKDelay_static
     STATIC
