@@ -25,10 +25,11 @@ namespace ATK
     typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
 
     std::vector<Vector> delay_line;
-    Matrix transition;
+    const Matrix transition;
     std::array<std::vector<DataType>, nb_channels> processed_input;
 
     HFDN_Impl(std::size_t max_delay)
+    :transition(create())
     {
       // reset the delay line
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
@@ -36,10 +37,6 @@ namespace ATK
         processed_input[channel].assign(max_delay, 0);
       }
 
-      transition << 1, 1, 1, 1,
-                    1, -1, 1, -1,
-                    -1, -1, 1, 1,
-                    -1, 1, 1, -1;
     }
 
     void update_delay_line(std::size_t max_delay)
@@ -53,6 +50,21 @@ namespace ATK
           processed_input[channel][i] = processed_input[channel][array_size + i - max_delay];
         }
       }
+    }
+
+    Vector mix(const Vector& x) const
+    {
+      return transition * x;
+    }
+
+    Matrix create() const
+    {
+      Matrix transition;
+      transition << 1, 1, 1, 1,
+        1, -1, 1, -1,
+        -1, -1, 1, 1,
+        -1, 1, 1, -1;
+      return transition;
     }
   };
 
@@ -173,7 +185,7 @@ namespace ATK
       }
 
       output[i] = 0;
-      HFDN_Impl::Vector all_feedback = impl->transition * impl->delay_line[i];
+      auto all_feedback = impl->mix(impl->delay_line[i]);
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
         output[i] += outgain[channel] * all_feedback(channel);
