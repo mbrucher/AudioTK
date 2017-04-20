@@ -16,19 +16,19 @@ namespace ATK
     void set_delay(unsigned int channel, std::size_t delay);
     std::size_t get_delay(unsigned int channel) const;
 
-    void set_ingain(unsigned int channel, DataType_ ingain);
+    void set_ingain(unsigned int channel, DataType ingain);
     /// Gets the input gain of a channel
-    DataType_ get_ingain(unsigned int channel) const;
+    DataType get_ingain(unsigned int channel) const;
 
     /// Sets the feedback of a channel
-    void set_feedback(unsigned int channel, DataType_ feedback);
+    void set_feedback(unsigned int channel, DataType feedback);
     /// Gets the feedback of a channel
-    DataType_ get_feedback(unsigned int channel) const;
+    DataType get_feedback(unsigned int channel) const;
 
     /// Sets the output gain of a channel (between -1 and 1)
-    void set_outgain(unsigned int channel, DataType_ ingain);
+    void set_outgain(unsigned int channel, DataType ingain);
     /// Gets the output gain of a channel
-    DataType_ get_outgain(unsigned int channel) const;
+    DataType get_outgain(unsigned int channel) const;
   };
 }
 
