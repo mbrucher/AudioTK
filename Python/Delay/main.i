@@ -14,6 +14,7 @@
 
 %include "../Core/BaseFilter.i"
 %include "FixedDelayLineFilter.i"
+%include "HadamardFeedbackDelayNetworkFilter.i"
 %include "MultipleUniversalFixedDelayLineFilter.i"
 %include "UniversalFixedDelayLineFilter.i"
 %include "UniversalVariableDelayLineFilter.i"

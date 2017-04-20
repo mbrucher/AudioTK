@@ -10,6 +10,7 @@ option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
+option(BUILD_DOC "Build Doxygen documentation" OFF)
 
 message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
@@ -311,28 +312,28 @@ if(ENABLE_PYTHON)
   add_subdirectory(Python)
 endif(ENABLE_PYTHON)
 
-FIND_PACKAGE(Doxygen)
+IF (BUILD_DOC)
 
-IF (DOXYGEN_FOUND)
+  FIND_PACKAGE(Doxygen Required)
 
-SET(DOXYGEN_INPUT Doxyfile)
-SET(DOXYGEN_OUTPUT Doxygen)
+  SET(DOXYGEN_INPUT Doxyfile)
+  SET(DOXYGEN_OUTPUT Doxygen)
 
-ADD_CUSTOM_COMMAND(
-  OUTPUT ${DOXYGEN_OUTPUT}
-  COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
-  COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
-  COMMAND ${CMAKE_COMMAND} -E echo "Done."
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  DEPENDS ${DOXYGEN_INPUT}
-  )
+  ADD_CUSTOM_COMMAND(
+    OUTPUT ${DOXYGEN_OUTPUT}
+    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
+    COMMAND ${CMAKE_COMMAND} -E echo "Done."
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    DEPENDS ${DOXYGEN_INPUT}
+    )
 
-ADD_CUSTOM_TARGET(apidoc ALL DEPENDS ${DOXYGEN_OUTPUT})
+  ADD_CUSTOM_TARGET(apidoc ALL DEPENDS ${DOXYGEN_OUTPUT})
 
-ADD_CUSTOM_TARGET(apidoc_forced
-  COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
-  COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
-  COMMAND ${CMAKE_COMMAND} -E echo "Done."
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  ADD_CUSTOM_TARGET(apidoc_forced
+    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
+    COMMAND ${CMAKE_COMMAND} -E echo "Done."
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-ENDIF (DOXYGEN_FOUND)
+ENDIF (BUILD_DOC)
