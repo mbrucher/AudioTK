@@ -179,16 +179,16 @@ namespace ATK
       {
         impl->processed_input[channel][j] = ingain[channel] * input[i];
       }
-      for (unsigned int channel = 0; channel < nb_channels; ++channel)
-      {
-        impl->processed_input[channel][j] += feedback[channel] * impl->delay_line[channel][i];
-      }
-
-      output[i] = 0;
       auto all_feedback = impl->mix(impl->delay_line[i]);
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
-        output[i] += outgain[channel] * all_feedback(channel);
+        impl->processed_input[channel][j] += feedback[channel] * all_feedback(channel);
+      }
+
+      output[i] = 0;
+      for (unsigned int channel = 0; channel < nb_channels; ++channel)
+      {
+        output[i] += outgain[channel] * impl->delay_line[i](channel);
       }
     }
   }

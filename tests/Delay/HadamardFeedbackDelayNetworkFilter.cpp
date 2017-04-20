@@ -138,7 +138,7 @@ BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_liner100_delay50_
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
   filter.set_ingain(1, 1);
-  filter.set_outgain(1, -1);
+  filter.set_outgain(1, 1);
 
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner100_delay50_p
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
   filter.set_ingain(1, 1);
-  filter.set_outgain(1, -1);
+  filter.set_outgain(1, 1);
   filter.process(50);
 
   ATK::SumFilter<float> sum;
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner1000_delay50_
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
   filter.set_ingain(1, 1);
-  filter.set_outgain(1, -1);
+  filter.set_outgain(1, 1);
   filter.process(50);
 
   ATK::SumFilter<float> sum;
