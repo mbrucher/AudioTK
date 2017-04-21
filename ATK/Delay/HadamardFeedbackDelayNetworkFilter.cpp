@@ -101,17 +101,17 @@ namespace ATK
   template<typename Mixture>
   void FeedbackDelayNetworkFilter<Mixture>::set_feedback(unsigned int channel, DataType feedback)
   {
-    if (std::abs(feedback) > 1)
+    if (std::abs(feedback * static_cast<DataType>(Mixture::gain_factor)) > 1)
     {
-      throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
+      throw std::out_of_range("Feedback must be between " + std::to_string(-Mixture::gain_factor) + " and " + std::to_string(Mixture::gain_factor) + " to avoid divergence");
     }
-    impl->feedback(channel) = feedback;
+    impl->feedback(channel) = feedback * static_cast<DataType>(Mixture::gain_factor);
   }
 
   template<typename Mixture>
   typename FeedbackDelayNetworkFilter<Mixture>::DataType FeedbackDelayNetworkFilter<Mixture>::get_feedback(unsigned int channel) const
   {
-    return impl->feedback(channel);
+    return impl->feedback(channel) / static_cast<DataType>(Mixture::gain_factor);
   }
 
   template<typename Mixture>

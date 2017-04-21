@@ -22,6 +22,8 @@ namespace ATK
   public:
     static const int nb_channels = 1 << order;
     typedef DataType_ DataType;
+    /// Gain factor to take into account in the feedback loop due to the instability of the mixture
+    static constexpr double gain_factor = 0.5;
 
   };
 

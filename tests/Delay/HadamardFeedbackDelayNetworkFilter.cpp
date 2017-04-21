@@ -251,10 +251,10 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_complex_test)
   filter.set_outgain(1, 1);
   filter.set_outgain(2, 1);
   filter.set_outgain(3, .5);
-  filter.set_feedback(0, .1);
-  filter.set_feedback(1, .4);
-  filter.set_feedback(2, .2);
-  filter.set_feedback(3, .1);
+  filter.set_feedback(0, .2);
+  filter.set_feedback(1, .8);
+  filter.set_feedback(2, .4);
+  filter.set_feedback(3, .2);
 
   filter.process(OTHERPROCESSSIZE);
 
