@@ -15,29 +15,40 @@
 
 namespace ATK
 {
-  /// A stereo/ping-pong delay effect
-  template<class DataType_, unsigned int nb_channels>
-  class ATK_DELAY_EXPORT HadamardFeedbackDelayNetworkFilter final : public TypedBaseFilter<DataType_>
+  /// Mixture matrix for Hadamard
+  template<typename DataType_, unsigned int order>
+  class HadamardMixture
+  {
+  public:
+    static const int nb_channels = 1 << order;
+    typedef DataType_ DataType;
+
+  };
+
+  /// A FDN class with custom mixture matrix
+  template<typename Mixture>
+  class ATK_DELAY_EXPORT FeedbackDelayNetworkFilter final : public TypedBaseFilter<typename Mixture::DataType>
   {
     class HFDN_Impl;
   protected:
-    /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::DataType;
+    typedef typename Mixture::DataType DataType;
+    typedef TypedBaseFilter<DataType> Parent;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
     using Parent::output_delay;
 
+    static constexpr auto nb_channels = Mixture::nb_channels;
+
   public:
     /*!
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    HadamardFeedbackDelayNetworkFilter(std::size_t max_delay);
+    FeedbackDelayNetworkFilter(std::size_t max_delay);
     /// Destructor
-    ~HadamardFeedbackDelayNetworkFilter();
+    ~FeedbackDelayNetworkFilter();
 
     /// Set the initial delay from a channel
     void set_delay(unsigned int channel, std::size_t delay);
@@ -45,19 +56,19 @@ namespace ATK
     std::size_t get_delay(unsigned int channel) const;
 
     /// Sets the input gain of a channel (between -1 and 1)
-    void set_ingain(unsigned int channel, DataType_ ingain);
+    void set_ingain(unsigned int channel, DataType ingain);
     /// Gets the input gain of a channel
-    DataType_ get_ingain(unsigned int channel) const;
+    DataType get_ingain(unsigned int channel) const;
 
     /// Sets the feedback of a channel
-    void set_feedback(unsigned int channel, DataType_ feedback);
+    void set_feedback(unsigned int channel, DataType feedback);
     /// Gets the feedback of a channel
-    DataType_ get_feedback(unsigned int channel) const;
+    DataType get_feedback(unsigned int channel) const;
 
     /// Sets the output gain of a channel (between -1 and 1)
-    void set_outgain(unsigned int channel, DataType_ ingain);
+    void set_outgain(unsigned int channel, DataType ingain);
     /// Gets the output gain of a channel
-    DataType_ get_outgain(unsigned int channel) const;
+    DataType get_outgain(unsigned int channel) const;
 
     virtual void full_setup() override final;
   protected:

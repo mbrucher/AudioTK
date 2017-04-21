@@ -17,8 +17,8 @@
 
 namespace ATK
 {
-  template<class DataType, unsigned int nb_channels>
-  class HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::HFDN_Impl
+  template<typename Mixture>
+  class FeedbackDelayNetworkFilter<Mixture>::HFDN_Impl
   {
   public:
     typedef Eigen::Matrix<DataType, nb_channels, 1> Vector;
@@ -53,20 +53,20 @@ namespace ATK
     }
   };
 
-  template<class DataType, unsigned int nb_channels>
-  HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::HadamardFeedbackDelayNetworkFilter(std::size_t max_delay)
+  template<typename Mixture>
+  FeedbackDelayNetworkFilter<Mixture>::FeedbackDelayNetworkFilter(std::size_t max_delay)
     :Parent(1, 2), impl(new HFDN_Impl(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
   }
 
-  template<class DataType, unsigned int nb_channels>
-  HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::~HadamardFeedbackDelayNetworkFilter()
+  template<typename Mixture>
+  FeedbackDelayNetworkFilter<Mixture>::~FeedbackDelayNetworkFilter()
   {
   }
 
-  template<class DataType, unsigned int nb_channels>
-  void HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::set_delay(unsigned int channel, std::size_t delay)
+  template<typename Mixture>
+  void FeedbackDelayNetworkFilter<Mixture>::set_delay(unsigned int channel, std::size_t delay)
   {
     if (delay == 0)
     {
@@ -80,26 +80,26 @@ namespace ATK
     this->delay[channel] = delay;
   }
 
-  template<class DataType, unsigned int nb_channels>
-  std::size_t HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::get_delay(unsigned int channel) const
+  template<typename Mixture>
+  std::size_t FeedbackDelayNetworkFilter<Mixture>::get_delay(unsigned int channel) const
   {
     return delay[channel];
   }
 
-  template<class DataType_, unsigned int nb_channels>
-  void HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::set_ingain(unsigned int channel, DataType_ ingain)
+  template<typename Mixture>
+  void FeedbackDelayNetworkFilter<Mixture>::set_ingain(unsigned int channel, DataType ingain)
   {
     impl->ingain(channel) = ingain;
   }
 
-  template<class DataType_, unsigned int nb_channels>
-  DataType_ HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::get_ingain(unsigned int channel) const
+  template<typename Mixture>
+  typename FeedbackDelayNetworkFilter<Mixture>::DataType FeedbackDelayNetworkFilter<Mixture>::get_ingain(unsigned int channel) const
   {
     return impl->ingain(channel);
   }
 
-  template<class DataType_, unsigned int nb_channels>
-  void HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::set_feedback(unsigned int channel, DataType_ feedback)
+  template<typename Mixture>
+  void FeedbackDelayNetworkFilter<Mixture>::set_feedback(unsigned int channel, DataType feedback)
   {
     if (std::abs(feedback) > 1)
     {
@@ -108,33 +108,33 @@ namespace ATK
     impl->feedback(channel) = feedback;
   }
 
-  template<class DataType_, unsigned int nb_channels>
-  DataType_ HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::get_feedback(unsigned int channel) const
+  template<typename Mixture>
+  typename FeedbackDelayNetworkFilter<Mixture>::DataType FeedbackDelayNetworkFilter<Mixture>::get_feedback(unsigned int channel) const
   {
     return impl->feedback(channel);
   }
 
-  template<class DataType_, unsigned int nb_channels>
-  void HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::set_outgain(unsigned int channel, DataType_ outgain)
+  template<typename Mixture>
+  void FeedbackDelayNetworkFilter<Mixture>::set_outgain(unsigned int channel, DataType outgain)
   {
     impl->outgain(channel) = outgain;
   }
 
-  template<class DataType_, unsigned int nb_channels>
-  DataType_ HadamardFeedbackDelayNetworkFilter<DataType_, nb_channels>::get_outgain(unsigned int channel) const
+  template<typename Mixture>
+  typename FeedbackDelayNetworkFilter<Mixture>::DataType FeedbackDelayNetworkFilter<Mixture>::get_outgain(unsigned int channel) const
   {
     return impl->outgain(channel);
   }
 
-  template<class DataType, unsigned int nb_channels>
-  void HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::full_setup()
+  template<typename Mixture>
+  void FeedbackDelayNetworkFilter<Mixture>::full_setup()
   {
     // reset the delay line
     impl->processed_input.assign(max_delay, HFDN_Impl::Vector::Zero());
   }
 
-  template<class DataType, unsigned int nb_channels>
-  void HadamardFeedbackDelayNetworkFilter<DataType, nb_channels>::process_impl(std::size_t size) const
+  template<typename Mixture>
+  void FeedbackDelayNetworkFilter<Mixture>::process_impl(std::size_t size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
@@ -163,10 +163,10 @@ namespace ATK
     }
   }
 
-  template class HadamardFeedbackDelayNetworkFilter<float, 4>;
-  template class HadamardFeedbackDelayNetworkFilter<double, 4>;
-  template class HadamardFeedbackDelayNetworkFilter<std::complex<float>, 4>;
-  template class HadamardFeedbackDelayNetworkFilter<std::complex<double>, 4>;
+  template class FeedbackDelayNetworkFilter<HadamardMixture<float, 2>>;
+  template class FeedbackDelayNetworkFilter<HadamardMixture<double, 2>>;
+  template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<float>, 2>>;
+  template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<double>, 2>>;
 }
 
 #endif

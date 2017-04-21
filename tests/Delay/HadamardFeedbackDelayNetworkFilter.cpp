@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_linel100_delay50_
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 4> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(0, 50);
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_line100_delay50_pr
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 4> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(0, 50);
@@ -99,7 +99,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_line1000_delay50_p
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 4> filter(1000);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(1000);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(0, 50);
@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_liner100_delay50_
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 4> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner100_delay50_p
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 4> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner1000_delay50_
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 4> filter(1000);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(1000);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
@@ -236,7 +236,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_complex_test)
   ATK::InPointerFilter<double> generator(data.data(), 1, OTHERPROCESSSIZE, false);
   generator.set_output_sampling_rate(96000);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<double, 4> filter(100000);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 2>> filter(100000);
   filter.set_input_sampling_rate(96000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(0, 4800);
