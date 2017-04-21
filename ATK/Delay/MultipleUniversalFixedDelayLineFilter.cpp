@@ -17,10 +17,11 @@ namespace ATK
   class MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::SUFDLF_Impl
   {
   public:
-    std::array<std::vector<DataType>, nb_channels> delay_line;
     std::array<std::vector<DataType>, nb_channels> processed_input;
+    int64_t index;
 
     SUFDLF_Impl(std::size_t max_delay)
+      :index(0)
     {
       // reset the delay line
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
@@ -28,26 +29,13 @@ namespace ATK
         processed_input[channel].assign(max_delay, 0);
       }
     }
-
-    void update_delay_line(std::size_t max_delay)
-    {
-      auto array_size = processed_input[0].size();
-      // Update delay line
-      ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
-      {
-        for (unsigned int channel = 0; channel < nb_channels; ++channel)
-        {
-          processed_input[channel][i] = processed_input[channel][array_size + i - max_delay];
-        }
-      }
-    }
   };
 
   template<class DataType, unsigned int nb_channels>
   MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::MultipleUniversalFixedDelayLineFilter(std::size_t max_delay)
-    :Parent(nb_channels, nb_channels), impl(new SUFDLF_Impl(max_delay)), max_delay(max_delay)
+    :Parent(nb_channels, 2 * nb_channels), impl(new SUFDLF_Impl(max_delay)), max_delay(max_delay)
   {
-    delay.fill(max_delay-1);
+    delay.fill(max_delay - 1);
     blend.fill(0);
     feedback.fill(0);
     feedforward.fill(0);
@@ -132,37 +120,36 @@ namespace ATK
   template<class DataType, unsigned int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::process_impl(std::size_t size) const
   {
-    impl->update_delay_line(max_delay);
-
-    for (unsigned int channel = 0; channel < nb_channels; ++channel)
-    {
-      impl->delay_line[channel].resize(size);
-      impl->processed_input[channel].resize(max_delay + size);
-    }
-
     ATK_VECTORIZE for (std::size_t i = 0; i < size; ++i)
     {
-      auto j = i + max_delay;
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
       {
-        impl->delay_line[channel][i] = impl->processed_input[channel][j - delay[channel]];
+        auto j = impl->index - static_cast<int64_t>(delay[channel]);
+        if (j < 0)
+        {
+          j += max_delay;
+        }
+        outputs[nb_channels + channel][i] = impl->processed_input[channel][j];
       }
       for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
-        impl->processed_input[to_channel][j] = converted_inputs[to_channel][i];
+        impl->processed_input[to_channel][impl->index] = converted_inputs[to_channel][i];
         for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
-          impl->processed_input[to_channel][j] += feedback[from_channel * nb_channels + to_channel] * impl->delay_line[from_channel][i];
+          impl->processed_input[to_channel][impl->index] += feedback[from_channel * nb_channels + to_channel] * outputs[nb_channels + from_channel][i];
         }
       }
       for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
-        outputs[to_channel][i] = blend[to_channel] * impl->processed_input[to_channel][j];
+        outputs[to_channel][i] = blend[to_channel] * impl->processed_input[to_channel][impl->index];
         for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
-          outputs[to_channel][i] += feedforward[from_channel * nb_channels + to_channel] * impl->delay_line[from_channel][i];
+          outputs[to_channel][i] += feedforward[from_channel * nb_channels + to_channel] * outputs[nb_channels + from_channel][i];
         }
       }
+      ++impl->index;
+      if (impl->index == max_delay)
+        impl->index = 0;
     }
   }
 
