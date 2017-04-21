@@ -1,8 +1,11 @@
 /**
- * \file HadamardFeedbackDelayNetworkFilter.cpp
+ * \file FeedbackDelayNetworkFilter.hxx
  */
 
-#include "HadamardFeedbackDelayNetworkFilter.h"
+#ifndef ATK_DELAY_FEEDBACKDELAYNETWORKFILTER_HXX
+#define ATK_DELAY_FEEDBACKDELAYNETWORKFILTER_HXX
+
+#include "FeedbackDelayNetworkFilter.h"
 
 #if ATK_EIGEN == 1
 
@@ -17,25 +20,6 @@
 
 namespace ATK
 {
-  template<typename DataType_, unsigned int order>
-  class HadamardMixture<DataType_, order>::MixtureImpl
-  {
-  public:
-    typedef Eigen::Matrix<DataType, nb_channels, 1> Vector;
-    typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
-
-    Matrix create() const
-    {
-      Matrix transition;
-      transition << 1, 1, 1, 1,
-        1, -1, 1, -1,
-        -1, -1, 1, 1,
-        -1, 1, 1, -1;
-      return transition;
-    }
-
-  };
-
   template<typename Mixture>
   class FeedbackDelayNetworkFilter<Mixture>::HFDN_Impl: public Mixture::MixtureImpl
   {
@@ -171,11 +155,7 @@ namespace ATK
         impl->index = 0;
     }
   }
-
-  template class FeedbackDelayNetworkFilter<HadamardMixture<float, 2>>;
-  template class FeedbackDelayNetworkFilter<HadamardMixture<double, 2>>;
-  template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<float>, 2>>;
-  template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<double>, 2>>;
 }
 
+#endif
 #endif

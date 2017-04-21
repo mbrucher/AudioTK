@@ -2,7 +2,8 @@
  * \ file HadamardFeedbackDelayNetworkFilter.cpp
  */
 
-#include <ATK/Delay/HadamardFeedbackDelayNetworkFilter.h>
+#include <ATK/Delay/FeedbackDelayNetworkFilter.h>
+#include <ATK/Delay/HadamardMixture.h>
 
 #include <array>
 #include <fstream>

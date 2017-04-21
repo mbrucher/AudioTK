@@ -1,9 +1,9 @@
 /**
- * \file HadamardFeedbackDelayNetworkFilter.h
+ * \file FeedbackDelayNetworkFilter.h
  */
 
-#ifndef ATK_DELAY_HADAMARDFEEDBACKDELAYNETWORKFILTER_H
-#define ATK_DELAY_HADAMARDFEEDBACKDELAYNETWORKFILTER_H
+#ifndef ATK_DELAY_FEEDBACKDELAYNETWORKFILTER_H
+#define ATK_DELAY_FEEDBACKDELAYNETWORKFILTER_H
 
 #include <array>
 #include <vector>
@@ -15,20 +15,6 @@
 
 namespace ATK
 {
-  /// Mixture matrix for Hadamard
-  template<typename DataType_, unsigned int order>
-  class HadamardMixture
-  {
-  public:
-    static const int nb_channels = 1 << order;
-    typedef DataType_ DataType;
-    /// Gain factor to take into account in the feedback loop due to the instability of the mixture
-    static constexpr double gain_factor = 0.5;
-
-    class MixtureImpl;
-
-  };
-
   /// A FDN class with custom mixture matrix
   template<typename Mixture>
   class ATK_DELAY_EXPORT FeedbackDelayNetworkFilter final : public TypedBaseFilter<typename Mixture::DataType>
