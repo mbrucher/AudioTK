@@ -30,19 +30,13 @@ namespace ATK
     std::vector<Vector> delay_line;
     std::vector<Vector> processed_input;
     int64_t index;
-    const Matrix transition;
     Vector ingain;
     Vector outgain;
     Vector feedback;
 
     HFDN_Impl(std::size_t max_delay)
-      :transition(Mixture::MixtureImpl::create()), processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
+      :processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
     {
-    }
-
-    Vector mix(const Vector& x) const
-    {
-      return transition * x;
     }
   };
 

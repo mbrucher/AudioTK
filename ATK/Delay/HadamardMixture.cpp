@@ -25,16 +25,28 @@ namespace ATK
     typedef Eigen::Matrix<DataType, nb_channels, 1> Vector;
     typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
 
-    Matrix create() const
+    MixtureImpl()
+      :transition(create())
     {
-      Matrix transition;
-      transition << 1, 1, 1, 1,
-        1, -1, 1, -1,
-        -1, -1, 1, 1,
-        -1, 1, 1, -1;
-      return transition;
     }
 
+    Vector mix(const Vector& x) const
+    {
+      return transition * x;
+    }
+
+    protected:
+      const Matrix transition;
+
+      Matrix create() const
+      {
+        Matrix transition;
+        transition << 1, 1, 1, 1,
+          1, -1, 1, -1,
+          -1, -1, 1, 1,
+          -1, 1, 1, -1;
+        return transition;
+      }
   };
 
   template class FeedbackDelayNetworkFilter<HadamardMixture<float, 2>>;
