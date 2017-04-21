@@ -25,6 +25,8 @@ namespace ATK
     /// Gain factor to take into account in the feedback loop due to the instability of the mixture
     static constexpr double gain_factor = 0.5;
 
+    class MixtureImpl;
+
   };
 
   /// A FDN class with custom mixture matrix

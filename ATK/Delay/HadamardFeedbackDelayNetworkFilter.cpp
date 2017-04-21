@@ -17,12 +17,31 @@
 
 namespace ATK
 {
-  template<typename Mixture>
-  class FeedbackDelayNetworkFilter<Mixture>::HFDN_Impl
+  template<typename DataType_, unsigned int order>
+  class HadamardMixture<DataType_, order>::MixtureImpl
   {
   public:
     typedef Eigen::Matrix<DataType, nb_channels, 1> Vector;
     typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
+
+    Matrix create() const
+    {
+      Matrix transition;
+      transition << 1, 1, 1, 1,
+        1, -1, 1, -1,
+        -1, -1, 1, 1,
+        -1, 1, 1, -1;
+      return transition;
+    }
+
+  };
+
+  template<typename Mixture>
+  class FeedbackDelayNetworkFilter<Mixture>::HFDN_Impl: public Mixture::MixtureImpl
+  {
+  public:
+    typedef typename Mixture::MixtureImpl::Vector Vector;
+    typedef typename Mixture::MixtureImpl::Matrix Matrix;
 
     std::vector<Vector> delay_line;
     std::vector<Vector> processed_input;
@@ -33,23 +52,13 @@ namespace ATK
     Vector feedback;
 
     HFDN_Impl(std::size_t max_delay)
-      :transition(create()), processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
+      :transition(Mixture::MixtureImpl::create()), processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
     {
     }
 
     Vector mix(const Vector& x) const
     {
       return transition * x;
-    }
-
-    Matrix create() const
-    {
-      Matrix transition;
-      transition << 1, 1, 1, 1,
-        1, -1, 1, -1,
-        -1, -1, 1, 1,
-        -1, 1, 1, -1;
-      return transition;
     }
   };
 
