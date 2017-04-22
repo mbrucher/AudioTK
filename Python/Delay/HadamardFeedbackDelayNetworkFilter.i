@@ -1,6 +1,7 @@
 
 %{
-#include <ATK/Delay/HadamardFeedbackDelayNetworkFilter.h>
+#include <ATK/Delay/FeedbackDelayNetworkFilter.h>
+#include <ATK/Delay/HadamardMixture.h>
 %}
 
 namespace ATK
@@ -21,19 +22,19 @@ namespace ATK
     void set_delay(unsigned int channel, std::size_t delay);
     std::size_t get_delay(unsigned int channel) const;
 
-    void set_ingain(unsigned int channel, DataType ingain);
+    void set_ingain(unsigned int channel, Mixture::DataType ingain);
     /// Gets the input gain of a channel
-    DataType get_ingain(unsigned int channel) const;
+    Mixture::DataType get_ingain(unsigned int channel) const;
 
     /// Sets the feedback of a channel
-    void set_feedback(unsigned int channel, DataType feedback);
+    void set_feedback(unsigned int channel, Mixture::DataType feedback);
     /// Gets the feedback of a channel
-    DataType get_feedback(unsigned int channel) const;
+    Mixture::DataType get_feedback(unsigned int channel) const;
 
     /// Sets the output gain of a channel (between -1 and 1)
-    void set_outgain(unsigned int channel, DataType ingain);
+    void set_outgain(unsigned int channel, Mixture::DataType ingain);
     /// Gets the output gain of a channel
-    DataType get_outgain(unsigned int channel) const;
+    Mixture::DataType get_outgain(unsigned int channel) const;
   };
 }
 

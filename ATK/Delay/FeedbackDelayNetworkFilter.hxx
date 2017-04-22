@@ -27,8 +27,8 @@ namespace ATK
     typedef typename Mixture::MixtureImpl::Vector Vector;
     typedef typename Mixture::MixtureImpl::Matrix Matrix;
 
-    std::vector<Vector, boost::alignment::aligned_allocator<DataType, 32>> delay_line;
-    std::vector<Vector, boost::alignment::aligned_allocator<DataType, 32>> processed_input;
+    std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> delay_line;
+    std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> processed_input;
     int64_t index;
     Vector ingain;
     Vector outgain;
