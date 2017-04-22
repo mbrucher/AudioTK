@@ -6,9 +6,11 @@
 
 namespace ATK
 {
-  template<typename DataType, unsigned int order>
+  template<typename DataType_, unsigned int order>
   class HadamardMixture
   {
+  public:
+    typedef DataType_ DataType;
   };
 
   template<typename Mixture>
@@ -22,24 +24,22 @@ namespace ATK
     void set_delay(unsigned int channel, std::size_t delay);
     std::size_t get_delay(unsigned int channel) const;
 
-    void set_ingain(unsigned int channel, Mixture::DataType ingain);
+    void set_ingain(unsigned int channel, double ingain);
     /// Gets the input gain of a channel
-    Mixture::DataType get_ingain(unsigned int channel) const;
+    double get_ingain(unsigned int channel) const;
 
     /// Sets the feedback of a channel
-    void set_feedback(unsigned int channel, Mixture::DataType feedback);
+    void set_feedback(unsigned int channel, double feedback);
     /// Gets the feedback of a channel
-    Mixture::DataType get_feedback(unsigned int channel) const;
+    double get_feedback(unsigned int channel) const;
 
     /// Sets the output gain of a channel (between -1 and 1)
-    void set_outgain(unsigned int channel, Mixture::DataType ingain);
+    void set_outgain(unsigned int channel, double ingain);
     /// Gets the output gain of a channel
-    Mixture::DataType get_outgain(unsigned int channel) const;
+    double get_outgain(unsigned int channel) const;
   };
 }
 
 %template(FloatHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>>;
 %template(DoubleHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 2>>;
-%template(ComplexFloatHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<std::complex<double>, 2>>;
-%template(ComplexDoubleHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<std::complex<double>, 2>>;
 
