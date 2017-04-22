@@ -51,7 +51,7 @@ if __name__ == "__main__":
   d[0].tofile("input_hadamard.dat")
   out = filter(d, ingain_ch1=1, ingain_ch2=.2, ingain_ch3=1, ingain_ch4=1,
     outgain_ch1=1, outgain_ch2=1, outgain_ch3=1, outgain_ch4=.5,
-    feedback_ch1=0.1, feedback_ch2=0.4, feedback_ch3=0.2, feedback_ch4=.1
+    feedback_ch1=0.2, feedback_ch2=0.8, feedback_ch3=0.4, feedback_ch4=.2
     )
   out[0].tofile("output_hadamard.dat")
   
