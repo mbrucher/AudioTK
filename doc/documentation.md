@@ -81,31 +81,35 @@ EQ module
 The *EQ* module contains a lot of different filter types.
 
 * **ChamberlinFilter** is an implementation of the Chamberlin state filter
-
-* **BesselCoefficients** is an implementation of Bessel coefficients
-* **ButterworthCoefficients** is an implementation of Butterworth coefficients
-* **Chebyshev1Coefficients** is an implementation of Chebyshev type 1 coefficients
-* **Chebyshev2Coefficients** is an implementation of Chebyshev type 2 coefficients
-* **LinkwitzRileyCoefficients** is an implementation of coefficients (low pass and high pass second orders) that can be summed together for a flat response
-* **RobertBristowJohnsonCoefficients** is an implementation of RBJ second order coefficients
-* **SecondOrderCoefficients** is an implementation of second order coefficients
-* **SD1ToneCoefficients** is an implementation of the Boss SD1 pedal tone section
-* **ToneStackCoefficients** is an implementation of a tone stack section found in several guitar amplifiers
-* **CustomIIRFilter** helps designing custom IIR coefficients
 * **IIRFilter** is an implementation of DF1 IIR filters for the previous coefficients
 
-* **SecondOrderSVFCoefficients** is an implementation of second order SVF coefficients from cytomic
-* **SecondOrderSVFFilter** is an implementation of second order SVF filters for the previous coefficients
+  * **BesselCoefficients** is an implementation of Bessel coefficients
+  * **ButterworthCoefficients** is an implementation of Butterworth coefficients
+  * **Chebyshev1Coefficients** is an implementation of Chebyshev type 1 coefficients
+  * **Chebyshev2Coefficients** is an implementation of Chebyshev type 2 coefficients
+  * **LinkwitzRileyCoefficients** is an implementation of coefficients (low pass and high pass second orders) that can be summed together for a flat response
+  * **RobertBristowJohnsonCoefficients** is an implementation of RBJ second order coefficients
+  * **SecondOrderCoefficients** is an implementation of second order coefficients
+  * **SD1ToneCoefficients** is an implementation of the Boss SD1 pedal tone section
+  * **ToneStackCoefficients** is an implementation of a tone stack section found in several guitar amplifiers
+  * **CustomIIRFilter** helps designing custom IIR coefficients
 
-* **RemezeBasedFilter** helps designing custom FIR filters from a template
-* **CustomFIRFilter** helps designing custom FIR filters
+* **SecondOrderSVFFilter** is an implementation of second order SVF filters
+
+  * **SecondOrderSVFCoefficients** is an implementation of second order SVF coefficients from cytomic
+
 * **FIRFilter** is an implementation of DF1 FIR filters for the previous coefficients
 
-* **TimeVaryingSecondOrderCoefficients** is an implementation of time varying second order filters
+  * **RemezeBasedFilter** helps designing custom FIR filters from a template
+  * **CustomFIRFilter** helps designing custom FIR filters
+
 * **TimeVaryingIIRFilter** is the base class for time varying IIR filters
 
-* **TimeVaryingSecondOrderSVFCoefficients** is an implementation of second order SVF coefficients from cytomic for time-varying parameters
+  * **TimeVaryingSecondOrderCoefficients** is an implementation of time varying second order filters
+
 * **TimeVaryingSecondOrderSVFFilter** is an implementation of second order SVF filters for the previous coefficients
+
+  * **TimeVaryingSecondOrderSVFCoefficients** is an implementation of second order SVF coefficients from cytomic for time-varying parameters
 
 Delay module
 ------------
@@ -113,11 +117,13 @@ Delay module
 The *Delay* module contains filters enabling delays construction.
 
 * **FixedDelayLineFilter** is a FIR filter that delays the input by a fixed value
-* **HadamardFeedbackDelayNetworkFilter** is a Feedback Delay Network (FDN) with a Hadamard mixing matrix
 * **MultipleUniversalDelayLineFilter** is a multiple channels filter that implements several concurrent delay lines that can be mixed together
 * **UniversalFixedDelayLineFilter** is a filter that delays the input by a fixed value. It can be parametrized  to be a FIR, IIR or all pass, or any combination
 * **UniversalVariableDelayLineFilter** is a filter that delays the input by a variable value, on a second port. It can be parametrized  to be a FIR, IIR or all pass, or any combination
 * **VariableDelayLineFilter** is a FIR filter that delays the input by a variable value, on a second port.
+* **FeedbackDelayNetworkFilter** is a Feedback Delay Network (FDN)
+
+  * **HadamardMixture** introduces a Hadamard mixing matrix for FDNs
 
 Dynamic module
 --------------
@@ -126,15 +132,18 @@ The *Dynamic* module contains filters enabling compressor construction.
 
 * **AttackReleaseFilter** is a filter modulating an input with an Attack and a Release envelope specification
 * **AttackReleaseHysteresisFilter** is a filter modulating an input with an Attack and a Release envelope specification and a hysteresis mode
-* **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
-* **GainExpanderFilter** is a filter that changes an input signal (a gain) like an expander/noise gate does
-* **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
-* **GainSwellFilter** is a filter that changes an input signal (a gain) like aan auto swell does
+* **GainFilter** is the base class for gain filters
+
+  * **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
+  * **GainExpanderFilter** is a filter that changes an input signal (a gain) like an expander/noise gate does
+  * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
+  * **GainSwellFilter** is a filter that changes an input signal (a gain) like aan auto swell does
+  * **GainColoredCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does with an additional color component
+  * **GainColoredExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with an additional color component
+  * **GainMaxExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with a maximum gain reduction
+
 * **PowerFilter** is a filter that outputs an AR(1)-filtered version of the squared input signal
 * **RelativePowerFilter** is a filter that outputs the squared input signal divided by an AR(1)-filtered version of the squared input signal
-* **GainColoredCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does with an additional color component
-* **GainColoredExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with an additional color component
-* **GainMaxExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with a maximum gain reduction
 
 Distortion module
 -----------------
@@ -166,15 +175,17 @@ Preamplification module
 
 The *Preamplification* module contains filters that simulate preamplifiers.
 
-* **EnhancedKorenFunction** is a model of the triode transfer functions based on a model by Ivan Cohen
-* **KorenFunction** is a model of the triode transfer functions based on a Koren model
-* **LeachFunction** is a model of the triode transfer functions based on a Leach model
-* **MunroPiazzaFunction** is a model of the triode transfer functions based on a Munro-Piazza model
-* **DempwolfFunction** is a model of the triode transfer functions based on a Dempwolf model
-* **TransistorClassAFilter** is a solid state class A filter, inversing the input signal
-* **FollowerTransistorClassAFilter** is a solid state class A filter, not inversing the input signal
 * **TriodeFilter** is a triode based filter
 * **Triode2Filter** is a triode based filter with a grid-plate capacitor
+
+  * **EnhancedKorenFunction** is a model of the triode transfer functions based on a model by Ivan Cohen
+  * **KorenFunction** is a model of the triode transfer functions based on a Koren model
+  * **LeachFunction** is a model of the triode transfer functions based on a Leach model
+  * **MunroPiazzaFunction** is a model of the triode transfer functions based on a Munro-Piazza model
+  * **DempwolfFunction** is a model of the triode transfer functions based on a Dempwolf model
+
+* **TransistorClassAFilter** is a solid state class A filter, inversing the input signal
+* **FollowerTransistorClassAFilter** is a solid state class A filter, not inversing the input signal
 
 Adaptive module
 ---------------

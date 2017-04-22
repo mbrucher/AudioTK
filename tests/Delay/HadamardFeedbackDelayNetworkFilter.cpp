@@ -2,7 +2,14 @@
  * \ file HadamardFeedbackDelayNetworkFilter.cpp
  */
 
-#include <ATK/Delay/HadamardFeedbackDelayNetworkFilter.h>
+#include <ATK/Delay/FeedbackDelayNetworkFilter.h>
+#include <ATK/Delay/HadamardMixture.h>
+
+#if ATK_EIGEN == 1
+#ifndef EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT
+
+#include <array>
+#include <fstream>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
@@ -33,7 +40,7 @@ BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_linel100_delay50_
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 2> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(0, 50);
@@ -66,7 +73,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_line100_delay50_pr
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 2> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(0, 50);
@@ -96,7 +103,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_line1000_delay50_p
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 2> filter(1000);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(1000);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(0, 50);
@@ -133,7 +140,7 @@ BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_liner100_delay50_
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 2> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
@@ -166,7 +173,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner100_delay50_p
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 2> filter(100);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
@@ -196,7 +203,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner1000_delay50_
   generator.set_output_sampling_rate(48000);
   generator.set_frequency(480);
 
-  ATK::HadamardFeedbackDelayNetworkFilter<float, 2> filter(1000);
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(1000);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(1, 50);
@@ -219,3 +226,52 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner1000_delay50_
     output.process(i);
   }
 }
+
+const int OTHERPROCESSSIZE = 9600;
+
+BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_complex_test)
+{
+  std::array<double, OTHERPROCESSSIZE> data;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/input_hadamard.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(data.data()), OTHERPROCESSSIZE * sizeof(double));
+  }
+
+  ATK::InPointerFilter<double> generator(data.data(), 1, OTHERPROCESSSIZE, false);
+  generator.set_output_sampling_rate(96000);
+
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 2>> filter(100000);
+  filter.set_input_sampling_rate(96000);
+  filter.set_input_port(0, &generator, 0);
+  filter.set_delay(0, 4800);
+  filter.set_delay(1, 3600);
+  filter.set_delay(2, 2400);
+  filter.set_delay(3, 1200);
+  filter.set_ingain(0, 1);
+  filter.set_ingain(1, .2);
+  filter.set_ingain(2, 1);
+  filter.set_ingain(3, 1);
+  filter.set_outgain(0, 1);
+  filter.set_outgain(1, 1);
+  filter.set_outgain(2, 1);
+  filter.set_outgain(3, .5);
+  filter.set_feedback(0, .2);
+  filter.set_feedback(1, .8);
+  filter.set_feedback(2, .4);
+  filter.set_feedback(3, .2);
+
+  filter.process(OTHERPROCESSSIZE);
+
+  std::array<double, OTHERPROCESSSIZE> outdata;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_hadamard.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(outdata.data()), OTHERPROCESSSIZE * sizeof(double));
+  }
+
+  for (unsigned int i = 0; i < OTHERPROCESSSIZE; ++i)
+  {
+    BOOST_CHECK_CLOSE(outdata[i], filter.get_output_array(0)[i], 0.0001);
+  }
+}
+#endif
+#endif

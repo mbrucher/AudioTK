@@ -391,8 +391,6 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_lr_complex_test)
   ATK::InPointerFilter<double> generatorr(datar.data(), 1, OTHERPROCESSSIZE, false);
   generatorr.set_output_sampling_rate(96000);
 
-  std::array<float, OTHERPROCESSSIZE> outdata;
-
   ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(100000);
   filter.set_input_sampling_rate(96000);
   filter.set_input_port(0, &generatorl, 0);
