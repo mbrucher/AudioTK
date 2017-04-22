@@ -37,7 +37,7 @@ namespace ATK
     
     static Matrix create()
     {
-      return fmath::pow(2, -order / 2.) * recursive_create<order>();
+      return (1 / fmath::pow(2, order / 2.)) * recursive_create<order>();
     }
     
     template<unsigned int recursive_order>
