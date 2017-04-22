@@ -124,6 +124,7 @@ The *Delay* module contains filters enabling delays construction.
 * **FeedbackDelayNetworkFilter** is a Feedback Delay Network (FDN)
 
   * **HadamardMixture** introduces a Hadamard mixing matrix for FDNs
+  * **HouseholderMixture** introduces a Householder mixing matrix for FDNs
 
 Dynamic module
 --------------

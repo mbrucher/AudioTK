@@ -2,12 +2,20 @@
 %{
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 #include <ATK/Delay/HadamardMixture.h>
+#include <ATK/Delay/HouseholderMixture.h>
 %}
 
 namespace ATK
 {
   template<typename DataType_, unsigned int order>
   class HadamardMixture
+  {
+  public:
+    typedef DataType_ DataType;
+  };
+
+  template<typename DataType_, unsigned int nb_channels>
+  class HouseholderMixture
   {
   public:
     typedef DataType_ DataType;
@@ -51,4 +59,13 @@ namespace ATK
 
 %template(FloatOctHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 3>>;
 %template(DoubleOctHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 3>>;
+
+%template(FloatDualHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 2>>;
+%template(DoubleDualHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 2>>;
+
+%template(FloatQuadHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 4>>;
+%template(DoubleQuadHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 4>>;
+
+%template(FloatOctHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 8>>;
+%template(DoubleOctHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 8>>;
 

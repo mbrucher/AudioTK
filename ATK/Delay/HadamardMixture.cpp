@@ -7,15 +7,11 @@
 
 #if ATK_EIGEN == 1
 
-#include <cmath>
-#include <cstring>
 #include <complex>
-#include <stdexcept>
-#include <type_traits>
-
-#include <ATK/Core/TypeTraits.h>
 
 #include <Eigen/Dense>
+
+#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {
@@ -41,7 +37,7 @@ namespace ATK
     
     static Matrix create()
     {
-      return recursive_create<order>();
+      return fmath::pow(2, -order / 2.) * recursive_create<order>();
     }
     
     template<unsigned int recursive_order>

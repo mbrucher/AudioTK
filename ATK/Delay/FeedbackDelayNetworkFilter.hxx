@@ -9,12 +9,7 @@
 
 #if ATK_EIGEN == 1
 
-#include <cmath>
-#include <cstring>
 #include <complex>
-#include <stdexcept>
-
-#include <ATK/Core/TypeTraits.h>
 
 #include <Eigen/Dense>
 
