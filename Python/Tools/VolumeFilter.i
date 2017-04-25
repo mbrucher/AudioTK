@@ -11,9 +11,9 @@ namespace ATK
   public:
     VolumeFilter(int nb_channels = 1);
     ~VolumeFilter();
-    void set_volume(double volume);
+    void set_volume(DataType volume);
     void set_volume_db(double volume_db);
-    double get_volume() const;
+    DataType get_volume() const;
   };
 }
 

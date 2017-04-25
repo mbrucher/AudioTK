@@ -32,13 +32,13 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void VolumeFilter<DataType_>::set_volume(double volume)
+  void VolumeFilter<DataType_>::set_volume(DataType_ volume)
   {
     this->volume = volume;
   }
   
   template<typename DataType_>
-  double VolumeFilter<DataType_>::get_volume() const
+  DataType_ VolumeFilter<DataType_>::get_volume() const
   {
     return volume;
   }
@@ -52,7 +52,7 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        output[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(volume) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
+        output[i] = volume * input[i];
       }
     }
   }

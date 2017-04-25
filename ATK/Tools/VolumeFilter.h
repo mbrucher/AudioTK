@@ -33,17 +33,17 @@ namespace ATK
     ~VolumeFilter();
 
     /// Changes the output volume
-    void set_volume(double volume);
+    void set_volume(DataType_ volume);
     /// Sets the output volume in dB
     void set_volume_db(double volume_db);
     /// Gets the output volume
-    double get_volume() const;
+    DataType_ get_volume() const;
     
   protected:
     virtual void process_impl(std::size_t size) const override final;
     
   private:
-    double volume;
+    DataType_ volume;
   };
 }
 
