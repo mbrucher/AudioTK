@@ -38,6 +38,12 @@ namespace ATK
   }
   
   template<typename DataType_>
+  double VolumeFilter<DataType_>::get_volume() const
+  {
+    return volume;
+  }
+
+  template<typename DataType_>
   void VolumeFilter<DataType_>::process_impl(std::size_t size) const
   {
     for(unsigned int channel = 0; channel < nb_input_ports; ++channel)

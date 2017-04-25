@@ -36,6 +36,8 @@ namespace ATK
     void set_volume(double volume);
     /// Sets the output volume in dB
     void set_volume_db(double volume_db);
+    /// Gets the output volume
+    double get_volume() const;
     
   protected:
     virtual void process_impl(std::size_t size) const override final;
