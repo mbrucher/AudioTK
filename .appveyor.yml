@@ -4,11 +4,11 @@ version: '2.0.1.{build}'
 shallow_clone: true
 
 environment:
-  ATK_ROOT: C:\projects\AudioTK
-  ATK_OUT: C:\projects\ATK
-  EIGEN_ROOT: C:\projects\Eigen
-  BOOST_ROOT: C:\Libraries\boost_1_63_0
-  FFTW_ROOT: C:\projects\fftw
+  ATK_ROOT: C:/projects/AudioTK
+  ATK_OUT: C:/projects\ATK
+  EIGEN_ROOT: C:/projects/Eigen
+  BOOST_ROOT: C:/Libraries/boost_1_63_0
+  FFTW_ROOT: C:/projects/fftw
   matrix:
     # 32 bits
     - FFTW_NAME: fftw-3.3.5-dll32.zip
