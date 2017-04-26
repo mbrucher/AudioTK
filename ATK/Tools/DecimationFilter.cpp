@@ -46,8 +46,7 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        *(output++) = *input;
-        input += decimation;
+        output[i] = input[i*decimation];
       }
     }
   }

@@ -33,8 +33,8 @@ namespace ATK
 
     for(std::size_t i = 0; i < size; ++i)
     {
-      *(output0++) = static_cast<DataType>((*(input0) + *(input1)));
-      *(output1++) = static_cast<DataType>((*(input0++) - *(input1++)));
+      output0[i] = static_cast<DataType>(input0[i] + input1[i]);
+      output1[i] = static_cast<DataType>(input0[i] - input1[i]);
     }
   }
   
