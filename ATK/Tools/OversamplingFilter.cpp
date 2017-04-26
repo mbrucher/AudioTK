@@ -180,7 +180,7 @@ namespace ATK
           {
             temp = temp * z + c[Coefficients::order - k];
           }
-          output[i] = temp;
+          *(output++) = temp;
         }
       }
     }
