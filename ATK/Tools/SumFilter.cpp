@@ -25,6 +25,8 @@ namespace ATK
   template<typename DataType_>
   void SumFilter<DataType_>::process_impl(std::size_t size) const
   {
+    assert(nb_input_ports == 2 * nb_output_ports);
+
     for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input0 = converted_inputs[2 * channel];
@@ -32,7 +34,7 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for (std::size_t i = 0; i < size; ++i)
       {
-        output[i] = static_cast<DataType>(input0[i] + input1[i]);
+        output[i] = input0[i] + input1[i];
       }
     }
   }
