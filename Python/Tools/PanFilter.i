@@ -9,7 +9,7 @@ namespace ATK
   class PanFilter: public BaseFilter
   {
   public:
-    PanFilter();
+    PanFilter(unsigned int nb_channels = 1);
     ~PanFilter();
 
     enum class PAN_LAWS {
