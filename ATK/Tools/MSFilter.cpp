@@ -14,13 +14,11 @@ namespace ATK
   MiddleSideFilter<DataType_>::MiddleSideFilter()
   :Parent(2, 2)
   {
-    
   }
   
   template<typename DataType_>
   MiddleSideFilter<DataType_>::~MiddleSideFilter()
   {
-    
   }
   
   template<typename DataType_>
@@ -33,8 +31,8 @@ namespace ATK
 
     for(std::size_t i = 0; i < size; ++i)
     {
-      output0[i] = static_cast<DataType>(input0[i] + input1[i]);
-      output1[i] = static_cast<DataType>(input0[i] - input1[i]);
+      output0[i] = input0[i] + input1[i];
+      output1[i] = input0[i] - input1[i];
     }
   }
   
