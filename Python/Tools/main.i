@@ -26,6 +26,7 @@
 %include "OneMinusFilter.i"
 %include "OversamplingFilter.i"
 %include "PanFilter.i"
+%include "SinusGeneratorFilter.i"
 %include "SumFilter.i"
 %include "TanFilter.i"
 %include "VolumeFilter.i"
