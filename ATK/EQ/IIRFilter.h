@@ -9,6 +9,7 @@
 #include <cassert>
 #include <vector>
 
+#include <ATK/config.h>
 #include "config.h"
 
 namespace ATK
