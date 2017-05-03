@@ -273,12 +273,12 @@ namespace fmath {
   }
   
   inline float log2(float x) { return fmath::log(x) * 1.442695f; }
-#endif
 
   inline double log(double x)
   {
     return std::log(x);
   }
+#endif
 
   inline double pow(double x, double y)
   {
