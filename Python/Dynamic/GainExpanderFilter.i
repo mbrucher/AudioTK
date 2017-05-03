@@ -12,6 +12,11 @@ namespace ATK
     GainExpanderFilter(int nb_channels = 1);
     ~GainExpanderFilter();
   };
+
+  ATKProperty(GainFilter<GainExpanderFilter<float>>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainExpanderFilter<float>>, softness, get_softness, set_softness);
+  ATKProperty(GainFilter<GainExpanderFilter<double>>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainExpanderFilter<double>>, softness, get_softness, set_softness);
 }
 
 %template() ATK::GainExpanderFilter<float>;

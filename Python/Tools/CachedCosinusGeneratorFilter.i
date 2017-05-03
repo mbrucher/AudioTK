@@ -19,6 +19,11 @@ namespace ATK
     void set_offset(double offset);
     double get_offset();
   };
+
+  ATKProperty(CachedCosinusGeneratorFilter<float>, volume, get_volume, set_volume);
+  ATKProperty(CachedCosinusGeneratorFilter<float>, offset, get_offset, set_offset);
+  ATKProperty(CachedCosinusGeneratorFilter<double>, volume, get_volume, set_volume);
+  ATKProperty(CachedCosinusGeneratorFilter<double>, offset, get_offset, set_offset);
 }
 
 %template(FloatCachedCosinusGeneratorFilter) ATK::CachedCosinusGeneratorFilter<float>;

@@ -66,6 +66,29 @@ namespace ATK
     void set_gain(DataType gain);
     DataType get_gain();
   };
+
+  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<SecondOrderLowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderLowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderHighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderHighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<double> >, gain, get_gain, set_gain);
 }
 
 %template(FloatSecondOrderBaseCoefficients) ATK::SecondOrderBaseCoefficients<float>;

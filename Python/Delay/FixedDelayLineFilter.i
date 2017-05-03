@@ -15,6 +15,11 @@ namespace ATK
     void set_delay(int delay);
     int get_delay() const;
   };
+
+  ATKProperty(FixedDelayLineFilter<float>, delay, get_delay, set_delay);
+  ATKProperty(FixedDelayLineFilter<double>, delay, get_delay, set_delay);
+  ATKProperty(FixedDelayLineFilter<std::complex<float>>, delay, get_delay, set_delay);
+  ATKProperty(FixedDelayLineFilter<std::complex<double>>, delay, get_delay, set_delay);
 }
 
 %template(FloatFixedDelayLineFilter) ATK::FixedDelayLineFilter<float>;

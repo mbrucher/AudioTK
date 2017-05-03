@@ -18,6 +18,8 @@ namespace ATK
     const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& get_template() const;
     void set_order(unsigned int order);
   };
+
+  ATKProperty(FIRFilter<RemezBasedCoefficients<double> >, template, get_template, set_template);
 }
 
 %template(DoubleRemezBasedCoefficients) ATK::RemezBasedCoefficients<double>;

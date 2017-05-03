@@ -17,6 +17,11 @@ namespace ATK
     void set_offset(DataType offset);
     DataType get_offset();
   };
+
+  ATKProperty(WhiteNoiseGeneratorFilter<float>, volume, get_volume, set_volume);
+  ATKProperty(WhiteNoiseGeneratorFilter<float>, offset, get_offset, set_offset);
+  ATKProperty(WhiteNoiseGeneratorFilter<double>, volume, get_volume, set_volume);
+  ATKProperty(WhiteNoiseGeneratorFilter<double>, offset, get_offset, set_offset);
 }
 
 %template(FloatWhiteNoiseGeneratorFilter) ATK::WhiteNoiseGeneratorFilter<float>;

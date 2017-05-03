@@ -40,8 +40,12 @@ namespace ATK
     void set_learning(bool learning);
     /// Am I in learning mode or not?
     bool get_learning() const;
-
   };
+
+  ATKProperty(LMSFilter<float>, mode, get_mode, set_mode);
+  ATKProperty(LMSFilter<float>, learning, get_learning, set_learning);
+  ATKProperty(LMSFilter<double>, mode, get_mode, set_mode);
+  ATKProperty(LMSFilter<double>, learning, get_learning, set_learning);
 }
 
 %template(FloatLMSFilter) ATK::LMSFilter<float>;
@@ -54,6 +58,7 @@ namespace ATK
     return std::vector<T, boost::alignment::aligned_allocator<T, 32>>((*self).get_w(), (*self).get_w() + (*self).get_size());;
   }
 }
+ATKgetProperty(name, coefficients_in, get_coefficients_in);
 %enddef
 
 LMSFilterExtend(ATK::LMSFilter<float>, float);

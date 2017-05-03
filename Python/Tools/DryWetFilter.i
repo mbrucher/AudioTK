@@ -15,6 +15,9 @@ namespace ATK
     void set_dry(double dry);
     double get_dry() const;
   };
+
+  ATKProperty(DryWetFilter<float>, dry, get_dry, set_dry);
+  ATKProperty(DryWetFilter<double>, dry, get_dry, set_dry);
 }
 
 %template(Int16DryWetFilter) ATK::DryWetFilter<std::int16_t>;

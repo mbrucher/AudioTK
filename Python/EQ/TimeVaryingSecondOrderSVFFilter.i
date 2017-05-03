@@ -69,6 +69,29 @@ namespace ATK
     void set_gain(DataType gain);
     DataType get_gain();
   };
+
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFNotchCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFNotchCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFPeakCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFPeakCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double> >, gain, get_gain, set_gain);
 }
 
 %template(FloatTimeVaryingSecondOrderSVFBaseCoefficients) ATK::TimeVaryingSecondOrderSVFBaseCoefficients<float>;

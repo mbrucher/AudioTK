@@ -18,6 +18,11 @@ namespace ATK
     void set_feedback(DataType feedback);
     DataType get_feedback() const;
   };
+
+  ATKProperty(LowPassReverbFilter<float>, delay, get_delay, set_delay);
+  ATKProperty(LowPassReverbFilter<float>, feedback, get_feedback, set_feedback);
+  ATKProperty(LowPassReverbFilter<double>, delay, get_delay, set_delay);
+  ATKProperty(LowPassReverbFilter<double>, feedback, get_feedback, set_feedback);
 }
 
 %template(FloatLowPassReverbFilter) ATK::LowPassReverbFilter<float>;

@@ -23,7 +23,16 @@ namespace ATK
     
     void set_pan_law(PAN_LAWS law);
     void set_pan(double pan);
+    double get_pan() const;
   };
+
+  ATKProperty(PanFilter<std::int16_t>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::int32_t>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::int64_t>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<float>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<double>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::complex<float>>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::complex<double>>, pan, get_pan, set_pan);
 }
 
 %template(Int16PanFilter) ATK::PanFilter<std::int16_t>;

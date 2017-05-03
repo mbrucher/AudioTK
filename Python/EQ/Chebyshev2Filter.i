@@ -64,6 +64,19 @@ namespace ATK
 
     void set_order(int order);
   };
+
+  ATKProperty(IIRFilter<Chebyshev2LowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<Chebyshev2LowPassCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<Chebyshev2LowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<Chebyshev2LowPassCoefficients<double> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<Chebyshev2HighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<Chebyshev2HighPassCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<Chebyshev2HighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<Chebyshev2HighPassCoefficients<double> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<Chebyshev2BandPassCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<Chebyshev2BandPassCoefficients<double> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<Chebyshev2BandStopCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<Chebyshev2BandStopCoefficients<double> >, ripple, get_ripple, set_ripple);
 }
 
 %template(FloatChebyshev2LowPassCoefficients) ATK::Chebyshev2LowPassCoefficients<float>;
