@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.0.1
+* Turn set/get into properties when possible (Python wrapper)
 * Enhanced Tools API (Audio ToolKit book)
 * Added a Feedback Delay Netwrok filter (FDN) with Hadamard mixing matrix with Python wrappers
 * Fixed MultipleUniversalFixedDelayLineFilter parameters
