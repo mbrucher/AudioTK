@@ -1,5 +1,5 @@
 /**
- * \file MultipleUniversalFixedDelayLineFilter
+ * \file MultipleUniversalFixedDelayLineFilter.h
  */
 
 #ifndef ATK_DELAY_MULTIPLEUNIVERSALFIXEDDELAYFILTER_H
@@ -31,7 +31,7 @@ namespace ATK
   public:
     /*!
     * @brief construct the filter with a maximum delay line size
-    * @param max-delay is the maximum delay allowed
+    * @param max_delay is the maximum delay allowed
     */
     MultipleUniversalFixedDelayLineFilter(std::size_t max_delay);
     /// Destructor
@@ -41,17 +41,17 @@ namespace ATK
     void set_delay(unsigned int channel, std::size_t delay);
     /// Gets the initial delay from a channel
     std::size_t get_delay(unsigned int channel) const;
-    
+
     /// Sets the blend of channel 1 (between -1 and 1)
     void set_blend(unsigned int channel, DataType_ blend);
     /// Gets the blend of a channel
     DataType_ get_blend(unsigned int channel) const;
-    
+
     /// Sets the feedback from channel to channel
     void set_feedback(unsigned int from_channel, unsigned int to_channel, DataType_ feedback);
     /// Gets the feedback from channel to channel
     DataType_ get_feedback(unsigned int from_channel, unsigned int to_channel) const;
-    
+
     /// Sets the feedforward from channel to channel
     void set_feedforward(unsigned int from_channel, unsigned int to_channel, DataType_ feedforward);
     /// Gets the feedforward from channel to channel

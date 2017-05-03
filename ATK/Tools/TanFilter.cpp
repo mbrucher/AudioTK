@@ -39,7 +39,7 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(std::size_t i = 0; i < size; ++i)
       {
-        *(output++) = static_cast<DataType>(tan(*(input++) * coeff));
+        output[i] = static_cast<DataType>(tan(input[i] * coeff));
       }
     }
   }

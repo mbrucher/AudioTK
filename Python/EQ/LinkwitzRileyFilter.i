@@ -14,6 +14,11 @@ namespace ATK
   class LinkwitzRileyHighPassCoefficients: public SecondOrderBaseCoefficients<DataType>
   {
   };
+  
+  ATKProperty(IIRFilter<LinkwitzRileyLowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<LinkwitzRileyLowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<LinkwitzRileyHighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<LinkwitzRileyHighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
 }
 
 %template(FloatLinkwitzRileyLowPassFilterCoefficients) ATK::LinkwitzRileyLowPassCoefficients<float>;

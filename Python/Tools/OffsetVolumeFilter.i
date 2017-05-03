@@ -18,6 +18,11 @@ namespace ATK
     void set_offset(DataType offset);
     DataType get_offset() const;
   };
+
+  ATKProperty(OffsetVolumeFilter<float>, volume, get_volume, set_volume);
+  ATKProperty(OffsetVolumeFilter<float>, offset, get_offset, set_offset);
+  ATKProperty(OffsetVolumeFilter<double>, volume, get_volume, set_volume);
+  ATKProperty(OffsetVolumeFilter<double>, offset, get_offset, set_offset);
 }
 
 %template(FloatOffsetVolumeFilter) ATK::OffsetVolumeFilter<float>;

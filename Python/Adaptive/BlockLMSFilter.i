@@ -26,8 +26,11 @@ namespace ATK
     void set_learning(bool learning);
     /// Am I in learning mode or not?
     bool get_learning() const;
-
   };
+
+  ATKProperty(BlockLMSFilter<double>, memory, get_memory, set_memory);
+  ATKProperty(BlockLMSFilter<double>, mu, get_mu, set_mu);
+  ATKProperty(BlockLMSFilter<double>, learning, get_learning, set_learning);
 }
 
 %template(DoubleBlockLMSFilter) ATK::BlockLMSFilter<double>;
@@ -39,6 +42,7 @@ namespace ATK
     return std::vector<T, boost::alignment::aligned_allocator<T, 32>>((*self).get_w(), (*self).get_w() + (*self).get_size());;
   }
 }
+ATKgetProperty(name, coefficients_in, get_coefficients_in);
 %enddef
 
 BlockLMSFilterExtend(ATK::BlockLMSFilter<double>, double);

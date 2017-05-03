@@ -22,6 +22,15 @@ namespace ATK
     /// Am I in learning mode or not?
     bool get_learning() const;
   };
+
+  ATKProperty(RLSFilter<float>, memory, get_memory, set_memory);
+  ATKProperty(RLSFilter<float>, learning, get_learning, set_learning);
+  ATKProperty(RLSFilter<double>, memory, get_memory, set_memory);
+  ATKProperty(RLSFilter<double>, learning, get_learning, set_learning);
+  ATKProperty(RLSFilter<std::complex<float>>, memory, get_memory, set_memory);
+  ATKProperty(RLSFilter<std::complex<float>>, learning, get_learning, set_learning);
+  ATKProperty(RLSFilter<std::complex<double>>, memory, get_memory, set_memory);
+  ATKProperty(RLSFilter<std::complex<double>>, learning, get_learning, set_learning);
 }
 
 %template(FloatRLSFilter) ATK::RLSFilter<float>;
@@ -36,6 +45,7 @@ namespace ATK
     return std::vector<T, boost::alignment::aligned_allocator<T, 32>>((*self).get_w(), (*self).get_w() + (*self).get_size());;
   }
 }
+ATKgetProperty(name, coefficients_in, get_coefficients_in);
 %enddef
 
 RLSFilterExtend(ATK::RLSFilter<float>, float);

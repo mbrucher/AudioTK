@@ -11,13 +11,12 @@ namespace ATK
   public:
     GainLimiterFilter(int nb_channels = 1);
     ~GainLimiterFilter();
-
-    void set_threshold(DataType threshold);
-    void set_threshold_db(DataType threshold);
-    DataType get_threshold() const;
-    void set_softness(DataType softness);
-    DataType get_softness() const;
   };
+
+  ATKProperty(GainFilter<GainLimiterFilter<float>>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainLimiterFilter<float>>, softness, get_softness, set_softness);
+  ATKProperty(GainFilter<GainLimiterFilter<double>>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainLimiterFilter<double>>, softness, get_softness, set_softness);
 }
 
 %template() ATK::GainLimiterFilter<float>;

@@ -10,7 +10,7 @@
 
 namespace ATK
 {
-  /// Sums two signqls together
+  /// Sums two signals together
   template<typename DataType_>
   class ATK_TOOLS_EXPORT SumFilter final : public TypedBaseFilter<DataType_>
   {
@@ -20,10 +20,12 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;
-    
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
+
   public:
     /// Constructor
-    SumFilter();
+    SumFilter(unsigned int channels = 1);
     /// Destructor
     ~SumFilter();
     

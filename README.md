@@ -18,6 +18,12 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.0.1
+* Turn set/get into properties when possible (Python wrapper)
+* Enhanced Tools API (Audio ToolKit book)
+* Added a Feedback Delay Netwrok filter (FDN) with Hadamard mixing matrix with Python wrappers
+* Fixed MultipleUniversalFixedDelayLineFilter parameters
+
 ### 2.0.0
 * Refactored fixed line delays (performance improvement)
 * Allow new filters to have unconnected inputs (can only be changed inside a filter)

@@ -19,6 +19,11 @@ namespace ATK
     void set_offset(double offset);
     double get_offset();
   };
+
+  ATKProperty(CachedSinusGeneratorFilter<float>, volume, get_volume, set_volume);
+  ATKProperty(CachedSinusGeneratorFilter<float>, offset, get_offset, set_offset);
+  ATKProperty(CachedSinusGeneratorFilter<double>, volume, get_volume, set_volume);
+  ATKProperty(CachedSinusGeneratorFilter<double>, offset, get_offset, set_offset);
 }
 
 %template(FloatCachedSinusGeneratorFilter) ATK::CachedSinusGeneratorFilter<float>;

@@ -10,6 +10,8 @@ option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
+option(BUILD_DOC "Build Doxygen documentation" OFF)
+option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 
 message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
@@ -101,6 +103,9 @@ if(WIN32)
   endif(COMPILER_SUPPORTS_AVX)
 
   add_definitions(-DHAS_STD_ALIGN)
+  if("${CMAKE_SIZEOF_VOID_P}" EQUAL "4")
+    add_definitions(-DEIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT)
+  endif("${CMAKE_SIZEOF_VOID_P}" EQUAL "4")
 else(WIN32)
   CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
    if(COMPILER_SUPPORTS_CXX11)
@@ -114,7 +119,7 @@ else(WIN32)
      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
      set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pthread")
    else(COMPILER_SUPPORTS_PTHREAD)
-      message(STATUS "The linker ${CMAKE_CXX_COMPILER} doesn't support -pthread.")
+     message(STATUS "The linker ${CMAKE_CXX_COMPILER} doesn't support -pthread.")
    endif(COMPILER_SUPPORTS_PTHREAD)
 
   if(ENABLE_PROFILE_INFO)
@@ -137,35 +142,35 @@ else(WIN32)
   if(COMPILER_SUPPORTS_restrict)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -restrict")
   else(COMPILER_SUPPORTS_restrict)
-     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -restrict.")
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -restrict.")
   endif(COMPILER_SUPPORTS_restrict)
 
   CHECK_CXX_COMPILER_FLAG("-ftz" COMPILER_SUPPORTS_ftz)
   if(COMPILER_SUPPORTS_ftz)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftz")
   else(COMPILER_SUPPORTS_ftz)
-     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -ftz.")
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -ftz.")
   endif(COMPILER_SUPPORTS_ftz)
 
   CHECK_CXX_COMPILER_FLAG("-fdenormal-fp-math=positive-zero" COMPILER_SUPPORTS_ftpz)
   if(COMPILER_SUPPORTS_ftpz)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdenormal-fp-math=positive-zero")
   else(COMPILER_SUPPORTS_ftpz)
-     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -fdenormal-fp-math=positive-zero.")
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -fdenormal-fp-math=positive-zero.")
   endif(COMPILER_SUPPORTS_ftpz)
   
   CHECK_CXX_COMPILER_FLAG("-ftree-vectorize -ftree-vectorizer-verbose=2" COMPILER_SUPPORTS_ftree_vectorize)
   if(COMPILER_SUPPORTS_ftree_vectorize)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftree-vectorize -ftree-vectorizer-verbose=2")
   else(COMPILER_SUPPORTS_ftree_vectorize)
-     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -ftree-vectorize  -ftree-vectorizer-verbose.")
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -ftree-vectorize  -ftree-vectorizer-verbose.")
   endif(COMPILER_SUPPORTS_ftree_vectorize)
 
   CHECK_CXX_COMPILER_FLAG("-xAVX -axCORE-AVX2" COMPILER_SUPPORTS_AVX)
   if(COMPILER_SUPPORTS_AVX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -xAVX -axCORE-AVX2")
   else(COMPILER_SUPPORTS_AVX)
-     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -xAVX -axCORE-AVX2.")
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -xAVX -axCORE-AVX2.")
   endif(COMPILER_SUPPORTS_AVX)
 
   cmake_push_check_state()
@@ -184,12 +189,28 @@ else(WIN32)
 
     return 0;
   }
-" HAS_STD_ALIGN)
+" HAS_STD_ALIGN2)
   cmake_pop_check_state()
 
-  if(HAS_STD_ALIGN)
+  if(HAS_STD_ALIGN2)
     add_definitions(-DHAS_STD_ALIGN)
-  endif(HAS_STD_ALIGN)
+  endif(HAS_STD_ALIGN2)
+
+  if(DISABLE_EIGEN_WARNINGS)
+    CHECK_CXX_COMPILER_FLAG("-Wno-deprecated-declarations" COMPILER_SUPPORTS_DEPRECATED_DECLARATIONS)
+    if(COMPILER_SUPPORTS_DEPRECATED_DECLARATIONS)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
+    else(COMPILER_SUPPORTS_DEPRECATED_DECLARATIONS)
+      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -Wno-deprecated-declarations.")
+    endif(COMPILER_SUPPORTS_DEPRECATED_DECLARATIONS)
+
+    CHECK_CXX_COMPILER_FLAG("-Wno-ignored-attributes" COMPILER_SUPPORTS_IGNORED_ATTRIBUTES)
+    if(COMPILER_SUPPORTS_IGNORED_ATTRIBUTES)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-ignored-attributes")
+    else(COMPILER_SUPPORTS_IGNORED_ATTRIBUTES)
+      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -Wno-ignored-attributes.")
+    endif(COMPILER_SUPPORTS_IGNORED_ATTRIBUTES)
+  endif(DISABLE_EIGEN_WARNINGS)
 
 endif(WIN32)
 
@@ -311,28 +332,28 @@ if(ENABLE_PYTHON)
   add_subdirectory(Python)
 endif(ENABLE_PYTHON)
 
-FIND_PACKAGE(Doxygen)
+IF (BUILD_DOC)
 
-IF (DOXYGEN_FOUND)
+  FIND_PACKAGE(Doxygen Required)
 
-SET(DOXYGEN_INPUT Doxyfile)
-SET(DOXYGEN_OUTPUT Doxygen)
+  SET(DOXYGEN_INPUT Doxyfile)
+  SET(DOXYGEN_OUTPUT Doxygen)
 
-ADD_CUSTOM_COMMAND(
-  OUTPUT ${DOXYGEN_OUTPUT}
-  COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
-  COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
-  COMMAND ${CMAKE_COMMAND} -E echo "Done."
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-  DEPENDS ${DOXYGEN_INPUT}
-  )
+  ADD_CUSTOM_COMMAND(
+    OUTPUT ${DOXYGEN_OUTPUT}
+    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
+    COMMAND ${CMAKE_COMMAND} -E echo "Done."
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    DEPENDS ${DOXYGEN_INPUT}
+    )
 
-ADD_CUSTOM_TARGET(apidoc ALL DEPENDS ${DOXYGEN_OUTPUT})
+  ADD_CUSTOM_TARGET(apidoc ALL DEPENDS ${DOXYGEN_OUTPUT})
 
-ADD_CUSTOM_TARGET(apidoc_forced
-  COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
-  COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
-  COMMAND ${CMAKE_COMMAND} -E echo "Done."
-  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+  ADD_CUSTOM_TARGET(apidoc_forced
+    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
+    COMMAND ${CMAKE_COMMAND} -E echo "Done."
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
-ENDIF (DOXYGEN_FOUND)
+ENDIF (BUILD_DOC)

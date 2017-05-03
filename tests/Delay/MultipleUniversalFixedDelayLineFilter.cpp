@@ -1,8 +1,11 @@
 /**
- * \ file MultipleUniversalFixedDelayLineFilter
+ * \ file MultipleUniversalFixedDelayLineFilter.cpp
  */
 
 #include <ATK/Delay/MultipleUniversalFixedDelayLineFilter.h>
+
+#include <array>
+#include <fstream>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
@@ -365,5 +368,62 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
   for(ptrdiff_t i = 24; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_SMALL(outdata[i], 0.0001f);
+  }
+}
+
+const int OTHERPROCESSSIZE = 9600;
+
+BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_lr_complex_test)
+{
+  std::array<double, OTHERPROCESSSIZE> datal;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/input_lstereo.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(datal.data()), OTHERPROCESSSIZE * sizeof(double));
+  }
+  std::array<double, OTHERPROCESSSIZE> datar;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/input_rstereo.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(datar.data()), OTHERPROCESSSIZE * sizeof(double));
+  }
+
+  ATK::InPointerFilter<double> generatorl(datal.data(), 1, OTHERPROCESSSIZE, false);
+  generatorl.set_output_sampling_rate(96000);
+  ATK::InPointerFilter<double> generatorr(datar.data(), 1, OTHERPROCESSSIZE, false);
+  generatorr.set_output_sampling_rate(96000);
+
+  ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(100000);
+  filter.set_input_sampling_rate(96000);
+  filter.set_input_port(0, &generatorl, 0);
+  filter.set_input_port(1, &generatorr, 0);
+  filter.set_delay(0, 4800);
+  filter.set_delay(1, 3600);
+  filter.set_blend(0, 1);
+  filter.set_blend(1, 1);
+  filter.set_feedforward(0, 0, -1);
+  filter.set_feedforward(0, 1, .1);
+  filter.set_feedforward(1, 0, .7);
+  filter.set_feedforward(1, 1, -1);
+  filter.set_feedback(0, 0, -.5);
+  filter.set_feedback(0, 1, .1);
+  filter.set_feedback(1, 0, .3);
+  filter.set_feedback(1, 1, -.1);
+
+  filter.process(OTHERPROCESSSIZE);
+
+  std::array<double, OTHERPROCESSSIZE> outdatal;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_lstereo.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(outdatal.data()), OTHERPROCESSSIZE * sizeof(double));
+  }
+  std::array<double, OTHERPROCESSSIZE> outdatar;
+  {
+    std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_rstereo.dat", std::ios::binary);
+    input.read(reinterpret_cast<char*>(outdatar.data()), OTHERPROCESSSIZE * sizeof(double));
+  }
+
+  for (unsigned int i = 0; i < OTHERPROCESSSIZE; ++i)
+  {
+    BOOST_CHECK_CLOSE(outdatal[i], filter.get_output_array(0)[i], 0.0001);
+    BOOST_CHECK_CLOSE(outdatar[i], filter.get_output_array(1)[i], 0.0001);
   }
 }

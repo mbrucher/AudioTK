@@ -82,6 +82,45 @@ namespace ATK
     void set_gain(DataType Q);
     DataType get_gain() const;
   };
+
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowPassCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowPassCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighPassCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighPassCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPass2Coefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPass2Coefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPass2Coefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPass2Coefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandStopCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandStopCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandStopCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandStopCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<float> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<float> >, gain, get_gain, set_gain);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<double> >, Q, get_Q, set_Q);
+  ATKProperty(IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<double> >, gain, get_gain, set_gain);
 }
 
 %template(FloatRobertBristowJohnsonLowPassFilterCoefficients) ATK::RobertBristowJohnsonLowPassCoefficients<float>;

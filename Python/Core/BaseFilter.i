@@ -4,6 +4,25 @@
 #include <ATK/Utility/FlushToZero.h>
 %}
 
+%define ATKProperty(class_name, property_name, get_property_name, set_property_name)
+%extend class_name{
+      %pythoncode %{
+         __swig_getmethods__["property_name"] = get_property_name
+         __swig_setmethods__["property_name"] = set_property_name
+         property_name = property(get_property_name, set_property_name)
+      %}
+ }
+%enddef
+
+%define ATKgetProperty(class_name, property_name, get_property_name)
+%extend class_name{
+      %pythoncode %{
+         __swig_getmethods__["property_name"] = get_property_name
+         property_name = property(get_property_name)
+      %}
+ }
+%enddef
+
 namespace ATK
 {
   class BaseFilter
@@ -27,6 +46,9 @@ namespace ATK
 		  }
     }
   };
+  
+  ATKProperty(BaseFilter, input_sampling_rate, get_input_sampling_rate, set_input_sampling_rate);
+  ATKProperty(BaseFilter, output_sampling_rate, get_output_sampling_rate, set_output_sampling_rate);
 }
 
 %{

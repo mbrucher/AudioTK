@@ -20,10 +20,12 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
 
   public:
     /// Constructor
-    PanFilter();
+    PanFilter(unsigned int nb_channels = 1);
     /// Destructor
     ~PanFilter();
     

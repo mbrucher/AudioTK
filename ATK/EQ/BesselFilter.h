@@ -9,6 +9,7 @@
 
 namespace ATK
 {
+  /// @brief Bessel coeffs for a low pass filter
   template<typename DataType_>
   class BesselLowPassCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -19,14 +20,19 @@ namespace ATK
     using typename Parent::AlignedVector;
     using Parent::input_sampling_rate;
   protected:
+    /// Cut-off of the filter
     DataType cut_frequency;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
 
   public:
@@ -44,6 +50,7 @@ namespace ATK
     void set_order(unsigned int order);
   };
   
+  /// @brief Bessel coeffs for a high pass filter
   template<typename DataType_>
   class BesselHighPassCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -54,15 +61,20 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Cut-off of the filter
     DataType cut_frequency;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
     
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+    /// Coefficients of the MA part of the IIR filter
+    AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
+    AlignedVector coefficients_out;
 
   public:
     /*!
@@ -79,6 +91,7 @@ namespace ATK
     void set_order(unsigned int order);
   };
   
+  /// @brief Bessel coeffs for a band pass filter
   template<typename DataType_>
   class BesselBandPassCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -89,15 +102,20 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Bandwidth of the filter
     std::pair<DataType, DataType> cut_frequencies;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
-    
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+
+    /// Coefficients of the MA part of the IIR filter
+    AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
+    AlignedVector coefficients_out;
 
   public:
     /*!
@@ -106,13 +124,17 @@ namespace ATK
      */
     BesselBandPassCoefficients(unsigned int nb_channels = 1);
     
+    /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    /// Sets the bandwidth as two separate values
     void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    /// Gets the bandwidth
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
   };
   
+  /// @brief Bessel coeffs for a band stop filter
   template<typename DataType_>
   class BesselBandStopCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -123,15 +145,20 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Bandwidth of the filter
     std::pair<DataType, DataType> cut_frequencies;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
     
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_in;
-    std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > coefficients_out;
+    /// Coefficients of the MA part of the IIR filter
+    AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
+    AlignedVector coefficients_out;
 
   public:
     /*!
@@ -140,8 +167,11 @@ namespace ATK
      */
     BesselBandStopCoefficients(unsigned int nb_channels = 1);
     
+    /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    /// Sets the bandwidth as two separate values
     void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    /// Gets the bandwidth
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);

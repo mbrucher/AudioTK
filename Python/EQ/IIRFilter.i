@@ -26,4 +26,6 @@ namespace ATK
     return (*self).get_coefficients_out();
   }
 }
+ATKgetProperty(BaseFilter, coefficients_in, get_coefficients_in);
+ATKgetProperty(BaseFilter, coefficients_out, get_coefficients_out);
 %enddef

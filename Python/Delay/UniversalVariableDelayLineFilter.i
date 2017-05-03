@@ -21,6 +21,13 @@ namespace ATK
     void set_feedforward(DataType feedforward);
     DataType get_feedforward() const;
   };
+
+  ATKProperty(UniversalVariableDelayLineFilter<float>, blend, get_blend, set_blend);
+  ATKProperty(UniversalVariableDelayLineFilter<float>, feedback, get_feedback, set_feedback);
+  ATKProperty(UniversalVariableDelayLineFilter<float>, feedforward, get_feedforward, set_feedforward);
+  ATKProperty(UniversalVariableDelayLineFilter<double>, blend, get_blend, set_blend);
+  ATKProperty(UniversalVariableDelayLineFilter<double>, feedback, get_feedback, set_feedback);
+  ATKProperty(UniversalVariableDelayLineFilter<double>, feedforward, get_feedforward, set_feedforward);
 }
 
 %template(FloatUniversalVariableDelayLineFilter) ATK::UniversalVariableDelayLineFilter<float>;

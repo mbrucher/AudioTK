@@ -11,9 +11,18 @@ namespace ATK
   public:
     VolumeFilter(int nb_channels = 1);
     ~VolumeFilter();
-    void set_volume(double volume);
+    void set_volume(DataType volume);
     void set_volume_db(double volume_db);
+    DataType get_volume() const;
   };
+
+  ATKProperty(VolumeFilter<std::int16_t>, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<std::int32_t>, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<std::int64_t>, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<float>, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<double>, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<std::complex<float>>, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<std::complex<double>>, volume, get_volume, set_volume);
 }
 
 %template(Int16VolumeFilter) ATK::VolumeFilter<std::int16_t>;

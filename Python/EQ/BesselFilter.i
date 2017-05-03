@@ -56,6 +56,19 @@ namespace ATK
     
     void set_order(int order);
   };
+
+  ATKProperty(IIRFilter<BesselLowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<BesselLowPassCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<BesselLowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<BesselLowPassCoefficients<double> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<BesselHighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<BesselHighPassCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<BesselHighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(IIRFilter<BesselHighPassCoefficients<double> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<BesselBandPassCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<BesselBandPassCoefficients<double> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<BesselBandStopCoefficients<float> >, ripple, get_ripple, set_ripple);
+  ATKProperty(IIRFilter<BesselBandStopCoefficients<double> >, ripple, get_ripple, set_ripple);
 }
 
 %template(FloatBesselLowPassCoefficients) ATK::BesselLowPassCoefficients<float>;

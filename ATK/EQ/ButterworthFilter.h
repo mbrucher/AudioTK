@@ -9,6 +9,7 @@
 
 namespace ATK
 {
+  /// @brief Butterworth coeffs for a low pass filter
   template<typename DataType_>
   class ButterworthLowPassCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -19,14 +20,19 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Cut-off of the filter
     DataType cut_frequency;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:
@@ -44,6 +50,7 @@ namespace ATK
     void set_order(unsigned int order);
   };
 
+  /// @brief Butterworth coeffs for a high pass filter
   template<typename DataType_>
   class ButterworthHighPassCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -54,14 +61,19 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Cut-off of the filter
     DataType cut_frequency;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:
@@ -79,6 +91,7 @@ namespace ATK
     void set_order(unsigned int order);
   };
 
+  /// @brief Butterworth coeffs for a band pass filter
   template<typename DataType_>
   class ButterworthBandPassCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -89,14 +102,19 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Bandwidth of the filter
     std::pair<DataType, DataType> cut_frequencies;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:
@@ -106,13 +124,17 @@ namespace ATK
      */
     ButterworthBandPassCoefficients(unsigned int nb_channels = 1);
     
+    /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    /// Sets the bandwidth as two separate values
     void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    /// Gets the bandwidth
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
   };
   
+  /// @brief Butterworth coeffs for a band stop filter
   template<typename DataType_>
   class ButterworthBandStopCoefficients: public TypedBaseFilter<DataType_>
   {
@@ -123,14 +145,19 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
+    /// Bandwidth of the filter
     std::pair<DataType, DataType> cut_frequencies;
     
+    /// Order of the filter
     unsigned int in_order;
+    /// Order of the filter
     unsigned int out_order;
     
     void setup() override;
     
+    /// Coefficients of the MA part of the IIR filter
     AlignedVector coefficients_in;
+    /// Coefficients of the AR part of the IIR filter
     AlignedVector coefficients_out;
     
   public:
@@ -140,8 +167,11 @@ namespace ATK
      */
     ButterworthBandStopCoefficients(unsigned int nb_channels = 1);
     
+    /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    /// Sets the bandwidth as two separate values
     void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    /// Gets the bandwidth
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);

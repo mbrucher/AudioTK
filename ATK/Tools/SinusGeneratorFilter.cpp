@@ -27,7 +27,6 @@ namespace ATK
     this->frequency = frequency;
     this->frequ_cos = std::cos(2 * boost::math::constants::pi<DataType_>() * frequency / output_sampling_rate);
     this->frequ_sin = std::sin(2 * boost::math::constants::pi<DataType_>() * frequency / output_sampling_rate);
-    Parent::setup();
   }
   
   template<typename DataType_>
@@ -83,8 +82,8 @@ namespace ATK
       cos = new_cos / norm;
       sin = new_sin / norm;
 
-      *(output_cos++) = volume * cos + offset;
-      *(output_sin++) = volume * sin + offset;
+      output_cos[i] = volume * cos + offset;
+      output_sin[i] = volume * sin + offset;
     }
   }
   

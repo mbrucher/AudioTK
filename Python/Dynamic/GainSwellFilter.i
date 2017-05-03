@@ -12,6 +12,11 @@ namespace ATK
     GainSwellFilter(int nb_channels = 1);
     ~GainSwellFilter();
   };
+
+  ATKProperty(GainFilter<GainSwellFilter<float>>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainSwellFilter<float>>, softness, get_softness, set_softness);
+  ATKProperty(GainFilter<GainSwellFilter<double>>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainSwellFilter<double>>, softness, get_softness, set_softness);
 }
 
 %template() ATK::GainSwellFilter<float>;

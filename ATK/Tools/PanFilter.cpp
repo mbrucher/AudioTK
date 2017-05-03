@@ -15,8 +15,8 @@
 namespace ATK
 {
   template<typename DataType_>
-  PanFilter<DataType_>::PanFilter()
-  :Parent(1, 2), law(PAN_LAWS::SINCOS_0_CENTER), pan(0)
+  PanFilter<DataType_>::PanFilter(unsigned int nb_channels)
+  :Parent(nb_channels, 2 * nb_channels), law(PAN_LAWS::SINCOS_0_CENTER), pan(0)
   {
     
   }
@@ -89,15 +89,19 @@ namespace ATK
         break;
     }
     
-    const DataType* ATK_RESTRICT input = converted_inputs[0];
-    DataType* ATK_RESTRICT output0 = outputs[0];
-    DataType* ATK_RESTRICT output1 = outputs[1];
-    for(std::size_t i = 0; i < size; ++i)
+    assert(2 * nb_input_ports == nb_output_ports);
+
+    for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
     {
-      output0[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(left_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
-      output1[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(right_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
+      const DataType* ATK_RESTRICT input = converted_inputs[channel];
+      DataType* ATK_RESTRICT output0 = outputs[2 * channel];
+      DataType* ATK_RESTRICT output1 = outputs[2 * channel + 1];
+      for(std::size_t i = 0; i < size; ++i)
+      {
+        output0[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(left_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
+        output1[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(right_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
+      }
     }
-    
   }
   
   template class PanFilter<std::int16_t>;

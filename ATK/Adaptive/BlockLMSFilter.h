@@ -18,6 +18,7 @@ namespace ATK
     class BlockLMSFilterImpl;
     std::unique_ptr<BlockLMSFilterImpl> impl;
   protected:
+    /// Parent class of the filter
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs;

@@ -57,10 +57,13 @@ if __name__ == "__main__":
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / sample_rate
   d = np.sin(x * 2 * np.pi * 1000)
   dr = d[:,::-1].copy()
-  
-  np.savetxt("input.txt", d)
+
+  d[0].tofile("input_lstereo.dat")
+  dr[0].tofile("input_rstereo.dat")
   outl, outr = filter(d, dr, blend_ch1=1, blend_ch2=1,
     feedforward_ch1_ch1=-1, feedforward_ch2_ch2=-1, feedforward_ch1_ch2=.1, feedforward_ch2_ch1=.7,
-    feedback_ch1_ch1=-.5, feedback_ch1_ch2=.1, feedback_ch2_ch1=.3, feedback_ch2_ch2=-.1, )
-  np.savetxt("outputl.txt", outl)
-  np.savetxt("outputr.txt", outr)
+    feedback_ch1_ch1=-.5, feedback_ch2_ch2=-.1, feedback_ch1_ch2=.1, feedback_ch2_ch1=.3, 
+    )
+  outl[0].tofile("output_lstereo.dat")
+  outr[0].tofile("output_rstereo.dat")
+  
