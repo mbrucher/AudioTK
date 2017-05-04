@@ -18,6 +18,9 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.0.2
+* Fix ARM compilation
+
 ### 2.0.1
 * Turn set/get into properties when possible (Python wrapper)
 * Enhanced Tools API (Audio ToolKit book)
