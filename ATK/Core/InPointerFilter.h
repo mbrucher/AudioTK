@@ -37,7 +37,7 @@ namespace ATK
     /**
      * @brief Resets the pointer and the internal offset
      * @param array is the pointer to the new array
-     * @param size is the allocated size of the array
+     * @param size is the allocated size of the array (whether interleaved or not)
      */
     void set_pointer(const DataType* array, std::size_t size);
     
