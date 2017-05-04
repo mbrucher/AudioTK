@@ -228,11 +228,6 @@ namespace fmath {
   using std::exp;
   using std::log;
 #else
-  inline float exp(float x)
-  {
-    return std::exp(x); // This version had a really big error. Too bad, the double version is OK
-  }
-  
   inline double exp(double x)
   {
     if (x <= -708.39641853226408) return 0;
@@ -254,6 +249,11 @@ namespace fmath {
     u |= iax;
     memcpy(&did, &u, sizeof(did));
     return y * did;
+  }
+
+  inline float exp(float x)
+  {
+    return static_cast<float>(exp(static_cast<double>(x)));
   }
 
   inline float log(float x)
