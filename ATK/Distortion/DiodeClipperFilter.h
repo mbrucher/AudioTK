@@ -46,67 +46,6 @@ namespace ATK
   private:
     std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction, 10, true> > optimizer;
   };
-
-  /// Diode clipper filter, based on a backward Euler rule
-  template<typename DataType_>
-  class ATK_DISTORTION_EXPORT BackwardDiodeClipperFilter final : public TypedBaseFilter<DataType_>
-  {
-    class SimpleOverdriveFunction;
-  public:
-    /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::DataType;
-    using Parent::converted_inputs;
-    using Parent::outputs;
-    using Parent::input_sampling_rate;
-    using Parent::output_sampling_rate;
-
-    using Parent::input_delay;
-    using Parent::output_delay;
-  public:
-    /*!
-     * @brief Constructor
-     */
-    BackwardDiodeClipperFilter();
-    /// Destructor
-    ~BackwardDiodeClipperFilter();
-    
-  protected:
-    void setup() override final;
-    void process_impl(std::size_t size) const override final;
-    
-  private:
-    std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction, 10, true> > optimizer;
-  };
-
-  /// Diode clipper filter, based on a forward Euler rule
-  template<typename DataType_>
-  class ATK_DISTORTION_EXPORT ForwardDiodeClipperFilter final : public TypedBaseFilter<DataType_>
-  {
-    class SimpleOverdriveFunction;
-  public:
-    /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::DataType;
-    using Parent::converted_inputs;
-    using Parent::outputs;
-    using Parent::input_sampling_rate;
-    using Parent::output_sampling_rate;
-    
-    using Parent::input_delay;
-    using Parent::output_delay;
-  public:
-    /*!
-     * @brief Constructor
-     */
-    ForwardDiodeClipperFilter();
-    /// Destructor
-    ~ForwardDiodeClipperFilter();
-    
-  protected:
-    void setup() override final;
-    void process_impl(std::size_t size) const override final;
-  };
 }
 
 #endif
