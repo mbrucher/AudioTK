@@ -334,7 +334,7 @@ endif(ENABLE_PYTHON)
 
 IF (BUILD_DOC)
 
-  FIND_PACKAGE(Doxygen Required)
+  FIND_PACKAGE(Doxygen REQUIRED)
 
   SET(DOXYGEN_INPUT Doxyfile)
   SET(DOXYGEN_OUTPUT Doxygen)
