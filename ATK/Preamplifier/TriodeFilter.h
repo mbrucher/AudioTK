@@ -63,8 +63,8 @@ namespace ATK
     static TriodeFilter build_standard_filter();
     /// Build a custom filter with a given tube function contructor
     template<TriodeFunction function()>
-    static TriodeFilter build_alternate_filter(DataType Rp=200e3, DataType Rg=220e3, DataType Ro=220e3, DataType Rk=1e3,
-                                               DataType VBias=300, DataType Co=22e-9, DataType Ck=1.e-6)
+    static TriodeFilter build_alternate_filter(DataType Rp=100e3, DataType Rg=220e3, DataType Ro=22e3, DataType Rk=2.7e3,
+                                               DataType VBias=300, DataType Co=20e-9, DataType Ck=10.e-6)
     {
         return TriodeFilter<DataType, TriodeFunction>(Rp, Rg, Ro, Rk, //R
                                                       VBias, // VBias
