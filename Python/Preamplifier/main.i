@@ -35,9 +35,9 @@
 %define PreampExtendAlternate(name, T, T2, alternate)
 %extend name<T, T2<T> > {
   %newobject alternate;
-  static name<T, T2<T> >* alternate()
+  static name<T, T2<T> >* alternate(T Rp=100e3, T Rg=220e3, T Ro=22e3, T Rk=2.7e3, T VBias=300, T Co=20e-9, T Ck=10.e-6)
   {
-    return new name<T, T2<T> >(name<T, T2<T> >::build_alternate_filter<T2<T>::alternate>());
+    return new name<T, T2<T> >(name<T, T2<T> >::build_alternate_filter<T2<T>::alternate>(Rp, Rg, Ro, Rk, VBias, Co, Ck));
   }
 }
 %enddef
