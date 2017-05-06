@@ -22,5 +22,5 @@ namespace ATK
     return (*self).get_coefficients_in();
   }
 }
-ATKgetProperty(BaseFilter, coefficients_in, get_coefficients_in);
+ATKgetProperty(name, coefficients_in, get_coefficients_in);
 %enddef
