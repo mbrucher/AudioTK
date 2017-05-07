@@ -116,7 +116,7 @@ matrix:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile ; fi
-  - ${PYTHON} -m pip install numpy scipy nose
+  - sudo ${PYTHON} -m pip install numpy scipy nose
   - wget --no-verbose --output-document=boost_1_63_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
