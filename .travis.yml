@@ -26,6 +26,8 @@ matrix:
     - PLATFORM=gcc-5
     - ADDITONAL_CMAKE_FLAGS=
     - PYTHON_VERSION=3.5
+    - PYTHON=python3
+#    - Python_ADDITIONAL_VERSIONS=3.5
   - compiler: gcc
     os: linux
     dist: trusty
@@ -48,6 +50,7 @@ matrix:
     - PLATFORM=gcc-6
     - ADDITONAL_CMAKE_FLAGS=
     - PYTHON_VERSION=3.5
+    - PYTHON=python3
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -73,6 +76,7 @@ matrix:
     - PLATFORM=clang-3.8
     - ADDITONAL_CMAKE_FLAGS=
     - PYTHON_VERSION=3.5
+    - PYTHON=python3
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -98,6 +102,7 @@ matrix:
     - PLATFORM=clang-3.9
     - ADDITONAL_CMAKE_FLAGS=
     - PYTHON_VERSION=3.5
+    - PYTHON=python3
   - os: osx
     osx_image: xcode8.2
     env:
@@ -105,6 +110,7 @@ matrix:
     - PLATFORM=xcode-8.2
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
     - PYTHON_VERSION=2.7
+    - PYTHON=python2
   - os: osx
     osx_image: xcode7.3
     env:
@@ -112,11 +118,12 @@ matrix:
     - PLATFORM=xcode-7.3
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
     - PYTHON_VERSION=2.7
+    - PYTHON=python2
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile numpy scipy; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip install nose; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile ; fi
+  - ${PYTHON} -m pip install numpy scipy nose
   - wget --no-verbose --output-document=boost_1_63_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
@@ -135,6 +142,7 @@ before_script:
 
 script:
   - pwd
+  - ${PYTHON} --version
   - make -j 16
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$DYLD_LIBRARY_PATH ; fi
