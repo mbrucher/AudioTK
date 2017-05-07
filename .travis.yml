@@ -7,6 +7,7 @@ matrix:
   - compiler: gcc
     os: linux
     dist: trusty
+    python: "3.4"
     addons:
       apt:
         sources:
@@ -16,6 +17,7 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
@@ -23,6 +25,7 @@ matrix:
   - compiler: gcc
     os: linux
     dist: trusty
+    python: "3.4"
     addons:
       apt:
         sources:
@@ -39,6 +42,7 @@ matrix:
   - compiler: clang-3.8
     os: linux
     dist: trusty
+    python: "3.4"
     addons:
       apt:
         sources:
@@ -57,6 +61,7 @@ matrix:
   - compiler: clang-3.9
     os: linux
     dist: trusty
+    python: "3.4"
     addons:
       apt:
         sources:
@@ -96,6 +101,8 @@ before_install:
   - mkdir -p $BOOST_ROOT
   - tar jxf boost_1_63_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
   - pip install numpy
+  - pip install scipy
+  - pip install nose
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
@@ -105,11 +112,14 @@ before_script:
   - mkdir build
   - cd build
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export CMAKE_BUILD_TYPE="Release"          ; fi
-  - cmake -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -DENABLE_STATIC_LIBRARIES=ON ${ADDITONAL_CMAKE_FLAGS} ..
+  - cmake -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -DENABLE_STATIC_LIBRARIES=ON ${ADDITONAL_CMAKE_FLAGS} -DENABLE_PYTHON=ON ..
 
 script:
   - pwd
   - make -j 16
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$DYLD_LIBRARY_PATH ; fi
+  - export PYTHONPATH=${HOME}/ATK/lib/python${TRAVIS_PYTHON_VERSION}/site-packages/:$PYTHONPATH
   - CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
 after_success:
