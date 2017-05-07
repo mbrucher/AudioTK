@@ -33,14 +33,14 @@ namespace ATK
   ATKProperty(UniversalFixedDelayLineFilter<double>, blend, get_blend, set_blend);
   ATKProperty(UniversalFixedDelayLineFilter<double>, feedback, get_feedback, set_feedback);
   ATKProperty(UniversalFixedDelayLineFilter<double>, feedforward, get_feedforward, set_feedforward);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float>>, delay, get_delay, set_delay);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float>>, blend, get_blend, set_blend);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float>>, feedback, get_feedback, set_feedback);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float>>, feedforward, get_feedforward, set_feedforward);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double>>, delay, get_delay, set_delay);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double>>, blend, get_blend, set_blend);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double>>, feedback, get_feedback, set_feedback);
-  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double>>, feedforward, get_feedforward, set_feedforward);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float> >, delay, get_delay, set_delay);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float> >, blend, get_blend, set_blend);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float> >, feedback, get_feedback, set_feedback);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<float> >, feedforward, get_feedforward, set_feedforward);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double> >, delay, get_delay, set_delay);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double> >, blend, get_blend, set_blend);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double> >, feedback, get_feedback, set_feedback);
+  ATKProperty(UniversalFixedDelayLineFilter<std::complex<double> >, feedforward, get_feedforward, set_feedforward);
 }
 
 %template(FloatUniversalFixedDelayLineFilter) ATK::UniversalFixedDelayLineFilter<float>;

@@ -25,5 +25,5 @@ namespace ATK
 %template(Int64DryWetFilter) ATK::DryWetFilter<std::int64_t>;
 %template(FloatDryWetFilter) ATK::DryWetFilter<float>;
 %template(DoubleDryWetFilter) ATK::DryWetFilter<double>;
-%template(ComplexFloatDryWetFilter) ATK::DryWetFilter<std::complex<float>>;
-%template(ComplexDoubleDryWetFilter) ATK::DryWetFilter<std::complex<double>>;
+%template(ComplexFloatDryWetFilter) ATK::DryWetFilter<std::complex<float> >;
+%template(ComplexDoubleDryWetFilter) ATK::DryWetFilter<std::complex<double> >;

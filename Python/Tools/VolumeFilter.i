@@ -21,8 +21,8 @@ namespace ATK
   ATKProperty(VolumeFilter<std::int64_t>, volume, get_volume, set_volume);
   ATKProperty(VolumeFilter<float>, volume, get_volume, set_volume);
   ATKProperty(VolumeFilter<double>, volume, get_volume, set_volume);
-  ATKProperty(VolumeFilter<std::complex<float>>, volume, get_volume, set_volume);
-  ATKProperty(VolumeFilter<std::complex<double>>, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<std::complex<float> >, volume, get_volume, set_volume);
+  ATKProperty(VolumeFilter<std::complex<double> >, volume, get_volume, set_volume);
 }
 
 %template(Int16VolumeFilter) ATK::VolumeFilter<std::int16_t>;
@@ -30,5 +30,5 @@ namespace ATK
 %template(Int64VolumeFilter) ATK::VolumeFilter<std::int64_t>;
 %template(FloatVolumeFilter) ATK::VolumeFilter<float>;
 %template(DoubleVolumeFilter) ATK::VolumeFilter<double>;
-%template(ComplexFloatVolumeFilter) ATK::VolumeFilter<std::complex<float>>;
-%template(ComplexDoubleVolumeFilter) ATK::VolumeFilter<std::complex<double>>;
+%template(ComplexFloatVolumeFilter) ATK::VolumeFilter<std::complex<float> >;
+%template(ComplexDoubleVolumeFilter) ATK::VolumeFilter<std::complex<double> >;

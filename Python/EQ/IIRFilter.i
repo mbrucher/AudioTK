@@ -17,11 +17,11 @@ namespace ATK
 
 %define IIRFilterExtend(name, T)
 %extend name {
-  std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_in()
+  std::vector<T, boost::alignment::aligned_allocator<T, 32> > get_coefficients_in()
   {
     return (*self).get_coefficients_in();
   }
-  std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_out()
+  std::vector<T, boost::alignment::aligned_allocator<T, 32> > get_coefficients_out()
   {
     return (*self).get_coefficients_out();
   }

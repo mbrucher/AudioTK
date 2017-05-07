@@ -23,8 +23,8 @@ namespace ATK
   
   ATKgetProperty(InPointerFilter<float>, nb_output_ports, get_nb_output_ports);
   ATKgetProperty(InPointerFilter<double>, nb_output_ports, get_nb_output_ports);
-  ATKgetProperty(InPointerFilter<std::complex<float>>, nb_output_ports, get_nb_output_ports);
-  ATKgetProperty(InPointerFilter<std::complex<double>>, nb_output_ports, get_nb_output_ports);
+  ATKgetProperty(InPointerFilter<std::complex<float> >, nb_output_ports, get_nb_output_ports);
+  ATKgetProperty(InPointerFilter<std::complex<double> >, nb_output_ports, get_nb_output_ports);
 }
 
 %template(FloatInPointerFilter) ATK::InPointerFilter<float>;
@@ -45,8 +45,8 @@ namespace ATK
   
   ATKgetProperty(OutPointerFilter<float>, nb_input_ports, get_nb_input_ports);
   ATKgetProperty(OutPointerFilter<double>, nb_input_ports, get_nb_input_ports);
-  ATKgetProperty(OutPointerFilter<std::complex<float>>, nb_input_ports, get_nb_input_ports);
-  ATKgetProperty(OutPointerFilter<std::complex<double>>, nb_input_ports, get_nb_input_ports);
+  ATKgetProperty(OutPointerFilter<std::complex<float> >, nb_input_ports, get_nb_input_ports);
+  ATKgetProperty(OutPointerFilter<std::complex<double> >, nb_input_ports, get_nb_input_ports);
 }
 
 %template(FloatOutPointerFilter) ATK::OutPointerFilter<float>;

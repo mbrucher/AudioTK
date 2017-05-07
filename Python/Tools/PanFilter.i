@@ -31,8 +31,8 @@ namespace ATK
   ATKProperty(PanFilter<std::int64_t>, pan, get_pan, set_pan);
   ATKProperty(PanFilter<float>, pan, get_pan, set_pan);
   ATKProperty(PanFilter<double>, pan, get_pan, set_pan);
-  ATKProperty(PanFilter<std::complex<float>>, pan, get_pan, set_pan);
-  ATKProperty(PanFilter<std::complex<double>>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::complex<float> >, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::complex<double> >, pan, get_pan, set_pan);
 }
 
 %template(Int16PanFilter) ATK::PanFilter<std::int16_t>;
@@ -40,5 +40,5 @@ namespace ATK
 %template(Int64PanFilter) ATK::PanFilter<std::int64_t>;
 %template(FloatPanFilter) ATK::PanFilter<float>;
 %template(DoublePanFilter) ATK::PanFilter<double>;
-%template(ComplexFloatPanFilter) ATK::PanFilter<std::complex<float>>;
-%template(ComplexDoublePanFilter) ATK::PanFilter<std::complex<double>>;
+%template(ComplexFloatPanFilter) ATK::PanFilter<std::complex<float> >;
+%template(ComplexDoublePanFilter) ATK::PanFilter<std::complex<double> >;

@@ -27,5 +27,5 @@ namespace ATK
 
 %template(FloatOffsetVolumeFilter) ATK::OffsetVolumeFilter<float>;
 %template(DoubleOffsetVolumeFilter) ATK::OffsetVolumeFilter<double>;
-%template(ComplexFloatOffsetVolumeFilter) ATK::OffsetVolumeFilter<std::complex<float>>;
-%template(ComplexDoubleOffsetVolumeFilter) ATK::OffsetVolumeFilter<std::complex<double>>;
+%template(ComplexFloatOffsetVolumeFilter) ATK::OffsetVolumeFilter<std::complex<float> >;
+%template(ComplexDoubleOffsetVolumeFilter) ATK::OffsetVolumeFilter<std::complex<double> >;
