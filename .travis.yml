@@ -17,6 +17,7 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
