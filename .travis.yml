@@ -38,10 +38,16 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
+        - python3-dev
+        - python3-numpy
+        - python3-scipy
+        - python3-nose
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
     - ADDITONAL_CMAKE_FLAGS=
+    - PYTHON_VERSION=3.5
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -57,10 +63,16 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
+        - python3-dev
+        - python3-numpy
+        - python3-scipy
+        - python3-nose
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
     - ADDITONAL_CMAKE_FLAGS=
+    - PYTHON_VERSION=3.5
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -76,28 +88,35 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - swig
+        - python3-dev
+        - python3-numpy
+        - python3-scipy
+        - python3-nose
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
     - ADDITONAL_CMAKE_FLAGS=
+    - PYTHON_VERSION=3.5
   - os: osx
     osx_image: xcode8.2
-    python: "3.4"
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-8.2
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
+    - PYTHON_VERSION=2.7
   - os: osx
     osx_image: xcode7.3
-    python: "3.4"
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
+    - PYTHON_VERSION=2.7
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile numpy scipy; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; pip install nose
   - wget --no-verbose --output-document=boost_1_63_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
@@ -125,13 +144,13 @@ script:
 after_success:
   - make install
   - cd ${HOME}/ATK
-  - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.tar.gz *
+  - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz *
 
 deploy:
   provider: releases
   api_key:
     secure: ilhQ9vSyOl+QjRiRebj7CuQPYY1OygH3YxEuuFOXVa1cN4iw5yid2igEScLfKB5Xn2x2jMYDqL4bC6nLMHa1GNtCTIhCJrrHhXPeYX1W1EsOtExfAbD1G0QvUoQPZEBnK1Lu2Uf+qiQaH1IEquhzux8dxRCe/qJJzpntoWiLgm6po1giUAyQGsVzKlon4dxhgq08QcYxaQq2snOcKFJVx+zfeELfB7RZeEQXymtlMosMWnoKv3tjtFI5crWWdjD8oYKaTdLEms5EmR/cXAoYZ8jkhW0mTn1j9Ww9gaN4f/AnIlZDyggsdxVsV77rW/Kh6qqUdRbWaAnnpDgozv/HNXkgrFpxNyevIiS/pfbiyIT1zqT+iy4N9ofuc8iWuXncom3tDK/aGU+KS693ZkeLkkOT+FhT3YnIwE7UHeRS/Lqn26FQXQ/u7stuYVxCTrGR+LsfOrQdxmkQVOKicbWlOkU0+JpccaoES+j7SSCGgUkO/5f8bFzTraEu5VCN9pTuMX7TIp8OwS7b13L/TZGPwoeJDBtn5SsUl/1cqpuJbjQvf0KQqp6tJcQ8LjS9K0WrtVB+T2coQC5vYz5pM4RhYcGavj6a9+RM6U13PDvpHgP5ec5zeGbNJ2QKHLZ8s0LiuSMgffhp0vsl8E0nWjpelnSIDPtCLv5xAtk47vn+aiQ=
-  file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.tar.gz
+  file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz
   skip_cleanup: true
   on:
     repo: mbrucher/AudioTK
