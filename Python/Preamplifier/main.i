@@ -27,7 +27,7 @@
   %newobject build_standard_filter;
   static name<T, T2<T> >* build_standard_filter(T Rp=200e3, T Rg=220e3, T Ro=220e3, T Rk=1e3, T VBias=300, T Co=22e-9, T Ck=1.e-6)
   {
-    return new name<T, T2<T> >(name<T, T2<T> >::build_standard_filter());
+    return new name<T, T2<T> >(name<T, T2<T> >::build_standard_filter(Rp, Rg, Ro, Rk, VBias, Co, Ck));
   }
 }
 %enddef

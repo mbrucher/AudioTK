@@ -65,8 +65,8 @@ namespace ATK
     /**
      * Build a custom filter with a given tube function contructor
      * The defaults are Rp=200e3, Rg=220e3, Ro=220e3, Rk=1e3, VBias=300, Co=22e-9, Ck=1e-6
-     * Guitar preamp: Rp=100e3, Rg=220e3, Ro=22e3, Rk=2.7e3, VBias=300, Co=20e-9, Ck=10e-6
-     * Bass preamp: Rp=100e3, Rg=1e6, Ro=1e6, Rk=820, VBias=300, Co=22e-9, Ck=250e-6
+     * Guitar AC30 preamp: Rp=220e3, Rg=68e3, Ro=1e6, Rk=1.5e3, VBias=300, Co=47e-9, Ck=22e-6
+     * Bass Bassman preamp: Rp=100e3, Rg=1e6, Ro=1e6, Rk=820, VBias=300, Co=22e-9, Ck=250e-6
      */
     template<TriodeFunction function()>
     static TriodeFilter build_alternate_filter(DataType Rp=200e3, DataType Rg=220e3, DataType Ro=220e3, DataType Rk=1e3,
