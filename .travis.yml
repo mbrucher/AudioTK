@@ -17,9 +17,6 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
-        - python-numpy
-        - python-scipy
-        - python-nose
         - swig
     env:
     - COMPILER=g++-5
@@ -107,6 +104,7 @@ before_install:
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
   - "(cd $BOOST_ROOT; ./b2 threading=multi --prefix=$BOOST_BUILD -d0 install)"
+  - python3 -m pip install numpy scipy nose
 
 before_script:
   - mkdir build
