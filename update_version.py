@@ -18,7 +18,7 @@ def update_doxygen(new_version):
       sys.stdout.write(line)
 
 def update_changelog(new_version):
-  for line in fileinput.input(files=("Readme.md",), inplace=True):
+  for line in fileinput.input(files=("README.md",), inplace=True):
     sys.stdout.write(line)
     if line.startswith("## Changelog"):
       sys.stdout.write("### %s\n\n" % new_version)
