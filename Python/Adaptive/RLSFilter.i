@@ -40,9 +40,9 @@ namespace ATK
 
 %define RLSFilterExtend(name, T)
 %extend name {
-  std::vector<T, boost::alignment::aligned_allocator<T, 32>> get_coefficients_in()
+  std::vector<T, boost::alignment::aligned_allocator<T, 32> > get_coefficients_in()
   {
-    return std::vector<T, boost::alignment::aligned_allocator<T, 32>>((*self).get_w(), (*self).get_w() + (*self).get_size());;
+    return std::vector<T, boost::alignment::aligned_allocator<T, 32> >((*self).get_w(), (*self).get_w() + (*self).get_size());;
   }
 }
 ATKgetProperty(name, coefficients_in, get_coefficients_in);

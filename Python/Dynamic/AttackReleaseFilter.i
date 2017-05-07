@@ -18,10 +18,10 @@ namespace ATK
     DataType get_release() const;
   };
 
-  ATKProperty(GainFilter<AttackReleaseFilter<float>>, attack, get_attack, set_attack);
-  ATKProperty(GainFilter<AttackReleaseFilter<float>>, release, get_release, set_release);
-  ATKProperty(GainFilter<AttackReleaseFilter<double>>, attack, get_attack, set_attack);
-  ATKProperty(GainFilter<AttackReleaseFilter<double>>, release, get_release, set_release);
+  ATKProperty(AttackReleaseFilter<float>, attack, get_attack, set_attack);
+  ATKProperty(AttackReleaseFilter<float>, release, get_release, set_release);
+  ATKProperty(AttackReleaseFilter<double>, attack, get_attack, set_attack);
+  ATKProperty(AttackReleaseFilter<double>, release, get_release, set_release);
 }
 
 %template(FloatAttackReleaseFilter) ATK::AttackReleaseFilter<float>;

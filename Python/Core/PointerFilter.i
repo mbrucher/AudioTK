@@ -29,8 +29,8 @@ namespace ATK
 
 %template(FloatInPointerFilter) ATK::InPointerFilter<float>;
 %template(DoubleInPointerFilter) ATK::InPointerFilter<double>;
-%template(ComplexFloatInPointerFilter) ATK::InPointerFilter<std::complex<float>>;
-%template(ComplexDoubleInPointerFilter) ATK::InPointerFilter<std::complex<double>>;
+%template(ComplexFloatInPointerFilter) ATK::InPointerFilter<std::complex<float> >;
+%template(ComplexDoubleInPointerFilter) ATK::InPointerFilter<std::complex<double> >;
 
 namespace ATK
 {
@@ -51,5 +51,5 @@ namespace ATK
 
 %template(FloatOutPointerFilter) ATK::OutPointerFilter<float>;
 %template(DoubleOutPointerFilter) ATK::OutPointerFilter<double>;
-%template(ComplexFloatOutPointerFilter) ATK::OutPointerFilter<std::complex<float>>;
-%template(ComplexDoubleOutPointerFilter) ATK::OutPointerFilter<std::complex<double>>;
+%template(ComplexFloatOutPointerFilter) ATK::OutPointerFilter<std::complex<float> >;
+%template(ComplexDoubleOutPointerFilter) ATK::OutPointerFilter<std::complex<double> >;

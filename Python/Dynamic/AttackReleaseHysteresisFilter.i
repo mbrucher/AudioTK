@@ -24,14 +24,14 @@ namespace ATK
     DataType get_release_hysteresis() const;
   };
 
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<float>>, attack, get_attack, set_attack);
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<float>>, release, get_release, set_release);
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<float>>, attack_hysteresis, get_attack_hysteresis, set_attack_hysteresis);
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<float>>, release_hysteresis, get_release_hysteresis, set_release_hysteresis);
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<double>>, attack, get_attack, set_attack);
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<double>>, release, get_release, set_release);
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<double>>, attack_hysteresis, get_attack_hysteresis, set_attack_hysteresis);
-  ATKProperty(GainFilter<AttackReleaseHysteresisFilter<double>>, release_hysteresis, get_release_hysteresis, set_release_hysteresis);
+  ATKProperty(AttackReleaseHysteresisFilter<float>, attack, get_attack, set_attack);
+  ATKProperty(AttackReleaseHysteresisFilter<float>, release, get_release, set_release);
+  ATKProperty(AttackReleaseHysteresisFilter<float>, attack_hysteresis, get_attack_hysteresis, set_attack_hysteresis);
+  ATKProperty(AttackReleaseHysteresisFilter<float>, release_hysteresis, get_release_hysteresis, set_release_hysteresis);
+  ATKProperty(AttackReleaseHysteresisFilter<double>, attack, get_attack, set_attack);
+  ATKProperty(AttackReleaseHysteresisFilter<double>, release, get_release, set_release);
+  ATKProperty(AttackReleaseHysteresisFilter<double>, attack_hysteresis, get_attack_hysteresis, set_attack_hysteresis);
+  ATKProperty(AttackReleaseHysteresisFilter<double>, release_hysteresis, get_release_hysteresis, set_release_hysteresis);
 }
 
 %template(FloatAttackHysteresisReleaseFilter) ATK::AttackReleaseHysteresisFilter<float>;
