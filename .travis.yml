@@ -101,7 +101,7 @@ before_install:
   - tar jxf boost_1_63_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
   - pip install numpy
   - pip install scipy
-  - pip install nosetests
+  - pip install nose
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
