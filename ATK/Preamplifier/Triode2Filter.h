@@ -61,11 +61,17 @@ namespace ATK
     Triode2Filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function);
   public:
     /// Builds a standard filter with default triode and circuit parameters
-    static Triode2Filter build_standard_filter();
-    /// Build a custom filter with a given tube function contructor
+    static Triode2Filter build_standard_filter(DataType Rp=200e3, DataType Rg=220e3, DataType Ro=220e3, DataType Rk=1e3,
+                                              DataType VBias=300, DataType Co=22e-9, DataType Ck=1.e-6);
+    /**
+     * Build a custom filter with a given tube function contructor
+     * The defaults are Rp=200e3, Rg=220e3, Ro=220e3, Rk=1e3, VBias=300, Co=22e-9, Ck=1e-6
+     * Guitare preamp: Rp=100e3, Rg=220e3, Ro=22e3, Rk=2.7e3, VBias=300, Co=20e-9, Ck=10e-6
+     * Bass preamp: Rp=200e3, Rg=220e3, Ro=220e3, Rk=1e3, VBias=300, Co=22e-9, Ck=1e-6
+     */
     template<TriodeFunction function()>
-    static Triode2Filter build_alternate_filter(DataType Rp=100e3, DataType Rg=220e3, DataType Ro=22e3, DataType Rk=2.7e3,
-                                                DataType VBias=300, DataType Co=20e-9, DataType Ck=10.e-6)
+    static Triode2Filter build_alternate_filter(DataType Rp=200e3, DataType Rg=220e3, DataType Ro=220e3, DataType Rk=1e3,
+                                               DataType VBias=300, DataType Co=22e-9, DataType Ck=1.e-6)
     {
       return Triode2Filter<DataType, TriodeFunction>(Rp, Rg, Ro, Rk, //R
                                                     VBias, // VBias
