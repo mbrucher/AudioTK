@@ -22,7 +22,7 @@ namespace ATK
     /// Retrieves mu
     double get_mu() const;
 
-    enum class Mode
+    enum Mode
     {
       NORMAL,
       NORMALIZED,
