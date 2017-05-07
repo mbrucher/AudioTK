@@ -26,12 +26,12 @@ namespace ATK
     static IIRFilter<ToneStackCoefficients<DataType> >&& buildJCM800Stack();
   };
   
-  ATKProperty(IIRFilter<ToneStackCoefficients<float> >, low, get_low, set_low);
-  ATKProperty(IIRFilter<ToneStackCoefficients<float> >, middle, get_middle, set_middle);
-  ATKProperty(IIRFilter<ToneStackCoefficients<float> >, high, get_high, set_high);
-  ATKProperty(IIRFilter<ToneStackCoefficients<double> >, low, get_low, set_low);
-  ATKProperty(IIRFilter<ToneStackCoefficients<double> >, middle, get_middle, set_middle);
-  ATKProperty(IIRFilter<ToneStackCoefficients<double> >, high, get_high, set_high);
+  ATKProperty(ToneStackCoefficients<float>, low, get_low, set_low);
+  ATKProperty(ToneStackCoefficients<float>, middle, get_middle, set_middle);
+  ATKProperty(ToneStackCoefficients<float>, high, get_high, set_high);
+  ATKProperty(ToneStackCoefficients<double>, low, get_low, set_low);
+  ATKProperty(ToneStackCoefficients<double>, middle, get_middle, set_middle);
+  ATKProperty(ToneStackCoefficients<double>, high, get_high, set_high);
 }
 
 %template(FloatToneStackCoefficients) ATK::ToneStackCoefficients<float>;

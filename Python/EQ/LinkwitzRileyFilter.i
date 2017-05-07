@@ -6,19 +6,25 @@
 namespace ATK
 {
   template<class DataType>
-  class LinkwitzRileyLowPassCoefficients: public SecondOrderBaseCoefficients<DataType>
+  class LinkwitzRileyLowPassCoefficients: public BaseFilter
   {
+  public:
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
   };
   
   template<class DataType>
-  class LinkwitzRileyHighPassCoefficients: public SecondOrderBaseCoefficients<DataType>
+  class LinkwitzRileyHighPassCoefficients: public BaseFilter
   {
+  public:
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
   };
   
-  ATKProperty(IIRFilter<LinkwitzRileyLowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<LinkwitzRileyLowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<LinkwitzRileyHighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<LinkwitzRileyHighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(LinkwitzRileyLowPassCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(LinkwitzRileyLowPassCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(LinkwitzRileyHighPassCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(LinkwitzRileyHighPassCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
 }
 
 %template(FloatLinkwitzRileyLowPassFilterCoefficients) ATK::LinkwitzRileyLowPassCoefficients<float>;

@@ -25,7 +25,7 @@
 %define PreampExtend(name, T, T2)
 %extend name<T, T2<T> > {
   %newobject build_standard_filter;
-  static name<T, T2<T> >* build_standard_filter()
+  static name<T, T2<T> >* build_standard_filter(T Rp=200e3, T Rg=220e3, T Ro=220e3, T Rk=1e3, T VBias=300, T Co=22e-9, T Ck=1.e-6)
   {
     return new name<T, T2<T> >(name<T, T2<T> >::build_standard_filter());
   }
@@ -35,7 +35,7 @@
 %define PreampExtendAlternate(name, T, T2, alternate)
 %extend name<T, T2<T> > {
   %newobject alternate;
-  static name<T, T2<T> >* alternate(T Rp=100e3, T Rg=220e3, T Ro=22e3, T Rk=2.7e3, T VBias=300, T Co=20e-9, T Ck=10.e-6)
+  static name<T, T2<T> >* alternate(T Rp=200e3, T Rg=220e3, T Ro=220e3, T Rk=1e3, T VBias=300, T Co=22e-9, T Ck=1.e-6)
   {
     return new name<T, T2<T> >(name<T, T2<T> >::build_alternate_filter<T2<T>::alternate>(Rp, Rg, Ro, Rk, VBias, Co, Ck));
   }

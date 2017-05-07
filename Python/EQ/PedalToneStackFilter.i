@@ -27,10 +27,10 @@ namespace ATK
     DataType get_tone() const;
   };
 
-  ATKProperty(IIRFilter<SD1ToneCoefficients<float> >, tone, get_tone, set_tone);
-  ATKProperty(IIRFilter<SD1ToneCoefficients<float> >, tone, get_tone, set_tone);
-  ATKProperty(IIRFilter<TS9ToneCoefficients<double> >, tone, get_tone, set_tone);
-  ATKProperty(IIRFilter<TS9ToneCoefficients<double> >, tone, get_tone, set_tone);
+  ATKProperty(SD1ToneCoefficients<float>, tone, get_tone, set_tone);
+  ATKProperty(SD1ToneCoefficients<float>, tone, get_tone, set_tone);
+  ATKProperty(TS9ToneCoefficients<double>, tone, get_tone, set_tone);
+  ATKProperty(TS9ToneCoefficients<double>, tone, get_tone, set_tone);
 }
 
 %template(FloatSD1ToneCoefficients) ATK::SD1ToneCoefficients<float>;

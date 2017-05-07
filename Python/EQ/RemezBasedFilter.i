@@ -19,7 +19,7 @@ namespace ATK
     void set_order(unsigned int order);
   };
 
-  ATKProperty(FIRFilter<RemezBasedCoefficients<double> >, template, get_template, set_template);
+  ATKProperty(RemezBasedCoefficients<double>, template, get_template, set_template);
 }
 
 %template(DoubleRemezBasedCoefficients) ATK::RemezBasedCoefficients<double>;

@@ -6,7 +6,17 @@
 namespace ATK
 {
   template<class DataType>
-  class SecondOrderBaseCoefficients: public BaseFilter
+  class SecondOrderBandPassCoefficients: public BaseFilter
+  {
+  public:
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
+    void set_Q(DataType Q);
+    DataType get_Q();
+  };
+  
+  template<class DataType>
+  class SecondOrderLowPassCoefficients: public BaseFilter
   {
   public:
     void set_cut_frequency(DataType cut_frequency);
@@ -14,29 +24,19 @@ namespace ATK
   };
   
   template<class DataType>
-  class SecondOrderBandPassCoefficients: public SecondOrderBaseCoefficients<DataType>
+  class SecondOrderHighPassCoefficients: public BaseFilter
   {
   public:
-    void set_Q(DataType Q);
-    DataType get_Q();
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
   };
   
   template<class DataType>
-  class SecondOrderLowPassCoefficients: public SecondOrderBaseCoefficients<DataType>
+  class SecondOrderBandPassPeakCoefficients: public BaseFilter
   {
   public:
-  };
-  
-  template<class DataType>
-  class SecondOrderHighPassCoefficients: public SecondOrderBaseCoefficients<DataType>
-  {
-  public:
-  };
-  
-  template<class DataType>
-  class SecondOrderBandPassPeakCoefficients: public SecondOrderBaseCoefficients<DataType>
-  {
-  public:
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
     void set_Q(DataType Q);
     DataType get_Q();
     void set_gain(DataType gain);
@@ -44,55 +44,58 @@ namespace ATK
   };
   
   template<class DataType>
-  class SecondOrderAllPassCoefficients: public SecondOrderBaseCoefficients<DataType>
+  class SecondOrderAllPassCoefficients: public BaseFilter
   {
   public:
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
     void set_Q(DataType Q);
     DataType get_Q();
   };
   
   template<class DataType>
-  class SecondOrderLowShelvingCoefficients: public SecondOrderBaseCoefficients<DataType>
+  class SecondOrderLowShelvingCoefficients: public BaseFilter
   {
   public:
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
     void set_gain(DataType gain);
     DataType get_gain();
   };
 
   template<class DataType>
-  class SecondOrderHighShelvingCoefficients: public SecondOrderBaseCoefficients<DataType>
+  class SecondOrderHighShelvingCoefficients: public BaseFilter
   {
   public:
+    void set_cut_frequency(DataType cut_frequency);
+    DataType get_cut_frequency();
     void set_gain(DataType gain);
     DataType get_gain();
   };
 
-  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderBandPassCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<SecondOrderLowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderLowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderHighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderHighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<SecondOrderBandPassPeakCoefficients<double> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderLowShelvingCoefficients<double> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<SecondOrderHighShelvingCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(SecondOrderBandPassCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderBandPassCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(SecondOrderBandPassCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderBandPassCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(SecondOrderLowPassCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderLowPassCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderHighPassCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderHighPassCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderBandPassPeakCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderBandPassPeakCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(SecondOrderBandPassPeakCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(SecondOrderBandPassPeakCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderBandPassPeakCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(SecondOrderBandPassPeakCoefficients<double>, gain, get_gain, set_gain);
+  ATKProperty(SecondOrderLowShelvingCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderLowShelvingCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(SecondOrderLowShelvingCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderLowShelvingCoefficients<double>, gain, get_gain, set_gain);
+  ATKProperty(SecondOrderHighShelvingCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderHighShelvingCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(SecondOrderHighShelvingCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(SecondOrderHighShelvingCoefficients<double>, gain, get_gain, set_gain);
 }
-
-%template(FloatSecondOrderBaseCoefficients) ATK::SecondOrderBaseCoefficients<float>;
-%template(DoubleSecondOrderBaseCoefficients) ATK::SecondOrderBaseCoefficients<double>;
 
 %template(FloatSecondOrderBandPassCoefficients) ATK::SecondOrderBandPassCoefficients<float>;
 %template(DoubleSecondOrderBandPassCoefficients) ATK::SecondOrderBandPassCoefficients<double>;

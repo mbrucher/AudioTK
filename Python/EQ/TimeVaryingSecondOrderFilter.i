@@ -6,7 +6,21 @@
 namespace ATK
 {
   template<class DataType>
-  class TimeVaryingBaseSecondOrderCoefficients: public BaseFilter
+  class TimeVaryingBandPassCoefficients: public BaseFilter
+  {
+  public:
+    void set_min_frequency(double min_frequency);
+    double get_min_frequency() const;
+    void set_max_frequency(double max_frequency);
+    double get_max_frequency() const;
+    void set_number_of_steps(int number_of_steps);
+    int get_number_of_steps() const;
+    void set_Q(DataType Q);
+    DataType get_Q();
+  };
+  
+  template<class DataType>
+  class TimeVaryingLowPassCoefficients: public BaseFilter
   {
   public:
     void set_min_frequency(double min_frequency);
@@ -18,29 +32,27 @@ namespace ATK
   };
   
   template<class DataType>
-  class TimeVaryingBandPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType>
+  class TimeVaryingHighPassCoefficients: public BaseFilter
   {
   public:
-    void set_Q(DataType Q);
-    DataType get_Q();
+    void set_min_frequency(double min_frequency);
+    double get_min_frequency() const;
+    void set_max_frequency(double max_frequency);
+    double get_max_frequency() const;
+    void set_number_of_steps(int number_of_steps);
+    int get_number_of_steps() const;
   };
   
   template<class DataType>
-  class TimeVaryingLowPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType>
+  class TimeVaryingBandPassPeakCoefficients: public BaseFilter
   {
   public:
-  };
-  
-  template<class DataType>
-  class TimeVaryingHighPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType>
-  {
-  public:
-  };
-  
-  template<class DataType>
-  class TimeVaryingBandPassPeakCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType>
-  {
-  public:
+    void set_min_frequency(double min_frequency);
+    double get_min_frequency() const;
+    void set_max_frequency(double max_frequency);
+    double get_max_frequency() const;
+    void set_number_of_steps(int number_of_steps);
+    int get_number_of_steps() const;
     void set_Q(DataType Q);
     DataType get_Q();
     void set_gain(DataType gain);
@@ -48,87 +60,102 @@ namespace ATK
   };
   
   template<class DataType>
-  class TimeVaryingAllPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType>
+  class TimeVaryingAllPassCoefficients: public BaseFilter
   {
   public:
+    void set_min_frequency(double min_frequency);
+    double get_min_frequency() const;
+    void set_max_frequency(double max_frequency);
+    double get_max_frequency() const;
+    void set_number_of_steps(int number_of_steps);
+    int get_number_of_steps() const;
     void set_Q(DataType Q);
     DataType get_Q();
   };
   
   template<class DataType>
-  class TimeVaryingLowShelvingCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType>
+  class TimeVaryingLowShelvingCoefficients: public BaseFilter
   {
   public:
+    void set_min_frequency(double min_frequency);
+    double get_min_frequency() const;
+    void set_max_frequency(double max_frequency);
+    double get_max_frequency() const;
+    void set_number_of_steps(int number_of_steps);
+    int get_number_of_steps() const;
     void set_gain(DataType gain);
     DataType get_gain();
   };
 
   template<class DataType>
-  class TimeVaryingHighShelvingCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType>
+  class TimeVaryingHighShelvingCoefficients: public BaseFilter
   {
   public:
+    void set_min_frequency(double min_frequency);
+    double get_min_frequency() const;
+    void set_max_frequency(double max_frequency);
+    double get_max_frequency() const;
+    void set_number_of_steps(int number_of_steps);
+    int get_number_of_steps() const;
     void set_gain(DataType gain);
     DataType get_gain();
   };
 
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<float> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<float> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<float> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<double> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<double> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<double> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingBandPassCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<BesselLowPassCoefficients<float> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<BesselLowPassCoefficients<float> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<BesselLowPassCoefficients<float> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<BesselLowPassCoefficients<double> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<BesselLowPassCoefficients<double> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<BesselLowPassCoefficients<double> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingHighPassCoefficients<float> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighPassCoefficients<float> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighPassCoefficients<float> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingHighPassCoefficients<double> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighPassCoefficients<double> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighPassCoefficients<double> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<float> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<float> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<float> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<double> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<double> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<double> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingBandPassPeakCoefficients<double> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<float> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<float> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<float> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<double> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<double> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<double> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingAllPassCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<float> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<float> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<float> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<double> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<double> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<double> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingLowShelvingCoefficients<double> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<float> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<float> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<float> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<double> >, min_frequency, get_min_frequency, set_min_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<double> >, max_frequency, get_max_frequency, set_max_frequency);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<double> >, number_of_steps, get_number_of_steps, set_number_of_steps);
-  ATKProperty(IIRFilter<TimeVaryingHighShelvingCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingBandPassCoefficients<float>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingBandPassCoefficients<float>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingBandPassCoefficients<float>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingBandPassCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingBandPassCoefficients<double>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingBandPassCoefficients<double>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingBandPassCoefficients<double>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingBandPassCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingLowPassCoefficients<float>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingLowPassCoefficients<float>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingLowPassCoefficients<float>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingLowPassCoefficients<double>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingLowPassCoefficients<double>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingLowPassCoefficients<double>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingHighPassCoefficients<float>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingHighPassCoefficients<float>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingHighPassCoefficients<float>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingHighPassCoefficients<double>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingHighPassCoefficients<double>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingHighPassCoefficients<double>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<float>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<float>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<float>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<double>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<double>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<double>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingBandPassPeakCoefficients<double>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingAllPassCoefficients<float>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingAllPassCoefficients<float>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingAllPassCoefficients<float>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingAllPassCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingAllPassCoefficients<double>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingAllPassCoefficients<double>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingAllPassCoefficients<double>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingAllPassCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<float>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<float>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<float>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<double>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<double>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<double>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingLowShelvingCoefficients<double>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<float>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<float>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<float>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<double>, min_frequency, get_min_frequency, set_min_frequency);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<double>, max_frequency, get_max_frequency, set_max_frequency);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<double>, number_of_steps, get_number_of_steps, set_number_of_steps);
+  ATKProperty(TimeVaryingHighShelvingCoefficients<double>, gain, get_gain, set_gain);
 }
-
-%template(FloatTimeVaryingBaseSecondOrderCoefficients) ATK::TimeVaryingBaseSecondOrderCoefficients<float>;
-%template(DoubleTimeVaryingBaseSecondOrderCoefficients) ATK::TimeVaryingBaseSecondOrderCoefficients<double>;
 
 %template(FloatTimeVaryingBandPassCoefficients) ATK::TimeVaryingBandPassCoefficients<float>;
 %template(DoubleTimeVaryingBandPassCoefficients) ATK::TimeVaryingBandPassCoefficients<double>;

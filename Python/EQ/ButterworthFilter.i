@@ -57,18 +57,10 @@ namespace ATK
     void set_order(int order);
   };
 
-  ATKProperty(IIRFilter<ButterworthLowPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<ButterworthLowPassCoefficients<float> >, ripple, get_ripple, set_ripple);
-  ATKProperty(IIRFilter<ButterworthLowPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<ButterworthLowPassCoefficients<double> >, ripple, get_ripple, set_ripple);
-  ATKProperty(IIRFilter<ButterworthHighPassCoefficients<float> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<ButterworthHighPassCoefficients<float> >, ripple, get_ripple, set_ripple);
-  ATKProperty(IIRFilter<ButterworthHighPassCoefficients<double> >, cut_frequency, get_cut_frequency, set_cut_frequency);
-  ATKProperty(IIRFilter<ButterworthHighPassCoefficients<double> >, ripple, get_ripple, set_ripple);
-  ATKProperty(IIRFilter<ButterworthBandPassCoefficients<float> >, ripple, get_ripple, set_ripple);
-  ATKProperty(IIRFilter<ButterworthBandPassCoefficients<double> >, ripple, get_ripple, set_ripple);
-  ATKProperty(IIRFilter<ButterworthBandStopCoefficients<float> >, ripple, get_ripple, set_ripple);
-  ATKProperty(IIRFilter<ButterworthBandStopCoefficients<double> >, ripple, get_ripple, set_ripple);
+  ATKProperty(ButterworthLowPassCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(ButterworthLowPassCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(ButterworthHighPassCoefficients<float>, cut_frequency, get_cut_frequency, set_cut_frequency);
+  ATKProperty(ButterworthHighPassCoefficients<double>, cut_frequency, get_cut_frequency, set_cut_frequency);
 }
 
 %template(FloatButterworthLowPassCoefficients) ATK::ButterworthLowPassCoefficients<float>;

@@ -14,7 +14,7 @@ namespace ATK
   };
   
   template<class DataType>
-  class TimeVaryingSecondOrderSVFBaseCoefficients: public BaseFilter
+  class TimeVaryingSecondOrderSVFLowPassCoefficients: public BaseFilter
   {
   public:
     void set_Q(DataType Q);
@@ -22,80 +22,90 @@ namespace ATK
   };
   
   template<class DataType>
-  class TimeVaryingSecondOrderSVFLowPassCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
+  class TimeVaryingSecondOrderSVFBandPassCoefficients: public BaseFilter
   {
+  public:
+    void set_Q(DataType Q);
+    DataType get_Q() const;
   };
   
   template<class DataType>
-  class TimeVaryingSecondOrderSVFBandPassCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
+  class TimeVaryingSecondOrderSVFHighPassCoefficients: public BaseFilter
   {
+  public:
+    void set_Q(DataType Q);
+    DataType get_Q() const;
   };
   
   template<class DataType>
-  class TimeVaryingSecondOrderSVFHighPassCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
+  class TimeVaryingSecondOrderSVFNotchCoefficients: public BaseFilter
   {
+  public:
+    void set_Q(DataType Q);
+    DataType get_Q() const;
   };
   
   template<class DataType>
-  class TimeVaryingSecondOrderSVFNotchCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
+  class TimeVaryingSecondOrderSVFPeakCoefficients: public BaseFilter
   {
-  };
-  
-  template<class DataType>
-  class TimeVaryingSecondOrderSVFPeakCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
-  {
+  public:
+    void set_Q(DataType Q);
+    DataType get_Q() const;
   };
    
   template<class DataType>
-  class TimeVaryingSecondOrderSVFBellCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
+  class TimeVaryingSecondOrderSVFBellCoefficients: public BaseFilter
   {
   public:
+    void set_Q(DataType Q);
+    DataType get_Q() const;
     void set_gain(DataType gain);
     DataType get_gain();
   };
 
   template<class DataType>
-  class TimeVaryingSecondOrderSVFLowShelfCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
+  class TimeVaryingSecondOrderSVFLowShelfCoefficients: public BaseFilter
   {
   public:
+    void set_Q(DataType Q);
+    DataType get_Q() const;
     void set_gain(DataType gain);
     DataType get_gain();
   };
 
   template<class DataType>
-  class TimeVaryingSecondOrderSVFHighShelfCoefficients: public TimeVaryingSecondOrderSVFBaseCoefficients<DataType>
+  class TimeVaryingSecondOrderSVFHighShelfCoefficients: public BaseFilter
   {
   public:
+    void set_Q(DataType Q);
+    DataType get_Q() const;
     void set_gain(DataType gain);
     DataType get_gain();
   };
 
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFNotchCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFNotchCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFPeakCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFPeakCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFBellCoefficients<double> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float> >, gain, get_gain, set_gain);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double> >, Q, get_Q, set_Q);
-  ATKProperty(IIRFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double> >, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingSecondOrderSVFLowPassCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFLowPassCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFBandPassCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFBandPassCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFHighPassCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFHighPassCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFNotchCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFNotchCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFPeakCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFPeakCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFBellCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFBellCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingSecondOrderSVFBellCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFBellCoefficients<double>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingSecondOrderSVFLowShelfCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFLowShelfCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingSecondOrderSVFLowShelfCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFLowShelfCoefficients<double>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingSecondOrderSVFHighShelfCoefficients<float>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFHighShelfCoefficients<float>, gain, get_gain, set_gain);
+  ATKProperty(TimeVaryingSecondOrderSVFHighShelfCoefficients<double>, Q, get_Q, set_Q);
+  ATKProperty(TimeVaryingSecondOrderSVFHighShelfCoefficients<double>, gain, get_gain, set_gain);
 }
-
-%template(FloatTimeVaryingSecondOrderSVFBaseCoefficients) ATK::TimeVaryingSecondOrderSVFBaseCoefficients<float>;
-%template(DoubleTimeVaryingSecondOrderSVFBaseCoefficients) ATK::TimeVaryingSecondOrderSVFBaseCoefficients<double>;
 
 %template(FloatTimeVaryingSecondOrderSVFLowPassCoefficients) ATK::TimeVaryingSecondOrderSVFLowPassCoefficients<float>;
 %template(DoubleTimeVaryingSecondOrderSVFLowPassCoefficients) ATK::TimeVaryingSecondOrderSVFLowPassCoefficients<double>;
