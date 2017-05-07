@@ -11,6 +11,7 @@
 
 #include <Eigen/Dense>
 
+#include <ATK/Core/TypeTraits.h>
 #include <ATK/Utility/fmath.h>
 
 namespace ATK
@@ -37,21 +38,21 @@ namespace ATK
     
     static Matrix create()
     {
-      return (1 / fmath::pow(2, order / 2.)) * recursive_create<order>();
+      return ((1 / fmath::pow(2, order / 2.)) * recursive_create<order>()).cast<DataType_>();
     }
     
     template<unsigned int recursive_order>
-    static typename std::enable_if<recursive_order == 0, Eigen::Matrix<DataType_, 1, 1>>::type recursive_create()
+    static typename std::enable_if<recursive_order == 0, Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, 1, 1>>::type recursive_create()
     {
-      return Eigen::Matrix<DataType_, 1, 1>::Constant(1);
+      return Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, 1, 1>::Constant(1);
     }
     
     template<unsigned int recursive_order>
-    static typename std::enable_if<recursive_order != 0, Eigen::Matrix<DataType_, 1<<recursive_order, 1<<recursive_order>>::type recursive_create()
+    static typename std::enable_if<recursive_order != 0, Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, 1<<recursive_order, 1<<recursive_order>>::type recursive_create()
     {
       constexpr auto big_size = 1 << recursive_order;
       constexpr auto small_size = 1 << (recursive_order - 1);
-      Eigen::Matrix<DataType_, big_size, big_size> cur_transition;
+      Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, big_size, big_size> cur_transition;
       
       auto M_1 = recursive_create<recursive_order - 1>();
       cur_transition.block(0, 0, small_size, small_size) = M_1;
