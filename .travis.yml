@@ -17,6 +17,9 @@ matrix:
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
+        - python-numpy
+        - python-scipy
+        - python-nose
         - swig
     env:
     - COMPILER=g++-5
@@ -100,9 +103,6 @@ before_install:
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
   - mkdir -p $BOOST_ROOT
   - tar jxf boost_1_63_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
-  - pip install numpy
-  - pip install scipy
-  - pip install nose
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
