@@ -17,6 +17,31 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
+        - python-dev
+        - python-pip
+        - python-numpy
+        - python-scipy
+        - python-nose
+    env:
+    - COMPILER=g++-5
+    - PLATFORM=gcc-5
+    - ADDITONAL_CMAKE_FLAGS=
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.6
+  - compiler: gcc
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-5
+        - libfftw3-dev
+        - libeigen3-dev
+        - libsndfile-dev
+        - swig
         - python3-dev
         - python3-pip
         - python3-numpy
@@ -29,6 +54,31 @@ matrix:
     - PYTHON_VERSION=3.5
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.5.2
+  - compiler: gcc
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-6
+        - libfftw3-dev
+        - libeigen3-dev
+        - libsndfile-dev
+        - swig
+        - python-dev
+        - python-pip
+        - python-numpy
+        - python-scipy
+        - python-nose
+    env:
+    - COMPILER=g++-6
+    - PLATFORM=gcc-6
+    - ADDITONAL_CMAKE_FLAGS=
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.6
   - compiler: gcc
     os: linux
     dist: trusty
@@ -55,6 +105,33 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.5.2
   - compiler: clang-3.8
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.8
+        packages:
+        - clang-3.8
+        - g++-6
+        - libfftw3-dev
+        - libeigen3-dev
+        - libsndfile-dev
+        - swig
+        - python-dev
+        - python-pip
+        - python-numpy
+        - python-scipy
+        - python-nose
+    env:
+    - COMPILER=clang++-3.8
+    - PLATFORM=clang-3.8
+    - ADDITONAL_CMAKE_FLAGS=
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.6
+   - compiler: clang-3.8
     os: linux
     dist: trusty
     addons:
@@ -96,6 +173,33 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
+        - python-dev
+        - python-pip
+        - python-numpy
+        - python-scipy
+        - python-nose
+    env:
+    - COMPILER=clang++-3.9
+    - PLATFORM=clang-3.9
+    - ADDITONAL_CMAKE_FLAGS=
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.6
+  - compiler: clang-3.9
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-precise-3.9
+        packages:
+        - clang-3.9
+        - g++-6
+        - libfftw3-dev
+        - libeigen3-dev
+        - libsndfile-dev
+        - swig
         - python3-dev
         - python3-pip
         - python3-numpy
@@ -109,10 +213,10 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.5.2
   - os: osx
-    osx_image: xcode8.2
+    osx_image: xcode7.3
     env:
     - COMPILER=clang++
-    - PLATFORM=xcode-8.2
+    - PLATFORM=xcode-7.3
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
     - PYTHON_VERSION=2.7
     - PYTHON=python2
@@ -123,9 +227,27 @@ matrix:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
     - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
+    - PYTHON_VERSION=3.6
+    - PYTHON=python3
+    - Python_ADDITIONAL_VERSIONS=3.6.1
+  - os: osx
+    osx_image: xcode8.2
+    env:
+    - COMPILER=clang++
+    - PLATFORM=xcode-8.2
+    - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.11
+  - os: osx
+    osx_image: xcode8.2
+    env:
+    - COMPILER=clang++
+    - PLATFORM=xcode-8.2
+    - ADDITONAL_CMAKE_FLAGS=-DCMAKE_OSX_ARCHITECTURES="i386;x86_64"
+    - PYTHON_VERSION=3.6
+    - PYTHON=python3
+    - Python_ADDITIONAL_VERSIONS=3.6.1
 
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
