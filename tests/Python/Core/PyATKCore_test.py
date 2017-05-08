@@ -2,6 +2,9 @@
 
 from nose.tools import raises
 
+def import_test():
+  from ATK import Core
+
 def FloatInPointerFilter_new_test():
   import numpy as np
   from ATK.Core import FloatInPointerFilter
