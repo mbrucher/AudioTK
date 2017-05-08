@@ -23,14 +23,14 @@ namespace ATK
   
   ATKgetProperty(InPointerFilter<float>, nb_output_ports, get_nb_output_ports);
   ATKgetProperty(InPointerFilter<double>, nb_output_ports, get_nb_output_ports);
-  ATKgetProperty(InPointerFilter<std::complex<float>>, nb_output_ports, get_nb_output_ports);
-  ATKgetProperty(InPointerFilter<std::complex<double>>, nb_output_ports, get_nb_output_ports);
+  ATKgetProperty(InPointerFilter<std::complex<float> >, nb_output_ports, get_nb_output_ports);
+  ATKgetProperty(InPointerFilter<std::complex<double> >, nb_output_ports, get_nb_output_ports);
 }
 
 %template(FloatInPointerFilter) ATK::InPointerFilter<float>;
 %template(DoubleInPointerFilter) ATK::InPointerFilter<double>;
-%template(ComplexFloatInPointerFilter) ATK::InPointerFilter<std::complex<float>>;
-%template(ComplexDoubleInPointerFilter) ATK::InPointerFilter<std::complex<double>>;
+%template(ComplexFloatInPointerFilter) ATK::InPointerFilter<std::complex<float> >;
+%template(ComplexDoubleInPointerFilter) ATK::InPointerFilter<std::complex<double> >;
 
 namespace ATK
 {
@@ -45,11 +45,11 @@ namespace ATK
   
   ATKgetProperty(OutPointerFilter<float>, nb_input_ports, get_nb_input_ports);
   ATKgetProperty(OutPointerFilter<double>, nb_input_ports, get_nb_input_ports);
-  ATKgetProperty(OutPointerFilter<std::complex<float>>, nb_input_ports, get_nb_input_ports);
-  ATKgetProperty(OutPointerFilter<std::complex<double>>, nb_input_ports, get_nb_input_ports);
+  ATKgetProperty(OutPointerFilter<std::complex<float> >, nb_input_ports, get_nb_input_ports);
+  ATKgetProperty(OutPointerFilter<std::complex<double> >, nb_input_ports, get_nb_input_ports);
 }
 
 %template(FloatOutPointerFilter) ATK::OutPointerFilter<float>;
 %template(DoubleOutPointerFilter) ATK::OutPointerFilter<double>;
-%template(ComplexFloatOutPointerFilter) ATK::OutPointerFilter<std::complex<float>>;
-%template(ComplexDoubleOutPointerFilter) ATK::OutPointerFilter<std::complex<double>>;
+%template(ComplexFloatOutPointerFilter) ATK::OutPointerFilter<std::complex<float> >;
+%template(ComplexDoubleOutPointerFilter) ATK::OutPointerFilter<std::complex<double> >;

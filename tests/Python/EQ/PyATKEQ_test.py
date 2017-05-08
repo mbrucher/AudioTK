@@ -2,6 +2,9 @@
 
 from nose.tools import raises
 
+def import_test():
+  from ATK import EQ
+
 def DoubleBandPassCoefficientsIIRFilter_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter

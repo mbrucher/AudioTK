@@ -16,8 +16,8 @@ namespace ATK
     DataType get_memory() const;
   };
 
-  ATKProperty(GainFilter<RelativePowerFilter<float>>, memory, get_memory, set_memory);
-  ATKProperty(GainFilter<RelativePowerFilter<double>>, memory, get_memory, set_memory);
+  ATKProperty(GainFilter<RelativePowerFilter<float> >, memory, get_memory, set_memory);
+  ATKProperty(GainFilter<RelativePowerFilter<double> >, memory, get_memory, set_memory);
 }
 
 %template(FloatRelativePowerFilter) ATK::RelativePowerFilter<float>;

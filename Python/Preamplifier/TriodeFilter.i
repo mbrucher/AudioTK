@@ -34,15 +34,15 @@ namespace ATK
 }
 
 %template(FloatLeachTriodeFilter) ATK::TriodeFilter<float, ATK::LeachTriodeFunction<float> >;
-%template(DoubleLeachTriodeFilter) ATK::TriodeFilter<double, ATK::LeachTriodeFunction<double>>;
+%template(DoubleLeachTriodeFilter) ATK::TriodeFilter<double, ATK::LeachTriodeFunction<double> >;
 %template(FloatKorenTriodeFilter) ATK::TriodeFilter<float, ATK::KorenTriodeFunction<float> >;
-%template(DoubleKorenTriodeFilter) ATK::TriodeFilter<double, ATK::KorenTriodeFunction<double>>;
+%template(DoubleKorenTriodeFilter) ATK::TriodeFilter<double, ATK::KorenTriodeFunction<double> >;
 %template(FloatEnhancedKorenTriodeFilter) ATK::TriodeFilter<float, ATK::EnhancedKorenTriodeFunction<float> >;
-%template(DoubleEnhancedKorenTriodeFilter) ATK::TriodeFilter<double, ATK::EnhancedKorenTriodeFunction<double>>;
+%template(DoubleEnhancedKorenTriodeFilter) ATK::TriodeFilter<double, ATK::EnhancedKorenTriodeFunction<double> >;
 %template(FloatMunroPiazzaTriodeFilter) ATK::TriodeFilter<float, ATK::MunroPiazzaTriodeFunction<float> >;
-%template(DoubleMunroPiazzaTriodeFilter) ATK::TriodeFilter<double, ATK::MunroPiazzaTriodeFunction<double>>;
+%template(DoubleMunroPiazzaTriodeFilter) ATK::TriodeFilter<double, ATK::MunroPiazzaTriodeFunction<double> >;
 %template(FloatDempwolfTriodeFilter) ATK::TriodeFilter<float, ATK::DempwolfTriodeFunction<float> >;
-%template(DoubleDempwolfTriodeFilter) ATK::TriodeFilter<double, ATK::DempwolfTriodeFunction<double>>;
+%template(DoubleDempwolfTriodeFilter) ATK::TriodeFilter<double, ATK::DempwolfTriodeFunction<double> >;
 
 PreampExtend(ATK::TriodeFilter,float, ATK::LeachTriodeFunction);
 PreampExtend(ATK::TriodeFilter,double, ATK::LeachTriodeFunction);

@@ -16,5 +16,5 @@ namespace ATK
 
 %template(FloatApplyGainFilter) ATK::ApplyGainFilter<float>;
 %template(DoubleApplyGainFilter) ATK::ApplyGainFilter<double>;
-%template(ComplexFloatApplyGainFilter) ATK::ApplyGainFilter<std::complex<float>>;
-%template(ComplexDoubleApplyGainFilter) ATK::ApplyGainFilter<std::complex<double>>;
+%template(ComplexFloatApplyGainFilter) ATK::ApplyGainFilter<std::complex<float> >;
+%template(ComplexDoubleApplyGainFilter) ATK::ApplyGainFilter<std::complex<double> >;

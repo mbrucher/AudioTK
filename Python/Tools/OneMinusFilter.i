@@ -16,5 +16,5 @@ namespace ATK
 
 %template(FloatOneMinusFilter) ATK::OneMinusFilter<float>;
 %template(DoubleOneMinusFilter) ATK::OneMinusFilter<double>;
-%template(ComplexFloatOneMinusFilter) ATK::OneMinusFilter<std::complex<float>>;
-%template(ComplexDoubleOneMinusFilter) ATK::OneMinusFilter<std::complex<double>>;
+%template(ComplexFloatOneMinusFilter) ATK::OneMinusFilter<std::complex<float> >;
+%template(ComplexDoubleOneMinusFilter) ATK::OneMinusFilter<std::complex<double> >;

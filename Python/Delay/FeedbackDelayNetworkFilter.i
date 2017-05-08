@@ -48,24 +48,24 @@ namespace ATK
   };
 }
 
-%template(FloatDualHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 1>>;
-%template(DoubleDualHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 1>>;
+%template(FloatDualHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 1> >;
+%template(DoubleDualHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 1> >;
 
-%template(FloatHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>>;
-%template(DoubleHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 2>>;
+%template(FloatHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2> >;
+%template(DoubleHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 2> >;
 
-%template(FloatQuadHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>>;
-%template(DoubleQuadHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 2>>;
+%template(FloatQuadHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2> >;
+%template(DoubleQuadHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 2> >;
 
-%template(FloatOctHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 3>>;
-%template(DoubleOctHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 3>>;
+%template(FloatOctHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 3> >;
+%template(DoubleOctHadamardFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 3> >;
 
-%template(FloatDualHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 2>>;
-%template(DoubleDualHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 2>>;
+%template(FloatDualHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 2> >;
+%template(DoubleDualHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 2> >;
 
-%template(FloatQuadHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 4>>;
-%template(DoubleQuadHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 4>>;
+%template(FloatQuadHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 4> >;
+%template(DoubleQuadHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 4> >;
 
-%template(FloatOctHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 8>>;
-%template(DoubleOctHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 8>>;
+%template(FloatOctHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<float, 8> >;
+%template(DoubleOctHouseholderFeedbackDelayNetworkFilter) ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 8> >;
 

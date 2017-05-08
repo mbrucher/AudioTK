@@ -19,11 +19,6 @@ namespace ATK
 
     void set_high(DataType high);
     DataType get_high() const;
-
-    /// Builds a Bassman stack equivalent filter (bass, Fender)
-    static IIRFilter<ToneStackCoefficients<DataType> >&& buildBassmanStack();
-    /// Builds a JCM800 stack equivalent filter (guitar, Marshall)
-    static IIRFilter<ToneStackCoefficients<DataType> >&& buildJCM800Stack();
   };
   
   ATKProperty(ToneStackCoefficients<float>, low, get_low, set_low);

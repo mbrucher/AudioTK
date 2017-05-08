@@ -18,17 +18,17 @@ namespace ATK
     DataType get_quality() const;
   };
 
-  ATKProperty(GainFilter<GainColoredCompressorFilter<float>>, threshold, get_threshold, set_threshold);
-  ATKProperty(GainFilter<GainColoredCompressorFilter<float>>, softness, get_softness, set_softness);
-  ATKProperty(GainFilter<GainColoredCompressorFilter<float>>, color, get_color, set_color);
-  ATKProperty(GainFilter<GainColoredCompressorFilter<float>>, quality, get_quality, set_quality);
-  ATKProperty(GainFilter<GainColoredCompressorFilter<double>>, threshold, get_threshold, set_threshold);
-  ATKProperty(GainFilter<GainColoredCompressorFilter<double>>, softness, get_softness, set_softness);
-  ATKProperty(GainFilter<GainColoredCompressorFilter<double>>, color, get_color, set_color);
-  ATKProperty(GainFilter<GainColoredCompressorFilter<double>>, quality, get_quality, set_quality);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<float> >, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<float> >, softness, get_softness, set_softness);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<float> >, color, get_color, set_color);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<float> >, quality, get_quality, set_quality);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<double> >, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<double> >, softness, get_softness, set_softness);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<double> >, color, get_color, set_color);
+  ATKProperty(GainFilter<GainColoredCompressorFilter<double> >, quality, get_quality, set_quality);
 }
 
 %template() ATK::GainColoredCompressorFilter<float>;
 %template() ATK::GainColoredCompressorFilter<double>;
-%template(FloatGainColoredCompressorFilter) ATK::GainFilter<ATK::GainColoredCompressorFilter<float>>;
-%template(DoubleGainColoredCompressorFilter) ATK::GainFilter<ATK::GainColoredCompressorFilter<double>>;
+%template(FloatGainColoredCompressorFilter) ATK::GainFilter<ATK::GainColoredCompressorFilter<float> >;
+%template(DoubleGainColoredCompressorFilter) ATK::GainFilter<ATK::GainColoredCompressorFilter<double> >;

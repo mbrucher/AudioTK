@@ -12,7 +12,7 @@ namespace ATK
     PanFilter(unsigned int nb_channels = 1);
     ~PanFilter();
 
-    enum class PAN_LAWS {
+    enum PAN_LAWS {
       SINCOS_0_CENTER, //< Sin/cos law, center = 0 dB on each channel
       SINCOS_3_CENTER, //< Sin/cos law, center = -3 dB on each channel
       SQUARE_0_CENTER, //< square root law, center = 0 dB on each channel
@@ -31,8 +31,8 @@ namespace ATK
   ATKProperty(PanFilter<std::int64_t>, pan, get_pan, set_pan);
   ATKProperty(PanFilter<float>, pan, get_pan, set_pan);
   ATKProperty(PanFilter<double>, pan, get_pan, set_pan);
-  ATKProperty(PanFilter<std::complex<float>>, pan, get_pan, set_pan);
-  ATKProperty(PanFilter<std::complex<double>>, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::complex<float> >, pan, get_pan, set_pan);
+  ATKProperty(PanFilter<std::complex<double> >, pan, get_pan, set_pan);
 }
 
 %template(Int16PanFilter) ATK::PanFilter<std::int16_t>;
@@ -40,5 +40,5 @@ namespace ATK
 %template(Int64PanFilter) ATK::PanFilter<std::int64_t>;
 %template(FloatPanFilter) ATK::PanFilter<float>;
 %template(DoublePanFilter) ATK::PanFilter<double>;
-%template(ComplexFloatPanFilter) ATK::PanFilter<std::complex<float>>;
-%template(ComplexDoublePanFilter) ATK::PanFilter<std::complex<double>>;
+%template(ComplexFloatPanFilter) ATK::PanFilter<std::complex<float> >;
+%template(ComplexDoublePanFilter) ATK::PanFilter<std::complex<double> >;

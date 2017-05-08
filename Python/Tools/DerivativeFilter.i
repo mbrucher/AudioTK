@@ -19,5 +19,5 @@ namespace ATK
 %template(Int64DerivativeFilter) ATK::DerivativeFilter<int64_t>;
 %template(FloatDerivativeFilter) ATK::DerivativeFilter<float>;
 %template(DoubleDerivativeFilter) ATK::DerivativeFilter<double>;
-%template(ComplexFloatDerivativeFilter) ATK::DerivativeFilter<std::complex<float>>;
-%template(ComplexDoubleDerivativeFilter) ATK::DerivativeFilter<std::complex<double>>;
+%template(ComplexFloatDerivativeFilter) ATK::DerivativeFilter<std::complex<float> >;
+%template(ComplexDoubleDerivativeFilter) ATK::DerivativeFilter<std::complex<double> >;
