@@ -18,9 +18,10 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
-### 2.0.3
+### 2.1.0
 * Fix EQ Python wrappers
 * Added parameters for tube (inverters) filters definition
+* Added Python wrappers in Travis-CI builds
 
 ### 2.0.2
 * Fix ARM compilation
