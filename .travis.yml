@@ -150,7 +150,7 @@ before_script:
 script:
   - pwd
   - ${PYTHON} --version
-  - `which nosetests3`
+  - which nosetests3
   - make -j 16
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$DYLD_LIBRARY_PATH ; fi
