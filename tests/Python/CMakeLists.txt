@@ -3,6 +3,7 @@ if(ENABLE_PYTHON)
   find_package(PythonInterp REQUIRED)
   if(${PYTHON_VERSION_MAJOR} STREQUAL "2")
     find_program(NOSETESTS3 NAMES nosetests3 HINTS /usr/bin) #for Ubuntu...
+    message(status ${NOSETESTS3})
     if(${NOSETESTS3})
       add_test(PyAudioTK nosetests3)
     else(${NOSETESTS3})
