@@ -5,6 +5,7 @@
 #include <ATK/Preamplifier/KorenTriodeFunction.h>
 #include <ATK/Preamplifier/LeachTriodeFunction.h>
 #include <ATK/Preamplifier/MunroPiazzaTriodeFunction.h>
+#include <ATK/Preamplifier/ModifiedMunroPiazzaTriodeFunction.h>
 #include <ATK/Preamplifier/TriodeFilter.h>
 %}
 
@@ -41,6 +42,8 @@ namespace ATK
 %template(DoubleEnhancedKorenTriodeFilter) ATK::TriodeFilter<double, ATK::EnhancedKorenTriodeFunction<double> >;
 %template(FloatMunroPiazzaTriodeFilter) ATK::TriodeFilter<float, ATK::MunroPiazzaTriodeFunction<float> >;
 %template(DoubleMunroPiazzaTriodeFilter) ATK::TriodeFilter<double, ATK::MunroPiazzaTriodeFunction<double> >;
+%template(FloatModifiedMunroPiazzaTriodeFilter) ATK::TriodeFilter<float, ATK::ModifiedMunroPiazzaTriodeFunction<float> >;
+%template(DoubleModifiedMunroPiazzaTriodeFilter) ATK::TriodeFilter<double, ATK::ModifiedMunroPiazzaTriodeFunction<double> >;
 %template(FloatDempwolfTriodeFilter) ATK::TriodeFilter<float, ATK::DempwolfTriodeFunction<float> >;
 %template(DoubleDempwolfTriodeFilter) ATK::TriodeFilter<double, ATK::DempwolfTriodeFunction<double> >;
 
@@ -52,6 +55,8 @@ PreampExtend(ATK::TriodeFilter,float, ATK::EnhancedKorenTriodeFunction);
 PreampExtend(ATK::TriodeFilter,double, ATK::EnhancedKorenTriodeFunction);
 PreampExtend(ATK::TriodeFilter,float, ATK::MunroPiazzaTriodeFunction);
 PreampExtend(ATK::TriodeFilter,double, ATK::MunroPiazzaTriodeFunction);
+PreampExtend(ATK::TriodeFilter,float, ATK::ModifiedMunroPiazzaTriodeFunction);
+PreampExtend(ATK::TriodeFilter,double, ATK::ModifiedMunroPiazzaTriodeFunction);
 PreampExtend(ATK::TriodeFilter,float, ATK::DempwolfTriodeFunction);
 PreampExtend(ATK::TriodeFilter,double, ATK::DempwolfTriodeFunction);
 

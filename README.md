@@ -22,6 +22,7 @@ Audio Toolkit is published under the BSD license.
 * Fix EQ Python wrappers
 * Added parameters for tube (inverters) filters definition
 * Added Python wrappers in Travis-CI builds
+* Added a modified implementation of the Munro-Piazza triode function to remove some artefacts
 
 ### 2.0.2
 * Fix ARM compilation
