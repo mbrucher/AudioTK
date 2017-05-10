@@ -9,7 +9,7 @@ namespace ATK
   class SumFilter: public BaseFilter
   {
   public:
-    SumFilter(unsigned int channels);
+    SumFilter(unsigned int channels = 1);
     ~SumFilter();
   };
 }
