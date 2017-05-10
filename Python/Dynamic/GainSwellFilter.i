@@ -13,10 +13,10 @@ namespace ATK
     ~GainSwellFilter();
   };
 
-  ATKProperty(GainFilter<GainSwellFilter<float> >, threshold, get_threshold, set_threshold);
-  ATKProperty(GainFilter<GainSwellFilter<float> >, softness, get_softness, set_softness);
-  ATKProperty(GainFilter<GainSwellFilter<double> >, threshold, get_threshold, set_threshold);
-  ATKProperty(GainFilter<GainSwellFilter<double> >, softness, get_softness, set_softness);
+  ATKProperty(GainSwellFilter<float>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainSwellFilter<float>, softness, get_softness, set_softness);
+  ATKProperty(GainSwellFilter<double>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainSwellFilter<double>, softness, get_softness, set_softness);
 }
 
 %template() ATK::GainSwellFilter<float>;

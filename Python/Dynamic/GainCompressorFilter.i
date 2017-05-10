@@ -13,10 +13,10 @@ namespace ATK
     ~GainCompressorFilter();
   };
 
-  ATKProperty(GainFilter<GainCompressorFilter<float> >, threshold, get_threshold, set_threshold);
-  ATKProperty(GainFilter<GainCompressorFilter<float> >, softness, get_softness, set_softness);
-  ATKProperty(GainFilter<GainCompressorFilter<double> >, threshold, get_threshold, set_threshold);
-  ATKProperty(GainFilter<GainCompressorFilter<double> >, softness, get_softness, set_softness);
+  ATKProperty(GainCompressorFilter<float>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainCompressorFilter<float>, softness, get_softness, set_softness);
+  ATKProperty(GainCompressorFilter<double>, threshold, get_threshold, set_threshold);
+  ATKProperty(GainCompressorFilter<double>, softness, get_softness, set_softness);
 }
 
 %template() ATK::GainCompressorFilter<float>;
