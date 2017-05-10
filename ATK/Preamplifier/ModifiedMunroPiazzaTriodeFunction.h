@@ -23,6 +23,7 @@ namespace ATK
     const DataType_ Kvb;
     const DataType_ Kg;
     const DataType_ sigma;
+    const DataType_ sqrt_sigma;
     
     DataType_ sqrt_muvbe;
     DataType_ E1;
@@ -38,9 +39,9 @@ namespace ATK
       if(mu + Vbe > 0)
       {
         sqrt_muvbe = std::sqrt(sigma + (mu + Vbe) * (mu + Vbe) * (mu + Vbe));
-        return K * sqrt_muvbe;
+        return K * (sqrt_muvbe - sqrt_sigma);
       }
-      return K * std::sqrt(sigma);
+      return 0;
     }
     
     /// Compute grid current derivative relative to the grid cathode voltage
@@ -91,7 +92,7 @@ namespace ATK
     
     /// Constructor
     ModifiedMunroPiazzaTriodeFunction(DataType_ mu, DataType_ K, DataType_ Kp, DataType_ Kvb, DataType_ Kg, DataType_ sigma, DataType_ Cpg)
-    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), sigma(sigma), Cpg(Cpg)
+    :mu(mu), K(K), Kp(Kp), Kvb(Kvb), Kg(Kg), sigma(sigma), sqrt_sigma(std::sqrt(sigma)), Cpg(Cpg)
     {
     }
     
