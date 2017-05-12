@@ -50,7 +50,7 @@ namespace ATK
     const DataType_ Rg;
     const DataType_ Ro;
     const DataType_ Rk;
-    const DataType_ VBias;
+    const DataType_ Vbias;
     const DataType_ Co;
     const DataType_ Ck;
 
@@ -58,23 +58,23 @@ namespace ATK
 
   protected:
     /// Constructor, used with a builder static method
-    Triode2Filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function);
+    Triode2Filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction&& tube_function);
   public:
     /// Builds a standard filter with default triode and circuit parameters
     static Triode2Filter build_standard_filter(DataType Rp=200e3, DataType Rg=220e3, DataType Ro=220e3, DataType Rk=1e3,
-                                              DataType VBias=300, DataType Co=22e-9, DataType Ck=1.e-6);
+                                              DataType Vbias=300, DataType Co=22e-9, DataType Ck=1.e-6);
     /**
      * Build a custom filter with a given tube function contructor
-     * The defaults are Rp=200e3, Rg=220e3, Ro=220e3, Rk=1e3, VBias=300, Co=22e-9, Ck=1e-6
-     * Guitar AC30 preamp: Rp=220e3, Rg=68e3, Ro=1e6, Rk=1.5e3, VBias=300, Co=47e-9, Ck=22e-6
-     * Bass Bassman preamp: Rp=100e3, Rg=1e6, Ro=1e6, Rk=820, VBias=300, Co=22e-9, Ck=250e-6
+     * The defaults are Rp=200e3, Rg=220e3, Ro=220e3, Rk=1e3, Vbias=300, Co=22e-9, Ck=1e-6
+     * Guitar AC30 preamp: Rp=220e3, Rg=68e3, Ro=1e6, Rk=1.5e3, Vbias=300, Co=47e-9, Ck=22e-6
+     * Bass Bassman preamp: Rp=100e3, Rg=1e6, Ro=1e6, Rk=820, Vbias=300, Co=22e-9, Ck=250e-6
      */
     template<TriodeFunction function()>
     static Triode2Filter build_alternate_filter(DataType Rp=200e3, DataType Rg=220e3, DataType Ro=220e3, DataType Rk=1e3,
-                                               DataType VBias=300, DataType Co=22e-9, DataType Ck=1.e-6)
+                                               DataType Vbias=300, DataType Co=22e-9, DataType Ck=1.e-6)
     {
       return Triode2Filter<DataType, TriodeFunction>(Rp, Rg, Ro, Rk, //R
-                                                    VBias, // VBias
+                                                    Vbias, // Vbias
                                                     Co, Ck, // C
                                                     function() // tube
                                                     );

@@ -12,16 +12,6 @@
 
 %include "../Core/BaseFilter.i"
 
-%define PreampExtendSimple(name, T)
-%extend name<T> {
-  %newobject build_standard_filter;
-  static name<T>* build_standard_filter()
-  {
-    return new name<T>(name<T>::build_standard_filter());
-  }
-}
-%enddef
-
 %define PreampExtend(name, T, T2)
 %extend name<T, T2<T> > {
   %newobject build_standard_filter;
@@ -43,6 +33,7 @@
 %enddef
 
 
+%include "TransistorFunction.i"
 %include "FollowerTransistorClassAFilter.i"
 %include "TransistorClassAFilter.i"
 %include "TriodeFilter.i"
