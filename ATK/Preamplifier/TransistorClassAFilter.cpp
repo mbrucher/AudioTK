@@ -207,12 +207,15 @@ namespace ATK
   template<typename DataType_>
   void TransistorClassAFilter<DataType_>::full_setup()
   {
-    // setup default_output
+    Eigen::Matrix<DataType, 3, 1> y0;
+    y0 << VBias, 0, 0;//VBias * Rg2 / Rg1;
+
+                      // setup default_output
     SimplifiedVectorizedNewtonRaphson<TransistorClassAInitialFunction<DataType_>, 3, 10> custom(TransistorClassAInitialFunction<DataType_>(
       Rp, Rg1, Rg2, Ro, Rk, //R
-      Vbias, // Vbias
+      VBias, // VBias
       transistor_function // transistor
-      ));
+      ), std::move(y0));
 
     auto stable = custom.optimize();
 
