@@ -7,6 +7,7 @@
 
 #include <complex>
 #include <cstdint>
+#include <memory>
 #include <vector>
 
 #include "config.h"

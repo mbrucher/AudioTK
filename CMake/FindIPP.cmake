@@ -24,10 +24,12 @@
 # Created: 30 Dec 2010 by Vladimir Dudnik (vladimir.dudnik@intel.com)
 #
 
+if(WIN32)
 if("${MSVC_RUNTIME}" STREQUAL "Static")
 else("${MSVC_RUNTIME}" STREQUAL "Static")
 set(BUILD_WITH_DYNAMIC_IPP True)
 endif("${MSVC_RUNTIME}" STREQUAL "Static")
+endif(WIN32)
 
 unset(HAVE_IPP CACHE)
 unset(HAVE_IPP_ICV_ONLY)
@@ -135,10 +137,10 @@ macro(ipp_detect_version)
     if (BUILD_WITH_DYNAMIC_IPP)
       set(IPP_LIB_PREFIX ${CMAKE_IMPORT_LIBRARY_PREFIX})
       set(IPP_LIB_SUFFIX ${CMAKE_IMPORT_LIBRARY_SUFFIX})
-    else ()
+    else (BUILD_WITH_DYNAMIC_IPP)
       set(IPP_LIB_PREFIX ${CMAKE_STATIC_LIBRARY_PREFIX})
       set(IPP_LIB_SUFFIX ${CMAKE_STATIC_LIBRARY_SUFFIX})
-    endif ()
+    endif (BUILD_WITH_DYNAMIC_IPP)
     if (EXISTS ${IPP_LIBRARY_DIR}/${IPP_LIB_PREFIX}${IPP_PREFIX}${name}${IPP_SUFFIX}${IPP_LIB_SUFFIX})
       if (BUILD_WITH_DYNAMIC_IPP)
         # When using dynamic libraries from standalone IPP it is your responsibility to install those on the target system
