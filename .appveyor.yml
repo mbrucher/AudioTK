@@ -66,7 +66,7 @@ environment:
       COMPILER: Visual Studio 15 2017
       OUTPUT: static-x86
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
-      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Auxiliary\\Build"
+      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-15
 
     # 64 bits
@@ -78,7 +78,7 @@ environment:
       COMPILER: Visual Studio 15 2017 Win64
       OUTPUT: static-x64
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
-      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Auxiliary\\Build"
+      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-15
 
     # 32 bits
@@ -90,7 +90,7 @@ environment:
       COMPILER: Visual Studio 15 2017 
       OUTPUT: dynamic-x86
       ADDITONAL_CMAKE_FLAGS:
-      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Auxiliary\\Build"
+      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-15
 
     # 64 bits
@@ -102,12 +102,13 @@ environment:
       COMPILER: Visual Studio 15 2017 Win64
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS:
-      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Auxiliary\\Build"
+      VSINSTALL: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-15
-
+  allow_failures:
+    - image: Visual Studio 2017
+      
 init:
   - cmake --version
-  - dir "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\"
   - cd %VSINSTALL%
   - vcvarsall.bat %MSVC_PLATFORM%
   
