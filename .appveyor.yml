@@ -18,6 +18,7 @@ environment:
       COMPILER: Visual Studio 14 2015
       OUTPUT: static-x86
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      VSVERSION: 14
       MSVC_VERSION: msvc-14
 
     # 64 bits
@@ -29,6 +30,7 @@ environment:
       COMPILER: Visual Studio 14 2015 Win64
       OUTPUT: static-x64
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      VSVERSION: 14
       MSVC_VERSION: msvc-14
 
     # 32 bits
@@ -40,6 +42,7 @@ environment:
       COMPILER: Visual Studio 14 2015 
       OUTPUT: dynamic-x86
       ADDITONAL_CMAKE_FLAGS:
+      VSVERSION: 14
       MSVC_VERSION: msvc-14
 
     # 64 bits
@@ -51,6 +54,7 @@ environment:
       COMPILER: Visual Studio 14 2015 Win64
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS:
+      VSVERSION: 14
       MSVC_VERSION: msvc-14
 
     # 32 bits
@@ -62,6 +66,7 @@ environment:
       COMPILER: Visual Studio 15 2017
       OUTPUT: static-x86
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      VSVERSION: 15
       MSVC_VERSION: msvc-15
 
     # 64 bits
@@ -73,6 +78,7 @@ environment:
       COMPILER: Visual Studio 15 2017 Win64
       OUTPUT: static-x64
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      VSVERSION: 15
       MSVC_VERSION: msvc-15
 
     # 32 bits
@@ -84,6 +90,7 @@ environment:
       COMPILER: Visual Studio 15 2017 
       OUTPUT: dynamic-x86
       ADDITONAL_CMAKE_FLAGS:
+      VSVERSION: 15
       MSVC_VERSION: msvc-15
 
     # 64 bits
@@ -95,11 +102,12 @@ environment:
       COMPILER: Visual Studio 15 2017 Win64
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS:
+      VSVERSION: 15
       MSVC_VERSION: msvc-15
 
 init:
   - cmake --version
-  - C:\"Program Files (x86)"\"Microsoft Visual Studio 14.0"\VC\vcvarsall.bat %MSVC_PLATFORM%
+  - C:\"Program Files (x86)"\"Microsoft Visual Studio %VSVERSION%.0"\VC\vcvarsall.bat %MSVC_PLATFORM%
   
 before_build:
   - mkdir -p %FFTW_ROOT%
