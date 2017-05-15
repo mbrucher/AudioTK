@@ -49,6 +49,7 @@ if(WIN32)
           )
     foreach(CompilerFlag ${CompilerFlags})
       string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+      string(REPLACE "/MDd" "/MTd" ${CompilerFlag} "${${CompilerFlag}}")
     endforeach()
   endif("${MSVC_RUNTIME}" STREQUAL "Static")
 
