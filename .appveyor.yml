@@ -10,7 +10,7 @@ environment:
   FFTW_ROOT: C:\projects\fftw
   matrix:
     # 32 bits
-    - image: Visual Studio 2015
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
@@ -22,7 +22,7 @@ environment:
       MSVC_VERSION: msvc-14
 
     # 64 bits
-    - image: Visual Studio 2015
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
@@ -34,7 +34,7 @@ environment:
       MSVC_VERSION: msvc-14
 
     # 32 bits
-    - image: Visual Studio 2015
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
@@ -46,7 +46,7 @@ environment:
       MSVC_VERSION: msvc-14
 
     # 64 bits
-    - image: Visual Studio 2015
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
@@ -58,7 +58,7 @@ environment:
       MSVC_VERSION: msvc-14
 
     # 32 bits
-    - image: Visual Studio 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
@@ -70,7 +70,7 @@ environment:
       MSVC_VERSION: msvc-15
 
     # 64 bits
-    - image: Visual Studio 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
@@ -82,7 +82,7 @@ environment:
       MSVC_VERSION: msvc-15
 
     # 32 bits
-    - image: Visual Studio 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
@@ -94,7 +94,7 @@ environment:
       MSVC_VERSION: msvc-15
 
     # 64 bits
-    - image: Visual Studio 2017
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       SHORT_MSVC_PLATFORM: x64
