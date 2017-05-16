@@ -106,7 +106,7 @@ environment:
 
 init:
   - cmake --version
-  - call %VSINSTALL%
+  - call '%VSINSTALL%'
   
 before_build:
   - mkdir -p %FFTW_ROOT%
