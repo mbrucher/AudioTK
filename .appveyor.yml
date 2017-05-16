@@ -107,7 +107,7 @@ environment:
 
 init:
   - cmake --version
-  - C:\"Program Files (x86)"\%VSINSTALL%\vcvarsall.bat %MSVC_PLATFORM%
+  - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
 
 before_build:
   - mkdir -p %FFTW_ROOT%
