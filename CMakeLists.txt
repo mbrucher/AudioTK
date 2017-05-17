@@ -296,7 +296,7 @@ include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 macro(stagedebug target)
-  if(NOT(CMAKE_BUILD_TYPE STREQUAL "Release"))
+  if(CMAKE_BUILD_TYPE STREQUAL "")
   if(APPLE)
     add_custom_command(TARGET ${target}
       POST_BUILD
@@ -306,7 +306,7 @@ macro(stagedebug target)
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       VERBATIM)
   endif(APPLE)
-  endif(NOT(CMAKE_BUILD_TYPE STREQUAL "Release"))
+  endif(CMAKE_BUILD_TYPE STREQUAL "")
 endmacro()
 
 MACRO(SOURCE_GROUP_BY_FOLDER target)
