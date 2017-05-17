@@ -296,6 +296,7 @@ include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 macro(stagedebug target)
+  if(NOT(CMAKE_BUILD_TYPE STREQUAL "Release"))
   if(APPLE)
     add_custom_command(TARGET ${target}
       POST_BUILD
@@ -304,7 +305,8 @@ macro(stagedebug target)
       COMMENT "Staging dSYM for ${target}"
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       VERBATIM)
-  endif()
+  endif(APPLE)
+  endif(NOT(CMAKE_BUILD_TYPE STREQUAL "Release"))
 endmacro()
 
 MACRO(SOURCE_GROUP_BY_FOLDER target)
@@ -341,7 +343,6 @@ if(ENABLE_PYTHON)
 endif(ENABLE_PYTHON)
 
 IF (BUILD_DOC)
-
   FIND_PACKAGE(Doxygen REQUIRED)
 
   SET(DOXYGEN_INPUT Doxyfile)
