@@ -1,5 +1,5 @@
 /**
- * \ file InPointerFilter.cpp
+ * \ file OutPointerFilter.cpp
  */
 
 #include <cmath>

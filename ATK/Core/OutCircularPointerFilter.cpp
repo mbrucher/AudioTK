@@ -1,0 +1,84 @@
+/**
+ * \file OutCircularPointerFilter.cpp
+ */
+
+#include "OutCircularPointerFilter.h"
+
+#include <algorithm>
+#include <complex>
+#include <cstring>
+
+namespace ATK
+{
+  template<typename DataType>
+  OutCircularPointerFilter<DataType>::OutCircularPointerFilter()
+  :TypedBaseFilter<DataType>(1, 0), offset(0), current_slice(0), last_checked_out_buffer(-1)
+  {
+    array.fill(0);
+  }
+  
+  template<typename DataType>
+  OutCircularPointerFilter<DataType>::~OutCircularPointerFilter()
+  {
+  }
+
+  template<typename DataType>
+  void OutCircularPointerFilter<DataType>::full_setup()
+  {
+    array.fill(0);
+    last_checked_out_buffer = -1;
+    offset = 0;
+  }
+
+  template<typename DataType>
+  void OutCircularPointerFilter<DataType>::process_impl(std::size_t size) const
+  {
+    auto update_size = std::min(size, array.size() - offset);
+    memcpy(reinterpret_cast<void*>(&array[offset]), reinterpret_cast<const void*>(converted_inputs[0]), static_cast<size_t>(update_size) * sizeof(DataType));
+    offset += size;
+    if(offset == array.size())
+    {
+      auto additional_update_size = size - update_size;
+      memcpy(reinterpret_cast<void*>(array.data()), reinterpret_cast<const void*>(converted_inputs[0] + update_size), static_cast<size_t>(additional_update_size) * sizeof(DataType));
+      offset = additional_update_size;
+    }
+    
+    current_slice = offset / slice_size; // Current slice we are filing
+  }
+  
+  template<typename DataType>
+  const typename OutCircularPointerFilter<DataType>::SliceBuffer& OutCircularPointerFilter<DataType>::get_last_slice(bool& process)
+  {
+    process = false;
+    if(last_checked_out_buffer != current_slice)
+    {
+      process = true;
+      auto first_index = static_cast<int>((current_slice - 2) * slice_size);
+      if(first_index < 0)
+      {
+        first_index += nb_slices * slice_size;
+      }
+      auto last_index = std::min(first_index + out_slice_size, nb_slices * slice_size) - first_index;
+      for(std::size_t i = 0; i < last_index; ++i)
+      {
+        last_slice[i] = array[first_index + i];
+      }
+      auto remaining_index = out_slice_size - last_index;
+      for(std::size_t i = 0; i < remaining_index; ++i)
+      {
+        last_slice[i + last_index] = array[i];
+      }
+      
+      last_checked_out_buffer = current_slice;
+    }
+    return last_slice;
+  }
+  
+  template class OutCircularPointerFilter<std::int16_t>;
+  template class OutCircularPointerFilter<std::int32_t>;
+  template class OutCircularPointerFilter<std::int64_t>;
+  template class OutCircularPointerFilter<float>;
+  template class OutCircularPointerFilter<double>;
+  template class OutCircularPointerFilter<std::complex<float>>;
+  template class OutCircularPointerFilter<std::complex<double>>;
+}
