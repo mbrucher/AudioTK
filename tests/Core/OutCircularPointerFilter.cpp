@@ -13,12 +13,12 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*2)
+#define PROCESSSIZE (512)
 
 BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_test )
 {
-  std::array<float, PROCESSSIZE*20> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE*20; ++i)
+  std::array<float, PROCESSSIZE*100> data;
+  for(ptrdiff_t i = 0; i < PROCESSSIZE*100; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }

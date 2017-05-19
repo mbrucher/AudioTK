@@ -16,8 +16,8 @@ namespace ATK
   class ATK_CORE_EXPORT OutCircularPointerFilter final : public TypedBaseFilter<DataType_>
   {
   public:
-    static const unsigned int slice_size = 1024 * 4;
-    static const unsigned int nb_slices = 4;
+    static const unsigned int slice_size = 1024;
+    static const unsigned int nb_slices = 32;
     static const unsigned int out_slice_size = (nb_slices - 2) * slice_size;
 
     /// Simplify parent calls

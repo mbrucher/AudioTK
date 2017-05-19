@@ -53,7 +53,7 @@ namespace ATK
     if(last_checked_out_buffer != current_slice)
     {
       process = true;
-      auto first_index = static_cast<int>((current_slice - 2) * slice_size);
+      auto first_index = static_cast<int>((current_slice - nb_slices + 2) * slice_size);
       if(first_index < 0)
       {
         first_index += nb_slices * slice_size;
