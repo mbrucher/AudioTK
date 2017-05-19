@@ -182,8 +182,9 @@ macro(ipp_detect_version)
     endif()
   endif()
 
-  _ipp_add_library(s)
   _ipp_add_library(core)
+  _ipp_add_library(s)
+  _ipp_add_library(vm)
 endmacro()
 
 file(TO_CMAKE_PATH "${IPPROOT}" __IPPROOT)
