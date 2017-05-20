@@ -19,6 +19,7 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.1.0
+* Adding fourth order Linkwitz-Riley filters
 * Adding a new circular buffer (for FFT plugins for instance)
 * Fix EQ Python wrappers
 * Added parameters for tube (inverters) filters definition
