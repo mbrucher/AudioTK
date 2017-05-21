@@ -22,6 +22,7 @@ import_array();
 %include "IIRFilter.i"
 %include "SecondOrderFilter.i"
 %include "LinkwitzRileyFilter.i"
+%include "RIAAFilter.i"
 %include "RobertBristowJohnsonFilter.i"
 %include "SecondOrderSVFFilter.i"
 %include "BesselFilter.i"
