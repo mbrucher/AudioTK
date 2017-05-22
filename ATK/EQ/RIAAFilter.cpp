@@ -31,7 +31,7 @@ namespace ATK
     
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
-    DataType k = 318e-6/75e-6;
+    DataType k = 318e-6/75e-6 * t2/(t1*t3);
     z.push_back(-1/t2);
     p.push_back(-1/t1);
     p.push_back(-1/t3);
