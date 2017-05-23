@@ -19,7 +19,7 @@ matrix:
         - swig
         - python-dev
         - python-pip
-        - python-numpy
+        - python-numpy-dev
         - python-scipy
         - python-nose
     env:
@@ -44,7 +44,7 @@ matrix:
         - swig
         - python3-dev
         - python3-pip
-        - python3-numpy
+        - python3-numpy-dev
         - python3-scipy
         - python3-nose
     env:
@@ -69,7 +69,7 @@ matrix:
         - swig
         - python-dev
         - python-pip
-        - python-numpy
+        - python-numpy-dev
         - python-scipy
         - python-nose
     env:
@@ -94,7 +94,7 @@ matrix:
         - swig
         - python3-dev
         - python3-pip
-        - python3-numpy
+        - python3-numpy-dev
         - python3-scipy
         - python3-nose
     env:
@@ -121,7 +121,7 @@ matrix:
         - swig
         - python-dev
         - python-pip
-        - python-numpy
+        - python-numpy-dev
         - python-scipy
         - python-nose
     env:
@@ -148,7 +148,7 @@ matrix:
         - swig
         - python3-dev
         - python3-pip
-        - python3-numpy
+        - python3-numpy-dev
         - python3-scipy
         - python3-nose
     env:
@@ -175,7 +175,7 @@ matrix:
         - swig
         - python-dev
         - python-pip
-        - python-numpy
+        - python-numpy-dev
         - python-scipy
         - python-nose
     env:
@@ -202,7 +202,7 @@ matrix:
         - swig
         - python3-dev
         - python3-pip
-        - python3-numpy
+        - python3-numpy-dev
         - python3-scipy
         - python3-nose
     env:
