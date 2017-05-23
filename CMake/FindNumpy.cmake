@@ -97,7 +97,7 @@ math(EXPR NUMPY_VERSION_DECIMAL
 find_package_message(NUMPY
     "Found NumPy: version \"${NUMPY_VERSION}\" ${NUMPY_INCLUDE_DIRS}"
     "${NUMPY_INCLUDE_DIRS}${NUMPY_VERSION}")
-
+message(status ${NUMPY_INCLUDE_DIRS})
 set(NUMPY_FOUND TRUE)
 
 

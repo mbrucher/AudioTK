@@ -249,11 +249,6 @@ if(ENABLE_GPL)
   endif(LIBSNDFILE_FOUND)
 endif(ENABLE_GPL)
 
-if(ATK_BUILD_PYTHON)
-  find_package(swig REQUIRED)
-  find_package(NumPy REQUIRED)
-endif(ATK_BUILD_PYTHON)
-
 find_package(IPP)
 find_package(Boost REQUIRED)
 find_package(Eigen)
