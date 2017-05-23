@@ -50,54 +50,31 @@ if(NOT PYTHONINTERP_FOUND)
     return()
 endif()
 
-execute_process(COMMAND "${PYTHON_EXECUTABLE}" "-c"
-    "import numpy as n; print(n.__version__); print(n.get_include());"
-    RESULT_VARIABLE _NUMPY_SEARCH_SUCCESS
-    OUTPUT_VARIABLE _NUMPY_VALUES_OUTPUT
-    ERROR_VARIABLE _NUMPY_ERROR_VALUE
-    OUTPUT_STRIP_TRAILING_WHITESPACE)
+if (PYTHON_EXECUTABLE)
+  # Find out the include path
+  execute_process(
+    COMMAND "${PYTHON_EXECUTABLE}" -c
+            "from __future__ import print_function\ntry: import numpy; print(numpy.get_include(), end='')\nexcept:pass\n"
+            OUTPUT_VARIABLE __numpy_path)
+  # And the version
+  execute_process(
+    COMMAND "${PYTHON_EXECUTABLE}" -c
+            "from __future__ import print_function\ntry: import numpy; print(numpy.__version__, end='')\nexcept:pass\n"
+    OUTPUT_VARIABLE __numpy_version)
+elseif(__numpy_out)
+  message(STATUS "Python executable not found.")
+endif(PYTHON_EXECUTABLE)
 
-if(NOT _NUMPY_SEARCH_SUCCESS MATCHES 0)
-    if(NumPy_FIND_REQUIRED)
-        message(FATAL_ERROR
-            "NumPy import failure:\n${_NUMPY_ERROR_VALUE}")
-    endif()
-    set(NUMPY_FOUND FALSE)
-    return()
-endif()
+find_path(PYTHON_NUMPY_INCLUDE_DIR numpy/arrayobject.h
+  HINTS "${__numpy_path}" "${PYTHON_INCLUDE_PATH}" NO_DEFAULT_PATH)
 
-# Convert the process output into a list
-string(REGEX REPLACE ";" "\\\\;" _NUMPY_VALUES ${_NUMPY_VALUES_OUTPUT})
-string(REGEX REPLACE "\n" ";" _NUMPY_VALUES ${_NUMPY_VALUES})
-# Just in case there is unexpected output from the Python command.
-list(GET _NUMPY_VALUES -2 NUMPY_VERSION)
-list(GET _NUMPY_VALUES -1 NUMPY_INCLUDE_DIRS)
+if(PYTHON_NUMPY_INCLUDE_DIR)
+  set(PYTHON_NUMPY_FOUND 1 CACHE INTERNAL "Python numpy found")
+endif(PYTHON_NUMPY_INCLUDE_DIR)
 
-string(REGEX MATCH "^[0-9]+\\.[0-9]+\\.[0-9]+" _VER_CHECK "${NUMPY_VERSION}")
-if("${_VER_CHECK}" STREQUAL "")
-    # The output from Python was unexpected. Raise an error always
-    # here, because we found NumPy, but it appears to be corrupted somehow.
-    message(FATAL_ERROR
-        "Requested version and include path from NumPy, got instead:\n${_NUMPY_VALUES_OUTPUT}\n")
-    return()
-endif()
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(NumPy REQUIRED_VARS PYTHON_NUMPY_INCLUDE_DIR
+                                        VERSION_VAR __numpy_version)
 
-# Make sure all directory separators are '/'
-string(REGEX REPLACE "\\\\" "/" NUMPY_INCLUDE_DIRS ${NUMPY_INCLUDE_DIRS})
-
-# Get the major and minor version numbers
-string(REGEX REPLACE "\\." ";" _NUMPY_VERSION_LIST ${NUMPY_VERSION})
-list(GET _NUMPY_VERSION_LIST 0 NUMPY_VERSION_MAJOR)
-list(GET _NUMPY_VERSION_LIST 1 NUMPY_VERSION_MINOR)
-list(GET _NUMPY_VERSION_LIST 2 NUMPY_VERSION_PATCH)
-string(REGEX MATCH "[0-9]*" NUMPY_VERSION_PATCH ${NUMPY_VERSION_PATCH})
-math(EXPR NUMPY_VERSION_DECIMAL
-    "(${NUMPY_VERSION_MAJOR} * 10000) + (${NUMPY_VERSION_MINOR} * 100) + ${NUMPY_VERSION_PATCH}")
-
-find_package_message(NUMPY
-    "Found NumPy: version \"${NUMPY_VERSION}\" ${NUMPY_INCLUDE_DIRS}"
-    "${NUMPY_INCLUDE_DIRS}${NUMPY_VERSION}")
-message(status ${NUMPY_INCLUDE_DIRS})
-set(NUMPY_FOUND TRUE)
-
-
+message(status ${PYTHON_NUMPY_INCLUDE_DIR})
+                                        
