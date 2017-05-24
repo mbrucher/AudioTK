@@ -17,11 +17,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python-dev
-        - python-pip
-        - python-numpy-dev
-        - python-scipy
-        - python-nose
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
@@ -42,11 +37,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python3-dev
-        - python3-pip
-        - python3-numpy-dev
-        - python3-scipy
-        - python3-nose
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
@@ -67,11 +57,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python-dev
-        - python-pip
-        - python-numpy-dev
-        - python-scipy
-        - python-nose
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
@@ -92,11 +77,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python3-dev
-        - python3-pip
-        - python3-numpy-dev
-        - python3-scipy
-        - python3-nose
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
@@ -119,11 +99,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python-dev
-        - python-pip
-        - python-numpy-dev
-        - python-scipy
-        - python-nose
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
@@ -146,11 +121,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python3-dev
-        - python3-pip
-        - python3-numpy-dev
-        - python3-scipy
-        - python3-nose
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
@@ -173,11 +143,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python-dev
-        - python-pip
-        - python-numpy-dev
-        - python-scipy
-        - python-nose
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
@@ -200,11 +165,6 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - python3-dev
-        - python3-pip
-        - python3-numpy-dev
-        - python3-scipy
-        - python3-nose
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
@@ -256,11 +216,13 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then chmod +x cmake-3.8.1-Linux-x86_64.sh ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ./cmake-3.8.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then /opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python${Python_ADDITIONAL_VERSIONS} -m pip install numpy scipy nose ; fi
+
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install eigen fftw libsndfile swig ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew upgrade cmake ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then if [[ "$PYTHON" == "python3" ]]; then brew install python3 ; fi ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sudo ${PYTHON} -m pip install numpy scipy nose ; fi
+
   - wget --no-verbose --output-document=boost_1_63_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.63.0/boost_1_63_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
