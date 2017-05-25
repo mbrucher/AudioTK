@@ -17,12 +17,14 @@ namespace ATK
     DataType get_max_reduction() const;
   };
 
-  ATKProperty(GainMaxExpanderFilter<float>, threshold, get_threshold, set_threshold);
-  ATKProperty(GainMaxExpanderFilter<float>, softness, get_softness, set_softness);
-  ATKProperty(GainMaxExpanderFilter<float>, max_reduction, get_max_reduction, set_max_reduction);
-  ATKProperty(GainMaxExpanderFilter<double>, threshold, get_threshold, set_threshold);
-  ATKProperty(GainMaxExpanderFilter<double>, softness, get_softness, set_softness);
-  ATKProperty(GainMaxExpanderFilter<double>, max_reduction, get_max_reduction, set_max_reduction);
+  ATKProperty(GainFilter<GainMaxExpanderFilter<float> >, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainMaxExpanderFilter<float> >, softness, get_softness, set_softness);
+  ATKProperty(GainFilter<GainMaxExpanderFilter<float> >, ratio, get_ratio, set_ratio);
+//  ATKProperty(GainFilter<GainMaxExpanderFilter<float> >, max_reduction, get_max_reduction, set_max_reduction);
+  ATKProperty(GainFilter<GainMaxExpanderFilter<double> >, threshold, get_threshold, set_threshold);
+  ATKProperty(GainFilter<GainMaxExpanderFilter<double> >, softness, get_softness, set_softness);
+  ATKProperty(GainFilter<GainMaxExpanderFilter<double> >, ratio, get_ratio, set_ratio);
+//  ATKProperty(GainFilter<GainMaxExpanderFilter<double> >, max_reduction, get_max_reduction, set_max_reduction);
 }
 
 %template() ATK::GainMaxExpanderFilter<float>;
