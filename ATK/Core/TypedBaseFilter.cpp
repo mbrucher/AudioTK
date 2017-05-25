@@ -153,13 +153,13 @@ namespace ATK
   }
 
   template<typename DataType_, typename DataType__>
-  const DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(std::size_t port) const
+  DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(std::size_t port) const
   {
     return outputs[port];
   }
 
   template<typename DataType_, typename DataType__>
-  std::size TypedBaseFilter<DataType_, DataType__>::get_output_array_size() const
+  std::size_t TypedBaseFilter<DataType_, DataType__>::get_output_array_size() const
   {
     return outputs_size.front();
   }
@@ -171,7 +171,7 @@ namespace ATK
     {
       if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
       {
-        converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataTypeInput>* >(connections[i].second)->get_output_array(connections[i].first);
+        converted_inputs[i] = reinterpret_cast<const TypedBaseFilter<DataTypeInput>* >(connections[i].second)->get_output_array(connections[i].first);
         converted_inputs_size[i] = size;
         continue;
       }
