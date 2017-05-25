@@ -17,10 +17,10 @@ def Oversampling_2_test():
   oversamplingfilter = DoubleOversampling6points5order_2Filter()
   outputfilter = DoubleOutPointerFilter(output, False)
   
-  inputfilter.set_output_sampling_rate(48000)
-  oversamplingfilter.set_input_sampling_rate(48000)
-  oversamplingfilter.set_output_sampling_rate(96000)
-  outputfilter.set_input_sampling_rate(96000)
+  inputfilter.output_sampling_rate = 48000
+  oversamplingfilter.input_sampling_rate = 48000
+  oversamplingfilter.output_sampling_rate = 96000
+  outputfilter.input_sampling_rate = 96000
   
   oversamplingfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, oversamplingfilter, 0)
@@ -44,10 +44,10 @@ def Oversampling_4_test():
   oversamplingfilter = DoubleOversampling6points5order_4Filter()
   outputfilter = DoubleOutPointerFilter(output, False)
   
-  inputfilter.set_output_sampling_rate(48000)
-  oversamplingfilter.set_input_sampling_rate(48000)
-  oversamplingfilter.set_output_sampling_rate(192000)
-  outputfilter.set_input_sampling_rate(192000)
+  inputfilter.output_sampling_rate = 48000
+  oversamplingfilter.input_sampling_rate = 48000
+  oversamplingfilter.output_sampling_rate = 192000
+  outputfilter.input_sampling_rate = 192000
   
   oversamplingfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, oversamplingfilter, 0)
@@ -71,10 +71,10 @@ def Oversampling_8_test():
   oversamplingfilter = DoubleOversampling6points5order_8Filter()
   outputfilter = DoubleOutPointerFilter(output, False)
   
-  inputfilter.set_output_sampling_rate(48000)
-  oversamplingfilter.set_input_sampling_rate(48000)
-  oversamplingfilter.set_output_sampling_rate(384000)
-  outputfilter.set_input_sampling_rate(384000)
+  inputfilter.output_sampling_rate = 48000
+  oversamplingfilter.input_sampling_rate = 48000
+  oversamplingfilter.output_sampling_rate = 384000
+  outputfilter.input_sampling_rate = 384000
   
   oversamplingfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, oversamplingfilter, 0)
@@ -98,10 +98,11 @@ def Oversampling_16_test():
   oversamplingfilter = DoubleOversampling6points5order_16Filter()
   outputfilter = DoubleOutPointerFilter(output, False)
   
-  inputfilter.set_output_sampling_rate(48000)
-  oversamplingfilter.set_input_sampling_rate(48000)
-  oversamplingfilter.set_output_sampling_rate(768000)
-  outputfilter.set_input_sampling_rate(768000)
+  inputfilter.output_sampling_rate = 48000
+  oversamplingfilter.input_sampling_rate = 48000
+  oversamplingfilter.output_sampling_rate = 768000
+  outputfilter.input_sampling_rate = 768000
+
   
   oversamplingfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, oversamplingfilter, 0)
@@ -126,10 +127,11 @@ def Oversampling_32_test():
   oversamplingfilter = DoubleOversampling6points5order_32Filter()
   outputfilter = DoubleOutPointerFilter(output, False)
   
-  inputfilter.set_output_sampling_rate(48000)
-  oversamplingfilter.set_input_sampling_rate(48000)
-  oversamplingfilter.set_output_sampling_rate(2*768000)
-  outputfilter.set_input_sampling_rate(2*768000)
+  inputfilter.output_sampling_rate = 48000
+  oversamplingfilter.input_sampling_rate = 48000
+  oversamplingfilter.output_sampling_rate = 32*48000
+  outputfilter.input_sampling_rate = 32*48000
+
   
   oversamplingfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, oversamplingfilter, 0)
