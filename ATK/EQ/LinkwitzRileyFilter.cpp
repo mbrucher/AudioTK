@@ -77,10 +77,10 @@ namespace ATK
     auto sq_tmp2=sqrt2*wc*k3;
     auto a_tmp=4*wc2*k2+2*sq_tmp1+k4+2*sq_tmp2+wc4;
     
-    coefficients_out[3]=(4*(wc4+sq_tmp1-k4-sq_tmp2))/a_tmp;
-    coefficients_out[2]=(6*wc4-8*wc2*k2+6*k4)/a_tmp;
-    coefficients_out[1]=(4*(wc4-sq_tmp1+sq_tmp2-k4))/a_tmp;
-    coefficients_out[0]=(k4-2*sq_tmp1+wc4-2*sq_tmp2+4*wc2*k2)/a_tmp;
+    coefficients_out[3]=-(4*(wc4+sq_tmp1-k4-sq_tmp2))/a_tmp;
+    coefficients_out[2]=-(6*wc4-8*wc2*k2+6*k4)/a_tmp;
+    coefficients_out[1]=-(4*(wc4-sq_tmp1+sq_tmp2-k4))/a_tmp;
+    coefficients_out[0]=-(k4-2*sq_tmp1+wc4-2*sq_tmp2+4*wc2*k2)/a_tmp;
     
     coefficients_in[0] = coefficients_in[4] = wc4/a_tmp;
     coefficients_in[1] = coefficients_in[3] = 4*wc4/a_tmp;
@@ -111,10 +111,10 @@ namespace ATK
     auto sq_tmp2=sqrt2*wc*k3;
     auto a_tmp=4*wc2*k2+2*sq_tmp1+k4+2*sq_tmp2+wc4;
     
-    coefficients_out[3]=(4*(wc4+sq_tmp1-k4-sq_tmp2))/a_tmp;
-    coefficients_out[2]=(6*wc4-8*wc2*k2+6*k4)/a_tmp;
-    coefficients_out[1]=(4*(wc4-sq_tmp1+sq_tmp2-k4))/a_tmp;
-    coefficients_out[0]=(k4-2*sq_tmp1+wc4-2*sq_tmp2+4*wc2*k2)/a_tmp;
+    coefficients_out[3]=-(4*(wc4+sq_tmp1-k4-sq_tmp2))/a_tmp;
+    coefficients_out[2]=-(6*wc4-8*wc2*k2+6*k4)/a_tmp;
+    coefficients_out[1]=-(4*(wc4-sq_tmp1+sq_tmp2-k4))/a_tmp;
+    coefficients_out[0]=-(k4-2*sq_tmp1+wc4-2*sq_tmp2+4*wc2*k2)/a_tmp;
     
     coefficients_in[0] = coefficients_in[4] = k4/a_tmp;
     coefficients_in[1] = coefficients_in[3] = -4*k4/a_tmp;
