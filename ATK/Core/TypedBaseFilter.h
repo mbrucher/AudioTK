@@ -45,7 +45,8 @@ namespace ATK
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
-    DataType__* get_output_array(std::size_t port);
+    const DataType__* get_output_array(std::size_t port) const;
+    std::size_t get_output_array_size() const;
 
     virtual void set_nb_input_ports(std::size_t nb_ports) override;
     virtual void set_nb_output_ports(std::size_t nb_ports) override;

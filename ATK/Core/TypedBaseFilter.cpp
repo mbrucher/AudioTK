@@ -153,9 +153,15 @@ namespace ATK
   }
 
   template<typename DataType_, typename DataType__>
-  DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(std::size_t port)
+  const DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(std::size_t port) const
   {
     return outputs[port];
+  }
+
+  template<typename DataType_, typename DataType__>
+  std::size TypedBaseFilter<DataType_, DataType__>::get_output_array_size() const
+  {
+    return outputs_size.front();
   }
 
   template<typename DataType_, typename DataType__>
