@@ -17,9 +17,9 @@ def Sum_test():
   sumfilter = DoubleSumFilter()
   outputfilter = DoubleOutPointerFilter(output, False)
 
-  inputfilter.set_output_sampling_rate(48000)
-  sumfilter.set_input_sampling_rate(48000)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 48000
+  sumfilter.input_sampling_rate = 48000
+  outputfilter.input_sampling_rate = 48000
 
   sumfilter.set_input_port(0, inputfilter, 0)
   sumfilter.set_input_port(1, inputfilter, 1)

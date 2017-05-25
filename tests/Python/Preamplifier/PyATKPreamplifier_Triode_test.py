@@ -20,9 +20,9 @@ def DoubleKorenTriodeFilter_zero_test():
   triodefilter = DoubleKorenTriodeFilter.build_standard_filter()
   outputfilter = DoubleOutPointerFilter(output, False)
 
-  inputfilter.set_output_sampling_rate(sampling_rate)
-  triodefilter.set_input_sampling_rate(sampling_rate)
-  outputfilter.set_input_sampling_rate(sampling_rate)
+  inputfilter.output_sampling_rate = sampling_rate
+  triodefilter.input_sampling_rate = sampling_rate
+  outputfilter.input_sampling_rate = sampling_rate
 
   triodefilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, triodefilter, 0)

@@ -7,21 +7,21 @@ def FloatInPointerFilter_new_test():
   from ATK.Core import FloatInPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float32)[None,:])
   filter = FloatInPointerFilter(d, False)
-  assert filter.get_nb_output_ports() == 1
+  assert filter.nb_output_ports == 1
 
 def DoubleInPointerFilter_new_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
   filter = DoubleInPointerFilter(d, False)
-  assert filter.get_nb_output_ports() == 1
+  assert filter.nb_output_ports == 1
 
 def DoubleIn2PointerFilter_new_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2, 500))
   filter = DoubleInPointerFilter(d, False)
-  assert filter.get_nb_output_ports() == 2
+  assert filter.nb_output_ports == 2
 
 @raises(TypeError)
 def FloatInPointerFilter_new_fail_test():
@@ -81,8 +81,8 @@ def DoublePointerFilter_new_test():
   inputfilter = DoubleInPointerFilter(input, False)
   outputfilter = DoubleOutPointerFilter(output, False)
   outputfilter.set_input_port(0, inputfilter, 0)
-  inputfilter.set_output_sampling_rate(48000)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 48000
+  outputfilter.input_sampling_rate = 48000
   outputfilter.process(1000)
   assert_equal(input, output)
 

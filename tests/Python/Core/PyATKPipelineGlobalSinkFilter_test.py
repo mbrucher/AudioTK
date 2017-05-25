@@ -17,11 +17,11 @@ def PipelineGlobalSinkFilter_usage_test():
   inputfilter = DoubleInPointerFilter(input, False)
   outputfilter = DoubleOutPointerFilter(output, False)
   outputfilter.set_input_port(0, inputfilter, 0)
-  inputfilter.set_output_sampling_rate(48000)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 48000
+  outputfilter.input_sampling_rate = 48000
   sink = PipelineGlobalSinkFilter()
   sink.add_filter(outputfilter)
-  sink.set_input_sampling_rate(48000)
+  sink.input_sampling_rate = 48000
   sink.process(1000)
   assert_equal(input, output)
 

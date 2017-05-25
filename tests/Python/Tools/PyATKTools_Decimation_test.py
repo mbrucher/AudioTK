@@ -16,10 +16,10 @@ def Decimation_test():
   decimationfilter = DoubleDecimationFilter(1)
   outputfilter = DoubleOutPointerFilter(output, False)
 
-  inputfilter.set_output_sampling_rate(96000)
-  decimationfilter.set_input_sampling_rate(96000)
-  decimationfilter.set_output_sampling_rate(48000)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 96000
+  decimationfilter.input_sampling_rate = 96000
+  decimationfilter.output_sampling_rate = 48000
+  outputfilter.input_sampling_rate = 48000
 
   decimationfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, decimationfilter, 0)

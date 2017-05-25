@@ -17,11 +17,11 @@ def Pan_linear_left_test():
   panfilter = DoublePanFilter()
   outputfilter = DoubleOutPointerFilter(output, False)
 
-  inputfilter.set_output_sampling_rate(48000)
-  panfilter.set_input_sampling_rate(48000)
-  panfilter.set_pan_law(DoublePanFilter.LINEAR_TAPER)
-  panfilter.set_pan(-1)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 48000
+  panfilter.input_sampling_rate = 48000
+  panfilter.set_pan_law = DoublePanFilter.LINEAR_TAPER
+  panfilter.pan = -1
+  outputfilter.input_sampling_rate = 48000
 
   panfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, panfilter, 0)
@@ -47,11 +47,12 @@ def Pan_linear_right_test():
   panfilter = DoublePanFilter()
   outputfilter = DoubleOutPointerFilter(output, False)
   
-  inputfilter.set_output_sampling_rate(48000)
-  panfilter.set_input_sampling_rate(48000)
-  panfilter.set_pan_law(DoublePanFilter.LINEAR_TAPER)
-  panfilter.set_pan(1)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 48000
+  panfilter.input_sampling_rate = 48000
+  panfilter.set_pan_law = DoublePanFilter.LINEAR_TAPER
+  panfilter.pan = 1
+  outputfilter.input_sampling_rate = 48000
+
   
   panfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, panfilter, 0)
