@@ -40,6 +40,10 @@ namespace ATK
     return cut_frequency;
   }
 
-  template class FourthOrderBaseCoefficients<float>;
-  template class FourthOrderBaseCoefficients<double>;
+  template ATK_EQ_EXPORT class FourthOrderBaseCoefficients<float>;
+  template ATK_EQ_EXPORT float FourthOrderBaseCoefficients<float>::get_cut_frequency() const;
+  template ATK_EQ_EXPORT void FourthOrderBaseCoefficients<float>::set_cut_frequency(float);
+  template ATK_EQ_EXPORT class FourthOrderBaseCoefficients<double>;
+  template ATK_EQ_EXPORT double FourthOrderBaseCoefficients<double>::get_cut_frequency() const;
+  template ATK_EQ_EXPORT void FourthOrderBaseCoefficients<double>::set_cut_frequency(double);
 }

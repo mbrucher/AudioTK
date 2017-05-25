@@ -50,8 +50,6 @@ if(NOT PYTHONINTERP_FOUND)
     return()
 endif()
 
-message (status ${PYTHON_EXECUTABLE})
-
 if (PYTHON_EXECUTABLE)
   # Find out the include path
   execute_process(
@@ -66,8 +64,6 @@ if (PYTHON_EXECUTABLE)
 elseif(__numpy_out)
   message(STATUS "Python executable not found.")
 endif(PYTHON_EXECUTABLE)
-
-message (status ${__numpy_path})
 
 find_path(PYTHON_NUMPY_INCLUDE_DIR numpy/arrayobject.h
   HINTS "${__numpy_path}" "${PYTHON_INCLUDE_PATH}" NO_DEFAULT_PATH)
