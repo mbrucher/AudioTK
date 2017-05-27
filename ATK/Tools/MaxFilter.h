@@ -21,6 +21,7 @@ namespace ATK
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_output_ports;
+    using Parent::nb_input_ports;
 
   public:
     /*!
