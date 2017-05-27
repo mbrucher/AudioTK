@@ -5,7 +5,7 @@ from nose.tools import raises
 def PipelineGlobalSinkFilter_new_test():
   from ATK.Core import PipelineGlobalSinkFilter
   sink = PipelineGlobalSinkFilter()
-  sink.set_input_sampling_rate(48000)
+  sink.input_sampling_rate = 48000
   sink.process(100)
 
 def PipelineGlobalSinkFilter_usage_test():

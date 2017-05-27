@@ -42,21 +42,21 @@ def FloatOutPointerFilter_new_test():
   from ATK.Core import FloatOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float32)[None,:])
   filter = FloatOutPointerFilter(d, False)
-  assert filter.get_nb_input_ports() == 1
+  assert filter.nb_input_ports == 1
 
 def DoubleOutPointerFilter_new_test():
   import numpy as np
   from ATK.Core import DoubleOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
   filter = DoubleOutPointerFilter(d, False)
-  assert filter.get_nb_input_ports() == 1
+  assert filter.nb_input_ports == 1
 
 def DoubleOut2PointerFilter_new_test():
   import numpy as np
   from ATK.Core import DoubleOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2, 500))
   filter = DoubleOutPointerFilter(d, False)
-  assert filter.get_nb_input_ports() == 2
+  assert filter.nb_input_ports == 2
 
 @raises(TypeError)
 def FloatOutPointerFilter_new_fail_test():
