@@ -25,54 +25,54 @@ namespace
   void populate_ApplyGainFilter(py::module& m, const char* type)
   {
     py::class_<ApplyGainFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType>
   void populate_BufferFilter(py::module& m, const char* type)
   {
     py::class_<BufferFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType>
   void populate_DecimationFilter(py::module& m, const char* type)
   {
     py::class_<DecimationFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType>
   void populate_DryWetFilter(py::module& m, const char* type)
   {
     py::class_<DryWetFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType>
   void populate_MiddleSideFilter(py::module& m, const char* type)
   {
     py::class_<MiddleSideFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType, typename Coefficients>
   void populate_OversamplingFilter(py::module& m, const char* type)
   {
     py::class_<OversamplingFilter<DataType, Coefficients>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType>
   void populate_PanFilter(py::module& m, const char* type)
   {
     py::class_<PanFilter<DataType>, TypedBaseFilter<DataType>> pan(m, type);
-    pan.def(py::init<unsigned long>(), py::arg("nb_channels") = 1)
+    pan.def(py::init<std::size_t>(), py::arg("nb_channels") = 1)
       .def_property("pan_law", &PanFilter<DataType>::get_pan_law, &PanFilter<DataType>::set_pan_law)
       .def_property("pan", &PanFilter<DataType>::get_pan, &PanFilter<DataType>::set_pan);
 
 
-    py::enum_<PanFilter<DataType>::PAN_LAWS>(pan, "PAN_LAWS")
+    py::enum_<typename PanFilter<DataType>::PAN_LAWS>(pan, "PAN_LAWS")
       .value("SINCOS_0_CENTER", PanFilter<DataType>::PAN_LAWS::SINCOS_0_CENTER)
       .value("SINCOS_3_CENTER", PanFilter<DataType>::PAN_LAWS::SINCOS_3_CENTER)
       .value("SQUARE_0_CENTER", PanFilter<DataType>::PAN_LAWS::SQUARE_0_CENTER)
@@ -86,14 +86,14 @@ namespace
   void populate_SumFilter(py::module& m, const char* type)
   {
     py::class_<SumFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType>
   void populate_VolumeFilter(py::module& m, const char* type)
   {
     py::class_<VolumeFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def(py::init<unsigned long>(), py::arg("nb_channels")=1)
+      .def(py::init<std::size_t>(), py::arg("nb_channels")=1)
       .def_property("volume", &VolumeFilter<DataType>::get_volume, &VolumeFilter<DataType>::set_volume);
   }
 }
