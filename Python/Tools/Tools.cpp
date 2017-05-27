@@ -14,7 +14,9 @@
 #include <ATK/Tools/PanFilter.h>
 #include <ATK/Tools/SinusGeneratorFilter.h>
 #include <ATK/Tools/SumFilter.h>
+#include <ATK/Tools/TanFilter.h>
 #include <ATK/Tools/VolumeFilter.h>
+#include <ATK/Tools/WhiteNoiseGeneratorFilter.h>
 
 namespace py = pybind11;
 
@@ -103,11 +105,27 @@ namespace
   }
 
   template<typename DataType, typename T>
+  void populate_TanFilter(py::module& m, const char* type, T& parent)
+  {
+    py::class_<TanFilter<DataType>>(m, type, parent)
+    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+  }
+
+  template<typename DataType, typename T>
   void populate_VolumeFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<VolumeFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels")=1)
       .def_property("volume", &VolumeFilter<DataType>::get_volume, &VolumeFilter<DataType>::set_volume);
+  }
+  
+  template<typename DataType, typename T>
+  void populate_WhiteNoiseGeneratorFilter(py::module& m, const char* type, T& parent)
+  {
+    py::class_<WhiteNoiseGeneratorFilter<DataType>>(m, type, parent)
+    .def(py::init<>())
+    .def_property("volume", &WhiteNoiseGeneratorFilter<DataType>::get_volume, &WhiteNoiseGeneratorFilter<DataType>::set_volume)
+    .def_property("offset", &WhiteNoiseGeneratorFilter<DataType>::get_offset, &WhiteNoiseGeneratorFilter<DataType>::set_offset);
   }
 }
 
@@ -167,11 +185,17 @@ PYBIND11_PLUGIN(PythonTools) {
   populate_SumFilter<double>(m, "DoubleSumFilter", f2);
   populate_SumFilter<std::complex<float>>(m, "ComplexFloatSumFilter", f3);
   populate_SumFilter<std::complex<double>>(m, "ComplexDoubleSumFilter", f4);
+  
+  populate_TanFilter<float>(m, "FloatTanFilter", f1);
+  populate_TanFilter<double>(m, "DoubleTanFilter", f2);
 
   populate_VolumeFilter<float>(m, "FloatVolumeFilter", f1);
   populate_VolumeFilter<double>(m, "DoubleVolumeFilter", f2);
   populate_VolumeFilter<std::complex<float>>(m, "ComplexFloatVolumeFilter", f3);
   populate_VolumeFilter<std::complex<double>>(m, "ComplexDoubleVolumeFilter", f4);
+
+  populate_WhiteNoiseGeneratorFilter<float>(m, "FloatWhiteNoiseGeneratorFilter", f1);
+  populate_WhiteNoiseGeneratorFilter<double>(m, "DoubleWhiteNoiseGeneratorFilter", f2);
 
   return m.ptr();
 }
