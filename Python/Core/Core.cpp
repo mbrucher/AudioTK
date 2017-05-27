@@ -46,6 +46,9 @@ namespace
       .def_property("latency", &BaseFilter::get_latency, &BaseFilter::set_latency)
       .def_property_readonly("global_latency", &BaseFilter::get_global_latency);
 
+    populate_TypedBaseFilter<int16_t>(m, "Int16TypedBaseFilter");
+    populate_TypedBaseFilter<int32_t>(m, "Int32TypedBaseFilter");
+    populate_TypedBaseFilter<int64_t>(m, "Int64TypedBaseFilter");
     populate_TypedBaseFilter<float>(m, "FloatTypedBaseFilter");
     populate_TypedBaseFilter<double>(m, "DoubleTypedBaseFilter");
     populate_TypedBaseFilter<std::complex<float>>(m, "ComplexFloatTypedBaseFilter");
@@ -137,10 +140,16 @@ PYBIND11_PLUGIN(PythonCore) {
   py::module m("PythonCore", "Audio ToolKit Core module");
 
   create_base_filter(m);
+  populate_InPointerFilter<int16_t>(m, "Int16InPointerFilter");
+  populate_InPointerFilter<int32_t>(m, "Int32InPointerFilter");
+  populate_InPointerFilter<int64_t>(m, "Int64InPointerFilter");
   populate_InPointerFilter<float>(m, "FloatInPointerFilter");
   populate_InPointerFilter<double>(m, "DoubleInPointerFilter");
   populate_InPointerFilter<std::complex<float>>(m, "ComplexFloatInPointerFilter");
   populate_InPointerFilter<std::complex<double>>(m, "ComplexDoubleInPointerFilter");
+  populate_OutPointerFilter<int16_t>(m, "Int16OutPointerFilter");
+  populate_OutPointerFilter<int32_t>(m, "Int32OutPointerFilter");
+  populate_OutPointerFilter<int64_t>(m, "Int64OutPointerFilter");
   populate_OutPointerFilter<float>(m, "FloatOutPointerFilter");
   populate_OutPointerFilter<double>(m, "DoubleOutPointerFilter");
   populate_OutPointerFilter<std::complex<float>>(m, "ComplexFloatOutPointerFilter");

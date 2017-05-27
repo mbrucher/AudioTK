@@ -12,6 +12,7 @@
 #include <ATK/Tools/MSFilter.h>
 #include <ATK/Tools/OversamplingFilter.h>
 #include <ATK/Tools/PanFilter.h>
+#include <ATK/Tools/SinusGeneratorFilter.h>
 #include <ATK/Tools/SumFilter.h>
 #include <ATK/Tools/VolumeFilter.h>
 
@@ -84,6 +85,17 @@ namespace
   }
 
   template<typename DataType, typename T>
+  void populate_SinusGeneratorFilter(py::module& m, const char* type, T& parent)
+  {
+    py::class_<SinusGeneratorFilter<DataType>>(m, type, parent)
+    .def(py::init<>())
+    .def_property("frequency", &SinusGeneratorFilter<DataType>::get_frequency, &SinusGeneratorFilter<DataType>::set_frequency)
+    .def_property("volume", &SinusGeneratorFilter<DataType>::get_volume, &SinusGeneratorFilter<DataType>::set_volume)
+    .def_property("offset", &SinusGeneratorFilter<DataType>::get_offset, &SinusGeneratorFilter<DataType>::set_offset)
+    ;
+  }
+
+  template<typename DataType, typename T>
   void populate_SumFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<SumFilter<DataType>>(m, type, parent)
@@ -147,6 +159,9 @@ PYBIND11_PLUGIN(PythonTools) {
   populate_PanFilter<double>(m, "DoublePanFilter", f2);
   populate_PanFilter<std::complex<float>>(m, "ComplexFloatPanFilter", f3);
   populate_PanFilter<std::complex<double>>(m, "ComplexDoublePanFilter", f4);
+
+  populate_SinusGeneratorFilter<float>(m, "FloatSinusGeneratorFilter", f1);
+  populate_SinusGeneratorFilter<double>(m, "DoubleSinusGeneratorFilter", f2);
 
   populate_SumFilter<float>(m, "FloatSumFilter", f1);
   populate_SumFilter<double>(m, "DoubleSumFilter", f2);
