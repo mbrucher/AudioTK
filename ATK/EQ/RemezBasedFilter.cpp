@@ -305,7 +305,7 @@ namespace
 namespace ATK
 {
   template<class DataType>
-  RemezBasedCoefficients<DataType>::RemezBasedCoefficients(unsigned int nb_channels)
+  RemezBasedCoefficients<DataType>::RemezBasedCoefficients(std::size_t nb_channels)
     :Parent(nb_channels, nb_channels), in_order(0)
   {
   }

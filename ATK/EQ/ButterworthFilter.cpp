@@ -121,7 +121,7 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(unsigned int nb_channels)
+  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -157,7 +157,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(unsigned int nb_channels)
+  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -198,7 +198,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(unsigned int nb_channels)
+  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
@@ -241,7 +241,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(unsigned int nb_channels)
+  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }

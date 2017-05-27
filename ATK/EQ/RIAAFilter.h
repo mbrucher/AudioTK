@@ -36,7 +36,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RIAACoefficients(unsigned int nb_channels = 1);
+    RIAACoefficients(std::size_t nb_channels = 1);
   };
 
   /// RIAA coefficients used to create the inverse compensation (for mastering engineers)
@@ -64,7 +64,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    InverseRIAACoefficients(unsigned int nb_channels = 1);
+    InverseRIAACoefficients(std::size_t nb_channels = 1);
   };
 }
 

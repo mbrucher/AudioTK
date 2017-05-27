@@ -42,7 +42,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    FIRFilter(unsigned int nb_channels = 1)
+    FIRFilter(std::size_t nb_channels = 1)
       :Parent(nb_channels)
     {
     }

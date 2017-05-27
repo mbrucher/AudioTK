@@ -42,7 +42,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2LowPassCoefficients(unsigned int nb_channels = 1);
+    Chebyshev2LowPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -89,7 +89,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2HighPassCoefficients(unsigned int nb_channels = 1);
+    Chebyshev2HighPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -136,7 +136,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2BandPassCoefficients(unsigned int nb_channels = 1);
+    Chebyshev2BandPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
@@ -185,7 +185,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev2BandStopCoefficients(unsigned int nb_channels = 1);
+    Chebyshev2BandStopCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);

@@ -32,7 +32,7 @@ namespace ATK
     typedef std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > AlignedVector;
 
     /// Base constructor for filters with actual data
-    TypedBaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports);
+    TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports);
     /// Move constructor
     TypedBaseFilter(TypedBaseFilter&& other);
     /// Destructor

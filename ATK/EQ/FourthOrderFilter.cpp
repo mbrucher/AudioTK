@@ -13,7 +13,7 @@
 namespace ATK
 {
   template <typename DataType_>
-  FourthOrderBaseCoefficients<DataType_>::FourthOrderBaseCoefficients(unsigned int nb_channels)
+  FourthOrderBaseCoefficients<DataType_>::FourthOrderBaseCoefficients(std::size_t nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }

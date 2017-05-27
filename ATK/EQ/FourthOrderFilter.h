@@ -33,7 +33,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    FourthOrderBaseCoefficients(unsigned int nb_channels = 1);
+    FourthOrderBaseCoefficients(std::size_t nb_channels = 1);
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
     /// Returns the cut or central frequency

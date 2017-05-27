@@ -40,7 +40,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthLowPassCoefficients(unsigned int nb_channels = 1);
+    ButterworthLowPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -81,7 +81,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthHighPassCoefficients(unsigned int nb_channels = 1);
+    ButterworthHighPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -122,7 +122,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthBandPassCoefficients(unsigned int nb_channels = 1);
+    ButterworthBandPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
@@ -165,7 +165,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthBandStopCoefficients(unsigned int nb_channels = 1);
+    ButterworthBandStopCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);

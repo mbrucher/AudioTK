@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType>
-  RIAACoefficients<DataType>::RIAACoefficients(unsigned int nb_channels)
+  RIAACoefficients<DataType>::RIAACoefficients(std::size_t nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }
@@ -55,7 +55,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  InverseRIAACoefficients<DataType>::InverseRIAACoefficients(unsigned int nb_channels)
+  InverseRIAACoefficients<DataType>::InverseRIAACoefficients(std::size_t nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }
