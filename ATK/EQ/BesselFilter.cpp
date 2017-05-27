@@ -264,7 +264,13 @@ namespace ATK
     in_order = out_order = order;
     setup();
   }
-  
+
+  template <typename DataType>
+  unsigned int BesselLowPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
   template <typename DataType>
   void BesselLowPassCoefficients<DataType>::setup()
   {
@@ -301,6 +307,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int BesselHighPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
   template <typename DataType>
   void BesselHighPassCoefficients<DataType>::setup()
   {
@@ -350,6 +362,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int BesselBandPassCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+  
+  template <typename DataType>
   void BesselBandPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -392,6 +410,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int BesselBandStopCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
   template <typename DataType>
   void BesselBandStopCoefficients<DataType>::setup()
   {

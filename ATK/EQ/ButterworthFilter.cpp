@@ -147,6 +147,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int ButterworthLowPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
+  template <typename DataType>
   void ButterworthLowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -182,6 +188,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int ButterworthHighPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
   template <typename DataType>
   void ButterworthHighPassCoefficients<DataType>::setup()
   {
@@ -231,6 +243,12 @@ namespace ATK
   }
 
   template <typename DataType>
+  unsigned int ButterworthBandPassCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
+  template <typename DataType>
   void ButterworthBandPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -273,6 +291,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int ButterworthBandStopCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
   template <typename DataType>
   void ButterworthBandStopCoefficients<DataType>::setup()
   {

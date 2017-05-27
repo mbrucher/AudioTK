@@ -184,6 +184,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int Chebyshev2LowPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
+  template <typename DataType>
   void Chebyshev2LowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -232,6 +238,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int Chebyshev2HighPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
   template <typename DataType>
   void Chebyshev2HighPassCoefficients<DataType>::setup()
   {
@@ -294,6 +306,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int Chebyshev2BandPassCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
+  template <typename DataType>
   void Chebyshev2BandPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -349,6 +367,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int Chebyshev2BandStopCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
   template <typename DataType>
   void Chebyshev2BandStopCoefficients<DataType>::setup()
   {

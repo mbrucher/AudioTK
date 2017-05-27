@@ -48,6 +48,8 @@ namespace ATK
     DataType_ get_cut_frequency() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Bessel coeffs for a high pass filter
@@ -89,6 +91,8 @@ namespace ATK
     DataType_ get_cut_frequency() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Bessel coeffs for a band pass filter
@@ -132,6 +136,8 @@ namespace ATK
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Bessel coeffs for a band stop filter
@@ -175,6 +181,8 @@ namespace ATK
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
 }
 

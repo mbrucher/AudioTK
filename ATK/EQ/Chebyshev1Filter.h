@@ -54,6 +54,8 @@ namespace ATK
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Chebyshev 1 coeffs for a high pass filter
@@ -101,6 +103,8 @@ namespace ATK
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Chebyshev 1 coeffs for a band pass filter
@@ -149,7 +153,9 @@ namespace ATK
     /// Gets the ripple
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order);
+    void set_order(unsigned int order);    /// Gets the order of the filter
+    unsigned get_order() const;
+
   };
   
   /// @brief Chebyshev 1 coeffs for a band stop filter
@@ -199,6 +205,8 @@ namespace ATK
     DataType_ get_ripple() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
 }
 
