@@ -5,6 +5,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 
+#include <ATK/EQ/ChamberlinFilter.h>
+
 #include <ATK/EQ/BesselFilter.h>
 #include <ATK/EQ/ButterworthFilter.h>
 #include <ATK/EQ/Chebyshev1Filter.h>
@@ -35,6 +37,15 @@ using namespace py::literals;
 
 namespace
 {
+  template<typename DataType, typename T>
+  void populate_ChamberlinFilter(py::module& m, const char* type, T& parent)
+  {
+    py::class_<ChamberlinFilter<DataType>>(m, type, parent)
+    .def_property("cut_frequency", &ChamberlinFilter<DataType>::get_cut_frequency, &ChamberlinFilter<DataType>::set_cut_frequency)
+    .def_property("attenuation", &ChamberlinFilter<DataType>::get_attenuation, &ChamberlinFilter<DataType>::set_attenuation)
+    .def_property("selected", &ChamberlinFilter<DataType>::get_selected, &ChamberlinFilter<DataType>::select);
+  }
+
   template<typename Coefficients>
   void populate_FIRFilter(py::module& m, const char* type)
   {
@@ -223,6 +234,9 @@ PYBIND11_PLUGIN(PythonEQ) {
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
 
+  populate_ChamberlinFilter<float>(m, "FloatChamberlinFilter", f1);
+  populate_ChamberlinFilter<double>(m, "DoubleChamberlinFilter", f1);
+  
   populate_CustomFIR<float>(m, "FloatCustomFIRCoefficients", f1);
   populate_CustomFIR<double>(m, "DoubleCustomFIRCoefficients", f2);
   
