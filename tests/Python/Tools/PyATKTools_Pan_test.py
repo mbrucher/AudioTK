@@ -19,7 +19,7 @@ def Pan_linear_left_test():
 
   inputfilter.output_sampling_rate = 48000
   panfilter.input_sampling_rate = 48000
-  panfilter.set_pan_law = DoublePanFilter.LINEAR_TAPER
+  panfilter.pan_law = DoublePanFilter.LINEAR_TAPER
   panfilter.pan = -1
   outputfilter.input_sampling_rate = 48000
 
@@ -49,7 +49,7 @@ def Pan_linear_right_test():
   
   inputfilter.output_sampling_rate = 48000
   panfilter.input_sampling_rate = 48000
-  panfilter.set_pan_law = DoublePanFilter.LINEAR_TAPER
+  panfilter.pan_law = DoublePanFilter.LINEAR_TAPER
   panfilter.pan = 1
   outputfilter.input_sampling_rate = 48000
 

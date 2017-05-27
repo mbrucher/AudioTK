@@ -19,11 +19,11 @@ def DoubleBandPassCoefficientsIIRFilter_test():
   EQfilter = DoubleSecondOrderBandPassFilter()
   outputfilter = DoubleOutPointerFilter(output, False)
 
-  inputfilter.set_output_sampling_rate(48000)
-  EQfilter.set_input_sampling_rate(48000)
-  EQfilter.set_Q(1)
-  EQfilter.set_cut_frequency(1000)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 48000
+  EQfilter.input_sampling_rate = 48000
+  EQfilter.Q = 1
+  EQfilter.cut_frequency = 1000
+  outputfilter.input_sampling_rate = 48000
 
   EQfilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, EQfilter, 0)
