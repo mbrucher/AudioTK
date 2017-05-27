@@ -89,7 +89,11 @@ namespace ATK
     */
     ATK_CORE_EXPORT virtual void set_nb_output_ports(std::size_t nb_ports);
     /// Returns this filter input delay (additional pre-0 samples)
+    ATK_CORE_EXPORT void set_input_delay(std::size_t delay);
+    /// Returns this filter input delay (additional pre-0 samples)
     ATK_CORE_EXPORT std::size_t get_input_delay() const;
+    /// Returns this filter output delay (additional pre-0 samples)
+    ATK_CORE_EXPORT void set_output_delay(std::size_t delay);
     /// Returns this filter output delay (additional pre-0 samples)
     ATK_CORE_EXPORT std::size_t get_output_delay() const;
     /*!
@@ -102,6 +106,9 @@ namespace ATK
     /// Returns the pipeline global latency from this plugin
     ATK_CORE_EXPORT std::size_t get_global_latency() const;
 
+    /// Resets the internal state of the filter (mandatory before processing a new clip in a DAW for instance)
+    ATK_CORE_EXPORT virtual void full_setup();
+
     /// Resets the filter so that it will process something if needed
     void reset();
     /// Returns the type that the filter processes
@@ -112,8 +119,6 @@ namespace ATK
     /// Starts parallel processing without calling reset
     void process_conditionnally_parallel(std::size_t size);
 #endif
-    /// Resets the internal state of the filter (mandatory before processing a new clip in a DAW for instance)
-    ATK_CORE_EXPORT virtual void full_setup();
   
   protected:
     /// The actual filter processing part

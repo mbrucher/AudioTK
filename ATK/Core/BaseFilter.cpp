@@ -120,9 +120,19 @@ namespace ATK
     return output_sampling_rate;
   }
 
+  void BaseFilter::set_input_delay(std::size_t delay)
+  {
+    input_delay = delay;
+  }
+
   std::size_t BaseFilter::get_input_delay() const
   {
     return input_delay;
+  }
+
+  void BaseFilter::set_output_delay(std::size_t delay)
+  {
+    output_delay = delay;
   }
 
   std::size_t BaseFilter::get_output_delay() const
