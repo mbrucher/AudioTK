@@ -26,7 +26,7 @@ namespace ATK
   {
     assert(nb_input_ports == 2 * nb_output_ports);
 
-    for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
+    for (unsigned int channel = 0; channel < nb_output_ports / 2; ++channel)
     {
       const DataType* ATK_RESTRICT input0 = converted_inputs[2 * channel];
       const DataType* ATK_RESTRICT input1 = converted_inputs[2 * channel + 1];
