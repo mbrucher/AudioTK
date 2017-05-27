@@ -20,6 +20,7 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;
+    using Parent::nb_output_ports;
     
   public:
     /*!
