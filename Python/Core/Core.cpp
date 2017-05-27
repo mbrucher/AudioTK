@@ -61,15 +61,29 @@ namespace
   {
     py::class_<InPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
       .def("__init__", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array, bool interleaved) {
-      new (&instance) InPointerFilter<DataType>(array.data(), array.shape(0), array.shape(1), interleaved);
+        std::size_t channels = 1;
+        std::size_t size = array.shape(0);
+        if(array.ndim() == 2)
+        {
+          channels = array.shape(0);
+          size = array.shape(1);
+        }
+        new (&instance) InPointerFilter<DataType>(array.data(), channels, size, interleaved);
     }, py::arg().noconvert(), py::arg("interleaved") = false)
       .def("set_pointer", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array)
     {
-      if (array.shape(0) != instance.get_nb_output_ports())
+      std::size_t channels = 1;
+      std::size_t size = array.shape(0);
+      if(array.ndim() == 2)
+      {
+        channels = array.shape(0);
+        size = array.shape(1);
+      }
+      if (channels != instance.get_nb_output_ports())
       {
         throw std::length_error("Wrong size for the number of channels");
       }
-      instance.set_pointer(array.data(), array.shape(1));
+      instance.set_pointer(array.data(), array.ndim() == 2 ? array.shape(1) : array.shape(0));
     });
   }
 
@@ -78,15 +92,29 @@ namespace
   {
     py::class_<OutPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
       .def("__init__", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array, bool interleaved) {
-      new (&instance) OutPointerFilter<DataType>(array.mutable_data(), array.shape(0), array.shape(1), interleaved);
+        std::size_t channels = 1;
+        std::size_t size = array.shape(0);
+        if(array.ndim() == 2)
+        {
+          channels = array.shape(0);
+          size = array.shape(1);
+        }
+      new (&instance) OutPointerFilter<DataType>(array.mutable_data(), channels, size, interleaved);
     }, py::arg().noconvert(), py::arg("interleaved") = false)
       .def("set_pointer", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array)
     {
-      if (array.shape(0) != instance.get_nb_input_ports())
+      std::size_t channels = 1;
+      std::size_t size = array.shape(0);
+      if(array.ndim() == 2)
+      {
+        channels = array.shape(0);
+        size = array.shape(1);
+      }
+      if (channels != instance.get_nb_output_ports())
       {
         throw std::length_error("Wrong size for the number of channels");
       }
-      instance.set_pointer(array.mutable_data(), array.shape(1));
+      instance.set_pointer(array.mutable_data(), array.ndim() == 2 ? array.shape(1) : array.shape(0));
     });
   }
   
