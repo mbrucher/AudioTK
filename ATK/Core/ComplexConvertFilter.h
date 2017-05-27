@@ -54,7 +54,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of channels, equal to the number of input channels, half the number of output ones
     */
-    ComplexToRealFilter(int nb_channels = 1);
+    ComplexToRealFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~ComplexToRealFilter();
 

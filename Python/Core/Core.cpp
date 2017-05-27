@@ -6,6 +6,7 @@
 #include <pybind11/numpy.h>
 
 #include <ATK/Core/BaseFilter.h>
+#include <ATK/Core/ComplexConvertFilter.h>
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
 #include <ATK/Core/PipelineGlobalSinkFilter.h>
@@ -16,17 +17,17 @@ using namespace ATK;
 
 namespace
 {
-  template<typename DataType>
+  template<typename DataType_, typename DataType__ = DataType_>
   void populate_TypedBaseFilter(py::module& m, const char* type)
   {
-    py::class_<TypedBaseFilter<DataType>, BaseFilter>(m, type)
-      .def("get_output_array", [](TypedBaseFilter<DataType>& instance, std::size_t port)
+    py::class_<TypedBaseFilter<DataType_, DataType__>, BaseFilter>(m, type)
+      .def("get_output_array", [](TypedBaseFilter<DataType__>& instance, std::size_t port)
     {
       if (port >= instance.get_nb_output_ports())
       {
         throw std::length_error("No port with this number");
       }
-      return py::array_t<DataType>(instance.get_output_array_size(), instance.get_output_array(port));
+      return py::array_t<DataType__>(instance.get_output_array_size(), instance.get_output_array(port));
     });
   }
 
@@ -49,6 +50,10 @@ namespace
     populate_TypedBaseFilter<double>(m, "DoubleTypedBaseFilter");
     populate_TypedBaseFilter<std::complex<float>>(m, "ComplexFloatTypedBaseFilter");
     populate_TypedBaseFilter<std::complex<double>>(m, "ComplexDoubleTypedBaseFilter");
+    populate_TypedBaseFilter<std::complex<float>, float>(m, "ComplexFloatFloatTypedBaseFilter");
+    populate_TypedBaseFilter<std::complex<double>, double>(m, "ComplexDoubleDoubleTypedBaseFilter");
+    populate_TypedBaseFilter<float, std::complex<float>>(m, "FloatComplexFloatTypedBaseFilter");
+    populate_TypedBaseFilter<double, std::complex<double>>(m, "DoubleComplexDoubleTypedBaseFilter");
   }
 
   template<typename DataType>
@@ -84,6 +89,20 @@ namespace
       instance.set_pointer(array.mutable_data(), array.shape(1));
     });
   }
+  
+  template<typename DataType>
+  void populate_ComplexToRealFilter(py::module& m, const char* type)
+  {
+    py::class_<ComplexToRealFilter<DataType>, TypedBaseFilter<std::complex<DataType>, DataType>>(m, type)
+    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+  }
+
+  template<typename DataType>
+  void populate_RealToComplexFilter(py::module& m, const char* type)
+  {
+    py::class_<RealToComplexFilter<DataType>, TypedBaseFilter<DataType, std::complex<DataType>>>(m, type)
+    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+  }
 }
 
 PYBIND11_PLUGIN(PythonCore) {
@@ -103,5 +122,11 @@ PYBIND11_PLUGIN(PythonCore) {
     .def(py::init())
     .def("add_filter", &PipelineGlobalSinkFilter::add_filter)
     .def("remove_filter", &PipelineGlobalSinkFilter::remove_filter);
+  
+  populate_ComplexToRealFilter<float>(m, "FloatComplexToRealFilter");
+  populate_ComplexToRealFilter<double>(m, "DoubleComplexToRealFilter");
+  populate_RealToComplexFilter<float>(m, "FloatRealToComplexFilter");
+  populate_RealToComplexFilter<double>(m, "DoubleRealToComplexFilter");
+  
   return m.ptr();
 }
