@@ -74,8 +74,7 @@ namespace ATK
      * The preamp clips at 5V, gain of 10 at BF, 200 at HF and inverts the input.
      * This means that the input has to be low to allow a proper amplification.
      */
-    static TransistorClassAFilter build_standard_filter(DataType_ Rp = 1e3, DataType_ Rg1 = 15e3, DataType_ Rg2 = 1.5e3, DataType_ Ro = 22e3, DataType_ Rk = 100,
-      DataType_ Vbias = 5, DataType_ Cg = 3.3e-6, DataType_ Co = 1e-6, DataType_ Ck = 160e-6, TransistorFunction<DataType_> function = TransistorFunction<DataType_>::build_standard_function());
+    static TransistorClassAFilter build_standard_filter(DataType_ Rp = 1e3, DataType_ Rg1 = 15e3, DataType_ Rg2 = 1.5e3, DataType_ Ro = 22e3, DataType_ Rk = 100, DataType_ Vbias = 5, DataType_ Cg = 3.3e-6, DataType_ Co = 1e-6, DataType_ Ck = 160e-6, TransistorFunction<DataType_> function = TransistorFunction<DataType_>::build_standard_function());
 
     void process_impl(std::size_t size) const override final;
 
