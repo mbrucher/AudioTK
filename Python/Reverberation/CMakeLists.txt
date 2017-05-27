@@ -1,37 +1,27 @@
 
-SET(
-    ATK_PYTHON_REVERBERATION_SWIG
-    main.i
+FILE(GLOB_RECURSE
+  PYTHON_MODULE_Reverberation_SRC
+  *.cpp
 )
 
 FILE(GLOB_RECURSE
-  SWIG_MODULE_Reverberation_EXTRA_DEPS
-  *.i
+  PYTHON_MODULE_Reverberation_HEADERS
+  *.h
 )
 
-list(REMOVE_ITEM SWIG_MODULE_Reverberation_EXTRA_DEPS ${ATK_PYTHON_REVERBERATION_SWIG})
+include_directories(${PROJECT_SOURCE_DIR} ${NUMPY_INCLUDE_DIRS})
 
-include_directories(${PROJECT_SOURCE_DIR})
+pybind11_add_module(PythonReverberation MODULE ${PYTHON_MODULE_Reverberation_SRC} ${PYTHON_MODULE_Reverberation_HEADERS})
+target_link_libraries(PythonReverberation PRIVATE ATKCore ATKReverberation)
 
-SET_SOURCE_FILES_PROPERTIES(${ATK_PYTHON_REVERBERATION_SWIG} PROPERTIES CPLUSPLUS ON)
-SET_SOURCE_FILES_PROPERTIES(${ATK_PYTHON_REVERBERATION_SWIG} PROPERTIES SWIG_FLAGS "-includeall")
 
-SWIG_ADD_LIBRARY(Reverberation LANGUAGE python SOURCES ${ATK_PYTHON_REVERBERATION_SWIG})
-SWIG_LINK_LIBRARIES(Reverberation ATKReverberation ATKUtility ${PYTHON_LIBRARIES})
-
-SET(
-    ATK_REVERBERATION_PYTHON_SRC
-    __init__.py ${PROJECT_BINARY_DIR}/Python/Reverberation/Reverberation.py
-)
-
-INSTALL(FILES ${ATK_REVERBERATION_PYTHON_SRC}
+INSTALL(FILES __init__.py
+    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Reverberation
+    )
+INSTALL(TARGETS PythonReverberation
     DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Reverberation
     )
 
-INSTALL(TARGETS ${SWIG_MODULE_Reverberation_REAL_NAME}
-    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Reverberation
-    )
-
-set_target_properties (${SWIG_MODULE_Reverberation_REAL_NAME} PROPERTIES
+set_target_properties (PythonReverberation PROPERTIES
     FOLDER Python
 )

@@ -1,2 +1,2 @@
 
-from .Reverberation import *
+from .PythonReverberation import *

@@ -19,8 +19,8 @@ namespace
   template<typename DataType>
   void populate_TypedBaseFilter(py::module& m, const char* type)
   {
-    py::class_<ATK::TypedBaseFilter<DataType>, ATK::BaseFilter>(m, type)
-      .def("get_output_array", [](ATK::TypedBaseFilter<DataType>& instance, std::size_t port)
+    py::class_<TypedBaseFilter<DataType>, BaseFilter>(m, type)
+      .def("get_output_array", [](TypedBaseFilter<DataType>& instance, std::size_t port)
     {
       if (port >= instance.get_nb_output_ports())
       {
@@ -32,18 +32,18 @@ namespace
 
   void create_base_filter(py::module& m)
   {
-    py::class_<ATK::BaseFilter>(m, "BaseFilter")
-      .def("set_input_port", &ATK::BaseFilter::set_input_port)
-      .def("process", &ATK::BaseFilter::process)
-      .def("full_setup", &ATK::BaseFilter::full_setup)
-      .def_property("input_sampling_rate", &ATK::BaseFilter::get_input_sampling_rate, &ATK::BaseFilter::set_input_sampling_rate)
-      .def_property("output_sampling_rate", &ATK::BaseFilter::get_output_sampling_rate, &ATK::BaseFilter::set_output_sampling_rate)
-      .def_property("input_delay", &ATK::BaseFilter::get_input_delay, &ATK::BaseFilter::set_input_delay)
-      .def_property("output_delay", &ATK::BaseFilter::get_output_delay, &ATK::BaseFilter::set_output_delay)
-      .def_property("nb_input_ports", &ATK::BaseFilter::get_nb_input_ports, &ATK::BaseFilter::set_nb_input_ports)
-      .def_property("nb_output_ports", &ATK::BaseFilter::get_nb_output_ports, &ATK::BaseFilter::set_nb_output_ports)
-      .def_property("latency", &ATK::BaseFilter::get_latency, &ATK::BaseFilter::set_latency)
-      .def_property_readonly("global_latency", &ATK::BaseFilter::get_global_latency);
+    py::class_<BaseFilter>(m, "BaseFilter")
+      .def("set_input_port", &BaseFilter::set_input_port)
+      .def("process", &BaseFilter::process)
+      .def("full_setup", &BaseFilter::full_setup)
+      .def_property("input_sampling_rate", &BaseFilter::get_input_sampling_rate, &BaseFilter::set_input_sampling_rate)
+      .def_property("output_sampling_rate", &BaseFilter::get_output_sampling_rate, &BaseFilter::set_output_sampling_rate)
+      .def_property("input_delay", &BaseFilter::get_input_delay, &BaseFilter::set_input_delay)
+      .def_property("output_delay", &BaseFilter::get_output_delay, &BaseFilter::set_output_delay)
+      .def_property("nb_input_ports", &BaseFilter::get_nb_input_ports, &BaseFilter::set_nb_input_ports)
+      .def_property("nb_output_ports", &BaseFilter::get_nb_output_ports, &BaseFilter::set_nb_output_ports)
+      .def_property("latency", &BaseFilter::get_latency, &BaseFilter::set_latency)
+      .def_property_readonly("global_latency", &BaseFilter::get_global_latency);
 
     populate_TypedBaseFilter<float>(m, "FloatTypedBaseFilter");
     populate_TypedBaseFilter<double>(m, "DoubleTypedBaseFilter");
@@ -54,11 +54,11 @@ namespace
   template<typename DataType>
   void populate_InPointerFilter(py::module& m, const char* type)
   {
-    py::class_<ATK::InPointerFilter<DataType>, ATK::TypedBaseFilter<DataType>>(m, type)
-      .def("__init__", [](ATK::InPointerFilter<DataType>& instance, const py::array_t<DataType>& array, bool interleaved) {
-      new (&instance) ATK::InPointerFilter<DataType>(array.data(), array.shape(0), array.shape(1), interleaved);
-    }/*, py::arg("interleaved") = false*/)
-      .def("set_pointer", [](ATK::InPointerFilter<DataType>& instance, const py::array_t<DataType>& array)
+    py::class_<InPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+      .def("__init__", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array, bool interleaved) {
+      new (&instance) InPointerFilter<DataType>(array.data(), array.shape(0), array.shape(1), interleaved);
+    }, py::arg().noconvert(), py::arg("interleaved") = false)
+      .def("set_pointer", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array)
     {
       if (array.shape(0) != instance.get_nb_output_ports())
       {
@@ -71,11 +71,11 @@ namespace
   template<typename DataType>
   void populate_OutPointerFilter(py::module& m, const char* type)
   {
-    py::class_<ATK::OutPointerFilter<DataType>, ATK::TypedBaseFilter<DataType>>(m, type)
-      .def("__init__", [](ATK::OutPointerFilter<DataType>& instance, py::array_t<DataType>& array, bool interleaved) {
-      new (&instance) ATK::OutPointerFilter<DataType>(array.mutable_data(), array.shape(0), array.shape(1), interleaved);
-    }/*, py::arg("interleaved") = false*/)
-      .def("set_pointer", [](ATK::OutPointerFilter<DataType>& instance, py::array_t<DataType>& array)
+    py::class_<OutPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+      .def("__init__", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array, bool interleaved) {
+      new (&instance) OutPointerFilter<DataType>(array.mutable_data(), array.shape(0), array.shape(1), interleaved);
+    }, py::arg().noconvert(), py::arg("interleaved") = false)
+      .def("set_pointer", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array)
     {
       if (array.shape(0) != instance.get_nb_input_ports())
       {
@@ -99,9 +99,9 @@ PYBIND11_PLUGIN(PythonCore) {
   populate_OutPointerFilter<std::complex<float>>(m, "ComplexFloatOutPointerFilter");
   populate_OutPointerFilter<std::complex<double>>(m, "ComplexDoubleOutPointerFilter");
 
-  py::class_<ATK::PipelineGlobalSinkFilter, ATK::BaseFilter>(m, "PipelineGlobalSinkFilter")
+  py::class_<PipelineGlobalSinkFilter, BaseFilter>(m, "PipelineGlobalSinkFilter")
     .def(py::init())
-    .def("add_filter", &ATK::PipelineGlobalSinkFilter::add_filter)
-    .def("remove_filter", &ATK::PipelineGlobalSinkFilter::remove_filter);
+    .def("add_filter", &PipelineGlobalSinkFilter::add_filter)
+    .def("remove_filter", &PipelineGlobalSinkFilter::remove_filter);
   return m.ptr();
 }

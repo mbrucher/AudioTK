@@ -1,2 +1,2 @@
 
-from .EQ import *
+from .PythonEQ import *
