@@ -24,7 +24,7 @@ namespace ATK
   template<typename DataType_>
   void MiddleSideFilter<DataType_>::process_impl(std::size_t size) const
   {
-    assert(nb_input_ports == 2 * nb_output_ports);
+    assert(nb_input_ports == nb_output_ports);
 
     for (unsigned int channel = 0; channel < nb_output_ports / 2; ++channel)
     {
