@@ -25,7 +25,7 @@ namespace ATK
 
   public:
     /// Constructor
-    SumFilter(unsigned int channels = 1);
+    SumFilter(std::size_t channels = 1);
     /// Destructor
     ~SumFilter();
     

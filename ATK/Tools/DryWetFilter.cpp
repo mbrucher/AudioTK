@@ -14,7 +14,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  DryWetFilter<DataType_>::DryWetFilter(int nb_channels)
+  DryWetFilter<DataType_>::DryWetFilter(std::size_t nb_channels)
   :Parent(2 * nb_channels, nb_channels), dry(1)
   {
     

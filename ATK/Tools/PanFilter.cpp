@@ -15,7 +15,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  PanFilter<DataType_>::PanFilter(unsigned int nb_channels)
+  PanFilter<DataType_>::PanFilter(std::size_t nb_channels)
   :Parent(nb_channels, 2 * nb_channels), law(PAN_LAWS::SINCOS_0_CENTER), pan(0)
   {
     

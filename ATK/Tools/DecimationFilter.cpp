@@ -11,8 +11,8 @@
 namespace ATK
 {
   template<class DataType>
-  DecimationFilter<DataType>::DecimationFilter(int ports)
-  :TypedBaseFilter<DataType>(ports, ports)
+  DecimationFilter<DataType>::DecimationFilter(std::size_t nb_channels)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
   }
   

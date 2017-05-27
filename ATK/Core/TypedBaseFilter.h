@@ -54,7 +54,7 @@ namespace ATK
     virtual void full_setup() override;
 
     /// Connects this filter input to another's output
-    virtual void set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port) override final;
+    virtual void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) override final;
     
   private:
     virtual int get_type() const override;

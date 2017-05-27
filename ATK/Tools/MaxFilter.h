@@ -25,7 +25,7 @@ namespace ATK
     /*!
     * @brief Constructor
     */
-    MaxFilter();
+    MaxFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~MaxFilter();
     

@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  TanFilter<DataType_>::TanFilter(int nb_channels)
+  TanFilter<DataType_>::TanFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), coeff(1)
   {
     

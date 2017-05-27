@@ -25,7 +25,7 @@ namespace ATK
     /*!
     * @brief Constructor
     */
-    MiddleSideFilter();
+    MiddleSideFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~MiddleSideFilter();
     

@@ -277,7 +277,7 @@ namespace ATK
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port)
+  void TypedBaseFilter<DataType_, DataType__>::set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port)
   {
     Parent::set_input_port(input_port, filter, output_port);
     converted_inputs_size[input_port] = 0;
