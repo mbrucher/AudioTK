@@ -18,18 +18,17 @@ namespace
   template<typename Coefficients>
   void populate_IIRFilter(py::module& m, const char* type)
   {
-    typedef typename Coefficients::DataType DataType;
     py::class_<IIRFilter<Coefficients>, Coefficients>(m, type)
       .def(py::init<std::size_t>(), "nb_channels"_a = 1)
       .def_property_readonly("coefficients_in", &IIRFilter<Coefficients>::get_coefficients_in)
       .def_property_readonly("coefficients_out", &IIRFilter<Coefficients>::get_coefficients_out);
   }
 
-  template<typename Coefficients>
-  void populate_2ndOrderCoefficients(py::module& m, const char* type)
+  template<typename Coefficients, typename T>
+  void populate_2ndOrderCoefficients(py::module& m, const char* type, T& parent)
   {
     typedef typename Coefficients::DataType DataType;
-    py::class_<Coefficients, TypedBaseFilter<DataType>>(m, type)
+    py::class_<Coefficients>(m, type, parent)
       .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency);
   }
 
@@ -44,8 +43,10 @@ namespace
 PYBIND11_PLUGIN(PythonEQ) {
   py::module m("PythonEQ", "Audio ToolKit EQ module");
 
-  populate_2ndOrderCoefficients<SecondOrderBaseCoefficients<float>>(m, "FloatSecondOrderBaseCoefficients");
-  populate_2ndOrderCoefficients<SecondOrderBaseCoefficients<double>>(m, "DoubleSecondOrderBaseCoefficients");
+  py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
+  py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
+  populate_2ndOrderCoefficients<SecondOrderBaseCoefficients<float>>(m, "FloatSecondOrderBaseCoefficients", f1);
+  populate_2ndOrderCoefficients<SecondOrderBaseCoefficients<double>>(m, "DoubleSecondOrderBaseCoefficients", f2);
 
   populate_SecondOrderBandPassCoefficients<SecondOrderBandPassCoefficients<float>>(m, "FloatSecondOrderBandPassCoefficients");
   populate_SecondOrderBandPassCoefficients<SecondOrderBandPassCoefficients<double>>(m, "DoubleSecondOrderBandPassCoefficients");

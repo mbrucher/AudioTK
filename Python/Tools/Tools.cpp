@@ -21,52 +21,53 @@ using namespace ATK;
 
 namespace
 {
-  template<typename DataType>
-  void populate_ApplyGainFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_ApplyGainFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<ApplyGainFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+    py::class_<ApplyGainFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
-  template<typename DataType>
-  void populate_BufferFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_BufferFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<BufferFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+    py::class_<BufferFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
-  template<typename DataType>
-  void populate_DecimationFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_DecimationFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<DecimationFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+    py::class_<DecimationFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
-  template<typename DataType>
-  void populate_DryWetFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_DryWetFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<DryWetFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+    py::class_<DryWetFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
-  template<typename DataType>
-  void populate_MiddleSideFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_MiddleSideFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<MiddleSideFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+    py::class_<MiddleSideFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
-  template<typename DataType, typename Coefficients>
-  void populate_OversamplingFilter(py::module& m, const char* type)
+  template<typename Coefficients, typename T>
+  void populate_OversamplingFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<OversamplingFilter<DataType, Coefficients>, TypedBaseFilter<DataType>>(m, type)
+    typedef typename Coefficients::DataType DataType;
+    py::class_<OversamplingFilter<DataType, Coefficients>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
-  template<typename DataType>
-  void populate_PanFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_PanFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<PanFilter<DataType>, TypedBaseFilter<DataType>> pan(m, type);
+    py::class_<PanFilter<DataType>> pan(m, type, parent);
     pan.def(py::init<std::size_t>(), py::arg("nb_channels") = 1)
       .def_property("pan_law", &PanFilter<DataType>::get_pan_law, &PanFilter<DataType>::set_pan_law)
       .def_property("pan", &PanFilter<DataType>::get_pan, &PanFilter<DataType>::set_pan);
@@ -82,17 +83,17 @@ namespace
       .export_values();
   }
 
-  template<typename DataType>
-  void populate_SumFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_SumFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<SumFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+    py::class_<SumFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
   }
 
-  template<typename DataType>
-  void populate_VolumeFilter(py::module& m, const char* type)
+  template<typename DataType, typename T>
+  void populate_VolumeFilter(py::module& m, const char* type, T& parent)
   {
-    py::class_<VolumeFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
+    py::class_<VolumeFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels")=1)
       .def_property("volume", &VolumeFilter<DataType>::get_volume, &VolumeFilter<DataType>::set_volume);
   }
@@ -101,56 +102,61 @@ namespace
 PYBIND11_PLUGIN(PythonTools) {
   py::module m("PythonTools", "Audio ToolKit Tools module");
 
-  populate_ApplyGainFilter<float>(m, "FloatApplyGainFilter");
-  populate_ApplyGainFilter<double>(m, "DoubleApplyGainFilter");
-  populate_ApplyGainFilter<std::complex<float>>(m, "ComplexFloatApplyGainFilter");
-  populate_ApplyGainFilter<std::complex<double>>(m, "ComplexDoubleApplyGainFilter");
+  py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
+  py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
+  py::object f3 = (py::object) py::module::import("ATK.Core").attr("ComplexFloatTypedBaseFilter");
+  py::object f4 = (py::object) py::module::import("ATK.Core").attr("ComplexDoubleTypedBaseFilter");
 
-  populate_BufferFilter<float>(m, "FloatBufferFilter");
-  populate_BufferFilter<double>(m, "DoubleBufferFilter");
-  populate_BufferFilter<std::complex<float>>(m, "ComplexFloatBufferFilter");
-  populate_BufferFilter<std::complex<double>>(m, "ComplexDoubleBufferFilter");
+  populate_ApplyGainFilter<float>(m, "FloatApplyGainFilter", f1);
+  populate_ApplyGainFilter<double>(m, "DoubleApplyGainFilter", f2);
+  populate_ApplyGainFilter<std::complex<float>>(m, "ComplexFloatApplyGainFilter", f3);
+  populate_ApplyGainFilter<std::complex<double>>(m, "ComplexDoubleApplyGainFilter", f4);
 
-  populate_DecimationFilter<float>(m, "FloatDecimationFilter");
-  populate_DecimationFilter<double>(m, "DoubleDecimationFilter");
-  populate_DecimationFilter<std::complex<float>>(m, "ComplexFloatDecimationFilter");
-  populate_DecimationFilter<std::complex<double>>(m, "ComplexDoubleDecimationFilter");
+  populate_BufferFilter<float>(m, "FloatBufferFilter", f1);
+  populate_BufferFilter<double>(m, "DoubleBufferFilter", f2);
+  populate_BufferFilter<std::complex<float>>(m, "ComplexFloatBufferFilter", f3);
+  populate_BufferFilter<std::complex<double>>(m, "ComplexDoubleBufferFilter", f4);
 
-  populate_DryWetFilter<float>(m, "FloatDryWetFilter");
-  populate_DryWetFilter<double>(m, "DoubleDryWetFilter");
-  populate_DryWetFilter<std::complex<float>>(m, "ComplexFloatDryWetFilter");
-  populate_DryWetFilter<std::complex<double>>(m, "ComplexDoubleDryWetFilter");
+  populate_DecimationFilter<float>(m, "FloatDecimationFilter", f1);
+  populate_DecimationFilter<double>(m, "DoubleDecimationFilter", f2);
+  populate_DecimationFilter<std::complex<float>>(m, "ComplexFloatDecimationFilter", f3);
+  populate_DecimationFilter<std::complex<double>>(m, "ComplexDoubleDecimationFilter", f4);
 
-  populate_MiddleSideFilter<float>(m, "FloatMiddleSideFilter");
-  populate_MiddleSideFilter<double>(m, "DoubleMiddleSideFilter");
-  populate_MiddleSideFilter<std::complex<float>>(m, "ComplexFloatMiddleSideFilter");
-  populate_MiddleSideFilter<std::complex<double>>(m, "ComplexDoubleMiddleSideFilter");
+  populate_DryWetFilter<float>(m, "FloatDryWetFilter", f1);
+  populate_DryWetFilter<double>(m, "DoubleDryWetFilter", f2);
+  populate_DryWetFilter<std::complex<float>>(m, "ComplexFloatDryWetFilter", f3);
+  populate_DryWetFilter<std::complex<double>>(m, "ComplexDoubleDryWetFilter", f4);
 
-  populate_OversamplingFilter<float, Oversampling6points5order_2<float>>(m, "FloatOversampling6points5order_2Filter");
-  populate_OversamplingFilter<double, Oversampling6points5order_2<double>>(m, "DoubleOversampling6points5order_2Filter");
-  populate_OversamplingFilter<float, Oversampling6points5order_4<float>>(m, "FloatOversampling6points5order_4Filter");
-  populate_OversamplingFilter<double, Oversampling6points5order_4<double>>(m, "DoubleOversampling6points5order_4Filter");
-  populate_OversamplingFilter<float, Oversampling6points5order_8<float>>(m, "FloatOversampling6points5order_8Filter");
-  populate_OversamplingFilter<double, Oversampling6points5order_8<double>>(m, "DoubleOversampling6points5order_8Filter");
-  populate_OversamplingFilter<float, Oversampling6points5order_16<float>>(m, "FloatOversampling6points5order_16Filter");
-  populate_OversamplingFilter<double, Oversampling6points5order_16<double>>(m, "DoubleOversampling6points5order_16Filter");
-  populate_OversamplingFilter<float, Oversampling6points5order_32<float>>(m, "FloatOversampling6points5order_32Filter");
-  populate_OversamplingFilter<double, Oversampling6points5order_32<double>>(m, "DoubleOversampling6points5order_32Filter");
+  populate_MiddleSideFilter<float>(m, "FloatMiddleSideFilter", f1);
+  populate_MiddleSideFilter<double>(m, "DoubleMiddleSideFilter", f2);
+  populate_MiddleSideFilter<std::complex<float>>(m, "ComplexFloatMiddleSideFilter", f3);
+  populate_MiddleSideFilter<std::complex<double>>(m, "ComplexDoubleMiddleSideFilter", f4);
 
-  populate_PanFilter<float>(m, "FloatPanFilter");
-  populate_PanFilter<double>(m, "DoublePanFilter");
-  populate_PanFilter<std::complex<float>>(m, "ComplexFloatPanFilter");
-  populate_PanFilter<std::complex<double>>(m, "ComplexDoublePanFilter");
+  populate_OversamplingFilter<Oversampling6points5order_2<float>>(m, "FloatOversampling6points5order_2Filter", f1);
+  populate_OversamplingFilter<Oversampling6points5order_2<double>>(m, "DoubleOversampling6points5order_2Filter", f2);
+  populate_OversamplingFilter<Oversampling6points5order_4<float>>(m, "FloatOversampling6points5order_4Filter", f1);
+  populate_OversamplingFilter<Oversampling6points5order_4<double>>(m, "DoubleOversampling6points5order_4Filter", f2);
+  populate_OversamplingFilter<Oversampling6points5order_8<float>>(m, "FloatOversampling6points5order_8Filter", f1);
+  populate_OversamplingFilter<Oversampling6points5order_8<double>>(m, "DoubleOversampling6points5order_8Filter", f2);
+  populate_OversamplingFilter<Oversampling6points5order_16<float>>(m, "FloatOversampling6points5order_16Filter", f1);
+  populate_OversamplingFilter<Oversampling6points5order_16<double>>(m, "DoubleOversampling6points5order_16Filter", f2);
+  populate_OversamplingFilter<Oversampling6points5order_32<float>>(m, "FloatOversampling6points5order_32Filter", f1);
+  populate_OversamplingFilter<Oversampling6points5order_32<double>>(m, "DoubleOversampling6points5order_32Filter", f2);
 
-  populate_SumFilter<float>(m, "FloatSumFilter");
-  populate_SumFilter<double>(m, "DoubleSumFilter");
-  populate_SumFilter<std::complex<float>>(m, "ComplexFloatSumFilter");
-  populate_SumFilter<std::complex<double>>(m, "ComplexDoubleSumFilter");
+  populate_PanFilter<float>(m, "FloatPanFilter", f1);
+  populate_PanFilter<double>(m, "DoublePanFilter", f2);
+  populate_PanFilter<std::complex<float>>(m, "ComplexFloatPanFilter", f3);
+  populate_PanFilter<std::complex<double>>(m, "ComplexDoublePanFilter", f4);
 
-  populate_VolumeFilter<float>(m, "FloatVolumeFilter");
-  populate_VolumeFilter<double>(m, "DoubleVolumeFilter");
-  populate_VolumeFilter<std::complex<float>>(m, "ComplexFloatVolumeFilter");
-  populate_VolumeFilter<std::complex<double>>(m, "ComplexDoubleVolumeFilter");
+  populate_SumFilter<float>(m, "FloatSumFilter", f1);
+  populate_SumFilter<double>(m, "DoubleSumFilter", f2);
+  populate_SumFilter<std::complex<float>>(m, "ComplexFloatSumFilter", f3);
+  populate_SumFilter<std::complex<double>>(m, "ComplexDoubleSumFilter", f4);
+
+  populate_VolumeFilter<float>(m, "FloatVolumeFilter", f1);
+  populate_VolumeFilter<double>(m, "DoubleVolumeFilter", f2);
+  populate_VolumeFilter<std::complex<float>>(m, "ComplexFloatVolumeFilter", f3);
+  populate_VolumeFilter<std::complex<double>>(m, "ComplexDoubleVolumeFilter", f4);
 
   return m.ptr();
 }
