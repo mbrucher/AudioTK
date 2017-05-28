@@ -24,21 +24,34 @@ def filter(input, reference):
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(48000)
+  infilter.input_sampling_rate = 48000
   reffilter = DoubleInPointerFilter(reference, False)
-  reffilter.set_input_sampling_rate(48000)
+  reffilter.input_sampling_rate = 48000
   rls = DoubleLMSFilter(12)
-  rls.set_input_sampling_rate(48000)
-  rls.set_memory(0.9)
-  rls.set_mu(0.05)
+  rls.input_sampling_rate = 48000
+  rls.memory = 0.9
+  rls.mu = 0.05
   rls.set_input_port(0, infilter, 0)
   rls.set_input_port(1, reffilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(48000)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, rls, 0)
   outfilter.process(input.shape[1])
 
   return output
+
+def LMS2_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  d = np.fromfile(dirname + os.sep + "input_lms2.dat", dtype=np.float64).reshape(1, -1)
+  noise = np.fromfile(dirname + os.sep + "noise_lms2.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output_lms2.dat", dtype=np.float64).reshape(1, -1)
+  out = filter(d, noise)
+  assert_almost_equal(out, ref)
 
 if __name__ == "__main__":
   import numpy as np
@@ -51,18 +64,19 @@ if __name__ == "__main__":
   noise = np.random.randn(1, size)/10
   noise = butter_bandpass_filter(noise, lowcut, highcut, fs)
 
-  noise.tofile("noise.dat")
-  x = np.arange(size).reshape(1, -1) / fs
+  noise.tofile("noise_lms2.dat")
+  x = np.arange(size, dtype=np.float64).reshape(1, -1) / fs
   d = np.sin(x * 2 * np.pi * 100) + noise
-  d.tofile("input.dat")
+  d.tofile("input_lms2.dat")
   out = filter(d, noise)
-  out.tofile("output_lms.dat")
+  out.tofile("output_lms2.dat")
   noise = noise[:,1:]
   x = x[:,1:]
   d = d[:,1:]
   out = out[:,:-1]
 
   import matplotlib.pyplot as plt
+  print(x)
   plt.plot(x[0,size-window:size], d[0,size-window:size], label="Noisy signal")
   plt.plot(x[0,size-window:size], noise[0,size-window:size], label="Original noise")
   plt.plot(x[0,size-window:size], (d[0,size-window:size] - out[0,size-window:size]), label="Estimated signal")

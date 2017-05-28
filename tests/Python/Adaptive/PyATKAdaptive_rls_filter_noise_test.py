@@ -23,40 +23,54 @@ def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
 class Filter:
   def __init__(self):
     self.rls = DoubleRLSFilter(5)
-    self.rls.set_input_sampling_rate(fs)
-    self.rls.set_memory(0.999)
+    self.rls.input_sampling_rate = fs
+    self.rls.memory = 0.999
 
   def learn(self, input):
-    self.rls.set_learning(True)
+    self.rls.learning = True
     
     import numpy as np
     output = np.zeros(input.shape, dtype=np.float64)
 
     infilter = DoubleInPointerFilter(input, False)
-    infilter.set_input_sampling_rate(fs)
+    infilter.input_sampling_rate = fs
     self.rls.set_input_port(0, infilter, 0)
     outfilter = DoubleOutPointerFilter(output, False)
-    outfilter.set_input_sampling_rate(fs)
+    outfilter.input_sampling_rate = fs
     outfilter.set_input_port(0, self.rls, 0)
     outfilter.process(input.shape[1])
     
     return output
 
   def process(self, input):
-    self.rls.set_learning(False)
+    self.rls.learning = False
 
     import numpy as np
     output = np.zeros(input.shape, dtype=np.float64)
     
     infilter = DoubleInPointerFilter(input, False)
-    infilter.set_input_sampling_rate(fs)
+    infilter.input_sampling_rate = fs
     self.rls.set_input_port(0, infilter, 0)
     outfilter = DoubleOutPointerFilter(output, False)
-    outfilter.set_input_sampling_rate(fs)
+    outfilter.input_sampling_rate = fs
     outfilter.set_input_port(0, self.rls, 0)
     outfilter.process(input.shape[1])
 
     return output
+
+def RLS_noise_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  filter = Filter()
+  
+  x = np.fromfile(dirname + os.sep + "input_rls_noise.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output_rls_noise.dat", dtype=np.float64).reshape(1, -1)
+  out = filter.learn(x)
+  assert_almost_equal(out, ref)
 
 if __name__ == "__main__":
   import numpy as np
@@ -72,13 +86,13 @@ if __name__ == "__main__":
   noise_amp = 0.5
   
   x = noise_amp*butter_bandpass_filter(np.random.randn(1, size), lowcut, highcut, fs)
-  x.tofile("input_only_noise.dat")
+  x.tofile("input_rls_noise.dat")
   
   out = filter.learn(x)
   out.tofile("output_rls_noise.dat")
   
-  x1 = np.arange(size).reshape(1, -1) / fs
-  ref = np.sin(x1 * 2 * np.pi * base) + 1/3 * np.sin(x1 * 2 * np.pi * 3.1*base) + 1/5 * np.sin(x1 * 2 * np.pi * 4.95*base)
+  x1 = np.arange(size, dtype=np.float64).reshape(1, -1) / fs
+  ref = np.sin(x1 * 2 * np.pi * base) + 1/3. * np.sin(x1 * 2 * np.pi * 3.1*base) + 1/5. * np.sin(x1 * 2 * np.pi * 4.95*base)
   d1 = ref + noise_amp*butter_bandpass_filter(np.random.randn(1, size), lowcut, highcut, fs)
   d1.tofile("input_with_noise.dat")
   ref.tofile("input_without_noise.dat")
@@ -114,8 +128,8 @@ if __name__ == "__main__":
   print("Signal to remaining noise ratio: " + str(np.mean(ref**2)/np.mean((d1 - ref - out1)**2)))
   
   from scipy import signal
-  print(filter.rls.get_coefficients_in())
-  w, h = signal.freqz(filter.rls.get_coefficients_in())
+  print(filter.rls.w)
+  w, h = signal.freqz(filter.rls.w)
   plt.figure()
   plt.loglog(w, np.abs(h), label="RLS filter")
   plt.grid(True)

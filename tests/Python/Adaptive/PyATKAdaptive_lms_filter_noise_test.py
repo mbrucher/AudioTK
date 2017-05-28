@@ -16,33 +16,48 @@ def butter_bandpass(lowcut, highcut, fs, order=5):
 
 def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
     b, a = butter_bandpass(lowcut, highcut, fs, order=order)
-    print(b, a)
-    y = lfilter(b, a, data)
+    print(b)
+    y = lfilter(b, [1], data)
     return y
     
 class Filter:
   def __init__(self):
-    self.lms = DoubleLMSFilter(40)
-    self.lms.set_input_sampling_rate(fs)
-    self.lms.set_memory(0.999)
-    self.lms.set_mu(0.015)
+    self.lms = DoubleLMSFilter(11)
+    self.lms.input_sampling_rate = fs
+    self.lms.memory = 0.999
+    self.lms.mu = 0.05
 
   def learn(self, input, ref):
     import numpy as np
     output = np.zeros(input.shape, dtype=np.float64)
 
     infilter = DoubleInPointerFilter(input, False)
-    infilter.set_input_sampling_rate(fs)
+    infilter.input_sampling_rate = fs
     reffilter = DoubleInPointerFilter(ref, False)
-    reffilter.set_input_sampling_rate(fs)
+    reffilter.input_sampling_rate = fs
     self.lms.set_input_port(0, infilter, 0)
     self.lms.set_input_port(1, reffilter, 0)
     outfilter = DoubleOutPointerFilter(output, False)
-    outfilter.set_input_sampling_rate(fs)
+    outfilter.input_sampling_rate = fs
     outfilter.set_input_port(0, self.lms, 0)
     outfilter.process(input.shape[1])
 
     return output
+
+def LMS_noise_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  filter = Filter()
+  
+  noise = np.fromfile(dirname + os.sep + "input_lms_noise.dat", dtype=np.float64).reshape(1, -1)
+  x = np.fromfile(dirname + os.sep + "inputx_lms_noise.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output_lms_noise.dat", dtype=np.float64).reshape(1, -1)
+  out = filter.learn(noise, x)
+  assert_almost_equal(out, ref)
 
 if __name__ == "__main__":
   import numpy as np
@@ -59,7 +74,8 @@ if __name__ == "__main__":
   
   noise = np.random.randn(1, size)
   x = butter_bandpass_filter(np.random.randn(1, size), lowcut, highcut, fs)
-  noise.tofile("input_only_noise.dat")
+  noise.tofile("input_lms_noise.dat")
+  x.tofile("inputx_lms_noise.dat")
   
   out = filter.learn(noise, x)
   out.tofile("output_lms_noise.dat")
@@ -67,11 +83,11 @@ if __name__ == "__main__":
   import matplotlib.pyplot as plt
   from scipy import signal
 
-  print(filter.lms.get_coefficients_in())
+  print(filter.lms.w)
   
   b, a = butter_bandpass(lowcut, highcut, fs)
-  w, h = signal.freqz(filter.lms.get_coefficients_in())
-  w1, h1 = signal.freqz(b, a)
+  w, h = signal.freqz(filter.lms.w)
+  w1, h1 = signal.freqz(b)
   plt.figure()
   plt.plot(w, np.abs(h), label="LMS filter")
   plt.plot(w, np.abs(h1), label="Reference")
