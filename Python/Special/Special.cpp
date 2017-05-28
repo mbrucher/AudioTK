@@ -17,9 +17,9 @@ namespace
   void populate_ConvolutionFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<ConvolutionFilter<DataType>>(m, type, parent)
-    //.def(py::init<>())
-    //.def("set_impulse", &ConvolutionFilter<DataType>::set_impulse)
-    //.def("set_split_size", &ConvolutionFilter<DataType>::set_split_size)
+    .def(py::init<>())
+    .def("set_impulse", &ConvolutionFilter<DataType>::set_impulse)
+    .def("set_split_size", &ConvolutionFilter<DataType>::set_split_size)
     ;
   }
 }
@@ -29,7 +29,6 @@ PYBIND11_PLUGIN(PythonSpecial) {
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
 
-  populate_ConvolutionFilter<float>(m, "FloatConvolutionFilter", f1);
   populate_ConvolutionFilter<double>(m, "DoubleConvolutionFilter", f2);
   
   return m.ptr();

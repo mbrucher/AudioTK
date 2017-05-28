@@ -12,7 +12,7 @@ FILE(GLOB_RECURSE
 include_directories(${PROJECT_SOURCE_DIR} ${NUMPY_INCLUDE_DIRS})
 
 pybind11_add_module(PythonSpecial MODULE ${PYTHON_MODULE_Special_SRC} ${PYTHON_MODULE_Special_HEADERS})
-target_link_libraries(PythonSpecial PRIVATE ATKCore ATKSpecial)
+target_link_libraries(PythonSpecial PRIVATE ATKCore ATKSpecial ATKUtility)
 
 
 INSTALL(FILES __init__.py

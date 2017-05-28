@@ -75,7 +75,6 @@ namespace
       .def_property("pan_law", &PanFilter<DataType>::get_pan_law, &PanFilter<DataType>::set_pan_law)
       .def_property("pan", &PanFilter<DataType>::get_pan, &PanFilter<DataType>::set_pan);
 
-
     py::enum_<typename PanFilter<DataType>::PAN_LAWS>(pan, "PAN_LAWS")
       .value("SINCOS_0_CENTER", PanFilter<DataType>::PAN_LAWS::SINCOS_0_CENTER)
       .value("SINCOS_3_CENTER", PanFilter<DataType>::PAN_LAWS::SINCOS_3_CENTER)
