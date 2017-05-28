@@ -14,7 +14,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  GainMaxColoredExpanderFilter<DataType_>::GainMaxColoredExpanderFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
+  GainMaxColoredExpanderFilter<DataType_>::GainMaxColoredExpanderFilter(std::size_t nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), max_reduction(static_cast<DataType_>(0.01)), color(0), quality(0)
   {
   }

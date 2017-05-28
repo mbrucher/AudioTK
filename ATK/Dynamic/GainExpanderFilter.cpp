@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  GainExpanderFilter<DataType_>::GainExpanderFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
+  GainExpanderFilter<DataType_>::GainExpanderFilter(std::size_t nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
   }

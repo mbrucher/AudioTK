@@ -34,7 +34,7 @@ namespace ATK
     * @param LUTsize is the total LUT size used by the filter
     * @param LUTprecision is the number of elements used to compute values < 1
     */
-    ParentGainFilter(int nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
+    ParentGainFilter(std::size_t nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     /// Destructor
     ~ParentGainFilter();
     
@@ -65,6 +65,7 @@ namespace ATK
   template<class ParentFilter>
   class GainFilter final : public ParentFilter
   {
+  public:
     typedef ParentFilter Parent;
     using typename Parent::DataType;
     using Parent::converted_inputs;
@@ -77,8 +78,7 @@ namespace ATK
     using Parent::LUTprecision;
     using Parent::gainLUT;
 
-  public:
-    GainFilter(int nb_channels = 1, size_t LUTsize = 128 * 1024, size_t LUTprecision = 64)
+    GainFilter(std::size_t nb_channels = 1, size_t LUTsize = 128 * 1024, size_t LUTprecision = 64)
     :ParentFilter(nb_channels, LUTsize, LUTprecision), isRunning(false), resetRequest(false)
     {
       start_recomputeLUT();

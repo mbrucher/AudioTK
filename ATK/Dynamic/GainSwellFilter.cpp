@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  GainSwellFilter<DataType_>::GainSwellFilter(int nb_channels, size_t LUTsize, size_t LUTprecision)
+  GainSwellFilter<DataType_>::GainSwellFilter(std::size_t nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
   }
