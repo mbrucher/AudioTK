@@ -100,7 +100,7 @@ namespace
   void populate_SumFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<SumFilter<DataType>>(m, type, parent)
-      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t, std::size_t>(), py::arg("nb_output_channels") = 1, py::arg("summed_channels") = 2);
   }
 
   template<typename DataType, typename T>

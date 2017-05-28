@@ -10,16 +10,14 @@
 namespace ATK
 {
   template<typename DataType_>
-  SumFilter<DataType_>::SumFilter(std::size_t channels)
-  :Parent(2* channels, channels)
+  SumFilter<DataType_>::SumFilter(std::size_t nb_output_channels, std::size_t summed_channels)
+  :Parent(summed_channels * nb_output_channels, nb_output_channels), summed_channels(summed_channels)
   {
-    
   }
   
   template<typename DataType_>
   SumFilter<DataType_>::~SumFilter()
   {
-    
   }
 
   template<typename DataType_>
@@ -29,12 +27,17 @@ namespace ATK
 
     for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
     {
-      const DataType* ATK_RESTRICT input0 = converted_inputs[2 * channel];
-      const DataType* ATK_RESTRICT input1 = converted_inputs[2 * channel + 1];
+      const DataType* ATK_RESTRICT input = converted_inputs[summed_channels * channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for (std::size_t i = 0; i < size; ++i)
+      memcpy(output, input, size * sizeof(DataType_));
+      
+      for(std::size_t summed_channel = 1; summed_channel < summed_channels; ++summed_channel)
       {
-        output[i] = input0[i] + input1[i];
+        const DataType* ATK_RESTRICT input = converted_inputs[summed_channels * channel + summed_channel];
+        for (std::size_t i = 0; i < size; ++i)
+        {
+          output[i] += input[i];
+        }
       }
     }
   }

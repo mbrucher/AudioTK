@@ -25,12 +25,18 @@ namespace ATK
 
   public:
     /// Constructor
-    SumFilter(std::size_t channels = 1);
+    /**
+     * @param nb_output_channels is the number of output channels
+     * @param summed_channels is the number of input channels summed in one output channel
+     */
+    SumFilter(std::size_t nb_output_channels = 1, std::size_t summed_channels = 2);
     /// Destructor
     ~SumFilter();
     
   protected:
     virtual void process_impl(std::size_t size) const override final;
+  private:
+    std::size_t summed_channels;
   };
 }
 
