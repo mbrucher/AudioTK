@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
-from ATK.Delay import DoubleHadamardFeedbackDelayNetworkFilter
+from ATK.Delay import DoubleQuadHouseholderFeedbackDelayNetworkFilter
 
 sample_rate = 96000
 
@@ -12,10 +12,10 @@ def filter(input, ingain_ch1=0, ingain_ch2=0, ingain_ch3=0, ingain_ch4=0,
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(sample_rate)
+  infilter.input_sampling_rate = sample_rate
 
-  delayfilter = DoubleHadamardFeedbackDelayNetworkFilter(10000)
-  delayfilter.set_input_sampling_rate(sample_rate)
+  delayfilter = DoubleQuadHouseholderFeedbackDelayNetworkFilter(10000)
+  delayfilter.input_sampling_rate = sample_rate
   delayfilter.set_input_port(0, infilter, 0)
   delayfilter.set_delay(0, 4800) #50ms
   delayfilter.set_delay(1, 3600) #37.5ms
@@ -35,11 +35,26 @@ def filter(input, ingain_ch1=0, ingain_ch2=0, ingain_ch3=0, ingain_ch4=0,
   delayfilter.set_feedback(3, feedback_ch4)
   
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(sample_rate)
+  outfilter.input_sampling_rate = sample_rate
   outfilter.set_input_port(0, delayfilter, 0)
   outfilter.process(input.shape[1])
 
   return output
+
+def householder_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  d = np.fromfile(dirname + os.sep + "input_householder.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output_householder.dat", dtype=np.float64).reshape(1, -1)
+  out = filter(d, ingain_ch1=1, ingain_ch2=.2, ingain_ch3=1, ingain_ch4=1,
+               outgain_ch1=1, outgain_ch2=1, outgain_ch3=1, outgain_ch4=.5,
+               feedback_ch1=0.2, feedback_ch2=0.8, feedback_ch3=0.4, feedback_ch4=.2
+               )
+  assert_almost_equal(out, ref)
 
 if __name__ == "__main__":
   import numpy as np
@@ -48,12 +63,12 @@ if __name__ == "__main__":
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / sample_rate
   d = np.sin(x * 2 * np.pi * 100)
 
-  d[0].tofile("input_hadamard.dat")
+  d[0].tofile("input_householder.dat")
   out = filter(d, ingain_ch1=1, ingain_ch2=.2, ingain_ch3=1, ingain_ch4=1,
     outgain_ch1=1, outgain_ch2=1, outgain_ch3=1, outgain_ch4=.5,
     feedback_ch1=0.2, feedback_ch2=0.8, feedback_ch3=0.4, feedback_ch4=.2
     )
-  out[0].tofile("output_hadamard.dat")
+  out[0].tofile("output_householder.dat")
   
   import matplotlib.pyplot as plt
 

@@ -52,14 +52,14 @@ namespace
   {
     py::class_<MultipleUniversalFixedDelayLineFilter<DataType, size>>(m, type, parent)
     .def(py::init<std::size_t>(), py::arg("max_delay"))
-    .def("get_delay", &UniversalFixedDelayLineFilter<DataType>::get_delay, "channel")
-    .def("set_delay", &UniversalFixedDelayLineFilter<DataType>::set_delay, "channel", "delay")
-    .def("get_blend", &UniversalFixedDelayLineFilter<DataType>::get_blend, "channel")
-    .def("set_blend", &UniversalFixedDelayLineFilter<DataType>::set_blend, "channel", "blend")
-    .def("get_feedback", &UniversalFixedDelayLineFilter<DataType>::get_feedback, "channel")
-    .def("set_feedback", &UniversalFixedDelayLineFilter<DataType>::set_feedback, "channel", "feedback")
-    .def("get_feedforward", &UniversalFixedDelayLineFilter<DataType>::get_feedforward, "channel")
-    .def("set_feedback", &UniversalFixedDelayLineFilter<DataType>::set_feedforward, "channel", "feedforward");
+    .def("get_delay", &MultipleUniversalFixedDelayLineFilter<DataType, size>::get_delay, py::arg("channel"))
+    .def("set_delay", &MultipleUniversalFixedDelayLineFilter<DataType, size>::set_delay, py::arg("channel"), py::arg("delay"))
+    .def("get_blend", &MultipleUniversalFixedDelayLineFilter<DataType, size>::get_blend, py::arg("channel"))
+    .def("set_blend", &MultipleUniversalFixedDelayLineFilter<DataType, size>::set_blend, py::arg("channel"), py::arg("blend"))
+    .def("get_feedback", &MultipleUniversalFixedDelayLineFilter<DataType, size>::get_feedback, py::arg("channel_from"), py::arg("channel_to"))
+    .def("set_feedback", &MultipleUniversalFixedDelayLineFilter<DataType, size>::set_feedback, py::arg("channel_from"), py::arg("channel_to"), py::arg("feedback"))
+    .def("get_feedforward", &MultipleUniversalFixedDelayLineFilter<DataType, size>::get_feedforward, py::arg("channel_from"), py::arg("channel_to"))
+    .def("set_feedforward", &MultipleUniversalFixedDelayLineFilter<DataType, size>::set_feedforward, py::arg("channel_from"), py::arg("channel_to"), py::arg("feedforward"));
   }
   
   template<typename DataType, typename T>
