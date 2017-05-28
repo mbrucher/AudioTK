@@ -145,7 +145,7 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  Chebyshev2LowPassCoefficients<DataType>::Chebyshev2LowPassCoefficients(unsigned int nb_channels)
+  Chebyshev2LowPassCoefficients<DataType>::Chebyshev2LowPassCoefficients(std::size_t nb_channels)
   :Parent(1, 1), cut_frequency(0), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -184,6 +184,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int Chebyshev2LowPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
+  template <typename DataType>
   void Chebyshev2LowPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -194,7 +200,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  Chebyshev2HighPassCoefficients<DataType>::Chebyshev2HighPassCoefficients(unsigned int nb_channels)
+  Chebyshev2HighPassCoefficients<DataType>::Chebyshev2HighPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -233,6 +239,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int Chebyshev2HighPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
+  template <typename DataType>
   void Chebyshev2HighPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -248,7 +260,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  Chebyshev2BandPassCoefficients<DataType>::Chebyshev2BandPassCoefficients(unsigned int nb_channels)
+  Chebyshev2BandPassCoefficients<DataType>::Chebyshev2BandPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -294,6 +306,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int Chebyshev2BandPassCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
+  template <typename DataType>
   void Chebyshev2BandPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -304,7 +322,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  Chebyshev2BandStopCoefficients<DataType>::Chebyshev2BandStopCoefficients(unsigned int nb_channels)
+  Chebyshev2BandStopCoefficients<DataType>::Chebyshev2BandStopCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
   {
   }
@@ -349,6 +367,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int Chebyshev2BandStopCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
   template <typename DataType>
   void Chebyshev2BandStopCoefficients<DataType>::setup()
   {

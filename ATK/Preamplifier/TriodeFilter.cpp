@@ -236,12 +236,12 @@ namespace ATK
   }
 
   template<typename DataType, typename TriodeFunction>
-  TriodeFilter<DataType, TriodeFunction> TriodeFilter<DataType, TriodeFunction>::build_standard_filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck)
+  TriodeFilter<DataType, TriodeFunction> TriodeFilter<DataType, TriodeFunction>::build_standard_filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction function)
   {
     return TriodeFilter<DataType, TriodeFunction>(Rp, Rg, Ro, Rk, //R
                                                   Vbias, // Vbias
                                                   Co, Ck, // C
-                                                  TriodeFunction::build_standard_function() // tube
+                                                  std::move(function) // tube
       );
   }
 

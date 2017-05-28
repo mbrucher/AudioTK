@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  RealToComplexFilter<DataType_>::RealToComplexFilter(int nb_channels)
+  RealToComplexFilter<DataType_>::RealToComplexFilter(std::size_t nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
   }
@@ -40,7 +40,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  ComplexToRealFilter<DataType_>::ComplexToRealFilter(int nb_channels)
+  ComplexToRealFilter<DataType_>::ComplexToRealFilter(std::size_t nb_channels)
     :Parent(nb_channels, 2 * nb_channels)
   {
   }

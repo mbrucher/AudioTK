@@ -28,7 +28,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    VolumeFilter(int nb_channels = 1);
+    VolumeFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~VolumeFilter();
 

@@ -36,7 +36,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRileyLowPassCoefficients(unsigned int nb_channels = 1);
+    LinkwitzRileyLowPassCoefficients(std::size_t nb_channels = 1);
   };
 
   /// Linkwitz-Riley high pass filter coefficients to be used with IIRFilter, 2th order
@@ -64,7 +64,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRileyHighPassCoefficients(unsigned int nb_channels = 1);
+    LinkwitzRileyHighPassCoefficients(std::size_t nb_channels = 1);
   };
 
   /// Linkwitz-Riley low pass filter coefficients to be used with IIRFilter, 4th order
@@ -92,7 +92,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRiley4LowPassCoefficients(unsigned int nb_channels = 1);
+    LinkwitzRiley4LowPassCoefficients(std::size_t nb_channels = 1);
   };
   
   /// Linkwitz-Riley high pass filter coefficients to be used with IIRFilter, 4th order
@@ -120,7 +120,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRiley4HighPassCoefficients(unsigned int nb_channels = 1);
+    LinkwitzRiley4HighPassCoefficients(std::size_t nb_channels = 1);
   };
 }
 

@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  AttackReleaseHysteresisFilter<DataType_>::AttackReleaseHysteresisFilter(unsigned int nb_channels)
+  AttackReleaseHysteresisFilter<DataType_>::AttackReleaseHysteresisFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), attack(1), release(1), attack_hysteresis(1), release_hysteresis(1)
   {
     output_delay = 1;

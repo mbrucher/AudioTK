@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  AttackReleaseFilter<DataType_>::AttackReleaseFilter(unsigned int nb_channels)
+  AttackReleaseFilter<DataType_>::AttackReleaseFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), attack(1), release(1)
   {
     output_delay = 1;

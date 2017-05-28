@@ -23,7 +23,7 @@ namespace ATK
   };
   
   template<typename SVFCoefficients>
-  TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::TimeVaryingSecondOrderSVFFilter(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::TimeVaryingSecondOrderSVFFilter(std::size_t nb_channels)
   :SVFCoefficients(nb_channels), state(new SVFState[nb_channels])
   {
   }
@@ -65,7 +65,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  TimeVaryingSecondOrderSVFBaseCoefficients<DataType>::TimeVaryingSecondOrderSVFBaseCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFBaseCoefficients<DataType>::TimeVaryingSecondOrderSVFBaseCoefficients(std::size_t nb_channels)
   :TypedBaseFilter<DataType>(1 + nb_channels, nb_channels),Q(1)
   {
   }
@@ -84,7 +84,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFLowPassCoefficients<DataType_>::TimeVaryingSecondOrderSVFLowPassCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFLowPassCoefficients<DataType_>::TimeVaryingSecondOrderSVFLowPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -102,7 +102,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFBandPassCoefficients<DataType_>::TimeVaryingSecondOrderSVFBandPassCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFBandPassCoefficients<DataType_>::TimeVaryingSecondOrderSVFBandPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -120,7 +120,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFHighPassCoefficients<DataType_>::TimeVaryingSecondOrderSVFHighPassCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFHighPassCoefficients<DataType_>::TimeVaryingSecondOrderSVFHighPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -138,7 +138,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFNotchCoefficients<DataType_>::TimeVaryingSecondOrderSVFNotchCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFNotchCoefficients<DataType_>::TimeVaryingSecondOrderSVFNotchCoefficients(std::size_t nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -156,7 +156,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFPeakCoefficients<DataType_>::TimeVaryingSecondOrderSVFPeakCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFPeakCoefficients<DataType_>::TimeVaryingSecondOrderSVFPeakCoefficients(std::size_t nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -174,7 +174,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFBellCoefficients<DataType_>::TimeVaryingSecondOrderSVFBellCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFBellCoefficients<DataType_>::TimeVaryingSecondOrderSVFBellCoefficients(std::size_t nb_channels)
   :Parent(nb_channels), gain(0)
   {
     
@@ -206,7 +206,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFLowShelfCoefficients<DataType_>::TimeVaryingSecondOrderSVFLowShelfCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFLowShelfCoefficients<DataType_>::TimeVaryingSecondOrderSVFLowShelfCoefficients(std::size_t nb_channels)
   :Parent(nb_channels), gain(0)
   {
     
@@ -238,7 +238,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  TimeVaryingSecondOrderSVFHighShelfCoefficients<DataType_>::TimeVaryingSecondOrderSVFHighShelfCoefficients(unsigned int nb_channels)
+  TimeVaryingSecondOrderSVFHighShelfCoefficients<DataType_>::TimeVaryingSecondOrderSVFHighShelfCoefficients(std::size_t nb_channels)
   :Parent(nb_channels), gain(0)
   {
   }

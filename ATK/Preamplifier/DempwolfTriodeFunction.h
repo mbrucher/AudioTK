@@ -85,9 +85,9 @@ namespace ATK
     }
 
     /// Build a new triode function for a filter (12AX7/ECC83)
-    static DempwolfTriodeFunction build_standard_function()
+    static DempwolfTriodeFunction build_standard_function(DataType_ G = 1.371e-3, DataType_ mu = 83.9, DataType_ gamma = 1.349, DataType_ C = 4.56, DataType_ Gg = 3.263e-4, DataType_ eta = 1.156, DataType_ Cg = 11.99, DataType_ Ig0 = 3.917e-8, DataType_ Cpg = 1.7e-12)
     {
-      return DempwolfTriodeFunction(1.371e-3, 83.9, 1.349, 4.56, 3.263e-4, 1.156, 11.99, 3.917e-8, 1.7e-12);
+      return DempwolfTriodeFunction(G, mu, gamma, C, Gg, eta, Cg, Ig0, Cpg);
     }
 
     /// Build a new triode function for a filter (12AX7/ECC83)

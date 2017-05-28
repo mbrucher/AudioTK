@@ -29,7 +29,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    OneMinusFilter(int nb_channels = 1);
+    OneMinusFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~OneMinusFilter();
     

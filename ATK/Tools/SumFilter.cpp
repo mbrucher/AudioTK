@@ -10,7 +10,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  SumFilter<DataType_>::SumFilter(unsigned int channels)
+  SumFilter<DataType_>::SumFilter(std::size_t channels)
   :Parent(2* channels, channels)
   {
     

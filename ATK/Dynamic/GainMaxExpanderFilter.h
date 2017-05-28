@@ -19,13 +19,11 @@ namespace ATK
   template<typename DataType_>
   class ATK_DYNAMIC_EXPORT GainMaxExpanderFilter : public ParentGainFilter<DataType_>
   {
-  protected:
+  public:
     /// Simplify parent calls
     typedef ParentGainFilter<DataType_> Parent;
     using Parent::ratio;
     using Parent::start_recomputeLUT;
-
-  public:
     using typename Parent::DataType;
     /*!
     * @brief Constructor
@@ -33,7 +31,7 @@ namespace ATK
     * @param LUTsize is the total LUT size used by the filter
     * @param LUTprecision is the number of elements used to compute values < 1
     */
-    GainMaxExpanderFilter(int nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 1024);
+    GainMaxExpanderFilter(std::size_t nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 1024);
     /// Destructor
     ~GainMaxExpanderFilter();
 
@@ -51,6 +49,7 @@ namespace ATK
 
   protected:
     DataType_ computeGain(DataType_ value) const;
+  private:
     DataType_ softness;
     DataType_ max_reduction;
   };

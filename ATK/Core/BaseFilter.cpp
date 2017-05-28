@@ -18,7 +18,7 @@
 
 namespace ATK
 {
-  BaseFilter::BaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports)
+  BaseFilter::BaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
   :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
@@ -74,7 +74,7 @@ namespace ATK
     setup();
   }
 
-  void BaseFilter::set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port)
+  void BaseFilter::set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port)
   {
     if(output_port >= filter->nb_output_ports)
     {
@@ -120,9 +120,19 @@ namespace ATK
     return output_sampling_rate;
   }
 
+  void BaseFilter::set_input_delay(std::size_t delay)
+  {
+    input_delay = delay;
+  }
+
   std::size_t BaseFilter::get_input_delay() const
   {
     return input_delay;
+  }
+
+  void BaseFilter::set_output_delay(std::size_t delay)
+  {
+    output_delay = delay;
   }
 
   std::size_t BaseFilter::get_output_delay() const

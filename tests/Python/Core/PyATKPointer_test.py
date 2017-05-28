@@ -9,6 +9,13 @@ def FloatInPointerFilter_new_test():
   filter = FloatInPointerFilter(d, False)
   assert filter.nb_output_ports == 1
 
+def FloatInPointerFilter_simple_new_test():
+  import numpy as np
+  from ATK.Core import FloatInPointerFilter
+  d = np.arange(1000, dtype=np.float32)
+  filter = FloatInPointerFilter(d)
+  assert filter.nb_output_ports == 1
+
 def DoubleInPointerFilter_new_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter
@@ -42,21 +49,21 @@ def FloatOutPointerFilter_new_test():
   from ATK.Core import FloatOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float32)[None,:])
   filter = FloatOutPointerFilter(d, False)
-  assert filter.get_nb_input_ports() == 1
+  assert filter.nb_input_ports == 1
 
 def DoubleOutPointerFilter_new_test():
   import numpy as np
   from ATK.Core import DoubleOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
   filter = DoubleOutPointerFilter(d, False)
-  assert filter.get_nb_input_ports() == 1
+  assert filter.nb_input_ports == 1
 
 def DoubleOut2PointerFilter_new_test():
   import numpy as np
   from ATK.Core import DoubleOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2, 500))
   filter = DoubleOutPointerFilter(d, False)
-  assert filter.get_nb_input_ports() == 2
+  assert filter.nb_input_ports == 2
 
 @raises(TypeError)
 def FloatOutPointerFilter_new_fail_test():
@@ -80,6 +87,21 @@ def DoublePointerFilter_new_test():
   output = np.ascontiguousarray(np.zeros(1000, dtype=np.float64)[None,:])
   inputfilter = DoubleInPointerFilter(input, False)
   outputfilter = DoubleOutPointerFilter(output, False)
+  outputfilter.set_input_port(0, inputfilter, 0)
+  inputfilter.output_sampling_rate = 48000
+  outputfilter.input_sampling_rate = 48000
+  outputfilter.process(1000)
+  assert_equal(input, output)
+
+
+def DoublePointerFilter2_new_test():
+  import numpy as np
+  from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
+  from numpy.testing import assert_equal
+  input = np.arange(1000, dtype=np.float64)
+  output = np.zeros(1000, dtype=np.float64)
+  inputfilter = DoubleInPointerFilter(input)
+  outputfilter = DoubleOutPointerFilter(output)
   outputfilter.set_input_port(0, inputfilter, 0)
   inputfilter.output_sampling_rate = 48000
   outputfilter.input_sampling_rate = 48000

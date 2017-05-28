@@ -97,9 +97,9 @@ namespace ATK
     }
     
     /// Build a new triode function for a filter (12AX7/ECC83)
-    static ModifiedMunroPiazzaTriodeFunction build_standard_function()
+    static ModifiedMunroPiazzaTriodeFunction build_standard_function(DataType_ mu = 0.2, DataType_ K = 5e-6, DataType_ Kp = 45, DataType_ Kvb = 1.147e-6, DataType_ Kg = 95.43, DataType_ sigma = 1, DataType_ Cpg = 1.7e-12)
     {
-      return ModifiedMunroPiazzaTriodeFunction(0.2, 5e-6, 45, 1.147e-6, 95.43, 1, 1.7e-12);
+      return ModifiedMunroPiazzaTriodeFunction(mu, K, Kp, Kvb, Kg, sigma, Cpg);
     }
   };
 }

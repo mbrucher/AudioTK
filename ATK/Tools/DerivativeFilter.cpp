@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  DerivativeFilter<DataType_>::DerivativeFilter(int nb_channels)
+  DerivativeFilter<DataType_>::DerivativeFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels)
   {
     output_delay = 1;

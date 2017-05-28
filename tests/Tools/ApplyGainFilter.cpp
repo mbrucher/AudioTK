@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE( ApplyGainFilter_sinus_test )
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::ApplyGainFilter<float> filter(1);
+  ATK::ApplyGainFilter<float> filter;
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_input_port(1, &generator, 0);

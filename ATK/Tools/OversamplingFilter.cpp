@@ -124,7 +124,7 @@ namespace ATK
   }
 
   template<class DataType, class Coefficients>
-  OversamplingFilter<DataType, Coefficients>::OversamplingFilter(int nb_channels)
+  OversamplingFilter<DataType, Coefficients>::OversamplingFilter(std::size_t nb_channels)
     :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
     input_delay = Coefficients::points;

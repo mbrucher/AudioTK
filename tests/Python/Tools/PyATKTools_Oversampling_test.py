@@ -111,7 +111,6 @@ def Oversampling_16_test():
 
   assert_almost_equal(ref[:,952:-48], output[:,1000:], decimal=1)
 
-
 def Oversampling_32_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
@@ -140,3 +139,53 @@ def Oversampling_32_test():
   
   assert_almost_equal(ref[:,904:-96], output[:,1000:], decimal=1)
 
+sample_rate = 96000
+
+def filter(input):
+  import numpy as np
+  
+  from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
+  from ATK.Tools import DoubleOversampling6points5order_32Filter
+  
+  output = np.zeros((1, input.shape[0] * 32), dtype=np.float64)
+  
+  infilter = DoubleInPointerFilter(input, False)
+  infilter.input_sampling_rate = sample_rate
+  
+  overfilter = DoubleOversampling6points5order_32Filter()
+  overfilter.input_sampling_rate = sample_rate
+  overfilter.output_sampling_rate = sample_rate * 32
+  overfilter.set_input_port(0, infilter, 0)
+  
+  outfilter = DoubleOutPointerFilter(output, False)
+  outfilter.input_sampling_rate = sample_rate * 32
+  outfilter.set_input_port(0, overfilter, 0)
+  for i in range(10):
+    outfilter.process(input.shape[0] * 32 / 10)
+  
+  return output
+
+def OversamplingFilter_test():
+  import numpy as np
+  samples = 100
+
+  t = np.arange(samples, dtype=np.float64) / sample_rate
+  d = np.sin(t * 2 * np.pi * 100)
+  output = filter(d)
+
+
+if __name__ == "__main__":
+  import numpy as np
+  import matplotlib.pyplot as plt
+  samples = 100
+  
+  t = np.arange(samples, dtype=np.float64) / sample_rate
+  d = np.sin(t * 2 * np.pi * 100)
+  
+  t2 = np.arange(samples * 32, dtype=np.float64) / (sample_rate * 32)
+  d2 = filter(d)
+  plt.plot(t, d, label="input")
+  plt.plot(t2 - 3. / sample_rate, d2, label="output")
+  plt.gcf().suptitle("Oversampling")
+  plt.legend()
+  plt.show()

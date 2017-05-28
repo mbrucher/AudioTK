@@ -42,7 +42,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ToneStackCoefficients(unsigned int nb_channels = 1);
+    ToneStackCoefficients(std::size_t nb_channels = 1);
   public:
     /// Move constructor
     ToneStackCoefficients(ToneStackCoefficients&& other);

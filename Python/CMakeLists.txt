@@ -1,18 +1,14 @@
 
-FIND_PACKAGE(SWIG REQUIRED)
-FIND_PACKAGE(PythonLibs REQUIRED)
 FIND_PACKAGE(Numpy REQUIRED)
 
-INCLUDE(${SWIG_USE_FILE})
-INCLUDE_DIRECTORIES(${PYTHON_INCLUDE_PATH} ${PYTHON_NUMPY_INCLUDE_DIR})
+add_subdirectory(pybind11)
 
-SET(CMAKE_SWIG_FLAGS "")
-
-string(REGEX REPLACE ".*/(python[0-9]\\.[0-9])" "\\1" PYTHON_FOLDER ${PYTHON_INCLUDE_DIR})
+SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/Python/pybind11/tools ${CMAKE_MODULE_PATH})
+FIND_PACKAGE(PythonLibsNew REQUIRED)
 
 file(GLOB entries *)
 foreach(entry ${entries})
-  if(IS_DIRECTORY ${entry} AND EXISTS ${entry}/CMakeLists.txt)
+  if(IS_DIRECTORY ${entry} AND EXISTS ${entry}/CMakeLists.txt AND NOT ${entry} STREQUAL "${CMAKE_SOURCE_DIR}/Python/pybind11")
     add_subdirectory(${entry})
   endif()
 endforeach(entry)

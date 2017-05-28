@@ -20,7 +20,7 @@ BOOST_AUTO_TEST_CASE( DecimationFilter_sinus_2_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::DecimationFilter<double> filter(1);
+  ATK::DecimationFilter<double> filter;
   filter.set_input_sampling_rate(1024*64);
   filter.set_output_sampling_rate(1024*32);
   
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE( DecimationFilter_sinus_4_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::DecimationFilter<double> filter(1);
+  ATK::DecimationFilter<double> filter;
   filter.set_input_sampling_rate(1024*32*4);
   filter.set_output_sampling_rate(1024*32);
   
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE( DecimationFilter_sinus_8_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::DecimationFilter<double> filter(1);
+  ATK::DecimationFilter<double> filter;
   filter.set_input_sampling_rate(1024*32*8);
   filter.set_output_sampling_rate(1024*32);
   
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE( DecimationFilter_sinus_16_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::DecimationFilter<double> filter(1);
+  ATK::DecimationFilter<double> filter;
   filter.set_input_sampling_rate(1024*32*16);
   filter.set_output_sampling_rate(1024*32);
   
@@ -119,7 +119,7 @@ BOOST_AUTO_TEST_CASE( DecimationFilter_sinus_32_test )
   generator.set_amplitude(1);
   generator.set_frequency(100);
   
-  ATK::DecimationFilter<double> filter(1);
+  ATK::DecimationFilter<double> filter;
   filter.set_input_sampling_rate(1024*32*32);
   filter.set_output_sampling_rate(1024*32);
   

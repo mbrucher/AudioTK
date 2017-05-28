@@ -25,7 +25,7 @@ namespace ATK
 
   public:
     /// Constructor
-    PanFilter(unsigned int nb_channels = 1);
+    PanFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~PanFilter();
     
