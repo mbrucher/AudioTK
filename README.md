@@ -19,9 +19,9 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.1.0
+* Rewrote the Python wrappers to use pybind11 instead of SWIG
 * Adding fourth order Linkwitz-Riley filters
 * Adding a new circular buffer (for FFT plugins for instance)
-* Fix EQ Python wrappers
 * Added parameters for tube (inverters) filters definition
 * Added Python wrappers in Travis-CI builds
 * Added a modified implementation of the Munro-Piazza triode function to remove some artefacts
@@ -232,8 +232,8 @@ Audio Toolkit is published under the BSD license.
 * CMake
 * Boost 1.60
 * FFT library (for some filters like the fast convolution filter)
-  * FFTW (default)
-  * Accelerate
+  * FFTW
+  * IPP (default)
 * Python with numpy (for Python support)
 * Eigen (for some complex modules)
 * libsndfile (for sound file I/O)

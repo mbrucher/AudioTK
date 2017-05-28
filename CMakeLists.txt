@@ -346,7 +346,6 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
-  message(info " Using Python requires a C++14 compiler")
   add_subdirectory(Python)
 endif(ENABLE_PYTHON)
 
