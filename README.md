@@ -20,6 +20,8 @@ Audio Toolkit is published under the BSD license.
 ## Changelog
 ### 2.1.0
 * Rewrote the Python wrappers to use pybind11 instead of SWIG
+* Added MuteSoloSumFilter to allow mute/solo operations on tracks with Python wrappers
+* SumFilter can now sum multiple channels together
 * Adding fourth order Linkwitz-Riley filters
 * Adding a new circular buffer (for FFT plugins for instance)
 * Added parameters for tube (inverters) filters definition

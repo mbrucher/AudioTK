@@ -9,6 +9,7 @@
 #include <ATK/Tools/BufferFilter.h>
 #include <ATK/Tools/DecimationFilter.h>
 #include <ATK/Tools/DryWetFilter.h>
+#include <ATK/Tools/MuteSoloBufferFilter.h>
 #include <ATK/Tools/MSFilter.h>
 #include <ATK/Tools/OversamplingFilter.h>
 #include <ATK/Tools/PanFilter.h>
@@ -49,7 +50,8 @@ namespace
   void populate_DryWetFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<DryWetFilter<DataType>>(m, type, parent)
-      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+      .def(py::init<std::size_t>(), py::arg("nb_channels") = 1)
+      .def_property("dry", &DryWetFilter<DataType>::get_dry, &DryWetFilter<DataType>::set_dry);
   }
 
   template<typename DataType, typename T>
@@ -57,6 +59,15 @@ namespace
   {
     py::class_<MiddleSideFilter<DataType>>(m, type, parent)
       .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+  }
+  
+  template<typename DataType, typename T>
+  void populate_MuteSoloBufferFilter(py::module& m, const char* type, T& parent)
+  {
+    py::class_<MuteSoloBufferFilter<DataType>>(m, type, parent)
+    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1)
+    .def_property("mute", &MuteSoloBufferFilter<DataType>::get_mute, &MuteSoloBufferFilter<DataType>::set_mute)
+    .def_property("solo", &MuteSoloBufferFilter<DataType>::get_solo, &MuteSoloBufferFilter<DataType>::set_solo);
   }
 
   template<typename Coefficients, typename T>
@@ -155,6 +166,11 @@ PYBIND11_PLUGIN(PythonTools) {
   populate_DryWetFilter<double>(m, "DoubleDryWetFilter", f2);
   populate_DryWetFilter<std::complex<float>>(m, "ComplexFloatDryWetFilter", f3);
   populate_DryWetFilter<std::complex<double>>(m, "ComplexDoubleDryWetFilter", f4);
+
+  populate_MuteSoloBufferFilter<float>(m, "FloatMuteSoloBufferFilter", f1);
+  populate_MuteSoloBufferFilter<double>(m, "DoubleMuteSoloBufferFilter", f2);
+  populate_MuteSoloBufferFilter<std::complex<float>>(m, "ComplexFloatMuteSoloBufferFilter", f3);
+  populate_MuteSoloBufferFilter<std::complex<double>>(m, "ComplexDoubleMuteSoloBufferFilter", f4);
 
   populate_MiddleSideFilter<float>(m, "FloatMiddleSideFilter", f1);
   populate_MiddleSideFilter<double>(m, "DoubleMiddleSideFilter", f2);
