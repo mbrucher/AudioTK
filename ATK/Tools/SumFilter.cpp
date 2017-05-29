@@ -6,6 +6,7 @@
 
 #include <complex>
 #include <cstdint>
+#include <cstring>
 
 namespace ATK
 {
@@ -29,7 +30,7 @@ namespace ATK
     {
       const DataType* ATK_RESTRICT input = converted_inputs[summed_channels * channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      memcpy(output, input, size * sizeof(DataType_));
+      std::memcpy(output, input, size * sizeof(DataType_));
       
       for(std::size_t summed_channel = 1; summed_channel < summed_channels; ++summed_channel)
       {
