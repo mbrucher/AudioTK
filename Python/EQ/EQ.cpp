@@ -62,8 +62,16 @@ namespace
   template<typename DataType, typename T>
   void populate_CustomFIR(py::module& m, const char* type, T& parent)
   {
-    py::class_<CustomFIRCoefficients<DataType>>(m, type, parent)
-    .def("set_coefficients_in", &CustomFIRCoefficients<DataType>::set_coefficients_in);
+    py::class_<FIRFilter<CustomFIRCoefficients<DataType>>>(m, type, parent)
+      .def(py::init<std::size_t>(), "nb_channels"_a = 1)
+      .def_property("coefficients_in", [](const FIRFilter<CustomFIRCoefficients<DataType>>& instance)
+    {
+      return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
+    },
+        [](FIRFilter<CustomFIRCoefficients<DataType>>& instance, const py::array_t<DataType>& array)
+    {
+      instance.set_coefficients_in(std::vector<DataType>(array.data(), array.data() + array.size()));
+    });
   }
 
   template<typename Coefficients>
@@ -86,8 +94,22 @@ namespace
   void populate_CustomIIR(py::module& m, const char* type, T& parent)
   {
     py::class_<CustomIIRCoefficients<DataType>>(m, type, parent)
-    .def("set_coefficients_in", &CustomIIRCoefficients<DataType>::set_coefficients_in)
-    .def("set_coefficients_out", &CustomIIRCoefficients<DataType>::set_coefficients_out);
+      .def_property("coefficients_in", [](const IIRFilter<CustomIIRCoefficients<DataType>>& instance)
+    {
+      return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
+    },
+        [](IIRFilter<CustomIIRCoefficients<DataType>>& instance, const py::array_t<DataType>& array)
+    {
+      instance.set_coefficients_in(std::vector<DataType>(array.data(), array.data() + array.size()));
+    })
+      .def_property("coefficients_out", [](const IIRFilter<CustomIIRCoefficients<DataType>>& instance)
+    {
+      return py::array_t<DataType>(instance.get_coefficients_out().size(), instance.get_coefficients_out().data());
+    },
+        [](IIRFilter<CustomIIRCoefficients<DataType>>& instance, const py::array_t<DataType>& array)
+    {
+      instance.set_coefficients_out(std::vector<DataType>(array.data(), array.data() + array.size()));
+    });
   }
 
   template<typename Coefficients, typename T>
@@ -249,18 +271,12 @@ PYBIND11_PLUGIN(PythonEQ) {
   populate_ChamberlinFilter<float>(m, "FloatChamberlinFilter", f1);
   populate_ChamberlinFilter<double>(m, "DoubleChamberlinFilter", f1);
   
-  populate_CustomFIR<float>(m, "FloatCustomFIRCoefficients", f1);
-  populate_CustomFIR<double>(m, "DoubleCustomFIRCoefficients", f2);
+  populate_CustomFIR<float>(m, "FloatCustomFIRFilter", f1);
+  populate_CustomFIR<double>(m, "DoubleCustomFIRFilter", f2);
   
-  populate_FIRFilter<CustomFIRCoefficients<float>>(m, "FloatCustomFIRFilter");
-  populate_FIRFilter<CustomFIRCoefficients<double>>(m, "DoubleCustomFIRFilter");
-
-  populate_CustomIIR<float>(m, "FloatCustomIIRCoefficients", f1);
-  populate_CustomIIR<double>(m, "DoubleCustomIIRCoefficients", f2);
+  populate_CustomIIR<float>(m, "FloatCustomIIRFilter", f1);
+  populate_CustomIIR<double>(m, "DoubleCustomIIRFilter", f2);
   
-  populate_IIRFilter<CustomIIRCoefficients<float>>(m, "FloatCustomIIRFilter");
-  populate_IIRFilter<CustomIIRCoefficients<double>>(m, "DoubleCustomIIRFilter");
-
   populate_SingleCoefficients<BesselLowPassCoefficients<float>>(m, "FloatBesselLowPassCoefficients", f1);
   populate_SingleCoefficients<BesselLowPassCoefficients<double>>(m, "DoubleBesselLowPassCoefficients", f2);
   populate_SingleCoefficients<BesselHighPassCoefficients<float>>(m, "FloatBesselHighPassCoefficients", f1);

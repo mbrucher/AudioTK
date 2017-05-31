@@ -118,8 +118,8 @@ namespace ATK
     optimizer->get_function().set_drive(drive);
   }
 
-  template <typename DataType>
-  void SD1OverdriveFilter<DataType>::set_drive(DataType drive)
+  template <typename DataType_>
+  void SD1OverdriveFilter<DataType_>::set_drive(DataType_ drive)
   {
     if(drive < 0 || drive > 1)
     {

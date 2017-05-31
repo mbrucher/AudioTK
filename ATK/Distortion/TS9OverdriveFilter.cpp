@@ -118,8 +118,8 @@ namespace ATK
     optimizer->get_function().set_drive(drive);
   }
 
-  template <typename DataType>
-  void TS9OverdriveFilter<DataType>::set_drive(DataType drive)
+  template <typename DataType_>
+  void TS9OverdriveFilter<DataType_>::set_drive(DataType_ drive)
   {
     if(drive < 0 || drive > 1)
     {
