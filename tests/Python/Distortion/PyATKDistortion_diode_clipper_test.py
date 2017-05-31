@@ -3,32 +3,32 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Tools import DoubleOversampling6points5order_32Filter, DoubleOversampling6points5order_16Filter, DoubleOversampling6points5order_8Filter, DoubleOversampling6points5order_4Filter, DoubleDecimationFilter
 from ATK.EQ import DoubleButterworthLowPassFilter
-from ATK.Distortion import DoubleBackwardDiodeClipperFilter
+from ATK.Distortion import DoubleDiodeClipperFilter
 
 def filter_32(input):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(48000)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_32Filter()
-  overfilter.set_input_sampling_rate(48000)
-  overfilter.set_output_sampling_rate(48000 * 32)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 32
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleBackwardDiodeClipperFilter()
-  overdrivefilter.set_input_sampling_rate(48000 * 32)
+  overdrivefilter = DoubleDiodeClipperFilter()
+  overdrivefilter.input_sampling_rate = 48000 * 32
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(48000 * 32)
-  lowpassfilter.set_cut_frequency(48000)
-  lowpassfilter.set_order(5)
+  lowpassfilter.input_sampling_rate = 48000 * 32
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(48000 * 32)
-  decimationfilter.set_output_sampling_rate(48000)
+  decimationfilter.input_sampling_rate = 48000 * 32
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(48000)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
@@ -38,25 +38,25 @@ def filter_16(input):
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(48000)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_16Filter()
-  overfilter.set_input_sampling_rate(48000)
-  overfilter.set_output_sampling_rate(48000 * 16)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 16
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleBackwardDiodeClipperFilter()
-  overdrivefilter.set_input_sampling_rate(48000 * 16)
+  overdrivefilter = DoubleDiodeClipperFilter()
+  overdrivefilter.input_sampling_rate = 48000 * 16
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(48000 * 16)
-  lowpassfilter.set_cut_frequency(48000)
-  lowpassfilter.set_order(5)
+  lowpassfilter.input_sampling_rate = 48000 * 16
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(48000 * 16)
-  decimationfilter.set_output_sampling_rate(48000)
+  decimationfilter.input_sampling_rate = 48000 * 16
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(48000)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
@@ -66,25 +66,25 @@ def filter_8(input):
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(48000)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_8Filter()
-  overfilter.set_input_sampling_rate(48000)
-  overfilter.set_output_sampling_rate(48000 * 8)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 8
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleBackwardDiodeClipperFilter()
-  overdrivefilter.set_input_sampling_rate(48000 * 8)
+  overdrivefilter = DoubleDiodeClipperFilter()
+  overdrivefilter.input_sampling_rate = 48000 * 8
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(48000 * 8)
-  lowpassfilter.set_cut_frequency(48000)
-  lowpassfilter.set_order(5)
+  lowpassfilter.input_sampling_rate = 48000 * 8
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(48000 * 8)
-  decimationfilter.set_output_sampling_rate(48000)
+  decimationfilter.input_sampling_rate = 48000 * 8
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(48000)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
@@ -94,28 +94,76 @@ def filter_4(input):
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(48000)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_4Filter()
-  overfilter.set_input_sampling_rate(48000)
-  overfilter.set_output_sampling_rate(48000 * 4)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 4
   overfilter.set_input_port(0, infilter, 0)
-  overdrivefilter = DoubleBackwardDiodeClipperFilter()
-  overdrivefilter.set_input_sampling_rate(48000 * 4)
+  overdrivefilter = DoubleDiodeClipperFilter()
+  overdrivefilter.input_sampling_rate = 48000 * 4
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(48000 * 4)
-  lowpassfilter.set_cut_frequency(48000)
-  lowpassfilter.set_order(5)
+  lowpassfilter.input_sampling_rate = 48000 * 4
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(48000 * 4)
-  decimationfilter.set_output_sampling_rate(48000)
+  decimationfilter.input_sampling_rate = 48000 * 4
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(48000)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
+
+def dc_32_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  x = np.fromfile(dirname + os.sep + "input_dc.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output32_dc.dat", dtype=np.float64).reshape(1, -1)
+  out = filter_32(x)
+  assert_almost_equal(out, ref)
+
+def dc_16_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  x = np.fromfile(dirname + os.sep + "input_dc.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output16_dc.dat", dtype=np.float64).reshape(1, -1)
+  out = filter_16(x)
+  assert_almost_equal(out, ref)
+
+def dc_8_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  x = np.fromfile(dirname + os.sep + "input_dc.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output8_dc.dat", dtype=np.float64).reshape(1, -1)
+  out = filter_8(x)
+  assert_almost_equal(out, ref)
+
+def dc_4_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  x = np.fromfile(dirname + os.sep + "input_dc.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output4_dc.dat", dtype=np.float64).reshape(1, -1)
+  out = filter_4(x)
+  assert_almost_equal(out, ref)
 
 if __name__ == "__main__":
   import numpy as np
@@ -123,7 +171,7 @@ if __name__ == "__main__":
   
   x = np.arange(size).reshape(1, -1) / 48000.
   d = np.sin(x * 2 * np.pi * 100)
-  d.tofile("input.dat")
+  d.tofile("input_dc.dat")
   out = filter_32(d)
   out.tofile("output32_dc.dat")
   out = filter_16(d)
