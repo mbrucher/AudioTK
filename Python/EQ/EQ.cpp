@@ -50,9 +50,13 @@ namespace
   template<typename Coefficients>
   void populate_FIRFilter(py::module& m, const char* type)
   {
+    typedef typename Coefficients::DataType DataType;
     py::class_<FIRFilter<Coefficients>, Coefficients>(m, type)
     .def(py::init<std::size_t>(), "nb_channels"_a = 1)
-    .def_property_readonly("coefficients_in", &FIRFilter<Coefficients>::get_coefficients_in);
+    .def_property_readonly("coefficients_in", [](const FIRFilter<Coefficients>& instance)
+    {
+      return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
+    });
   }
   
   template<typename DataType, typename T>
@@ -65,10 +69,17 @@ namespace
   template<typename Coefficients>
   void populate_IIRFilter(py::module& m, const char* type)
   {
+    typedef typename Coefficients::DataType DataType;
     py::class_<IIRFilter<Coefficients>, Coefficients>(m, type)
       .def(py::init<std::size_t>(), "nb_channels"_a = 1)
-      .def_property_readonly("coefficients_in", &IIRFilter<Coefficients>::get_coefficients_in)
-      .def_property_readonly("coefficients_out", &IIRFilter<Coefficients>::get_coefficients_out);
+      .def_property_readonly("coefficients_in", [](const IIRFilter<Coefficients>& instance)
+    {
+      return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
+    })
+     .def_property_readonly("coefficients_out", [](const IIRFilter<Coefficients>& instance)
+    {
+      return py::array_t<DataType>(instance.get_coefficients_out().size(), instance.get_coefficients_out().data());
+    });
   }
   
   template<typename DataType, typename T>
