@@ -1,5 +1,5 @@
 
-create_Python_test(PyReverberation)
+create_Python_test(PyReverberation ${CMAKE_CURRENT_LIST_DIR})
 
 file(GLOB entries *.py)
 add_custom_target(PyReverberation_test SOURCES ${entries})

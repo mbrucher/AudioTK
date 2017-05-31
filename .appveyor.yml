@@ -144,7 +144,7 @@ after_build:
   - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%.zip * -tzip
 
 test_script:
-  - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-msvc-14.0;%FFTW_ROOT%;%PATH%
+  - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-%MSVC_VERSION%.0;%FFTW_ROOT%;%PATH%
   - cd %ATK_ROOT%\build
   - set CTEST_OUTPUT_ON_FAILURE=True
   - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
