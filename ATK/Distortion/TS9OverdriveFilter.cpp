@@ -129,8 +129,8 @@ namespace ATK
     optimizer->get_function().set_drive(drive);
   }
 
-  template <typename DataType>
-  DataType TS9OverdriveFilter<DataType>::get_drive() const
+  template <typename DataType_>
+  DataType_ TS9OverdriveFilter<DataType_>::get_drive() const
   {
     return optimizer->get_function().get_drive();
   }
