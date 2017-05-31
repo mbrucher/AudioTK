@@ -41,9 +41,10 @@ namespace
   void populate_ChamberlinFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<ChamberlinFilter<DataType>>(m, type, parent)
-    .def_property("cut_frequency", &ChamberlinFilter<DataType>::get_cut_frequency, &ChamberlinFilter<DataType>::set_cut_frequency)
-    .def_property("attenuation", &ChamberlinFilter<DataType>::get_attenuation, &ChamberlinFilter<DataType>::set_attenuation)
-    .def_property("selected", &ChamberlinFilter<DataType>::get_selected, &ChamberlinFilter<DataType>::select);
+      .def(py::init<>())
+      .def_property("cut_frequency", &ChamberlinFilter<DataType>::get_cut_frequency, &ChamberlinFilter<DataType>::set_cut_frequency)
+      .def_property("attenuation", &ChamberlinFilter<DataType>::get_attenuation, &ChamberlinFilter<DataType>::set_attenuation)
+      .def_property("selected", &ChamberlinFilter<DataType>::get_selected, &ChamberlinFilter<DataType>::select);
   }
 
   template<typename Coefficients>

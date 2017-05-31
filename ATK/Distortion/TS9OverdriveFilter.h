@@ -41,6 +41,7 @@ namespace ATK
     ~TS9OverdriveFilter();
 
     void set_drive(DataType drive);
+    DataType get_drive() const;
 
   protected:
     void setup() override final;

@@ -43,7 +43,12 @@ namespace ATK
     {
       this->drive = (R1 + drive * Q);
     }
-    
+
+    DataType get_drive() const
+    {
+      return (drive - R1) / Q;
+    }
+
     std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
       auto x1 = input[0];
@@ -122,6 +127,12 @@ namespace ATK
     }
     this->drive = drive;
     optimizer->get_function().set_drive(drive);
+  }
+
+  template <typename DataType>
+  DataType SD1OverdriveFilter<DataType>::get_drive() const
+  {
+    return optimizer->get_function().get_drive();
   }
 
   template <typename DataType>
