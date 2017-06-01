@@ -66,7 +66,14 @@ namespace
     py::class_<KorenTriodeFunction<DataType>>(m, type)
     .def_static("build_standard_function", &KorenTriodeFunction<DataType>::build_standard_function, "mu"_a = 100, "K"_a = 1.73e-6, "Kp"_a = 600, "Kvb"_a = 300, "Kg"_a = 1060, "Ex"_a = 1.4, "Cpg"_a = 1.7e-12);
   }
-  
+
+  template<typename DataType>
+  void populate_LeachTriodeFunction(py::module& m, const char* type)
+  {
+    py::class_<LeachTriodeFunction<DataType>>(m, type)
+      .def_static("build_standard_function", &LeachTriodeFunction<DataType>::build_standard_function, "mu"_a=88.5, "K"_a =1.73e-6, "Rgk"_a =20e3, "Vgamma"_a =0.6, "Cpg"_a =1.7e-12);
+  }
+
   template<typename DataType>
   void populate_ModifiedMunroPiazzaTriodeFunction(py::module& m, const char* type)
   {
@@ -117,6 +124,8 @@ PYBIND11_PLUGIN(PythonPreamplifier) {
   populate_EnhancedKorenTriodeFunction<double>(m, "DoubleEnhancedKorenTriodeFunction");
   populate_KorenTriodeFunction<float>(m, "FloatKorenTriodeFunction");
   populate_KorenTriodeFunction<double>(m, "DoubleKorenTriodeFunction");
+  populate_LeachTriodeFunction<float>(m, "FloatLeachTriodeFunction");
+  populate_LeachTriodeFunction<double>(m, "DoubleLeachTriodeFunction");
   populate_ModifiedMunroPiazzaTriodeFunction<float>(m, "FloatModifiedMunroPiazzaTriodeFunction");
   populate_ModifiedMunroPiazzaTriodeFunction<double>(m, "DoubleModifiedMunroPiazzaTriodeFunction");
   populate_MunroPiazzaTriodeFunction<float>(m, "FloatMunroPiazzaTriodeFunction");
@@ -128,6 +137,8 @@ PYBIND11_PLUGIN(PythonPreamplifier) {
   populate_Triode2Filter<double, KorenTriodeFunction<double>>(m, "DoubleKorenTriode2Filter", f2);
   populate_Triode2Filter<float, EnhancedKorenTriodeFunction<float>>(m, "FloatEnhancedKorenTriode2Filter", f1);
   populate_Triode2Filter<double, EnhancedKorenTriodeFunction<double>>(m, "DoubleEnhancedKorenTriode2Filter", f2);
+  populate_Triode2Filter<float, LeachTriodeFunction<float>>(m, "FloatLeachTriode2Filter", f1);
+  populate_Triode2Filter<double, LeachTriodeFunction<double>>(m, "DoubleLeachTriode2Filter", f2);
   populate_Triode2Filter<float, ModifiedMunroPiazzaTriodeFunction<float>>(m, "FloatModifiedMunroPiazzaTriode2Filter", f1);
   populate_Triode2Filter<double, ModifiedMunroPiazzaTriodeFunction<double>>(m, "DoubleModifiedMunroPiazzaTriode2Filter", f2);
   populate_Triode2Filter<float, MunroPiazzaTriodeFunction<float>>(m, "FloatMunroPiazzaTriode2Filter", f1);
@@ -139,6 +150,8 @@ PYBIND11_PLUGIN(PythonPreamplifier) {
   populate_TriodeFilter<double, KorenTriodeFunction<double>>(m, "DoubleKorenTriodeFilter", f2);
   populate_TriodeFilter<float, EnhancedKorenTriodeFunction<float>>(m, "FloatEnhancedKorenTriodeFilter", f1);
   populate_TriodeFilter<double, EnhancedKorenTriodeFunction<double>>(m, "DoubleEnhancedKorenTriodeFilter", f2);
+  populate_TriodeFilter<float, LeachTriodeFunction<float>>(m, "FloatLeachTriodeFilter", f1);
+  populate_TriodeFilter<double, LeachTriodeFunction<double>>(m, "DoubleLeachTriodeFilter", f2);
   populate_TriodeFilter<float, ModifiedMunroPiazzaTriodeFunction<float>>(m, "FloatModifiedMunroPiazzaTriodeFilter", f1);
   populate_TriodeFilter<double, ModifiedMunroPiazzaTriodeFunction<double>>(m, "DoubleModifiedMunroPiazzaTriodeFilter", f2);
   populate_TriodeFilter<float, MunroPiazzaTriodeFunction<float>>(m, "FloatMunroPiazzaTriodeFilter", f1);

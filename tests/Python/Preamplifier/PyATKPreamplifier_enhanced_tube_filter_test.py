@@ -5,41 +5,30 @@ from ATK.Tools import DoubleOversampling6points5order_32Filter, DoubleOversampli
 from ATK.EQ import DoubleButterworthLowPassFilter
 from ATK.Preamplifier import DoubleEnhancedKorenTriodeFilter
 
-import numpy as np
-import scipy.signal as signal
-import matplotlib.pyplot as plt
-
-sample_rate = 96000
-
-import sys
-import os
-sys.path.append(os.getcwd()+"/..")
-from display.compare_spec import plot_me
-
 def filter_32(input):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(sample_rate)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_32Filter()
-  overfilter.set_input_sampling_rate(sample_rate)
-  overfilter.set_output_sampling_rate(sample_rate * 32)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 32
   overfilter.set_input_port(0, infilter, 0)
   overdrivefilter = DoubleEnhancedKorenTriodeFilter.build_standard_filter()
-  overdrivefilter.set_input_sampling_rate(sample_rate * 32)
+  overdrivefilter.input_sampling_rate = 48000 * 32
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(sample_rate * 32)
-  lowpassfilter.set_cut_frequency(sample_rate/2)
-  lowpassfilter.set_order(10)
+  lowpassfilter.input_sampling_rate = 48000 * 32
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(sample_rate * 32)
-  decimationfilter.set_output_sampling_rate(sample_rate)
+  decimationfilter.input_sampling_rate = 48000 * 32
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(sample_rate)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
@@ -49,25 +38,25 @@ def filter_16(input):
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(sample_rate)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_16Filter()
-  overfilter.set_input_sampling_rate(sample_rate)
-  overfilter.set_output_sampling_rate(sample_rate * 16)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 16
   overfilter.set_input_port(0, infilter, 0)
   overdrivefilter = DoubleEnhancedKorenTriodeFilter.build_standard_filter()
-  overdrivefilter.set_input_sampling_rate(sample_rate * 16)
+  overdrivefilter.input_sampling_rate = 48000 * 16
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(sample_rate * 16)
-  lowpassfilter.set_cut_frequency(sample_rate/2)
-  lowpassfilter.set_order(10)
+  lowpassfilter.input_sampling_rate = 48000 * 16
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(sample_rate * 16)
-  decimationfilter.set_output_sampling_rate(sample_rate)
+  decimationfilter.input_sampling_rate = 48000 * 16
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(sample_rate)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
@@ -77,25 +66,25 @@ def filter_8(input):
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(sample_rate)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_8Filter()
-  overfilter.set_input_sampling_rate(sample_rate)
-  overfilter.set_output_sampling_rate(sample_rate * 8)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 8
   overfilter.set_input_port(0, infilter, 0)
   overdrivefilter = DoubleEnhancedKorenTriodeFilter.build_standard_filter()
-  overdrivefilter.set_input_sampling_rate(sample_rate * 8)
+  overdrivefilter.input_sampling_rate = 48000 * 8
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(sample_rate * 8)
-  lowpassfilter.set_cut_frequency(20000)
-  lowpassfilter.set_order(10)
+  lowpassfilter.input_sampling_rate = 48000 * 8
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(sample_rate * 8)
-  decimationfilter.set_output_sampling_rate(sample_rate)
+  decimationfilter.input_sampling_rate = 48000 * 8
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(sample_rate)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
@@ -105,57 +94,60 @@ def filter_4(input):
   output = np.zeros(input.shape, dtype=np.float64)
 
   infilter = DoubleInPointerFilter(input, False)
-  infilter.set_input_sampling_rate(sample_rate)
+  infilter.input_sampling_rate = 48000
   overfilter = DoubleOversampling6points5order_4Filter()
-  overfilter.set_input_sampling_rate(sample_rate)
-  overfilter.set_output_sampling_rate(sample_rate * 4)
+  overfilter.input_sampling_rate = 48000
+  overfilter.output_sampling_rate = 48000 * 4
   overfilter.set_input_port(0, infilter, 0)
   overdrivefilter = DoubleEnhancedKorenTriodeFilter.build_standard_filter()
-  overdrivefilter.set_input_sampling_rate(sample_rate * 4)
+  overdrivefilter.input_sampling_rate = 48000 * 4
   overdrivefilter.set_input_port(0, overfilter, 0)
   lowpassfilter = DoubleButterworthLowPassFilter()
-  lowpassfilter.set_input_sampling_rate(sample_rate * 4)
-  lowpassfilter.set_cut_frequency(20000)
-  lowpassfilter.set_order(10)
+  lowpassfilter.input_sampling_rate = 48000 * 4
+  lowpassfilter.cut_frequency = 48000
+  lowpassfilter.order = 5
   lowpassfilter.set_input_port(0, overdrivefilter, 0)
   decimationfilter = DoubleDecimationFilter(1)
-  decimationfilter.set_input_sampling_rate(sample_rate * 4)
-  decimationfilter.set_output_sampling_rate(sample_rate)
+  decimationfilter.input_sampling_rate = 48000 * 4
+  decimationfilter.output_sampling_rate = 48000
   decimationfilter.set_input_port(0, lowpassfilter, 0)
   outfilter = DoubleOutPointerFilter(output, False)
-  outfilter.set_input_sampling_rate(sample_rate)
+  outfilter.input_sampling_rate = 48000
   outfilter.set_input_port(0, decimationfilter, 0)
   outfilter.process(input.shape[1])
   return output
 
+def enhanced_koren_32_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+  
+  import os
+  dirname = os.path.dirname(__file__)
+  
+  x = np.fromfile(dirname + os.sep + "input_tube.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output_tube_32ek.dat", dtype=np.float64).reshape(1, -1)
+  out = filter_32(x)
+  assert_almost_equal(out, ref)
+
 if __name__ == "__main__":
   import numpy as np
+  size = 1200
   
-  samples = 2000000
-  freq_max = 20000
-
-  t = np.arange(samples, dtype=np.float64).reshape(1, -1) / sample_rate
-  d = np.sin(np.pi * (sample_rate * freq_max / samples * (t + .1)) * t)
-
-  np.savetxt("input.txt", d)
+  x = np.arange(size).reshape(1, -1) / 48000.
+  d = np.sin(x * 2 * np.pi * 200) * 10
+  d.tofile("input_tube.dat")
   out = filter_32(d)
-  plt.figure()
-  plt.title("Oversampling 32")
-  plot_me((d[0], out[0]), sample_rate)
-  np.savetxt("output32.txt", out)
+  out.tofile("output_tube_32ek.dat")
   out = filter_16(d)
-  plt.figure()
-  plt.title("Oversampling 16")
-  plot_me((d[0], out[0]), sample_rate)
-  np.savetxt("output16.txt", out)
+  out.tofile("output_tube_16ek.dat")
   out = filter_8(d)
-  plt.figure()
-  plt.title("Oversampling 8")
-  plot_me((d[0], out[0]), sample_rate)
-  np.savetxt("output8.txt", out)
+  out.tofile("output_tube_8ek.dat")
   out = filter_4(d)
-  plt.figure()
-  plt.title("Oversampling 4")
-  plot_me((d[0], out[0]), sample_rate)
-  np.savetxt("output4.txt", out)
+  out.tofile("output_tube_4ek.dat")
+
+  import matplotlib.pyplot as plt
+  plt.plot(x[0], d[0], label="input")
+  plt.plot(x[0], out[0], label="output")
+  plt.legend()
   plt.show()
+

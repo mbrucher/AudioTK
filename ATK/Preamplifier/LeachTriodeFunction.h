@@ -69,17 +69,17 @@ namespace ATK
     {
       return 0;
     }
-    
+  protected:
     /// Constructor
     LeachTriodeFunction(DataType_ mu, DataType_ K, DataType_ Rgk, DataType_ Vgamma, DataType_ Cpg)
     :mu(mu), K(K), Rgk(Rgk), Vgamma(Vgamma), Cpg(Cpg)
     {
     }
-    
+  public:  
     /// Build a new triode function for a filter (12AX7/ECC83)
-    static LeachTriodeFunction build_standard_function()
+    static LeachTriodeFunction build_standard_function(DataType_ mu=88.5, DataType_ K=1.73e-6, DataType_ Rgk=20e3, DataType_ Vgamma=0.6, DataType_ Cpg=1.7e-12)
     {
-      return LeachTriodeFunction(88.5, 1.73e-6, 20e3, 0.6, 1.7e-12);
+      return LeachTriodeFunction(mu, K, Rgk, Vgamma, Cpg);
     }
 
   };
