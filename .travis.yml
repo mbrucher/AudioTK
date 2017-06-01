@@ -244,7 +244,7 @@ script:
   - make -j 16
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$DYLD_LIBRARY_PATH ; fi
-  - export PYTHONPATH=${HOME}/ATK/lib/python${PYTHON_VERSION}/site-packages/:$PYTHONPATH
+  - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
   - CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
 after_success:
