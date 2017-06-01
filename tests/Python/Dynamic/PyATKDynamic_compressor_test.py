@@ -4,8 +4,6 @@ from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Dynamic import DoubleAttackReleaseFilter, DoubleGainCompressorFilter, DoublePowerFilter
 from ATK.Tools import DoubleApplyGainFilter
 
-import matplotlib.pyplot as plt
-
 sample_rate = 96000
 
 def filter(input):
@@ -59,6 +57,8 @@ def compressor_test():
 
 if __name__ == "__main__":
   import numpy as np
+  import matplotlib.pyplot as plt
+  
   size = 5000
 
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / sample_rate

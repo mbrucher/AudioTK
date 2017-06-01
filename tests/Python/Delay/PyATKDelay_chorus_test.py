@@ -3,9 +3,6 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Delay import DoubleUniversalVariableDelayLineFilter
 from ATK.EQ import DoubleSecondOrderLowPassFilter
-from ATK.Tools import DoubleWhiteNoiseGeneratorFilter
-
-import matplotlib.pyplot as plt
 
 sample_rate = 96000
 
@@ -54,6 +51,8 @@ def chorus_test():
 
 if __name__ == "__main__":
   import numpy as np
+  import matplotlib.pyplot as plt
+
   samples = 2000000
   freq_max = 20000
   

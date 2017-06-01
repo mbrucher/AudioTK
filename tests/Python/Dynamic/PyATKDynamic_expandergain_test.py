@@ -4,8 +4,6 @@ from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Dynamic import DoubleGainExpanderFilter, DoubleGainMaxExpanderFilter
 from ATK.Tools import DoubleApplyGainFilter
 
-import matplotlib.pyplot as plt
-
 sample_rate = 96000
 
 def filter(input, ratio=4, threshold=1, softness=1):
@@ -71,6 +69,8 @@ def max_filter(input, ratio=4, threshold=1, softness=1, max_reduction=0.1):
 
 if __name__ == "__main__":
   import numpy as np
+  import matplotlib.pyplot as plt
+
   size = 1000
 
   x = np.arange(size, dtype=np.float64).reshape(1, -1) / 100

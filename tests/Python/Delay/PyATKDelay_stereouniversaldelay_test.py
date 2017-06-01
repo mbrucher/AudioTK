@@ -3,8 +3,6 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter, PipelineGlobalSinkFilter
 from ATK.Delay import DoubleDualMultipleUniversalFixedDelayLineFilter
 
-import matplotlib.pyplot as plt
-
 sample_rate = 96000
 
 def filter(inputl, inputr, blend_ch1=0, blend_ch2=0,
@@ -73,6 +71,8 @@ if __name__ == "__main__":
   import numpy as np
   samples = 2000000
   freq_max = 20000
+
+  import matplotlib.pyplot as plt
 
   import sys, os
   sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/..")

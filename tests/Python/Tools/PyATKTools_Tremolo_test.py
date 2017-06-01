@@ -3,8 +3,6 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Tools import DoubleSinusGeneratorFilter, DoubleApplyGainFilter
 
-import matplotlib.pyplot as plt
-
 sample_rate = 96000
 size = 9600
 
@@ -45,6 +43,7 @@ def tremolo_test():
 
 if __name__ == "__main__":
   import numpy as np
+  import matplotlib.pyplot as plt
   
   x = np.arange(size, dtype=np.float64) / sample_rate
   d = np.sin(x * 2 * np.pi * 100)

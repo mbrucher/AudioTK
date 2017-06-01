@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-from matplotlib import pyplot as plt
 import numpy as np
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter,\
@@ -49,7 +48,7 @@ def process(input_l, input_r):
 
 def buffer_test():
   from numpy.testing import assert_equal
-  import numpy as np
+  
   x = np.arange(size, dtype=np.float64) / sample_rate
   # Populate the inputs
   input_l = np.sin(x * 2 * np.pi * 1000)
@@ -62,6 +61,8 @@ def buffer_test():
 
 
 if __name__ == "__main__":
+  from matplotlib import pyplot as plt
+  
   # x is the time, in an array of size (1, size), as InPointerFilter
   # and OutPointerFilter require a 2D array.
   # The Python wrapper will split the numpy array into pointer,
