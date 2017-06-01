@@ -245,8 +245,9 @@ script:
   - make install
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$DYLD_LIBRARY_PATH ; fi
+  - export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$DYLD_LIBRARY_PATH
+  - export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
-  - dir ${HOME}/ATK/lib/site-packages/
   - CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
 after_success:
