@@ -161,7 +161,7 @@ def filter(input):
   outfilter.input_sampling_rate = sample_rate * 32
   outfilter.set_input_port(0, overfilter, 0)
   for i in range(10):
-    outfilter.process(input.shape[0] * 32 / 10)
+    outfilter.process(input.shape[0] * 32 // 10)
   
   return output
 
