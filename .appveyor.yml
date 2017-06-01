@@ -112,10 +112,6 @@ environment:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-15
    
-matrix:
-  allow_failures:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-
 init:
   - cmake --version
   - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%

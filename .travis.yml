@@ -244,10 +244,11 @@ script:
   - make -j 16
   - make install
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$DYLD_LIBRARY_PATH ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib ; fi
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
   - echo $DYLD_LIBRARY_PATH
-  - dir ${HOME}/ATK/lib
+  - echo $LD_LIBRARY_PATH
+  - ls ${HOME}/ATK/lib
   - CTEST_OUTPUT_ON_FAILURE=TRUE make test
 
 after_success:
