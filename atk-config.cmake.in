@@ -20,6 +20,9 @@ if(ATK_FIND_COMPONENTS)
     find_library(ATK_${component}_LIBRARY NAMES ATK${component} PATHS ${PREFIX}/lib)
     set(ATK_MANDATORY_VARS ${ATK_MANDATORY_VARS} ATK_${component}_LIBRARY)
     set(ATK_LIBRARIES ${ATK_LIBRARIES} ATK_${component}_LIBRARY)
+    if(ATK_${component}_LIBRARY)
+      set(ATK_${component}_FOUND True)
+    endif(ATK_${component}_LIBRARY)
   endforeach(component ${ATK_FIND_COMPONENTS})
 else(ATK_FIND_COMPONENTS)
   find_library(ATK_UTILITY_LIBRARY NAMES ATKUtility PATHS ${PREFIX}/lib)
@@ -57,5 +60,6 @@ endif(ATK_FIND_COMPONENTS)
 INCLUDE(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(ATK
   REQUIRED_VARS ${ATK_MANDATORY_VARS}
+  HANDLE_COMPONENTS
   VERSION_VAR ATK_VERSION
   )
