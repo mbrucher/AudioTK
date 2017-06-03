@@ -3,6 +3,13 @@
 import fileinput
 import sys
 
+def update_cmakelist(new_version):
+  for line in fileinput.input(files=("CMakeLists.txt",), inplace=True):
+    if line.startswith("set(ATK_VERSION"):
+      sys.stdout.write("set(ATK_VERSION %s)\n" % new_version)
+    else:
+      sys.stdout.write(line)
+
 def update_appveyor(new_version):
   for line in fileinput.input(files=(".appveyor.yml",), inplace=True):
     if line.startswith("version"):

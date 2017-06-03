@@ -1,9 +1,11 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.8)
 
 project(AudioTK)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+set(ATK_VERSION 2.1.0)
 
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
@@ -296,8 +298,16 @@ endif(ENABLE_TESTS)
 # to the source code
 configure_file (
   "ATK/config.h.in"
-  "ATK/config.h"
+  "ATK/config.h" @ONLY
   )
+configure_file (
+  "atk-config.cmake.in"
+  "atk-config.cmake" @ONLY
+  )
+
+INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK-config.cmake
+ DESTINATION ${CMAKE_INSTALL_PREFIX}
+ )
 
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
