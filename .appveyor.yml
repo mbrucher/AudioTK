@@ -19,8 +19,7 @@ environment:
       OUTPUT: static-x86
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
-      MSVC_VERSION: msvc-14
-      BOOST_MSVC_VERSION: 14.0
+      MSVC_VERSION: msvc-14.0
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -33,8 +32,7 @@ environment:
       OUTPUT: static-x64
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
-      MSVC_VERSION: msvc-14
-      BOOST_MSVC_VERSION: 14.0
+      MSVC_VERSION: msvc-14.0
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -47,8 +45,7 @@ environment:
       OUTPUT: dynamic-x86
       ADDITONAL_CMAKE_FLAGS:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
-      MSVC_VERSION: msvc-14
-      BOOST_MSVC_VERSION: 14.0
+      MSVC_VERSION: msvc-14.0
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -61,8 +58,7 @@ environment:
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS:
       VSINSTALL: "\\Microsoft Visual Studio 14.0\\VC"
-      MSVC_VERSION: msvc-14
-      BOOST_MSVC_VERSION: 14.0
+      MSVC_VERSION: msvc-14.0
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -75,8 +71,7 @@ environment:
       OUTPUT: static-x86
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
-      MSVC_VERSION: msvc-15
-      BOOST_MSVC_VERSION: 14.1
+      MSVC_VERSION: msvc-14.1
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -89,8 +84,7 @@ environment:
       OUTPUT: static-x64
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
-      MSVC_VERSION: msvc-15
-      BOOST_MSVC_VERSION: 14.1
+      MSVC_VERSION: msvc-14.1
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -103,8 +97,7 @@ environment:
       OUTPUT: dynamic-x86
       ADDITONAL_CMAKE_FLAGS:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
-      MSVC_VERSION: msvc-15
-      BOOST_MSVC_VERSION: 14.1
+      MSVC_VERSION: msvc-14.1
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -117,8 +110,7 @@ environment:
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
-      MSVC_VERSION: msvc-15
-      BOOST_MSVC_VERSION: 14.1
+      MSVC_VERSION: msvc-14.1
    
 matrix:
   allow_failures:
@@ -152,7 +144,7 @@ after_build:
   - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%.zip * -tzip
 
 test_script:
-  - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-msvc-%BOOST_MSVC_VERSION%;%FFTW_ROOT%;%PATH%
+  - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-%MSVC_VERSION%;%FFTW_ROOT%;%PATH%
   - set PYTHONPATH=%ATK_OUT%\lib\site-packages:%PYTHONPATH%
   - cd %ATK_ROOT%\build
   - set CTEST_OUTPUT_ON_FAILURE=True
