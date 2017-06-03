@@ -30,9 +30,12 @@ namespace ATK
 #if ATK_USE_IPP == 1
     Ipp64fc *pSrc;
     Ipp64fc *pDst;
+    IppsFFTSpec_C_64fc* pFFTSpec;
     IppsDFTSpec_C_64fc* pDFTSpec;
-    Ipp8u* pDFTInitBuf;
-    Ipp8u* pDFTWorkBuf;
+    Ipp8u* pFFTSpecBuf;
+    Ipp8u* pFFTInitBuf;
+    Ipp8u* pFFTWorkBuf;
+    bool power_of_two;
 #endif
   public:
     FFTImpl()
@@ -41,7 +44,7 @@ namespace ATK
     fft_plan(nullptr), fft_reverse_plan(nullptr), input_data(nullptr), output_freqs(nullptr)
 #endif
 #if ATK_USE_IPP == 1
-    pSrc(nullptr), pDst(nullptr), pDFTSpec(nullptr), pDFTInitBuf(nullptr), pDFTWorkBuf(nullptr)
+    pSrc(nullptr), pDst(nullptr), pFFTSpec(nullptr), pDFTSpec(nullptr), pFFTSpecBuf(nullptr), pFFTInitBuf(nullptr), pFFTWorkBuf(nullptr), power_of_two(false)
 #endif
     {
     }
@@ -59,12 +62,12 @@ namespace ATK
         ippFree(pSrc);
       if (pDst)
         ippFree(pDst);
-      if (pDFTSpec)
-        ippFree(pDFTSpec);
-      if (pDFTInitBuf)
-        ippFree(pDFTInitBuf);
-      if (pDFTWorkBuf)
-        ippFree(pDFTWorkBuf);
+      if (pFFTSpec)
+        ippFree(pFFTSpec);
+      if (pFFTInitBuf)
+        ippFree(pFFTInitBuf);
+      if (pFFTWorkBuf)
+        ippFree(pFFTWorkBuf);
 #endif
     }
 
@@ -83,28 +86,50 @@ namespace ATK
       fft_reverse_plan = fftw_plan_dft_1d(size, output_freqs, input_data, FFTW_BACKWARD, FFTW_ESTIMATE);
 #endif
 #if ATK_USE_IPP == 1
+      power_of_two = ((size & (size - 1)) == 0);
       if (pSrc)
         ippFree(pSrc);
       if (pDst)
         ippFree(pDst);
+      if (pFFTSpec)
+        ippFree(pFFTSpec);
+      pFFTSpec = nullptr;
       if (pDFTSpec)
         ippFree(pDFTSpec);
-      if (pDFTInitBuf)
-        ippFree(pDFTInitBuf);
-      if (pDFTWorkBuf)
-        ippFree(pDFTWorkBuf);
-      int sizeDFTSpec, sizeDFTInitBuf, sizeDFTWorkBuf;
-      ippsDFTGetSize_C_64fc(size, IPP_FFT_NODIV_BY_ANY, ippAlgHintAccurate, &sizeDFTSpec, &sizeDFTInitBuf, &sizeDFTWorkBuf);
+      pDFTSpec = nullptr;
+      if (pFFTSpecBuf)
+        ippFree(pFFTSpecBuf);
+      if (pFFTInitBuf)
+        ippFree(pFFTInitBuf);
+      if (pFFTWorkBuf)
+        ippFree(pFFTWorkBuf);
+      int sizeFFTSpec, sizeFFTInitBuf, sizeFFTWorkBuf;
+      if (power_of_two)
+      {
+        ippsFFTGetSize_C_64fc(std::lround(std::log(size) / std::log(2)), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, &sizeFFTSpec, &sizeFFTInitBuf, &sizeFFTWorkBuf);
+      }
+      else
+      {
+        ippsDFTGetSize_C_64fc(size, IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, &sizeFFTSpec, &sizeFFTInitBuf, &sizeFFTWorkBuf);
+      }
       
-      pDFTSpec = (IppsDFTSpec_C_64fc*) ippsMalloc_8u(sizeDFTSpec);
-      pDFTInitBuf = ippsMalloc_8u(sizeDFTInitBuf);
-      pDFTWorkBuf = ippsMalloc_8u(sizeDFTWorkBuf);
+      pFFTSpecBuf = ippsMalloc_8u(sizeFFTSpec);
+      pFFTInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
+      pFFTWorkBuf = ippsMalloc_8u(sizeFFTWorkBuf);
       pSrc = ippsMalloc_64fc(size);
       pDst = ippsMalloc_64fc(size);
-      ippsDFTInit_C_64fc(size, IPP_FFT_NODIV_BY_ANY, ippAlgHintAccurate, pDFTSpec, pDFTInitBuf);
-      if (pDFTInitBuf)
-        ippFree(pDFTInitBuf);
-      pDFTInitBuf = nullptr;
+      if (power_of_two)
+      {
+        ippsFFTInit_C_64fc(&pFFTSpec, std::lround(std::log(size) / std::log(2)), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, pFFTSpecBuf, pFFTInitBuf);
+      }
+      else
+      {
+        pDFTSpec = (IppsDFTSpec_C_64fc*)ippsMalloc_8u(sizeFFTSpec);
+        ippsDFTInit_C_64fc(size, IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, pDFTSpec, pFFTInitBuf);
+      }
+      if (pFFTInitBuf)
+        ippFree(pFFTInitBuf);
+      pFFTInitBuf = nullptr;
 #endif
     }
 
@@ -127,7 +152,7 @@ namespace ATK
 #if ATK_USE_IPP == 1
       for (std::size_t j = 0; j < std::min(input_size, size); ++j)
       {
-        pSrc[j].re = input[j] / factor;
+        pSrc[j].re = input[j];
         pSrc[j].im = 0;
       }
       for (std::size_t j = input_size; j < size; ++j)
@@ -135,7 +160,14 @@ namespace ATK
         pSrc[j].re = 0;
         pSrc[j].im = 0;
       }
-      ippsDFTFwd_CToC_64fc(pSrc, pDst, pDFTSpec, pDFTWorkBuf);
+      if (power_of_two)
+      {
+        ippsFFTFwd_CToC_64fc(pSrc, pDst, pFFTSpec, pFFTWorkBuf);
+      }
+      else
+      {
+        ippsDFTFwd_CToC_64fc(pSrc, pDst, pDFTSpec, pFFTWorkBuf);
+      }
 #endif
     }
     
@@ -172,7 +204,14 @@ namespace ATK
         pDst[j].re = input[j].real();
         pDst[j].im = input[j].imag();
       }
-      ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pDFTWorkBuf);
+      if (power_of_two)
+      {
+        ippsFFTInv_CToC_64fc(pDst, pDst, pFFTSpec, pFFTWorkBuf);
+      }
+      else
+      {
+        ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pFFTWorkBuf);
+      }
       for (std::size_t j = 0; j < input_size; ++j)
       {
         output[j] = pDst[j].re;
@@ -199,15 +238,22 @@ namespace ATK
 #if ATK_USE_IPP == 1
       for (std::size_t j = 0; j < std::min(input_size, size); ++j)
       {
-        pSrc[j].re = std::real(input[j]) / factor;
-        pSrc[j].im = std::imag(input[j]) / factor;
+        pSrc[j].re = std::real(input[j]);
+        pSrc[j].im = std::imag(input[j]);
       }
       for (std::size_t j = input_size; j < size; ++j)
       {
         pSrc[j].re = 0;
         pSrc[j].im = 0;
       }
-      ippsDFTFwd_CToC_64fc(pSrc, pDst, pDFTSpec, pDFTWorkBuf);
+      if (power_of_two)
+      {
+        ippsFFTFwd_CToC_64fc(pSrc, pDst, pFFTSpec, pFFTWorkBuf);
+      }
+      else
+      {
+        ippsDFTFwd_CToC_64fc(pSrc, pDst, pDFTSpec, pFFTWorkBuf);
+      }
 #endif
     }
     
@@ -231,7 +277,14 @@ namespace ATK
         pDst[j].re = input[j].real();
         pDst[j].im = input[j].imag();
       }
-      ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pDFTWorkBuf);
+      if (power_of_two)
+      {
+        ippsFFTInv_CToC_64fc(pDst, pDst, pFFTSpec, pFFTWorkBuf);
+      }
+      else
+      {
+        ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pFFTWorkBuf);
+      }
       for (std::size_t j = 0; j < input_size; ++j)
       {
         output[j] = std::complex<DataType_>(pDst[j].re, pDst[j].im);
