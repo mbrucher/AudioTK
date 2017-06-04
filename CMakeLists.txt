@@ -305,7 +305,7 @@ configure_file (
   "atk-config.cmake" @ONLY
   )
 
-INSTALL(FILES ${PROJECT_BINARY_DIR}/ATK-config.cmake
+INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
  DESTINATION ${CMAKE_INSTALL_PREFIX}
  )
 
