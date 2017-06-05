@@ -247,6 +247,14 @@ Audio Toolkit is published under the BSD license.
 * Configure your options
 * Run make, Visual Studio or XCode
 
+## Usage
+
+### CMake
+
+By setting ATK_DIR, you can import a package with FIND_PACKAGE(ATK) and components are supported. ATK_INCLUDE_DIRS and ATK_LIBRARIES are the main variables set, but each individual library can also be linked against instead of all of them.
+
+Shared libraries and static libraries are different components (for instance Core and Core_static), by not setting components, all the shared libraries available will be stored in ATK_LIBRARIES. 
+
 ## Known Issues
 
 * If a plugin uses the same buffers for input and output and the pipeline has two subgraphs, one from left to right and one to left (for instance), then they are processed in order and the second graph would use the result of the first branch. To fix this, add a BufferFilter just after the input filter so that they are all buffered and copied to an intermediate buffer when the first one is used. It adds a copy, so only use this fix when you have this specific configuration for a pipeline.
