@@ -54,17 +54,10 @@ namespace ATK
     }
 
     /// Build a new transistor function for a filter
-    static TransistorFunction build_standard_function()
+    static TransistorFunction build_standard_function(DataType_ Is=1e-12, DataType_ Vt=26e-3, DataType_ Br=1, DataType_ Bf=100)
     {
-      return TransistorFunction(1e-12, 26e-3, 1, 100);
+      return TransistorFunction(Is, Vt, Br, Bf);
     }
-
-    /// Build a new transistor function for a filter
-    static TransistorFunction build_2n3403()
-    {
-      return TransistorFunction(1e-12, 26e-3, 1, 300);
-    }
-
   };
 }
 

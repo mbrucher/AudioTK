@@ -7,6 +7,7 @@
 #include "KorenTriodeFunction.h"
 #include "LeachTriodeFunction.h"
 #include "MunroPiazzaTriodeFunction.h"
+#include "ModifiedMunroPiazzaTriodeFunction.h"
 #include "Triode2Filter.h"
 
 #include <cassert>
@@ -23,7 +24,7 @@ namespace ATK
     const DataType_ Rg;
     const DataType_ Ro;
     const DataType_ Rk;
-    const DataType_ VBias;
+    const DataType_ Vbias;
     const DataType_ Co;
     const DataType_ Ck;
     const DataType_ Cpg;
@@ -39,8 +40,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriode2Function(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
-      :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), VBias(VBias), Co(2 / dt * Co), Ck(2 / dt * Ck), Cpg(2 / dt * tube_function.Cpg), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), icpgeq(Cpg * (default_output[3] - default_output[4]) ), tube_function(tube_function)
+    CommonCathodeTriode2Function(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
+      :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), Vbias(Vbias), Co(2 / dt * Co), Ck(2 / dt * Ck), Cpg(2 / dt * tube_function.Cpg), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), icpgeq(Cpg * (default_output[3] - default_output[4]) ), tube_function(tube_function)
     {
     }
 
@@ -81,7 +82,7 @@ namespace ATK
       auto f1 = Ib + Ic + ickeq - y1(0) * (Rk + Ck);
       auto f2 = icoeq + (y1(1) + y1(2)) * Ro + y1(1) * Co;
 
-      auto g1 = (y1(2) - VBias) * Rp + (Ic + (y1(1) + y1(2)) * Ro) + (y1(2) - y1(3)) * Cpg - icpgeq;
+      auto g1 = (y1(2) - Vbias) * Rp + (Ic + (y1(1) + y1(2)) * Ro) + (y1(2) - y1(3)) * Cpg - icpgeq;
       auto g2 = (y1(3) - input[0][i]) * Rg + Ib + icpgeq - (y1(2) - y1(3)) * Cpg;
       
       Vector F(f1,
@@ -107,7 +108,7 @@ namespace ATK
     const DataType_ Rg;
     const DataType_ Ro;
     const DataType_ Rk;
-    const DataType_ VBias;
+    const DataType_ Vbias;
 
     TriodeFunction& tube_function;
 
@@ -116,8 +117,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 3, 1> Vector;
     typedef Eigen::Matrix<DataType, 3, 3> Matrix;
 
-    CommonCathodeTriode2InitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, TriodeFunction& tube_function)
-      :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), tube_function(tube_function)
+    CommonCathodeTriode2InitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, TriodeFunction& tube_function)
+      :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), Vbias(Vbias), tube_function(tube_function)
     {
     }
 
@@ -132,7 +133,7 @@ namespace ATK
       auto Ic_Vbe = tube_function.Lc_Vbe(y1(1) - y1(2), y1(0) - y1(2));
       auto Ic_Vce = tube_function.Lc_Vce(y1(1) - y1(2), y1(0) - y1(2));
 
-      Vector F(y1(0) - VBias + Ic * Rp,
+      Vector F(y1(0) - Vbias + Ic * Rp,
         Ib * Rg + y1(1),
         y1(2) - (Ib + Ic) * Rk);
 
@@ -146,15 +147,15 @@ namespace ATK
   };
 
   template <typename DataType, typename TriodeFunction>
-  Triode2Filter<DataType, TriodeFunction>::Triode2Filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType VBias, DataType Co, DataType Ck, TriodeFunction&& tube_function)
-  :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), VBias(VBias), Co(Co), Ck(Ck), tube_function(std::move(tube_function))
+  Triode2Filter<DataType, TriodeFunction>::Triode2Filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction&& tube_function)
+  :Parent(1, 5), Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), Vbias(Vbias), Co(Co), Ck(Ck), tube_function(std::move(tube_function))
   {
     input_delay = output_delay = 1;
   }
 
   template <typename DataType, typename TriodeFunction>
   Triode2Filter<DataType, TriodeFunction>::Triode2Filter(Triode2Filter&& other)
-  :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), VBias(other.VBias), Co(other.Co), Ck(other.Ck), tube_function(std::move(other.tube_function))
+  :Parent(std::move(other)), Rp(other.Rp), Rg(other.Rg), Ro(other.Ro), Rk(other.Rk), Vbias(other.Vbias), Co(other.Co), Ck(other.Ck), tube_function(std::move(other.tube_function))
   {
   }
 
@@ -169,7 +170,7 @@ namespace ATK
     Parent::setup();
     optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriode2Function, 4, iterations, true>(CommonCathodeTriode2Function(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg, Ro, Rk, //R
-      VBias, // VBias
+      Vbias, // Vbias
       Co, Ck, // C
       tube_function, // tube
       default_output)));
@@ -179,12 +180,12 @@ namespace ATK
   void Triode2Filter<DataType, TriodeFunction>::full_setup()
   {
     Eigen::Matrix<DataType, 3, 1> y0;
-    y0 << VBias, 0, 0;
+    y0 << Vbias, 0, 0;
     
     // setup default_output
     SimplifiedVectorizedNewtonRaphson<CommonCathodeTriode2InitialFunction<DataType, TriodeFunction>, 3, 20> custom(CommonCathodeTriode2InitialFunction<DataType, TriodeFunction>(
       Rp, Rg, Ro, Rk, //R
-      VBias, // VBias
+      Vbias, // Vbias
       tube_function // tube
       ), std::move(y0));
 
@@ -213,14 +214,15 @@ namespace ATK
   }
 
   template<typename DataType, typename TriodeFunction>
-  Triode2Filter<DataType, TriodeFunction> Triode2Filter<DataType, TriodeFunction>::build_standard_filter()
+  Triode2Filter<DataType, TriodeFunction> Triode2Filter<DataType, TriodeFunction>::build_standard_filter(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction function)
   {
-    return Triode2Filter<DataType, TriodeFunction>(200e3, 220e3, 220e3, 1e3, //R
-      300, // VBias
-      22e-9, 1e-6, // C
-      TriodeFunction::build_standard_function() // tube
-      );
+    return Triode2Filter<DataType, TriodeFunction>(Rp, Rg, Ro, Rk, //R
+                                                  Vbias, // Vbias
+                                                  Co, Ck, // C
+                                                  std::move(function) // tube
+                                                  );
   }
+
 
   template class Triode2Filter<float, LeachTriodeFunction<float> >;
   template class Triode2Filter<double, LeachTriodeFunction<double> >;
@@ -230,6 +232,8 @@ namespace ATK
   template class Triode2Filter<double, EnhancedKorenTriodeFunction<double> >;
   template class Triode2Filter<float, MunroPiazzaTriodeFunction<float> >;
   template class Triode2Filter<double, MunroPiazzaTriodeFunction<double> >;
+  template class Triode2Filter<float, ModifiedMunroPiazzaTriodeFunction<float> >;
+  template class Triode2Filter<double, ModifiedMunroPiazzaTriodeFunction<double> >;
   template class Triode2Filter<float, DempwolfTriodeFunction<float> >;
   template class Triode2Filter<double, DempwolfTriodeFunction<double> >;
 }

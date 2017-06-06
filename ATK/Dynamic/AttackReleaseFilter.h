@@ -29,7 +29,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    AttackReleaseFilter(unsigned int nb_channels = 1);
+    AttackReleaseFilter(std::size_t nb_channels = 1);
     /// destructor
     ~AttackReleaseFilter();
 

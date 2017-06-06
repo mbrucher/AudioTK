@@ -240,7 +240,7 @@ namespace
 namespace ATK
 {
   template <typename DataType>
-  BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients(unsigned int nb_channels)
+  BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -264,7 +264,13 @@ namespace ATK
     in_order = out_order = order;
     setup();
   }
-  
+
+  template <typename DataType>
+  unsigned int BesselLowPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
   template <typename DataType>
   void BesselLowPassCoefficients<DataType>::setup()
   {
@@ -276,7 +282,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients(unsigned int nb_channels)
+  BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -302,6 +308,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int BesselHighPassCoefficients<DataType>::get_order() const
+  {
+    return in_order;
+  }
+
+  template <typename DataType>
   void BesselHighPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -317,7 +329,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients(unsigned int nb_channels)
+  BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
@@ -350,6 +362,12 @@ namespace ATK
   }
   
   template <typename DataType>
+  unsigned int BesselBandPassCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+  
+  template <typename DataType>
   void BesselBandPassCoefficients<DataType>::setup()
   {
     Parent::setup();
@@ -360,7 +378,7 @@ namespace ATK
   }
   
   template <typename DataType>
-  BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients(unsigned int nb_channels)
+  BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
   {
   }
@@ -392,6 +410,12 @@ namespace ATK
     setup();
   }
   
+  template <typename DataType>
+  unsigned int BesselBandStopCoefficients<DataType>::get_order() const
+  {
+    return in_order / 2;
+  }
+
   template <typename DataType>
   void BesselBandStopCoefficients<DataType>::setup()
   {

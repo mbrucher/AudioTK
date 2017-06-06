@@ -1,2 +1,2 @@
 
-from .Preamplifier import *
+from .PythonPreamplifier import *

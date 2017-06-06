@@ -1,36 +1,27 @@
 
-SET(
-    ATK_PYTHON_DISTORTION_SWIG
-    main.i
+FILE(GLOB_RECURSE
+  PYTHON_MODULE_Distortion_SRC
+  *.cpp
 )
 
 FILE(GLOB_RECURSE
-  SWIG_MODULE_Distortion_EXTRA_DEPS
-  *.i
+  PYTHON_MODULE_Distortion_HEADERS
+  *.h
 )
 
-list(REMOVE_ITEM SWIG_MODULE_Distortion_EXTRA_DEPS ${ATK_PYTHON_DISTORTION_SWIG})
+include_directories(${PROJECT_SOURCE_DIR} ${NUMPY_INCLUDE_DIRS})
 
-include_directories(${PROJECT_SOURCE_DIR})
+pybind11_add_module(PythonDistortion MODULE ${PYTHON_MODULE_Distortion_SRC} ${PYTHON_MODULE_Distortion_HEADERS})
+target_link_libraries(PythonDistortion PRIVATE ATKCore ATKDistortion)
 
-SET_SOURCE_FILES_PROPERTIES(${ATK_PYTHON_DISTORTION_SWIG} PROPERTIES CPLUSPLUS ON)
-SET_SOURCE_FILES_PROPERTIES(${ATK_PYTHON_DISTORTION_SWIG} PROPERTIES SWIG_FLAGS "-includeall")
-SWIG_ADD_MODULE(Distortion python ${ATK_PYTHON_DISTORTION_SWIG})
-SWIG_LINK_LIBRARIES(Distortion ATKDistortion ATKUtility ${PYTHON_LIBRARIES})
 
-SET(
-    ATK_DISTORTION_PYTHON_SRC
-    __init__.py ${PROJECT_BINARY_DIR}/Python/Distortion/Distortion.py
-)
-
-INSTALL(FILES ${ATK_DISTORTION_PYTHON_SRC}
+INSTALL(FILES __init__.py
+    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Distortion
+    )
+INSTALL(TARGETS PythonDistortion
     DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Distortion
     )
 
-INSTALL(TARGETS ${SWIG_MODULE_Distortion_REAL_NAME}
-    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Distortion
-    )
-
-set_target_properties (${SWIG_MODULE_Distortion_REAL_NAME} PROPERTIES
+set_target_properties (PythonDistortion PROPERTIES
     FOLDER Python
 )

@@ -25,12 +25,12 @@ namespace ATK
 
   public:
     /// Constructor
-    PanFilter(unsigned int nb_channels = 1);
+    PanFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~PanFilter();
     
     /// Available laws
-    enum class PAN_LAWS {
+    enum PAN_LAWS {
       /// Sin/cos law, center = 0 dB on each channel
       SINCOS_0_CENTER,
       /// Sin/cos law, center = -3 dB on each channel

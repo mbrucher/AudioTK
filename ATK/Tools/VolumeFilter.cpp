@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  VolumeFilter<DataType_>::VolumeFilter(int nb_channels)
+  VolumeFilter<DataType_>::VolumeFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), volume(1)
   {
     

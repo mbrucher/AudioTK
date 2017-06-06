@@ -40,7 +40,8 @@ namespace ATK
     /// Destructor
     ~TS9OverdriveFilter();
 
-    void set_drive(DataType drive);
+    void set_drive(DataType_ drive);
+    DataType_ get_drive() const;
 
   protected:
     void setup() override final;

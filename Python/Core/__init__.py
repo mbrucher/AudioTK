@@ -1,2 +1,2 @@
 
-from .Core import *
+from .PythonCore import *

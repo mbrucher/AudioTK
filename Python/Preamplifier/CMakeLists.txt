@@ -1,39 +1,27 @@
 
-SET(
-    ATK_PYTHON_PREAMPLIFIER_SWIG
-    main.i
+FILE(GLOB_RECURSE
+  PYTHON_MODULE_Preamplifier_SRC
+  *.cpp
 )
 
 FILE(GLOB_RECURSE
-  SWIG_MODULE_Preamplifier_EXTRA_DEPS
-  *.i
+  PYTHON_MODULE_Preamplifier_HEADERS
+  *.h
 )
 
-list(REMOVE_ITEM SWIG_MODULE_Preamplifier_EXTRA_DEPS ${ATK_PYTHON_PREAMPLIFIER_SWIG})
+include_directories(${PROJECT_SOURCE_DIR} ${NUMPY_INCLUDE_DIRS})
 
-include_directories(${PROJECT_SOURCE_DIR})
+pybind11_add_module(PythonPreamplifier MODULE ${PYTHON_MODULE_Preamplifier_SRC} ${PYTHON_MODULE_Preamplifier_HEADERS})
+target_link_libraries(PythonPreamplifier PRIVATE ATKCore ATKPreamplifier)
 
-SET_SOURCE_FILES_PROPERTIES(${ATK_PYTHON_PREAMPLIFIER_SWIG} PROPERTIES CPLUSPLUS ON)
-SET_SOURCE_FILES_PROPERTIES(${ATK_PYTHON_PREAMPLIFIER_SWIG} PROPERTIES SWIG_FLAGS "-includeall")
 
-if(EIGEN_FOUND)
-SWIG_ADD_MODULE(Preamplifier python ${ATK_PYTHON_PREAMPLIFIER_SWIG})
-SWIG_LINK_LIBRARIES(Preamplifier ATKPreamplifier ATKUtility ${PYTHON_LIBRARIES})
-
-SET(
-    ATK_PREAMPLIFIER_PYTHON_SRC
-    __init__.py ${PROJECT_BINARY_DIR}/Python/Preamplifier/Preamplifier.py
-)
-
-INSTALL(FILES ${ATK_PREAMPLIFIER_PYTHON_SRC}
+INSTALL(FILES __init__.py
+    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Preamplifier
+    )
+INSTALL(TARGETS PythonPreamplifier
     DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Preamplifier
     )
 
-INSTALL(TARGETS ${SWIG_MODULE_Preamplifier_REAL_NAME}
-    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Preamplifier
-    )
-
-set_target_properties (${SWIG_MODULE_Preamplifier_REAL_NAME} PROPERTIES
+set_target_properties (PythonPreamplifier PROPERTIES
     FOLDER Python
 )
-endif(EIGEN_FOUND)

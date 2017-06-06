@@ -14,7 +14,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  OneMinusFilter<DataType_>::OneMinusFilter(int nb_channels)
+  OneMinusFilter<DataType_>::OneMinusFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels)
   {
   }

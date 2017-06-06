@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  ApplyGainFilter<DataType_>::ApplyGainFilter(int nb_channels)
+  ApplyGainFilter<DataType_>::ApplyGainFilter(std::size_t nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
   }

@@ -37,7 +37,7 @@ namespace ATK
     
   public:
     /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template
-    RemezBasedCoefficients(unsigned int nb_channels = 1);
+    RemezBasedCoefficients(std::size_t nb_channels = 1);
 
     /// Move constructor
     RemezBasedCoefficients(RemezBasedCoefficients&& other);

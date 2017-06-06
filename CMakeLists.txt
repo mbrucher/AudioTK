@@ -1,15 +1,18 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.8)
 
 project(AudioTK)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+set(ATK_VERSION 2.1.0)
+
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
+option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)
 option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 
@@ -48,15 +51,22 @@ if(WIN32)
           )
     foreach(CompilerFlag ${CompilerFlags})
       string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+      string(REPLACE "/MDd" "/MTd" ${CompilerFlag} "${${CompilerFlag}}")
     endforeach()
   endif("${MSVC_RUNTIME}" STREQUAL "Static")
 
-  CHECK_CXX_COMPILER_FLAG("/Qstd=c++11" COMPILER_SUPPORTS_CXX11)
-   if(COMPILER_SUPPORTS_CXX11)
-     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Qstd=c++11")
-   else(COMPILER_SUPPORTS_CXX11)
+  CHECK_CXX_COMPILER_FLAG("/Qstd=c++14" COMPILER_SUPPORTS_CXX14)
+   if(COMPILER_SUPPORTS_CXX14)
+     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Qstd=c++14")
+   else(COMPILER_SUPPORTS_CXX14)
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support /QC++14.")
+    CHECK_CXX_COMPILER_FLAG("/Qstd=c++11" COMPILER_SUPPORTS_CXX11)
+     if(COMPILER_SUPPORTS_CXX11)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Qstd=c++11")
+     else(COMPILER_SUPPORTS_CXX11)
       message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support /QC++11.")
-   endif(COMPILER_SUPPORTS_CXX11)
+     endif(COMPILER_SUPPORTS_CXX11)
+   endif(COMPILER_SUPPORTS_CXX14)
 
   CHECK_CXX_COMPILER_FLAG("/fp:fast" COMPILER_SUPPORTS_fastmath)
   if(COMPILER_SUPPORTS_fastmath)
@@ -107,20 +117,26 @@ if(WIN32)
     add_definitions(-DEIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT)
   endif("${CMAKE_SIZEOF_VOID_P}" EQUAL "4")
 else(WIN32)
-  CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-   if(COMPILER_SUPPORTS_CXX11)
-     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-   else(COMPILER_SUPPORTS_CXX11)
-      message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support C++11.")
-   endif(COMPILER_SUPPORTS_CXX11)
+  CHECK_CXX_COMPILER_FLAG("-std=c++14" COMPILER_SUPPORTS_CXX14)
+  if(COMPILER_SUPPORTS_CXX14)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+  else(COMPILER_SUPPORTS_CXX14)
+    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support C++14.")
+    CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+    if(COMPILER_SUPPORTS_CXX11)
+      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    else(COMPILER_SUPPORTS_CXX11)
+       message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support C++11.")
+    endif(COMPILER_SUPPORTS_CXX11)
+  endif(COMPILER_SUPPORTS_CXX14)
 
-   CHECK_CXX_COMPILER_FLAG("-pthread" COMPILER_SUPPORTS_PTHREAD)
-   if(COMPILER_SUPPORTS_PTHREAD)
-     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
-     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pthread")
-   else(COMPILER_SUPPORTS_PTHREAD)
-     message(STATUS "The linker ${CMAKE_CXX_COMPILER} doesn't support -pthread.")
-   endif(COMPILER_SUPPORTS_PTHREAD)
+  CHECK_CXX_COMPILER_FLAG("-pthread" COMPILER_SUPPORTS_PTHREAD)
+  if(COMPILER_SUPPORTS_PTHREAD)
+   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
+   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -pthread")
+  else(COMPILER_SUPPORTS_PTHREAD)
+   message(STATUS "The linker ${CMAKE_CXX_COMPILER} doesn't support -pthread.")
+  endif(COMPILER_SUPPORTS_PTHREAD)
 
   if(ENABLE_PROFILE_INFO)
     CHECK_CXX_COMPILER_FLAG("-qopt-report:2 -qopt-report-phase=vec" COMPILER_SUPPORTS_vectorreport)
@@ -237,36 +253,37 @@ endif(ENABLE_THREADS)
 
 find_package(Git REQUIRED)
 
-find_package(libsndfile)
+if(ENABLE_GPL)
+  find_package(libsndfile)
 
-if(LIBSNDFILE_FOUND)
-  set(USE_LIBSNDFILE 1)
-else(LIBSNDFILE_FOUND)
-  set(USE_LIBSNDFILE 0)
-endif(LIBSNDFILE_FOUND)
+  if(LIBSNDFILE_FOUND)
+    set(USE_LIBSNDFILE 1)
+  else(LIBSNDFILE_FOUND)
+    set(USE_LIBSNDFILE 0)
+  endif(LIBSNDFILE_FOUND)
+endif(ENABLE_GPL)
 
-if(ATK_BUILD_PYTHON)
-  find_package(swig REQUIRED)
-  find_package(NumPy REQUIRED)
-endif(ATK_BUILD_PYTHON)
-
-find_package(FFTW)
+find_package(IPP)
 find_package(Boost REQUIRED)
 find_package(Eigen)
 
 SET(USE_FFTW 0)
 SET(USE_IPP 0)
 
-if(FFTW_FOUND)
-  SET(USE_FFTW 1)
-  include_directories(${FFTW_INCLUDES})
-  SET(FFTLIBRARIES ${FFTW_LIBRARIES})
-else(FFTW_FOUND)
-  FIND_PACKAGE(IPP REQUIRED)
+if(HAVE_IPP)
   include_directories(${IPP_INCLUDE_DIRS})
   SET(FFTLIBRARIES ${IPP_LIBRARIES})
   SET(USE_IPP 1)
-endif(FFTW_FOUND)
+else(HAVE_IPP)
+  if(ENABLE_GPL)
+    FIND_PACKAGE(FFTW REQUIRED)
+    SET(USE_FFTW 1)
+    include_directories(${FFTW_INCLUDES})
+    SET(FFTLIBRARIES ${FFTW_LIBRARIES})
+  else(ENABLE_GPL)
+    MESSAGE(FATAL_ERROR "No FFT support")
+  endif(ENABLE_GPL)
+endif(HAVE_IPP)
 if(EIGEN_FOUND)
   SET(USE_EIGEN 1)
 else(EIGEN_FOUND)
@@ -281,22 +298,32 @@ endif(ENABLE_TESTS)
 # to the source code
 configure_file (
   "ATK/config.h.in"
-  "ATK/config.h"
+  "ATK/config.h" @ONLY
   )
+configure_file (
+  "atk-config.cmake.in"
+  "atk-config.cmake" @ONLY
+  )
+
+INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
+ DESTINATION ${CMAKE_INSTALL_PREFIX}
+ )
 
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 macro(stagedebug target)
+  if(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
   if(APPLE)
     add_custom_command(TARGET ${target}
       POST_BUILD
-      COMMAND dsymutil $<TARGET_FILE_NAME:${target}>
+      COMMAND dsymutil $<CONFIG>/$<TARGET_FILE_NAME:${target}>
       MAIN_DEPENDENCY ${target}
       COMMENT "Staging dSYM for ${target}"
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       VERBATIM)
-  endif()
+  endif(APPLE)
+  endif(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
 endmacro()
 
 MACRO(SOURCE_GROUP_BY_FOLDER target)
@@ -333,7 +360,6 @@ if(ENABLE_PYTHON)
 endif(ENABLE_PYTHON)
 
 IF (BUILD_DOC)
-
   FIND_PACKAGE(Doxygen REQUIRED)
 
   SET(DOXYGEN_INPUT Doxyfile)

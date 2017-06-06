@@ -53,7 +53,7 @@ namespace ATK
     const DataType_ Rg2;
     const DataType_ Ro;
     const DataType_ Rk;
-    const DataType_ VBias;
+    const DataType_ Vbias;
     const DataType_ Cg;
     const DataType_ Co;
     const DataType_ Ck;
@@ -62,7 +62,7 @@ namespace ATK
 
   protected:
     /// Build a new preamp filter
-    TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType VBias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function);
+    TransistorClassAFilter(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType Vbias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType>&& transistor_function);
   public:
     /// Move constructor
     TransistorClassAFilter(TransistorClassAFilter&& other);
@@ -74,7 +74,7 @@ namespace ATK
      * The preamp clips at 5V, gain of 10 at BF, 200 at HF and inverts the input.
      * This means that the input has to be low to allow a proper amplification.
      */
-    static TransistorClassAFilter build_standard_filter();
+    static TransistorClassAFilter build_standard_filter(DataType_ Rp = 1e3, DataType_ Rg1 = 15e3, DataType_ Rg2 = 1.5e3, DataType_ Ro = 22e3, DataType_ Rk = 100, DataType_ Vbias = 5, DataType_ Cg = 3.3e-6, DataType_ Co = 1e-6, DataType_ Ck = 160e-6, TransistorFunction<DataType_> function = TransistorFunction<DataType_>::build_standard_function());
 
     void process_impl(std::size_t size) const override final;
 

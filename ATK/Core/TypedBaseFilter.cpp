@@ -95,7 +95,7 @@ namespace
 namespace ATK
 {
   template<typename DataType_, typename DataType__>
-  TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports)
+  TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
     :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, 0), default_output(nb_output_ports, 0)
   {
   }
@@ -153,9 +153,15 @@ namespace ATK
   }
 
   template<typename DataType_, typename DataType__>
-  DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(std::size_t port)
+  DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(std::size_t port) const
   {
     return outputs[port];
+  }
+
+  template<typename DataType_, typename DataType__>
+  std::size_t TypedBaseFilter<DataType_, DataType__>::get_output_array_size() const
+  {
+    return outputs_size.front();
   }
 
   template<typename DataType_, typename DataType__>
@@ -165,7 +171,7 @@ namespace ATK
     {
       if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
       {
-        converted_inputs[i] = reinterpret_cast<TypedBaseFilter<DataTypeInput>* >(connections[i].second)->get_output_array(connections[i].first);
+        converted_inputs[i] = reinterpret_cast<const TypedBaseFilter<DataTypeInput>* >(connections[i].second)->get_output_array(connections[i].first);
         converted_inputs_size[i] = size;
         continue;
       }
@@ -271,7 +277,7 @@ namespace ATK
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port)
+  void TypedBaseFilter<DataType_, DataType__>::set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port)
   {
     Parent::set_input_port(input_port, filter, output_port);
     converted_inputs_size[input_port] = 0;

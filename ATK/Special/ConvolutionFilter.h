@@ -66,14 +66,14 @@ namespace ATK
      * @brief Set the impulse for the convolution
      * @param impulse is the impulse for the convolution
      */
-    void set_impulse(std::vector<DataType>&& impulse);
+    void set_impulse(std::vector<DataType> impulse);
     
     /*!
     * @brief Set the split size
     * @param split_size is the size of the individual FFTs
     */
     void set_split_size(unsigned int split_size);
-    
+  protected:
     void process_impl(std::size_t size) const override final;
     
     void setup() override final;

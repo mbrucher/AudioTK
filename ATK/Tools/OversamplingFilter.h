@@ -153,7 +153,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    OversamplingFilter(int nb_channels = 1);
+    OversamplingFilter(std::size_t nb_channels = 1);
     
     virtual void process_impl(std::size_t size) const override final;
   };

@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  BufferFilter<DataType_>::BufferFilter(int nb_channels)
+  BufferFilter<DataType_>::BufferFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels)
   {
     

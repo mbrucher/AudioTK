@@ -18,6 +18,17 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.1.0
+* Added a config file for CMake
+* Rewrote the Python wrappers to use pybind11 instead of SWIG
+* Added MuteSoloSumFilter to allow mute/solo operations on tracks with Python wrappers
+* SumFilter can now sum multiple channels together
+* Adding fourth order Linkwitz-Riley filters
+* Adding a new circular buffer (for FFT plugins for instance)
+* Added parameters for tube (inverters) filters definition
+* Added Python wrappers in Travis-CI builds
+* Added a modified implementation of the Munro-Piazza triode function to remove some artefacts
+
 ### 2.0.2
 * Fix ARM compilation
 
@@ -224,8 +235,8 @@ Audio Toolkit is published under the BSD license.
 * CMake
 * Boost 1.60
 * FFT library (for some filters like the fast convolution filter)
-  * FFTW (default)
-  * Accelerate
+  * FFTW
+  * IPP (default)
 * Python with numpy (for Python support)
 * Eigen (for some complex modules)
 * libsndfile (for sound file I/O)
@@ -235,6 +246,14 @@ Audio Toolkit is published under the BSD license.
 * Start CMake
 * Configure your options
 * Run make, Visual Studio or XCode
+
+## Usage
+
+### CMake
+
+By setting ATK_DIR, you can import a package with FIND_PACKAGE(ATK) and components are supported. ATK_INCLUDE_DIRS and ATK_LIBRARIES are the main variables set, but each individual library can also be linked against instead of all of them.
+
+Shared libraries and static libraries are different components (for instance Core and Core_static), by not setting components, all the shared libraries available will be stored in ATK_LIBRARIES. 
 
 ## Known Issues
 

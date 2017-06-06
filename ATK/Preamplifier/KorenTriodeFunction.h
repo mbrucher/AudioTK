@@ -111,9 +111,9 @@ namespace ATK
     }
     
     /// Build a new triode function for a filter (12AX7/ECC83)
-    static KorenTriodeFunction build_standard_function()
+    static KorenTriodeFunction build_standard_function(DataType_ mu = 100, DataType_ K = 1.73e-6, DataType_ Kp = 600, DataType_ Kvb = 300, DataType_ Kg = 1060, DataType_ Ex = 1.4, DataType_ Cpg = 1.7e-12)
     {
-      return KorenTriodeFunction(100, 1.73e-6, 600, 300, 1060, 1.4, 1.7e-12);
+      return KorenTriodeFunction(mu, K, Kp, Kvb, Kg, Ex, Cpg);
     }
 
     /// Build a new alternate triode function for a filter (12AX7/ECC83)

@@ -40,7 +40,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselLowPassCoefficients(unsigned int nb_channels = 1);
+    BesselLowPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -48,6 +48,8 @@ namespace ATK
     DataType_ get_cut_frequency() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Bessel coeffs for a high pass filter
@@ -81,7 +83,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselHighPassCoefficients(unsigned int nb_channels = 1);
+    BesselHighPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(DataType_ cut_frequency);
@@ -89,6 +91,8 @@ namespace ATK
     DataType_ get_cut_frequency() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Bessel coeffs for a band pass filter
@@ -122,7 +126,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselBandPassCoefficients(unsigned int nb_channels = 1);
+    BesselBandPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
@@ -132,6 +136,8 @@ namespace ATK
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
   
   /// @brief Bessel coeffs for a band stop filter
@@ -165,7 +171,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselBandStopCoefficients(unsigned int nb_channels = 1);
+    BesselBandStopCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
@@ -175,6 +181,8 @@ namespace ATK
     std::pair<DataType_, DataType_> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
+    /// Gets the order of the filter
+    unsigned get_order() const;
   };
 }
 

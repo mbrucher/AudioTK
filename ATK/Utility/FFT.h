@@ -7,17 +7,10 @@
 
 #include <complex>
 #include <cstdint>
+#include <memory>
 #include <vector>
 
-#include <ATK/config.h>
 #include "config.h"
-
-#if ATK_USE_FFTW == 1
-#include <fftw3.h>
-#endif
-#if ATK_USE_IPP == 1
-#include <ipp.h>
-#endif
 
 namespace ATK
 {
@@ -93,19 +86,8 @@ namespace ATK
   protected:
 	  std::size_t size;
 
-#if ATK_USE_FFTW == 1
-    fftw_plan fft_plan;
-    fftw_plan fft_reverse_plan;
-    fftw_complex* input_data;
-    fftw_complex* output_freqs;
-#endif
-    #if ATK_USE_IPP == 1
-    Ipp64fc *pSrc;
-    Ipp64fc *pDst;
-    IppsDFTSpec_C_64fc* pDFTSpec;
-    Ipp8u* pDFTInitBuf;
-    Ipp8u* pDFTWorkBuf;
-#endif
+    class FFTImpl;
+    std::unique_ptr<FFTImpl> impl;
   };
 }
 

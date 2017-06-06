@@ -16,10 +16,10 @@ def Volume_test():
   volumefilter = DoubleVolumeFilter()
   outputfilter = DoubleOutPointerFilter(output, False)
 
-  inputfilter.set_output_sampling_rate(48000)
-  volumefilter.set_input_sampling_rate(48000)
-  volumefilter.set_volume(.5)
-  outputfilter.set_input_sampling_rate(48000)
+  inputfilter.output_sampling_rate = 48000
+  volumefilter.input_sampling_rate = 48000
+  volumefilter.volume = .5
+  outputfilter.input_sampling_rate = 48000
 
   volumefilter.set_input_port(0, inputfilter, 0)
   outputfilter.set_input_port(0, volumefilter, 0)

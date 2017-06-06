@@ -35,7 +35,7 @@ namespace ATK
      * @param nb_input_ports is the total number of input ports of this filter
      * @param nb_output_ports is the total number of output ports of this filter
      */
-    ATK_CORE_EXPORT BaseFilter(unsigned int nb_input_ports, unsigned int nb_output_ports);
+    ATK_CORE_EXPORT BaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports);
     /// Move constructor
     ATK_CORE_EXPORT BaseFilter(BaseFilter&& other);
     /// Destructor
@@ -47,7 +47,7 @@ namespace ATK
      * @param filter is a pointer to the previous filter
      * @param output_port is the port number where this filter will be connected
      */
-    ATK_CORE_EXPORT virtual void set_input_port(unsigned int input_port, BaseFilter* filter, unsigned int output_port);
+    ATK_CORE_EXPORT virtual void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port);
     
     /// Starts processing after calling reset
     ATK_CORE_EXPORT void process(std::size_t size);
@@ -89,7 +89,11 @@ namespace ATK
     */
     ATK_CORE_EXPORT virtual void set_nb_output_ports(std::size_t nb_ports);
     /// Returns this filter input delay (additional pre-0 samples)
+    ATK_CORE_EXPORT void set_input_delay(std::size_t delay);
+    /// Returns this filter input delay (additional pre-0 samples)
     ATK_CORE_EXPORT std::size_t get_input_delay() const;
+    /// Returns this filter output delay (additional pre-0 samples)
+    ATK_CORE_EXPORT void set_output_delay(std::size_t delay);
     /// Returns this filter output delay (additional pre-0 samples)
     ATK_CORE_EXPORT std::size_t get_output_delay() const;
     /*!
@@ -102,6 +106,9 @@ namespace ATK
     /// Returns the pipeline global latency from this plugin
     ATK_CORE_EXPORT std::size_t get_global_latency() const;
 
+    /// Resets the internal state of the filter (mandatory before processing a new clip in a DAW for instance)
+    ATK_CORE_EXPORT virtual void full_setup();
+
     /// Resets the filter so that it will process something if needed
     void reset();
     /// Returns the type that the filter processes
@@ -112,8 +119,6 @@ namespace ATK
     /// Starts parallel processing without calling reset
     void process_conditionnally_parallel(std::size_t size);
 #endif
-    /// Resets the internal state of the filter (mandatory before processing a new clip in a DAW for instance)
-    ATK_CORE_EXPORT virtual void full_setup();
   
   protected:
     /// The actual filter processing part
