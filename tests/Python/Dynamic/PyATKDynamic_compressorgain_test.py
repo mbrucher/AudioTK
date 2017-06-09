@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
-from ATK.Dynamic import DoubleGainCompressorFilter
+from ATK.Dynamic import DoubleGainCompressorFilter, DoubleGainMaxCompressorFilter
 from ATK.Tools import DoubleApplyGainFilter
 
 sample_rate = 96000
@@ -23,6 +23,37 @@ def filter(input, ratio=4, threshold=1, softness=1):
   gainfilter.threshold = threshold
   gainfilter.ratio = ratio
   gainfilter.softness = softness
+
+  applygainfilter = DoubleApplyGainFilter(1)
+  applygainfilter.input_sampling_rate = sample_rate
+  applygainfilter.set_input_port(0, gainfilter, 0)
+  applygainfilter.set_input_port(1, infilter, 0)
+
+  outfilter = DoubleOutPointerFilter(output, False)
+  outfilter.input_sampling_rate = sample_rate
+  outfilter.set_input_port(0, applygainfilter, 0)
+  outfilter.process(input.shape[1])
+
+  return output
+
+def max_filter(input, ratio=4, threshold=1, softness=1, max_reduction=0.1):
+  import numpy as np
+  output = np.zeros(input.shape, dtype=np.float64)
+
+  input2 = input**2
+  in2filter = DoubleInPointerFilter(input2, False)
+  in2filter.input_sampling_rate = sample_rate
+
+  infilter = DoubleInPointerFilter(input, False)
+  infilter.input_sampling_rate = sample_rate
+
+  gainfilter = DoubleGainMaxCompressorFilter(1)
+  gainfilter.input_sampling_rate = sample_rate
+  gainfilter.set_input_port(0, in2filter, 0)
+  gainfilter.threshold = threshold
+  gainfilter.ratio = ratio
+  gainfilter.softness = softness
+  gainfilter.max_reduction = max_reduction
 
   applygainfilter = DoubleApplyGainFilter(1)
   applygainfilter.input_sampling_rate = sample_rate
@@ -120,6 +151,18 @@ def compressor_out_10_01_10_test():
   out = filter(x, 10, .1, 10)
   assert_almost_equal(out, ref)
 
+def max_compressor_out_4_01_1__001_test():
+  import numpy as np
+  from numpy.testing import assert_almost_equal
+
+  import os
+  dirname = os.path.dirname(__file__)
+
+  x = np.fromfile(dirname + os.sep + "input_compgain.dat", dtype=np.float64).reshape(1, -1)
+  ref = np.fromfile(dirname + os.sep + "output_maxcompgain_4_1_1__001.dat", dtype=np.float64).reshape(1, -1)
+  out = max_filter(x, 4, 1, 1, .001)
+  assert_almost_equal(out, ref)
+
 if __name__ == "__main__":
   import numpy as np
   import matplotlib.pyplot as plt
@@ -142,14 +185,17 @@ if __name__ == "__main__":
   out_10_01_1.tofile("output_compgain_10_01_1.dat")
   out_10_01_10 = filter(x, 10, .1, 10)
   out_10_01_10.tofile("output_compgain_10_01_10.dat")
+  max_out_4_01_1 = max_filter(x, 4, .01, 1, .001)
+  max_out_4_01_1.tofile("output_maxcompgain_4_01_1__001.dat")
+
   plt.figure()
-  plt.loglog(x[0], out_0_5_1_1[0], label="ratio(.5), threshold(1), softness(1)")
   plt.loglog(x[0], out_2_1_1[0], label="ratio(2), threshold(1), softness(1)")
   plt.loglog(x[0], out_4_1_1[0], label="ratio(4), threshold(1), softness(1)")
   plt.loglog(x[0], out_8_1_1[0], label="ratio(8), threshold(1), softness(1)")
   plt.loglog(x[0], out_10_01_001[0], label="ratio(10), threshold(0.1), softness(1e-2)")
   plt.loglog(x[0], out_10_01_1[0], label="ratio(10), threshold(0.1), softness(1)")
   plt.loglog(x[0], out_10_01_10[0], label="ratio(10), threshold(0.1), softness(10)")
+  plt.loglog(x[0], max_out_4_01_1[0], label="ratio(4), threshold(0.1), softness(1), max reduction(0.001)")
   plt.title("Compressor gain")
   plt.legend(loc=4)
   plt.grid()
