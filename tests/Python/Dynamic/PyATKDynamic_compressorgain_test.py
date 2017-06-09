@@ -159,8 +159,8 @@ def max_compressor_out_4_01_1__001_test():
   dirname = os.path.dirname(__file__)
 
   x = np.fromfile(dirname + os.sep + "input_compgain.dat", dtype=np.float64).reshape(1, -1)
-  ref = np.fromfile(dirname + os.sep + "output_maxcompgain_4_1_1__001.dat", dtype=np.float64).reshape(1, -1)
-  out = max_filter(x, 4, 1, 1, .001)
+  ref = np.fromfile(dirname + os.sep + "output_maxcompgain_4_1_1__01.dat", dtype=np.float64).reshape(1, -1)
+  out = max_filter(x, 4, 1, 1, .01)
   assert_almost_equal(out, ref)
 
 if __name__ == "__main__":
@@ -185,8 +185,8 @@ if __name__ == "__main__":
   out_10_01_1.tofile("output_compgain_10_01_1.dat")
   out_10_01_10 = filter(x, 10, .1, 10)
   out_10_01_10.tofile("output_compgain_10_01_10.dat")
-  max_out_4_01_1 = max_filter(x, 4, .01, 1, .001)
-  max_out_4_01_1.tofile("output_maxcompgain_4_01_1__001.dat")
+  max_out_4_01_1 = max_filter(x, 4, .01, 1, .01)
+  max_out_4_01_1.tofile("output_maxcompgain_4_01_1__01.dat")
 
   plt.figure()
   plt.loglog(x[0], out_2_1_1[0], label="ratio(2), threshold(1), softness(1)")
@@ -195,7 +195,7 @@ if __name__ == "__main__":
   plt.loglog(x[0], out_10_01_001[0], label="ratio(10), threshold(0.1), softness(1e-2)")
   plt.loglog(x[0], out_10_01_1[0], label="ratio(10), threshold(0.1), softness(1)")
   plt.loglog(x[0], out_10_01_10[0], label="ratio(10), threshold(0.1), softness(10)")
-  plt.loglog(x[0], max_out_4_01_1[0], label="ratio(4), threshold(0.1), softness(1), max reduction(0.001)")
+  plt.loglog(x[0], max_out_4_01_1[0], label="ratio(4), threshold(0.1), softness(1), max reduction(0.01)")
   plt.title("Compressor gain")
   plt.legend(loc=4)
   plt.grid()
