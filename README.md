@@ -18,6 +18,9 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.1.1
+* Added a Gain MAx Compressor filter with wrappers
+
 ### 2.1.0
 * Added a config file for CMake
 * Rewrote the Python wrappers to use pybind11 instead of SWIG
