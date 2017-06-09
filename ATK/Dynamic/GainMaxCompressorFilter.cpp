@@ -68,7 +68,7 @@ namespace ATK
     if(value == 0)
       return 1;
     DataType diff = static_cast<DataType_>(-5 * fmath::log10(1/(value * value) + fmath::pow(max_reduction, 2 * ratio / (ratio - 1))));
-    return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio));
+    return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio));
   }
 
   template class GainMaxCompressorFilter<float>;
