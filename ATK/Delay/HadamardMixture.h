@@ -26,7 +26,6 @@ namespace ATK
     static constexpr float gain_factor = 1.f;
 
     class MixtureImpl;
-
   };
 }
 

@@ -26,7 +26,6 @@ namespace ATK
     static constexpr float gain_factor = 0.5f; // should be std::pow(2, -order / 2.);, but pow is not constexpr :/
 
     class MixtureImpl;
-
   };
 }
 
