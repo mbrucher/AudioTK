@@ -50,8 +50,8 @@ namespace ATK
     template<unsigned int recursive_order>
     static typename std::enable_if<recursive_order != 0, Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, 1<<recursive_order, 1<<recursive_order>>::type recursive_create()
     {
-      constexpr auto big_size = 1 << recursive_order;
-      constexpr auto small_size = 1 << (recursive_order - 1);
+      constexpr auto big_size = (1U << recursive_order);
+      constexpr auto small_size = (1U << (recursive_order - 1));
       Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, big_size, big_size> cur_transition;
       
       auto M_1 = recursive_create<recursive_order - 1>();

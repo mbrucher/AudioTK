@@ -29,7 +29,7 @@ namespace ATK
      */
     std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > > target;
     /// Oarger of the polynomial we can use
-    unsigned int in_order;
+    std::size_t in_order;
     /// Launches the computation
     void setup();
     /// Final coefficients
@@ -48,7 +48,7 @@ namespace ATK
     const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& get_template() const;
     
     /// Order of the FIR filter
-    void set_order(unsigned int order);
+    void set_order(std::size_t order);
   };
 }
 

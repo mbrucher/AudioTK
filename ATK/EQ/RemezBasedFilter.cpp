@@ -22,17 +22,17 @@ namespace
   public:
     typedef typename ATK::TypedBaseFilter<DataType>::AlignedVector AlignedVector;
   private:
-    const static unsigned int grid_size = 1024; // grid size, power of two better for FFT
+    const static std::size_t grid_size = 1024; // grid size, power of two better for FFT
     constexpr static DataType SN = 1e-8;
 
-    unsigned int M;
+    std::size_t M;
     std::vector<DataType> grid;
     std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> > target;
     
     /// Computed coefficients
     AlignedVector coeffs;
     /// Selected indices
-    std::vector<unsigned int> indices;
+    std::vector<std::size_t> indices;
     /// Weight function on the grid
     std::vector<DataType> weights;
     /// Objective function on the grid
@@ -43,11 +43,11 @@ namespace
     ATK::FFT<DataType> fft_processor;
 
   public:
-    RemezBuilder(unsigned int order, const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> >& target)
+    RemezBuilder(std::size_t order, const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> >& target)
     :M(order / 2), target(target)
     {
       grid.resize(grid_size);
-      for(unsigned int i = 0; i < grid_size; ++i)
+      for(std::size_t i = 0; i < grid_size; ++i)
       {
         grid[i] = i * boost::math::constants::pi<DataType>() / grid_size;
       }
@@ -83,7 +83,7 @@ namespace
         }
       }
       int flag = -1;
-      for (unsigned int i = 0; i < M + 2; ++i)
+      for (std::size_t i = 0; i < M + 2; ++i)
       {
         s[i] = flag;
         flag = -flag;
@@ -91,11 +91,11 @@ namespace
       indices = set_starting_conditions();
     }
 
-    std::vector<unsigned int> set_starting_conditions() const
+    std::vector<std::size_t> set_starting_conditions() const
     {
-      std::vector<unsigned int> indices;
+      std::vector<std::size_t> indices;
 
-      std::vector<unsigned int> valid_indices;
+      std::vector<std::size_t> valid_indices;
       for (std::size_t i = 0; i < grid_size; ++i)
       {
         if (weights[i] != 0)
@@ -104,9 +104,9 @@ namespace
         }
       }
 
-      for (unsigned int i = 0; i < M + 2; ++i)
+      for (std::size_t i = 0; i < M + 2; ++i)
       {
-        indices.push_back(valid_indices[std::round(valid_indices.size() / (M + 4.) * (i + 1))]);
+        indices.push_back(valid_indices[std::lround(valid_indices.size() / (M + 4.) * (i + 1))]);
       }
 
       return indices;
@@ -123,26 +123,26 @@ namespace
       while(true)
       {
         Eigen::Matrix<DataType, Eigen::Dynamic, Eigen::Dynamic> A(M + 2, M + 2);
-        for (unsigned int i = 0; i < M + 2; ++i)
+        for (std::size_t i = 0; i < M + 2; ++i)
         {
-          for (unsigned int j = 0; j < M + 1; ++j)
+          for (std::size_t j = 0; j < M + 1; ++j)
           {
             A(i, j) = std::cos(grid[indices[i]] * j);
           }
         }
-        for (unsigned int i = 0; i < M + 2; ++i)
+        for (std::size_t i = 0; i < M + 2; ++i)
         {
           A(i, M + 1) = s[i] / weights[indices[i]];
         }
 
         Eigen::Matrix<DataType, Eigen::Dynamic, 1> b(M + 2, 1);
-        for (unsigned int i = 0; i < M + 2; ++i)
+        for (std::size_t i = 0; i < M + 2; ++i)
         {
           b(i) = objective[indices[i]];
         }
         Eigen::Matrix<DataType, Eigen::Dynamic, 1> x = A.colPivHouseholderQr().solve(b);
 
-        for (unsigned int i = 0; i < M; ++i)
+        for (std::size_t i = 0; i < M; ++i)
         {
           coeffs[i] = coeffs[2 * M - i] = x[M - i] / 2;
         }
@@ -197,9 +197,9 @@ namespace
     }
 
     // Finds min and max
-    std::vector<unsigned int> locmax(const std::vector<DataType>& data) const
+    std::vector<std::size_t> locmax(const std::vector<DataType>& data) const
     {
-      std::vector<unsigned int> v;
+      std::vector<std::size_t> v;
 
       std::vector<DataType> temp1;
       std::vector<DataType> temp2;
@@ -242,9 +242,9 @@ namespace
       return v;
     }
 
-    void filter_SN(DataType delta, std::vector<unsigned int>& indices, const std::vector<DataType>& err) const
+    void filter_SN(DataType delta, std::vector<std::size_t>& indices, const std::vector<DataType>& err) const
     {
-      std::vector<unsigned int> new_indices;
+      std::vector<std::size_t> new_indices;
 
       for (auto indice : indices)
       {
@@ -257,9 +257,9 @@ namespace
       indices = std::move(new_indices);
     }
 
-    std::vector<unsigned int> etap(const std::vector<DataType>& data) const
+    std::vector<std::size_t> etap(const std::vector<DataType>& data) const
     {
-      std::vector<unsigned int> v;
+      std::vector<std::size_t> v;
       auto xe = data[0];
       std::size_t xv = 0;
       for (std::size_t i = 1; i < data.size(); ++i)
@@ -283,7 +283,7 @@ namespace
       return v;
     }
 
-    void filter_monotony(std::vector<unsigned int>& indices, const std::vector<DataType>& err) const
+    void filter_monotony(std::vector<std::size_t>& indices, const std::vector<DataType>& err) const
     {
       std::vector<DataType> filtered_err;
       for (auto indice : indices)
@@ -292,8 +292,8 @@ namespace
       }
 
       auto selected_indices = etap(filtered_err);
-      std::vector<unsigned int> new_indices;
-      for (unsigned int i = 0; i < M + 2; ++i)
+      std::vector<std::size_t> new_indices;
+      for (std::size_t i = 0; i < M + 2; ++i)
       {
         new_indices.push_back(indices[selected_indices[i]]);
       }
@@ -330,7 +330,7 @@ namespace ATK
   }
   
   template<class DataType>
-  void RemezBasedCoefficients<DataType>::set_order(unsigned int order)
+  void RemezBasedCoefficients<DataType>::set_order(std::size_t order)
   {
     if(order % 2 == 1)
     {

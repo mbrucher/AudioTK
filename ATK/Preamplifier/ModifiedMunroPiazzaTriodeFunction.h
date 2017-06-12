@@ -75,7 +75,7 @@ namespace ATK
     {
       if (E1 > 0 && Vbe >= 0 && Vbe <= 5)
       {
-        return Kg * Vce / 5 * Kvb * sqrt_E1 * 1.5;
+        return Kg * Vce / 5 * Kvb * sqrt_E1 * 1.5f;
       }
       return 0;
     }
@@ -85,7 +85,7 @@ namespace ATK
     {
       if (E1 > 0 && Vbe >= 0 && Vbe <= 5)
       {
-        return Kvb * sqrt_E1 * E1 / 5 + Vce / 5 * Kvb * sqrt_E1 * 1.5;
+        return Kvb * sqrt_E1 * E1 / 5 + Vce / 5 * Kvb * sqrt_E1 * 1.5f;
       }
       return 0;
     }

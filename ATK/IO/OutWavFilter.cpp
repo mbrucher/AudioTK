@@ -79,11 +79,11 @@ namespace ATK
     std::strncpy(format.FormatBlocID, "fmt ", 4);
     std::strncpy(data.DataBlocID, "data", 4);
     format.AudioFormat = WavTraits<DataType>::get_wav_type();
-    format.Frequence = input_sampling_rate;
+    format.Frequence = static_cast<int32_t>(input_sampling_rate);
     format.BitsPerSample = sizeof(DataType)* 8;
     format.BytePerBloc = format.NbChannels * format.BitsPerSample / 8;
-    format.BytePerSec = format.BytePerBloc * input_sampling_rate;
-    format.NbChannels = nb_input_ports;
+    format.BytePerSec = static_cast<int32_t>(format.BytePerBloc * input_sampling_rate);
+    format.NbChannels = static_cast<int16_t>(nb_input_ports);
 
     std::size_t total_size = wavstream.tellp();
     std::size_t bloc_size = sizeof(WavFormat);

@@ -122,7 +122,7 @@ namespace
 
   /// Apply a bilinear transform on z, p, k
   template<typename DataType>
-  void zpk_bilinear(int fs, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void zpk_bilinear(std::size_t fs, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
   {
     auto z_size = z.size();
     auto p_size = p.size();
@@ -154,7 +154,7 @@ namespace
 
   /// Transforms the z, p, k coefficients in b, a form
   template<typename DataType>
-  void zpk2ba(int fs, const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, boost::math::tools::polynomial<DataType>& b, boost::math::tools::polynomial<DataType>& a)
+  void zpk2ba(std::size_t fs, const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, boost::math::tools::polynomial<DataType>& b, boost::math::tools::polynomial<DataType>& a)
   {
     auto z_size = z.size();
     auto p_size = p.size();
