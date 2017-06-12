@@ -20,6 +20,7 @@
 #include <ATK/Dynamic/GainColoredCompressorFilter.h>
 #include <ATK/Dynamic/GainColoredExpanderFilter.h>
 #include <ATK/Dynamic/GainMaxColoredExpanderFilter.h>
+#include <ATK/Dynamic/GainMaxCompressorFilter.h>
 #include <ATK/Dynamic/GainMaxExpanderFilter.h>
 
 
@@ -151,6 +152,8 @@ PYBIND11_PLUGIN(PythonDynamic) {
   populate_ColoredGainFilter<GainColoredExpanderFilter<double>>(m, "DoubleTempGainColoredExpanderFilter");
   populate_MaxColoredGainFilter<GainMaxColoredExpanderFilter<float>>(m, "FloatTempGainMaxColoredExpanderFilter");
   populate_MaxColoredGainFilter<GainMaxColoredExpanderFilter<double>>(m, "DoubleTempGainMaxColoredExpanderFilter");
+  populate_MaxGainFilter<GainMaxCompressorFilter<float>>(m, "FloatTempGainMaxCompressorFilter");
+  populate_MaxGainFilter<GainMaxCompressorFilter<double>>(m, "DoubleTempGainMaxCompressorFilter");
   populate_MaxGainFilter<GainMaxExpanderFilter<float>>(m, "FloatTempGainMaxExpanderFilter");
   populate_MaxGainFilter<GainMaxExpanderFilter<double>>(m, "DoubleTempGainMaxExpanderFilter");
 
@@ -160,6 +163,8 @@ PYBIND11_PLUGIN(PythonDynamic) {
   populate_GainFilter<GainColoredExpanderFilter<double>>(m, "DoubleGainColoredExpanderFilter");
   populate_GainFilter<GainMaxColoredExpanderFilter<float>>(m, "FloatGainMaxColoredExpanderFilter");
   populate_GainFilter<GainMaxColoredExpanderFilter<double>>(m, "DoubleGainMaxColoredExpanderFilter");
+  populate_GainFilter<GainMaxCompressorFilter<float>>(m, "FloatGainMaxCompressorFilter");
+  populate_GainFilter<GainMaxCompressorFilter<double>>(m, "DoubleGainMaxCompressorFilter");
   populate_GainFilter<GainMaxExpanderFilter<float>>(m, "FloatGainMaxExpanderFilter");
   populate_GainFilter<GainMaxExpanderFilter<double>>(m, "DoubleGainMaxExpanderFilter");
 

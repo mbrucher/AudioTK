@@ -77,7 +77,7 @@ namespace ATK
       return 0;
     DataType diff = -10 * fmath::log10(value);
     DataType additional_color = color * fmath::exp(- diff * diff * quality);
-    return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1))) + additional_color;
+    return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1))) + additional_color;
   }
 
   template class GainColoredExpanderFilter<float>;

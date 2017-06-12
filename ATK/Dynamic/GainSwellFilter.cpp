@@ -46,7 +46,7 @@ namespace ATK
     if(value == 0)
       return 1;
     DataType diff = 10 * fmath::log10(value);
-    return static_cast<DataType>(std::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * ratio));
+    return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * ratio));
   }
 
   template class GainSwellFilter<float>;
