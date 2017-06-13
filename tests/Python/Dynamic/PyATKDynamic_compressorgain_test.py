@@ -159,8 +159,8 @@ def max_compressor_out_4_01_1__001_test():
   dirname = os.path.dirname(__file__)
 
   x = np.fromfile(dirname + os.sep + "input_compgain.dat", dtype=np.float64).reshape(1, -1)
-  ref = np.fromfile(dirname + os.sep + "output_maxcompgain_4_1_1__01.dat", dtype=np.float64).reshape(1, -1)
-  out = max_filter(x, 4, 1, 1, .01)
+  ref = np.fromfile(dirname + os.sep + "output_maxcompgain_4_01_1__01.dat", dtype=np.float64).reshape(1, -1)
+  out = max_filter(x, 4, .01, 1, .01)
   assert_almost_equal(out, ref)
 
 if __name__ == "__main__":
