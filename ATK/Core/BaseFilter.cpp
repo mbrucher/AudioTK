@@ -185,7 +185,7 @@ namespace ATK
       else
       {
         assert(output_sampling_rate);
-        connections[port].second->process_conditionnally<process>(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+        connections[port].second->template process_conditionnally<process>(uint64_t(size) * input_sampling_rate / output_sampling_rate);
       }
     }
 #if ATK_PROFILING == 1
