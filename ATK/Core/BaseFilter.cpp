@@ -143,7 +143,13 @@ namespace ATK
   void BaseFilter::process(std::size_t size)
   {
     reset();
-    process_conditionnally(size);
+    process_conditionnally<true>(size);
+  }
+
+  void BaseFilter::dryrun(std::size_t size)
+  {
+    reset();
+    process_conditionnally<false>(size);
   }
 
 #if ATK_USE_THREADPOOL == 1
@@ -154,6 +160,7 @@ namespace ATK
   }
 #endif
 
+  template<bool process>
   void BaseFilter::process_conditionnally(std::size_t size)
   {
     if(size == 0)
@@ -178,7 +185,7 @@ namespace ATK
       else
       {
         assert(output_sampling_rate);
-        connections[port].second->process_conditionnally(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+        connections[port].second->process_conditionnally<process>(uint64_t(size) * input_sampling_rate / output_sampling_rate);
       }
     }
 #if ATK_PROFILING == 1
@@ -196,7 +203,10 @@ namespace ATK
     output_conversion_time += (timer2 - timer);
     timer = timer2;
 #endif
-    process_impl(size);
+    if(process)
+    {
+      process_impl(size);
+    }
 #if ATK_PROFILING == 1
     timer2 = std::chrono::steady_clock::now();
     process_time += (timer2 - timer);

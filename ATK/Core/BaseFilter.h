@@ -51,7 +51,9 @@ namespace ATK
     
     /// Starts processing after calling reset
     ATK_CORE_EXPORT void process(std::size_t size);
-    
+    /// As process, but doesn't call process_impl
+    ATK_CORE_EXPORT void dryrun(std::size_t size);
+
 #if ATK_USE_THREADPOOL == 1
     /// Allows threaded processing
     ATK_CORE_EXPORT void process_parallel(std::size_t size);
@@ -114,6 +116,7 @@ namespace ATK
     /// Returns the type that the filter processes
     virtual int get_type() const = 0;
     /// Starts processing without calling reset
+    template<bool process>
     void process_conditionnally(std::size_t size);
 #if ATK_USE_THREADPOOL == 1
     /// Starts parallel processing without calling reset

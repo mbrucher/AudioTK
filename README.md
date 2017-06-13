@@ -19,7 +19,8 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.1.1
-* Added a Gain MAx Compressor filter with wrappers
+* Added a Gain Max Compressor filter with wrappers
+* Added a dryrun call on BaseFilter to setup maximum sizes on a pipeline
 
 ### 2.1.0
 * Added a config file for CMake
