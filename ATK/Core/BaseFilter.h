@@ -116,7 +116,7 @@ namespace ATK
     /// Returns the type that the filter processes
     virtual int get_type() const = 0;
     /// Starts processing without calling reset
-    template<bool process>
+    template<bool must_process>
     void process_conditionnally(std::size_t size);
 #if ATK_USE_THREADPOOL == 1
     /// Starts parallel processing without calling reset
