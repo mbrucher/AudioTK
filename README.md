@@ -22,6 +22,7 @@ Audio Toolkit is published under the BSD license.
 * Added a Gain Max Compressor filter with wrappers
 * Added a dryrun call on BaseFilter to setup maximum sizes on a pipeline
 * Fixed max gain reduction in the expanders to use 20 log10 instead of 10 log10 (as it is applied to the amplitude and not power)
+* Fix a bug in OutCircularPointerFilter with offset handling
 
 ### 2.1.0
 * Added a config file for CMake
