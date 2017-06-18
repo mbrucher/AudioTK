@@ -35,7 +35,7 @@ namespace ATK
   {
     auto update_size = std::min(size, array.size() - offset);
     memcpy(reinterpret_cast<void*>(&array[offset]), reinterpret_cast<const void*>(converted_inputs[0]), static_cast<size_t>(update_size) * sizeof(DataType));
-    offset += size;
+    offset += update_size;
     if(offset == array.size())
     {
       auto additional_update_size = size - update_size;
