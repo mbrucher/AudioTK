@@ -69,17 +69,17 @@ namespace ATK
     coefficients_out.assign(out_order, 0);
     
     auto pi = boost::math::constants::pi<DataType>();
-    DataType t1 = pi / (input_sampling_rate * std::tan(pi / (75e-6 * input_sampling_rate)));
-    DataType t2 = pi / (input_sampling_rate * std::tan(pi / (318e-6 * input_sampling_rate)));
-    DataType t3 = pi / (input_sampling_rate * std::tan(pi / (3180e-6 * input_sampling_rate)));
+    DataType t1 = 1 / (input_sampling_rate * std::tan(pi / (75e-6 * input_sampling_rate)));
+    DataType t2 = 1 / (input_sampling_rate * std::tan(pi / (318e-6 * input_sampling_rate)));
+    DataType t3 = 1 / (input_sampling_rate * std::tan(pi / (3180e-6 * input_sampling_rate)));
     
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
-    DataType k = 75e-6/318e-6 / t2*(t1*t3);
-    p.push_back(-1/t2);
-    z.push_back(-1/t1);
-    z.push_back(-1/t3);
-
+    DataType k = 318e-6/75e-6 * t2/(t1*t3);
+    z.push_back(-1/t2);
+    p.push_back(-1/t1);
+    p.push_back(-1/t3);
+    
     boost::math::tools::polynomial<DataType> b({ 1 });
     boost::math::tools::polynomial<DataType> a({ 1 });
     
@@ -89,12 +89,12 @@ namespace ATK
     auto in_size = std::min(std::size_t(in_order + 1), b.size());
     for (size_t i = 0; i < in_size; ++i)
     {
-      coefficients_in[i] = b[i];
+      coefficients_in[i] = a[i] / b[in_order];
     }
     auto out_size = std::min(std::size_t(in_order), a.size() - 1);
     for (size_t i = 0; i < out_size; ++i)
     {
-      coefficients_out[i] = -a[i];
+      coefficients_out[i] = -b[i] / b[in_order];
     }
   }
 
