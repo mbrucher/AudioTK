@@ -84,6 +84,7 @@ namespace ATK
     boost::math::tools::polynomial<DataType> a({ 1 });
     
     zpk_bilinear(input_sampling_rate, z, p, k);
+    p.back() = -.8;
     zpk2ba(input_sampling_rate, z, p, k, b, a);
     
     auto in_size = std::min(std::size_t(in_order + 1), b.size());
