@@ -43,9 +43,9 @@ matrix:
     - PLATFORM=gcc-5
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.5.2
+    - Python_ADDITIONAL_VERSIONS=3.6.0
   - compiler: gcc
     os: linux
     dist: trusty
@@ -85,9 +85,9 @@ matrix:
     - PLATFORM=gcc-6
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.5.2
+    - Python_ADDITIONAL_VERSIONS=3.6.0
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -131,9 +131,9 @@ matrix:
     - PLATFORM=clang-3.8
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.5.2
+    - Python_ADDITIONAL_VERSIONS=3.6.0
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -177,9 +177,9 @@ matrix:
     - PLATFORM=clang-3.9
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.5
+    - PYTHON_VERSION=3.6
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.5.2
+    - Python_ADDITIONAL_VERSIONS=3.6.0
   - os: osx
     osx_image: xcode7.3
     env:
