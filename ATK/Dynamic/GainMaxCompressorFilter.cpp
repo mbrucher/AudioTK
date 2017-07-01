@@ -55,6 +55,7 @@ namespace ATK
   void GainMaxCompressorFilter<DataType_>::set_max_reduction_db(DataType_ max_reduction_db)
   {
     this->max_reduction = static_cast<DataType_>(std::pow(10, max_reduction_db / 10));
+    start_recomputeLUT();
   }
   
   template<typename DataType_>
