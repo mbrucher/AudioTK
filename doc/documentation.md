@@ -138,10 +138,11 @@ The *Dynamic* module contains filters enabling compressor construction.
   * **GainCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does
   * **GainExpanderFilter** is a filter that changes an input signal (a gain) like an expander/noise gate does
   * **GainLimiterFilter** is a filter that changes an input signal (a gain) like a limiter does
-  * **GainSwellFilter** is a filter that changes an input signal (a gain) like aan auto swell does
+  * **GainSwellFilter** is a filter that changes an input signal (a gain) like an auto swell does
   * **GainColoredCompressorFilter** is a filter that changes an input signal (a gain) like a compressor does with an additional color component
-  * **GainColoredExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with an additional color component
-  * **GainMaxExpanderFilter** is a filter that changes an input signal (a gain) like am expander/noise gate does with a maximum gain reduction
+  * **GainColoredExpanderFilter** is a filter that changes an input signal (a gain) like an expander/noise gate does with an additional color component
+  * **GainMaxCompressorFilter** is a filter that changes an input signal (a gain) like a compressor gate does with a maximum gain reduction
+  * **GainMaxExpanderFilter** is a filter that changes an input signal (a gain) like an expander/noise gate does with a maximum gain reduction
 
 * **PowerFilter** is a filter that outputs an AR(1)-filtered version of the squared input signal
 * **RelativePowerFilter** is a filter that outputs the squared input signal divided by an AR(1)-filtered version of the squared input signal

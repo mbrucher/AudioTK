@@ -47,7 +47,11 @@ namespace ATK
 
   template class IIRFilter<CustomIIRCoefficients<float>>;
   template class IIRFilter<CustomIIRCoefficients<double>>;
-
   template class IIRFilter<CustomIIRCoefficients<std::complex<float>>>;
   template class IIRFilter<CustomIIRCoefficients<std::complex<double>>>;
+
+  template class IIRTDF2Filter<CustomIIRCoefficients<float>>;
+  template class IIRTDF2Filter<CustomIIRCoefficients<double>>;
+  template class IIRTDF2Filter<CustomIIRCoefficients<std::complex<float>>>;
+  template class IIRTDF2Filter<CustomIIRCoefficients<std::complex<double>>>;
 }

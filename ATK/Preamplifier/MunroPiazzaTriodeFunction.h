@@ -39,7 +39,7 @@ namespace ATK
     {
       if(mu + Vbe > 0)
       {
-        return K * 1.5 * std::sqrt(mu + Vbe);
+        return K * 1.5f * std::sqrt(mu + Vbe);
       }
       return 0;
     }
@@ -67,7 +67,7 @@ namespace ATK
       auto E1 = Kp + Vce + Kg * Vbe;
       if (E1 > 0 && Vbe >= 0 && Vbe <= 5)
       {
-        return Kg * Vce / 5 * Kvb * std::sqrt(E1) * 1.5;
+        return Kg * Vce / 5 * Kvb * std::sqrt(E1) * 1.5f;
       }
       return 0;
     }
@@ -78,7 +78,7 @@ namespace ATK
       auto E1 = Kp + Vce + Kg * Vbe;
       if (E1 > 0 && Vbe >= 0 && Vbe <= 5)
       {
-        return Kvb * std::sqrt(E1) * E1 / 5 + Vce / 5 * Kvb * std::sqrt(E1) * 1.5;
+        return Kvb * std::sqrt(E1) * E1 / 5 + Vce / 5 * Kvb * std::sqrt(E1) * 1.5f;
       }
       return 0;
     }

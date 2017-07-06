@@ -31,6 +31,7 @@ def update_changelog(new_version):
       sys.stdout.write("### %s\n\n" % new_version)
 
 if __name__ == "__main__":
+  update_cmakelist(sys.argv[1])
   update_appveyor(sys.argv[1])
   update_doxygen(sys.argv[1])
   update_changelog(sys.argv[1])

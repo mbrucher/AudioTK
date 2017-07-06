@@ -37,7 +37,7 @@ namespace ATK
     {
       if (mu * Vbe + Vce > 0)
       {
-        return K * mu * 1.5 * std::sqrt(mu * Vbe + Vce);
+        return K * mu * 1.5f * std::sqrt(mu * Vbe + Vce);
       }
       return 0;
     }
@@ -47,7 +47,7 @@ namespace ATK
     {
       if (mu * Vbe + Vce > 0)
       {
-        return K * 1.5 * std::sqrt(mu * Vbe + Vce);
+        return K * 1.5f * std::sqrt(mu * Vbe + Vce);
       }
       return 0;
     }

@@ -138,4 +138,9 @@ namespace ATK
   template class IIRFilter<LinkwitzRiley4LowPassCoefficients<double> >;
   template class IIRFilter<LinkwitzRiley4HighPassCoefficients<float> >;
   template class IIRFilter<LinkwitzRiley4HighPassCoefficients<double> >;
+
+  template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<float> >;
+  template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<double> >;
+  template class IIRTDF2Filter<LinkwitzRiley4HighPassCoefficients<float> >;
+  template class IIRTDF2Filter<LinkwitzRiley4HighPassCoefficients<double> >;
 }

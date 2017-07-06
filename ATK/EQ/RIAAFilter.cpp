@@ -69,32 +69,43 @@ namespace ATK
     coefficients_out.assign(out_order, 0);
     
     auto pi = boost::math::constants::pi<DataType>();
-    DataType t1 = pi / (input_sampling_rate * std::tan(pi / (75e-6 * input_sampling_rate)));
-    DataType t2 = pi / (input_sampling_rate * std::tan(pi / (318e-6 * input_sampling_rate)));
-    DataType t3 = pi / (input_sampling_rate * std::tan(pi / (3180e-6 * input_sampling_rate)));
+    DataType t1 = 1 / (input_sampling_rate * std::tan(pi / (75e-6 * input_sampling_rate)));
+    DataType t2 = 1 / (input_sampling_rate * std::tan(pi / (318e-6 * input_sampling_rate)));
+    DataType t3 = 1 / (input_sampling_rate * std::tan(pi / (3180e-6 * input_sampling_rate)));
     
     std::vector<std::complex<DataType> > z;
     std::vector<std::complex<DataType> > p;
-    DataType k = 75e-6/318e-6 / t2*(t1*t3);
-    p.push_back(-1/t2);
-    z.push_back(-1/t1);
-    z.push_back(-1/t3);
+    DataType k = 318e-6 / 75e-6 * t2 / (t1*t3);
+    z.push_back(-1 / t2);
+    p.push_back(-1 / t1);
+    p.push_back(-1 / t3);
 
     boost::math::tools::polynomial<DataType> b({ 1 });
     boost::math::tools::polynomial<DataType> a({ 1 });
     
     zpk_bilinear(input_sampling_rate, z, p, k);
+    z.back() = -.8;
     zpk2ba(input_sampling_rate, z, p, k, b, a);
     
-    auto in_size = std::min(std::size_t(in_order + 1), b.size());
+    auto cut_frequency = 21000;
+    DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
+
+    boost::math::tools::polynomial<DataType> b1 = { { c * c / d, 2 * c * c / d, c * c / d } };
+    boost::math::tools::polynomial<DataType> a1 = { { (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d , 2 * (c * c - 1) / d, 1 } };
+    
+    b = b * a1;
+    a = a * b1;
+
+    auto in_size = std::min(std::size_t(in_order + 1), a.size());
     for (size_t i = 0; i < in_size; ++i)
     {
-      coefficients_in[i] = b[i];
+      coefficients_in[i] = a[i] / b[b.size() - 1];
     }
-    auto out_size = std::min(std::size_t(in_order), a.size() - 1);
+    auto out_size = std::min(std::size_t(in_order), b.size() - 1);
     for (size_t i = 0; i < out_size; ++i)
     {
-      coefficients_out[i] = -a[i];
+      coefficients_out[i] = -b[i] / b[b.size() - 1];
     }
   }
 
