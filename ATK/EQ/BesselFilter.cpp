@@ -444,4 +444,12 @@ namespace ATK
   template class IIRFilter<BesselBandStopCoefficients<float> >;
   template class IIRFilter<BesselBandStopCoefficients<double> >;
   
+  template class IIRTDF2Filter<BesselLowPassCoefficients<float> >;
+  template class IIRTDF2Filter<BesselLowPassCoefficients<double> >;
+  template class IIRTDF2Filter<BesselHighPassCoefficients<float> >;
+  template class IIRTDF2Filter<BesselHighPassCoefficients<double> >;
+  template class IIRTDF2Filter<BesselBandPassCoefficients<float> >;
+  template class IIRTDF2Filter<BesselBandPassCoefficients<double> >;
+  template class IIRTDF2Filter<BesselBandStopCoefficients<float> >;
+  template class IIRTDF2Filter<BesselBandStopCoefficients<double> >;
 }

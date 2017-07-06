@@ -209,6 +209,82 @@ namespace ATK
     AlignedVector coefficients_out_4;
   };
 
+  /// IIR filter template class. Transposed Direct Form II implementation
+  template<class Coefficients >
+  class ATK_EQ_EXPORT IIRTDF2Filter final : public Coefficients
+  {
+  public:
+    /// Simplify parent calls
+    typedef Coefficients Parent;
+    using typename Parent::DataType;
+    using Parent::converted_inputs;
+    using Parent::outputs;
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
+    using Parent::input_sampling_rate;
+    using Parent::output_sampling_rate;
+    using Parent::nb_input_ports;
+    using Parent::nb_output_ports;
+    
+    using Parent::in_order;
+    using Parent::out_order;
+    using Parent::input_delay;
+    using Parent::output_delay;
+    using Parent::setup;
+  protected:
+    mutable std::vector<DataType> state;
+  public:
+    IIRTDF2Filter(std::size_t nb_channels = 1)
+      :Parent(nb_channels)
+    {
+    }
+    
+    /// Move constructor
+    IIRTDF2Filter(IIRTDF2Filter&& other)
+      :Parent(std::move(other))
+    {
+    }
+    
+    void setup() override final
+    {
+      Parent::setup();
+      input_delay = in_order;
+      output_delay = out_order;
+      state.resize(nb_input_ports * std::max(input_delay, output_delay), 0);
+    }
+    
+    virtual void process_impl(std::size_t size) const override final
+    {
+      assert(input_sampling_rate == output_sampling_rate);
+      
+      for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+      {
+        const DataType* ATK_RESTRICT input = converted_inputs[channel];
+        DataType* ATK_RESTRICT output = outputs[channel];
+        DataType* ATK_RESTRICT current_state = &state[channel * std::max(input_delay, output_delay)];
+        
+        for(std::size_t i = 0; i < size; ++i)
+        {
+          output[i] = coefficients_in[in_order] * input[i] + current_state[0];
+          for(size_t j = 0; j < state.size() - 1; ++j)
+          {
+            current_state[j] = state[j + 1];
+          }
+          current_state[state.size() - 1] = 0;
+          
+          for(unsigned int j = 0; j < in_order; ++j)
+          {
+            current_state[j] += input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1];
+          }
+          for(unsigned int j = 0; j < out_order; ++j)
+          {
+            current_state[j] += output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
+          }
+        }
+      }
+    }
+  };
+
 }
 
 #endif

@@ -402,4 +402,12 @@ namespace ATK
   template class IIRFilter<Chebyshev1BandStopCoefficients<float> >;
   template class IIRFilter<Chebyshev1BandStopCoefficients<double> >;
   
+  template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<float> >;
+  template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<double> >;
+  template class IIRTDF2Filter<Chebyshev1HighPassCoefficients<float> >;
+  template class IIRTDF2Filter<Chebyshev1HighPassCoefficients<double> >;
+  template class IIRTDF2Filter<Chebyshev1BandPassCoefficients<float> >;
+  template class IIRTDF2Filter<Chebyshev1BandPassCoefficients<double> >;
+  template class IIRTDF2Filter<Chebyshev1BandStopCoefficients<float> >;
+  template class IIRTDF2Filter<Chebyshev1BandStopCoefficients<double> >;
 }

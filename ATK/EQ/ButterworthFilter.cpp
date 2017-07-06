@@ -325,4 +325,12 @@ namespace ATK
   template class IIRFilter<ButterworthBandStopCoefficients<float> >;
   template class IIRFilter<ButterworthBandStopCoefficients<double> >;
 
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<float> >;
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<double> >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<float> >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<double> >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<float> >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<double> >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<float> >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<double> >;
 }
