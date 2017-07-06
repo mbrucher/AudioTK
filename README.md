@@ -21,6 +21,7 @@ Audio Toolkit is published under the BSD license.
 ### 2.1.1
 * Added a Gain Max Compressor filter with wrappers
 * Added a dryrun call on BaseFilter to setup maximum sizes on a pipeline
+* Added a IIR TDF2 (Transposed Direct Form 2) filter implementation (no Python wrappers for now)
 * Fixed max gain reduction in the expanders to use 20 log10 instead of 10 log10 (as it is applied to the amplitude and not power)
 * Fix a bug in OutCircularPointerFilter with offset handling
 * Fix a bug in RIAA inverse filters
