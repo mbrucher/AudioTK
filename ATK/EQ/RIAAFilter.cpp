@@ -87,16 +87,6 @@ namespace ATK
     z.back() = -.8;
     zpk2ba(input_sampling_rate, z, p, k, b, a);
     
-    auto cut_frequency = 21000;
-    DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
-    DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
-
-    boost::math::tools::polynomial<DataType> b1 = { { c * c / d, 2 * c * c / d, c * c / d } };
-    boost::math::tools::polynomial<DataType> a1 = { { (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d , 2 * (c * c - 1) / d, 1 } };
-    
-    b = b * a1;
-    a = a * b1;
-
     auto in_size = std::min(std::size_t(in_order + 1), a.size());
     for (size_t i = 0; i < in_size; ++i)
     {

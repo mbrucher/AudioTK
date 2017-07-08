@@ -52,8 +52,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
-    const static unsigned int in_order = 4;
-    const static unsigned int out_order = 4;
+    const static unsigned int in_order = 2;
+    const static unsigned int out_order = 2;
     AlignedVector coefficients_in;
     AlignedVector coefficients_out;
 
