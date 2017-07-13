@@ -43,9 +43,9 @@ matrix:
     - PLATFORM=gcc-5
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
   - compiler: gcc
     os: linux
     dist: trusty
@@ -85,9 +85,9 @@ matrix:
     - PLATFORM=gcc-6
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -131,9 +131,9 @@ matrix:
     - PLATFORM=clang-3.8
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -177,9 +177,9 @@ matrix:
     - PLATFORM=clang-3.9
     - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
   - os: osx
     osx_image: xcode7.3
     env:
@@ -224,7 +224,7 @@ matrix:
 before_install:
   - mkdir $HOME/usr
   - export PATH="$HOME/usr/bin:$PATH"
-  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then dir /opt/python/ ; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ls /opt/python/ ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then wget https://cmake.org/files/v3.8/cmake-3.8.1-Linux-x86_64.sh ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then chmod +x cmake-3.8.1-Linux-x86_64.sh ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ./cmake-3.8.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license ; fi
