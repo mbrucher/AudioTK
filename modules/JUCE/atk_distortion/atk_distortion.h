@@ -18,15 +18,15 @@
 
  BEGIN_JUCE_MODULE_DECLARATION
 
-  ID:               atk_core
+  ID:               atk_distortion
   vendor:           Matthieu Brucher
   version:          2.1.2
-  name:             ATK core
-  description:      Core classes for ATK
+  name:             ATK distortion
+  description:      Distortion and overdrive classes for ATK
   website:          http://www.audio-tk.com/
   license:          BSD
 
-  dependencies:     atk_utility
+  dependencies:     atk_core
   OSXFrameworks:
   iOSFrameworks:
 
@@ -34,16 +34,12 @@
 
 *******************************************************************************/
 
-#ifndef ATK_CORE
-#define ATK_CORE
+#ifndef ATK_DISTORTION
+#define ATK_DISTORTION
 
-#include <ATK/Core/BaseFilter.h>
-#include <ATK/Core/ComplexConvertFilter.h>
-#include <ATK/Core/InPointerFilter.h>
-#include <ATK/Core/OutCircularPointerFilter.h>
-#include <ATK/Core/OutPointerFilter.h>
-#include <ATK/Core/PipelineGlobalSinkFilter.h>
-#include <ATK/Core/TypedBaseFilter.h>
-#include <ATK/Core/Utilities.h>
+#include <ATK/Distortion/DiodeClipperFilter.h>
+#include <ATK/Distortion/SD1OverdriveFilter.h>
+#include <ATK/Distortion/SimpleOverdriveFilter.h>
+#include <ATK/Distortion/TS9OverdriveFilter.h>
 
 #endif

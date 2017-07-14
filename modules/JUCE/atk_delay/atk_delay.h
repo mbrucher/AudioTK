@@ -18,15 +18,15 @@
 
  BEGIN_JUCE_MODULE_DECLARATION
 
-  ID:               atk_core
+  ID:               atk_delay
   vendor:           Matthieu Brucher
   version:          2.1.2
-  name:             ATK core
-  description:      Core classes for ATK
+  name:             ATK delay
+  description:      Delay classes for ATK
   website:          http://www.audio-tk.com/
   license:          BSD
 
-  dependencies:     atk_utility
+  dependencies:     atk_core
   OSXFrameworks:
   iOSFrameworks:
 
@@ -34,16 +34,16 @@
 
 *******************************************************************************/
 
-#ifndef ATK_CORE
-#define ATK_CORE
+#ifndef ATK_DELAY
+#define ATK_DELAY
 
-#include <ATK/Core/BaseFilter.h>
-#include <ATK/Core/ComplexConvertFilter.h>
-#include <ATK/Core/InPointerFilter.h>
-#include <ATK/Core/OutCircularPointerFilter.h>
-#include <ATK/Core/OutPointerFilter.h>
-#include <ATK/Core/PipelineGlobalSinkFilter.h>
-#include <ATK/Core/TypedBaseFilter.h>
-#include <ATK/Core/Utilities.h>
+#include <ATK/Delay/FeedbackDelayNetworkFilter.h>
+#include <ATK/Delay/FixedDelayLineFilter.h>
+#include <ATK/Delay/HadamardMixture.h>
+#include <ATK/Delay/HouseholderMixture.h>
+#include <ATK/Delay/MultipleUniversalFixedDelayLineFilter.h>
+#include <ATK/Delay/UniversalFixedDelayLineFilter.h>
+#include <ATK/Delay/UniversalVariableDelayLineFilter.h>
+#include <ATK/Delay/VariableDelayLineFilter.h>
 
 #endif

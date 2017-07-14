@@ -9,7 +9,7 @@
  ==============================================================================
  */
 
-#include "atk_utility.h"
+#include "atk_core.h"
 
 #include <ATK/Core/BaseFilter.cpp>
 #include <ATK/Core/ComplexConvertFilter.cpp>
