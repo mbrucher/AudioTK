@@ -18,7 +18,7 @@
 
  BEGIN_JUCE_MODULE_DECLARATION
 
-  ID:               atk_utility
+  ID:               atk_adaptive
   vendor:           Matthieu Brucher
   version:          2.1.2
   name:             ATK utilities
@@ -26,7 +26,7 @@
   website:          http://www.audio-tk.com/
   license:          BSD
 
-  dependencies:
+  dependencies:     atk_core
   OSXFrameworks:
   iOSFrameworks:
 
@@ -34,15 +34,18 @@
 
 *******************************************************************************/
 
-#ifndef ATK_UTILITY
-#define ATK_UTILITY
+#ifndef ATK_ADAPTIVE
+#define ATK_ADAPTIVE
 
-#include <ATK/Utility/exp.h>
-#include <ATK/Utility/fmath.h>
-#include <ATK/Utility/FlushToZero.h>
+#if defined (ATK_EIGEN)
 
-#if (ATK_USE_FFTW == 1) or (ATK_USE_IPP == 1)
-#include <ATK/Utility/FFT.h>
+# include <ATK/Adaptive/LMSFilter.h>
+# include <ATK/Adaptive/RLSFilter.h>
+
+# if (ATK_USE_FFTW == 1) or (ATK_USE_IPP == 1)
+#  include <ATK/Adaptive/BlockLMSFilter.h>
+# endif
+
 #endif
 
 #endif
