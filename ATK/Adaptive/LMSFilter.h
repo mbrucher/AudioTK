@@ -54,7 +54,7 @@ namespace ATK
     /// Retrieves the coefficients
     const DataType_* get_w() const;
 
-    enum Mode
+    enum class Mode
     {
       NORMAL,
       NORMALIZED,
