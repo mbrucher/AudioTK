@@ -10,6 +10,7 @@
 #include <ATK/Distortion/SimpleOverdriveFilter.h>
 #include <ATK/Distortion/TS9OverdriveFilter.h>
 
+#include <ATK/Distortion/HalfTanhShaperFilter.h>
 #include <ATK/Distortion/TanhShaperFilter.h>
 
 namespace py = pybind11;
@@ -54,6 +55,9 @@ PYBIND11_PLUGIN(PythonDistortion) {
 
   populate_Filter<TanhShaperFilter<float>>(m, "FloatTanhShaperFilter", f1);
   populate_Filter<TanhShaperFilter<double>>(m, "DoubleTanhShaperFilter", f2);
+
+  populate_Filter<HalfTanhShaperFilter<float>>(m, "FloatHalfTanhShaperFilter", f1);
+  populate_Filter<HalfTanhShaperFilter<double>>(m, "DoubleHalfTanhShaperFilter", f2);
 
   return m.ptr();
 }

@@ -1,18 +1,18 @@
 /**
- * \file TanhShaperFilter.h
+ * \file HalfTanhShaperFilter.h
  */
 
-#ifndef ATK_DISTORTION_TANHSHAPERFILTER_H
-#define ATK_DISTORTION_TANHSHAPERFILTER_H
+#ifndef ATK_DISTORTION_HALFTANHSHAPERFILTER_H
+#define ATK_DISTORTION_HALFTANHSHAPERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include "config.h"
 
 namespace ATK
 {
-  /// Tanh waveshaper
+  /// Negative half of the signal tanh mapper
   template<typename DataType_>
-  class ATK_DISTORTION_EXPORT TanhShaperFilter final : public TypedBaseFilter<DataType_>
+  class ATK_DISTORTION_EXPORT HalfTanhShaperFilter final : public TypedBaseFilter<DataType_>
   {
   protected:
     /// Simplify parent calls
@@ -30,9 +30,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    TanhShaperFilter(std::size_t nb_channels = 1);
+    HalfTanhShaperFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~TanhShaperFilter();
+    ~HalfTanhShaperFilter();
     
   protected:
     virtual void process_impl(std::size_t size) const override final;
