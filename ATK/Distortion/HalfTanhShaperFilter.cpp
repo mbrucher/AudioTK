@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   HalfTanhShaperFilter<DataType_>::HalfTanhShaperFilter(std::size_t nb_channels)
-  :Parent(nb_channels, nb_channels)
+  :Parent(nb_channels, nb_channels), coeff(1)
   {
   }
   
@@ -22,6 +22,18 @@ namespace ATK
   {
   }
   
+  template<typename DataType_>
+  void HalfTanhShaperFilter<DataType_>::set_coefficient(DataType coeff)
+  {
+    this->coeff = coeff;
+  }
+  
+  template<typename DataType_>
+  DataType_ HalfTanhShaperFilter<DataType_>::get_coefficient() const
+  {
+    return coeff;
+  }
+
   template<typename DataType_>
   void HalfTanhShaperFilter<DataType_>::process_impl(std::size_t size) const
   {
@@ -33,9 +45,9 @@ namespace ATK
       {
         if(input[i] < 0)
         {
-          auto exp = fmath::exp(input[i]);
+          auto exp = fmath::exp(coeff * input[i]);
           auto invexp = 1 / exp;
-          output[i] = (exp - invexp) / (exp + invexp);
+          output[i] = (exp - invexp) / (coeff * (exp + invexp));
         }
         else
         {

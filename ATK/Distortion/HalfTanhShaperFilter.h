@@ -34,8 +34,13 @@ namespace ATK
     /// Destructor
     ~HalfTanhShaperFilter();
     
+    void set_coefficient(DataType coeff);
+    DataType_ get_coefficient() const;
+    
   protected:
     virtual void process_impl(std::size_t size) const override final;
+  private:
+    DataType coeff;
   };
 }
 
