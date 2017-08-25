@@ -266,11 +266,11 @@ namespace ATK
         for(std::size_t i = 0; i < size; ++i)
         {
           output[i] = coefficients_in[in_order] * input[i] + current_state[0];
-          for(size_t j = 0; j < state.size() - 1; ++j)
+          for(size_t j = 0; j < std::max(input_delay, output_delay) - 1; ++j)
           {
-            current_state[j] = state[j + 1];
+            current_state[j] = current_state[j + 1];
           }
-          current_state[state.size() - 1] = 0;
+          current_state[std::max(input_delay, output_delay) - 1] = 0;
           
           for(unsigned int j = 0; j < in_order; ++j)
           {
