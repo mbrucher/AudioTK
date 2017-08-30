@@ -34,8 +34,8 @@ namespace ATK
     SecondOrderSVFFilter(std::size_t nb_channels = 1);
     ~SecondOrderSVFFilter();
     
-  protected:
     void full_setup() override final;
+  protected:
     void process_impl(std::size_t size) const override final;
 
     struct SVFState;
