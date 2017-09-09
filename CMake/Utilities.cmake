@@ -8,8 +8,6 @@ if(NOT ${PREFIX}_NAME)
   message(ERROR "No name set for ${PREFIX}")
 endif(NOT ${PREFIX}_NAME)
 
-SOURCE_GROUP_BY_FOLDER(${PREFIX})
-
 add_definitions(${${PREFIX}_DEFINITIONS})
 
 include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
@@ -18,12 +16,19 @@ if(ENABLE_SIMD)
   foreach(SRC ${${PREFIX}_SIMD_SRC})
     simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${COMPILABLE_ARCHS})
   endforeach()
+  FILE(GLOB FULL_PATH ${${PREFIX}_SIMD_SRC})
+  LIST(APPEND ${PREFIX}_SRC ${FULL_PATH})
+  SOURCE_GROUP_BY_FOLDER(${PREFIX})
+  set_source_files_properties(${${PREFIX}_SIMD_SRC} PROPERTIES HEADER_FILE_ONLY TRUE)
+  LIST(APPEND ${PREFIX}_SRC ${${PREFIX}_ARCH_GEN_SRC})
+else(ENABLE_SIMD)
+  SOURCE_GROUP_BY_FOLDER(${PREFIX})
 endif(ENABLE_SIMD)
 
 if(ENABLE_STATIC_LIBRARIES)
   add_library(${${PREFIX}_NAME}_static
     STATIC
-      ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE} ${${PREFIX}_ARCH_GEN_SRC}
+      ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
   )
 
   set_target_properties (${${PREFIX}_NAME}_static PROPERTIES
