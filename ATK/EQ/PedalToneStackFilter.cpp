@@ -24,13 +24,13 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
 
-    DataType tempm[2] = {static_cast<DataType>(-2) * input_sampling_rate, static_cast<DataType>(2) * input_sampling_rate};
-    DataType tempp[2] = {static_cast<DataType>(1), static_cast<DataType>(1)};
-    boost::math::tools::polynomial<DataType> poly1(tempm, 1);
-    boost::math::tools::polynomial<DataType> poly2(tempp, 1);
+    CoeffDataType tempm[2] = {static_cast<CoeffDataType>(-2) * input_sampling_rate, static_cast<CoeffDataType>(2) * input_sampling_rate};
+    CoeffDataType tempp[2] = {static_cast<CoeffDataType>(1), static_cast<CoeffDataType>(1)};
+    boost::math::tools::polynomial<CoeffDataType> poly1(tempm, 1);
+    boost::math::tools::polynomial<CoeffDataType> poly2(tempp, 1);
 
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
+    boost::math::tools::polynomial<CoeffDataType> b;
+    boost::math::tools::polynomial<CoeffDataType> a;
     
     b += poly2 * poly2;
     b += poly2 * poly1 * (C2*R3+R4*C3+alpha*(1-alpha)*R2*C2+alpha*C2*R4);
@@ -51,7 +51,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SD1ToneCoefficients<DataType_>::set_tone(DataType_ alpha)
+  void SD1ToneCoefficients<DataType_>::set_tone(CoeffDataType alpha)
   {
     if(alpha < 0 || alpha > 1)
     {
@@ -63,7 +63,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  DataType_ SD1ToneCoefficients<DataType_>::get_tone() const
+  typename SD1ToneCoefficients<DataType_>::CoeffDataType SD1ToneCoefficients<DataType_>::get_tone() const
   {
     return alpha;
   }
@@ -83,13 +83,13 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    DataType tempm[2] = {static_cast<DataType>(-2 * input_sampling_rate), static_cast<DataType>(2 * input_sampling_rate)};
-    DataType tempp[2] = {static_cast<DataType>(1), static_cast<DataType>(1)};
-    boost::math::tools::polynomial<DataType> poly1(tempm, 1);
-    boost::math::tools::polynomial<DataType> poly2(tempp, 1);
+    CoeffDataType tempm[2] = {static_cast<CoeffDataType>(-2 * input_sampling_rate), static_cast<CoeffDataType>(2 * input_sampling_rate)};
+    CoeffDataType tempp[2] = {static_cast<CoeffDataType>(1), static_cast<CoeffDataType>(1)};
+    boost::math::tools::polynomial<CoeffDataType> poly1(tempm, 1);
+    boost::math::tools::polynomial<CoeffDataType> poly2(tempp, 1);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
+    boost::math::tools::polynomial<CoeffDataType> b;
+    boost::math::tools::polynomial<CoeffDataType> a;
     
     b += R2 * poly2 * poly2;
     b += poly2 * poly1 * (alpha * C2 * R2 * R3 + alpha * (1-alpha) * C2 * P * R2 + R2 * R4 * C2);
@@ -109,7 +109,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void TS9ToneCoefficients<DataType_>::set_tone(DataType_ alpha)
+  void TS9ToneCoefficients<DataType_>::set_tone(CoeffDataType alpha)
   {
     if(alpha < 0 || alpha > 1)
     {
@@ -121,20 +121,28 @@ namespace ATK
   }
   
   template<typename DataType_>
-  DataType_ TS9ToneCoefficients<DataType_>::get_tone() const
+  typename TS9ToneCoefficients<DataType_>::CoeffDataType TS9ToneCoefficients<DataType_>::get_tone() const
   {
     return alpha;
   }
 
   template class SD1ToneCoefficients<float>;
   template class SD1ToneCoefficients<double>;
+  template class SD1ToneCoefficients<std::complex<float> >;
+  template class SD1ToneCoefficients<std::complex<double> >;
   
   template class IIRFilter<SD1ToneCoefficients<float> >;
   template class IIRFilter<SD1ToneCoefficients<double> >;
+  template class IIRFilter<SD1ToneCoefficients<std::complex<float> > >;
+  template class IIRFilter<SD1ToneCoefficients<std::complex<double> > >;
 
   template class TS9ToneCoefficients<float>;
   template class TS9ToneCoefficients<double>;
+  template class TS9ToneCoefficients<std::complex<float> >;
+  template class TS9ToneCoefficients<std::complex<double> >;
   
   template class IIRFilter<TS9ToneCoefficients<float> >;
   template class IIRFilter<TS9ToneCoefficients<double> >;
+  template class IIRFilter<TS9ToneCoefficients<std::complex<float> > >;
+  template class IIRFilter<TS9ToneCoefficients<std::complex<double> > >;
 }

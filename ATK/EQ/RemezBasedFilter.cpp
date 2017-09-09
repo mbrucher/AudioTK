@@ -317,14 +317,14 @@ namespace ATK
   }
 
   template<class DataType>
-  void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& target)
+  void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > >& target)
   {
     this->target = target;
     setup();
   }
   
   template<class DataType>
-  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType>, std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType> > >& RemezBasedCoefficients<DataType>::get_template() const
+  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::CoeffDataType, typename RemezBasedCoefficients<DataType>::CoeffDataType>, std::pair<typename RemezBasedCoefficients<DataType>::CoeffDataType, typename RemezBasedCoefficients<DataType>::CoeffDataType> > >& RemezBasedCoefficients<DataType>::get_template() const
   {
     return target;
   }
@@ -357,14 +357,15 @@ namespace ATK
     
     if (in_order > 0)
     {
-      RemezBuilder<DataType> builder(in_order, target);
+      RemezBuilder<CoeffDataType> builder(in_order, target);
       coefficients_in = builder.build();
     }
   }
   
   template class RemezBasedCoefficients<double>;
+  template class RemezBasedCoefficients<std::complex<double> >;
   
-  template class FIRFilter<RemezBasedCoefficients<double> >;
+  template class FIRFilter<RemezBasedCoefficients<std::complex<double> > >;
 }
 
 #endif
