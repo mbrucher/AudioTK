@@ -11,7 +11,7 @@ add_definitions(${${PREFIX}_DEFINITIONS})
 include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
 
 if(ENABLE_STATIC_LIBRARIES)
-  add_library(${PREFIX}_static
+  add_library(${${PREFIX}_NAME}_static
     STATIC
     ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
   )
