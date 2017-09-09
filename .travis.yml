@@ -25,6 +25,7 @@ matrix:
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - EXT_LIB=so
   - compiler: gcc
     os: linux
     dist: trusty
@@ -46,6 +47,7 @@ matrix:
     - PYTHON_VERSION=3.5
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.5.3
+    - EXT_LIB=so
   - compiler: gcc
     os: linux
     dist: trusty
@@ -67,6 +69,7 @@ matrix:
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - EXT_LIB=so
   - compiler: gcc
     os: linux
     dist: trusty
@@ -88,6 +91,7 @@ matrix:
     - PYTHON_VERSION=3.5
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.5.3
+    - EXT_LIB=so
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -111,6 +115,7 @@ matrix:
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - EXT_LIB=so
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -134,6 +139,7 @@ matrix:
     - PYTHON_VERSION=3.5
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.5.3
+    - EXT_LIB=so
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -157,6 +163,7 @@ matrix:
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - EXT_LIB=so
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -180,6 +187,7 @@ matrix:
     - PYTHON_VERSION=3.5
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.5.3
+    - EXT_LIB=so
   - os: osx
     osx_image: xcode7.3
     env:
@@ -190,6 +198,7 @@ matrix:
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.11
+    - EXT_LIB=dylib
   - os: osx
     osx_image: xcode7.3
     env:
@@ -200,6 +209,7 @@ matrix:
     - PYTHON_VERSION=3.6
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.1
+    - EXT_LIB=dylib
   - os: osx
     osx_image: xcode8.2
     env:
@@ -210,6 +220,7 @@ matrix:
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.11
+    - EXT_LIB=dylib
   - os: osx
     osx_image: xcode8.2
     env:
@@ -220,6 +231,7 @@ matrix:
     - PYTHON_VERSION=3.6
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.1
+    - EXT_LIB=dylib
 
 before_install:
   - mkdir $HOME/usr
@@ -249,7 +261,7 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_CONFIGURATION_TYPES=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} -DPython_ADDITIONAL_VERSIONS=${Python_ADDITIONAL_VERSIONS} ${ADDITONAL_CMAKE_FLAGS} ..
+- cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_CONFIGURATION_TYPES=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} -DPython_ADDITIONAL_VERSIONS=${Python_ADDITIONAL_VERSIONS} -DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.${EXT_LIB} -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} ${ADDITONAL_CMAKE_FLAGS} ..
 
 script:
   - pwd
