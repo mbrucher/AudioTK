@@ -262,7 +262,7 @@ namespace ATK
   
   template <typename DataType>
   Chebyshev1BandPassCoefficients<DataType>::Chebyshev1BandPassCoefficients(std::size_t nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), ripple(0), in_order(1), out_order(1)
   {
   }
   
@@ -324,7 +324,7 @@ namespace ATK
   
   template <typename DataType>
   Chebyshev1BandStopCoefficients<DataType>::Chebyshev1BandStopCoefficients(std::size_t nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), ripple(0), in_order(1), out_order(1)
   {
   }
   
@@ -386,21 +386,37 @@ namespace ATK
   
   template class Chebyshev1LowPassCoefficients<float>;
   template class Chebyshev1LowPassCoefficients<double>;
+  template class Chebyshev1LowPassCoefficients<std::complex<float> >;
+  template class Chebyshev1LowPassCoefficients<std::complex<double> >;
   template class Chebyshev1HighPassCoefficients<float>;
   template class Chebyshev1HighPassCoefficients<double>;
+  template class Chebyshev1HighPassCoefficients<std::complex<float> >;
+  template class Chebyshev1HighPassCoefficients<std::complex<double> >;
   template class Chebyshev1BandPassCoefficients<float>;
   template class Chebyshev1BandPassCoefficients<double>;
+  template class Chebyshev1BandPassCoefficients<std::complex<float> >;
+  template class Chebyshev1BandPassCoefficients<std::complex<double> >;
   template class Chebyshev1BandStopCoefficients<float>;
   template class Chebyshev1BandStopCoefficients<double>;
+  template class Chebyshev1BandStopCoefficients<std::complex<float> >;
+  template class Chebyshev1BandStopCoefficients<std::complex<double> >;
   
   template class IIRFilter<Chebyshev1LowPassCoefficients<float> >;
   template class IIRFilter<Chebyshev1LowPassCoefficients<double> >;
+  template class IIRFilter<Chebyshev1LowPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<Chebyshev1LowPassCoefficients<std::complex<double> > >;
   template class IIRFilter<Chebyshev1HighPassCoefficients<float> >;
   template class IIRFilter<Chebyshev1HighPassCoefficients<double> >;
+  template class IIRFilter<Chebyshev1HighPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<Chebyshev1HighPassCoefficients<std::complex<double> > >;
   template class IIRFilter<Chebyshev1BandPassCoefficients<float> >;
   template class IIRFilter<Chebyshev1BandPassCoefficients<double> >;
+  template class IIRFilter<Chebyshev1BandPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<Chebyshev1BandPassCoefficients<std::complex<double> > >;
   template class IIRFilter<Chebyshev1BandStopCoefficients<float> >;
   template class IIRFilter<Chebyshev1BandStopCoefficients<double> >;
+  template class IIRFilter<Chebyshev1BandStopCoefficients<std::complex<float> > >;
+  template class IIRFilter<Chebyshev1BandStopCoefficients<std::complex<double> > >;
   
   template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<float> >;
   template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<double> >;

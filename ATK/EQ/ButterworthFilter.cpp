@@ -211,7 +211,7 @@ namespace ATK
 
   template <typename DataType>
   ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(std::size_t nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
 
@@ -260,7 +260,7 @@ namespace ATK
 
   template <typename DataType>
   ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(std::size_t nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(DataType(0), DataType(0)), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
   
@@ -309,21 +309,37 @@ namespace ATK
 
   template class ButterworthLowPassCoefficients<float>;
   template class ButterworthLowPassCoefficients<double>;
+  template class ButterworthLowPassCoefficients<std::complex<float> >;
+  template class ButterworthLowPassCoefficients<std::complex<double> >;
   template class ButterworthHighPassCoefficients<float>;
   template class ButterworthHighPassCoefficients<double>;
+  template class ButterworthHighPassCoefficients<std::complex<float> >;
+  template class ButterworthHighPassCoefficients<std::complex<double> >;
   template class ButterworthBandPassCoefficients<float>;
   template class ButterworthBandPassCoefficients<double>;
+  template class ButterworthBandPassCoefficients<std::complex<float> >;
+  template class ButterworthBandPassCoefficients<std::complex<double> >;
   template class ButterworthBandStopCoefficients<float>;
   template class ButterworthBandStopCoefficients<double>;
+  template class ButterworthBandStopCoefficients<std::complex<float> >;
+  template class ButterworthBandStopCoefficients<std::complex<double> >;
   
   template class IIRFilter<ButterworthLowPassCoefficients<float> >;
   template class IIRFilter<ButterworthLowPassCoefficients<double> >;
+  template class IIRFilter<ButterworthLowPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<ButterworthLowPassCoefficients<std::complex<double> > >;
   template class IIRFilter<ButterworthHighPassCoefficients<float> >;
   template class IIRFilter<ButterworthHighPassCoefficients<double> >;
+  template class IIRFilter<ButterworthHighPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<ButterworthHighPassCoefficients<std::complex<double> > >;
   template class IIRFilter<ButterworthBandPassCoefficients<float> >;
   template class IIRFilter<ButterworthBandPassCoefficients<double> >;
+  template class IIRFilter<ButterworthBandPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<ButterworthBandPassCoefficients<std::complex<double> > >;
   template class IIRFilter<ButterworthBandStopCoefficients<float> >;
   template class IIRFilter<ButterworthBandStopCoefficients<double> >;
+  template class IIRFilter<ButterworthBandStopCoefficients<std::complex<float> > >;
+  template class IIRFilter<ButterworthBandStopCoefficients<std::complex<double> > >;
 
   template class IIRTDF2Filter<ButterworthLowPassCoefficients<float> >;
   template class IIRTDF2Filter<ButterworthLowPassCoefficients<double> >;
