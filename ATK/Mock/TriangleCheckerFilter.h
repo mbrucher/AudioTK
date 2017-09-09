@@ -6,6 +6,7 @@
 #define ATK_MOCK_TRIANGLECHECKERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Core/TypeTraits.h>
 
 #include "config.h"
 
@@ -36,7 +37,7 @@ namespace ATK
     virtual void process_impl(std::size_t size) const override final;
     
   private:
-    mutable double state;
+    mutable typename TypeTraits<DataType>::Scalar state;
     mutable bool ascending;
     DataType amplitude;
     int frequency;

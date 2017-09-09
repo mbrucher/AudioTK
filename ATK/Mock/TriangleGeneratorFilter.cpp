@@ -52,7 +52,7 @@ namespace ATK
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      outputs[0][i] = static_cast<DataType_>(static_cast<typename TypeTraits<DataType>::Scalar>(amplitude) * state);
+      outputs[0][i] = amplitude * state;
     }
   }
   
