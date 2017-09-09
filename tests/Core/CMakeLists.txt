@@ -1,20 +1,19 @@
 
-FILE(GLOB_RECURSE
-    ATK_CORE_TEST_SRC
-    *.cpp
+FILE(GLOB
+  ATK_CORE_TEST_SRC
+  *.cpp
 )
 
-FILE(GLOB_RECURSE
-    ATK_CORE_TEST_HEADERS
-    *.h
+FILE(GLOB
+  ATK_CORE_TEST_HEADERS
+  *.h*
 )
 
-include_directories(${PROJECT_SOURCE_DIR})
-add_executable(ATKCore_test ${ATK_CORE_TEST_SRC} ${ATK_CORE_TEST_HEADERS})
-target_link_libraries (ATKCore_test ATKMock ATKTools ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+SET(ATK_CORE_TEST_DEFINITIONS)
+SET(ATK_CORE_TEST_INCLUDE)
+SET(ATK_CORE_TEST_LIBRARIES ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
-add_test(AudioTKCore ATKCore_test --log_level=message)
+SET(ATK_CORE_TEST_NAME ATKCore_test)
+SET(ATK_CORE_TEST_FOLDER Core_test)
 
-set_target_properties (ATKCore_test PROPERTIES
-    FOLDER Tests
-)
+ATK_add_test(ATK_CORE_TEST)

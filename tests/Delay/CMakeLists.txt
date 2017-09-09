@@ -1,20 +1,19 @@
 
-FILE(GLOB_RECURSE
-    ATK_DELAY_TEST_SRC
-    *.cpp
+FILE(GLOB
+  ATK_DELAY_TEST_SRC
+  *.cpp
 )
 
-FILE(GLOB_RECURSE
-    ATK_DELAY_TEST_HEADERS
-    *.h
+FILE(GLOB
+  ATK_DELAY_TEST_HEADERS
+  *.h*
 )
 
-include_directories(${PROJECT_SOURCE_DIR})
-add_executable(ATKDelay_test ${ATK_DELAY_TEST_SRC} ${ATK_DELAY_TEST_HEADERS} ${NATVIS_FILE})
-target_link_libraries (ATKDelay_test ATKDelay ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+SET(ATK_DELAY_TEST_DEFINITIONS)
+SET(ATK_DELAY_TEST_INCLUDE)
+SET(ATK_DELAY_TEST_LIBRARIES ATKDelay ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
-add_test(AudioTKDelay ATKDelay_test --log_level=message)
+SET(ATK_DELAY_TEST_NAME ATKDelay_test)
+SET(ATK_DELAY_TEST_FOLDER Delay_test)
 
-set_target_properties (ATKDelay_test PROPERTIES
-    FOLDER Tests
-)
+ATK_add_test(ATK_DELAY_TEST)

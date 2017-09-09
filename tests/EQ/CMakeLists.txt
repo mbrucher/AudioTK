@@ -1,20 +1,19 @@
 
-FILE(GLOB_RECURSE
-    ATK_EQ_TEST_SRC
-    *.cpp
+FILE(GLOB
+  ATK_EQ_TEST_SRC
+  *.cpp
 )
 
-FILE(GLOB_RECURSE
-    ATK_EQ_TEST_HEADERS
-    *.h
+FILE(GLOB
+  ATK_EQ_TEST_HEADERS
+  *.h*
 )
 
-include_directories(${PROJECT_SOURCE_DIR})
-add_executable(ATKEQ_test ${ATK_EQ_TEST_SRC} ${ATK_EQ_TEST_HEADERS} ${NATVIS_FILE})
-target_link_libraries (ATKEQ_test ATKEQ ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
+SET(ATK_EQ_TEST_DEFINITIONS)
+SET(ATK_EQ_TEST_INCLUDE)
+SET(ATK_EQ_TEST_LIBRARIES ATKEQ ATKTools ATKMock ATKCore ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY})
 
-add_test(AudioTKEQ ATKEQ_test --log_level=message)
+SET(ATK_EQ_TEST_NAME ATKEQ_test)
+SET(ATK_EQ_TEST_FOLDER EQ_test)
 
-set_target_properties (ATKEQ_test PROPERTIES
-    FOLDER Tests
-)
+ATK_add_test(ATK_EQ_TEST)
