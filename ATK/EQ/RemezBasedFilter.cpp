@@ -365,6 +365,7 @@ namespace ATK
   template class RemezBasedCoefficients<double>;
   template class RemezBasedCoefficients<std::complex<double> >;
   
+  template class FIRFilter<RemezBasedCoefficients<double> >;
   template class FIRFilter<RemezBasedCoefficients<std::complex<double> > >;
 }
 
