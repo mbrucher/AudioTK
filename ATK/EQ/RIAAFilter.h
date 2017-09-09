@@ -18,7 +18,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -26,8 +26,8 @@ namespace ATK
   protected:
     const static unsigned int in_order = 2;
     const static unsigned int out_order = 2;
-    AlignedVector coefficients_in;
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_in;
+    AlignedScalarVector coefficients_out;
     
     void setup() override;
         
@@ -46,7 +46,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -54,8 +54,8 @@ namespace ATK
   protected:
     const static unsigned int in_order = 2;
     const static unsigned int out_order = 2;
-    AlignedVector coefficients_in;
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_in;
+    AlignedScalarVector coefficients_out;
 
     void setup() override;
 

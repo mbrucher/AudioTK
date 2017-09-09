@@ -20,7 +20,7 @@ namespace
   class RemezBuilder
   {
   public:
-    typedef typename ATK::TypedBaseFilter<DataType>::AlignedVector AlignedVector;
+    typedef typename ATK::TypedBaseFilter<DataType>::AlignedScalarVector AlignedScalarVector;
   private:
     const static std::size_t grid_size = 1024; // grid size, power of two better for FFT
     constexpr static DataType SN = 1e-8;
@@ -30,7 +30,7 @@ namespace
     std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> > target;
     
     /// Computed coefficients
-    AlignedVector coeffs;
+    AlignedScalarVector coeffs;
     /// Selected indices
     std::vector<std::size_t> indices;
     /// Weight function on the grid
@@ -112,7 +112,7 @@ namespace
       return indices;
     }
     
-    AlignedVector build()
+    AlignedScalarVector build()
     {
       if(target.empty())
       {

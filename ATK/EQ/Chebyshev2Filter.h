@@ -16,7 +16,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -33,9 +33,9 @@ namespace ATK
     void setup() override;
     
     /// Coefficients of the MA part of the IIR filter
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     /// Coefficients of the AR part of the IIR filter
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_out;
     
   public:
     /*!
@@ -65,7 +65,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -82,9 +82,9 @@ namespace ATK
     void setup() override;
     
     /// Coefficients of the MA part of the IIR filter
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     /// Coefficients of the AR part of the IIR filter
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_out;
     
   public:
     /*!
@@ -114,7 +114,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -131,9 +131,9 @@ namespace ATK
     void setup() override;
     
     /// Coefficients of the MA part of the IIR filter
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     /// Coefficients of the AR part of the IIR filter
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_out;
     
   public:
     /*!
@@ -165,7 +165,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -182,9 +182,9 @@ namespace ATK
     void setup() override;
     
     /// Coefficients of the MA part of the IIR filter
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     /// Coefficients of the AR part of the IIR filter
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_out;
     
   public:
     /*!

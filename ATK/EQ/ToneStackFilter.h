@@ -19,7 +19,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
   protected:
@@ -34,9 +34,9 @@ namespace ATK
     void setup() override;
     
     /// MA part of the filter, based on the electronic components specifications
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     /// AR part of the filter, based on the electronic components specifications
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_out;
     
     /*!
      * @brief Constructor

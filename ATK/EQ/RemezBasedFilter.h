@@ -21,7 +21,7 @@ namespace ATK
   public:
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using Parent::input_sampling_rate;
   protected:
     /**
@@ -33,7 +33,7 @@ namespace ATK
     /// Launches the computation
     void setup();
     /// Final coefficients
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     
   public:
     /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template

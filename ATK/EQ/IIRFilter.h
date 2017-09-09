@@ -22,7 +22,7 @@ namespace ATK
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
@@ -110,11 +110,11 @@ namespace ATK
       assert(coefficients_in.data());
       assert(out_order == 0 || coefficients_out.data() != nullptr);
 
-      const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
-      const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
-      const DataType* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
-      const DataType* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
-      const DataType* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
+      const auto* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+      const auto* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
+      const auto* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
+      const auto* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
+      const auto* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
 
       for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
       {
@@ -192,21 +192,21 @@ namespace ATK
     }
     
     /// Returns the vector of internal coefficients for the MA section 
-    const AlignedVector& get_coefficients_in() const
+    const AlignedScalarVector& get_coefficients_in() const
     {
       return coefficients_in;
     }
     
     /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
-    const AlignedVector& get_coefficients_out() const
+    const AlignedScalarVector& get_coefficients_out() const
     {
       return coefficients_out;
     }
 
   protected:
-    AlignedVector coefficients_out_2;
-    AlignedVector coefficients_out_3;
-    AlignedVector coefficients_out_4;
+    AlignedScalarVector coefficients_out_2;
+    AlignedScalarVector coefficients_out_3;
+    AlignedScalarVector coefficients_out_4;
   };
 
   /// IIR filter template class. Transposed Direct Form II implementation

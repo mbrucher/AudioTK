@@ -23,7 +23,7 @@ namespace ATK
   public:
     typedef Coefficients Parent;
     using typename Parent::DataType;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
 
     using Parent::converted_inputs;
     using Parent::outputs;
@@ -65,7 +65,7 @@ namespace ATK
       assert(nb_input_ports == nb_output_ports);
       assert(coefficients_in.data());
 
-      const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+      const auto* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
 
       for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
       {
@@ -89,7 +89,7 @@ namespace ATK
     }
     
     /// Returns the vector of internal coefficients for the MA section 
-    const AlignedVector& get_coefficients_in() const
+    const AlignedScalarVector& get_coefficients_in() const
     {
       return coefficients_in;
     }

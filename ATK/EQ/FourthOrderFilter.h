@@ -16,7 +16,7 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::setup;
   protected:
@@ -24,8 +24,8 @@ namespace ATK
 
     const static int in_order=4;
     const static int out_order=4;
-    AlignedVector coefficients_in;
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_in;
+    AlignedScalarVector coefficients_out;
 
     void setup() override;
   public:

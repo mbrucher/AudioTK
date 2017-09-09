@@ -6,6 +6,7 @@
 #define ATK_CORE_TYPEDBASEFILTER_H
 
 #include "BaseFilter.h"
+#include "TypeTraits.h"
 
 #include <memory>
 #include <vector>
@@ -28,8 +29,10 @@ namespace ATK
     typedef DataType_ DataTypeInput;
     /// To be used by inherited APIs
     typedef DataType__ DataTypeOutput;
-    /// To be used for filters that require alignment (like EQs)
+    /// To be used for filters that require aligned data
     typedef std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > AlignedVector;
+    /// To be used for filters that required aligned data for parameters (like EQ)
+    typedef std::vector<typename TypeTraits<DataType>::Scalar, boost::alignment::aligned_allocator<typename TypeTraits<DataType>::Scalar, 32> > AlignedScalarVector;
 
     /// Base constructor for filters with actual data
     TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports);
