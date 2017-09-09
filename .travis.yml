@@ -255,7 +255,6 @@ before_script:
 
 script:
   - pwd
-  - ${PYTHON} --version
   - make -j 16
   - make install
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi

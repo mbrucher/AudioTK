@@ -12,6 +12,7 @@ option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
+option(ENABLE_SIMD "Enable SIMD support through libsimdpp" ON)
 option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)
 option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
@@ -19,6 +20,11 @@ option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
 message(INFO " Build tests: ${ENABLE_TESTS}")
+
+if(${ENABLE_SIMD} STREQUAL "ON")
+  LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/3rdParty/libsimdpp/cmake)
+  include(SimdppMultiarch)
+endif(${ENABLE_SIMD} STREQUAL "ON")
 
 if(${ENABLE_TESTS} STREQUAL "ON")
  if(${ENABLE_SHARED_LIBRARIES} STREQUAL "OFF")
@@ -356,6 +362,11 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
+  add_subdirectory(3rdParty/pybind11)
+
+  LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/3rdParty/pybind11/tools)
+  FIND_PACKAGE(PythonLibsNew REQUIRED)
+
   add_subdirectory(Python)
 endif(ENABLE_PYTHON)
 
