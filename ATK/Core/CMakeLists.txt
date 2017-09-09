@@ -4,6 +4,10 @@ FILE(GLOB
     *.cpp
 )
 
+SET(ATK_CORE_SIMD_SRC
+    SIMD/QuaternionConvertFilter.cpp
+)
+
 FILE(GLOB
     ATK_CORE_HEADERS
     *.h*

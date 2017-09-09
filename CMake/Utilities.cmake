@@ -1,5 +1,5 @@
 #
-# CMake utilities for ATL
+# CMake utilities for ATK
 #
 
 function(ATK_add_library PREFIX)
@@ -14,10 +14,16 @@ add_definitions(${${PREFIX}_DEFINITIONS})
 
 include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
 
+if(ENABLE_SIMD)
+  foreach(SRC ${${PREFIX}_SIMD_SRC})
+    simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${COMPILABLE_ARCHS})
+  endforeach()
+endif(ENABLE_SIMD)
+
 if(ENABLE_STATIC_LIBRARIES)
   add_library(${${PREFIX}_NAME}_static
     STATIC
-    ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
+      ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE} ${${PREFIX}_ARCH_GEN_SRC}
   )
 
   set_target_properties (${${PREFIX}_NAME}_static PROPERTIES
@@ -37,7 +43,7 @@ if(ENABLE_SHARED_LIBRARIES)
 
   add_library(${${PREFIX}_NAME}
     SHARED
-    ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
+    ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE} ${${PREFIX}_ARCH_GEN_SRC}
   )
 
   set_target_properties (${${PREFIX}_NAME} PROPERTIES
