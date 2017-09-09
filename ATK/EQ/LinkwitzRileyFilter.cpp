@@ -20,9 +20,9 @@ namespace ATK
   {
     Parent::setup();
 
-    DataType omega = boost::math::constants::pi<DataType>() * cut_frequency;
-    DataType kappa = omega / std::tan(omega / input_sampling_rate);
-    DataType delta = kappa * kappa + omega * omega + 2 * kappa * omega;
+    CoeffDataType omega = boost::math::constants::pi<CoeffDataType>() * cut_frequency;
+    CoeffDataType kappa = omega / std::tan(omega / input_sampling_rate);
+    CoeffDataType delta = kappa * kappa + omega * omega + 2 * kappa * omega;
 
     coefficients_in[2] = omega * omega / delta;
     coefficients_in[1] = 2 * omega * omega / delta;
@@ -42,9 +42,9 @@ namespace ATK
   {
     Parent::setup();
 
-    DataType omega = boost::math::constants::pi<DataType>() * cut_frequency;
-    DataType kappa = omega / std::tan(omega / input_sampling_rate);
-    DataType delta = kappa * kappa + omega * omega + 2 * kappa * omega;
+    CoeffDataType omega = boost::math::constants::pi<CoeffDataType>() * cut_frequency;
+    CoeffDataType kappa = omega / std::tan(omega / input_sampling_rate);
+    CoeffDataType delta = kappa * kappa + omega * omega + 2 * kappa * omega;
     
     coefficients_in[2] = kappa * kappa / delta;
     coefficients_in[1] = - 2 * kappa * kappa / delta;
@@ -64,7 +64,7 @@ namespace ATK
   {
     Parent::setup();
     
-    auto wc=2*boost::math::constants::pi<DataType>() * cut_frequency;
+    auto wc=2*boost::math::constants::pi<CoeffDataType>() * cut_frequency;
     auto wc2=wc*wc;
     auto wc3=wc2*wc;
     auto wc4=wc2*wc2;
@@ -72,7 +72,7 @@ namespace ATK
     auto k2=k*k;
     auto k3=k2*k;
     auto k4=k2*k2;
-    auto sqrt2=std::sqrt(DataType(2));
+    auto sqrt2=std::sqrt(CoeffDataType(2));
     auto sq_tmp1=sqrt2*wc3*k;
     auto sq_tmp2=sqrt2*wc*k3;
     auto a_tmp=4*wc2*k2+2*sq_tmp1+k4+2*sq_tmp2+wc4;
@@ -98,7 +98,7 @@ namespace ATK
   {
     Parent::setup();
     
-    auto wc=2*boost::math::constants::pi<DataType>() * cut_frequency;
+    auto wc=2*boost::math::constants::pi<CoeffDataType>() * cut_frequency;
     auto wc2=wc*wc;
     auto wc3=wc2*wc;
     auto wc4=wc2*wc2;
@@ -106,7 +106,7 @@ namespace ATK
     auto k2=k*k;
     auto k3=k2*k;
     auto k4=k2*k2;
-    auto sqrt2=std::sqrt(DataType(2));
+    auto sqrt2=std::sqrt(CoeffDataType(2));
     auto sq_tmp1=sqrt2*wc3*k;
     auto sq_tmp2=sqrt2*wc*k3;
     auto a_tmp=4*wc2*k2+2*sq_tmp1+k4+2*sq_tmp2+wc4;
@@ -123,21 +123,37 @@ namespace ATK
 
   template class LinkwitzRileyLowPassCoefficients<float>;
   template class LinkwitzRileyLowPassCoefficients<double>;
+  template class LinkwitzRileyLowPassCoefficients<std::complex<float> >;
+  template class LinkwitzRileyLowPassCoefficients<std::complex<double> >;
   template class LinkwitzRileyHighPassCoefficients<float>;
   template class LinkwitzRileyHighPassCoefficients<double>;
+  template class LinkwitzRileyHighPassCoefficients<std::complex<float> >;
+  template class LinkwitzRileyHighPassCoefficients<std::complex<double> >;
   template class LinkwitzRiley4LowPassCoefficients<float>;
   template class LinkwitzRiley4LowPassCoefficients<double>;
+  template class LinkwitzRiley4LowPassCoefficients<std::complex<float> >;
+  template class LinkwitzRiley4LowPassCoefficients<std::complex<double> >;
   template class LinkwitzRiley4HighPassCoefficients<float>;
   template class LinkwitzRiley4HighPassCoefficients<double>;
+  template class LinkwitzRiley4HighPassCoefficients<std::complex<float> >;
+  template class LinkwitzRiley4HighPassCoefficients<std::complex<double> >;
   
   template class IIRFilter<LinkwitzRileyLowPassCoefficients<float> >;
   template class IIRFilter<LinkwitzRileyLowPassCoefficients<double> >;
+  template class IIRFilter<LinkwitzRileyLowPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<LinkwitzRileyLowPassCoefficients<std::complex<double> > >;
   template class IIRFilter<LinkwitzRileyHighPassCoefficients<float> >;
   template class IIRFilter<LinkwitzRileyHighPassCoefficients<double> >;
+  template class IIRFilter<LinkwitzRileyHighPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<LinkwitzRileyHighPassCoefficients<std::complex<double> > >;
   template class IIRFilter<LinkwitzRiley4LowPassCoefficients<float> >;
   template class IIRFilter<LinkwitzRiley4LowPassCoefficients<double> >;
+  template class IIRFilter<LinkwitzRiley4LowPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<LinkwitzRiley4LowPassCoefficients<std::complex<double> > >;
   template class IIRFilter<LinkwitzRiley4HighPassCoefficients<float> >;
   template class IIRFilter<LinkwitzRiley4HighPassCoefficients<double> >;
+  template class IIRFilter<LinkwitzRiley4HighPassCoefficients<std::complex<float> > >;
+  template class IIRFilter<LinkwitzRiley4HighPassCoefficients<std::complex<double> > >;
 
   template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<float> >;
   template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<double> >;

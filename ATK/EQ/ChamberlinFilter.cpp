@@ -15,27 +15,27 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void ChamberlinFilter<DataType_>::set_cut_frequency(DataType_ cutoff_frequency)
+  void ChamberlinFilter<DataType_>::set_cut_frequency(CoeffDataType cutoff_frequency)
   {
     this->cutoff_frequency = cutoff_frequency;
     setup();
   }
 
   template<typename DataType_>
-  DataType_ ChamberlinFilter<DataType_>::get_cut_frequency() const
+  typename ChamberlinFilter<DataType_>::CoeffDataType ChamberlinFilter<DataType_>::get_cut_frequency() const
   {
     return cutoff_frequency;
   }
   
   template<typename DataType_>
-  void ChamberlinFilter<DataType_>::set_attenuation(DataType_ attenuation)
+  void ChamberlinFilter<DataType_>::set_attenuation(CoeffDataType attenuation)
   {
     this->attenuation = attenuation;
     setup();
   }
 
   template<typename DataType_>
-  DataType_ ChamberlinFilter<DataType_>::get_attenuation() const
+  typename ChamberlinFilter<DataType_>::CoeffDataType ChamberlinFilter<DataType_>::get_attenuation() const
   {
     return attenuation;
   }

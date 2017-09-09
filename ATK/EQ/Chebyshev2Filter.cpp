@@ -151,27 +151,27 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void Chebyshev2LowPassCoefficients<DataType_>::set_ripple(DataType_ ripple)
+  void Chebyshev2LowPassCoefficients<DataType_>::set_ripple(CoeffDataType ripple)
   {
     this->ripple = ripple;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ Chebyshev2LowPassCoefficients<DataType_>::get_ripple() const
+  typename Chebyshev2LowPassCoefficients<DataType_>::CoeffDataType Chebyshev2LowPassCoefficients<DataType_>::get_ripple() const
   {
     return ripple;
   }
   
   template <typename DataType_>
-  void Chebyshev2LowPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
+  void Chebyshev2LowPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ Chebyshev2LowPassCoefficients<DataType_>::get_cut_frequency() const
+  typename Chebyshev2LowPassCoefficients<DataType_>::CoeffDataType Chebyshev2LowPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
@@ -206,27 +206,27 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void Chebyshev2HighPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
+  void Chebyshev2HighPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ Chebyshev2HighPassCoefficients<DataType_>::get_cut_frequency() const
+  typename Chebyshev2HighPassCoefficients<DataType_>::CoeffDataType Chebyshev2HighPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
   
   template <typename DataType_>
-  void Chebyshev2HighPassCoefficients<DataType_>::set_ripple(DataType_ ripple)
+  void Chebyshev2HighPassCoefficients<DataType_>::set_ripple(CoeffDataType ripple)
   {
     this->ripple = ripple;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ Chebyshev2HighPassCoefficients<DataType_>::get_ripple() const
+  typename Chebyshev2HighPassCoefficients<DataType_>::CoeffDataType Chebyshev2HighPassCoefficients<DataType_>::get_ripple() const
   {
     return ripple;
   }
@@ -266,34 +266,34 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void Chebyshev2BandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
+  void Chebyshev2BandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
   
   template <typename DataType_>
-  void Chebyshev2BandPassCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
+  void Chebyshev2BandPassCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
   
   template <typename DataType_>
-  std::pair<DataType_, DataType_> Chebyshev2BandPassCoefficients<DataType_>::get_cut_frequencies() const
+  std::pair<typename Chebyshev2BandPassCoefficients<DataType_>::CoeffDataType, typename Chebyshev2BandPassCoefficients<DataType_>::CoeffDataType> Chebyshev2BandPassCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }
   
   template <typename DataType_>
-  void Chebyshev2BandPassCoefficients<DataType_>::set_ripple(DataType_ ripple)
+  void Chebyshev2BandPassCoefficients<DataType_>::set_ripple(CoeffDataType ripple)
   {
     this->ripple = ripple;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ Chebyshev2BandPassCoefficients<DataType_>::get_ripple() const
+  typename Chebyshev2BandPassCoefficients<DataType_>::CoeffDataType Chebyshev2BandPassCoefficients<DataType_>::get_ripple() const
   {
     return ripple;
   }
@@ -328,34 +328,34 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void Chebyshev2BandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
+  void Chebyshev2BandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
   
   template <typename DataType_>
-  void Chebyshev2BandStopCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
+  void Chebyshev2BandStopCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
   
   template <typename DataType_>
-  std::pair<DataType_, DataType_> Chebyshev2BandStopCoefficients<DataType_>::get_cut_frequencies() const
+  std::pair<typename Chebyshev2BandStopCoefficients<DataType_>::CoeffDataType, typename Chebyshev2BandStopCoefficients<DataType_>::CoeffDataType> Chebyshev2BandStopCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }
   
   template <typename DataType_>
-  void Chebyshev2BandStopCoefficients<DataType_>::set_ripple(DataType_ ripple)
+  void Chebyshev2BandStopCoefficients<DataType_>::set_ripple(CoeffDataType ripple)
   {
     this->ripple = ripple;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ Chebyshev2BandStopCoefficients<DataType_>::get_ripple() const
+  typename Chebyshev2BandStopCoefficients<DataType_>::CoeffDataType Chebyshev2BandStopCoefficients<DataType_>::get_ripple() const
   {
     return ripple;
   }

@@ -22,6 +22,7 @@ namespace ATK
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -50,6 +51,7 @@ namespace ATK
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -78,6 +80,7 @@ namespace ATK
     /// Simplify parent calls
     typedef FourthOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -106,6 +109,7 @@ namespace ATK
     /// Simplify parent calls
     typedef FourthOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:

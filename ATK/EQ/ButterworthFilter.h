@@ -18,10 +18,11 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
   protected:
     /// Cut-off of the filter
-    DataType cut_frequency;
+    CoeffDataType cut_frequency;
     
     /// Order of the filter
     unsigned int in_order;
@@ -43,9 +44,9 @@ namespace ATK
     ButterworthLowPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(DataType_ cut_frequency);
+    void set_cut_frequency(CoeffDataType cut_frequency);
     /// Returns the cut or central frequency
-    DataType_ get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
     /// Gets the order of the filter
@@ -61,10 +62,11 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
   protected:
     /// Cut-off of the filter
-    DataType cut_frequency;
+    CoeffDataType cut_frequency;
     
     /// Order of the filter
     unsigned int in_order;
@@ -86,9 +88,9 @@ namespace ATK
     ButterworthHighPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(DataType_ cut_frequency);
+    void set_cut_frequency(CoeffDataType cut_frequency);
     /// Returns the cut or central frequency
-    DataType_ get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
     /// Gets the order of the filter
@@ -104,10 +106,11 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
   protected:
     /// Bandwidth of the filter
-    std::pair<DataType, DataType> cut_frequencies;
+    std::pair<CoeffDataType, CoeffDataType> cut_frequencies;
     
     /// Order of the filter
     unsigned int in_order;
@@ -129,11 +132,11 @@ namespace ATK
     ButterworthBandPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
-    void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies);
     /// Sets the bandwidth as two separate values
-    void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1);
     /// Gets the bandwidth
-    std::pair<DataType_, DataType_> get_cut_frequencies() const;
+    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
     /// Gets the order of the filter
@@ -149,10 +152,11 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
   protected:
     /// Bandwidth of the filter
-    std::pair<DataType, DataType> cut_frequencies;
+    std::pair<CoeffDataType, CoeffDataType> cut_frequencies;
     
     /// Order of the filter
     unsigned int in_order;
@@ -174,11 +178,11 @@ namespace ATK
     ButterworthBandStopCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
-    void set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies);
+    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies);
     /// Sets the bandwidth as two separate values
-    void set_cut_frequencies(DataType_ f0, DataType_ f1);
+    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1);
     /// Gets the bandwidth
-    std::pair<DataType_, DataType_> get_cut_frequencies() const;
+    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const;
     /// Sets the order of the IIR filter
     void set_order(unsigned int order);
     /// Gets the order of the filter

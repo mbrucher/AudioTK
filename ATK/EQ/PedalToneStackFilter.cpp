@@ -12,7 +12,7 @@ namespace ATK
   template<typename DataType>
   SD1ToneCoefficients<DataType>::SD1ToneCoefficients(std::size_t nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(10e3), R2(22e3), R3(470), R4(10e3),
-    C1(static_cast<DataType>(0.018e-6)), C2(static_cast<DataType>(0.027e-6)), C3(static_cast<DataType>(0.01e-6)), alpha(1)
+    C1(0.018e-6), C2(0.027e-6), C3(0.01e-6), alpha(1)
   {
   }
 
@@ -71,7 +71,7 @@ namespace ATK
   template<typename DataType>
   TS9ToneCoefficients<DataType>::TS9ToneCoefficients(std::size_t nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(1e3), R2(10e3), R3(1e3), R4(220), P(22e3),
-  C1(static_cast<DataType>(0.022e-6)), C2(static_cast<DataType>(0.022e-6)), alpha(1)
+  C1(0.022e-6), C2(0.022e-6), alpha(1)
   {
   }
   

@@ -18,9 +18,10 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::setup;
   protected:
-    DataType cut_frequency;
+    CoeffDataType cut_frequency;
 
     const static int in_order=4;
     const static int out_order=4;
@@ -35,9 +36,9 @@ namespace ATK
      */
     FourthOrderBaseCoefficients(std::size_t nb_channels = 1);
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(DataType_ cut_frequency);
+    void set_cut_frequency(CoeffDataType cut_frequency);
     /// Returns the cut or central frequency
-    DataType_ get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const;
   };
 }
 

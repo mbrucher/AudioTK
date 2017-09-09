@@ -246,14 +246,14 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void BesselLowPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
+  void BesselLowPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ BesselLowPassCoefficients<DataType_>::get_cut_frequency() const
+  typename BesselLowPassCoefficients<DataType_>::CoeffDataType BesselLowPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
@@ -288,14 +288,14 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void BesselHighPassCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
+  void BesselHighPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
   
   template <typename DataType_>
-  DataType_ BesselHighPassCoefficients<DataType_>::get_cut_frequency() const
+  typename BesselHighPassCoefficients<DataType_>::CoeffDataType BesselHighPassCoefficients<DataType_>::get_cut_frequency() const
   {
     return cut_frequency;
   }
@@ -335,21 +335,21 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void BesselBandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
+  void BesselBandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
   
   template <typename DataType_>
-  void BesselBandPassCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
+  void BesselBandPassCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
   
   template <typename DataType_>
-  std::pair<DataType_, DataType_> BesselBandPassCoefficients<DataType_>::get_cut_frequencies() const
+  std::pair<typename BesselBandPassCoefficients<DataType_>::CoeffDataType, typename BesselBandPassCoefficients<DataType_>::CoeffDataType> BesselBandPassCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }
@@ -384,21 +384,21 @@ namespace ATK
   }
   
   template <typename DataType_>
-  void BesselBandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<DataType_, DataType_> cut_frequencies)
+  void BesselBandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
     this->cut_frequencies = cut_frequencies;
     setup();
   }
   
   template <typename DataType_>
-  void BesselBandStopCoefficients<DataType_>::set_cut_frequencies(DataType_ f0, DataType_ f1)
+  void BesselBandStopCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
     this->cut_frequencies = std::make_pair(f0, f1);
     setup();
   }
   
   template <typename DataType_>
-  std::pair<DataType_, DataType_> BesselBandStopCoefficients<DataType_>::get_cut_frequencies() const
+  std::pair<typename BesselBandStopCoefficients<DataType_>::CoeffDataType, typename BesselBandStopCoefficients<DataType_>::CoeffDataType> BesselBandStopCoefficients<DataType_>::get_cut_frequencies() const
   {
     return cut_frequencies;
   }
