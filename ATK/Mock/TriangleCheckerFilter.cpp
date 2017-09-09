@@ -85,7 +85,7 @@ namespace ATK
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      compare(converted_inputs[0][i], static_cast<DataType>(amplitude * state));
+      compare(converted_inputs[0][i], TypeTraits<DataType>::from_double(TypeTraits<DataType>::to_double(amplitude) * state));
     }
   }
 

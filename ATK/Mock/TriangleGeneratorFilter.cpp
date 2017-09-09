@@ -52,7 +52,7 @@ namespace ATK
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      outputs[0][i] = amplitude * state;
+      outputs[0][i] = TypeTraits<DataType>::from_double(TypeTraits<DataType>::to_double(amplitude) * state);
     }
   }
   

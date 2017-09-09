@@ -37,7 +37,7 @@ namespace ATK
     virtual void process_impl(std::size_t size) const override final;
     
   private:
-    mutable typename TypeTraits<DataType>::Scalar state;
+    mutable double state;
     mutable bool ascending;
     DataType amplitude;
     int frequency;
