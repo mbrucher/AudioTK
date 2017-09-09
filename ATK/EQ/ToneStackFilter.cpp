@@ -30,13 +30,13 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
 
-    DataType tempm[2] = {static_cast<DataType>(-2) * input_sampling_rate, static_cast<DataType>(2) * input_sampling_rate};
-    DataType tempp[2] = {static_cast<DataType>(1), static_cast<DataType>(1)};
-    boost::math::tools::polynomial<DataType> poly1(tempm, 1);
-    boost::math::tools::polynomial<DataType> poly2(tempp, 1);
+    CoeffDataType tempm[2] = {static_cast<CoeffDataType>(-2) * input_sampling_rate, static_cast<CoeffDataType>(2) * input_sampling_rate};
+    CoeffDataType tempp[2] = {static_cast<CoeffDataType>(1), static_cast<CoeffDataType>(1)};
+    boost::math::tools::polynomial<CoeffDataType> poly1(tempm, 1);
+    boost::math::tools::polynomial<CoeffDataType> poly2(tempp, 1);
 
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
+    boost::math::tools::polynomial<CoeffDataType> b;
+    boost::math::tools::polynomial<CoeffDataType> a;
     
     b = poly2 * poly2 * poly1 * (high*C1*R1 + middle*C3*R3 + low*(C1*R2 + C2*R2) + (C1*R3 + C2*R3));
     b += poly2 * poly1 * poly1 * (high*(C1*C2*R1*R4 + C1*C3*R1*R4) - middle*middle*(C1*C3*R3*R3 + C2*C3*R3*R3) + middle*(C1*C3*R1*R3 + C1*C3*R3*R3 + C2*C3*R3*R3)
@@ -66,7 +66,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ToneStackCoefficients<DataType_>::set_low(DataType_ low)
+  void ToneStackCoefficients<DataType_>::set_low(CoeffDataType low)
   {
     if(low < 0 || low > 1)
     {
@@ -78,13 +78,13 @@ namespace ATK
   }
   
   template<typename DataType_>
-  DataType_ ToneStackCoefficients<DataType_>::get_low() const
+  typename ToneStackCoefficients<DataType_>::CoeffDataType ToneStackCoefficients<DataType_>::get_low() const
   {
     return low;
   }
 
   template<typename DataType_>
-  void ToneStackCoefficients<DataType_>::set_middle(DataType_ middle)
+  void ToneStackCoefficients<DataType_>::set_middle(CoeffDataType middle)
   {
     if(middle < 0 || middle > 1)
     {
@@ -96,14 +96,14 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ ToneStackCoefficients<DataType_>::get_middle() const
+  typename ToneStackCoefficients<DataType_>::CoeffDataType ToneStackCoefficients<DataType_>::get_middle() const
   {
     return middle;
   }
 
 
   template<typename DataType_>
-  void ToneStackCoefficients<DataType_>::set_high(DataType_ high)
+  void ToneStackCoefficients<DataType_>::set_high(CoeffDataType high)
   {
     if(high < 0 || high > 1)
     {
@@ -115,7 +115,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DataType_ ToneStackCoefficients<DataType_>::get_high() const
+  typename ToneStackCoefficients<DataType_>::CoeffDataType ToneStackCoefficients<DataType_>::get_high() const
   {
     return high;
   }
@@ -124,8 +124,8 @@ namespace ATK
   IIRFilter<ToneStackCoefficients<DataType> > ToneStackCoefficients<DataType>::buildBassmanStack()
   {
     IIRFilter<ToneStackCoefficients<DataType> > filter;
-    filter.set_coefficients(static_cast<DataType>(250e3), static_cast<DataType>(1e6), static_cast<DataType>(25e3), static_cast<DataType>(45e3),
-      static_cast<DataType>(250e-12), static_cast<DataType>(20e-9), static_cast<DataType>(20e-9));
+    filter.set_coefficients(static_cast<CoeffDataType>(250e3), static_cast<CoeffDataType>(1e6), static_cast<CoeffDataType>(25e3), static_cast<CoeffDataType>(45e3),
+      static_cast<CoeffDataType>(250e-12), static_cast<CoeffDataType>(20e-9), static_cast<CoeffDataType>(20e-9));
     return std::move(filter);
   }
 
@@ -133,13 +133,13 @@ namespace ATK
   IIRFilter<ToneStackCoefficients<DataType> > ToneStackCoefficients<DataType>::buildJCM800Stack()
   {
     IIRFilter<ToneStackCoefficients<DataType> > filter;
-    filter.set_coefficients(static_cast<DataType>(220e3), static_cast<DataType>(1e6), static_cast<DataType>(22e3), static_cast<DataType>(33e3),
-      static_cast<DataType>(470e-12), static_cast<DataType>(22e-9), static_cast<DataType>(22e-9));
+    filter.set_coefficients(static_cast<CoeffDataType>(220e3), static_cast<CoeffDataType>(1e6), static_cast<CoeffDataType>(22e3), static_cast<CoeffDataType>(33e3),
+      static_cast<CoeffDataType>(470e-12), static_cast<CoeffDataType>(22e-9), static_cast<CoeffDataType>(22e-9));
     return std::move(filter);
   }
 
   template<typename DataType_>
-  void ToneStackCoefficients<DataType_>::set_coefficients( DataType R1, DataType R2, DataType R3, DataType R4, DataType C1, DataType C2, DataType C3 )
+  void ToneStackCoefficients<DataType_>::set_coefficients( CoeffDataType R1, CoeffDataType R2, CoeffDataType R3, CoeffDataType R4, CoeffDataType C1, CoeffDataType C2, CoeffDataType C3 )
   {
     this->R1 = R1;
     this->R2 = R2;
@@ -152,7 +152,11 @@ namespace ATK
 
   template class ToneStackCoefficients<float>;
   template class ToneStackCoefficients<double>;
+  template class ToneStackCoefficients<std::complex<float> >;
+  template class ToneStackCoefficients<std::complex<double> >;
   
   template class IIRFilter<ToneStackCoefficients<float> >;
   template class IIRFilter<ToneStackCoefficients<double> >;
+  template class IIRFilter<ToneStackCoefficients<std::complex<float> > >;
+  template class IIRFilter<ToneStackCoefficients<std::complex<double> > >;
 }

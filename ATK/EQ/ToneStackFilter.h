@@ -21,12 +21,13 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    DataType R1, R2, R3, R4, C1, C2, C3;
+    CoeffDataType R1, R2, R3, R4, C1, C2, C3;
     /// Parameters of the stack
-    DataType low, middle, high;
+    CoeffDataType low, middle, high;
     
     static const int in_order = 3;
     static const int out_order = 3;
@@ -48,17 +49,17 @@ namespace ATK
     ToneStackCoefficients(ToneStackCoefficients&& other);
 
     /// Changes the low section parameter of the stack
-    void set_low(DataType_ alpha);
+    void set_low(CoeffDataType alpha);
     /// Gets the low tone parameter
-    DataType_ get_low() const;
+    CoeffDataType get_low() const;
     /// Changes the middle section parameter of the stack
-    void set_middle(DataType_ alpha);
+    void set_middle(CoeffDataType alpha);
     /// Gets the middle tone parameter
-    DataType_ get_middle() const;
+    CoeffDataType get_middle() const;
     /// Changes the high section parameter of the stack
-    void set_high(DataType_ alpha);
+    void set_high(CoeffDataType alpha);
     /// Gets the high tone parameter
-    DataType_ get_high() const;
+    CoeffDataType get_high() const;
     
     /// Builds a Bassman stack equivalent filter (bass, Fender)
     static IIRFilter<ToneStackCoefficients<DataType_> > buildBassmanStack();
@@ -67,7 +68,7 @@ namespace ATK
 
   protected:
   /// Sets the specific coefficients for a given stack
-    void set_coefficients(DataType R1, DataType R2, DataType R3, DataType R4, DataType C1, DataType C2, DataType C3);
+    void set_coefficients(CoeffDataType R1, CoeffDataType R2, CoeffDataType R3, CoeffDataType R4, CoeffDataType C1, CoeffDataType C2, CoeffDataType C3);
   };
 }
 
