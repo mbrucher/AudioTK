@@ -23,7 +23,11 @@ message(INFO " Build tests: ${ENABLE_TESTS}")
 
 if(${ENABLE_SIMD} STREQUAL "ON")
   LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/3rdParty/libsimdpp/cmake)
-  include(SimdppMultiarch)
+  message(STATUS $(CMAKE_MODULE_PATH))
+  include(SimdppMultiarch OPTIONAL RESULT_VARIABLE ENABLE_SIMD)
+  if(ENABLE_SIMD)
+    message(STATUS "Using SIMD filters")
+  endif(ENABLE_SIMD)
 endif(${ENABLE_SIMD} STREQUAL "ON")
 
 if(${ENABLE_TESTS} STREQUAL "ON")
