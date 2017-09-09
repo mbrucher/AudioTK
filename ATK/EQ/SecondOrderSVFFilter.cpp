@@ -54,8 +54,8 @@ namespace ATK
         DataType v3 = input[i] - state[j].iceq2;
         DataType v1 = a1 * state[j].iceq1 + a2 * v3;
         DataType v2 = state[j].iceq2 + a2 * state[j].iceq1 + a3 * v3;
-        state[j].iceq1 = 2 * v1 - state[j].iceq1;
-        state[j].iceq2 = 2 * v2 - state[j].iceq2;
+        state[j].iceq1 = CoeffDataType(2) * v1 - state[j].iceq1;
+        state[j].iceq2 = CoeffDataType(2) * v2 - state[j].iceq2;
         
         output[i] = m0 * input[i] + m1 * v1 + m2 * v2;
       }
@@ -69,27 +69,27 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SecondOrderSVFBaseCoefficients<DataType_>::set_cut_frequency(DataType_ cut_frequency)
+  void SecondOrderSVFBaseCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
     this->cut_frequency = cut_frequency;
     setup();
   }
 
   template<typename DataType>
-  DataType SecondOrderSVFBaseCoefficients<DataType>::get_cut_frequency() const
+  typename SecondOrderSVFBaseCoefficients<DataType>::CoeffDataType SecondOrderSVFBaseCoefficients<DataType>::get_cut_frequency() const
   {
     return cut_frequency;
   }
 
   template<typename DataType_>
-  void SecondOrderSVFBaseCoefficients<DataType_>::set_Q(DataType_ Q)
+  void SecondOrderSVFBaseCoefficients<DataType_>::set_Q(CoeffDataType Q)
   {
     this->Q = Q;
     setup();
   }
 
   template<typename DataType>
-  DataType SecondOrderSVFBaseCoefficients<DataType>::get_Q() const
+  typename SecondOrderSVFBaseCoefficients<DataType>::CoeffDataType SecondOrderSVFBaseCoefficients<DataType>::get_Q() const
   {
     return Q;
   }
@@ -103,7 +103,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFLowPassCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1/Q;
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -122,7 +122,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFBandPassCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1 / Q;
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -141,7 +141,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFHighPassCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1 / Q;
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -160,7 +160,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFNotchCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1 / Q;
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -179,7 +179,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFPeakCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1 / Q;
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -197,14 +197,14 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void SecondOrderSVFBellCoefficients<DataType_>::set_gain(DataType_ gain)
+  void SecondOrderSVFBellCoefficients<DataType_>::set_gain(CoeffDataType gain)
   {
     this->gain = gain;
     setup();
   }
 
   template<typename DataType>
-  DataType SecondOrderSVFBellCoefficients<DataType>::get_gain() const
+  typename SecondOrderSVFBellCoefficients<DataType>::CoeffDataType SecondOrderSVFBellCoefficients<DataType>::get_gain() const
   {
     return gain;
   }
@@ -212,7 +212,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFBellCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1 / (Q* gain);
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -230,14 +230,14 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SecondOrderSVFLowShelfCoefficients<DataType_>::set_gain(DataType_ gain)
+  void SecondOrderSVFLowShelfCoefficients<DataType_>::set_gain(CoeffDataType gain)
   {
     this->gain = gain;
     setup();
   }
 
   template<typename DataType>
-  DataType SecondOrderSVFLowShelfCoefficients<DataType>::get_gain() const
+  typename SecondOrderSVFLowShelfCoefficients<DataType>::CoeffDataType SecondOrderSVFLowShelfCoefficients<DataType>::get_gain() const
   {
     return gain;
   }
@@ -245,7 +245,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFLowShelfCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1 / Q;
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -262,14 +262,14 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SecondOrderSVFHighShelfCoefficients<DataType_>::set_gain(DataType_ gain)
+  void SecondOrderSVFHighShelfCoefficients<DataType_>::set_gain(CoeffDataType gain)
   {
     this->gain = gain;
     setup();
   }
 
   template<typename DataType>
-  DataType SecondOrderSVFHighShelfCoefficients<DataType>::get_gain() const
+  typename SecondOrderSVFHighShelfCoefficients<DataType>::CoeffDataType SecondOrderSVFHighShelfCoefficients<DataType>::get_gain() const
   {
     return gain;
   }
@@ -277,7 +277,7 @@ namespace ATK
   template<typename DataType>
   void SecondOrderSVFHighShelfCoefficients<DataType>::setup()
   {
-    auto g = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
+    auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
     auto k = 1 / (Q* gain);
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
@@ -289,38 +289,72 @@ namespace ATK
 
   template class SecondOrderSVFBaseCoefficients<float>;
   template class SecondOrderSVFBaseCoefficients<double>;
+  template class SecondOrderSVFBaseCoefficients<std::complex<float> >;
+  template class SecondOrderSVFBaseCoefficients<std::complex<double> >;
 
   template class SecondOrderSVFLowPassCoefficients<float>;
   template class SecondOrderSVFLowPassCoefficients<double>;
+  template class SecondOrderSVFLowPassCoefficients<std::complex<float> >;
+  template class SecondOrderSVFLowPassCoefficients<std::complex<double> >;
   template class SecondOrderSVFBandPassCoefficients<float>;
   template class SecondOrderSVFBandPassCoefficients<double>;
+  template class SecondOrderSVFBandPassCoefficients<std::complex<float> >;
+  template class SecondOrderSVFBandPassCoefficients<std::complex<double> >;
   template class SecondOrderSVFHighPassCoefficients<float>;
   template class SecondOrderSVFHighPassCoefficients<double>;
+  template class SecondOrderSVFHighPassCoefficients<std::complex<float> >;
+  template class SecondOrderSVFHighPassCoefficients<std::complex<double> >;
   template class SecondOrderSVFNotchCoefficients<float>;
   template class SecondOrderSVFNotchCoefficients<double>;
+  template class SecondOrderSVFNotchCoefficients<std::complex<float> >;
+  template class SecondOrderSVFNotchCoefficients<std::complex<double> >;
   template class SecondOrderSVFPeakCoefficients<float>;
   template class SecondOrderSVFPeakCoefficients<double>;
+  template class SecondOrderSVFPeakCoefficients<std::complex<float> >;
+  template class SecondOrderSVFPeakCoefficients<std::complex<double> >;
   template class SecondOrderSVFBellCoefficients<float>;
   template class SecondOrderSVFBellCoefficients<double>;
+  template class SecondOrderSVFBellCoefficients<std::complex<float> >;
+  template class SecondOrderSVFBellCoefficients<std::complex<double> >;
   template class SecondOrderSVFLowShelfCoefficients<float>;
   template class SecondOrderSVFLowShelfCoefficients<double>;
+  template class SecondOrderSVFLowShelfCoefficients<std::complex<float> >;
+  template class SecondOrderSVFLowShelfCoefficients<std::complex<double> >;
   template class SecondOrderSVFHighShelfCoefficients<float>;
   template class SecondOrderSVFHighShelfCoefficients<double>;
+  template class SecondOrderSVFHighShelfCoefficients<std::complex<float> >;
+  template class SecondOrderSVFHighShelfCoefficients<std::complex<double> >;
 
   template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<float> >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<std::complex<float> > >;
+  template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<std::complex<double> > >;
 }
