@@ -4,6 +4,10 @@
 
 function(ATK_add_library PREFIX)
 
+if(NOT ${PREFIX}_NAME)
+  message(ERROR "No name set for ${PREFIX}")
+endif(NOT ${PREFIX}_NAME)
+
 SOURCE_GROUP_BY_FOLDER(${PREFIX})
 
 add_definitions(${${PREFIX}_DEFINITIONS})
@@ -60,6 +64,10 @@ endfunction()
 
 function(ATK_add_executable PREFIX)
 
+if(NOT ${PREFIX}_NAME)
+  message(ERROR "No name set for ${PREFIX}")
+endif(NOT ${PREFIX}_NAME)
+
 SOURCE_GROUP_BY_FOLDER(${PREFIX})
 
 add_definitions(${${PREFIX}_DEFINITIONS})
@@ -70,9 +78,11 @@ add_executable(${${PREFIX}_NAME}
   ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
 )
 
-set_target_properties (${${PREFIX}_NAME} PROPERTIES
-  FOLDER Profling
-)
+if(${PREFIX}_FOLDER_PROJECT)
+  set_target_properties (${${PREFIX}_NAME} PROPERTIES
+    FOLDER ${${PREFIX}_FOLDER_PROJECT}
+  )
+endif(${PREFIX}_FOLDER_PROJECT)
 
 target_link_libraries(${${PREFIX}_NAME} ${${PREFIX}_LIBRARIES})
 
@@ -80,18 +90,22 @@ endfunction()
 
 function(ATK_add_test PREFIX)
 
+if(NOT ${PREFIX}_TESTNAME)
+  message(ERROR "No test name set for ${PREFIX}")
+endif(NOT ${PREFIX}_TESTNAME)
+
+SET(${PREFIX}_FOLDER_PROJECT Tests)
+
 ATK_add_executable(${PREFIX})
 add_test(${${PREFIX}_TESTNAME} ${${PREFIX}_NAME} --log_level=message)
-
-if(${PREFIX}_FOLDER_PROJECT)
-  set_target_properties (${${PREFIX}_NAME} PROPERTIES
-    FOLDER ${${PREFIX}_FOLDER_PROJECT}
-  )
-endif(${PREFIX}_FOLDER_PROJECT)
 
 endfunction()
 
 function(ATK_add_python_module PREFIX)
+
+if(NOT ${PREFIX}_NAME)
+  message(ERROR "No name set for ${PREFIX}")
+endif(NOT ${PREFIX}_NAME)
 
 SOURCE_GROUP_BY_FOLDER(${PREFIX})
 
