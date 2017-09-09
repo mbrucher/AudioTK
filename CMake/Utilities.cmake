@@ -71,7 +71,7 @@ add_executable(${${PREFIX}_NAME}
 )
 
 set_target_properties (${${PREFIX}_NAME} PROPERTIES
-  FOLDER C++
+  FOLDER Profling
 )
 
 target_link_libraries(${${PREFIX}_NAME} ${${PREFIX}_LIBRARIES})
@@ -83,12 +83,13 @@ function(ATK_add_test PREFIX)
 ATK_add_executable(${PREFIX})
 add_test(${${PREFIX}_TESTNAME} ${${PREFIX}_NAME} --log_level=message)
 
-set_target_properties (${${PREFIX}_NAME} PROPERTIES
-  FOLDER Tests
-)
+if(${PREFIX}_FOLDER_PROJECT)
+  set_target_properties (${${PREFIX}_NAME} PROPERTIES
+    FOLDER ${${PREFIX}_FOLDER_PROJECT}
+  )
+endif(${PREFIX}_FOLDER_PROJECT)
 
 endfunction()
-
 
 function(ATK_add_python_module PREFIX)
 
