@@ -11,4 +11,10 @@ namespace ATK
 {
   template class TypedBaseFilter<simdpp::float32<4> >;
   template class TypedBaseFilter<simdpp::float64<4> >;
+
+  template class TypedBaseFilter<float, simdpp::float32<4> >;
+  template class TypedBaseFilter<double, simdpp::float64<4> >;
+
+  template class TypedBaseFilter<simdpp::float32<4>, float>;
+  template class TypedBaseFilter<simdpp::float64<4>, double>;
 }

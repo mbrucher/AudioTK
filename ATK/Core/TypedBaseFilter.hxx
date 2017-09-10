@@ -124,7 +124,7 @@ namespace ATK
 {
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType>::Zero()), default_output(nb_output_ports, TypeTraits<DataType>::Zero())
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
   {
   }
 
@@ -148,7 +148,7 @@ namespace ATK
     converted_inputs_delay = std::vector<std::unique_ptr<DataTypeInput[]> >(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
-    default_input.assign(nb_ports, TypeTraits<DataType>::Zero());
+    default_input.assign(nb_ports, TypeTraits<DataTypeInput>::Zero());
   }
   
   template<typename DataType_, typename DataType__>
@@ -160,7 +160,7 @@ namespace ATK
     outputs_delay = std::vector<std::unique_ptr<DataTypeOutput[]> >(nb_ports);
     outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
-    default_output.assign(nb_ports, TypeTraits<DataType>::Zero());
+    default_output.assign(nb_ports, TypeTraits<DataTypeOutput>::Zero());
   }
 
   template<typename DataType_, typename DataType__>
