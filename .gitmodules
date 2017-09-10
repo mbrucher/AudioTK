@@ -3,4 +3,4 @@
 	url = https://github.com/mbrucher/libsimdpp
 [submodule "3rdParty/pybind11"]
 	path = 3rdParty/pybind11
-	url = https://github.com/mbrucher/pybind11.git
+	url = https://github.com/mbrucher/pybind11
