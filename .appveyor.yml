@@ -119,7 +119,7 @@ matrix:
 init:
   - cmake --version
   - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
-  - dir 3rdParty
+  - dir %ATK_ROOT%/3rdParty
 
 before_build:
   - mkdir -p %FFTW_ROOT%
