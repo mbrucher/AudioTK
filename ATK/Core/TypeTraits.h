@@ -5,6 +5,8 @@
 #ifndef ATK_CORE_TYPETRAITS_H
 #define ATK_CORE_TYPETRAITS_H
 
+#include <ATK/config.h>
+
 #include <complex>
 #include <cstdint>
 #include <limits>
@@ -12,6 +14,10 @@
 
 #include <boost/mpl/if.hpp>
 #include <boost/utility/enable_if.hpp>
+
+#if ATK_USE_SIMD
+#include <simdpp/simd.h>
+#endif
 
 namespace ATK
 {
@@ -36,6 +42,11 @@ namespace ATK
     static DataType conj(DataType el)
     {
       return el;
+    }
+    
+    static DataType Zero()
+    {
+      return 0;
     }
   };
 
@@ -62,6 +73,11 @@ namespace ATK
     {
       return static_cast<int64_t>(-el * (static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
     }
+
+    static int64_t Zero()
+    {
+      return 0;
+    }
   };
 
   /// Traits to handle conversion floating point numbers from/to double
@@ -86,31 +102,97 @@ namespace ATK
     {
       return el;
     }
+
+    static DataType Zero()
+    {
+      return 0;
+    }
   };
 
   /// Traits to handle conversion complex floating point numbers from/to double
   template<typename DataType>
   struct ComplexRealTypeTraits
   {
-    typedef typename DataType::value_type Scalar;
-
+  };
+  
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<typename DataType>
+  struct ComplexRealTypeTraits<std::complex<DataType> >
+  {
+    typedef typename std::complex<DataType>::value_type Scalar;
+    
     /// Converts to a double
-    static std::complex<double> to_double(DataType el)
+    static std::complex<double> to_double(std::complex<DataType> el)
     {
       return static_cast<std::complex<double> >(el);
     }
-
+    
     /// Converts from a double
-    static DataType from_double(std::complex<double> el)
+    static std::complex<DataType> from_double(std::complex<double> el)
     {
-      return static_cast<DataType>(el);
+      return static_cast<std::complex<DataType> >(el);
     }
-
-    static DataType conj(DataType el)
+    
+    static std::complex<DataType> conj(DataType el)
     {
       return std::conj(el);
     }
+    
+    static DataType Zero()
+    {
+      return 0;
+    }
   };
+  
+#if ATK_USE_SIMD
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<>
+  struct ComplexRealTypeTraits<simdpp::float32<4> >
+  {
+    typedef float Scalar;
+    
+    /// Converts to a double
+    static simdpp::float32<4> to_double(simdpp::float32<4> el)
+    {
+      return el;
+    }
+    
+    /// Converts from a double
+    static simdpp::float32<4> from_double(simdpp::float32<4> el)
+    {
+      return el;
+    }
+    
+    static simdpp::float32<4> Zero()
+    {
+      return simdpp::make_float(0, 0, 0, 0);
+    }
+  };
+  
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<>
+  struct ComplexRealTypeTraits<simdpp::float64<4> >
+  {
+    typedef double Scalar;
+    
+    /// Converts to a double
+    static simdpp::float64<4> to_double(simdpp::float64<4> el)
+    {
+      return el;
+    }
+    
+    /// Converts from a double
+    static simdpp::float64<4> from_double(simdpp::float64<4> el)
+    {
+      return el;
+    }
+
+    static simdpp::float64<4> Zero()
+    {
+      return simdpp::make_float(0, 0, 0, 0);
+    }
+  };
+#endif
 
   /// Common base class for conversion type traits
   template<typename DataType>

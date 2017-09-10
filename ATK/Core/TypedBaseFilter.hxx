@@ -9,6 +9,7 @@
 #include <cstdint>
 #include <type_traits>
 
+#include <boost/mpl/contains.hpp>
 #include <boost/mpl/distance.hpp>
 #include <boost/mpl/empty.hpp>
 #include <boost/mpl/find.hpp>
@@ -18,11 +19,15 @@
 #include <boost/type_traits.hpp>
 #include <boost/utility/enable_if.hpp>
 
+#if USE_SIMD
+#include <simdpp/simd.h>
+#endif
+
 namespace
 {
   const size_t alignment = 32;
 
-  typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double, std::complex<float>, std::complex<double>> ConversionTypes;
+  typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double, std::complex<float>, std::complex<double> > ConversionTypes;
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
@@ -66,6 +71,7 @@ namespace
   typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
     convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
+    assert(type >= 0);
     if (type != 0)
     {
       convert_complex_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
@@ -78,16 +84,39 @@ namespace
     }
   }
   
+  /// Conversion function for arithmetic types
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
     convert_scalar_array<Vector, DataType>(filter, port, converted_input, size, type);
   }
   
+  /// Conversion function for other types not contained in ConversionTypes (no conversion in that case, just copy)
   template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  {
+    assert(dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter));
+    DataType* original_input_array = static_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
+    ATK::ConversionUtilities<DataType, DataType>::convert_array(original_input_array, converted_input, size);
+  }
+  
+  /// Conversion function for std::complex contained in ConversionTypes
+  template<typename Vector, typename DataType>
+  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
     convert_complex_array<Vector, DataType>(filter, port, converted_input, size, type);
+  }
+  
+  template<typename Vector, typename DataType>
+  typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, int>::type get_type()
+  {
+    return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType>::type >::value;
+  }
+
+  template<typename Vector, typename DataType>
+  typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, int>::type get_type()
+  {
+    return -1;
   }
 }
 
@@ -95,7 +124,7 @@ namespace ATK
 {
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
-    :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, 0), default_output(nb_output_ports, 0)
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType>::Zero()), default_output(nb_output_ports, TypeTraits<DataType>::Zero())
   {
   }
 
@@ -119,7 +148,7 @@ namespace ATK
     converted_inputs_delay = std::vector<std::unique_ptr<DataTypeInput[]> >(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
-    default_input.assign(nb_ports, 0);
+    default_input.assign(nb_ports, TypeTraits<DataType>::Zero());
   }
   
   template<typename DataType_, typename DataType__>
@@ -131,7 +160,7 @@ namespace ATK
     outputs_delay = std::vector<std::unique_ptr<DataTypeOutput[]> >(nb_ports);
     outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
-    default_output.assign(nb_ports, 0);
+    default_output.assign(nb_ports, TypeTraits<DataType>::Zero());
   }
 
   template<typename DataType_, typename DataType__>
@@ -148,7 +177,7 @@ namespace ATK
   template<typename DataType_, typename DataType__>
   int TypedBaseFilter<DataType_, DataType__>::get_type() const
   {
-    return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType__>::type >::value;
+    return ::get_type<ConversionTypes, DataType__>();
   }
 
   template<typename DataType_, typename DataType__>
@@ -168,7 +197,10 @@ namespace ATK
   {
     for(unsigned int i = 0; i < nb_input_ports; ++i)
     {
-      if(input_delay <= connections[i].second->get_output_delay() && connections[i].second->get_type() == get_type())
+      // if the input delay is smaller than the preceding filter output delay, we may have overlap
+      // if the types are identical and if the type is not -1 (an unknown type)
+      // if we have overlap, don't copy anything at all
+      if((input_delay <= connections[i].second->get_output_delay()) && (connections[i].second->get_type() == get_type()) && (get_type() != -1))
       {
         converted_inputs[i] = reinterpret_cast<const TypedBaseFilter<DataTypeInput>* >(connections[i].second)->get_output_array(connections[i].first);
         converted_inputs_size[i] = size;
