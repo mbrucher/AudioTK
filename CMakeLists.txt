@@ -383,7 +383,7 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
-  add_subdirectory(3rdParty/pybind11)
+  add_subdirectory(${PROJECT_SOURCE_DIR}/3rdParty/pybind11)
 
   LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/3rdParty/pybind11/tools)
   FIND_PACKAGE(PythonLibsNew REQUIRED)
