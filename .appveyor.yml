@@ -3,7 +3,7 @@ version: '2.2.0.{build}'
 shallow_clone: true
 
 environment:
-  ATK_ROOT: C:\projects/AudioTK
+  ATK_ROOT: C:\projects\AudioTK
   ATK_OUT: C:\projects\ATK
   EIGEN_ROOT: C:\projects\Eigen
   FFTW_ROOT: C:\projects\fftw
@@ -119,7 +119,7 @@ matrix:
 init:
   - cmake --version
   - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
-  - dir %ATK_ROOT%/3rdParty
+  - dir %ATK_ROOT%\3rdParty
 
 before_build:
   - mkdir -p %FFTW_ROOT%
