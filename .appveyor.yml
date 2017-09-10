@@ -119,7 +119,6 @@ matrix:
 init:
   - cmake --version
   - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
-  - dir %ATK_ROOT%
 
 before_build:
   - mkdir -p %FFTW_ROOT%
@@ -132,6 +131,7 @@ before_build:
   - cd %EIGEN_ROOT%
   - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
   - 7z x eigen.zip
+  - dir %ATK_ROOT%
   - cd %ATK_ROOT%
   - mkdir build
   - cd build

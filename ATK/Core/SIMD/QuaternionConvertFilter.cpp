@@ -11,65 +11,75 @@
 
 namespace ATK
 {
-  template<typename DataType_>
-  RealToComplexFilter<DataType_>::RealToComplexFilter(std::size_t nb_channels)
-  :Parent(2 * nb_channels, nb_channels)
+  template<typename DataType_, typename SIMDType>
+  RealToQuaternionFilter<DataType_, SIMDType>::RealToQuaternionFilter(/*std::size_t nb_channels*/)
+  :Parent(SIMDType::length, 1/*SIMDType::length * nb_channels, nb_channels*/)
   {
   }
   
-  template<typename DataType_>
-  RealToComplexFilter<DataType_>::~RealToComplexFilter()
+  template<typename DataType_, typename SIMDType>
+  RealToQuaternionFilter<DataType_, SIMDType>::~RealToQuaternionFilter()
   {
   }
 
-  template<typename DataType_>
-  void RealToComplexFilter<DataType_>::process_impl(std::size_t size) const
+  template<typename DataType_, typename SIMDType>
+  void RealToQuaternionFilter<DataType_, SIMDType>::process_impl(std::size_t size) const
   {
-    assert(nb_input_ports == 2*nb_output_ports);
+    assert(nb_input_ports == SIMDType::length * nb_output_ports);
 
-    for(unsigned int channel = 0; channel < nb_output_ports; ++channel)
+    const auto* ATK_RESTRICT input1 = converted_inputs[0];
+    const auto* ATK_RESTRICT input2 = converted_inputs[1];
+    const auto* ATK_RESTRICT input3 = converted_inputs[2];
+    const auto* ATK_RESTRICT input4 = converted_inputs[3];
+    auto* ATK_RESTRICT output = outputs[0];
+    
+    for (std::size_t i = 0; i < size; ++i)
     {
-      const auto* ATK_RESTRICT input1 = converted_inputs[2 * channel];
-      const auto* ATK_RESTRICT input2 = converted_inputs[2 * channel + 1];
-      auto* ATK_RESTRICT output = outputs[channel];
-      for(std::size_t i = 0; i < size; ++i)
-      {
-        output[i] = std::complex<DataType_>(input1[i], input2[i]);
-      }
+      DataType_ data[SIMDType::length];
+      data[0] = input1[i];
+      data[1] = input2[i];
+      data[2] = input3[i];
+      data[3] = input4[i];
+      output[i] = simdpp::load(data);
     }
   }
 
-  template<typename DataType_>
-  ComplexToRealFilter<DataType_>::ComplexToRealFilter(std::size_t nb_channels)
-    :Parent(nb_channels, 2 * nb_channels)
+  template<typename SIMDType, typename DataType__>
+  QuaternionToRealFilter<SIMDType, DataType__>::QuaternionToRealFilter(/*std::size_t nb_channels*/)
+  :Parent(1, SIMDType::length/*nb_channels, SIMDType::length * nb_channels*/)
   {
   }
 
-  template<typename DataType_>
-  ComplexToRealFilter<DataType_>::~ComplexToRealFilter()
+  template<typename SIMDType, typename DataType__>
+  QuaternionToRealFilter<SIMDType, DataType__>::~QuaternionToRealFilter()
   {
   }
 
-  template<typename DataType_>
-  void ComplexToRealFilter<DataType_>::process_impl(std::size_t size) const
+  template<typename SIMDType, typename DataType__>
+  void QuaternionToRealFilter<SIMDType, DataType__>::process_impl(std::size_t size) const
   {
-    assert(2* nb_input_ports == nb_output_ports);
+    assert(SIMDType::length * nb_input_ports == nb_output_ports);
 
-    for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
+    const auto* ATK_RESTRICT input = converted_inputs[0];
+    auto* ATK_RESTRICT output1 = outputs[0];
+    auto* ATK_RESTRICT output2 = outputs[1];
+    auto* ATK_RESTRICT output3 = outputs[2];
+    auto* ATK_RESTRICT output4 = outputs[3];
+
+    for (std::size_t i = 0; i < size; ++i)
     {
-      const auto* ATK_RESTRICT input = converted_inputs[channel];
-      auto* ATK_RESTRICT output1 = outputs[2 * channel];
-      auto* ATK_RESTRICT output2 = outputs[2 * channel + 1];
-      for (std::size_t i = 0; i < size; ++i)
-      {
-        output1[i] = std::real(input[i]);
-        output2[i] = std::imag(input[i]);
-      }
+      DataType__ data[SIMDType::length];
+      
+      simdpp::store(data, input[i]);
+      output1[i] = data[0];
+      output2[i] = data[1];
+      output3[i] = data[2];
+      output4[i] = data[3];
     }
   }
 
-  template class RealToComplexFilter<float>;
-  template class RealToComplexFilter<double>;
-  template class ComplexToRealFilter<float>;
-  template class ComplexToRealFilter<double>;
+  template class RealToQuaternionFilter<float, simdpp::float32<4> >;
+  template class RealToQuaternionFilter<double, simdpp::float64<4> >;
+  template class QuaternionToRealFilter<simdpp::float32<4>, float>;
+  template class QuaternionToRealFilter<simdpp::float64<4>, double>;
 }
