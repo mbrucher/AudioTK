@@ -133,7 +133,7 @@ namespace ATK
       return static_cast<std::complex<DataType> >(el);
     }
     
-    static std::complex<DataType> conj(DataType el)
+    static std::complex<DataType> conj(std::complex<DataType> el)
     {
       return std::conj(el);
     }
