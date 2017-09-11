@@ -21,7 +21,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -36,7 +36,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27-x64
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -51,7 +51,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -66,7 +66,7 @@ environment:
       VSINSTALL: "\\Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27-x64
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -81,7 +81,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -96,7 +96,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27-x64
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -111,7 +111,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -126,7 +126,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27-x64
-      PYTHON_VER=2.7
+      PYTHON_VERSION: 2.7
 
 matrix:
   allow_failures:
@@ -172,7 +172,7 @@ test_script:
   - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
 
 artifacts: 
-  - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VER%.%OUTPUT%.zip
+  - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%.zip
     name: package
 
 deploy:
