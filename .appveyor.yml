@@ -20,6 +20,8 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-DENABLE_SIMD=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
+      PYTHON: C:\\Python27
+      PYTHON_VER=2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -33,6 +35,8 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
+      PYTHON: C:\\Python27-x64
+      PYTHON_VER=2.7
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -46,6 +50,8 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-DENABLE_SIMD=OFF"
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
+      PYTHON: C:\\Python27
+      PYTHON_VER=2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -59,6 +65,8 @@ environment:
       ADDITONAL_CMAKE_FLAGS:
       VSINSTALL: "\\Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
+      PYTHON: C:\\Python27-x64
+      PYTHON_VER=2.7
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -72,6 +80,8 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-DENABLE_SIMD=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
+      PYTHON: C:\\Python27
+      PYTHON_VER=2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -85,6 +95,8 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
+      PYTHON: C:\\Python27-x64
+      PYTHON_VER=2.7
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -98,6 +110,8 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-DENABLE_SIMD=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
+      PYTHON: C:\\Python27
+      PYTHON_VER=2.7
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -111,7 +125,9 @@ environment:
       ADDITONAL_CMAKE_FLAGS:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-   
+      PYTHON: C:\\Python27-x64
+      PYTHON_VER=2.7
+
 matrix:
   allow_failures:
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -139,7 +155,7 @@ before_build:
   - dir %ATK_ROOT%\3rdParty
   - mkdir build
   - cd build
-  - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_PYTHON=OFF -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_ROOT=%EIGEN_ROOT% -DENABLE_STATIC_LIBRARIES=ON ..
+  - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_PYTHON=ON -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_ROOT=%EIGEN_ROOT% -DENABLE_STATIC_LIBRARIES=ON ..
 
 build_script:
   - msbuild INSTALL.vcxproj /property:Configuration=Release
@@ -156,7 +172,7 @@ test_script:
   - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
 
 artifacts: 
-  - path: AudioTK.%MSVC_VERSION%.%OUTPUT%.zip
+  - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VER%.%OUTPUT%.zip
     name: package
 
 deploy:
