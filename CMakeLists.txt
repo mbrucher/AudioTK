@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(AudioTK)
 
-SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
+SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(ATK_VERSION 2.2.0)
@@ -24,7 +24,7 @@ message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
 message(INFO " Build tests: ${ENABLE_TESTS}")
 
 if(${ENABLE_SIMD} STREQUAL "ON")
-  LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/3rdParty/libsimdpp/cmake)
+  LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/libsimdpp/cmake)
   message(STATUS "${CMAKE_MODULE_PATH}")
   include(SimdppMultiarch OPTIONAL RESULT_VARIABLE SIMDPP_PATH)
   if(SIMDPP_PATH)
@@ -342,7 +342,7 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
  DESTINATION ${CMAKE_INSTALL_PREFIX}
  )
 
-include_directories(${PROJECT_BINARY_DIR})
+include_directories(${CMAKE_BINARY_DIR})
 include_directories(${Boost_INCLUDE_DIR})
 
 macro(stagedebug target)
@@ -390,9 +390,9 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
-  add_subdirectory(${PROJECT_SOURCE_DIR}/3rdParty/pybind11)
+  add_subdirectory(${CMAKE_SOURCE_DIR}/3rdParty/pybind11)
 
-  LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/3rdParty/pybind11/tools)
+  LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/pybind11/tools)
   FIND_PACKAGE(PythonLibsNew REQUIRED)
 
   add_subdirectory(Python)
