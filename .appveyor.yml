@@ -131,7 +131,6 @@ matrix:
 
 init:
   - cmake --version
-  - ls C:\
   - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
 
 before_build:
@@ -146,10 +145,7 @@ before_build:
   - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
   - 7z x eigen.zip
   - cd %ATK_ROOT%
-  - mkdir 3rdParty
-  - git clone https://github.com/mbrucher/libsimdpp 3rdParty\libsimdpp
-  - git clone https://github.com/mbrucher/pybind11 3rdParty\pybind11
-  - dir %ATK_ROOT%\3rdParty
+  - dir 3rdParty
   - mkdir build
   - cd build
   - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_ROOT=%EIGEN_ROOT% -DENABLE_STATIC_LIBRARIES=ON ..
