@@ -145,6 +145,7 @@ before_build:
   - cd %EIGEN_ROOT%
   - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.3.zip -OutFile eigen.zip
   - 7z x eigen.zip
+  - python -m pip install numpy scipy nose
   - cd %ATK_ROOT%
   - mkdir 3rdParty
   - git clone https://github.com/mbrucher/libsimdpp 3rdParty\libsimdpp
