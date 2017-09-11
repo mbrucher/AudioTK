@@ -252,8 +252,8 @@ before_script:
   - ls 3rdParty
   - mkdir build
   - cd build
-  - git clone https://github.com/mbrucher/libsimdpp 3rdParty\libsimdpp
-  - git clone https://github.com/mbrucher/pybind11 3rdParty\pybind11
+  - git clone https://github.com/mbrucher/libsimdpp 3rdParty/libsimdpp
+  - git clone https://github.com/mbrucher/pybind11 3rdParty/pybind11
   - cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_CONFIGURATION_TYPES=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} ${ADDITONAL_CMAKE_FLAGS} ..
 
 script:
