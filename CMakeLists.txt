@@ -18,7 +18,7 @@ option(ENABLE_SIMD "Enable SIMD support through libsimdpp" ON)
 option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)
 option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
-option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF") #Use this for CI
+option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
 
 message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
