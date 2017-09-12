@@ -65,7 +65,7 @@ namespace ATK
 
     for(std::size_t j = 0; j < nb_input_ports; ++j)
     {
-      const auto* ATK_RESTRICT input = converted_inputs[4 * j];
+      const auto* ATK_RESTRICT input = converted_inputs[j];
       auto* ATK_RESTRICT output1 = outputs[4 * j + 0];
       auto* ATK_RESTRICT output2 = outputs[4 * j + 1];
       auto* ATK_RESTRICT output3 = outputs[4 * j + 2];

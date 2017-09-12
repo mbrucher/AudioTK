@@ -2,16 +2,7 @@
 # CMake utilities for ATK
 #
 
-function(ATK_add_library PREFIX)
-
-if(NOT ${PREFIX}_NAME)
-  message(ERROR "No name set for ${PREFIX}")
-endif(NOT ${PREFIX}_NAME)
-
-add_definitions(${${PREFIX}_DEFINITIONS})
-
-include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
-
+macro(ATK_scan_SIMD PREFIX)
 if(ENABLE_SIMD)
   foreach(SRC ${${PREFIX}_SIMD_SRC})
     simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${COMPILABLE_ARCHS})
@@ -25,6 +16,19 @@ if(ENABLE_SIMD)
 else(ENABLE_SIMD)
   SOURCE_GROUP_BY_FOLDER(${PREFIX})
 endif(ENABLE_SIMD)
+endmacro()
+
+function(ATK_add_library PREFIX)
+
+if(NOT ${PREFIX}_NAME)
+  message(ERROR "No name set for ${PREFIX}")
+endif(NOT ${PREFIX}_NAME)
+
+add_definitions(${${PREFIX}_DEFINITIONS})
+
+include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
+
+ATK_scan_SIMD(${PREFIX})
 
 if(ENABLE_STATIC_LIBRARIES)
   add_library(${${PREFIX}_NAME}_static
@@ -80,11 +84,11 @@ if(NOT ${PREFIX}_NAME)
   message(ERROR "No name set for ${PREFIX}")
 endif(NOT ${PREFIX}_NAME)
 
-SOURCE_GROUP_BY_FOLDER(${PREFIX})
-
 add_definitions(${${PREFIX}_DEFINITIONS})
 
 include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
+
+ATK_scan_SIMD(${PREFIX})
 
 add_executable(${${PREFIX}_NAME}
   ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
