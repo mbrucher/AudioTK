@@ -166,7 +166,7 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
  )
 
 include_directories(${CMAKE_BINARY_DIR})
-include_directories(${Boost_INCLUDE_DIR})
+include_directories(SYSTEM ${Boost_INCLUDE_DIR})
 
 macro(stagedebug target)
   if(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
