@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_, typename SIMDType>
-  RealToQuaternionFilter<DataType_, SIMDType>::RealToQuaternionFilter(/*std::size_t nb_channels*/)
+  RealToQuaternionFilter<DataType_, SIMDType>::RealToQuaternionFilter(std::size_t nb_channels)
   :Parent(SIMDType::length * nb_channels, nb_channels)
   {
   }
