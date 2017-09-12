@@ -101,7 +101,7 @@ namespace ATK
     SecondOrderSVFLowPassCoefficients(std::size_t nb_channels);
 
   protected:
-    void setup();
+    void setup() override;
   };
 
   /// Coefficients for a second order SVF band-pass filter
@@ -126,7 +126,7 @@ namespace ATK
     SecondOrderSVFBandPassCoefficients(std::size_t nb_channels);
 
   protected:
-    void setup();
+    void setup() override;
   };
 
   /// Coefficients for a second order SVF high-pass filter
@@ -151,7 +151,7 @@ namespace ATK
     SecondOrderSVFHighPassCoefficients(std::size_t nb_channels);
 
   protected:
-    void setup();
+    void setup() override;
   };
 
   /// Coefficients for a second order SVF notch filter
@@ -176,7 +176,7 @@ namespace ATK
     SecondOrderSVFNotchCoefficients(std::size_t nb_channels);
 
   protected:
-    void setup();
+    void setup() override;
   };
 
   /// Coefficients for a second order SVF peak filter
@@ -201,7 +201,7 @@ namespace ATK
     SecondOrderSVFPeakCoefficients(std::size_t nb_channels);
 
   protected:
-    void setup();
+    void setup() override;
   };
 
   /// Coefficients for a second order SVF bell filter
@@ -230,7 +230,7 @@ namespace ATK
     /// Returns the gain for the bell
     CoeffDataType get_gain() const;
   protected:
-    void setup();
+    void setup() override;
 
     CoeffDataType gain;
   };
@@ -261,7 +261,7 @@ namespace ATK
     /// Returns the gain for the shelf
     CoeffDataType get_gain() const;
   protected:
-    void setup();
+    void setup() override;
 
     CoeffDataType gain;
   };
@@ -293,7 +293,7 @@ namespace ATK
     CoeffDataType get_gain() const;
 
   protected:
-    void setup();
+    void setup() override;
 
     CoeffDataType gain;
   };

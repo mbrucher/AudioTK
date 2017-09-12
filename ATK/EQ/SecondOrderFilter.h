@@ -250,7 +250,7 @@ namespace ATK
     using Parent::cut_frequency;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   private:
     CoeffDataType gain;
     

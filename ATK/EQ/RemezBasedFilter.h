@@ -32,7 +32,7 @@ namespace ATK
     /// Oarger of the polynomial we can use
     std::size_t in_order;
     /// Launches the computation
-    void setup();
+    void setup() override;
     /// Final coefficients
     AlignedScalarVector coefficients_in;
     
