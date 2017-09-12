@@ -31,7 +31,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
      */
-    RealToQuaternionFilter(/*std::size_t nb_channels = 1*/);
+    RealToQuaternionFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~RealToQuaternionFilter();
     
@@ -56,7 +56,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of channels, equal to the number of input channels, half the number of output ones
     */
-    QuaternionToRealFilter(/*std::size_t nb_channels = 1*/);
+    QuaternionToRealFilter(std::size_t nb_channels = 1);
     /// Destructor
     ~QuaternionToRealFilter();
 

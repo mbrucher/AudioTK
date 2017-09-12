@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_, typename SIMDType>
   RealToQuaternionFilter<DataType_, SIMDType>::RealToQuaternionFilter(/*std::size_t nb_channels*/)
-  :Parent(SIMDType::length, 1/*SIMDType::length * nb_channels, nb_channels*/)
+  :Parent(SIMDType::length * nb_channels, nb_channels)
   {
   }
   
@@ -27,26 +27,29 @@ namespace ATK
   {
     assert(nb_input_ports == SIMDType::length * nb_output_ports);
 
-    const auto* ATK_RESTRICT input1 = converted_inputs[0];
-    const auto* ATK_RESTRICT input2 = converted_inputs[1];
-    const auto* ATK_RESTRICT input3 = converted_inputs[2];
-    const auto* ATK_RESTRICT input4 = converted_inputs[3];
-    auto* ATK_RESTRICT output = outputs[0];
-    
-    for (std::size_t i = 0; i < size; ++i)
+    for(std::size_t j = 0; j < nb_output_ports; ++j)
     {
-      DataType_ data[SIMDType::length];
-      data[0] = input1[i];
-      data[1] = input2[i];
-      data[2] = input3[i];
-      data[3] = input4[i];
-      output[i] = simdpp::load(data);
+      const auto* ATK_RESTRICT input1 = converted_inputs[4 * j + 0];
+      const auto* ATK_RESTRICT input2 = converted_inputs[4 * j + 1];
+      const auto* ATK_RESTRICT input3 = converted_inputs[4 * j + 2];
+      const auto* ATK_RESTRICT input4 = converted_inputs[4 * j + 3];
+      auto* ATK_RESTRICT output = outputs[j];
+      
+      for (std::size_t i = 0; i < size; ++i)
+      {
+        DataType_ data[SIMDType::length];
+        data[0] = input1[i];
+        data[1] = input2[i];
+        data[2] = input3[i];
+        data[3] = input4[i];
+        output[i] = simdpp::load(data);
+      }
     }
   }
 
   template<typename SIMDType, typename DataType__>
-  QuaternionToRealFilter<SIMDType, DataType__>::QuaternionToRealFilter(/*std::size_t nb_channels*/)
-  :Parent(1, SIMDType::length/*nb_channels, SIMDType::length * nb_channels*/)
+  QuaternionToRealFilter<SIMDType, DataType__>::QuaternionToRealFilter(std::size_t nb_channels)
+  :Parent(nb_channels, SIMDType::length * nb_channels)
   {
   }
 
@@ -60,21 +63,24 @@ namespace ATK
   {
     assert(SIMDType::length * nb_input_ports == nb_output_ports);
 
-    const auto* ATK_RESTRICT input = converted_inputs[0];
-    auto* ATK_RESTRICT output1 = outputs[0];
-    auto* ATK_RESTRICT output2 = outputs[1];
-    auto* ATK_RESTRICT output3 = outputs[2];
-    auto* ATK_RESTRICT output4 = outputs[3];
-
-    for (std::size_t i = 0; i < size; ++i)
+    for(std::size_t j = 0; j < nb_input_ports; ++j)
     {
-      DataType__ data[SIMDType::length];
+      const auto* ATK_RESTRICT input = converted_inputs[4 * j];
+      auto* ATK_RESTRICT output1 = outputs[4 * j + 0];
+      auto* ATK_RESTRICT output2 = outputs[4 * j + 1];
+      auto* ATK_RESTRICT output3 = outputs[4 * j + 2];
+      auto* ATK_RESTRICT output4 = outputs[4 * j + 3];
       
-      simdpp::store(data, input[i]);
-      output1[i] = data[0];
-      output2[i] = data[1];
-      output3[i] = data[2];
-      output4[i] = data[3];
+      for (std::size_t i = 0; i < size; ++i)
+      {
+        DataType__ data[SIMDType::length];
+        
+        simdpp::store(data, input[i]);
+        output1[i] = data[0];
+        output2[i] = data[1];
+        output3[i] = data[2];
+        output4[i] = data[3];
+      }
     }
   }
 
