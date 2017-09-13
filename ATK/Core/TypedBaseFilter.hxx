@@ -95,7 +95,7 @@ namespace
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
-    assert(dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter));
+    //assert(dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter)); OK, this is wrong for now
     DataType* original_input_array = static_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
     ATK::ConversionUtilities<DataType, DataType>::convert_array(original_input_array, converted_input, size);
   }
