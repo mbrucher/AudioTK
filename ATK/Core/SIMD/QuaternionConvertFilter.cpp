@@ -100,7 +100,7 @@ namespace SIMDPP_ARCH_NAMESPACE
   template<typename SIMDType, typename DataType__>
   std::unique_ptr<BaseFilter> ATK_CORE_EXPORT createQuaternionToRealFilter(std::size_t nb_channels)
   {
-    return std::make_unique<QuaternionToRealFilter<SIMDType, DataType__>>(nb_channels);
+    return std::unique_ptr<BaseFilter>(new QuaternionToRealFilter<SIMDType, DataType__>(nb_channels));
   }
   
   template std::unique_ptr<BaseFilter> createRealToQuaternionFilter<float,simdpp::float32<4> >(std::size_t);
