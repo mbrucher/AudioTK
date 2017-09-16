@@ -7,10 +7,12 @@
 
 #include <map>
 
+#include <ATK/EQ/config.h>
+
 namespace ATK
 {
   /// Interface for a variable order filter
-  class OrderInterface
+  class ATK_EQ_EXPORT OrderInterface
   {
   public:
     virtual ~OrderInterface();
@@ -22,7 +24,7 @@ namespace ATK
 
   /// Interface for a single cut frequency filter
   template<typename DataType>
-  class SingleCutFrequencyInterface
+  class ATK_EQ_EXPORT SingleCutFrequencyInterface
   {
   public:
     virtual ~SingleCutFrequencyInterface();
@@ -34,7 +36,7 @@ namespace ATK
 
   /// Interface for a dual cut frequency filter
   template<typename DataType>
-  class DualCutFrequencyInterface
+  class ATK_EQ_EXPORT DualCutFrequencyInterface
   {
   public:
     virtual ~DualCutFrequencyInterface();
@@ -48,7 +50,7 @@ namespace ATK
 
   /// Interface for filter with a Q parameter
   template<typename DataType>
-  class QInterface
+  class ATK_EQ_EXPORT QInterface
   {
   public:
     virtual ~QInterface();
@@ -63,7 +65,7 @@ namespace ATK
   
   /// Interface for filter with a gain parameter
   template<typename DataType>
-  class GainInterface
+  class ATK_EQ_EXPORT GainInterface
   {
   public:
     virtual ~GainInterface();
@@ -75,7 +77,7 @@ namespace ATK
   
   /// Interface for filter with a ripple parameter
   template<typename DataType>
-  class RippleInterface
+  class ATK_EQ_EXPORT RippleInterface
   {
   public:
     virtual ~RippleInterface();
