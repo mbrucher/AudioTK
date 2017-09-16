@@ -108,7 +108,7 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonDynamic) {
+PYBIND11_MODULE(PythonDynamic) {
   py::module m("PythonDynamic", "Audio ToolKit Dynamic module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");

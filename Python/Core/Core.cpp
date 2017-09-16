@@ -136,7 +136,7 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonCore) {
+PYBIND11_MODULE(PythonCore) {
   py::module m("PythonCore", "Audio ToolKit Core module");
 
   create_base_filter(m);

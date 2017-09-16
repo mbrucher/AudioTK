@@ -139,7 +139,7 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonTools) {
+PYBIND11_MODULE(PythonTools) {
   py::module m("PythonTools", "Audio ToolKit Tools module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");

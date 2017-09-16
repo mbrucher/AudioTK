@@ -23,7 +23,7 @@ namespace
     ;
   }
 }
-PYBIND11_PLUGIN(PythonSpecial) {
+PYBIND11_MODULE(PythonSpecial) {
   py::module m("PythonSpecial", "Audio ToolKit Special module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");

@@ -90,7 +90,7 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonDelay) {
+PYBIND11_MODULE(PythonDelay) {
   py::module m("PythonDelay", "Audio ToolKit Delay module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");

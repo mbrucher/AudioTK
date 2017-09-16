@@ -24,7 +24,7 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonReverberation) {
+PYBIND11_MODULE(PythonReverberation) {
   py::module m("PythonReverberation", "Audio ToolKit Reverberation module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
