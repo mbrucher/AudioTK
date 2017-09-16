@@ -4,6 +4,11 @@ FILE(GLOB
   *.cpp
 )
 
+SET(
+  ATK_EQ_TEST_SIMD_SRC
+  SIMD/BesselFilter.cpp
+)
+
 FILE(GLOB
   ATK_EQ_TEST_HEADERS
   *.h*

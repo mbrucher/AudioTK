@@ -7,6 +7,7 @@
 
 #include <complex>
 #include <cstdint>
+#include <iostream>
 #include <type_traits>
 
 #include <boost/mpl/contains.hpp>
