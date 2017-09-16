@@ -6,7 +6,6 @@
 
 #include <ATK/EQ/BesselFilter.h>
 #include <ATK/EQ/helpers.h>
-#include <ATK/EQ/IIRFilter.h>
 
 namespace
 {

@@ -20,6 +20,7 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     using Parent::setup;
@@ -48,6 +49,7 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     using Parent::setup;

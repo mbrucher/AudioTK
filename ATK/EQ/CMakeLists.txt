@@ -4,6 +4,19 @@ FILE(GLOB
     *.cpp
 )
 
+SET(
+  ATK_EQ_SIMD_SRC
+  SIMD/BesselFilter.cpp
+  SIMD/ButterworthFilter.cpp
+  SIMD/Chebyshev1Filter.cpp
+  SIMD/Chebyshev2Filter.cpp
+  SIMD/FourthOrderFilter.cpp
+  SIMD/LinkwitzRileyFilter.cpp
+  SIMD/RIAAFilter.cpp
+  SIMD/RobertBristowJohnsonFilter.cpp
+  SIMD/SecondOrderFilter.cpp
+)
+
 FILE(GLOB
     ATK_EQ_HEADERS
     *.h*

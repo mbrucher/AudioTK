@@ -49,7 +49,7 @@ namespace ATK
     }
 
     /// Move constructor
-    SimpleIIRFilter(SimpleIIRFilterIIRFilter&& other)
+    SimpleIIRFilter(SimpleIIRFilter&& other)
     :Parent(std::move(other))
     {
     }
@@ -78,25 +78,23 @@ namespace ATK
 
         for(std::size_t i = 0; i < size; ++i)
         {
-          output[i] = 0;
+          output[i] = TypeTraits<DataType>::Zero();
         }
 
         for (unsigned int j = 0; j < in_order + 1; ++j)
         {
           for (std::size_t i = 0; i < size; ++i)
           {
-            output[i] += coefficients_in_ptr[j] * input[i + j];
+            output[i] = output[i] + coefficients_in_ptr[j] * input[i + j];
           }
         }
 
         for (std::size_t i = 0; i < size; ++i)
         {
-          DataType tempout = output[i];
           for (unsigned int j = 0; j < out_order; ++j)
           {
-            tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+            output[i] = output[i] + coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
           }
-          output[i] = tempout;
         }
       }
     }
