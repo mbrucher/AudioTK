@@ -2,10 +2,10 @@
 # CMake utilities for ATK
 #
 
-macro(ATK_scan_SIMD PREFIX)
+macro(ATK_scan_SIMD PREFIX ARCHS)
 if(ENABLE_SIMD)
   foreach(SRC ${${PREFIX}_SIMD_SRC})
-    simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${RUNNABLE_ARCHS})
+simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${${ARCHS}})
   endforeach()
   FILE(GLOB FULL_PATH ${${PREFIX}_SIMD_SRC})
   LIST(APPEND ${PREFIX}_SRC ${FULL_PATH})
@@ -28,7 +28,7 @@ add_definitions(${${PREFIX}_DEFINITIONS})
 
 include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
 
-ATK_scan_SIMD(${PREFIX})
+ATK_scan_SIMD(${PREFIX} COMPILABLE_ARCHS)
 
 if(ENABLE_STATIC_LIBRARIES)
   add_library(${${PREFIX}_NAME}_static
@@ -88,7 +88,7 @@ add_definitions(${${PREFIX}_DEFINITIONS})
 
 include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
 
-ATK_scan_SIMD(${PREFIX})
+ATK_scan_SIMD(${PREFIX} RUNNABLE_ARCHS)
 
 add_executable(${${PREFIX}_NAME}
   ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
