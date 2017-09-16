@@ -6,12 +6,13 @@
 #define ATK_EQ_BUTTERWORTHFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/EQ/EQInterface.h>
 
 namespace ATK
 {
   /// @brief Butterworth coeffs for a low pass filter
   template<typename DataType_>
-  class ButterworthLowPassCoefficients: public TypedBaseFilter<DataType_>
+  class ButterworthLowPassCoefficients: public TypedBaseFilter<DataType_>, public OrderInterface, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
@@ -44,18 +45,18 @@ namespace ATK
     ButterworthLowPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(CoeffDataType cut_frequency);
+    void set_cut_frequency(CoeffDataType cut_frequency) override;
     /// Returns the cut or central frequency
-    CoeffDataType get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const override;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order);
+    void set_order(unsigned int order) override;
     /// Gets the order of the filter
-    unsigned get_order() const;
+    unsigned get_order() const override;
   };
 
   /// @brief Butterworth coeffs for a high pass filter
   template<typename DataType_>
-  class ButterworthHighPassCoefficients: public TypedBaseFilter<DataType_>
+  class ButterworthHighPassCoefficients: public TypedBaseFilter<DataType_>, public OrderInterface, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
@@ -88,18 +89,18 @@ namespace ATK
     ButterworthHighPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(CoeffDataType cut_frequency);
+    void set_cut_frequency(CoeffDataType cut_frequency) override;
     /// Returns the cut or central frequency
-    CoeffDataType get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const override;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order);
+    void set_order(unsigned int order) override;
     /// Gets the order of the filter
-    unsigned get_order() const;
+    unsigned get_order() const override;
   };
 
   /// @brief Butterworth coeffs for a band pass filter
   template<typename DataType_>
-  class ButterworthBandPassCoefficients: public TypedBaseFilter<DataType_>
+  class ButterworthBandPassCoefficients: public TypedBaseFilter<DataType_>, public OrderInterface, public DualCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
@@ -132,20 +133,20 @@ namespace ATK
     ButterworthBandPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
-    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies);
+    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) override;
     /// Sets the bandwidth as two separate values
-    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1);
+    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1) override;
     /// Gets the bandwidth
-    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const;
+    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const override;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order);
+    void set_order(unsigned int order) override;
     /// Gets the order of the filter
-    unsigned get_order() const;
+    unsigned get_order() const override;
   };
   
   /// @brief Butterworth coeffs for a band stop filter
   template<typename DataType_>
-  class ButterworthBandStopCoefficients: public TypedBaseFilter<DataType_>
+  class ButterworthBandStopCoefficients: public TypedBaseFilter<DataType_>, public OrderInterface, public DualCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
@@ -178,15 +179,15 @@ namespace ATK
     ButterworthBandStopCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
-    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies);
+    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) override;
     /// Sets the bandwidth as two separate values
-    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1);
+    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1) override;
     /// Gets the bandwidth
-    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const;
+    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const override;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order);
+    void set_order(unsigned int order) override;
     /// Gets the order of the filter
-    unsigned get_order() const;
+    unsigned get_order() const override;
   };
 }
 

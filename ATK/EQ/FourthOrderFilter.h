@@ -6,12 +6,13 @@
 #define ATK_EQ_FOURTHORDERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/EQ/EQInterface.h>
 
 namespace ATK
 {
   /// Base class for all IIR second order filters
   template<typename DataType_>
-  class FourthOrderBaseCoefficients: public TypedBaseFilter<DataType_>
+  class FourthOrderBaseCoefficients: public TypedBaseFilter<DataType_>, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
@@ -36,9 +37,9 @@ namespace ATK
      */
     FourthOrderBaseCoefficients(std::size_t nb_channels = 1);
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(CoeffDataType cut_frequency);
+    void set_cut_frequency(CoeffDataType cut_frequency) override;
     /// Returns the cut or central frequency
-    CoeffDataType get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const override;
   };
 }
 

@@ -8,6 +8,10 @@
 
 namespace ATK
 {
+  OrderInterface::~OrderInterface()
+  {
+  }
+  
   template<typename DataType>
   SingleCutFrequencyInterface<DataType>::~SingleCutFrequencyInterface()
   {

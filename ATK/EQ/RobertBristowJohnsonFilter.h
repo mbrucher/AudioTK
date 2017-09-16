@@ -6,12 +6,13 @@
 #define ATK_EQ_ROBERTBRISTOWJOHNSONFILTER_H
 
 #include <ATK/EQ/SecondOrderFilter.h>
+#include <ATK/EQ/EQInterface.h>
 
 namespace ATK
 {
   /// RBJ low pass filter
   template<typename DataType_>
-  class RobertBristowJohnsonLowPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
+  class RobertBristowJohnsonLowPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
@@ -39,14 +40,14 @@ namespace ATK
     /*!
      * A smaller Q will lead to a stronger attenuation, a bigger Q will lead to a stronger enhancement
      */
-    void set_Q(CoeffDataType Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    CoeffDataType get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// RBJ high pass filter
   template<typename DataType_>
-  class RobertBristowJohnsonHighPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
+  class RobertBristowJohnsonHighPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
@@ -74,14 +75,14 @@ namespace ATK
     /*!
      * A smaller Q will lead to a stronger attenuation, a bigger Q will lead to a stronger enhancement
      */
-    void set_Q(CoeffDataType Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    CoeffDataType get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// RBJ band pass filter
   template<typename DataType_>
-  class RobertBristowJohnsonBandPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
+  class RobertBristowJohnsonBandPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
@@ -109,14 +110,14 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(CoeffDataType Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    CoeffDataType get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// RBJ band pass filter
   template<typename DataType_>
-  class RobertBristowJohnsonBandPass2Coefficients : public SecondOrderBaseCoefficients<DataType_>
+  class RobertBristowJohnsonBandPass2Coefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
@@ -144,14 +145,14 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(CoeffDataType Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    CoeffDataType get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// RBJ band stop filter
   template<typename DataType_>
-  class RobertBristowJohnsonBandStopCoefficients : public SecondOrderBaseCoefficients<DataType_>
+  class RobertBristowJohnsonBandStopCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
@@ -179,14 +180,14 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(CoeffDataType Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    CoeffDataType get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// RBJ all pass filter
   template<typename DataType_>
-  class RobertBristowJohnsonAllPassCoefficients : public SecondOrderBaseCoefficients<DataType_>
+  class RobertBristowJohnsonAllPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
@@ -214,9 +215,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a spread response, a bigger Q will lead to a smaller response
      */
-    void set_Q(CoeffDataType Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    CoeffDataType get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// RBJ band peak filter

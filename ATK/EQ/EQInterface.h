@@ -9,6 +9,17 @@
 
 namespace ATK
 {
+  /// Interface for a variable order filter
+  class OrderInterface
+  {
+  public:
+    virtual ~OrderInterface();
+    /// Sets the cut or central frequency of the filter
+    virtual void set_order(unsigned int cut_frequency) = 0;
+    /// Returns the cut or central frequency
+    virtual unsigned int get_order() const = 0;
+  };
+
   /// Interface for a single cut frequency filter
   template<typename DataType>
   class SingleCutFrequencyInterface
