@@ -2,8 +2,8 @@
  * \file CustomIIRFilter.cpp
  */
 
-#include "CustomIIRFilter.h"
-#include "IIRFilter.h"
+#include <ATK/EQ/CustomIIRFilter.h>
+#include <ATK/EQ/IIRFilter.h>
 
 #include <cassert>
 #include <cmath>

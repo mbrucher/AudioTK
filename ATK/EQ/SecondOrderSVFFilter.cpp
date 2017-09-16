@@ -2,7 +2,7 @@
  * \file SecondOrderSVFFilter.cpp
  */
 
-#include "SecondOrderSVFFilter.h"
+#include <ATK/EQ/SecondOrderSVFFilter.h>
 
 #include <cassert>
 

@@ -1,12 +1,12 @@
 /**
- * \file FIRFilter.h
+ * \file SimpleIIRFilter.h
  */
 
-#ifndef ATK_EQ_FIRFILTER_H
-#define ATK_EQ_FIRFILTER_H
+#ifndef ATK_EQ_SIMPLEIIRFILTER_H
+#define ATK_EQ_SIMPLEIIRFILTER_H
 
+#include <algorithm>
 #include <cassert>
-#include <cstdint>
 #include <vector>
 
 #include <ATK/config.h>
@@ -14,27 +14,28 @@
 
 namespace ATK
 {
-  /**
-   * FIR filter template class
-   */
-  template<class Coefficients >
-  class ATK_EQ_EXPORT FIRFilter final : public Coefficients
+  /// IIR filter template class (Direct Form I)
+  template<class Coefficients>
+  class ATK_EQ_EXPORT SimpleIIRFilter final : public Coefficients
   {
   public:
+    /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
     using typename Parent::AlignedScalarVector;
-
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
+    using Parent::coefficients_out;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
-
+    
     using Parent::in_order;
+    using Parent::out_order;
     using Parent::input_delay;
+    using Parent::output_delay;
     using Parent::setup;
     
   public:
@@ -42,37 +43,40 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    FIRFilter(std::size_t nb_channels = 1)
+    SimpleIIRFilter(std::size_t nb_channels = 1)
       :Parent(nb_channels)
     {
     }
 
     /// Move constructor
-    FIRFilter(FIRFilter&& other)
+    SimpleIIRFilter(SimpleIIRFilterIIRFilter&& other)
     :Parent(std::move(other))
     {
     }
 
-    void setup() override
+    void setup() override final
     {
       Parent::setup();
       input_delay = in_order;
+      output_delay = out_order;
     }
     
-    virtual void process_impl(std::size_t size) const override
+    virtual void process_impl(std::size_t size) const override final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
       assert(coefficients_in.data());
+      assert(out_order == 0 || coefficients_out.data() != nullptr);
 
       const auto* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+      const auto* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
 
-      for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
+      for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
         DataType* ATK_RESTRICT output = outputs[channel];
 
-        for (std::size_t i = 0; i < size; ++i)
+        for(std::size_t i = 0; i < size; ++i)
         {
           output[i] = 0;
         }
@@ -84,8 +88,17 @@ namespace ATK
             output[i] += coefficients_in_ptr[j] * input[i + j];
           }
         }
-      }
 
+        for (std::size_t i = 0; i < size; ++i)
+        {
+          DataType tempout = output[i];
+          for (unsigned int j = 0; j < out_order; ++j)
+          {
+            tempout += coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
+          }
+          output[i] = tempout;
+        }
+      }
     }
     
     /// Returns the vector of internal coefficients for the MA section 
@@ -93,8 +106,13 @@ namespace ATK
     {
       return coefficients_in;
     }
+    
+    /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
+    const AlignedScalarVector& get_coefficients_out() const
+    {
+      return coefficients_out;
+    }
   };
-  
 }
 
 #endif

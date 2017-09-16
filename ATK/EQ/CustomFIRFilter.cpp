@@ -2,8 +2,8 @@
  * \file CustomFIRFilter.cpp
  */
 
-#include "CustomFIRFilter.h"
-#include "FIRFilter.h"
+#include <ATK/EQ/CustomFIRFilter.h>
+#include <ATK/EQ/FIRFilter.h>
 
 #include <complex>
 #include <cassert>

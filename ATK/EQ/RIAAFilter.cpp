@@ -4,9 +4,9 @@
 
 #include <boost/math/tools/polynomial.hpp>
 
-#include "helpers.h"
-#include "RIAAFilter.h"
-#include "IIRFilter.h"
+#include <ATK/EQ/RIAAFilter.h>
+#include <ATK/EQ/helpers.h>
+#include <ATK/EQ/IIRFilter.h>
 
 namespace ATK
 {

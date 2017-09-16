@@ -6,8 +6,8 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#include "FIRFilter.h"
-#include "RemezBasedFilter.h"
+#include <ATK/EQ/RemezBasedFilter.h>
+#include <ATK/EQ/FIRFilter.h>
 
 #if ATK_EIGEN == 1
 #include <Eigen/Dense>

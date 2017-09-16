@@ -6,8 +6,8 @@
 #ifndef ATK_EQ_TIMEVARYINGSECONDORDERSVFFILTER_H
 #define ATK_EQ_TIMEVARYINGSECONDORDERSVFFILTER_H
 
-#include "config.h"
-#include "../Core/TypedBaseFilter.h"
+#include <ATK/EQ/config.h>
+#include <ATK/Core/TypedBaseFilter.h>
 
 namespace ATK
 {
