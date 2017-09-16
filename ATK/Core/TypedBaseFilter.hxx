@@ -95,8 +95,9 @@ namespace
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
   {
-    //assert(dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter)); OK, this is wrong for now
-    DataType* original_input_array = static_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
+    assert(dynamic_cast<ATK::OutputArrayInterface<DataType>*>(filter));
+     // For SIMD, you shouldn't call this, but adapt input/output delays so that there is no copy from one filter to another.
+    DataType* original_input_array = dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
     ATK::ConversionUtilities<DataType, DataType>::convert_array(original_input_array, converted_input, size);
   }
   
@@ -122,15 +123,20 @@ namespace
 
 namespace ATK
 {
+  template<typename DataType>
+  OutputArrayInterface<DataType>::~OutputArrayInterface()
+  {
+  }
+
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), direct_filters(nb_input_ports, nullptr), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
   {
   }
 
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(TypedBaseFilter&& other)
-    : Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), converted_inputs_size(std::move(other.converted_inputs_size)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
+  : Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), converted_inputs_size(std::move(other.converted_inputs_size)), direct_filters(std::move(other.direct_filters)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
   {
   }
 
@@ -148,6 +154,7 @@ namespace ATK
     converted_inputs_delay = std::vector<std::unique_ptr<DataTypeInput[]> >(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
+    direct_filters.assign(nb_ports, nullptr);
     default_input.assign(nb_ports, TypeTraits<DataTypeInput>::Zero());
   }
   
@@ -200,9 +207,9 @@ namespace ATK
       // if the input delay is smaller than the preceding filter output delay, we may have overlap
       // if the types are identical and if the type is not -1 (an unknown type)
       // if we have overlap, don't copy anything at all
-      if((input_delay <= connections[i].second->get_output_delay()) && (connections[i].second->get_type() == get_type()) && (get_type() != -1))
+      if((input_delay <= connections[i].second->get_output_delay()) && (direct_filters[i] != nullptr))
       {
-        converted_inputs[i] = reinterpret_cast<const TypedBaseFilter<DataTypeInput>* >(connections[i].second)->get_output_array(connections[i].first);
+        converted_inputs[i] = direct_filters[i]->get_output_array(connections[i].first);
         converted_inputs_size[i] = size;
         continue;
       }
@@ -312,5 +319,6 @@ namespace ATK
   {
     Parent::set_input_port(input_port, filter, output_port);
     converted_inputs_size[input_port] = 0;
+    direct_filters[input_port] = dynamic_cast<OutputArrayInterface<DataType_>*>(filter);
   }
 }
