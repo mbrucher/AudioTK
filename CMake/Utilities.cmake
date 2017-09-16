@@ -5,7 +5,7 @@
 macro(ATK_scan_SIMD PREFIX)
 if(ENABLE_SIMD)
   foreach(SRC ${${PREFIX}_SIMD_SRC})
-    simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${COMPILABLE_ARCHS})
+    simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${RUNNABLE_ARCHS})
   endforeach()
   FILE(GLOB FULL_PATH ${${PREFIX}_SIMD_SRC})
   LIST(APPEND ${PREFIX}_SRC ${FULL_PATH})
