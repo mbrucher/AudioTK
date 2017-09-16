@@ -103,7 +103,7 @@ namespace
   }
 }
 
-PYBIND11_MODULE(PythonPreamplifier) {
+PYBIND11_PLUGIN(PythonPreamplifier) {
   py::module m("PythonPreamplifier", "Audio ToolKit Preamplifier module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");

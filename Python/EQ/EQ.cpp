@@ -262,7 +262,7 @@ namespace
   }
 }
 
-PYBIND11_MODULE(PythonEQ) {
+PYBIND11_PLUGIN(PythonEQ) {
   py::module m("PythonEQ", "Audio ToolKit EQ module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");

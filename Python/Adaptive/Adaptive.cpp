@@ -75,7 +75,7 @@ namespace
   }
 }
 
-PYBIND11_MODULE(PythonAdaptive) {
+PYBIND11_PLUGIN(PythonAdaptive) {
   py::module m("PythonAdaptive", "Audio ToolKit Adaptive module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");

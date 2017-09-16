@@ -43,7 +43,7 @@ namespace
   }
 }
 
-PYBIND11_MODULE(PythonDistortion) {
+PYBIND11_PLUGIN(PythonDistortion) {
   py::module m("PythonDistortion", "Audio ToolKit Distortion module");
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
