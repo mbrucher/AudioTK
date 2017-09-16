@@ -2,7 +2,7 @@
  * \file QuaternionConvertFilter.cpp
  */
 
-#include "QuaternionConvertFilter.h"
+#include <ATK/Core/SIMD/QuaternionConvertFilter.h>
 
 #include <cassert>
 #include <cmath>
@@ -88,4 +88,24 @@ namespace ATK
   template class RealToQuaternionFilter<double, simdpp::float64<4> >;
   template class QuaternionToRealFilter<simdpp::float32<4>, float>;
   template class QuaternionToRealFilter<simdpp::float64<4>, double>;
+  
+namespace SIMDPP_ARCH_NAMESPACE
+{
+  template<typename DataType_, typename SIMDType>
+  std::unique_ptr<BaseFilter> ATK_CORE_EXPORT createRealToQuaternionFilter(std::size_t nb_channels)
+  {
+    return std::make_unique<RealToQuaternionFilter<DataType_, SIMDType>>(nb_channels);
+  }
+
+  template<typename SIMDType, typename DataType__>
+  std::unique_ptr<BaseFilter> ATK_CORE_EXPORT createQuaternionToRealFilter(std::size_t nb_channels)
+  {
+    return std::make_unique<QuaternionToRealFilter<SIMDType, DataType__>>(nb_channels);
+  }
+  
+  template std::unique_ptr<BaseFilter> createRealToQuaternionFilter<float,simdpp::float32<4> >(std::size_t);
+  template std::unique_ptr<BaseFilter> createRealToQuaternionFilter<double,simdpp::float64<4> >(std::size_t);
+  template std::unique_ptr<BaseFilter> createQuaternionToRealFilter<simdpp::float32<4>,float>(std::size_t);
+  template std::unique_ptr<BaseFilter> createQuaternionToRealFilter<simdpp::float64<4>,double>(std::size_t);
+}
 }
