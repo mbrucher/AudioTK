@@ -35,6 +35,8 @@ if(${ENABLE_SIMD} STREQUAL "ON")
       MESSAGE(STATUS "Will support instruction set ${SIMD}")
     endforeach()
     include_directories(3rdParty/libsimdpp)
+    install(DIRECTORY 3rdParty/libsimdpp/simdpp DESTINATION ${CMAKE_INSTALL_PREFIX}/include/)
+
     SET(USE_SIMD 1)
   else(SIMDPP_PATH)
     SET(USE_SIMD 0)
