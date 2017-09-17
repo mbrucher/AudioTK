@@ -20,7 +20,7 @@ namespace ATK
   class OutputArrayInterface
   {
   public:
-    ~OutputArrayInterface();
+    virtual ~OutputArrayInterface();
     
     /**
      * @brief Returns an array with the processed output
