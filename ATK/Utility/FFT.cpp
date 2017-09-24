@@ -346,7 +346,7 @@ namespace ATK
   template<class DataType_>
   std::size_t FFT<DataType_>::get_size() const
   {
-    return size();
+    return size;
   }
 
   template<class DataType_>
