@@ -344,6 +344,12 @@ namespace ATK
   }
 
   template<class DataType_>
+  std::size_t FFT<DataType_>::get_size() const
+  {
+    return size();
+  }
+
+  template<class DataType_>
   void FFT<DataType_>::process(const DataType_* input, std::size_t input_size) const
   {
     impl->process(input, input_size, size);
