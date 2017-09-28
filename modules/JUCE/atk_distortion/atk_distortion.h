@@ -42,4 +42,7 @@
 #include <ATK/Distortion/SimpleOverdriveFilter.h>
 #include <ATK/Distortion/TS9OverdriveFilter.h>
 
+#include <ATK/Distortion/HalfTanhShaperFilter.h>
+#include <ATK/Distortion/TanhShaperFilter.h>
+
 #endif

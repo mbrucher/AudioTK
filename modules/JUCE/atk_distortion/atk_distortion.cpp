@@ -15,3 +15,6 @@
 #include <ATK/Distortion/SD1OverdriveFilter.cpp>
 #include <ATK/Distortion/SimpleOverdriveFilter.cpp>
 #include <ATK/Distortion/TS9OverdriveFilter.cpp>
+
+#include <ATK/Distortion/HalfTanhShaperFilter.cpp>
+#include <ATK/Distortion/TanhShaperFilter.cpp>
