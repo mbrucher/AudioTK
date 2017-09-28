@@ -44,6 +44,7 @@
 #include <ATK/EQ/Chebyshev2Filter.h>
 #include <ATK/EQ/CustomFIRFilter.h>
 #include <ATK/EQ/CustomIIRFilter.h>
+#include <ATK/EQ/EQInterface.h>
 #include <ATK/EQ/FIRFilter.h>
 #include <ATK/EQ/FourthOrderFilter.h>
 #include <ATK/EQ/helpers.h>
