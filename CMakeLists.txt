@@ -170,42 +170,6 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(SYSTEM ${Boost_INCLUDE_DIR})
 
-macro(stagedebug target)
-  if(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
-  if(APPLE)
-    add_custom_command(TARGET ${target}
-      POST_BUILD
-      COMMAND dsymutil $<CONFIG>/$<TARGET_FILE_NAME:${target}>
-      MAIN_DEPENDENCY ${target}
-      COMMENT "Staging dSYM for ${target}"
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-      VERBATIM)
-  endif(APPLE)
-  endif(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
-endmacro()
-
-MACRO(SOURCE_GROUP_BY_FOLDER target)
-  SET(SOURCE_GROUP_DELIMITER "/")
-
-  SET(last_dir "")
-  SET(files "")
-  FOREACH(file ${${target}_SRC} ${${target}_HEADERS})
-    file(RELATIVE_PATH relative_file "${CMAKE_CURRENT_SOURCE_DIR}" ${file})
-    GET_FILENAME_COMPONENT(dir "${relative_file}" PATH)
-    IF (NOT "${dir}" STREQUAL "${last_dir}")
-      IF (files)
-        SOURCE_GROUP("${last_dir}" FILES ${files})
-      ENDIF (files)
-      SET(files "")
-    ENDIF (NOT "${dir}" STREQUAL "${last_dir}")
-    SET(files ${files} ${file})
-    SET(last_dir "${dir}")
-  ENDFOREACH(file)
-  IF (files)
-    SOURCE_GROUP("${last_dir}" FILES ${files})
-  ENDIF (files)
-ENDMACRO(SOURCE_GROUP_BY_FOLDER)
-
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
   find_package(Boost REQUIRED unit_test_framework system)
@@ -222,6 +186,12 @@ if(ENABLE_PYTHON)
 
   add_subdirectory(Python)
 endif(ENABLE_PYTHON)
+
+add_subdirectory(modules)
+
+FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake)
+SOURCE_GROUP_BY_FOLDER(CMAKE_OTHER)
+add_custom_target(CMake SOURCES ${CMAKE_OTHER_SRC})
 
 IF (BUILD_DOC)
   FIND_PACKAGE(Doxygen REQUIRED)

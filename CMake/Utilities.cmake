@@ -2,6 +2,42 @@
 # CMake utilities for ATK
 #
 
+macro(stagedebug target)
+if(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
+if(APPLE)
+add_custom_command(TARGET ${target}
+POST_BUILD
+COMMAND dsymutil $<CONFIG>/$<TARGET_FILE_NAME:${target}>
+MAIN_DEPENDENCY ${target}
+COMMENT "Staging dSYM for ${target}"
+WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+VERBATIM)
+endif(APPLE)
+endif(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
+endmacro()
+
+MACRO(SOURCE_GROUP_BY_FOLDER target)
+SET(SOURCE_GROUP_DELIMITER "/")
+
+SET(last_dir "")
+SET(files "")
+FOREACH(file ${${target}_SRC} ${${target}_HEADERS})
+file(RELATIVE_PATH relative_file "${CMAKE_CURRENT_SOURCE_DIR}" ${file})
+GET_FILENAME_COMPONENT(dir "${relative_file}" PATH)
+IF (NOT "${dir}" STREQUAL "${last_dir}")
+IF (files)
+SOURCE_GROUP("${last_dir}" FILES ${files})
+ENDIF (files)
+SET(files "")
+ENDIF (NOT "${dir}" STREQUAL "${last_dir}")
+SET(files ${files} ${file})
+SET(last_dir "${dir}")
+ENDFOREACH(file)
+IF (files)
+SOURCE_GROUP("${last_dir}" FILES ${files})
+ENDIF (files)
+ENDMACRO(SOURCE_GROUP_BY_FOLDER)
+
 macro(ATK_scan_SIMD PREFIX ARCHS)
 if(ENABLE_SIMD)
   foreach(SRC ${${PREFIX}_SIMD_SRC})
