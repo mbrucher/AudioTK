@@ -12,6 +12,8 @@
 #include "atk_utility.h"
 
 #include <ATK/Utility/exp.cpp>
-#include <ATK/Utility/FFT.cpp>
 #include <ATK/Utility/FlushToZero.cpp>
 
+#if (ATK_USE_FFTW == 1) or (ATK_USE_IPP == 1)
+#include <ATK/Utility/FFT.cpp>
+#endif
