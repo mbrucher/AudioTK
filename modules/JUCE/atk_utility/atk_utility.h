@@ -37,6 +37,8 @@
 #ifndef ATK_UTILITY
 #define ATK_UTILITY
 
+#include <ATK/config.h>
+
 #include <ATK/Utility/exp.h>
 #include <ATK/Utility/fmath.h>
 #include <ATK/Utility/FlushToZero.h>
