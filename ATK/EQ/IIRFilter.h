@@ -217,6 +217,7 @@ namespace ATK
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
+    using typename Parent::AlignedScalarVector;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
@@ -282,6 +283,18 @@ namespace ATK
           }
         }
       }
+    }
+
+    /// Returns the vector of internal coefficients for the MA section
+    const AlignedScalarVector& get_coefficients_in() const
+    {
+      return coefficients_in;
+    }
+    
+    /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
+    const AlignedScalarVector& get_coefficients_out() const
+    {
+      return coefficients_out;
     }
   };
 
