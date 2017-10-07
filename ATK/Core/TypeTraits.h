@@ -149,23 +149,49 @@ namespace ATK
   template<>
   struct ComplexRealTypeTraits<simdpp::float32<4> >
   {
+    static const std::size_t VECTOR_LANES = 4;
     typedef float Scalar;
     
     /// Converts to a double
-    static simdpp::float32<4> to_double(simdpp::float32<4> el)
+    static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
     {
       return el;
     }
     
     /// Converts from a double
-    static simdpp::float32<4> from_double(simdpp::float32<4> el)
+    static simdpp::float32<VECTOR_LANES> from_double(simdpp::float32<VECTOR_LANES> el)
     {
       return el;
     }
     
-    static simdpp::float32<4> Zero()
+    static simdpp::float32<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0, 0, 0);
+    }
+  };
+
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<>
+  struct ComplexRealTypeTraits<simdpp::float32<8> >
+  {
+    static const std::size_t VECTOR_LANES = 8;
+    typedef float Scalar;
+    
+    /// Converts to a double
+    static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
+    {
+      return el;
+    }
+    
+    /// Converts from a double
+    static simdpp::float32<VECTOR_LANES> from_double(simdpp::float32<VECTOR_LANES> el)
+    {
+      return el;
+    }
+    
+    static simdpp::float32<VECTOR_LANES> Zero()
+    {
+      return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
     }
   };
   
@@ -173,25 +199,72 @@ namespace ATK
   template<>
   struct ComplexRealTypeTraits<simdpp::float64<4> >
   {
+    static const std::size_t VECTOR_LANES = 4;
     typedef double Scalar;
     
     /// Converts to a double
-    static simdpp::float64<4> to_double(simdpp::float64<4> el)
+    static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
     {
       return el;
     }
     
     /// Converts from a double
-    static simdpp::float64<4> from_double(simdpp::float64<4> el)
+    static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
     {
       return el;
     }
-
-    static simdpp::float64<4> Zero()
+    
+    static simdpp::float64<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0, 0, 0);
     }
   };
+
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<>
+  struct ComplexRealTypeTraits<simdpp::float64<8> >
+  {
+    static const std::size_t VECTOR_LANES = 8;
+    typedef double Scalar;
+    
+    /// Converts to a double
+    static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
+    {
+      return el;
+    }
+    
+    /// Converts from a double
+    static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
+    {
+      return el;
+    }
+
+    static simdpp::float64<VECTOR_LANES> Zero()
+    {
+      return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
+    }
+  };
+  
+  /// Traits to retrieve SIMD typename
+  template<typename DataType>
+  struct SIMDTypeTraits
+  {
+  };
+
+  template<>
+  struct SIMDTypeTraits<float>
+  {
+    template<int size>
+    using SIMDType = simdpp::float32<size>;
+  };
+
+  template<>
+  struct SIMDTypeTraits<double>
+  {
+    template<int size>
+    using SIMDType = simdpp::float64<size>;
+  };
+
 #endif
 
   /// Common base class for conversion type traits
