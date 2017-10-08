@@ -62,8 +62,10 @@ namespace ATK
     virtual void process_impl(std::size_t size) const override final;
   };
 
+  /// Create a filter to convert real streams to SIMD ones
   template<typename DataType_>
   ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter(std::size_t nb_channels);
+  /// Create a filter to convert SIMD streams to real ones
   template<typename DataType_>
   ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter(std::size_t nb_channels);
 }
