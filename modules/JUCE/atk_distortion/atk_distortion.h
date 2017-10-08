@@ -20,7 +20,7 @@
 
   ID:               atk_distortion
   vendor:           Matthieu Brucher
-  version:          2.1.2
+  version:          2.2.0
   name:             ATK distortion
   description:      Distortion and overdrive classes for ATK
   website:          http://www.audio-tk.com/
@@ -41,5 +41,8 @@
 #include <ATK/Distortion/SD1OverdriveFilter.h>
 #include <ATK/Distortion/SimpleOverdriveFilter.h>
 #include <ATK/Distortion/TS9OverdriveFilter.h>
+
+#include <ATK/Distortion/HalfTanhShaperFilter.h>
+#include <ATK/Distortion/TanhShaperFilter.h>
 
 #endif

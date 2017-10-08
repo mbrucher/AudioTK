@@ -98,8 +98,8 @@ namespace ATK
       DataType* ATK_RESTRICT output1 = outputs[2 * channel + 1];
       for(std::size_t i = 0; i < size; ++i)
       {
-        output0[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(left_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
-        output1[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(right_coeff) * static_cast<typename TypeTraits<DataType>::Scalar>(input[i]));
+        output0[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(left_coeff) * input[i]);
+        output1[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(right_coeff) * input[i]);
       }
     }
   }

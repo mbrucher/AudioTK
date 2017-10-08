@@ -24,6 +24,7 @@ namespace ATK
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
     using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using Parent::setup;
     using Parent::converted_inputs;
     using Parent::outputs;
@@ -42,7 +43,7 @@ namespace ATK
     FFT<DataType> processor;
     
     /// Impulse convolved with the input signal
-    AlignedVector impulse;
+    AlignedScalarVector impulse;
     /// This buffer contains the head of the last convolution (easier to have 2 parts)
     mutable AlignedVector temp_out_buffer;
     /// Called partial convolutions, but actually contains the former temp_in_buffers
@@ -69,7 +70,7 @@ namespace ATK
      * @brief Set the impulse for the convolution
      * @param impulse is the impulse for the convolution
      */
-    void set_impulse(AlignedVector impulse);
+    void set_impulse(AlignedScalarVector impulse);
     
     /*!
     * @brief Set the split size

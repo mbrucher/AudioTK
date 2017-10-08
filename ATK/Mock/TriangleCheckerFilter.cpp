@@ -23,15 +23,15 @@ namespace
   {
     if(std::abs(v1) < 1e-5 || std::abs(v2) < 1e-5)
     {
-      auto absv1 = std::abs(static_cast<typename ATK::TypeTraits<DataType>::Scalar>(v1));
-      auto absv2 = std::abs(static_cast<typename ATK::TypeTraits<DataType>::Scalar>(v2));
-      BOOST_REQUIRE_SMALL(absv1, 1e-5);
-      BOOST_REQUIRE_SMALL(absv2, 1e-5);
+      auto absv1 = std::abs(v1);
+      auto absv2 = std::abs(v2);
+      BOOST_REQUIRE_SMALL(absv1, typename ATK::TypeTraits<DataType>::Scalar(1e-5));
+      BOOST_REQUIRE_SMALL(absv2, typename ATK::TypeTraits<DataType>::Scalar(1e-5));
     }
     else
     {
-      auto diff = std::abs(static_cast<typename ATK::TypeTraits<DataType>::Scalar>((v1 - v2) / (v1 + v2)));
-      BOOST_REQUIRE_SMALL(diff, 1e-5);
+      auto diff = std::abs((v1 - v2) / (v1 + v2));
+      BOOST_REQUIRE_SMALL(diff, typename ATK::TypeTraits<DataType>::Scalar(1e-5));
     }
   }
 
@@ -85,7 +85,7 @@ namespace ATK
         state += 2 * real_increment;
         ascending = !ascending;
       }
-      compare(converted_inputs[0][i], static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(amplitude) * state));
+      compare(converted_inputs[0][i], TypeTraits<DataType>::from_double(TypeTraits<DataType>::to_double(amplitude) * state));
     }
   }
 

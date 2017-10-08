@@ -21,19 +21,20 @@ namespace ATK
   public:
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
-    using typename Parent::AlignedVector;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using typename Parent::AlignedScalarVector;
     using Parent::input_sampling_rate;
   protected:
     /**
      * Target template that the user gave. First pair is the bandwidth, second pair is the target amplitude and the associated weight
      */
-    std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > > target;
+    std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > > target;
     /// Oarger of the polynomial we can use
     std::size_t in_order;
     /// Launches the computation
-    void setup();
+    void setup() override;
     /// Final coefficients
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     
   public:
     /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template
@@ -43,9 +44,9 @@ namespace ATK
     RemezBasedCoefficients(RemezBasedCoefficients&& other);
 
     /// Sets the template for the algorithm, pair of range of reduced frequencies + amplitude
-    void set_template(const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& target);
+    void set_template(const std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > >& target);
     /// Retrieves the template
-    const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& get_template() const;
+    const std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > >& get_template() const;
     
     /// Order of the FIR filter
     void set_order(std::size_t order);

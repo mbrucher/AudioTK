@@ -6,8 +6,8 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#include "FIRFilter.h"
-#include "RemezBasedFilter.h"
+#include <ATK/EQ/RemezBasedFilter.h>
+#include <ATK/EQ/FIRFilter.h>
 
 #if ATK_EIGEN == 1
 #include <Eigen/Dense>
@@ -20,7 +20,7 @@ namespace
   class RemezBuilder
   {
   public:
-    typedef typename ATK::TypedBaseFilter<DataType>::AlignedVector AlignedVector;
+    typedef typename ATK::TypedBaseFilter<DataType>::AlignedScalarVector AlignedScalarVector;
   private:
     const static std::size_t grid_size = 1024; // grid size, power of two better for FFT
     constexpr static DataType SN = 1e-8;
@@ -30,7 +30,7 @@ namespace
     std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> > target;
     
     /// Computed coefficients
-    AlignedVector coeffs;
+    AlignedScalarVector coeffs;
     /// Selected indices
     std::vector<std::size_t> indices;
     /// Weight function on the grid
@@ -112,7 +112,7 @@ namespace
       return indices;
     }
     
-    AlignedVector build()
+    AlignedScalarVector build()
     {
       if(target.empty())
       {
@@ -317,14 +317,14 @@ namespace ATK
   }
 
   template<class DataType>
-  void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType> > >& target)
+  void RemezBasedCoefficients<DataType>::set_template(const std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > >& target)
   {
     this->target = target;
     setup();
   }
   
   template<class DataType>
-  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType>, std::pair<typename RemezBasedCoefficients<DataType>::DataType, typename RemezBasedCoefficients<DataType>::DataType> > >& RemezBasedCoefficients<DataType>::get_template() const
+  const std::vector<std::pair<std::pair<typename RemezBasedCoefficients<DataType>::CoeffDataType, typename RemezBasedCoefficients<DataType>::CoeffDataType>, std::pair<typename RemezBasedCoefficients<DataType>::CoeffDataType, typename RemezBasedCoefficients<DataType>::CoeffDataType> > >& RemezBasedCoefficients<DataType>::get_template() const
   {
     return target;
   }
@@ -357,14 +357,16 @@ namespace ATK
     
     if (in_order > 0)
     {
-      RemezBuilder<DataType> builder(in_order, target);
+      RemezBuilder<CoeffDataType> builder(in_order, target);
       coefficients_in = builder.build();
     }
   }
   
   template class RemezBasedCoefficients<double>;
+  template class RemezBasedCoefficients<std::complex<double> >;
   
   template class FIRFilter<RemezBasedCoefficients<double> >;
+  template class FIRFilter<RemezBasedCoefficients<std::complex<double> > >;
 }
 
 #endif

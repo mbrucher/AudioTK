@@ -6,6 +6,7 @@
 #define ATK_MOCK_TRIANGLECHECKERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Core/TypeTraits.h>
 
 #include "config.h"
 

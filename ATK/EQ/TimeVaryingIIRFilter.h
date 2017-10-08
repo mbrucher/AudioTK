@@ -9,7 +9,7 @@
 #include <cmath>
 #include <vector>
 
-#include "config.h"
+#include <ATK/EQ/config.h>
 
 namespace ATK
 {

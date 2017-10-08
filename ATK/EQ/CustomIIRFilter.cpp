@@ -2,8 +2,8 @@
  * \file CustomIIRFilter.cpp
  */
 
-#include "CustomIIRFilter.h"
-#include "IIRFilter.h"
+#include <ATK/EQ/CustomIIRFilter.h>
+#include <ATK/EQ/IIRFilter.h>
 
 #include <cassert>
 #include <cmath>
@@ -20,7 +20,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_in(const std::vector<DataType>& coefficients_in )
+  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_in(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_in )
   {
     in_order = static_cast<int>(coefficients_in.size() - 1);
     this->coefficients_in.clear();
@@ -30,7 +30,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_out(const std::vector<DataType>& coefficients_out )
+  void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_out(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_out )
   {
     out_order = static_cast<int>(coefficients_out.size());
     this->coefficients_out.clear();

@@ -1,27 +1,19 @@
 
 FILE(GLOB_RECURSE
-  PYTHON_MODULE_Distortion_SRC
+  PYTHON_MODULE_DISTORTION_SRC
   *.cpp
 )
 
 FILE(GLOB_RECURSE
-  PYTHON_MODULE_Distortion_HEADERS
+  PYTHON_MODULE_DISTORTION_HEADERS
   *.h
 )
 
-include_directories(${PROJECT_SOURCE_DIR} ${NUMPY_INCLUDE_DIRS})
+SET(PYTHON_MODULE_DISTORTION_DEFINITIONS)
+SET(PYTHON_MODULE_DISTORTION_INCLUDE)
+SET(PYTHON_MODULE_DISTORTION_LIBRARIES ATKCore ATKDistortion ATKUtility)
 
-pybind11_add_module(PythonDistortion MODULE ${PYTHON_MODULE_Distortion_SRC} ${PYTHON_MODULE_Distortion_HEADERS})
-target_link_libraries(PythonDistortion PRIVATE ATKCore ATKDistortion)
+SET(PYTHON_MODULE_DISTORTION_NAME PythonDistortion)
+SET(PYTHON_MODULE_DISTORTION_FOLDER Distortion)
 
-
-INSTALL(FILES __init__.py
-    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Distortion
-    )
-INSTALL(TARGETS PythonDistortion
-    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Distortion
-    )
-
-set_target_properties (PythonDistortion PROPERTIES
-    FOLDER Python
-)
+ATK_add_python_module(PYTHON_MODULE_DISTORTION)

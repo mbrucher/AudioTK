@@ -20,7 +20,7 @@
 
   ID:               atk_special
   vendor:           Matthieu Brucher
-  version:          2.1.2
+  version:          2.2.0
   name:             ATK Special
   description:      Special classes for ATK
   website:          http://www.audio-tk.com/

@@ -1,5 +1,5 @@
 
-if(ENABLE_PYTHON)
+if((ENABLE_PYTHON STREQUAL "ON") AND (DISABLE_PYTHON_TESTS STREQUAL "OFF"))
   find_package(PythonInterp REQUIRED)
 
   function(create_Python_test name cwd)
@@ -16,4 +16,4 @@ if(ENABLE_PYTHON)
     endif()
   endforeach(entry)
 
-endif(ENABLE_PYTHON)
+endif((ENABLE_PYTHON STREQUAL "ON") AND (DISABLE_PYTHON_TESTS STREQUAL "OFF"))

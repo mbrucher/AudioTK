@@ -16,7 +16,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ConvolutionFilter<DataType_>::set_impulse(AlignedVector impulse)
+  void ConvolutionFilter<DataType_>::set_impulse(AlignedScalarVector impulse)
   {
     this->impulse = std::move(impulse);
     setup();

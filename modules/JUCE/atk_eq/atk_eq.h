@@ -20,7 +20,7 @@
 
   ID:               atk_eq
   vendor:           Matthieu Brucher
-  version:          2.1.2
+  version:          2.2.0
   name:             ATK EQ
   description:      EQ classes for ATK
   website:          http://www.audio-tk.com/
@@ -44,6 +44,7 @@
 #include <ATK/EQ/Chebyshev2Filter.h>
 #include <ATK/EQ/CustomFIRFilter.h>
 #include <ATK/EQ/CustomIIRFilter.h>
+#include <ATK/EQ/EQInterface.h>
 #include <ATK/EQ/FIRFilter.h>
 #include <ATK/EQ/FourthOrderFilter.h>
 #include <ATK/EQ/helpers.h>

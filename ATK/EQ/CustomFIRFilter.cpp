@@ -2,8 +2,8 @@
  * \file CustomFIRFilter.cpp
  */
 
-#include "CustomFIRFilter.h"
-#include "FIRFilter.h"
+#include <ATK/EQ/CustomFIRFilter.h>
+#include <ATK/EQ/FIRFilter.h>
 
 #include <complex>
 #include <cassert>
@@ -20,7 +20,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ATK::CustomFIRCoefficients<DataType_>::set_coefficients_in(const std::vector<DataType>& coefficients_in)
+  void ATK::CustomFIRCoefficients<DataType_>::set_coefficients_in(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_in)
   {
     in_order = static_cast<int>(coefficients_in.size() - 1);
     this->coefficients_in.clear();

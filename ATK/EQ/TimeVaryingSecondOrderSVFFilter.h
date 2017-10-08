@@ -6,8 +6,8 @@
 #ifndef ATK_EQ_TIMEVARYINGSECONDORDERSVFFILTER_H
 #define ATK_EQ_TIMEVARYINGSECONDORDERSVFFILTER_H
 
-#include "config.h"
-#include "../Core/TypedBaseFilter.h"
+#include <ATK/EQ/config.h>
+#include <ATK/Core/TypedBaseFilter.h>
 
 namespace ATK
 {
@@ -17,7 +17,7 @@ namespace ATK
   {
   public:
     typedef SVFCoefficients Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;
