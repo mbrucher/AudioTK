@@ -124,10 +124,10 @@ namespace SIMDPP_ARCH_NAMESPACE
   template std::unique_ptr<BaseFilter> createQuaternionToRealFilter<double>(std::size_t);
 }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (std::unique_ptr<BaseFilter>) (createRealToQuaternionFilter)
-                         ((std::size_t) nb_channels) (<DataType_>))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (std::unique_ptr<BaseFilter>) (createQuaternionToRealFilter)
-                         ((std::size_t) nb_channels) (<DataType__>))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToQuaternionFilter)
+                         ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createQuaternionToRealFilter)
+                         ((std::size_t) nb_channels))
 
 #ifdef SIMDPP_EMIT_DISPATCHER
   template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToQuaternionFilter<float>(std::size_t);
