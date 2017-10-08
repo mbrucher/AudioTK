@@ -251,7 +251,7 @@ namespace ATK
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
-      state.resize(nb_input_ports * std::max(input_delay, output_delay), 0);
+      state.resize(nb_input_ports * std::max(input_delay, output_delay) + 1, TypeTraits<DataType>::Zero());
     }
     
     virtual void process_impl(std::size_t size) const override final
@@ -267,19 +267,19 @@ namespace ATK
         for(std::size_t i = 0; i < size; ++i)
         {
           output[i] = coefficients_in[in_order] * input[i] + current_state[0];
-          for(size_t j = 0; j < std::max(input_delay, output_delay) - 1; ++j)
-          {
-            current_state[j] = current_state[j + 1];
-          }
-          current_state[std::max(input_delay, output_delay) - 1] = 0;
+          auto min_order = std::min(input_delay, output_delay);
           
-          for(unsigned int j = 0; j < in_order; ++j)
+          for(size_t j = 0; j < min_order; ++j)
           {
-            current_state[j] += input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1];
+            current_state[j] = current_state[j + 1] + input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1] + output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
           }
-          for(unsigned int j = 0; j < out_order; ++j)
+          for(size_t j = min_order; j < input_delay; ++j)
           {
-            current_state[j] += output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
+            current_state[j] = current_state[j + 1] + input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1];
+          }
+          for(size_t j = min_order; j < output_delay; ++j)
+          {
+            current_state[j] = current_state[j + 1] + output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
           }
         }
       }
