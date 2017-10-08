@@ -8,6 +8,7 @@
 #include <ATK/EQ/SIMD/ButterworthFilter.h>
 
 #include <ATK/EQ/ButterworthFilter.hxx>
+#include <ATK/EQ/IIRFilter.h>
 #include <ATK/EQ/SimpleIIRFilter.h>
 
 #include <simdpp/dispatch/dispatcher.h>
@@ -62,7 +63,25 @@ namespace ATK
   template class SimpleIIRFilter<ButterworthBandPassCoefficients<simdpp::float64<8> > >;
   template class SimpleIIRFilter<ButterworthBandStopCoefficients<simdpp::float32<8> > >;
   template class SimpleIIRFilter<ButterworthBandStopCoefficients<simdpp::float64<8> > >;
+
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float64<4> > >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float64<4> > >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float64<4> > >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float64<4> > >;
   
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float64<8> > >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float64<8> > >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float64<8> > >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float64<8> > >;
+
   namespace SIMDPP_ARCH_NAMESPACE
   {
     template<typename DataType, std::size_t VL>

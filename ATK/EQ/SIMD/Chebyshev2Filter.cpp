@@ -8,6 +8,7 @@
 #include <ATK/EQ/SIMD/Chebyshev2Filter.h>
 
 #include <ATK/EQ/Chebyshev2Filter.hxx>
+#include <ATK/EQ/IIRFilter.h>
 #include <ATK/EQ/SimpleIIRFilter.h>
 
 #include <simdpp/dispatch/dispatcher.h>
@@ -62,7 +63,25 @@ namespace ATK
   template class SimpleIIRFilter<Chebyshev2BandPassCoefficients<simdpp::float64<8> > >;
   template class SimpleIIRFilter<Chebyshev2BandStopCoefficients<simdpp::float32<8> > >;
   template class SimpleIIRFilter<Chebyshev2BandStopCoefficients<simdpp::float64<8> > >;
+
+  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float64<4> > >;
+  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float64<4> > >;
+  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float64<4> > >;
+  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float32<4> > >;
+  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float64<4> > >;
   
+  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float64<8> > >;
+  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float64<8> > >;
+  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float64<8> > >;
+  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float64<8> > >;
+
   namespace SIMDPP_ARCH_NAMESPACE
   {
     template<typename DataType, std::size_t VL>

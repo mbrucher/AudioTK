@@ -43,10 +43,18 @@ namespace ATK
   
   template class IIRTDF2Filter<BesselLowPassCoefficients<float> >;
   template class IIRTDF2Filter<BesselLowPassCoefficients<double> >;
+  template class IIRTDF2Filter<BesselLowPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<BesselLowPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<BesselHighPassCoefficients<float> >;
   template class IIRTDF2Filter<BesselHighPassCoefficients<double> >;
+  template class IIRTDF2Filter<BesselHighPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<BesselHighPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<BesselBandPassCoefficients<float> >;
   template class IIRTDF2Filter<BesselBandPassCoefficients<double> >;
+  template class IIRTDF2Filter<BesselBandPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<BesselBandPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<BesselBandStopCoefficients<float> >;
   template class IIRTDF2Filter<BesselBandStopCoefficients<double> >;
+  template class IIRTDF2Filter<BesselBandStopCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<BesselBandStopCoefficients<std::complex<double> > >;
 }

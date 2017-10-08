@@ -16,4 +16,9 @@ namespace ATK
   template class IIRFilter<RIAACoefficients<double> >;
   template class IIRFilter<InverseRIAACoefficients<float> >;
   template class IIRFilter<InverseRIAACoefficients<double> >;
+
+  template class IIRTDF2Filter<RIAACoefficients<float> >;
+  template class IIRTDF2Filter<RIAACoefficients<double> >;
+  template class IIRTDF2Filter<InverseRIAACoefficients<float> >;
+  template class IIRTDF2Filter<InverseRIAACoefficients<double> >;
 }

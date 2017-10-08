@@ -17,6 +17,11 @@ namespace ATK
   template class IIRFilter<SD1ToneCoefficients<std::complex<float> > >;
   template class IIRFilter<SD1ToneCoefficients<std::complex<double> > >;
 
+  template class IIRTDF2Filter<SD1ToneCoefficients<float> >;
+  template class IIRTDF2Filter<SD1ToneCoefficients<double> >;
+  template class IIRTDF2Filter<SD1ToneCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SD1ToneCoefficients<std::complex<double> > >;
+
   template class TS9ToneCoefficients<float>;
   template class TS9ToneCoefficients<double>;
   template class TS9ToneCoefficients<std::complex<float> >;
@@ -26,4 +31,9 @@ namespace ATK
   template class IIRFilter<TS9ToneCoefficients<double> >;
   template class IIRFilter<TS9ToneCoefficients<std::complex<float> > >;
   template class IIRFilter<TS9ToneCoefficients<std::complex<double> > >;
+
+  template class IIRTDF2Filter<TS9ToneCoefficients<float> >;
+  template class IIRTDF2Filter<TS9ToneCoefficients<double> >;
+  template class IIRTDF2Filter<TS9ToneCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<TS9ToneCoefficients<std::complex<double> > >;
 }

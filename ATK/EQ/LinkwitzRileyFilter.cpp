@@ -41,8 +41,21 @@ namespace ATK
   template class IIRFilter<LinkwitzRiley4HighPassCoefficients<std::complex<float> > >;
   template class IIRFilter<LinkwitzRiley4HighPassCoefficients<std::complex<double> > >;
 
+  template class IIRTDF2Filter<LinkwitzRileyLowPassCoefficients<float> >;
+  template class IIRTDF2Filter<LinkwitzRileyLowPassCoefficients<double> >;
+  template class IIRTDF2Filter<LinkwitzRileyLowPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<LinkwitzRileyLowPassCoefficients<std::complex<double> > >;
+  template class IIRTDF2Filter<LinkwitzRileyHighPassCoefficients<float> >;
+  template class IIRTDF2Filter<LinkwitzRileyHighPassCoefficients<double> >;
+  template class IIRTDF2Filter<LinkwitzRileyHighPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<LinkwitzRileyHighPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<float> >;
   template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<double> >;
+  template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<LinkwitzRiley4LowPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<LinkwitzRiley4HighPassCoefficients<float> >;
   template class IIRTDF2Filter<LinkwitzRiley4HighPassCoefficients<double> >;
+  template class IIRTDF2Filter<LinkwitzRiley4HighPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<LinkwitzRiley4HighPassCoefficients<std::complex<double> > >;
+  
 }

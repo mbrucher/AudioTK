@@ -43,10 +43,18 @@ namespace ATK
   
   template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<float> >;
   template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<double> >;
+  template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<Chebyshev1LowPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<Chebyshev1HighPassCoefficients<float> >;
   template class IIRTDF2Filter<Chebyshev1HighPassCoefficients<double> >;
+  template class IIRTDF2Filter<Chebyshev1HighPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<Chebyshev1HighPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<Chebyshev1BandPassCoefficients<float> >;
   template class IIRTDF2Filter<Chebyshev1BandPassCoefficients<double> >;
+  template class IIRTDF2Filter<Chebyshev1BandPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<Chebyshev1BandPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<Chebyshev1BandStopCoefficients<float> >;
   template class IIRTDF2Filter<Chebyshev1BandStopCoefficients<double> >;
+  template class IIRTDF2Filter<Chebyshev1BandStopCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<Chebyshev1BandStopCoefficients<std::complex<double> > >;
 }

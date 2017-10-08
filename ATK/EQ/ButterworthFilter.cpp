@@ -43,10 +43,18 @@ namespace ATK
 
   template class IIRTDF2Filter<ButterworthLowPassCoefficients<float> >;
   template class IIRTDF2Filter<ButterworthLowPassCoefficients<double> >;
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<ButterworthLowPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<ButterworthHighPassCoefficients<float> >;
   template class IIRTDF2Filter<ButterworthHighPassCoefficients<double> >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<ButterworthHighPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<ButterworthBandPassCoefficients<float> >;
   template class IIRTDF2Filter<ButterworthBandPassCoefficients<double> >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<ButterworthBandPassCoefficients<std::complex<double> > >;
   template class IIRTDF2Filter<ButterworthBandStopCoefficients<float> >;
   template class IIRTDF2Filter<ButterworthBandStopCoefficients<double> >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<ButterworthBandStopCoefficients<std::complex<double> > >;
 }

@@ -69,4 +69,33 @@ namespace ATK
   template class IIRFilter<SecondOrderHighShelvingCoefficients<double> >;
   template class IIRFilter<SecondOrderHighShelvingCoefficients<std::complex<float> > >;
   template class IIRFilter<SecondOrderHighShelvingCoefficients<std::complex<double> > >;
+
+  template class IIRTDF2Filter<SecondOrderBandPassCoefficients<float> >;
+  template class IIRTDF2Filter<SecondOrderBandPassCoefficients<double> >;
+  template class IIRTDF2Filter<SecondOrderBandPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SecondOrderBandPassCoefficients<std::complex<double> > >;
+  template class IIRTDF2Filter<SecondOrderLowPassCoefficients<float> >;
+  template class IIRTDF2Filter<SecondOrderLowPassCoefficients<double> >;
+  template class IIRTDF2Filter<SecondOrderLowPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SecondOrderLowPassCoefficients<std::complex<double> > >;
+  template class IIRTDF2Filter<SecondOrderHighPassCoefficients<float> >;
+  template class IIRTDF2Filter<SecondOrderHighPassCoefficients<double> >;
+  template class IIRTDF2Filter<SecondOrderHighPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SecondOrderHighPassCoefficients<std::complex<double> > >;
+  template class IIRTDF2Filter<SecondOrderBandPassPeakCoefficients<float> >;
+  template class IIRTDF2Filter<SecondOrderBandPassPeakCoefficients<double> >;
+  template class IIRTDF2Filter<SecondOrderBandPassPeakCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SecondOrderBandPassPeakCoefficients<std::complex<double> > >;
+  template class IIRTDF2Filter<SecondOrderAllPassCoefficients<float> >;
+  template class IIRTDF2Filter<SecondOrderAllPassCoefficients<double> >;
+  template class IIRTDF2Filter<SecondOrderAllPassCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SecondOrderAllPassCoefficients<std::complex<double> > >;
+  template class IIRTDF2Filter<SecondOrderLowShelvingCoefficients<float> >;
+  template class IIRTDF2Filter<SecondOrderLowShelvingCoefficients<double> >;
+  template class IIRTDF2Filter<SecondOrderLowShelvingCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SecondOrderLowShelvingCoefficients<std::complex<double> > >;
+  template class IIRTDF2Filter<SecondOrderHighShelvingCoefficients<float> >;
+  template class IIRTDF2Filter<SecondOrderHighShelvingCoefficients<double> >;
+  template class IIRTDF2Filter<SecondOrderHighShelvingCoefficients<std::complex<float> > >;
+  template class IIRTDF2Filter<SecondOrderHighShelvingCoefficients<std::complex<double> > >;
 }
