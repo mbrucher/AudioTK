@@ -5,6 +5,7 @@ FILE(GLOB
 )
 
 SET(ATK_CORE_SIMD_SRC
+    SIMD/OctonionConvertFilter.cpp
     SIMD/QuaternionConvertFilter.cpp
     SIMD/TypedBaseFilter.cpp
     SIMD/Utilities.cpp
