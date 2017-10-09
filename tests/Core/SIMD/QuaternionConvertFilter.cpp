@@ -106,11 +106,11 @@ BOOST_AUTO_TEST_CASE(QuaternionBasedFilter_triangle_real_to_real_test)
   generator4.set_frequency(1000);
   generator4.set_amplitude(10);
   
-  std::unique_ptr<ATK::BaseFilter> converter1 = ATK::createRealToQuaternionFilter<float>(1);
+  std::unique_ptr<ATK::BaseFilter> converter1 = ATK::createRealToQuaternionFilter<float>();
   converter1->set_input_sampling_rate(48000);
   converter1->set_output_sampling_rate(48000);
   
-  std::unique_ptr<ATK::BaseFilter> converter2 = ATK::createQuaternionToRealFilter<float>(1);
+  std::unique_ptr<ATK::BaseFilter> converter2 = ATK::createQuaternionToRealFilter<float>();
   converter2->set_input_sampling_rate(48000);
   converter2->set_output_sampling_rate(48000);
   
