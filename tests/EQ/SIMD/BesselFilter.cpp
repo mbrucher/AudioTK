@@ -482,7 +482,7 @@ BOOST_AUTO_TEST_CASE(IIRFilter_BesselLowPassCoefficients_test)
   generator4.set_amplitude(1);
   generator4.set_frequency(200);
   
-  auto forwardConvert = ATK::createRealToQuaternionFilter<float>();
+  auto forwardConvert = ATK::createRealToQuaternionFilter<double>();
   forwardConvert->set_output_delay(3);
   forwardConvert->set_input_sampling_rate(PROCESSSIZE);
   forwardConvert->set_output_sampling_rate(PROCESSSIZE);
@@ -491,14 +491,14 @@ BOOST_AUTO_TEST_CASE(IIRFilter_BesselLowPassCoefficients_test)
   forwardConvert->set_input_port(2, &generator3, 0);
   forwardConvert->set_input_port(3, &generator4, 0);
   
-  auto filter = ATK::createLowPassBesselFilter<float, 4>();
+  auto filter = ATK::createLowPassBesselFilter<double, 4>();
   filter->set_input_sampling_rate(PROCESSSIZE);
   filter->set_output_sampling_rate(PROCESSSIZE);
-  dynamic_cast<ATK::SingleCutFrequencyInterface<float>*>(filter.get())->set_cut_frequency(100);
+  dynamic_cast<ATK::SingleCutFrequencyInterface<double>*>(filter.get())->set_cut_frequency(100);
   dynamic_cast<ATK::OrderInterface*>(filter.get())->set_order(3);
   filter->set_input_port(0, forwardConvert.get(), 0);
   
-  auto backwardConvert = ATK::createQuaternionToRealFilter<float>();
+  auto backwardConvert = ATK::createQuaternionToRealFilter<double>();
   backwardConvert->set_input_sampling_rate(PROCESSSIZE);
   backwardConvert->set_output_sampling_rate(PROCESSSIZE);
   backwardConvert->set_input_port(0, filter.get(), 0);
@@ -544,9 +544,9 @@ BOOST_AUTO_TEST_CASE(IIRFilter_BesselLowPassCoefficients_test)
   sink.set_input_sampling_rate(PROCESSSIZE);
   sink.set_output_sampling_rate(PROCESSSIZE);
   sink.add_filter(&checker1);
-  //sink.add_filter(&checker2);
+  sink.add_filter(&checker2);
   sink.add_filter(&checker3);
-  //sink.add_filter(&checker4);
+  sink.add_filter(&checker4);
   
   backwardConvert->process(PROCESSSIZE);
   
