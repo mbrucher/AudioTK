@@ -104,12 +104,36 @@ namespace ATK
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<Chebyshev2BandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createLowPassChebyshev2TDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<Chebyshev2LowPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createHighPassChebyshev2TDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<Chebyshev2HighPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createBandPassChebyshev2TDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<Chebyshev2BandPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createBandStopChebyshev2TDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<Chebyshev2BandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
   }
   
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassChebyshev2Filter) ((std::size_t) nb_channels))
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassChebyshev2Filter) ((std::size_t) nb_channels))
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassChebyshev2Filter) ((std::size_t) nb_channels))
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopChebyshev2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassChebyshev2TDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassChebyshev2TDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassChebyshev2TDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopChebyshev2TDF2Filter) ((std::size_t) nb_channels))
   
   SIMDPP_INSTANTIATE_DISPATCHER(
     (template std::unique_ptr<BaseFilter> createLowPassChebyshev2Filter<float, 4>(std::size_t)),
@@ -127,6 +151,21 @@ namespace ATK
     (template std::unique_ptr<BaseFilter> createBandStopChebyshev2Filter<float, 4>(std::size_t)),
     (template std::unique_ptr<BaseFilter> createBandStopChebyshev2Filter<double, 4>(std::size_t)),
     (template std::unique_ptr<BaseFilter> createBandStopChebyshev2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandStopChebyshev2Filter<double, 8>(std::size_t)));
-  
+    (template std::unique_ptr<BaseFilter> createBandStopChebyshev2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassChebyshev2TDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassChebyshev2TDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassChebyshev2TDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassChebyshev2TDF2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassChebyshev2TDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassChebyshev2TDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassChebyshev2TDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassChebyshev2TDF2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassChebyshev2TDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassChebyshev2TDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassChebyshev2TDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassChebyshev2TDF2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopChebyshev2TDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopChebyshev2TDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopChebyshev2TDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopChebyshev2TDF2Filter<double, 8>(std::size_t)));
 }

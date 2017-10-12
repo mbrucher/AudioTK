@@ -104,12 +104,36 @@ namespace ATK
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<ButterworthBandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createLowPassButterworthTDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<ButterworthLowPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createHighPassButterworthTDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<ButterworthHighPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createBandPassButterworthTDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<ButterworthBandPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
+    template<typename DataType, std::size_t VL>
+    std::unique_ptr<BaseFilter> createBandStopButterworthTDF2Filter(std::size_t nb_channels)
+    {
+      return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<ButterworthBandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
+    }
   }
   
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassButterworthFilter) ((std::size_t) nb_channels))
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassButterworthFilter) ((std::size_t) nb_channels))
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassButterworthFilter) ((std::size_t) nb_channels))
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopButterworthFilter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassButterworthTDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassButterworthTDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassButterworthTDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopButterworthTDF2Filter) ((std::size_t) nb_channels))
   
   SIMDPP_INSTANTIATE_DISPATCHER(
     (template std::unique_ptr<BaseFilter> createLowPassButterworthFilter<float, 4>(std::size_t)),
@@ -127,6 +151,21 @@ namespace ATK
     (template std::unique_ptr<BaseFilter> createBandStopButterworthFilter<float, 4>(std::size_t)),
     (template std::unique_ptr<BaseFilter> createBandStopButterworthFilter<double, 4>(std::size_t)),
     (template std::unique_ptr<BaseFilter> createBandStopButterworthFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandStopButterworthFilter<double, 8>(std::size_t)));
-  
+    (template std::unique_ptr<BaseFilter> createBandStopButterworthFilter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassButterworthTDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassButterworthTDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassButterworthTDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createLowPassButterworthTDF2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassButterworthTDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassButterworthTDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassButterworthTDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createHighPassButterworthTDF2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassButterworthTDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassButterworthTDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassButterworthTDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandPassButterworthTDF2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopButterworthTDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopButterworthTDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopButterworthTDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createBandStopButterworthTDF2Filter<double, 8>(std::size_t)));
 }
