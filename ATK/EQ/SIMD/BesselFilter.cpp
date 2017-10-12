@@ -168,5 +168,4 @@ namespace ATK
     (template std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 4>(std::size_t)),
     (template std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<float, 8>(std::size_t)),
     (template std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 8>(std::size_t)));
-
 }

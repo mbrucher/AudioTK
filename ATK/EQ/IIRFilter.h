@@ -10,6 +10,7 @@
 #include <vector>
 
 #include <ATK/config.h>
+#include <ATK/Core/TypeTraits.h>
 #include <ATK/EQ/config.h>
 
 namespace ATK
