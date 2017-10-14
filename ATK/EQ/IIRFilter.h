@@ -252,7 +252,7 @@ namespace ATK
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
-      state.resize(nb_input_ports * std::max(input_delay, output_delay) + 1, TypeTraits<DataType>::Zero());
+      state.resize(nb_input_ports * (std::max(input_delay, output_delay) + 1), TypeTraits<DataType>::Zero());
     }
     
     virtual void process_impl(std::size_t size) const override final
@@ -263,7 +263,7 @@ namespace ATK
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel];
         DataType* ATK_RESTRICT output = outputs[channel];
-        DataType* ATK_RESTRICT current_state = &state[channel * std::max(input_delay, output_delay)];
+        DataType* ATK_RESTRICT current_state = &state[channel * (std::max(input_delay, output_delay) + 1)];
         
         for(std::size_t i = 0; i < size; ++i)
         {
