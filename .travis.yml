@@ -20,11 +20,11 @@ matrix:
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python" 
   - compiler: gcc
     os: linux
     dist: trusty
@@ -41,11 +41,11 @@ matrix:
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - compiler: gcc
     os: linux
     dist: trusty
@@ -62,11 +62,11 @@ matrix:
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - compiler: gcc
     os: linux
     dist: trusty
@@ -83,11 +83,11 @@ matrix:
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -106,11 +106,11 @@ matrix:
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - compiler: clang-3.8
     os: linux
     dist: trusty
@@ -129,11 +129,11 @@ matrix:
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -152,11 +152,11 @@ matrix:
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.13
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - compiler: clang-3.9
     os: linux
     dist: trusty
@@ -175,18 +175,18 @@ matrix:
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
-    - ADDITONAL_CMAKE_FLAGS=
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.0
+    - Python_ADDITIONAL_VERSIONS=3.5.3
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - os: osx
     osx_image: xcode7.3
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
-    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386, x86_64\""
-    - ENABLE_PYTHON=OFF
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i3.5, x86_64"
+    - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.11
@@ -195,18 +195,18 @@ matrix:
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-7.3
-    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386, x86_64\""
-    - ENABLE_PYTHON=OFF
-    - PYTHON_VERSION=3.6
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i3.5, x86_64"
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.1
+    - Python_ADDITIONAL_VERSIONS=3.5.3
   - os: osx
     osx_image: xcode8.2
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-8.2
-    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386, x86_64\""
-    - ENABLE_PYTHON=OFF
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i3.5, x86_64"
+    - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.11
@@ -215,16 +215,18 @@ matrix:
     env:
     - COMPILER=clang++
     - PLATFORM=xcode-8.2
-    - ADDITONAL_CMAKE_FLAGS="-DCMAKE_OSX_ARCHITECTURES=\"i386, x86_64\""
-    - ENABLE_PYTHON=OFF
-    - PYTHON_VERSION=3.6
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i3.5, x86_64"
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=3.5
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.1
+    - Python_ADDITIONAL_VERSIONS=3.5.3
 
 before_install:
   - mkdir $HOME/usr
   - export PATH="$HOME/usr/bin:$PATH"
-  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then dir /opt/python/ ; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ls /opt/python/ ; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ls /opt/python/${Python_ADDITIONAL_VERSIONS}/lib/ ; fi
+  - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ls /opt/python/${Python_ADDITIONAL_VERSIONS}/include/ ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then wget https://cmake.org/files/v3.8/cmake-3.8.1-Linux-x86_64.sh ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then chmod +x cmake-3.8.1-Linux-x86_64.sh ; fi
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then ./cmake-3.8.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license ; fi
@@ -247,13 +249,13 @@ install:
   - "(cd $BOOST_ROOT; ./b2 threading=multi --prefix=$BOOST_BUILD -d0 install)"
 
 before_script:
+  - ls 3rdParty
   - mkdir build
   - cd build
-  - cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_CONFIGURATION_TYPES=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} -DPython_ADDITIONAL_VERSIONS=${Python_ADDITIONAL_VERSIONS} ${ADDITONAL_CMAKE_FLAGS} ..
+  - cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_CONFIGURATION_TYPES=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} ${ADDITONAL_CMAKE_FLAGS} ..
 
 script:
   - pwd
-  - ${PYTHON} --version
   - make -j 16
   - make install
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi

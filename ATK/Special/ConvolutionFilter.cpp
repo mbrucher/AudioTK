@@ -16,7 +16,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ConvolutionFilter<DataType_>::set_impulse(std::vector<DataType> impulse)
+  void ConvolutionFilter<DataType_>::set_impulse(AlignedScalarVector impulse)
   {
     this->impulse = std::move(impulse);
     setup();
@@ -38,7 +38,7 @@ namespace ATK
     }
 
     auto nb_splits = (impulse.size() + split_size - 1) / split_size;
-    partial_frequency_input.assign(nb_splits - 1, std::vector<std::complex<DataType> >(split_size * 2, 0));
+    partial_frequency_input.assign(nb_splits - 1, AlignedComplexVector(split_size * 2, 0));
     // Pad with zeros so the convolution is easier created.
     impulse.resize((partial_frequency_input.size() + 1) * split_size, 0);
 
@@ -110,7 +110,7 @@ namespace ATK
     if(partial_frequency_input.empty())
       return;
     partial_frequency_input.pop_back();
-    std::vector<std::complex<double> > chunk(2 * split_size);
+    AlignedComplexVector chunk(2 * split_size);
     processor.process_forward(converted_inputs[0] + position - split_size, chunk.data(), split_size);
     
     partial_frequency_input.push_front(std::move(chunk));

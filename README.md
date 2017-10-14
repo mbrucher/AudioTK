@@ -18,6 +18,13 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.2.0
+* Introduced SIMD filters with libsimdpp
+* Refactored EQ filters to work with SIMD filters
+
+### 2.1.2
+* Added module files for JUCE Projucer
+
 ### 2.1.1
 * Added a Gain Max Compressor filter with wrappers
 * Added a dryrun call on BaseFilter to setup maximum sizes on a pipeline

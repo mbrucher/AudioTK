@@ -6,26 +6,28 @@
 #define ATK_EQ_SECONDORDERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/EQ/EQInterface.h>
 
 namespace ATK
 {
   /// Base class for all IIR second order filters
   template<typename DataType_>
-  class SecondOrderBaseCoefficients: public TypedBaseFilter<DataType_>
+  class SecondOrderBaseCoefficients: public TypedBaseFilter<DataType_>, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::setup;
   protected:
-    DataType cut_frequency;
+    CoeffDataType cut_frequency;
 
     const static int in_order=2;
     const static int out_order=2;
-    AlignedVector coefficients_in;
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_in;
+    AlignedScalarVector coefficients_out;
 
     void setup() override;
   public:
@@ -35,19 +37,20 @@ namespace ATK
      */
     SecondOrderBaseCoefficients(std::size_t nb_channels = 1);
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(DataType_ cut_frequency);
+    void set_cut_frequency(CoeffDataType cut_frequency) override;
     /// Returns the cut or central frequency
-    DataType_ get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const override;
   };
 
   /// Coefficients for a second order bandpass filter
   template<typename DataType_>
-  class SecondOrderBandPassCoefficients: public SecondOrderBaseCoefficients<DataType_>
+  class SecondOrderBandPassCoefficients: public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -55,7 +58,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    DataType Q;
+    CoeffDataType Q;
     
   protected:
     void setup() override;
@@ -70,9 +73,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(DataType_ Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    DataType_ get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// Coefficients for a second order lowpass filter
@@ -83,6 +86,7 @@ namespace ATK
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -106,6 +110,7 @@ namespace ATK
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -123,12 +128,13 @@ namespace ATK
 
   /// Coefficients for a second order bandpass peak filter
   template<typename DataType_>
-  class SecondOrderBandPassPeakCoefficients: public SecondOrderBaseCoefficients<DataType_>
+  class SecondOrderBandPassPeakCoefficients: public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>, public GainInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -136,8 +142,8 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    DataType Q;
-    DataType gain;
+    CoeffDataType Q;
+    CoeffDataType gain;
   protected:
     void setup() override;
     
@@ -152,24 +158,25 @@ namespace ATK
     /*!
     * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
     */
-    void set_Q(DataType_ Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    DataType_ get_Q() const;
+    CoeffDataType get_Q() const override;
     /// Sets the gain of the peak
-    void set_gain(DataType_ gain);
+    void set_gain(CoeffDataType gain) override;
     /// Returns the gain for the peak
-    DataType_ get_gain() const;
+    CoeffDataType get_gain() const override;
   };
 
   
   /// Coefficients for a second order allpass filter
   template<typename DataType_>
-  class SecondOrderAllPassCoefficients: public SecondOrderBaseCoefficients<DataType_>
+  class SecondOrderAllPassCoefficients: public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -177,7 +184,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    DataType Q;
+    CoeffDataType Q;
   protected:
     void setup() override;
     
@@ -192,19 +199,20 @@ namespace ATK
     /*!
     * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
     */
-    void set_Q(DataType_ Q);
+    void set_Q(CoeffDataType Q) override;
     /// Returns the Q factor
-    DataType_ get_Q() const;
+    CoeffDataType get_Q() const override;
   };
 
   /// Coefficients for a second order low-pass shelving filter
   template<typename DataType_>
-  class SecondOrderLowShelvingCoefficients: public SecondOrderBaseCoefficients<DataType_>
+  class SecondOrderLowShelvingCoefficients: public SecondOrderBaseCoefficients<DataType_>, public GainInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
@@ -213,7 +221,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   private:
-    DataType gain;
+    CoeffDataType gain;
     
   public:
     /*!
@@ -223,28 +231,29 @@ namespace ATK
     SecondOrderLowShelvingCoefficients(std::size_t nb_channels = 1);
 
     /// Sets the gain of the shelf
-    void set_gain(DataType_ gain);
+    void set_gain(CoeffDataType gain) override;
     /// Returns the gain for the shelf
-    DataType_ get_gain() const;
+    CoeffDataType get_gain() const override;
   };
   
   /// Coefficients for a second order high-pass shelving filter
   template<typename DataType_>
-  class SecondOrderHighShelvingCoefficients: public SecondOrderBaseCoefficients<DataType_>
+  class SecondOrderHighShelvingCoefficients: public SecondOrderBaseCoefficients<DataType_>, public GainInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
     /// Simplify parent calls
     typedef SecondOrderBaseCoefficients<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
   protected:
     using Parent::cut_frequency;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
-    void setup();
+    void setup() override;
   private:
-    DataType gain;
+    CoeffDataType gain;
     
   public:
     /*!
@@ -254,9 +263,9 @@ namespace ATK
     SecondOrderHighShelvingCoefficients(std::size_t nb_channels = 1);
 
     /// Sets the gain of the shelf
-    void set_gain(DataType_ gain);
+    void set_gain(CoeffDataType gain) override;
     /// Returns the gain for the shelf
-    DataType_ get_gain() const;
+    CoeffDataType get_gain() const override;
   };
 }
 

@@ -30,8 +30,19 @@ def update_changelog(new_version):
     if line.startswith("## Changelog"):
       sys.stdout.write("### %s\n\n" % new_version)
 
+def update_juce_modules(new_version):
+  import glob
+  for header in glob.glob("modules/JUCE/atk_*/atk_*.h"):
+    for line in fileinput.input(files=(header,), inplace=True):
+      if line.startswith("  version:"):
+        sys.stdout.write("  version:          %s\n" % new_version)
+      else:
+        sys.stdout.write(line)
+
 if __name__ == "__main__":
   update_cmakelist(sys.argv[1])
   update_appveyor(sys.argv[1])
   update_doxygen(sys.argv[1])
   update_changelog(sys.argv[1])
+
+  update_juce_modules(sys.argv[1])

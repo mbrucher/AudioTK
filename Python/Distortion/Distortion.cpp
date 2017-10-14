@@ -10,6 +10,9 @@
 #include <ATK/Distortion/SimpleOverdriveFilter.h>
 #include <ATK/Distortion/TS9OverdriveFilter.h>
 
+#include <ATK/Distortion/HalfTanhShaperFilter.h>
+#include <ATK/Distortion/TanhShaperFilter.h>
+
 namespace py = pybind11;
 
 using namespace ATK;
@@ -30,6 +33,14 @@ namespace
       .def(py::init<>())
       .def_property("drive", &Filter::get_drive, &Filter::set_drive);
   }
+
+  template<typename Filter, typename T>
+  void populate_ShaperFilter(py::module& m, const char* type, T& parent)
+  {
+    py::class_<Filter>(m, type, parent)
+    .def(py::init<>())
+    .def_property("coefficient", &Filter::get_coefficient, &Filter::set_coefficient);
+  }
 }
 
 PYBIND11_PLUGIN(PythonDistortion) {
@@ -49,6 +60,12 @@ PYBIND11_PLUGIN(PythonDistortion) {
 
   populate_DriveFilter<TS9OverdriveFilter<float>>(m, "FloatTS9OverdriveFilter", f1);
   populate_DriveFilter<TS9OverdriveFilter<double>>(m, "DoubleTS9OverdriveFilter", f2);
+
+  populate_ShaperFilter<TanhShaperFilter<float>>(m, "FloatTanhShaperFilter", f1);
+  populate_ShaperFilter<TanhShaperFilter<double>>(m, "DoubleTanhShaperFilter", f2);
+
+  populate_ShaperFilter<HalfTanhShaperFilter<float>>(m, "FloatHalfTanhShaperFilter", f1);
+  populate_ShaperFilter<HalfTanhShaperFilter<double>>(m, "DoubleHalfTanhShaperFilter", f2);
 
   return m.ptr();
 }

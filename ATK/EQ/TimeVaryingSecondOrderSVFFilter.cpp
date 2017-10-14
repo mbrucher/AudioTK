@@ -2,7 +2,7 @@
  * \file TimeVaryingSecondOrderSVFFilter.cpp
  */
 
-#include "TimeVaryingSecondOrderSVFFilter.h"
+#include <ATK/EQ/TimeVaryingSecondOrderSVFFilter.h>
 
 #include <cassert>
 

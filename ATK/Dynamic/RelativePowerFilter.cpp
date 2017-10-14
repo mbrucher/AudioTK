@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  RelativePowerFilter<DataType_>::RelativePowerFilter(int nb_channels)
+  RelativePowerFilter<DataType_>::RelativePowerFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), memory_factor(0), temp_output(0)
   {
     output_delay = 1;

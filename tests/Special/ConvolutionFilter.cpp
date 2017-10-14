@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE( ConvolutionFilter_ramp_test )
   generator.set_frequency(1000);
   generator.process(48000/1000/4);
   
-  std::vector<double> impulse;
+  ATK::ConvolutionFilter<double>::AlignedScalarVector impulse;
   for(int i = 1; i < impulse_size; ++i)
   {
     impulse.push_back(i / 10000.);

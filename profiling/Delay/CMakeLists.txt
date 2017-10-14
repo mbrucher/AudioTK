@@ -9,10 +9,11 @@ FILE(GLOB_RECURSE
     *.h
 )
 
-include_directories(${PROJECT_SOURCE_DIR})
-add_executable(ATKDelay_profile ${ATK_DELAY_PROFILE_SRC} ${ATK_DELAY_PROFILE_HEADERS} ${NATVIS_FILE})
-target_link_libraries (ATKDelay_profile ATKDelay ATKTools ATKMock ATKCore)
+SET(ATK_DELAY_PROFILE_DEFINITIONS)
+SET(ATK_DELAY_PROFILE_INCLUDE)
+SET(ATK_DELAY_PROFILE_LIBRARIES ATKDelay ATKTools ATKMock ATKCore)
 
-set_target_properties (ATKDelay_profile PROPERTIES
-    FOLDER Profling
-)
+SET(ATK_DELAY_PROFILE_NAME ATKDelay_profile)
+SET(ATK_DELAY_PROFILE_FOLDER_PROJECT Profiling)
+
+ATK_add_executable(ATK_DELAY_PROFILE)

@@ -1,27 +1,19 @@
 
 FILE(GLOB_RECURSE
-  PYTHON_MODULE_Reverberation_SRC
+  PYTHON_MODULE_REVERBERATION_SRC
   *.cpp
 )
 
 FILE(GLOB_RECURSE
-  PYTHON_MODULE_Reverberation_HEADERS
+  PYTHON_MODULE_REVERBERATION_HEADERS
   *.h
 )
 
-include_directories(${PROJECT_SOURCE_DIR} ${NUMPY_INCLUDE_DIRS})
+SET(PYTHON_MODULE_REVERBERATION_DEFINITIONS)
+SET(PYTHON_MODULE_REVERBERATION_INCLUDE)
+SET(PYTHON_MODULE_REVERBERATION_LIBRARIES ATKCore ATKReverberation ATKUtility)
 
-pybind11_add_module(PythonReverberation MODULE ${PYTHON_MODULE_Reverberation_SRC} ${PYTHON_MODULE_Reverberation_HEADERS})
-target_link_libraries(PythonReverberation PRIVATE ATKCore ATKReverberation)
+SET(PYTHON_MODULE_REVERBERATION_NAME PythonReverberation)
+SET(PYTHON_MODULE_REVERBERATION_FOLDER Reverberation)
 
-
-INSTALL(FILES __init__.py
-    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Reverberation
-    )
-INSTALL(TARGETS PythonReverberation
-    DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/Reverberation
-    )
-
-set_target_properties (PythonReverberation PROPERTIES
-    FOLDER Python
-)
+ATK_add_python_module(PYTHON_MODULE_REVERBERATION)

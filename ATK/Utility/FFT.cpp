@@ -39,12 +39,11 @@ namespace ATK
 #endif
   public:
     FFTImpl()
-    :
 #if ATK_USE_FFTW == 1
-    fft_plan(nullptr), fft_reverse_plan(nullptr), input_data(nullptr), output_freqs(nullptr)
+    :fft_plan(nullptr), fft_reverse_plan(nullptr), input_data(nullptr), output_freqs(nullptr)
 #endif
 #if ATK_USE_IPP == 1
-    pSrc(nullptr), pDst(nullptr), pFFTSpec(nullptr), pDFTSpec(nullptr), pFFTSpecBuf(nullptr), pFFTInitBuf(nullptr), pFFTWorkBuf(nullptr), power_of_two(false)
+    :pSrc(nullptr), pDst(nullptr), pFFTSpec(nullptr), pDFTSpec(nullptr), pFFTSpecBuf(nullptr), pFFTInitBuf(nullptr), pFFTWorkBuf(nullptr), power_of_two(false)
 #endif
     {
     }
@@ -341,6 +340,12 @@ namespace ATK
       return;
     this->size = size;
     impl->set_size(size);
+  }
+
+  template<class DataType_>
+  std::size_t FFT<DataType_>::get_size() const
+  {
+    return size;
   }
 
   template<class DataType_>

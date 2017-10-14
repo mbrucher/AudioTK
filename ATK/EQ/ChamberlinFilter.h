@@ -18,29 +18,30 @@ namespace ATK
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     
   private:
-    DataType numerical_frequency;
-    DataType numerical_attenuation;
+    CoeffDataType numerical_frequency;
+    CoeffDataType numerical_attenuation;
     
-    mutable DataType yh;
-    mutable DataType yb;
-    mutable DataType yl;
+    mutable CoeffDataType yh;
+    mutable CoeffDataType yb;
+    mutable CoeffDataType yl;
     
   public:
     ChamberlinFilter();
     
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(DataType_ cut_frequency);
+    void set_cut_frequency(CoeffDataType CoeffDataType);
     /// Returns the cut or central frequency
-    DataType_ get_cut_frequency() const;
+    CoeffDataType get_cut_frequency() const;
     
-    void set_attenuation(DataType_ attenuation);
-    DataType_ get_attenuation() const;
+    void set_attenuation(CoeffDataType attenuation);
+    CoeffDataType get_attenuation() const;
     
     /// Select low pass, band pass or high pass output
     void select(int selected);
@@ -52,8 +53,8 @@ namespace ATK
 
   private:
     int selected;
-    DataType attenuation;
-    DataType cutoff_frequency;
+    CoeffDataType attenuation;
+    CoeffDataType cutoff_frequency;
   };
 }
 

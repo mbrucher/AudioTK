@@ -6,6 +6,7 @@
 #define ATK_CORE_TYPEDBASEFILTER_H
 
 #include "BaseFilter.h"
+#include "TypeTraits.h"
 
 #include <memory>
 #include <vector>
@@ -14,9 +15,28 @@
 
 namespace ATK
 {
+  /// Interface for output filters
+  template<typename DataType>
+  class OutputArrayInterface
+  {
+  public:
+    virtual ~OutputArrayInterface();
+    
+    /**
+     * @brief Returns an array with the processed output
+     * @param port is the port that the next plugin listens to
+     */
+    virtual DataType* get_output_array(std::size_t port) const = 0;
+    /**
+     * Returns the size of the output arrays (usually the last size processed)
+     */
+    virtual std::size_t get_output_array_size() const = 0;
+  };
+  
+  
   /// Base class for typed filters, contains arrays
   template<typename DataType_, typename DataType__ = DataType_>
-  class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter
+  class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter, public OutputArrayInterface<DataType__>
   {
   protected:
     /// Simplify parent calls
@@ -28,8 +48,10 @@ namespace ATK
     typedef DataType_ DataTypeInput;
     /// To be used by inherited APIs
     typedef DataType__ DataTypeOutput;
-    /// To be used for filters that require alignment (like EQs)
+    /// To be used for filters that require aligned data
     typedef std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > AlignedVector;
+    /// To be used for filters that required aligned data for parameters (like EQ)
+    typedef std::vector<typename TypeTraits<DataType>::Scalar, boost::alignment::aligned_allocator<typename TypeTraits<DataType>::Scalar, 32> > AlignedScalarVector;
 
     /// Base constructor for filters with actual data
     TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports);
@@ -45,26 +67,26 @@ namespace ATK
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
-    DataType__* get_output_array(std::size_t port) const;
-    std::size_t get_output_array_size() const;
+    DataType__* get_output_array(std::size_t port) const override;
+    std::size_t get_output_array_size() const override;
 
-    virtual void set_nb_input_ports(std::size_t nb_ports) override;
-    virtual void set_nb_output_ports(std::size_t nb_ports) override;
+    void set_nb_input_ports(std::size_t nb_ports) override;
+    void set_nb_output_ports(std::size_t nb_ports) override;
 
-    virtual void full_setup() override;
+    void full_setup() override;
 
     /// Connects this filter input to another's output
-    virtual void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) override final;
+    void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) override final;
     
   private:
-    virtual int get_type() const override;
+    int get_type() const override;
   protected:
     /// This implementation does nothing
-    virtual void process_impl(std::size_t size) const override;
+    void process_impl(std::size_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays
-    virtual void prepare_process(std::size_t size) override final;
+    void prepare_process(std::size_t size) override final;
     /// Prepares the filter by resizing the outputs arrays
-    virtual void prepare_outputs(std::size_t size) override final;
+    void prepare_outputs(std::size_t size) override final;
     
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(std::size_t size);
@@ -75,6 +97,8 @@ namespace ATK
     std::vector<DataTypeInput*> converted_inputs;
     /// Current size of the input arrays, without delay
     std::vector<std::size_t> converted_inputs_size;
+    /// Pointer to the output interface of the connected filters
+    std::vector<OutputArrayInterface<DataType_>*> direct_filters;
 
     /// Output arrays with the output delay, owned here
     std::vector<std::unique_ptr<DataTypeOutput[]> > outputs_delay;

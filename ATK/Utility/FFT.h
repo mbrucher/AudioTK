@@ -32,6 +32,7 @@ namespace ATK
      * @ size is the new size of the plan
      */
     void set_size(std::size_t size);
+    std::size_t get_size() const;
     /*!
      * @brief Processes a FFT from a real input array and stores it internally
      * @param input is the real input array of data to process

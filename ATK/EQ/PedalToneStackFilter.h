@@ -16,14 +16,15 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    DataType R1, R2, R3, R4, C1, C2, C3;
+    CoeffDataType R1, R2, R3, R4, C1, C2, C3;
     /// Parameter of the stack
-    DataType alpha;
+    CoeffDataType alpha;
     
     static const int in_order = 2;
     static const int out_order = 2;
@@ -31,9 +32,9 @@ namespace ATK
     void setup() override;
     
     /// MA part of the filter, based on the electronic components specifications
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     /// AR part of the filter, based on the electronic components specifications
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_out;
     
   public:
     /*!
@@ -43,9 +44,9 @@ namespace ATK
     SD1ToneCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the tone of the filter
-    void set_tone(DataType_ alpha);
+    void set_tone(CoeffDataType alpha);
     /// Returns the tone of the filter
-    DataType_ get_tone() const;
+    CoeffDataType get_tone() const;
   };
 
   /// Emulation of the TS9 tone section
@@ -55,14 +56,15 @@ namespace ATK
   public:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    DataType R1, R2, R3, R4, P, C1, C2;
+    CoeffDataType R1, R2, R3, R4, P, C1, C2;
     /// Parameter of the stack
-    DataType alpha;
+    CoeffDataType alpha;
     
     static const int in_order = 2;
     static const int out_order = 2;
@@ -70,9 +72,9 @@ namespace ATK
     void setup() override;
     
     /// MA part of the filter, based on the electronic components specifications
-    AlignedVector coefficients_in;
+    AlignedScalarVector coefficients_in;
     /// AR part of the filter, based on the electronic components specifications
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_out;
     
   public:
     /*!
@@ -82,9 +84,9 @@ namespace ATK
     TS9ToneCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the tone of the filter
-    void set_tone(DataType_ alpha);
+    void set_tone(CoeffDataType alpha);
     /// Returns the tone of the filter
-    DataType_ get_tone() const;
+    CoeffDataType get_tone() const;
   };
 }
 

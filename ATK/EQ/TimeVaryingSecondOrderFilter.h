@@ -14,15 +14,15 @@ namespace ATK
   {
   public:
     typedef TypedBaseFilter<DataType_> Parent;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::setup;
   protected:
 
     const static int in_order=2;
     const static int out_order=2;
-    AlignedVector coefficients_in;
-    AlignedVector coefficients_out;
+    AlignedScalarVector coefficients_in;
+    AlignedScalarVector coefficients_out;
 
     double min_frequency;
     double max_frequency;

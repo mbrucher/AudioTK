@@ -10,7 +10,8 @@
 #include <vector>
 
 #include <ATK/config.h>
-#include "config.h"
+#include <ATK/Core/TypeTraits.h>
+#include <ATK/EQ/config.h>
 
 namespace ATK
 {
@@ -22,7 +23,7 @@ namespace ATK
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
-    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
@@ -110,11 +111,11 @@ namespace ATK
       assert(coefficients_in.data());
       assert(out_order == 0 || coefficients_out.data() != nullptr);
 
-      const DataType* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
-      const DataType* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
-      const DataType* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
-      const DataType* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
-      const DataType* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
+      const auto* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
+      const auto* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
+      const auto* ATK_RESTRICT coefficients_out_2_ptr = coefficients_out_2.data();
+      const auto* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
+      const auto* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
 
       for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
       {
@@ -192,21 +193,21 @@ namespace ATK
     }
     
     /// Returns the vector of internal coefficients for the MA section 
-    const AlignedVector& get_coefficients_in() const
+    const AlignedScalarVector& get_coefficients_in() const
     {
       return coefficients_in;
     }
     
     /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
-    const AlignedVector& get_coefficients_out() const
+    const AlignedScalarVector& get_coefficients_out() const
     {
       return coefficients_out;
     }
 
   protected:
-    AlignedVector coefficients_out_2;
-    AlignedVector coefficients_out_3;
-    AlignedVector coefficients_out_4;
+    AlignedScalarVector coefficients_out_2;
+    AlignedScalarVector coefficients_out_3;
+    AlignedScalarVector coefficients_out_4;
   };
 
   /// IIR filter template class. Transposed Direct Form II implementation
@@ -217,6 +218,7 @@ namespace ATK
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;
+    using typename Parent::AlignedScalarVector;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::coefficients_in;
@@ -250,7 +252,7 @@ namespace ATK
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
-      state.resize(nb_input_ports * std::max(input_delay, output_delay), 0);
+      state.resize(nb_input_ports * std::max(input_delay, output_delay) + 1, TypeTraits<DataType>::Zero());
     }
     
     virtual void process_impl(std::size_t size) const override final
@@ -266,22 +268,34 @@ namespace ATK
         for(std::size_t i = 0; i < size; ++i)
         {
           output[i] = coefficients_in[in_order] * input[i] + current_state[0];
-          for(size_t j = 0; j < state.size() - 1; ++j)
-          {
-            current_state[j] = state[j + 1];
-          }
-          current_state[state.size() - 1] = 0;
+          auto min_order = std::min(input_delay, output_delay);
           
-          for(unsigned int j = 0; j < in_order; ++j)
+          for(size_t j = 0; j < min_order; ++j)
           {
-            current_state[j] += input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1];
+            current_state[j] = current_state[j + 1] + input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1] + output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
           }
-          for(unsigned int j = 0; j < out_order; ++j)
+          for(size_t j = min_order; j < input_delay; ++j)
           {
-            current_state[j] += output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
+            current_state[j] = current_state[j + 1] + input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1];
+          }
+          for(size_t j = min_order; j < output_delay; ++j)
+          {
+            current_state[j] = current_state[j + 1] + output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
           }
         }
       }
+    }
+
+    /// Returns the vector of internal coefficients for the MA section
+    const AlignedScalarVector& get_coefficients_in() const
+    {
+      return coefficients_in;
+    }
+    
+    /// Returns the vector of internal coefficients for the AR section, without degree 0 implicitely set to -1
+    const AlignedScalarVector& get_coefficients_out() const
+    {
+      return coefficients_out;
     }
   };
 

@@ -11,9 +11,9 @@
 #define ATK_USE_LIBSNDFILE @USE_LIBSNDFILE@
 
 #define ATK_USE_FFTW @USE_FFTW@
-#define ATK_USE_ACCELERATE @USE_ACCELERATE@
 #define ATK_USE_IPP @USE_IPP@
 #define ATK_USE_THREADPOOL @USE_THREADPOOL@
+#define ATK_USE_SIMD @USE_SIMD@
 
 #define ATK_SOURCE_TREE "@PROJECT_SOURCE_DIR@"
 
@@ -35,7 +35,7 @@
 # define ATK_VECTORIZE_REMAINDER
 #endif
 
-#ifndef HAS_STD_ALIGN
+#ifdef NEED_STD_ALIGN
 #include <cstdint>
 namespace std
 {

@@ -2,113 +2,11 @@
  * \file RIAAFilter.cpp
  */
 
-#include <boost/math/tools/polynomial.hpp>
-
-#include "helpers.h"
-#include "RIAAFilter.h"
-#include "IIRFilter.h"
+#include <ATK/EQ/RIAAFilter.hxx>
+#include <ATK/EQ/IIRFilter.h>
 
 namespace ATK
 {
-  template<typename DataType>
-  RIAACoefficients<DataType>::RIAACoefficients(std::size_t nb_channels)
-    :Parent(nb_channels, nb_channels)
-  {
-  }
-
-  template <typename DataType>
-  void RIAACoefficients<DataType>::setup()
-  {
-    Parent::setup();
-
-    coefficients_in.assign(in_order+1, 0);
-    coefficients_out.assign(out_order, 0);
-    
-    auto pi = boost::math::constants::pi<DataType>();
-    DataType t1 = 1 / (input_sampling_rate * std::tan(pi / (75e-6 * input_sampling_rate)));
-    DataType t2 = 1 / (input_sampling_rate * std::tan(pi / (318e-6 * input_sampling_rate)));
-    DataType t3 = 1 / (input_sampling_rate * std::tan(pi / (3180e-6 * input_sampling_rate)));
-    
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k = 318e-6/75e-6 * t2/(t1*t3);
-    z.push_back(-1/t2);
-    p.push_back(-1/t1);
-    p.push_back(-1/t3);
-
-    boost::math::tools::polynomial<DataType> b({ 1 });
-    boost::math::tools::polynomial<DataType> a({ 1 });
-    
-    zpk_bilinear(input_sampling_rate, z, p, k);
-    zpk2ba(input_sampling_rate, z, p, k, b, a);
-    
-    auto in_size = std::min(std::size_t(in_order + 1), b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(std::size_t(in_order), a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
-  }
-
-  template<typename DataType>
-  InverseRIAACoefficients<DataType>::InverseRIAACoefficients(std::size_t nb_channels)
-    :Parent(nb_channels, nb_channels)
-  {
-  }
-
-  template <typename DataType>
-  void InverseRIAACoefficients<DataType>::setup()
-  {
-    Parent::setup();
-
-    coefficients_in.assign(in_order+1, 0);
-    coefficients_out.assign(out_order, 0);
-    
-    auto pi = boost::math::constants::pi<DataType>();
-    DataType t1 = 1 / (input_sampling_rate * std::tan(pi / (75e-6 * input_sampling_rate)));
-    DataType t2 = 1 / (input_sampling_rate * std::tan(pi / (318e-6 * input_sampling_rate)));
-    DataType t3 = 1 / (input_sampling_rate * std::tan(pi / (3180e-6 * input_sampling_rate)));
-    
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k = 318e-6 / 75e-6 * t2 / (t1*t3);
-    z.push_back(-1 / t2);
-    p.push_back(-1 / t1);
-    p.push_back(-1 / t3);
-
-    boost::math::tools::polynomial<DataType> b({ 1 });
-    boost::math::tools::polynomial<DataType> a({ 1 });
-    
-    zpk_bilinear(input_sampling_rate, z, p, k);
-    z.back() = -.8;
-    zpk2ba(input_sampling_rate, z, p, k, b, a);
-    
-    auto cut_frequency = 21000;
-    DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
-    DataType d = (1 + std::sqrt(static_cast<DataType>(2.)) * c + c * c);
-
-    boost::math::tools::polynomial<DataType> b1 = { { c * c / d, 2 * c * c / d, c * c / d } };
-    boost::math::tools::polynomial<DataType> a1 = { { (1 - std::sqrt(static_cast<DataType>(2.)) * c + c * c) / d , 2 * (c * c - 1) / d, 1 } };
-    
-    b = b * a1;
-    a = a * b1;
-
-    auto in_size = std::min(std::size_t(in_order + 1), a.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = a[i] / b[b.size() - 1];
-    }
-    auto out_size = std::min(std::size_t(in_order), b.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -b[i] / b[b.size() - 1];
-    }
-  }
-
   template class RIAACoefficients<float>;
   template class RIAACoefficients<double>;
   template class InverseRIAACoefficients<float>;
@@ -118,4 +16,9 @@ namespace ATK
   template class IIRFilter<RIAACoefficients<double> >;
   template class IIRFilter<InverseRIAACoefficients<float> >;
   template class IIRFilter<InverseRIAACoefficients<double> >;
+
+  template class IIRTDF2Filter<RIAACoefficients<float> >;
+  template class IIRTDF2Filter<RIAACoefficients<double> >;
+  template class IIRTDF2Filter<InverseRIAACoefficients<float> >;
+  template class IIRTDF2Filter<InverseRIAACoefficients<double> >;
 }

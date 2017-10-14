@@ -26,9 +26,9 @@ namespace ATK
   template<typename DataType_>
   void GainColoredCompressorFilter<DataType_>::set_softness(DataType_ softness)
   {
-    if (softness <= 0)
+    if (softness < 0)
     {
-      throw std::out_of_range("Softness factor must be strictly positive value");
+      throw std::out_of_range("Softness factor must be positive value");
     }
     this->softness = softness;
     start_recomputeLUT();

@@ -44,9 +44,9 @@ namespace ATK
   template<typename DataType_>
   void GainMaxColoredExpanderFilter<DataType_>::set_max_reduction(DataType_ max_reduction)
   {
-    if (max_reduction <= 0)
+    if (max_reduction < 0)
     {
-      throw std::out_of_range("Maximum reduction factor must be strictly positive value");
+      throw std::out_of_range("Maximum reduction factor must be positive value");
     }
     this->max_reduction = max_reduction;
     start_recomputeLUT();

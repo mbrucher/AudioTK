@@ -23,12 +23,16 @@ namespace ATK
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
+    using typename Parent::AlignedVector;
+    using typename Parent::AlignedScalarVector;
     using Parent::setup;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::input_delay;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
+
+    typedef typename TypedBaseFilter<std::complex<DataType_> >::AlignedVector AlignedComplexVector;
   protected:
     /// Current amount of data in the buffer
     mutable unsigned int split_position;
@@ -39,16 +43,16 @@ namespace ATK
     FFT<DataType> processor;
     
     /// Impulse convolved with the input signal
-    std::vector<DataType> impulse;
+    AlignedScalarVector impulse;
     /// This buffer contains the head of the last convolution (easier to have 2 parts)
-    mutable std::vector<DataType> temp_out_buffer;
+    mutable AlignedVector temp_out_buffer;
     /// Called partial convolutions, but actually contains the former temp_in_buffers
-    mutable std::list<std::vector<std::complex<DataType> > > partial_frequency_input;
+    mutable std::list<AlignedComplexVector> partial_frequency_input;
     /// Copied so that it's not reallocated each time
-    mutable std::vector<std::complex<DataType> > result;
+    mutable AlignedComplexVector result;
 
     /// The impulse is stored here in a unique vector, split in split_size FFTs, one after the other
-    std::vector<std::complex<DataType> > partial_frequency_impulse;
+    AlignedComplexVector partial_frequency_impulse;
 
     /// Compute the partial convolutions
     void compute_convolutions() const;
@@ -66,7 +70,7 @@ namespace ATK
      * @brief Set the impulse for the convolution
      * @param impulse is the impulse for the convolution
      */
-    void set_impulse(std::vector<DataType> impulse);
+    void set_impulse(AlignedScalarVector impulse);
     
     /*!
     * @brief Set the split size

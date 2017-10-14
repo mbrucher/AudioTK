@@ -38,7 +38,7 @@ namespace ATK
     
     static Matrix create()
     {
-      return ((1 / fmath::pow(2, order / 2.)) * recursive_create<order>()).template cast<DataType_>();
+      return (DataType_(1 / fmath::pow(2, order / 2.)) * recursive_create<order>()).template cast<DataType_>();
     }
     
     template<unsigned int recursive_order>

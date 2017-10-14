@@ -4,8 +4,8 @@
  * @see http://www.music.mcgill.ca/~ich/classes/FiltersChap2.pdf for the allpass filter
  */
 
-#include "TimeVaryingSecondOrderFilter.h"
-#include "TimeVaryingIIRFilter.h"
+#include <ATK/EQ/TimeVaryingSecondOrderFilter.h>
+#include <ATK/EQ/TimeVaryingIIRFilter.h>
 
 #include <cassert>
 #include <cmath>
