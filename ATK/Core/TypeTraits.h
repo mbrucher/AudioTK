@@ -147,6 +147,31 @@ namespace ATK
 #if ATK_USE_SIMD
   /// Traits to handle conversion complex floating point numbers from/to double
   template<>
+  struct ComplexRealTypeTraits<simdpp::float64<2> >
+  {
+    static const std::size_t VECTOR_LANES = 2;
+    typedef double Scalar;
+    
+    /// Converts to a double
+    static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
+    {
+      return el;
+    }
+    
+    /// Converts from a double
+    static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
+    {
+      return el;
+    }
+    
+    static simdpp::float64<VECTOR_LANES> Zero()
+    {
+      return simdpp::make_float(0, 0);
+    }
+  };
+
+  /// Traits to handle conversion complex floating point numbers from/to double
+  template<>
   struct ComplexRealTypeTraits<simdpp::float32<4> >
   {
     static const std::size_t VECTOR_LANES = 4;
