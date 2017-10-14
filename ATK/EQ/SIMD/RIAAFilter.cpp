@@ -27,32 +27,43 @@
 
 namespace ATK
 {
+
+  template class RIAACoefficients<simdpp::float64<2> >;
+  template class InverseRIAACoefficients<simdpp::float64<2> >;
+
   template class RIAACoefficients<simdpp::float32<4> >;
   template class RIAACoefficients<simdpp::float64<4> >;
-  template class RIAACoefficients<simdpp::float32<8> >;
-  template class RIAACoefficients<simdpp::float64<8> >;
   template class InverseRIAACoefficients<simdpp::float32<4> >;
   template class InverseRIAACoefficients<simdpp::float64<4> >;
+
+  template class RIAACoefficients<simdpp::float32<8> >;
+  template class RIAACoefficients<simdpp::float64<8> >;
   template class InverseRIAACoefficients<simdpp::float32<8> >;
   template class InverseRIAACoefficients<simdpp::float64<8> >;
   
+  template class SimpleIIRFilter<RIAACoefficients<simdpp::float64<2> > >;
+  template class SimpleIIRFilter<InverseRIAACoefficients<simdpp::float64<2> > >;
+
   template class SimpleIIRFilter<RIAACoefficients<simdpp::float32<4> > >;
   template class SimpleIIRFilter<RIAACoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<RIAACoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<RIAACoefficients<simdpp::float64<8> > >;
-  
   template class SimpleIIRFilter<InverseRIAACoefficients<simdpp::float32<4> > >;
   template class SimpleIIRFilter<InverseRIAACoefficients<simdpp::float64<4> > >;
+  
+  template class SimpleIIRFilter<RIAACoefficients<simdpp::float32<8> > >;
+  template class SimpleIIRFilter<RIAACoefficients<simdpp::float64<8> > >;
   template class SimpleIIRFilter<InverseRIAACoefficients<simdpp::float32<8> > >;
   template class SimpleIIRFilter<InverseRIAACoefficients<simdpp::float64<8> > >;
-  
+
+  template class IIRTDF2Filter<RIAACoefficients<simdpp::float64<2> > >;
+  template class IIRTDF2Filter<InverseRIAACoefficients<simdpp::float64<2> > >;
+
   template class IIRTDF2Filter<RIAACoefficients<simdpp::float32<4> > >;
   template class IIRTDF2Filter<RIAACoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<RIAACoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<RIAACoefficients<simdpp::float64<8> > >;
-  
   template class IIRTDF2Filter<InverseRIAACoefficients<simdpp::float32<4> > >;
   template class IIRTDF2Filter<InverseRIAACoefficients<simdpp::float64<4> > >;
+
+  template class IIRTDF2Filter<RIAACoefficients<simdpp::float32<8> > >;
+  template class IIRTDF2Filter<RIAACoefficients<simdpp::float64<8> > >;
   template class IIRTDF2Filter<InverseRIAACoefficients<simdpp::float32<8> > >;
   template class IIRTDF2Filter<InverseRIAACoefficients<simdpp::float64<8> > >;
 
@@ -86,20 +97,24 @@ namespace ATK
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createInverseRIAATDF2Filter) ((std::size_t) nb_channels))
   
   SIMDPP_INSTANTIATE_DISPATCHER(
-  (template std::unique_ptr<BaseFilter> createRIAAFilter<float, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createRIAAFilter<double, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createRIAAFilter<float, 8>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createRIAAFilter<double, 8>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 8>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 8>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 8>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 8>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 4>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 8>(std::size_t)),
-  (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 8>(std::size_t)));
+    (template std::unique_ptr<BaseFilter> createRIAAFilter<double, 2>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 2>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 2>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 2>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAAFilter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAAFilter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAAFilter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAAFilter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 4>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 8>(std::size_t)),
+    (template std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 8>(std::size_t)));
 }

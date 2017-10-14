@@ -2,7 +2,7 @@
  * \file ComplexConvertFilter.cpp
  */
 
-#include "ComplexConvertFilter.h"
+#include <ATK/Core/ComplexConvertFilter.h>
 
 #include <cassert>
 #include <cmath>

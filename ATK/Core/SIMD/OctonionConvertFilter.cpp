@@ -4,11 +4,6 @@
 
 #include <ATK/Core/SIMD/OctonionConvertFilter.h>
 
-#include <cassert>
-#include <cmath>
-#include <complex>
-#include <cstdint>
-
 #include <simdpp/dispatch/dispatcher.h>
 #include <simdpp/dispatch/get_arch_gcc_builtin_cpu_supports.h>
 #include <simdpp/dispatch/get_arch_raw_cpuid.h>
