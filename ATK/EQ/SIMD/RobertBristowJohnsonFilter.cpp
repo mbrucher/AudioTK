@@ -141,7 +141,6 @@ namespace ATK
   template class IIRTDF2Filter<RobertBristowJohnsonHighShelvingCoefficients<simdpp::float32<8> > >;
   template class IIRTDF2Filter<RobertBristowJohnsonHighShelvingCoefficients<simdpp::float64<8> > >;
 
-  
   namespace SIMDPP_ARCH_NAMESPACE
   {
     template<typename DataType, std::size_t VL>
