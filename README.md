@@ -21,8 +21,6 @@ Audio Toolkit is published under the BSD license.
 ### 2.2.0
 * Introduced SIMD filters with libsimdpp
 * Refactored EQ filters to work with SIMD filters
-
-### 2.1.2
 * Added module files for JUCE Projucer
 
 ### 2.1.1
