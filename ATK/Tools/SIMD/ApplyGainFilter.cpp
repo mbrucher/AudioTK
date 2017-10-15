@@ -38,7 +38,7 @@ namespace ATK
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType>) (<DataType>) (std::unique_ptr<BaseFilter>) (createApplyGainFilter)
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createApplyGainFilter)
                          ((std::size_t) nb_channels))
 
   SIMDPP_INSTANTIATE_DISPATCHER(

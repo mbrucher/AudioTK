@@ -12,8 +12,8 @@
 
 namespace ATK
 {
-  /// Create a filter to convert real streams to SIMD ones
-  template<typename DataType_>
+  /// Create a SIMD filter to multiply channels together
+  template<typename DataType, std::size_t VL>
   ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createApplyGainFilter(std::size_t nb_channels = 1);
 }
 

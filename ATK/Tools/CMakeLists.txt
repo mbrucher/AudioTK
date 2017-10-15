@@ -6,6 +6,7 @@ FILE(GLOB
 
 SET(ATK_TOOLS_SIMD_SRC
     SIMD/ApplyGainFilter.cpp
+    SIMD/DryWetFilter.cpp
 )
 
 FILE(GLOB
