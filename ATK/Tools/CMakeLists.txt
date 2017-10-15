@@ -1,5 +1,5 @@
 
-FILE(GLOB_RECURSE
+FILE(GLOB
     ATK_TOOLS_SRC
     *.cpp
 )
@@ -8,7 +8,7 @@ SET(ATK_TOOLS_SIMD_SRC
     SIMD/ApplyGainFilter.cpp
 )
 
-FILE(GLOB_RECURSE
+FILE(GLOB
     ATK_TOOLS_HEADERS
     *.h*
 )
