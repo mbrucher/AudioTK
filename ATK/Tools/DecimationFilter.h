@@ -5,8 +5,8 @@
 #ifndef ATK_TOOLS_DECIMATIONFILTER_H
 #define ATK_TOOLS_DECIMATIONFILTER_H
 
-#include "../Core/TypedBaseFilter.h"
-#include "config.h"
+#include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {

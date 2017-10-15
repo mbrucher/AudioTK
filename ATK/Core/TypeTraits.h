@@ -48,6 +48,11 @@ namespace ATK
     {
       return 0;
     }
+  
+    static DataType max(DataType a, DataType b)
+    {
+    return std::max(a, b);
+    }
   };
 
   /// Special case for 24bits
@@ -106,6 +111,11 @@ namespace ATK
     static DataType Zero()
     {
       return 0;
+    }
+  
+    static DataType max(DataType a, DataType b)
+    {
+      return std::max(a, b);
     }
   };
 
@@ -168,6 +178,11 @@ namespace ATK
     {
       return simdpp::make_float(0, 0);
     }
+  
+    static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
+    {
+      return simdpp::max(a, b);
+    }
   };
 
   /// Traits to handle conversion complex floating point numbers from/to double
@@ -192,6 +207,11 @@ namespace ATK
     static simdpp::float32<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0, 0, 0);
+    }
+  
+    static simdpp::float32<VECTOR_LANES> max(simdpp::float32<VECTOR_LANES> a, simdpp::float32<VECTOR_LANES> b)
+    {
+      return simdpp::max(a, b);
     }
   };
 
@@ -218,6 +238,11 @@ namespace ATK
     {
       return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
     }
+  
+    static simdpp::float32<VECTOR_LANES> max(simdpp::float32<VECTOR_LANES> a, simdpp::float32<VECTOR_LANES> b)
+    {
+      return simdpp::max(a, b);
+    }
   };
   
   /// Traits to handle conversion complex floating point numbers from/to double
@@ -243,6 +268,11 @@ namespace ATK
     {
       return simdpp::make_float(0, 0, 0, 0);
     }
+
+    static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
+    {
+      return simdpp::max(a, b);
+    }
   };
 
   /// Traits to handle conversion complex floating point numbers from/to double
@@ -267,6 +297,11 @@ namespace ATK
     static simdpp::float64<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
+    }
+
+    static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
+    {
+      return simdpp::max(a, b);
     }
   };
   

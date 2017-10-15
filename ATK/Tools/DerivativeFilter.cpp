@@ -2,7 +2,7 @@
  * \file DerivativeFilter.cpp
  */
 
-#include "DerivativeFilter.h"
+#include <ATK/Tools/DerivativeFilter.h>
 
 #include <cassert>
 #include <cmath>
