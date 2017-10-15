@@ -60,9 +60,9 @@ namespace ATK
     /// Gets the output gain of a channel
     DataType get_outgain(unsigned int channel) const;
 
-    virtual void full_setup() override final;
+    virtual void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
 
   private:
     // internal state

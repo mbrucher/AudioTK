@@ -80,10 +80,10 @@ namespace ATK
     static FollowerTransistorClassAFilter build_standard_filter(DataType_ Rp=10e3, DataType_ Rg1=220e3, DataType_ Rg2=27e3, DataType_ Ro=8, DataType_ Rk1=1.5e3, DataType_ Rk2=1e3,
       DataType_ Vbias=10, DataType_ Cg=0.47e-6, DataType_ Co=4.7e-6, DataType_ Ck=33e-6, TransistorFunction<DataType_> function1 = TransistorFunction<DataType_>::build_standard_function(), TransistorFunction<DataType_> function2 = TransistorFunction<DataType_>::build_standard_function());
 
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
 
-    void setup() override final;
-    void full_setup() override final;
+    void setup() final;
+    void full_setup() final;
   };
 }
 

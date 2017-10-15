@@ -101,7 +101,7 @@ namespace ATK
     /// Indicates to start recomputing the LUT from the start, used when asked to change LUT parameters when the LUT is recomputed
     std::atomic<bool> resetRequest;
 
-    virtual void process_impl(std::size_t size) const override final
+    virtual void process_impl(std::size_t size) const final
     {
       assert(nb_input_ports == nb_output_ports);
 
@@ -171,7 +171,7 @@ namespace ATK
     }
 
     /// Actually recomputes the LUT
-    void start_recomputeLUT() override final
+    void start_recomputeLUT() final
     {
       if (isRunning)
       {

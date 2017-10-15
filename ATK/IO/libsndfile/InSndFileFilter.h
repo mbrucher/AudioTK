@@ -30,7 +30,7 @@ namespace ATK
   private:
     std::unique_ptr<SndfileHandle> stream;
   protected:
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   public:
     /*!
      * @brief Constructor

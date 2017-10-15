@@ -46,7 +46,7 @@ namespace ATK
     */
     InWavFilter(const std::string& filename);
   protected:
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 }
 #endif

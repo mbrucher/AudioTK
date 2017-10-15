@@ -34,12 +34,12 @@ namespace ATK
     ~DryWetFilter();
 
     /// Sets the amount of input signal in the output signal
-    void set_dry(double dry) override;
+    void set_dry(double dry) final;
     /// Returns the amount of dry signal in the output
-    double get_dry() const override;
+    double get_dry() const final;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
     
   private:
     /// Amount of dry signal, between 0 and 1

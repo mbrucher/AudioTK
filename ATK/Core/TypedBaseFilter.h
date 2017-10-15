@@ -67,8 +67,8 @@ namespace ATK
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
-    DataType__* get_output_array(std::size_t port) const override;
-    std::size_t get_output_array_size() const override;
+    DataType__* get_output_array(std::size_t port) const final;
+    std::size_t get_output_array_size() const final;
 
     void set_nb_input_ports(std::size_t nb_ports) override;
     void set_nb_output_ports(std::size_t nb_ports) override;
@@ -76,7 +76,7 @@ namespace ATK
     void full_setup() override;
 
     /// Connects this filter input to another's output
-    void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) override final;
+    void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) final;
     
   private:
     int get_type() const override;
@@ -84,9 +84,9 @@ namespace ATK
     /// This implementation does nothing
     void process_impl(std::size_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays
-    void prepare_process(std::size_t size) override final;
+    void prepare_process(std::size_t size) final;
     /// Prepares the filter by resizing the outputs arrays
-    void prepare_outputs(std::size_t size) override final;
+    void prepare_outputs(std::size_t size) final;
     
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(std::size_t size);

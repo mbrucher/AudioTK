@@ -57,9 +57,9 @@ namespace ATK
     /// Gets the feedforward from channel to channel
     DataType_ get_feedforward(unsigned int from_channel, unsigned int to_channel) const;
 
-    virtual void full_setup() override final;
+    virtual void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
 
   private:
     // internal state

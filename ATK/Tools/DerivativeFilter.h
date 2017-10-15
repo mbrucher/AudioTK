@@ -34,7 +34,7 @@ namespace ATK
     ~DerivativeFilter();
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
   };
 }
 

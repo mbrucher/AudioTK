@@ -36,14 +36,14 @@ namespace ATK
     /// Destructor
     virtual ~OutCircularPointerFilter();
     
-    void full_setup() override;
+    void full_setup() final;
 
     /// Retrieves a slice of the processed data, setting process to true if it's a new one
     const SliceBuffer& get_last_slice(bool& process);
     
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
     /// Output array
     mutable std::array<DataType, nb_slices * slice_size> array;
     SliceBuffer last_slice;

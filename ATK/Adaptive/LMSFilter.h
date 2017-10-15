@@ -74,7 +74,7 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const override;
+    virtual void process_impl(std::size_t size) const final;
     bool learning;
     
   private:

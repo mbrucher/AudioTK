@@ -33,10 +33,10 @@ namespace ATK
     std::vector<std::vector<DataType> > temp_arrays;
 
   protected:
-    void setup() override final;
+    void setup() final;
     /// Write sthe wav standard header
     void write_header() const;
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
 
   public:
     /*!
@@ -45,7 +45,7 @@ namespace ATK
      */
     OutWavFilter(const std::string& filename);
     
-    virtual void set_nb_input_ports(std::size_t nb_ports) override final;
+    virtual void set_nb_input_ports(std::size_t nb_ports) final;
   };
 }
 #endif

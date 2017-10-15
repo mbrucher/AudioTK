@@ -38,8 +38,8 @@ namespace ATK
     ~DecimationFilter();
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
-    void setup() override final;
+    virtual void process_impl(std::size_t size) const final;
+    void setup() final;
   };
 }
 

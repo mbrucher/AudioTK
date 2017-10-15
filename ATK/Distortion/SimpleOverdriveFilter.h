@@ -42,8 +42,8 @@ namespace ATK
     ~SimpleOverdriveFilter();
     
   protected:
-    void setup() override final;
-    void process_impl(std::size_t size) const override final;
+    void setup() final;
+    void process_impl(std::size_t size) const final;
     
   private:
     std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction, 10, true> > optimizer;

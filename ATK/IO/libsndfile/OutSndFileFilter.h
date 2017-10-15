@@ -30,8 +30,8 @@ namespace ATK
     std::unique_ptr<SndfileHandle> stream;
     std::string filename;
   protected:
-    void process_impl(std::size_t size) const override final;
-    void setup() override final;
+    void process_impl(std::size_t size) const final;
+    void setup() final;
     
   public:
     /*!

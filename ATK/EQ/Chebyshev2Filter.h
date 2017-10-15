@@ -47,17 +47,17 @@ namespace ATK
     Chebyshev2LowPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(CoeffDataType cut_frequency) override;
+    void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency
-    CoeffDataType get_cut_frequency() const override;
+    CoeffDataType get_cut_frequency() const final;
     /// Sets the ripple
-    void set_ripple(CoeffDataType ripple) override;
+    void set_ripple(CoeffDataType ripple) final;
     /// Gets the ripple
-    CoeffDataType get_ripple() const override;
+    CoeffDataType get_ripple() const final;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order) override;
+    void set_order(unsigned int order) final;
     /// Gets the order of the filter
-    unsigned get_order() const override;
+    unsigned get_order() const final;
   };
   
   /// @brief Chebyshev 2 coeffs for a high pass filter
@@ -97,17 +97,17 @@ namespace ATK
     Chebyshev2HighPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(CoeffDataType cut_frequency) override;
+    void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency
-    CoeffDataType get_cut_frequency() const override;
+    CoeffDataType get_cut_frequency() const final;
     /// Sets the ripple
-    void set_ripple(CoeffDataType ripple) override;
+    void set_ripple(CoeffDataType ripple) final;
     /// Gets the ripple
-    CoeffDataType get_ripple() const override;
+    CoeffDataType get_ripple() const final;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order) override;
+    void set_order(unsigned int order) final;
     /// Gets the order of the filter
-    unsigned get_order() const override;
+    unsigned get_order() const final;
   };
   
   /// @brief Chebyshev 2 coeffs for a band pass filter
@@ -147,19 +147,19 @@ namespace ATK
     Chebyshev2BandPassCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
-    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) override;
+    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;
     /// Sets the bandwidth as two separate values
-    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1) override;
+    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1) final;
     /// Gets the bandwidth
-    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const override;
+    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const final;
     /// Sets the ripple
-    void set_ripple(CoeffDataType ripple) override;
+    void set_ripple(CoeffDataType ripple) final;
     /// Gets the ripple
-    CoeffDataType get_ripple() const override;
+    CoeffDataType get_ripple() const final;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order) override;
+    void set_order(unsigned int order) final;
     /// Gets the order of the filter
-    unsigned get_order() const override;
+    unsigned get_order() const final;
   };
   
   /// @brief Chebyshev 2 coeffs for a band stop filter
@@ -199,19 +199,19 @@ namespace ATK
     Chebyshev2BandStopCoefficients(std::size_t nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
-    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) override;
+    void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;
     /// Sets the bandwidth as two separate values
-    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1) override;
+    void set_cut_frequencies(CoeffDataType f0, CoeffDataType f1) final;
     /// Gets the bandwidth
-    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const override;
+    std::pair<CoeffDataType, CoeffDataType> get_cut_frequencies() const final;
     /// Sets the ripple
-    void set_ripple(CoeffDataType ripple) override;
+    void set_ripple(CoeffDataType ripple) final;
     /// Gets the ripple
-    CoeffDataType get_ripple() const override;
+    CoeffDataType get_ripple() const final;
     /// Sets the order of the IIR filter
-    void set_order(unsigned int order) override;
+    void set_order(unsigned int order) final;
     /// Gets the order of the filter
-    unsigned get_order() const override;
+    unsigned get_order() const final;
   };
 }
 

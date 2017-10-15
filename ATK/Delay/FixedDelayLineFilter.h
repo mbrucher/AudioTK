@@ -41,9 +41,9 @@ namespace ATK
     /// Returns the elay used for the system
     std::size_t get_delay() const;
 
-    virtual void full_setup() override final;
+    virtual void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
 
   private:
     std::unique_ptr<FDLF_Impl> impl;

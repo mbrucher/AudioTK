@@ -38,7 +38,7 @@ namespace ATK
     DataType_ get_coefficient() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
   private:
     DataType coeff;
   };

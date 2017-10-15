@@ -46,11 +46,11 @@ namespace ATK
     /// Returns the solo status of a channel
     bool get_solo(std::size_t channel) const;
     
-    void set_nb_input_ports(std::size_t nb_ports) override;
-    void set_nb_output_ports(std::size_t nb_ports) override;
+    void set_nb_input_ports(std::size_t nb_ports) final;
+    void set_nb_output_ports(std::size_t nb_ports) final;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
     
   private:
     boost::dynamic_bitset<> mute_statuses;

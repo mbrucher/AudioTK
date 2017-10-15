@@ -50,7 +50,7 @@ namespace ATK
     /// Gets cutoff amount
     DataType_ get_cutoff() const;
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
   private:
     std::size_t delay;
     DataType_ feedback;

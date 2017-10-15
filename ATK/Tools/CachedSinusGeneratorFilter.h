@@ -53,8 +53,8 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
-    virtual void setup() override final;
+    virtual void process_impl(std::size_t size) const final;
+    virtual void setup() final;
     
   private:
     mutable std::size_t indice;

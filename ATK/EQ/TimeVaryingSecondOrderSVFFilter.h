@@ -36,8 +36,8 @@ namespace ATK
     ~TimeVaryingSecondOrderSVFFilter();
     
   protected:
-    void full_setup() override final;
-    void process_impl(std::size_t size) const override final;
+    void full_setup() final;
+    void process_impl(std::size_t size) const final;
 
     struct SVFState;
     std::unique_ptr<SVFState[]> state;

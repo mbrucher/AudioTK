@@ -40,9 +40,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a stronger attenuation, a bigger Q will lead to a stronger enhancement
      */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// RBJ high pass filter
@@ -75,9 +75,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a stronger attenuation, a bigger Q will lead to a stronger enhancement
      */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// RBJ band pass filter
@@ -110,9 +110,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// RBJ band pass filter
@@ -145,9 +145,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// RBJ band stop filter
@@ -180,9 +180,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// RBJ all pass filter
@@ -215,9 +215,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a spread response, a bigger Q will lead to a smaller response
      */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// RBJ band peak filter

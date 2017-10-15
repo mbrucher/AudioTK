@@ -40,7 +40,7 @@ namespace ATK
     DataType_ get_volume() const;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
     
   private:
     DataType_ volume;

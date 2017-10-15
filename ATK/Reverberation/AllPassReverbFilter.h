@@ -44,7 +44,7 @@ namespace ATK
     /// Gets feedback amount
     DataType_ get_feedback() const;
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
 
   private:
     std::size_t delay;

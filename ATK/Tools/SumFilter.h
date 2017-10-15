@@ -34,7 +34,7 @@ namespace ATK
     ~SumFilter();
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
   private:
     std::size_t summed_channels;
   };

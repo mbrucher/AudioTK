@@ -34,7 +34,7 @@ namespace ATK
     ~RealToComplexFilter();
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
   };
 
   /// Converts a complex channels into a two real one
@@ -59,7 +59,7 @@ namespace ATK
     ~ComplexToRealFilter();
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
   };
 
   /// Create a filter to convert real streams to SIMD ones

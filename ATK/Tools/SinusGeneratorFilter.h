@@ -44,10 +44,10 @@ namespace ATK
     /// Gets the offset
     DataType_ get_offset() const;
 
-    void full_setup() override final;
+    void full_setup() final;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
     
   private:
     DataType_ volume;

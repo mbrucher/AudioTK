@@ -42,7 +42,7 @@ namespace ATK
 
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(std::size_t size) const override final;
+    virtual void process_impl(std::size_t size) const final;
     /// Current offset in the array
     mutable std::size_t offset;
     /// Output array
