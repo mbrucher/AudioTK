@@ -5,7 +5,7 @@
 #ifndef ATK_CORE_INPOINTERFILTER_H
 #define ATK_CORE_INPOINTERFILTER_H
 
-#include "TypedBaseFilter.h"
+#include <ATK/Core/TypedBaseFilter.h>
 
 namespace ATK
 {

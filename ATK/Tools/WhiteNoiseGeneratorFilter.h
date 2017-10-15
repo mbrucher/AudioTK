@@ -9,7 +9,7 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {

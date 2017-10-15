@@ -5,8 +5,8 @@
 #ifndef ATK_CORE_TYPEDBASEFILTER_H
 #define ATK_CORE_TYPEDBASEFILTER_H
 
-#include "BaseFilter.h"
-#include "TypeTraits.h"
+#include <ATK/Core/BaseFilter.h>
+#include <ATK/Core/TypeTraits.h>
 
 #include <memory>
 #include <vector>

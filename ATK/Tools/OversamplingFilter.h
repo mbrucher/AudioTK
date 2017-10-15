@@ -6,8 +6,8 @@
 #ifndef ATK_TOOLS_OVERSAMPLINGFILTER_H
 #define ATK_TOOLS_OVERSAMPLINGFILTER_H
 
-#include "../Core/TypedBaseFilter.h"
-#include "config.h"
+#include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {

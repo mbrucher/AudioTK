@@ -2,7 +2,7 @@
  * \file OffsetVolumeFilter.cpp
  */
 
-#include "OffsetVolumeFilter.h"
+#include <ATK/Tools/OffsetVolumeFilter.h>
 
 #include <cmath>
 #include <complex>
@@ -14,13 +14,11 @@ namespace ATK
   OffsetVolumeFilter<DataType_>::OffsetVolumeFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), volume(1), offset(0)
   {
-    
   }
   
   template<typename DataType_>
   OffsetVolumeFilter<DataType_>::~OffsetVolumeFilter()
   {
-    
   }
   
   template<typename DataType_>

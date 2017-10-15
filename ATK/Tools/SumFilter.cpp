@@ -2,7 +2,7 @@
  * \file SumFilter.cpp
  */
 
-#include "SumFilter.h"
+#include <ATK/Tools/SumFilter.h>
 
 #include <complex>
 #include <cstdint>

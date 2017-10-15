@@ -2,7 +2,7 @@
  * \file OneMinusFilter.cpp
  */
 
-#include "OneMinusFilter.h"
+#include <ATK/Tools/OneMinusFilter.h>
 
 #include <cassert>
 #include <cmath>

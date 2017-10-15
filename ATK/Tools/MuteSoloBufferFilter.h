@@ -6,7 +6,7 @@
 #define ATK_TOOLS_MUTESOLOBUFFERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 #include <boost/dynamic_bitset.hpp>
 

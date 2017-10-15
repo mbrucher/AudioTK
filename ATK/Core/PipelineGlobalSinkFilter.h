@@ -5,7 +5,7 @@
 #ifndef ATK_CORE_PIPELINEGLOBALSINKFILTER_H
 #define ATK_CORE_PIPELINEGLOBALSINKFILTER_H
 
-#include "BaseFilter.h"
+#include <ATK/Core/BaseFilter.h>
 
 #include <vector>
 

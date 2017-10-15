@@ -7,7 +7,7 @@
 
 #include <array>
 
-#include "TypedBaseFilter.h"
+#include <ATK/Core/TypedBaseFilter.h>
 
 namespace ATK
 {

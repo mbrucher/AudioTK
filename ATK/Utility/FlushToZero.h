@@ -7,7 +7,7 @@
 
 #include <fenv.h>
 
-#include "config.h"
+#include <ATK/Utility/config.h>
 
 namespace ATK
 {

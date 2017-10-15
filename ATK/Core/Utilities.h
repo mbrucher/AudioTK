@@ -6,7 +6,7 @@
 #define ATK_CORE_UTILITIES_H
 
 #include <cstddef>
-#include "config.h"
+#include <ATK/Core/config.h>
 
 namespace ATK
 {

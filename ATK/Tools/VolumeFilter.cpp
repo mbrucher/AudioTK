@@ -2,7 +2,7 @@
  * \file VolumeFilter.cpp
  */
 
-#include "VolumeFilter.h"
+#include <ATK/Tools/VolumeFilter.h>
 
 #include <cmath>
 #include <complex>
@@ -16,13 +16,11 @@ namespace ATK
   VolumeFilter<DataType_>::VolumeFilter(std::size_t nb_channels)
   :Parent(nb_channels, nb_channels), volume(1)
   {
-    
   }
   
   template<typename DataType_>
   VolumeFilter<DataType_>::~VolumeFilter()
   {
-    
   }
   
   template<typename DataType_>
