@@ -37,6 +37,8 @@
 #ifndef ATK_TOOLS
 #define ATK_TOOLS
 
+#include <ATK/Tools/ToolsInterface.h>
+
 #include <ATK/Tools/ApplyGainFilter.h>
 #include <ATK/Tools/BufferFilter.h>
 #include <ATK/Tools/CachedCosinusGeneratorFilter.h>
