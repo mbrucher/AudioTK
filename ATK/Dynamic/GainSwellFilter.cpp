@@ -2,7 +2,7 @@
  * \file GainSwellFilter.cpp
  */
 
-#include "GainSwellFilter.h"
+#include <ATK/Dynamic/GainSwellFilter.h>
 
 #include <cmath>
 #include <cstdint>

@@ -11,7 +11,7 @@
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Dynamic/config.h>
 
 namespace ATK
 {

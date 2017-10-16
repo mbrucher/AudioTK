@@ -2,7 +2,7 @@
  * \file GainColoredCompressorFilter.cpp
  */
 
-#include "GainColoredCompressorFilter.h"
+#include <ATK/Dynamic/GainColoredCompressorFilter.h>
 
 #include <cmath>
 #include <cstdint>

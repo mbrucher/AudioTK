@@ -2,7 +2,7 @@
  * \file BlockLMSFilter.cpp
  */
 
-#include "BlockLMSFilter.h"
+#include <ATK/Adaptive/BlockLMSFilter.h>
 
 #include <complex>
 #include <cstdint>

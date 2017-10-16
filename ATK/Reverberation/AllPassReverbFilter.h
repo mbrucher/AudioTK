@@ -8,7 +8,7 @@
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Reverberation/config.h>
 
 namespace ATK
 {

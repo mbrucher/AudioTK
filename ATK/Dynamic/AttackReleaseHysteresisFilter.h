@@ -6,7 +6,7 @@
 #define ATK_DYNAMIC_ATTACKRELEASEHYSTERESISFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Dynamic/config.h>
 
 namespace ATK
 {

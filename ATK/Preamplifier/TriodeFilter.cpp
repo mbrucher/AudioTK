@@ -2,13 +2,13 @@
  * \file TriodeFilter.cpp
  */
 
-#include "DempwolfTriodeFunction.h"
-#include "EnhancedKorenTriodeFunction.h"
-#include "KorenTriodeFunction.h"
-#include "LeachTriodeFunction.h"
-#include "MunroPiazzaTriodeFunction.h"
-#include "ModifiedMunroPiazzaTriodeFunction.h"
-#include "TriodeFilter.h"
+#include <ATK/Preamplifier/DempwolfTriodeFunction.h>
+#include <ATK/Preamplifier/EnhancedKorenTriodeFunction.h>
+#include <ATK/Preamplifier/KorenTriodeFunction.h>
+#include <ATK/Preamplifier/LeachTriodeFunction.h>
+#include <ATK/Preamplifier/MunroPiazzaTriodeFunction.h>
+#include <ATK/Preamplifier/ModifiedMunroPiazzaTriodeFunction.h>
+#include <ATK/Preamplifier/TriodeFilter.h>
 
 #include <cassert>
 

@@ -2,8 +2,8 @@
 * \file TransistorClassAFilter.cpp
 */
 
-#include "TransistorClassAFilter.h"
-#include "TransistorFunction.h"
+#include <ATK/Preamplifier/TransistorClassAFilter.h>
+#include <ATK/Preamplifier/TransistorFunction.h>
 
 #include <cassert>
 

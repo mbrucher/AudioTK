@@ -2,7 +2,7 @@
  * \file FixedDelayLineFilter.cpp
  */
 
-#include "FixedDelayLineFilter.h"
+#include <ATK/Delay/FixedDelayLineFilter.h>
 
 #include <algorithm>
 #include <cstring>

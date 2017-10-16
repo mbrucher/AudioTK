@@ -6,7 +6,7 @@
 #define ATK_DISTORTION_HALFTANHSHAPERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Distortion/config.h>
 
 namespace ATK
 {

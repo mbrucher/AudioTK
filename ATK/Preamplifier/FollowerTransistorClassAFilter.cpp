@@ -2,8 +2,8 @@
 * \file FollowerTransistorClassAFilter.cpp
 */
 
-#include "FollowerTransistorClassAFilter.h"
-#include "TransistorFunction.h"
+#include <ATK/Preamplifier/FollowerTransistorClassAFilter.h>
+#include <ATK/Preamplifier/TransistorFunction.h>
 
 #include <ATK/Utility/fmath.h>
 #include <ATK/Utility/SimplifiedVectorizedNewtonRaphson.h>

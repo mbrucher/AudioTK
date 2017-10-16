@@ -9,7 +9,7 @@
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Delay/config.h>
 
 namespace ATK
 {

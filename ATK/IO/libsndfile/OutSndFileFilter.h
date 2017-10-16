@@ -9,6 +9,7 @@
 #include <string>
 
 #include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/IO/config.h>
 
 class SndfileHandle;
 
@@ -16,7 +17,7 @@ namespace ATK
 {
   /// A sink filter for sound files supported by lbsnd
   template<typename DataType_>
-  class OutSndFileFilter final : public TypedBaseFilter<DataType_>
+  class ATK_IO_EXPORT OutSndFileFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls

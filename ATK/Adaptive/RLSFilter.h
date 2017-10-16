@@ -7,7 +7,7 @@
 #define ATK_ADAPTIVE_RLSFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Adaptive/config.h>
 
 namespace ATK
 {

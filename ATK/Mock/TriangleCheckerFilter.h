@@ -8,7 +8,7 @@
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Core/TypeTraits.h>
 
-#include "config.h"
+#include <ATK/Mock/config.h>
 
 namespace ATK
 {

@@ -2,7 +2,7 @@
  * \file GainLimiterFilter.cpp
  */
 
-#include "GainLimiterFilter.h"
+#include <ATK/Dynamic/GainLimiterFilter.h>
 
 #include <cmath>
 #include <cstdint>

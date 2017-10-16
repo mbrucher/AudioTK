@@ -2,8 +2,8 @@
  * \file HouseholderMixture.cpp
  */
 
-#include "FeedbackDelayNetworkFilter.hxx"
-#include "HouseholderMixture.h"
+#include <ATK/Delay/FeedbackDelayNetworkFilter.hxx>
+#include <ATK/Delay/HouseholderMixture.h>
 
 #if ATK_EIGEN == 1
 

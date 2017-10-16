@@ -2,7 +2,7 @@
  * \file InSndFileFilter.cpp
  */
 
-#include "InSndFileFilter.h"
+#include <ATK/IO/libsndfile/InSndFileFilter.h>
 
 #include <sndfile.hh>
 

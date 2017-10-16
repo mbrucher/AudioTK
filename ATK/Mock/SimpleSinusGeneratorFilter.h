@@ -6,8 +6,7 @@
 #define ATK_MOCK_SIMPLESINUSGENERATORFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-
-#include "config.h"
+#include <ATK/Mock/config.h>
 
 namespace ATK
 {

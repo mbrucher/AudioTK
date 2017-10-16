@@ -8,7 +8,7 @@
 #include <vector>
 
 #include <ATK/Dynamic/GainFilter.h>
-#include "config.h"
+#include <ATK/Dynamic/config.h>
 
 namespace ATK
 {

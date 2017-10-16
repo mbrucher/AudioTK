@@ -2,7 +2,7 @@
  * \file InWavFilter.cpp
  */
 
-#include "InWavFilter.h"
+#include <ATK/IO/InWavFilter.h>
 
 #include <stdexcept>
 

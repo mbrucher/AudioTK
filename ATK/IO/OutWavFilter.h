@@ -10,8 +10,8 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
-#include "config.h"
-#include "WavStruct.h"
+#include <ATK/IO/config.h>
+#include <ATK/IO/WavStruct.h>
 
 namespace ATK
 {

@@ -5,13 +5,15 @@
 #ifndef ATK_MOCK_FFTCHECKERFILTER_H
 #define ATK_MOCK_FFTCHECKERFILTER_H
 
-#include "config.h"
+#include <ATK/Mock/config.h>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include <ATK/Utility/FFT.h>
 
 namespace ATK
 {
+  template<class DataType>
+  class FFT;
+  
   /// Checks the input signal has a specific spectrum template
   template<class DataType_>
   class ATK_MOCK_EXPORT FFTCheckerFilter final: public TypedBaseFilter<DataType_>

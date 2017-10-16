@@ -2,7 +2,7 @@
  * \file LowPassReverbFilter.cpp
  */
 
-#include "LowPassReverbFilter.h"
+#include <ATK/Reverberation/LowPassReverbFilter.h>
 
 #include <iostream>
 #include <cmath>

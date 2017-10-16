@@ -2,7 +2,7 @@
  * \file SD1OverdriveFilter.cpp
  */
 
-#include "SD1OverdriveFilter.h"
+#include <ATK/Distortion/SD1OverdriveFilter.h>
 
 #include <stdexcept>
 
