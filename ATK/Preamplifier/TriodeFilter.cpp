@@ -38,7 +38,8 @@ namespace ATK
     typedef Eigen::Matrix<DataType, 4, 1> Vector;
     typedef Eigen::Matrix<DataType, 4, 4> Matrix;
     
-    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction& tube_function, const std::vector<DataType>& default_output)
+    template<typename T>
+    CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction& tube_function, const T& default_output)
       :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), Vbias(Vbias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
     {
     }

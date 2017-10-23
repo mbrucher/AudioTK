@@ -19,7 +19,6 @@ namespace ATK
   template <typename DataType_>
   class FollowerTransistorClassAFilter<DataType_>::TransistorClassAFunction
   {
-
     const DataType_ Rp;
     const DataType_ Rg1;
     const DataType_ Rg2;
@@ -43,8 +42,9 @@ namespace ATK
     typedef Eigen::Matrix<DataType, vector_size, vector_size> Matrix;
 
     std::pair<DataType, DataType> exp_y0;
-
-    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType Vbias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function_1, TransistorFunction<DataType_>& transistor_function_2, const std::vector<DataType>& default_output)
+  
+    template<typename T>
+    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType Vbias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function_1, TransistorFunction<DataType_>& transistor_function_2, const T& default_output)
       :Rp(1 / Rp), Rg1(1 / Rg1), Rg2(1 / Rg2), Ro(1 / Ro), Rk1(1 / Rk1), Rk2(1 / Rk2), Vbias(Vbias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[3]), icoeq(2 / dt * Co * (default_output[0] - default_output[4])), transistor_function_1(transistor_function_1), transistor_function_2(transistor_function_2)
     {
     }
