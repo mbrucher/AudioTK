@@ -26,8 +26,6 @@
 
 namespace
 {
-  const size_t alignment = 32;
-
   typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double, std::complex<float>, std::complex<double> > ConversionTypes;
 
   template<typename Vector, typename DataType>
@@ -217,10 +215,11 @@ namespace ATK
       auto input_size = converted_inputs_size[i];
       if(input_size < size)
       {
-        std::unique_ptr<DataTypeInput[]> temp(new DataTypeInput[static_cast<unsigned int>(input_delay + size + (alignment - 1) / sizeof(DataTypeInput))]);
+        auto allocated_size = static_cast<unsigned int>(input_delay + size + (ALIGNMENT - 1) / sizeof(DataTypeInput));
+        std::unique_ptr<DataTypeInput[]> temp(new DataTypeInput[allocated_size]);
         auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
         size_t space;
-        std::align(alignment, sizeof(DataTypeInput), my_temp_ptr, space);
+        std::align(ALIGNMENT, sizeof(DataTypeInput) * allocated_size, my_temp_ptr, space);
         auto temp_ptr = reinterpret_cast<DataTypeInput*>(my_temp_ptr);
         if(input_size == 0)
         {
@@ -263,10 +262,11 @@ namespace ATK
       auto output_size = outputs_size[i];
       if(output_size < size)
       {
-        std::unique_ptr<DataTypeOutput[]> temp(new DataTypeOutput[static_cast<unsigned int>(output_delay + size + (alignment - 1) / sizeof(DataTypeOutput))]);
+        auto allocated_size = static_cast<unsigned int>(output_delay + size + (ALIGNMENT - 1) / sizeof(DataTypeOutput));
+        std::unique_ptr<DataTypeOutput[]> temp(new DataTypeOutput[allocated_size]);
         auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
         size_t space;
-        std::align(alignment, sizeof(DataTypeOutput), my_temp_ptr, space);
+        std::align(ALIGNMENT, sizeof(DataTypeOutput) * allocated_size, my_temp_ptr, space);
         auto temp_ptr = reinterpret_cast<DataTypeOutput*>(my_temp_ptr);
         if(output_size == 0)
         {

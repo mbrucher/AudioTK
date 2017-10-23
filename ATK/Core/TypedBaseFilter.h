@@ -16,14 +16,14 @@
 namespace ATK
 {
   const std::size_t ALIGNMENT = 32;
-  
+
   /// Interface for output filters
   template<typename DataType>
   class OutputArrayInterface
   {
   public:
     virtual ~OutputArrayInterface();
-    
+
     /**
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
@@ -34,7 +34,7 @@ namespace ATK
      */
     virtual std::size_t get_output_array_size() const = 0;
   };
-  
+
   /// Base class for typed filters, contains arrays
   template<typename DataType_, typename DataType__ = DataType_>
   class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter, public OutputArrayInterface<DataType__>
@@ -62,7 +62,7 @@ namespace ATK
     TypedBaseFilter(TypedBaseFilter&& other);
     /// Destructor
     virtual ~TypedBaseFilter();
-    
+
     TypedBaseFilter(const TypedBaseFilter&) = delete;
     TypedBaseFilter& operator=(const TypedBaseFilter&) = delete;
 
@@ -80,7 +80,7 @@ namespace ATK
 
     /// Connects this filter input to another's output
     void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) final;
-    
+
   private:
     int get_type() const override;
   protected:
@@ -90,7 +90,7 @@ namespace ATK
     void prepare_process(std::size_t size) final;
     /// Prepares the filter by resizing the outputs arrays
     void prepare_outputs(std::size_t size) final;
-    
+
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(std::size_t size);
 
