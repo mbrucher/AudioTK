@@ -217,8 +217,8 @@ namespace ATK
         auto allocated_size = static_cast<unsigned int>(input_delay + size + (ALIGNMENT - 1) / sizeof(DataTypeInput));
         std::unique_ptr<DataTypeInput[]> temp(new DataTypeInput[allocated_size]);
         auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
-        size_t space;
-        my_temp_ptr = std::align(ALIGNMENT, sizeof(DataTypeInput) * allocated_size, my_temp_ptr, space);
+        size_t space = sizeof(DataTypeInput) * allocated_size;
+        std::align(ALIGNMENT, sizeof(DataTypeInput) * size, my_temp_ptr, space);
         auto temp_ptr = reinterpret_cast<DataTypeInput*>(my_temp_ptr);
         if(input_size == 0)
         {
@@ -264,8 +264,8 @@ namespace ATK
         auto allocated_size = static_cast<unsigned int>(output_delay + size + (ALIGNMENT - 1) / sizeof(DataTypeOutput));
         std::unique_ptr<DataTypeOutput[]> temp(new DataTypeOutput[allocated_size]);
         auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
-        size_t space;
-        my_temp_ptr = std::align(ALIGNMENT, sizeof(DataTypeOutput) * allocated_size, my_temp_ptr, space);
+        size_t space = sizeof(DataTypeOutput) * allocated_size;
+        std::align(ALIGNMENT, sizeof(DataTypeOutput) * size, my_temp_ptr, space);
         auto temp_ptr = reinterpret_cast<DataTypeOutput*>(my_temp_ptr);
         if(output_size == 0)
         {
