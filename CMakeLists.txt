@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.5)
 
 project(AudioTK)
 
@@ -13,6 +13,7 @@ option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
+option(ENABLE_PYTHON "Enable Python support" ON)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
 option(ENABLE_SIMD "Enable SIMD support through libsimdpp" OFF)
 option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)

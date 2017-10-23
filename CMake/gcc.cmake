@@ -89,7 +89,7 @@ endif(COMPILER_SUPPORTS_O3)
 
   CHECK_CXX_COMPILER_FLAG("-Werror=suggest-override" COMPILER_HAS_SUGGEST_OVERRIDE)
   if(COMPILER_HAS_SUGGEST_OVERRIDE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=suggest-override")
+  #  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=suggest-override")
   else(COMPILER_HAS_SUGGEST_OVERRIDE)
     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -Werror=suggest-override.")
   endif(COMPILER_HAS_SUGGEST_OVERRIDE)
