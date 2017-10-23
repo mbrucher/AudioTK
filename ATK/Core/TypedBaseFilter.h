@@ -108,9 +108,9 @@ namespace ATK
     std::vector<std::size_t> outputs_size;
 
     /// A vector containing the default values for the input arrays
-    std::vector<DataTypeInput> default_input;
+    std::vector<DataTypeInput, boost::alignment::aligned_allocator<DataTypeInput, 32> > default_input;
     /// A vector containing the default values for the output arrays
-    std::vector<DataTypeOutput> default_output;
+    std::vector<DataTypeOutput, boost::alignment::aligned_allocator<DataTypeOutput, 32> > default_output;
   };
 }
 
