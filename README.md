@@ -18,6 +18,9 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.2.1
+* Fix alignment issues in SIMD filters
+
 ### 2.2.0
 * Introduced SIMD filters with libsimdpp
 * Refactored EQ filters to work with SIMD filters
