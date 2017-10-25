@@ -2,8 +2,8 @@
  * \file OffsetVolumeFilter.cpp
  */
 
-#include <ATK/Tools/SIMD/MSFilter.h>
-#include <ATK/Tools/MSFilter.hxx>
+#include <ATK/Tools/SIMD/OffsetVolumeFilter.h>
+#include <ATK/Tools/OffsetVolumeFilter.hxx>
 #include <ATK/Core/TypeTraits.h>
 
 #include <simdpp/dispatch/dispatcher.h>
