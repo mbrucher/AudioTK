@@ -234,7 +234,7 @@ namespace ATK
     using Parent::output_delay;
     using Parent::setup;
   protected:
-    mutable std::vector<DataType> state;
+    mutable typename Parent::AlignedVector state;
   public:
     IIRTDF2Filter(std::size_t nb_channels = 1)
       :Parent(nb_channels)
