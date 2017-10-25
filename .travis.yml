@@ -17,7 +17,7 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - atlas-dev
+        - libatlas-base-dev
     env:
     - COMPILER=g++-5
     - PLATFORM=gcc-5
@@ -60,7 +60,7 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - atlas-dev
+        - libatlas-base-dev
     env:
     - COMPILER=g++-6
     - PLATFORM=gcc-6
@@ -105,7 +105,7 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - atlas-dev
+        - libatlas-base-dev
     env:
     - COMPILER=clang++-3.8
     - PLATFORM=clang-3.8
@@ -152,7 +152,7 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - atlas-dev
+        - libatlas-base-dev
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9
