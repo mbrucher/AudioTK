@@ -31,10 +31,10 @@ namespace ATK
     */
     OneMinusFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~OneMinusFilter();
+    ~OneMinusFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
   };
 }
 

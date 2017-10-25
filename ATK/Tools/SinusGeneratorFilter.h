@@ -27,7 +27,7 @@ namespace ATK
     /// Constructor
     SinusGeneratorFilter();
     /// Destructor
-    ~SinusGeneratorFilter();
+    ~SinusGeneratorFilter() override;
 
     /// Sets the frequency of the oscillator, without resetting it
     void set_frequency(DataType_ frequency);
@@ -47,7 +47,7 @@ namespace ATK
     void full_setup() final;
 
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ volume;

@@ -35,12 +35,12 @@ namespace ATK
     {
     }
 
-    ~WaveshaperFilter()
+    ~WaveshaperFilter() override
     {
     }
 
   protected:
-    virtual void process_impl(std::size_t size) const final
+    void process_impl(std::size_t size) const final
     {
       assert(nb_input_ports == nb_output_ports);
 

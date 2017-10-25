@@ -31,7 +31,7 @@ namespace ATK
     */
     RelativePowerFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~RelativePowerFilter();
+    ~RelativePowerFilter() override;
 
     /// Sets the memory of the AR1 (must be between 0 and 1)
     void set_memory(DataType_ memory_factor);
@@ -39,7 +39,7 @@ namespace ATK
     DataType_ get_memory() const;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ memory_factor;

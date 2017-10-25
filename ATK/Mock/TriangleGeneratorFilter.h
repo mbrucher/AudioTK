@@ -26,7 +26,7 @@ namespace ATK
     /// Constructor
     TriangleGeneratorFilter();
     /// Destructor
-    virtual ~TriangleGeneratorFilter();
+    ~TriangleGeneratorFilter() override;
     
     /// Sets the amplitude of the triangle
     void set_amplitude(DataType_ amplitude);
@@ -34,7 +34,7 @@ namespace ATK
     void set_frequency(int frequency);
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
 
   private:
     mutable double state;

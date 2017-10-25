@@ -61,7 +61,7 @@ namespace ATK
     /// Move constructor
     TypedBaseFilter(TypedBaseFilter&& other);
     /// Destructor
-    virtual ~TypedBaseFilter();
+    ~TypedBaseFilter() override;
 
     TypedBaseFilter(const TypedBaseFilter&) = delete;
     TypedBaseFilter& operator=(const TypedBaseFilter&) = delete;

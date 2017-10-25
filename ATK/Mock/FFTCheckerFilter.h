@@ -28,14 +28,14 @@ namespace ATK
     /// Constructor
     FFTCheckerFilter();
     /// Destructor
-    virtual ~FFTCheckerFilter();
+    ~FFTCheckerFilter() override;
     
     /// Sets the template we require
     void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
-    virtual void setup() final;
+    void process_impl(std::size_t size) const final;
+    void setup() final;
 
   private:
     std::vector<std::pair<int, DataType> > frequency_checks;

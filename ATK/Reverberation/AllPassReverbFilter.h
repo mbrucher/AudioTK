@@ -32,7 +32,7 @@ namespace ATK
     */
     AllPassReverbFilter(std::size_t max_delay);
     /// Destructor
-    ~AllPassReverbFilter();
+    ~AllPassReverbFilter() override;
 
     /// Changes the delay used for the filter
     void set_delay(std::size_t delay);
@@ -44,7 +44,7 @@ namespace ATK
     /// Gets feedback amount
     DataType_ get_feedback() const;
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
 
   private:
     std::size_t delay;

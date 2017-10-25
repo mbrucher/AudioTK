@@ -104,7 +104,7 @@ namespace ATK
       }
     }
     
-    virtual void process_impl(std::size_t size) const final
+    void process_impl(std::size_t size) const final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
@@ -255,7 +255,7 @@ namespace ATK
       state.resize(nb_input_ports * (std::max(input_delay, output_delay) + 1), TypeTraits<DataType>::Zero());
     }
     
-    virtual void process_impl(std::size_t size) const final
+    void process_impl(std::size_t size) const final
     {
       assert(input_sampling_rate == output_sampling_rate);
       

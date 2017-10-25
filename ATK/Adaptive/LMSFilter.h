@@ -35,7 +35,7 @@ namespace ATK
      */
     LMSFilter(std::size_t size);
     /// Destructor
-    ~LMSFilter();
+    ~LMSFilter() override;
     
     /// Changes the underlying size
     void set_size(std::size_t size);
@@ -74,7 +74,7 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     bool learning;
     
   private:

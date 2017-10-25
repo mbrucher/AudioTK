@@ -30,9 +30,9 @@ namespace ATK
     */
     BufferFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~BufferFilter();
+    ~BufferFilter() override;
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
   };
 }
 

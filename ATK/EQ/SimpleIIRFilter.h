@@ -61,7 +61,7 @@ namespace ATK
       output_delay = out_order;
     }
     
-    virtual void process_impl(std::size_t size) const final
+    void process_impl(std::size_t size) const final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);

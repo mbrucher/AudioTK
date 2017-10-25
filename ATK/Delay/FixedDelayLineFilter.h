@@ -34,16 +34,16 @@ namespace ATK
      */
     FixedDelayLineFilter(std::size_t max_delay);
     /// Destructor
-    ~FixedDelayLineFilter();
+    ~FixedDelayLineFilter() override;
     
     /// Changes the delay used for the filter
     void set_delay(std::size_t delay);
     /// Returns the elay used for the system
     std::size_t get_delay() const;
 
-    virtual void full_setup() final;
+    void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
 
   private:
     std::unique_ptr<FDLF_Impl> impl;

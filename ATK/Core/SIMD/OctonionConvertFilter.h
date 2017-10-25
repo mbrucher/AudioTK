@@ -31,10 +31,10 @@ namespace ATK
      */
     RealToOctonionFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~RealToOctonionFilter();
+    ~RealToOctonionFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
   };
 
   /// Converts a complex channels into a two real one
@@ -56,10 +56,10 @@ namespace ATK
     */
     OctonionToRealFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~OctonionToRealFilter();
+    ~OctonionToRealFilter() override;
 
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
   };
 
   /// Create a filter to convert real streams to SIMD ones

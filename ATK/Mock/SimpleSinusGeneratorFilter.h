@@ -24,7 +24,7 @@ namespace ATK
     /// Constructor
     SimpleSinusGeneratorFilter();
     /// Destructor
-    virtual ~SimpleSinusGeneratorFilter();
+    ~SimpleSinusGeneratorFilter() override;
     
     /// Sets the amplitude of the sinusoid
     void set_amplitude(DataType_ amplitude);
@@ -32,7 +32,7 @@ namespace ATK
     void set_frequency(int frequency);
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
 
   private:
     mutable double state;

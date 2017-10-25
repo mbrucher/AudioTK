@@ -28,7 +28,7 @@ namespace ATK
     /// Constructor
     WhiteNoiseGeneratorFilter();
     /// Destructor
-    ~WhiteNoiseGeneratorFilter();
+    ~WhiteNoiseGeneratorFilter() override;
 
     /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);
@@ -41,7 +41,7 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ volume;

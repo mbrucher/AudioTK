@@ -31,7 +31,7 @@ namespace ATK
     */
     DryWetFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~DryWetFilter();
+    ~DryWetFilter() override;
 
     /// Sets the amount of input signal in the output signal
     void set_dry(double dry) final;
@@ -39,7 +39,7 @@ namespace ATK
     double get_dry() const final;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     /// Amount of dry signal, between 0 and 1
