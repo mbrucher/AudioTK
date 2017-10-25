@@ -34,11 +34,11 @@ namespace ATK
     */
     VariableDelayLineFilter(std::size_t max_delay);
     /// Destructor
-    ~VariableDelayLineFilter();
+    ~VariableDelayLineFilter() override;
 
-    virtual void full_setup() final;
+    void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
 
   private:
     std::unique_ptr<VDLF_Impl> impl;

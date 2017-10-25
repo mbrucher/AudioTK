@@ -30,7 +30,7 @@ namespace ATK
     */
     VolumeFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~VolumeFilter();
+    ~VolumeFilter() override;
 
     /// Changes the output volume
     void set_volume(DataType_ volume);
@@ -40,7 +40,7 @@ namespace ATK
     DataType_ get_volume() const;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ volume;

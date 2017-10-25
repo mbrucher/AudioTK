@@ -31,10 +31,10 @@ namespace ATK
      */
     SumFilter(std::size_t nb_output_channels = 1, std::size_t summed_channels = 2);
     /// Destructor
-    ~SumFilter();
+    ~SumFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
   private:
     std::size_t summed_channels;
   };

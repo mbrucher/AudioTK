@@ -36,7 +36,7 @@ namespace ATK
      */
     BlockLMSFilter(std::size_t size);
     /// Destructor
-    ~BlockLMSFilter();
+    ~BlockLMSFilter() override;
     
     /// Changes the underlying size
     void set_size(std::size_t size);
@@ -65,7 +65,7 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
   };
 }
 

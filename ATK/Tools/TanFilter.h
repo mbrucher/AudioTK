@@ -32,11 +32,11 @@ namespace ATK
     */
     TanFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~TanFilter();
-    
+    ~TanFilter() override;
+
   protected:
-    virtual void process_impl(std::size_t size) const final;
-    virtual void setup() final;
+    void process_impl(std::size_t size) const final;
+    void setup() final;
   private:
     double coeff;
   };

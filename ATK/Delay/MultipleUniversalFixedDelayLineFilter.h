@@ -35,7 +35,7 @@ namespace ATK
     */
     MultipleUniversalFixedDelayLineFilter(std::size_t max_delay);
     /// Destructor
-    ~MultipleUniversalFixedDelayLineFilter();
+    ~MultipleUniversalFixedDelayLineFilter() override;
 
     /// Set the initial delay from a channel
     void set_delay(unsigned int channel, std::size_t delay);
@@ -57,9 +57,9 @@ namespace ATK
     /// Gets the feedforward from channel to channel
     DataType_ get_feedforward(unsigned int from_channel, unsigned int to_channel) const;
 
-    virtual void full_setup() final;
+    void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
 
   private:
     // internal state

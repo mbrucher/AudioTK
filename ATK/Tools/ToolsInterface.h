@@ -16,10 +16,10 @@ namespace ATK
   {
   public:
     virtual ~DryWetInterface();
-  /// Sets the amount of input signal in the output signal
-  virtual void set_dry(double dry) = 0;
-  /// Returns the amount of dry signal in the output
-  virtual double get_dry() const = 0;
+    /// Sets the amount of input signal in the output signal
+    virtual void set_dry(double dry) = 0;
+    /// Returns the amount of dry signal in the output
+    virtual double get_dry() const = 0;
   };
 }
 

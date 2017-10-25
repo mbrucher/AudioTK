@@ -35,10 +35,10 @@ namespace ATK
     */
     DecimationFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~DecimationFilter();
+    ~DecimationFilter()override;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     void setup() final;
   };
 }

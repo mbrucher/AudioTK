@@ -31,7 +31,7 @@ namespace ATK
      */
     OutPointerFilter(DataType* array, int channels, std::size_t size, bool interleaved);
     /// Destructor
-    virtual ~OutPointerFilter();
+    ~OutPointerFilter() override;
     
     /**
      * @brief Resets the pointer and the internal offset
@@ -42,7 +42,7 @@ namespace ATK
 
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     /// Current offset in the array
     mutable std::size_t offset;
     /// Output array

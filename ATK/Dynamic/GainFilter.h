@@ -36,7 +36,7 @@ namespace ATK
     */
     ParentGainFilter(std::size_t nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     /// Destructor
-    ~ParentGainFilter();
+    ~ParentGainFilter() override;
     
     /// Sets the threshold (superior to 0)
     void set_threshold(DataType_ threshold);
@@ -84,7 +84,7 @@ namespace ATK
       start_recomputeLUT();
     }
 
-    ~GainFilter()
+    ~GainFilter() override
     {
       //Future has to be deleted in child destructor as it uses computeGain
       if (recomputeFuture.valid())
@@ -101,7 +101,7 @@ namespace ATK
     /// Indicates to start recomputing the LUT from the start, used when asked to change LUT parameters when the LUT is recomputed
     std::atomic<bool> resetRequest;
 
-    virtual void process_impl(std::size_t size) const final
+    void process_impl(std::size_t size) const final
     {
       assert(nb_input_ports == nb_output_ports);
 
@@ -150,7 +150,7 @@ namespace ATK
     }
 
     /// Asks to recompute the LUT
-    virtual void recomputeLUT()
+    void recomputeLUT()
     {
       auto gainLUT_ptr = gainLUT.data();
 

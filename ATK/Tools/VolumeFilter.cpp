@@ -2,59 +2,13 @@
  * \file VolumeFilter.cpp
  */
 
-#include <ATK/Tools/VolumeFilter.h>
+#include <ATK/Tools/VolumeFilter.hxx>
 
-#include <cmath>
 #include <complex>
 #include <cstdint>
 
-#include <ATK/Core/TypeTraits.h>
-
 namespace ATK
 {
-  template<typename DataType_>
-  VolumeFilter<DataType_>::VolumeFilter(std::size_t nb_channels)
-  :Parent(nb_channels, nb_channels), volume(1)
-  {
-  }
-  
-  template<typename DataType_>
-  VolumeFilter<DataType_>::~VolumeFilter()
-  {
-  }
-  
-  template<typename DataType_>
-  void VolumeFilter<DataType_>::set_volume_db(double volume_db)
-  {
-    set_volume(static_cast<DataType>(std::pow(10., volume_db/20)));
-  }
-  
-  template<typename DataType_>
-  void VolumeFilter<DataType_>::set_volume(DataType_ volume)
-  {
-    this->volume = volume;
-  }
-  
-  template<typename DataType_>
-  DataType_ VolumeFilter<DataType_>::get_volume() const
-  {
-    return volume;
-  }
-
-  template<typename DataType_>
-  void VolumeFilter<DataType_>::process_impl(std::size_t size) const
-  {
-    for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
-    {
-      const DataType* ATK_RESTRICT input = converted_inputs[channel];
-      DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::size_t i = 0; i < size; ++i)
-      {
-        output[i] = volume * input[i];
-      }
-    }
-  }
-  
   template class VolumeFilter<std::int16_t>;
   template class VolumeFilter<std::int32_t>;
   template class VolumeFilter<std::int64_t>;

@@ -31,7 +31,7 @@ namespace ATK
     */
     CachedSinusGeneratorFilter(int periods, int seconds = 1);
     /// Destructor
-    ~CachedSinusGeneratorFilter();
+    ~CachedSinusGeneratorFilter() override;
 
     /*!
     * @brief Updates the cache with new values
@@ -53,8 +53,8 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const final;
-    virtual void setup() final;
+    void process_impl(std::size_t size) const final;
+    void setup() final;
     
   private:
     mutable std::size_t indice;

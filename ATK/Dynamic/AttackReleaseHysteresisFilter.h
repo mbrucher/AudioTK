@@ -31,7 +31,7 @@ namespace ATK
     */
     AttackReleaseHysteresisFilter(std::size_t nb_channels = 1);
     /// destructor
-    ~AttackReleaseHysteresisFilter();
+    ~AttackReleaseHysteresisFilter() override;
 
     /// Sets the speed of the attack (between 0 and 1)
     void set_attack(DataType_ attack);
@@ -59,7 +59,7 @@ namespace ATK
     DataType_ get_release_hysteresis() const;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ attack;

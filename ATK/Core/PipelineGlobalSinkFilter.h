@@ -22,7 +22,7 @@ namespace ATK
     /// Constructor of the multiple sinks filter
     PipelineGlobalSinkFilter();
     /// destructor
-    virtual ~PipelineGlobalSinkFilter();
+    ~PipelineGlobalSinkFilter() override;
     
     /*!
      * @brief Adds a filter to the list of filters to process
@@ -41,9 +41,9 @@ namespace ATK
      */
     void set_parallel(bool parallel);
   protected:
-    virtual void process_impl(std::size_t size) const final;
-    virtual void prepare_process(std::size_t size) final;
-    virtual void prepare_outputs(std::size_t size) final;
+    void process_impl(std::size_t size) const final;
+    void prepare_process(std::size_t size) final;
+    void prepare_outputs(std::size_t size) final;
 
     /// List of filters in this sink
     std::vector<BaseFilter*> filters;

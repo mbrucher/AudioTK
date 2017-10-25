@@ -149,7 +149,7 @@ namespace ATK
     if(nb_ports == nb_input_ports)
       return;
     Parent::set_nb_input_ports(nb_ports);
-    converted_inputs_delay = std::vector<std::unique_ptr<DataTypeInput[]> >(nb_ports);
+    converted_inputs_delay = std::vector<AlignedVector>(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
     direct_filters.assign(nb_ports, nullptr);
@@ -162,7 +162,7 @@ namespace ATK
     if(nb_ports == nb_output_ports)
       return;
     Parent::set_nb_output_ports(nb_ports);
-    outputs_delay = std::vector<std::unique_ptr<DataTypeOutput[]> >(nb_ports);
+    outputs_delay = std::vector<AlignedOutVector>(nb_ports);
     outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
     default_output.assign(nb_ports, TypeTraits<DataTypeOutput>::Zero());
@@ -214,17 +214,12 @@ namespace ATK
       auto input_size = converted_inputs_size[i];
       if(input_size < size)
       {
-        auto allocated_size = static_cast<unsigned int>(input_delay + size + (ALIGNMENT - 1) / sizeof(DataTypeInput));
-        std::unique_ptr<DataTypeInput[]> temp(new DataTypeInput[allocated_size]);
-        auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
-        size_t space = sizeof(DataTypeInput) * allocated_size;
-        std::align(ALIGNMENT, sizeof(DataTypeInput) * size, my_temp_ptr, space);
-        auto temp_ptr = reinterpret_cast<DataTypeInput*>(my_temp_ptr);
+        AlignedVector temp(input_delay + size);
         if(input_size == 0)
         {
           for(unsigned int j = 0; j < input_delay; ++j)
           {
-            temp_ptr[j] = default_input[i];
+            temp[j] = default_input[i];
           }
         }
         else
@@ -232,12 +227,12 @@ namespace ATK
           const auto input_ptr = converted_inputs[i];
           for(int j = 0; j < static_cast<int>(input_delay); ++j)
           {
-            temp_ptr[j] = input_ptr[last_size + j - input_delay];
+            temp[j] = input_ptr[last_size + j - input_delay];
           }
         }
 
         converted_inputs_delay[i] = std::move(temp);
-        converted_inputs[i] = temp_ptr + input_delay;
+        converted_inputs[i] = converted_inputs_delay[i].data() + input_delay;
         converted_inputs_size[i] = size;
       }
       else
@@ -261,17 +256,12 @@ namespace ATK
       auto output_size = outputs_size[i];
       if(output_size < size)
       {
-        auto allocated_size = static_cast<unsigned int>(output_delay + size + (ALIGNMENT - 1) / sizeof(DataTypeOutput));
-        std::unique_ptr<DataTypeOutput[]> temp(new DataTypeOutput[allocated_size]);
-        auto my_temp_ptr = reinterpret_cast<void*>(temp.get());
-        size_t space = sizeof(DataTypeOutput) * allocated_size;
-        std::align(ALIGNMENT, sizeof(DataTypeOutput) * size, my_temp_ptr, space);
-        auto temp_ptr = reinterpret_cast<DataTypeOutput*>(my_temp_ptr);
+        AlignedOutVector temp(output_delay + size);
         if(output_size == 0)
         {
           for(unsigned int j = 0; j < output_delay; ++j)
           {
-            temp_ptr[j] = default_output[i];
+            temp[j] = default_output[i];
           }
         }
         else
@@ -279,12 +269,12 @@ namespace ATK
           const auto output_ptr = outputs[i];
           for(int j = 0; j < static_cast<int>(output_delay); ++j)
           {
-            temp_ptr[j] = output_ptr[last_size + j - output_delay];
+            temp[j] = output_ptr[last_size + j - output_delay];
           }
         }
 
         outputs_delay[i] = std::move(temp);
-        outputs[i] = temp_ptr + output_delay;
+        outputs[i] = outputs_delay[i].data() + output_delay;
         outputs_size[i] = size;
       }
       else
@@ -302,12 +292,12 @@ namespace ATK
   void TypedBaseFilter<DataType_, DataType__>::full_setup()
   {
     // Reset input arrays
-    converted_inputs_delay = std::vector<std::unique_ptr<DataTypeInput[]> >(nb_input_ports);
+    converted_inputs_delay = std::vector<AlignedVector>(nb_input_ports);
     converted_inputs.assign(nb_input_ports, nullptr);
     converted_inputs_size.assign(nb_input_ports, 0);
 
     // Reset output arrays
-    outputs_delay = std::vector<std::unique_ptr<DataTypeOutput[]> >(nb_output_ports);
+    outputs_delay = std::vector<AlignedOutVector>(nb_output_ports);
     outputs.assign(nb_output_ports, nullptr);
     outputs_size.assign(nb_output_ports, 0);
 

@@ -34,7 +34,7 @@ namespace ATK
     */
     UniversalFixedDelayLineFilter(std::size_t max_delay);
     /// Destructor
-    ~UniversalFixedDelayLineFilter();
+    ~UniversalFixedDelayLineFilter() override;
 
     /// Sets the initial delay
     void set_delay(std::size_t delay);
@@ -56,9 +56,9 @@ namespace ATK
     /// Gets feedforward amount
     DataType_ get_feedforward() const;
 
-    virtual void full_setup() final;
+    void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
 
   private:
     // internal state

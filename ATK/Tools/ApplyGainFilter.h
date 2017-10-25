@@ -34,10 +34,10 @@ namespace ATK
      */
     ApplyGainFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~ApplyGainFilter();
+    ~ApplyGainFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
   };
 }
 

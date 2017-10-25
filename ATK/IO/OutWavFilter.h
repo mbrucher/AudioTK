@@ -45,7 +45,7 @@ namespace ATK
      */
     OutWavFilter(const std::string& filename);
     
-    virtual void set_nb_input_ports(std::size_t nb_ports) final;
+    void set_nb_input_ports(std::size_t nb_ports) final;
   };
 }
 #endif

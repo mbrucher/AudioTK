@@ -35,7 +35,7 @@ namespace ATK
     */
     MuteSoloBufferFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~MuteSoloBufferFilter();
+    ~MuteSoloBufferFilter() override;
     
     /// Mutes/unmutes a given channel (outputs 0)
     void set_mute(std::size_t channel, bool mute);
@@ -50,7 +50,7 @@ namespace ATK
     void set_nb_output_ports(std::size_t nb_ports) final;
 
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     boost::dynamic_bitset<> mute_statuses;

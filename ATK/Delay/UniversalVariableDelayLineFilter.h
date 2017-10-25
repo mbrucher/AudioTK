@@ -34,7 +34,7 @@ namespace ATK
     */
     UniversalVariableDelayLineFilter(std::size_t max_delay);
     /// Destructor
-    ~UniversalVariableDelayLineFilter();
+    ~UniversalVariableDelayLineFilter() override;
 
     /// Sets the central delay
     void set_central_delay(std::size_t central_delay);
@@ -56,9 +56,9 @@ namespace ATK
     /// Gets feedforward amount
     DataType_ get_feedforward() const;
 
-    virtual void full_setup() final;
+    void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const final;
+    void process_impl(std::size_t size) const final;
     
   private:
     std::unique_ptr<UVDLF_Impl> impl;
