@@ -25,6 +25,13 @@ else(COMPILER_SUPPORTS_fastmath)
   message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support /fp:fast.")
 endif(COMPILER_SUPPORTS_fastmath)
 
+CHECK_CXX_COMPILER_FLAG("/MP" COMPILER_SUPPORTS_MP)
+if(COMPILER_SUPPORTS_MP)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+else(COMPILER_SUPPORTS_MP)
+  message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support /MP.")
+endif(COMPILER_SUPPORTS_MP)
+
 if(ENABLE_PROFILE_INFO)
   CHECK_CXX_COMPILER_FLAG("/Qvec-report:2" COMPILER_SUPPORTS_vectorreport)
   if(COMPILER_SUPPORTS_vectorreport)
