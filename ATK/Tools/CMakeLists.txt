@@ -9,6 +9,8 @@ SET(ATK_TOOLS_SIMD_SRC
     SIMD/DryWetFilter.cpp
     SIMD/MaxFilter.cpp
     SIMD/MSFilter.cpp
+    SIMD/OffsetVolumeFilter.cpp
+    SIMD/VolumeFilter.cpp
 )
 
 FILE(GLOB

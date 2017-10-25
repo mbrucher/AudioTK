@@ -43,12 +43,17 @@ namespace ATK
     {
       return el;
     }
-    
+
     static DataType Zero()
     {
       return 0;
     }
-  
+
+    static DataType One()
+    {
+      return 1;
+    }
+
     static DataType max(DataType a, DataType b)
     {
     return std::max(a, b);
@@ -83,6 +88,11 @@ namespace ATK
     {
       return 0;
     }
+
+    static int64_t One()
+    {
+      return 1;
+    }
   };
 
   /// Traits to handle conversion floating point numbers from/to double
@@ -112,7 +122,12 @@ namespace ATK
     {
       return 0;
     }
-  
+
+    static DataType One()
+    {
+      return 1;
+    }
+
     static DataType max(DataType a, DataType b)
     {
       return std::max(a, b);
@@ -124,33 +139,38 @@ namespace ATK
   struct ComplexRealTypeTraits
   {
   };
-  
+
   /// Traits to handle conversion complex floating point numbers from/to double
   template<typename DataType>
   struct ComplexRealTypeTraits<std::complex<DataType> >
   {
     typedef typename std::complex<DataType>::value_type Scalar;
-    
+
     /// Converts to a double
     static std::complex<double> to_double(std::complex<DataType> el)
     {
       return static_cast<std::complex<double> >(el);
     }
-    
+
     /// Converts from a double
     static std::complex<DataType> from_double(std::complex<double> el)
     {
       return static_cast<std::complex<DataType> >(el);
     }
-    
+
     static std::complex<DataType> conj(std::complex<DataType> el)
     {
       return std::conj(el);
     }
-    
+
     static DataType Zero()
     {
       return 0;
+    }
+
+    static DataType One()
+    {
+      return 1;
     }
   };
   
@@ -167,18 +187,23 @@ namespace ATK
     {
       return el;
     }
-    
+
     /// Converts from a double
     static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     static simdpp::float64<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0);
     }
-  
+
+    static simdpp::float64<VECTOR_LANES> One()
+    {
+      return simdpp::make_float(1, 1);
+    }
+
     static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
     {
       return simdpp::max(a, b);
@@ -191,24 +216,29 @@ namespace ATK
   {
     static const std::size_t VECTOR_LANES = 4;
     typedef float Scalar;
-    
+
     /// Converts to a double
     static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     /// Converts from a double
     static simdpp::float32<VECTOR_LANES> from_double(simdpp::float32<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     static simdpp::float32<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0, 0, 0);
     }
-  
+
+    static simdpp::float32<VECTOR_LANES> One()
+    {
+      return simdpp::make_float(1, 1, 1, 1);
+    }
+
     static simdpp::float32<VECTOR_LANES> max(simdpp::float32<VECTOR_LANES> a, simdpp::float32<VECTOR_LANES> b)
     {
       return simdpp::max(a, b);
@@ -221,24 +251,29 @@ namespace ATK
   {
     static const std::size_t VECTOR_LANES = 8;
     typedef float Scalar;
-    
+
     /// Converts to a double
     static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     /// Converts from a double
     static simdpp::float32<VECTOR_LANES> from_double(simdpp::float32<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     static simdpp::float32<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
     }
-  
+
+    static simdpp::float32<VECTOR_LANES> One()
+    {
+      return simdpp::make_float(1, 1, 1, 1, 1, 1, 1, 1);
+    }
+
     static simdpp::float32<VECTOR_LANES> max(simdpp::float32<VECTOR_LANES> a, simdpp::float32<VECTOR_LANES> b)
     {
       return simdpp::max(a, b);
@@ -251,22 +286,27 @@ namespace ATK
   {
     static const std::size_t VECTOR_LANES = 4;
     typedef double Scalar;
-    
+
     /// Converts to a double
     static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     /// Converts from a double
     static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     static simdpp::float64<VECTOR_LANES> Zero()
     {
       return simdpp::make_float(0, 0, 0, 0);
+    }
+
+    static simdpp::float64<VECTOR_LANES> One()
+    {
+      return simdpp::make_float(1, 1, 1, 1);
     }
 
     static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
@@ -281,13 +321,13 @@ namespace ATK
   {
     static const std::size_t VECTOR_LANES = 8;
     typedef double Scalar;
-    
+
     /// Converts to a double
     static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
     {
       return el;
     }
-    
+
     /// Converts from a double
     static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
     {
@@ -299,12 +339,17 @@ namespace ATK
       return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
     }
 
+    static simdpp::float64<VECTOR_LANES> One()
+    {
+      return simdpp::make_float(1, 1, 1, 1, 1, 1, 1, 1);
+    }
+
     static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
     {
       return simdpp::max(a, b);
     }
   };
-  
+
   /// Traits to retrieve SIMD typename
   template<typename DataType>
   struct SIMDTypeTraits
@@ -333,7 +378,6 @@ namespace ATK
     typename std::conditional<std::is_floating_point<DataType>::value, RealTypeTraits<DataType>, IntegralTypeTraits<DataType>>::type>::type
   {
   };
-
 }
 
 #endif
