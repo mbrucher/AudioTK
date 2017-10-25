@@ -95,7 +95,7 @@ namespace ATK
     void convert_inputs(std::size_t size);
 
     /// Input arrays with the input delay, owned here
-    std::vector<std::unique_ptr<DataTypeInput[]> > converted_inputs_delay;
+    std::vector<AlignedVector> converted_inputs_delay;
     /// Input arrays, starting from t=0 (without input delay)
     std::vector<DataTypeInput*> converted_inputs;
     /// Current size of the input arrays, without delay
@@ -104,7 +104,7 @@ namespace ATK
     std::vector<OutputArrayInterface<DataType_>*> direct_filters;
 
     /// Output arrays with the output delay, owned here
-    std::vector<std::unique_ptr<DataTypeOutput[]> > outputs_delay;
+    std::vector<AlignedOutVector> outputs_delay;
     /// Output arrays, starting from t=0 (without output delay)
     std::vector<DataTypeOutput*> outputs;
     /// Current size of the output arrays, without delay
