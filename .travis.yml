@@ -152,7 +152,7 @@ matrix:
         - libeigen3-dev
         - libsndfile-dev
         - swig
-        - atlas
+        - atlas-dev
     env:
     - COMPILER=clang++-3.9
     - PLATFORM=clang-3.9

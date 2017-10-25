@@ -232,7 +232,7 @@ namespace ATK
         }
 
         converted_inputs_delay[i] = std::move(temp);
-        converted_inputs[i] = temp.data() + input_delay;
+        converted_inputs[i] = converted_inputs_delay[i].data() + input_delay;
         converted_inputs_size[i] = size;
       }
       else
@@ -274,7 +274,7 @@ namespace ATK
         }
 
         outputs_delay[i] = std::move(temp);
-        outputs[i] = temp.data() + output_delay;
+        outputs[i] = outputs_delay[i].data() + output_delay;
         outputs_size[i] = size;
       }
       else
