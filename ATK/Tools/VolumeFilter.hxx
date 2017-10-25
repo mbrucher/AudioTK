@@ -22,7 +22,7 @@ namespace ATK
   template<typename DataType_>
   void VolumeFilter<DataType_>::set_volume_db(double volume_db)
   {
-    set_volume(static_cast<DataType>(std::pow(10., volume_db/20)));
+    set_volume(TypeTraits<DataType_>::One() * static_cast<typename TypeTraits<DataType_>::Scalar>(std::pow(10., volume_db/20)));
   }
   
   template<typename DataType_>
