@@ -42,9 +42,9 @@ namespace ATK
                          ((std::size_t) nb_channels))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template std::unique_ptr<BaseFilter> createOffsetVolumeFilter<double, 2>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createOffsetVolumeFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createOffsetVolumeFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createOffsetVolumeFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createOffsetVolumeFilter<double, 8>(std::size_t)));
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createOffsetVolumeFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createOffsetVolumeFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createOffsetVolumeFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createOffsetVolumeFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createOffsetVolumeFilter<double, 8>(std::size_t)));
 }
