@@ -130,14 +130,14 @@ namespace SIMDPP_ARCH_NAMESPACE
   }
 }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToOctonionFilter)
-                         ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createOctonionToRealFilter)
-                         ((std::size_t) nb_channels))
+SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToOctonionFilter)
+                        ((std::size_t) nb_channels))
+SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createOctonionToRealFilter)
+                        ((std::size_t) nb_channels))
 
-  SIMDPP_INSTANTIATE_DISPATCHER(
-    (template std::unique_ptr<BaseFilter> createRealToOctonionFilter<float>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createRealToOctonionFilter<double>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createOctonionToRealFilter<float>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createOctonionToRealFilter<double>(std::size_t)));
+SIMDPP_INSTANTIATE_DISPATCHER(
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter<float>(std::size_t)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter<double>(std::size_t)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter<float>(std::size_t)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter<double>(std::size_t)));
 }
