@@ -42,9 +42,9 @@ namespace ATK
                          ((std::size_t) nb_channels))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<double, 8>(std::size_t)));
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<double, 2>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<float, 4>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<double, 4>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<float, 8>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter<double, 8>(std::size_t)));
 }
