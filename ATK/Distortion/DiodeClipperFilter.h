@@ -2,8 +2,8 @@
  * \file DiodeClipperFilter.h
  */
 
-#ifndef ATK_DISTORTION_DiodeClipperFilter_H
-#define ATK_DISTORTION_DiodeClipperFilter_H
+#ifndef ATK_DISTORTION_DIODECLIPPERFILTER_H
+#define ATK_DISTORTION_DIODECLIPPERFILTER_H
 
 #include <memory>
 
