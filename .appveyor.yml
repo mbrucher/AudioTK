@@ -219,7 +219,7 @@ build_script:
 
 after_build:
   - cd %ATK_OUT%
-  - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%.zip * -tzip
+  - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%.zip * -tzip
 
 test_script:
   - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-%MSVC_VERSION%;%FFTW_ROOT%;%PATH%
