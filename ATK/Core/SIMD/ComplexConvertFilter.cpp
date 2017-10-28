@@ -104,12 +104,12 @@ namespace ATK
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToComplexFilter)
-                         ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createComplexToRealFilter)
-                         ((std::size_t) nb_channels))
+SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToComplexFilter)
+                        ((std::size_t) nb_channels))
+SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createComplexToRealFilter)
+                        ((std::size_t) nb_channels))
   
-  SIMDPP_INSTANTIATE_DISPATCHER(
-    (template std::unique_ptr<BaseFilter> createRealToComplexFilter<double>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createComplexToRealFilter<double>(std::size_t)));
+SIMDPP_INSTANTIATE_DISPATCHER(
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToComplexFilter<double>(std::size_t)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createComplexToRealFilter<double>(std::size_t)));
 }

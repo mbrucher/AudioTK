@@ -2,7 +2,7 @@
  * \file SinusGeneratorFilter.cpp
  */
 
-#include "SinusGeneratorFilter.h"
+#include <ATK/Tools/SinusGeneratorFilter.h>
 
 #include <cmath>
 

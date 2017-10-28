@@ -83,10 +83,10 @@ namespace ATK
     /// Destructor
     ~Triode2Filter();
 
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
     
-    void full_setup() override final;
-    void setup() override final;
+    void full_setup() final;
+    void setup() final;
   };
 }
 

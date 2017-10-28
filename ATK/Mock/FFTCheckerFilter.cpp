@@ -2,7 +2,9 @@
  * \file FFTCheckerFilter.cpp
  */
 
-#include "FFTCheckerFilter.h"
+#include <ATK/Mock/FFTCheckerFilter.h>
+
+#include <ATK/Utility/FFT.h>
 
 #include <cmath>
 

@@ -6,7 +6,7 @@
 #define ATK_DYNAMIC_ATTACKRELEASEFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Dynamic/config.h>
 
 namespace ATK
 {
@@ -31,7 +31,7 @@ namespace ATK
     */
     AttackReleaseFilter(std::size_t nb_channels = 1);
     /// destructor
-    ~AttackReleaseFilter();
+    ~AttackReleaseFilter() override;
 
     /// Sets the speed of the attack
     void set_attack(DataType_ attack);
@@ -43,7 +43,7 @@ namespace ATK
     DataType_ get_release() const;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ attack;

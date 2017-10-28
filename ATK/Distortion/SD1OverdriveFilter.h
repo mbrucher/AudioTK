@@ -8,7 +8,7 @@
 #include <memory>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Distortion/config.h>
 
 namespace ATK
 {
@@ -44,8 +44,8 @@ namespace ATK
     DataType_ get_drive() const;
 
   protected:
-    void setup() override final;
-    void process_impl(std::size_t size) const override final;
+    void setup() final;
+    void process_impl(std::size_t size) const final;
     DataType drive;
     
   private:

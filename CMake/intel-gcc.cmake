@@ -57,29 +57,6 @@
     message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support -xAVX -axCORE-AVX2.")
   endif(COMPILER_SUPPORTS_AVX)
 
-  cmake_push_check_state()
-  set(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -std=c++11")
-  check_cxx_source_runs("
-  #include <memory>
-
-  int main()
-  {
-    std::size_t alignment = 32;
-    std::size_t size = 32;
-    std::size_t space = 32;
-    void* p = nullptr;
-
-    std::align(alignment, size, p, space);
-
-    return 0;
-  }
-" HAS_STD_ALIGN2)
-  cmake_pop_check_state()
-
-  if(NOT HAS_STD_ALIGN2)
-    add_definitions(-DNEED_STD_ALIGN)
-  endif(NOT HAS_STD_ALIGN2)
-
   CHECK_CXX_COMPILER_FLAG("-Werror=suggest-override" COMPILER_HAS_SUGGEST_OVERRIDE)
   if(COMPILER_HAS_SUGGEST_OVERRIDE)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=suggest-override")

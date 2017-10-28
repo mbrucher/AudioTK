@@ -9,7 +9,7 @@
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Delay/config.h>
 
 #if ATK_EIGEN == 1
 
@@ -38,7 +38,7 @@ namespace ATK
     */
     FeedbackDelayNetworkFilter(std::size_t max_delay);
     /// Destructor
-    ~FeedbackDelayNetworkFilter();
+    ~FeedbackDelayNetworkFilter() override;
 
     /// Set the initial delay from a channel
     void set_delay(unsigned int channel, std::size_t delay);
@@ -60,9 +60,9 @@ namespace ATK
     /// Gets the output gain of a channel
     DataType get_outgain(unsigned int channel) const;
 
-    virtual void full_setup() override final;
+    void full_setup() final;
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
 
   private:
     // internal state

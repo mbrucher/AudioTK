@@ -2,7 +2,7 @@
  * \file UniversalVariableDelayLineFilter.cpp
  */
 
-#include "UniversalVariableDelayLineFilter.h"
+#include <ATK/Delay/UniversalVariableDelayLineFilter.h>
 
 #include <cassert>
 #include <cmath>

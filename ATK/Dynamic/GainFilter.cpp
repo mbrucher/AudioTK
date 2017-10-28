@@ -2,7 +2,7 @@
  * \file GainFilter.cpp
  */
 
-#include "GainFilter.h"
+#include <ATK/Dynamic/GainFilter.h>
 
 #include <cassert>
 #include <cmath>

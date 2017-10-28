@@ -2,7 +2,7 @@
  * \file OutWavFilter.cpp
  */
 
-#include "OutWavFilter.h"
+#include <ATK/IO/OutWavFilter.h>
 
 #include <cstring>
 #include <stdexcept>

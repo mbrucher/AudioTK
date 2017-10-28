@@ -2,7 +2,7 @@
  * \file PipelineGlobalSinkFilter.cpp
  */
 
-#include "PipelineGlobalSinkFilter.h"
+#include <ATK/Core/PipelineGlobalSinkFilter.h>
 
 #include <algorithm>
 

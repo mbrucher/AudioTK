@@ -78,9 +78,9 @@ namespace ATK
     */
     void set_split_size(unsigned int split_size);
   protected:
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
     
-    void setup() override final;
+    void setup() final;
     
   };
 }

@@ -2,7 +2,7 @@
  * \file DiodeClipperFilter.cpp
  */
 
-#include "DiodeClipperFilter.h"
+#include <ATK/Distortion/DiodeClipperFilter.h>
 
 #include <boost/math/special_functions/sign.hpp>
 

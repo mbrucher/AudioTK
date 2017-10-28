@@ -6,7 +6,7 @@
 #define ATK_TOOLS_MUTESOLOBUFFERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 #include <boost/dynamic_bitset.hpp>
 
@@ -35,7 +35,7 @@ namespace ATK
     */
     MuteSoloBufferFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~MuteSoloBufferFilter();
+    ~MuteSoloBufferFilter() override;
     
     /// Mutes/unmutes a given channel (outputs 0)
     void set_mute(std::size_t channel, bool mute);
@@ -46,11 +46,11 @@ namespace ATK
     /// Returns the solo status of a channel
     bool get_solo(std::size_t channel) const;
     
-    void set_nb_input_ports(std::size_t nb_ports) override;
-    void set_nb_output_ports(std::size_t nb_ports) override;
+    void set_nb_input_ports(std::size_t nb_ports) final;
+    void set_nb_output_ports(std::size_t nb_ports) final;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
     
   private:
     boost::dynamic_bitset<> mute_statuses;

@@ -2,7 +2,7 @@
  * \file PowerFilter.cpp
  */
 
-#include "PowerFilter.h"
+#include <ATK/Dynamic/PowerFilter.h>
 
 #include <cassert>
 #include <cstdint>

@@ -2,7 +2,7 @@
  * \file BaseFilter.cpp
  */
 
-#include "BaseFilter.h"
+#include <ATK/Core/BaseFilter.h>
 
 #include <cassert>
 #include <cstdint>

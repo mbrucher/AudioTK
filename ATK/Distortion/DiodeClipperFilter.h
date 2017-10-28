@@ -2,13 +2,13 @@
  * \file DiodeClipperFilter.h
  */
 
-#ifndef ATK_DISTORTION_DiodeClipperFilter_H
-#define ATK_DISTORTION_DiodeClipperFilter_H
+#ifndef ATK_DISTORTION_DIODECLIPPERFILTER_H
+#define ATK_DISTORTION_DIODECLIPPERFILTER_H
 
 #include <memory>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Distortion/config.h>
 
 namespace ATK
 {
@@ -40,8 +40,8 @@ namespace ATK
     ~DiodeClipperFilter();
     
   protected:
-    void setup() override final;
-    void process_impl(std::size_t size) const override final;
+    void setup() final;
+    void process_impl(std::size_t size) const final;
     
   private:
     std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction, 10, true> > optimizer;

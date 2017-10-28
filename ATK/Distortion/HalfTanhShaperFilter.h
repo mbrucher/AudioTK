@@ -6,7 +6,7 @@
 #define ATK_DISTORTION_HALFTANHSHAPERFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Distortion/config.h>
 
 namespace ATK
 {
@@ -32,13 +32,13 @@ namespace ATK
     */
     HalfTanhShaperFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~HalfTanhShaperFilter();
+    ~HalfTanhShaperFilter() override;
     
     void set_coefficient(DataType coeff);
     DataType_ get_coefficient() const;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   private:
     DataType coeff;
   };

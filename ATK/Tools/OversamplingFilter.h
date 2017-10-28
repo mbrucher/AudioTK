@@ -6,8 +6,8 @@
 #ifndef ATK_TOOLS_OVERSAMPLINGFILTER_H
 #define ATK_TOOLS_OVERSAMPLINGFILTER_H
 
-#include "../Core/TypedBaseFilter.h"
-#include "config.h"
+#include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {
@@ -27,7 +27,7 @@ namespace ATK
     static const int oversampling_factor = 2;
     
   public:
-    DataType coeffs[order + 1][points / 2];
+    typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
   public:
     /// Constructor
@@ -51,7 +51,7 @@ namespace ATK
     
   public:
     /// Coefficients used by OversamplingFilter
-    DataType coeffs[order + 1][points / 2];
+    typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
   public:
     /// Constructor
@@ -75,7 +75,7 @@ namespace ATK
     
   public:
     /// Coefficients used by OversamplingFilter
-    DataType coeffs[order + 1][points / 2];
+    typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
   public:
     /// Constructor
@@ -99,7 +99,7 @@ namespace ATK
     
   public:
     /// Coefficients used by OversamplingFilter
-    DataType coeffs[order + 1][points / 2];
+    typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
   public:
     /// Constructor
@@ -123,7 +123,7 @@ namespace ATK
     
   public:
     /// Coefficients used by OversamplingFilter
-    DataType coeffs[order + 1][points / 2];
+    typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
   public:
     /// Constructor
@@ -155,7 +155,7 @@ namespace ATK
     */
     OversamplingFilter(std::size_t nb_channels = 1);
     
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 }
 

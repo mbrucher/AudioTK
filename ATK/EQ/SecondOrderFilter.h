@@ -37,9 +37,9 @@ namespace ATK
      */
     SecondOrderBaseCoefficients(std::size_t nb_channels = 1);
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(CoeffDataType cut_frequency) override;
+    void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency
-    CoeffDataType get_cut_frequency() const override;
+    CoeffDataType get_cut_frequency() const final;
   };
 
   /// Coefficients for a second order bandpass filter
@@ -73,9 +73,9 @@ namespace ATK
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
      */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// Coefficients for a second order lowpass filter
@@ -158,13 +158,13 @@ namespace ATK
     /*!
     * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
     */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
     /// Sets the gain of the peak
-    void set_gain(CoeffDataType gain) override;
+    void set_gain(CoeffDataType gain) final;
     /// Returns the gain for the peak
-    CoeffDataType get_gain() const override;
+    CoeffDataType get_gain() const final;
   };
 
   
@@ -199,9 +199,9 @@ namespace ATK
     /*!
     * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
     */
-    void set_Q(CoeffDataType Q) override;
+    void set_Q(CoeffDataType Q) final;
     /// Returns the Q factor
-    CoeffDataType get_Q() const override;
+    CoeffDataType get_Q() const final;
   };
 
   /// Coefficients for a second order low-pass shelving filter
@@ -231,9 +231,9 @@ namespace ATK
     SecondOrderLowShelvingCoefficients(std::size_t nb_channels = 1);
 
     /// Sets the gain of the shelf
-    void set_gain(CoeffDataType gain) override;
+    void set_gain(CoeffDataType gain) final;
     /// Returns the gain for the shelf
-    CoeffDataType get_gain() const override;
+    CoeffDataType get_gain() const final;
   };
   
   /// Coefficients for a second order high-pass shelving filter
@@ -263,9 +263,9 @@ namespace ATK
     SecondOrderHighShelvingCoefficients(std::size_t nb_channels = 1);
 
     /// Sets the gain of the shelf
-    void set_gain(CoeffDataType gain) override;
+    void set_gain(CoeffDataType gain) final;
     /// Returns the gain for the shelf
-    CoeffDataType get_gain() const override;
+    CoeffDataType get_gain() const final;
   };
 }
 

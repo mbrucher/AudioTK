@@ -5,8 +5,8 @@
 #ifndef ATK_CORE_TYPEDBASEFILTER_H
 #define ATK_CORE_TYPEDBASEFILTER_H
 
-#include "BaseFilter.h"
-#include "TypeTraits.h"
+#include <ATK/Core/BaseFilter.h>
+#include <ATK/Core/TypeTraits.h>
 
 #include <memory>
 #include <vector>
@@ -15,13 +15,15 @@
 
 namespace ATK
 {
+  const std::size_t ALIGNMENT = 32;
+
   /// Interface for output filters
   template<typename DataType>
   class OutputArrayInterface
   {
   public:
     virtual ~OutputArrayInterface();
-    
+
     /**
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
@@ -32,8 +34,7 @@ namespace ATK
      */
     virtual std::size_t get_output_array_size() const = 0;
   };
-  
-  
+
   /// Base class for typed filters, contains arrays
   template<typename DataType_, typename DataType__ = DataType_>
   class ATK_CORE_EXPORT TypedBaseFilter : public BaseFilter, public OutputArrayInterface<DataType__>
@@ -49,17 +50,19 @@ namespace ATK
     /// To be used by inherited APIs
     typedef DataType__ DataTypeOutput;
     /// To be used for filters that require aligned data
-    typedef std::vector<DataType, boost::alignment::aligned_allocator<DataType, 32> > AlignedVector;
+    typedef std::vector<DataTypeInput, boost::alignment::aligned_allocator<DataTypeInput, ALIGNMENT> > AlignedVector;
+    /// To be used for filters that require aligned data for output data
+    typedef std::vector<DataTypeOutput, boost::alignment::aligned_allocator<DataTypeOutput, ALIGNMENT> > AlignedOutVector;
     /// To be used for filters that required aligned data for parameters (like EQ)
-    typedef std::vector<typename TypeTraits<DataType>::Scalar, boost::alignment::aligned_allocator<typename TypeTraits<DataType>::Scalar, 32> > AlignedScalarVector;
+    typedef std::vector<typename TypeTraits<DataType>::Scalar, boost::alignment::aligned_allocator<typename TypeTraits<DataType>::Scalar, ALIGNMENT> > AlignedScalarVector;
 
     /// Base constructor for filters with actual data
     TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports);
     /// Move constructor
     TypedBaseFilter(TypedBaseFilter&& other);
     /// Destructor
-    virtual ~TypedBaseFilter();
-    
+    ~TypedBaseFilter() override;
+
     TypedBaseFilter(const TypedBaseFilter&) = delete;
     TypedBaseFilter& operator=(const TypedBaseFilter&) = delete;
 
@@ -67,8 +70,8 @@ namespace ATK
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
-    DataType__* get_output_array(std::size_t port) const override;
-    std::size_t get_output_array_size() const override;
+    DataType__* get_output_array(std::size_t port) const final;
+    std::size_t get_output_array_size() const final;
 
     void set_nb_input_ports(std::size_t nb_ports) override;
     void set_nb_output_ports(std::size_t nb_ports) override;
@@ -76,23 +79,23 @@ namespace ATK
     void full_setup() override;
 
     /// Connects this filter input to another's output
-    void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) override final;
-    
+    void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) final;
+
   private:
     int get_type() const override;
   protected:
     /// This implementation does nothing
     void process_impl(std::size_t size) const override;
     /// Prepares the filter by retrieving the inputs arrays
-    void prepare_process(std::size_t size) override final;
+    void prepare_process(std::size_t size) final;
     /// Prepares the filter by resizing the outputs arrays
-    void prepare_outputs(std::size_t size) override final;
-    
+    void prepare_outputs(std::size_t size) final;
+
     /// Used to convert other filter outputs to DataType*
     void convert_inputs(std::size_t size);
 
     /// Input arrays with the input delay, owned here
-    std::vector<std::unique_ptr<DataTypeInput[]> > converted_inputs_delay;
+    std::vector<AlignedVector> converted_inputs_delay;
     /// Input arrays, starting from t=0 (without input delay)
     std::vector<DataTypeInput*> converted_inputs;
     /// Current size of the input arrays, without delay
@@ -101,16 +104,16 @@ namespace ATK
     std::vector<OutputArrayInterface<DataType_>*> direct_filters;
 
     /// Output arrays with the output delay, owned here
-    std::vector<std::unique_ptr<DataTypeOutput[]> > outputs_delay;
+    std::vector<AlignedOutVector> outputs_delay;
     /// Output arrays, starting from t=0 (without output delay)
     std::vector<DataTypeOutput*> outputs;
     /// Current size of the output arrays, without delay
     std::vector<std::size_t> outputs_size;
 
     /// A vector containing the default values for the input arrays
-    std::vector<DataTypeInput> default_input;
+    AlignedVector default_input;
     /// A vector containing the default values for the output arrays
-    std::vector<DataTypeOutput> default_output;
+    AlignedOutVector default_output;
   };
 }
 

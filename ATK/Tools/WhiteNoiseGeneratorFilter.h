@@ -9,7 +9,7 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {
@@ -28,7 +28,7 @@ namespace ATK
     /// Constructor
     WhiteNoiseGeneratorFilter();
     /// Destructor
-    ~WhiteNoiseGeneratorFilter();
+    ~WhiteNoiseGeneratorFilter() override;
 
     /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);
@@ -41,7 +41,7 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ volume;

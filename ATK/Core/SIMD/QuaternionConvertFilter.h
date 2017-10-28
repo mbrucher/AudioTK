@@ -2,8 +2,8 @@
  * \file QuaternionConvertFilter.h
  */
 
-#ifndef ATK_CORE_QUATERNIONCONVERTFILTER_H
-#define ATK_CORE_QUATERNIONCONVERTFILTER_H
+#ifndef ATK_CORE_SIMD_QUATERNIONCONVERTFILTER_H
+#define ATK_CORE_SIMD_QUATERNIONCONVERTFILTER_H
 
 #include <simdpp/simd.h>
 
@@ -31,10 +31,10 @@ namespace ATK
      */
     RealToQuaternionFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~RealToQuaternionFilter();
+    ~RealToQuaternionFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 
   /// Converts a complex channels into a two real one
@@ -56,10 +56,10 @@ namespace ATK
     */
     QuaternionToRealFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~QuaternionToRealFilter();
+    ~QuaternionToRealFilter() override;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 
   /// Create a filter to convert real streams to SIMD ones

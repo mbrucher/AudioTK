@@ -2,7 +2,7 @@
  * \file GainMaxExpanderFilter.cpp
  */
 
-#include "GainMaxExpanderFilter.h"
+#include <ATK/Dynamic/GainMaxExpanderFilter.h>
 
 #include <cmath>
 #include <cstdint>

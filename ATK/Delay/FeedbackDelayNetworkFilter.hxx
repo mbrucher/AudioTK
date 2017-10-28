@@ -5,7 +5,7 @@
 #ifndef ATK_DELAY_FEEDBACKDELAYNETWORKFILTER_HXX
 #define ATK_DELAY_FEEDBACKDELAYNETWORKFILTER_HXX
 
-#include "FeedbackDelayNetworkFilter.h"
+#include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 
 #if ATK_EIGEN == 1
 

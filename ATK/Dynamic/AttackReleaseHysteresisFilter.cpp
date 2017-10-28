@@ -2,7 +2,7 @@
  * \file AttackReleaseHysteresisFilter.cpp
  */
 
-#include "AttackReleaseHysteresisFilter.h"
+#include <ATK/Dynamic/AttackReleaseHysteresisFilter.h>
 
 #include <cassert>
 #include <cmath>

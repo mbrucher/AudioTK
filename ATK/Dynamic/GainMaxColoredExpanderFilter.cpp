@@ -2,7 +2,7 @@
  * \file GainMaxColoredExpanderFilter.cpp
  */
 
-#include "GainMaxColoredExpanderFilter.h"
+#include <ATK/Dynamic/GainMaxColoredExpanderFilter.h>
 
 #include <cmath>
 #include <cstdint>

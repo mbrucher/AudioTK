@@ -8,7 +8,7 @@
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {
@@ -27,7 +27,7 @@ namespace ATK
     /// Constructor
     SinusGeneratorFilter();
     /// Destructor
-    ~SinusGeneratorFilter();
+    ~SinusGeneratorFilter() override;
 
     /// Sets the frequency of the oscillator, without resetting it
     void set_frequency(DataType_ frequency);
@@ -44,10 +44,10 @@ namespace ATK
     /// Gets the offset
     DataType_ get_offset() const;
 
-    void full_setup() override final;
+    void full_setup() final;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
     
   private:
     DataType_ volume;

@@ -20,7 +20,7 @@
 
   ID:               atk_adaptive
   vendor:           Matthieu Brucher
-  version:          2.2.0
+  version:          2.2.1
   name:             ATK adaptive
   description:      Adaptive classes for ATK
   website:          http://www.audio-tk.com/

@@ -5,8 +5,8 @@
 #ifndef ATK_TOOLS_DECIMATIONFILTER_H
 #define ATK_TOOLS_DECIMATIONFILTER_H
 
-#include "../Core/TypedBaseFilter.h"
-#include "config.h"
+#include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {
@@ -35,11 +35,11 @@ namespace ATK
     */
     DecimationFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~DecimationFilter();
+    ~DecimationFilter()override;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
-    void setup() override final;
+    void process_impl(std::size_t size) const final;
+    void setup() final;
   };
 }
 

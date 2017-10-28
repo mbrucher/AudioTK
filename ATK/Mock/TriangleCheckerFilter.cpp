@@ -2,7 +2,7 @@
  * \file TriangleCheckerFilter.cpp
  */
 
-#include "TriangleCheckerFilter.h"
+#include <ATK/Mock/TriangleCheckerFilter.h>
 
 #include <cmath>
 #include <complex>

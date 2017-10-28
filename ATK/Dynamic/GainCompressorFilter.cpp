@@ -2,7 +2,7 @@
  * \file GainCompressorFilter.cpp
  */
 
-#include "GainCompressorFilter.h"
+#include <ATK/Dynamic/GainCompressorFilter.h>
 
 #include <cmath>
 #include <cstdint>

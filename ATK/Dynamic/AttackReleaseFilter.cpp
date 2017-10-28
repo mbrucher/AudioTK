@@ -2,7 +2,7 @@
  * \file AttackReleaseFilter.cpp
  */
 
-#include "AttackReleaseFilter.h"
+#include <ATK/Dynamic/AttackReleaseFilter.h>
 
 #include <cassert>
 #include <cstdint>

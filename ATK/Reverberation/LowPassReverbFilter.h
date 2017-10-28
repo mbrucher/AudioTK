@@ -8,7 +8,7 @@
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Reverberation/config.h>
 
 namespace ATK
 {
@@ -34,7 +34,7 @@ namespace ATK
     */
     LowPassReverbFilter(std::size_t max_delay);
     /// Destructor
-    ~LowPassReverbFilter();
+    ~LowPassReverbFilter() override;
 
     /// Changes the delay used for the filter
     void set_delay(std::size_t delay);
@@ -50,7 +50,7 @@ namespace ATK
     /// Gets cutoff amount
     DataType_ get_cutoff() const;
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   private:
     std::size_t delay;
     DataType_ feedback;

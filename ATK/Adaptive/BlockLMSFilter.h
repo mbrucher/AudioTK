@@ -7,7 +7,7 @@
 #define ATK_ADAPTIVE_BLOCKLMSFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Adaptive/config.h>
 
 namespace ATK
 {
@@ -36,7 +36,7 @@ namespace ATK
      */
     BlockLMSFilter(std::size_t size);
     /// Destructor
-    ~BlockLMSFilter();
+    ~BlockLMSFilter() override;
     
     /// Changes the underlying size
     void set_size(std::size_t size);
@@ -65,7 +65,7 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const override;
+    void process_impl(std::size_t size) const final;
   };
 }
 

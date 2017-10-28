@@ -8,6 +8,7 @@
 #include <memory>
 #include <string>
 
+#include <ATK/IO/config.h>
 #include <ATK/Core/TypedBaseFilter.h>
 
 class SndfileHandle;
@@ -16,7 +17,7 @@ namespace ATK
 {
   /// A source filter for sound files supported by lbsnd
   template<typename DataType_>
-  class InSndFileFilter final : public TypedBaseFilter<DataType_>
+  class ATK_IO_EXPORT InSndFileFilter final : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
@@ -30,7 +31,7 @@ namespace ATK
   private:
     std::unique_ptr<SndfileHandle> stream;
   protected:
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   public:
     /*!
      * @brief Constructor

@@ -2,7 +2,7 @@
  * \file RelativePowerFilter.cpp
  */
 
-#include "RelativePowerFilter.h"
+#include <ATK/Dynamic/RelativePowerFilter.h>
 
 #include <cassert>
 #include <cstdint>
