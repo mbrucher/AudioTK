@@ -2,7 +2,7 @@
  * \file TanhShaperFilter.cpp
  */
 
-#include "TanhShaperFilter.h"
+#include <ATK/Distortion/TanhShaperFilter.h>
 
 #include <ATK/Utility/fmath.h>
 

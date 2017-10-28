@@ -6,7 +6,7 @@
 #define ATK_TOOLS_MSFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {
@@ -29,10 +29,10 @@ namespace ATK
     */
     MiddleSideFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~MiddleSideFilter();
+    ~MiddleSideFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 }
 

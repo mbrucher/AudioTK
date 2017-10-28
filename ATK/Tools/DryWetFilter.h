@@ -6,13 +6,14 @@
 #define ATK_TOOLS_DRYWETFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
+#include <ATK/Tools/ToolsInterface.h>
 
 namespace ATK
 {
   /// Mixes two signals together
   template<typename DataType_>
-  class ATK_TOOLS_EXPORT DryWetFilter final : public TypedBaseFilter<DataType_>
+  class ATK_TOOLS_EXPORT DryWetFilter final : public TypedBaseFilter<DataType_>, public DryWetInterface
   {
   protected:
     /// Simplify parent calls
@@ -30,15 +31,15 @@ namespace ATK
     */
     DryWetFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~DryWetFilter();
+    ~DryWetFilter() override;
 
     /// Sets the amount of input signal in the output signal
-    void set_dry(double dry);
+    void set_dry(double dry) final;
     /// Returns the amount of dry signal in the output
-    double get_dry() const;
+    double get_dry() const final;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
     
   private:
     /// Amount of dry signal, between 0 and 1

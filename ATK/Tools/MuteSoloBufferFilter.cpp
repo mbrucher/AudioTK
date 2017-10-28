@@ -2,7 +2,7 @@
  * \file MuteSoloBufferFilter.cpp
  */
 
-#include "MuteSoloBufferFilter.h"
+#include <ATK/Tools/MuteSoloBufferFilter.h>
 
 #include <cmath>
 #include <complex>

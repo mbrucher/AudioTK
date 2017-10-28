@@ -2,7 +2,7 @@
  * \file LMSFilter.cpp
  */
 
-#include "LMSFilter.h"
+#include <ATK/Adaptive/LMSFilter.h>
 
 #include <complex>
 #include <cstdint>

@@ -6,8 +6,7 @@
 #define ATK_MOCK_SIMPLESINUSGENERATORFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-
-#include "config.h"
+#include <ATK/Mock/config.h>
 
 namespace ATK
 {
@@ -25,7 +24,7 @@ namespace ATK
     /// Constructor
     SimpleSinusGeneratorFilter();
     /// Destructor
-    virtual ~SimpleSinusGeneratorFilter();
+    ~SimpleSinusGeneratorFilter() override;
     
     /// Sets the amplitude of the sinusoid
     void set_amplitude(DataType_ amplitude);
@@ -33,7 +32,7 @@ namespace ATK
     void set_frequency(int frequency);
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
 
   private:
     mutable double state;

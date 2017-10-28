@@ -48,8 +48,8 @@ namespace ATK
     int get_selected() const;
     
   protected:
-    void setup() override final;
-    void process_impl(std::size_t size) const override final;
+    void setup() final;
+    void process_impl(std::size_t size) const final;
 
   private:
     int selected;

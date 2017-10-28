@@ -37,9 +37,9 @@ namespace ATK
      */
     FourthOrderBaseCoefficients(std::size_t nb_channels = 1);
     /// Sets the cut or central frequency of the filter
-    void set_cut_frequency(CoeffDataType cut_frequency) override;
+    void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency
-    CoeffDataType get_cut_frequency() const override;
+    CoeffDataType get_cut_frequency() const final;
   };
 }
 

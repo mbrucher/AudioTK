@@ -7,8 +7,8 @@
 
 #include <complex>
 
-#include "TypedBaseFilter.h"
-#include "config.h"
+#include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Core/config.h>
 
 namespace ATK
 {
@@ -31,10 +31,10 @@ namespace ATK
      */
     RealToComplexFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~RealToComplexFilter();
+    ~RealToComplexFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 
   /// Converts a complex channels into a two real one
@@ -56,10 +56,10 @@ namespace ATK
     */
     ComplexToRealFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~ComplexToRealFilter();
+    ~ComplexToRealFilter() override;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 }
 

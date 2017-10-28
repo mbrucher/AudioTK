@@ -2,7 +2,7 @@
  * \file CachedCosinusGeneratorFilter.cpp
  */
 
-#include "CachedCosinusGeneratorFilter.h"
+#include <ATK/Tools/CachedCosinusGeneratorFilter.h>
 
 #include <cmath>
 #include <cstdint>

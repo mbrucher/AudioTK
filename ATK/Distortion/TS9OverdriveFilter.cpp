@@ -2,7 +2,7 @@
  * \file TS9OverdriveFilter.cpp
  */
 
-#include "TS9OverdriveFilter.h"
+#include <ATK/Distortion/TS9OverdriveFilter.h>
 
 #include <stdexcept>
 

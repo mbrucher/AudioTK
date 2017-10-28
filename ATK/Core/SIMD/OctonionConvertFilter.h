@@ -2,8 +2,8 @@
  * \file OctonionConvertFilter.h
  */
 
-#ifndef ATK_CORE_OCTONIONCONVERTFILTER_H
-#define ATK_CORE_OCTONIONCONVERTFILTER_H
+#ifndef ATK_CORE_SIMD_OCTONIONCONVERTFILTER_H
+#define ATK_CORE_SIMD_OCTONIONCONVERTFILTER_H
 
 #include <simdpp/simd.h>
 
@@ -31,10 +31,10 @@ namespace ATK
      */
     RealToOctonionFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~RealToOctonionFilter();
+    ~RealToOctonionFilter() override;
     
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 
   /// Converts a complex channels into a two real one
@@ -56,10 +56,10 @@ namespace ATK
     */
     OctonionToRealFilter(std::size_t nb_channels = 1);
     /// Destructor
-    ~OctonionToRealFilter();
+    ~OctonionToRealFilter() override;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 
   /// Create a filter to convert real streams to SIMD ones

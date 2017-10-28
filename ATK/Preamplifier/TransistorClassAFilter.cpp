@@ -2,8 +2,8 @@
 * \file TransistorClassAFilter.cpp
 */
 
-#include "TransistorClassAFilter.h"
-#include "TransistorFunction.h"
+#include <ATK/Preamplifier/TransistorClassAFilter.h>
+#include <ATK/Preamplifier/TransistorFunction.h>
 
 #include <cassert>
 
@@ -38,7 +38,8 @@ namespace ATK
 
     std::pair<DataType, DataType> exp_y0;
 
-    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType Vbias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function, const std::vector<DataType>& default_output)
+    template<typename T>
+    TransistorClassAFunction(DataType dt, DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk, DataType Vbias, DataType Cg, DataType Co, DataType Ck, TransistorFunction<DataType_>& transistor_function, const T& default_output)
       :Rp(1 / Rp), Rg1(1 / Rg1), Rg2(1 / Rg2), Ro(1 / Ro), Rk(1 / Rk), Vbias(Vbias), Cg(2 / dt * Cg), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icgeq(2 / dt * -Cg * default_output[4]), icoeq(-2 / dt * Co * default_output[2]), transistor_function(transistor_function)
     {
     }

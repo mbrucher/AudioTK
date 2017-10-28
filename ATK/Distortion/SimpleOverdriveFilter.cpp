@@ -2,7 +2,7 @@
  * \file SimpleOverdriveFilter.cpp
  */
 
-#include "SimpleOverdriveFilter.h"
+#include <ATK/Distortion/SimpleOverdriveFilter.h>
 
 #include <boost/math/special_functions/sign.hpp>
 

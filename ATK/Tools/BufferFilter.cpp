@@ -2,7 +2,7 @@
  * \file BufferFilter.cpp
  */
 
-#include "BufferFilter.h"
+#include <ATK/Tools/BufferFilter.h>
 
 #include <cmath>
 #include <complex>

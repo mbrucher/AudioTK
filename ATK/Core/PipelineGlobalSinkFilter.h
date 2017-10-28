@@ -5,7 +5,7 @@
 #ifndef ATK_CORE_PIPELINEGLOBALSINKFILTER_H
 #define ATK_CORE_PIPELINEGLOBALSINKFILTER_H
 
-#include "BaseFilter.h"
+#include <ATK/Core/BaseFilter.h>
 
 #include <vector>
 
@@ -22,7 +22,7 @@ namespace ATK
     /// Constructor of the multiple sinks filter
     PipelineGlobalSinkFilter();
     /// destructor
-    virtual ~PipelineGlobalSinkFilter();
+    ~PipelineGlobalSinkFilter() override;
     
     /*!
      * @brief Adds a filter to the list of filters to process
@@ -35,15 +35,15 @@ namespace ATK
     */
     void remove_filter(const BaseFilter* filter);
 
-    int get_type() const override;
+    int get_type() const final;
     /*!
      * @brief Indicates if we can process the pipeline in parallel
      */
     void set_parallel(bool parallel);
   protected:
-    virtual void process_impl(std::size_t size) const override final;
-    virtual void prepare_process(std::size_t size) override final;
-    virtual void prepare_outputs(std::size_t size) override final;
+    void process_impl(std::size_t size) const final;
+    void prepare_process(std::size_t size) final;
+    void prepare_outputs(std::size_t size) final;
 
     /// List of filters in this sink
     std::vector<BaseFilter*> filters;

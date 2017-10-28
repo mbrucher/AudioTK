@@ -8,7 +8,7 @@
 #include <vector>
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {
@@ -31,7 +31,7 @@ namespace ATK
     */
     CachedSinusGeneratorFilter(int periods, int seconds = 1);
     /// Destructor
-    ~CachedSinusGeneratorFilter();
+    ~CachedSinusGeneratorFilter() override;
 
     /*!
     * @brief Updates the cache with new values
@@ -53,8 +53,8 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    virtual void process_impl(std::size_t size) const override final;
-    virtual void setup() override final;
+    void process_impl(std::size_t size) const final;
+    void setup() final;
     
   private:
     mutable std::size_t indice;

@@ -27,11 +27,20 @@
 
 namespace ATK
 {
+  template class SecondOrderBaseCoefficients<simdpp::float64<2> >;
   template class SecondOrderBaseCoefficients<simdpp::float32<4> >;
   template class SecondOrderBaseCoefficients<simdpp::float64<4> >;
   template class SecondOrderBaseCoefficients<simdpp::float32<8> >;
   template class SecondOrderBaseCoefficients<simdpp::float64<8> >;
-  
+
+  template class SecondOrderBandPassCoefficients<simdpp::float64<2> >;
+  template class SecondOrderLowPassCoefficients<simdpp::float64<2> >;
+  template class SecondOrderHighPassCoefficients<simdpp::float64<2> >;
+  template class SecondOrderBandPassPeakCoefficients<simdpp::float64<2> >;
+  template class SecondOrderAllPassCoefficients<simdpp::float64<2> >;
+  template class SecondOrderLowShelvingCoefficients<simdpp::float64<2> >;
+  template class SecondOrderHighShelvingCoefficients<simdpp::float64<2> >;
+
   template class SecondOrderBandPassCoefficients<simdpp::float32<4> >;
   template class SecondOrderBandPassCoefficients<simdpp::float64<4> >;
   template class SecondOrderLowPassCoefficients<simdpp::float32<4> >;
@@ -61,7 +70,15 @@ namespace ATK
   template class SecondOrderLowShelvingCoefficients<simdpp::float64<8> >;
   template class SecondOrderHighShelvingCoefficients<simdpp::float32<8> >;
   template class SecondOrderHighShelvingCoefficients<simdpp::float64<8> >;
-  
+
+  template class SimpleIIRFilter<SecondOrderBandPassCoefficients<simdpp::float64<2> > >;
+  template class SimpleIIRFilter<SecondOrderLowPassCoefficients<simdpp::float64<2> > >;
+  template class SimpleIIRFilter<SecondOrderHighPassCoefficients<simdpp::float64<2> > >;
+  template class SimpleIIRFilter<SecondOrderBandPassPeakCoefficients<simdpp::float64<2> > >;
+  template class SimpleIIRFilter<SecondOrderAllPassCoefficients<simdpp::float64<2> > >;
+  template class SimpleIIRFilter<SecondOrderLowShelvingCoefficients<simdpp::float64<2> > >;
+  template class SimpleIIRFilter<SecondOrderHighShelvingCoefficients<simdpp::float64<2> > >;
+
   template class SimpleIIRFilter<SecondOrderBandPassCoefficients<simdpp::float32<4> > >;
   template class SimpleIIRFilter<SecondOrderBandPassCoefficients<simdpp::float64<4> > >;
   template class SimpleIIRFilter<SecondOrderLowPassCoefficients<simdpp::float32<4> > >;
@@ -91,7 +108,15 @@ namespace ATK
   template class SimpleIIRFilter<SecondOrderLowShelvingCoefficients<simdpp::float64<8> > >;
   template class SimpleIIRFilter<SecondOrderHighShelvingCoefficients<simdpp::float32<8> > >;
   template class SimpleIIRFilter<SecondOrderHighShelvingCoefficients<simdpp::float64<8> > >;
-  
+
+  template class IIRTDF2Filter<SecondOrderBandPassCoefficients<simdpp::float64<2> > >;
+  template class IIRTDF2Filter<SecondOrderLowPassCoefficients<simdpp::float64<2> > >;
+  template class IIRTDF2Filter<SecondOrderHighPassCoefficients<simdpp::float64<2> > >;
+  template class IIRTDF2Filter<SecondOrderBandPassPeakCoefficients<simdpp::float64<2> > >;
+  template class IIRTDF2Filter<SecondOrderAllPassCoefficients<simdpp::float64<2> > >;
+  template class IIRTDF2Filter<SecondOrderLowShelvingCoefficients<simdpp::float64<2> > >;
+  template class IIRTDF2Filter<SecondOrderHighShelvingCoefficients<simdpp::float64<2> > >;
+
   template class IIRTDF2Filter<SecondOrderBandPassCoefficients<simdpp::float32<4> > >;
   template class IIRTDF2Filter<SecondOrderBandPassCoefficients<simdpp::float64<4> > >;
   template class IIRTDF2Filter<SecondOrderLowPassCoefficients<simdpp::float32<4> > >;
@@ -212,61 +237,75 @@ namespace ATK
   SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighShelvingSecondOrderTDF2Filter) ((std::size_t) nb_channels))
   
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<double, 8>(std::size_t)));
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderFilter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderFilter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderFilter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderFilter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderFilter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderFilter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderFilter<double, 8>(std::size_t)));
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<double, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<double, 8>(std::size_t)));
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<double, 2>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassSecondOrderTDF2Filter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakSecondOrderTDF2Filter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingSecondOrderTDF2Filter<double, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<float, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<double, 4>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<float, 8>(std::size_t)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingSecondOrderTDF2Filter<double, 8>(std::size_t)));
 }

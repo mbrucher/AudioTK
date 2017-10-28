@@ -2,8 +2,8 @@
  * \file HadamardMixture.cpp
  */
 
-#include "FeedbackDelayNetworkFilter.hxx"
-#include "HadamardMixture.h"
+#include <ATK/Delay/FeedbackDelayNetworkFilter.hxx>
+#include <ATK/Delay/HadamardMixture.h>
 
 #if ATK_EIGEN == 1
 

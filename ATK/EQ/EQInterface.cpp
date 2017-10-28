@@ -1,5 +1,5 @@
 /**
- * \file QInterface.cpp
+ * \file EQInterface.cpp
  */
 
 #include <ATK/EQ/EQInterface.h>

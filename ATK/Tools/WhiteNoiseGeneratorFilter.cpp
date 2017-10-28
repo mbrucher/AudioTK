@@ -2,7 +2,7 @@
  * \file WhiteNoiseGeneratorFilter.cpp
  */
 
-#include "WhiteNoiseGeneratorFilter.h"
+#include <ATK/Tools/WhiteNoiseGeneratorFilter.h>
 
 #include <cmath>
 #include <cstdint>
@@ -15,13 +15,11 @@ namespace ATK
   WhiteNoiseGeneratorFilter<DataType_>::WhiteNoiseGeneratorFilter()
   :Parent(0, 1), volume(1), offset(0), dist(static_cast<DataType>(1e-3), static_cast<DataType>(2e-3))
   {
-    
   }
   
   template<typename DataType_>
   WhiteNoiseGeneratorFilter<DataType_>::~WhiteNoiseGeneratorFilter()
   {
-    
   }
   
   template<typename DataType_>

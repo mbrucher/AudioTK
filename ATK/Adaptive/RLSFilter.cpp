@@ -2,7 +2,7 @@
  * \file RLSFilter.cpp
  */
 
-#include "RLSFilter.h"
+#include <ATK/Adaptive/RLSFilter.h>
 
 #include <cstdint>
 #include <complex>

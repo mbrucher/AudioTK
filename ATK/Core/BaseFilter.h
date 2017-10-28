@@ -12,7 +12,7 @@
 #include <boost/dynamic_bitset.hpp>
 
 #include <ATK/config.h>
-#include "config.h"
+#include <ATK/Core/config.h>
 
 #if ATK_PROFILING == 1
 #include <chrono>

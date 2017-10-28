@@ -10,8 +10,8 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
-#include "config.h"
-#include "WavStruct.h"
+#include <ATK/IO/config.h>
+#include <ATK/IO/WavStruct.h>
 
 namespace ATK
 {
@@ -46,7 +46,7 @@ namespace ATK
     */
     InWavFilter(const std::string& filename);
   protected:
-    void process_impl(std::size_t size) const override final;
+    void process_impl(std::size_t size) const final;
   };
 }
 #endif

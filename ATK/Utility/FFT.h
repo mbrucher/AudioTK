@@ -10,7 +10,7 @@
 #include <memory>
 #include <vector>
 
-#include "config.h"
+#include <ATK/Utility/config.h>
 
 namespace ATK
 {

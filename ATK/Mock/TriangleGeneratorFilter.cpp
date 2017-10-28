@@ -2,7 +2,7 @@
  * \file TriangleGeneratorFilter.cpp
  */
 
-#include "TriangleGeneratorFilter.h"
+#include <ATK/Mock/TriangleGeneratorFilter.h>
 
 #include <cstdint>
 #include <complex>

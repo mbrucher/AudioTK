@@ -2,7 +2,7 @@
  * \file PanFilter.cpp
  */
 
-#include "PanFilter.h"
+#include <ATK/Tools/PanFilter.h>
 
 #include <cmath>
 #include <complex>

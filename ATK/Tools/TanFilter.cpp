@@ -2,7 +2,7 @@
  * \file TanFilter.cpp
  */
 
-#include "TanFilter.h"
+#include <ATK/Tools/TanFilter.h>
 
 #include <cassert>
 #include <cmath>
