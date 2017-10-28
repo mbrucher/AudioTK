@@ -64,8 +64,6 @@ IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
 ENDIF(NOT DEFINED PYTHON_INSTALL_FOLDER)
 
 include(CheckCXXCompilerFlag)
-include(CMakePushCheckState)
-include(CheckCXXSourceRuns)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Apple")
   include(apple-clang)
