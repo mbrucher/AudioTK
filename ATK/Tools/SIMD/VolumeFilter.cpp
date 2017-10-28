@@ -42,9 +42,9 @@ namespace ATK
                          ((std::size_t) nb_channels))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template std::unique_ptr<BaseFilter> createVolumeFilter<double, 2>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createVolumeFilter<float, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createVolumeFilter<double, 4>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createVolumeFilter<float, 8>(std::size_t)),
-    (template std::unique_ptr<BaseFilter> createVolumeFilter<double, 8>(std::size_t)));
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createVolumeFilter<double, 2>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createVolumeFilter<float, 4>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createVolumeFilter<double, 4>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createVolumeFilter<float, 8>(std::size_t)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createVolumeFilter<double, 8>(std::size_t)));
 }

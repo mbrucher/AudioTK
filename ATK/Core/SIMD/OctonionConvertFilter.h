@@ -2,8 +2,8 @@
  * \file OctonionConvertFilter.h
  */
 
-#ifndef ATK_CORE_OCTONIONCONVERTFILTER_H
-#define ATK_CORE_OCTONIONCONVERTFILTER_H
+#ifndef ATK_CORE_SIMD_OCTONIONCONVERTFILTER_H
+#define ATK_CORE_SIMD_OCTONIONCONVERTFILTER_H
 
 #include <simdpp/simd.h>
 
