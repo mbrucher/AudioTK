@@ -156,26 +156,26 @@ namespace ATK
 
         for(unsigned int j = 0; j < Coefficients::order + 1; j += 2)
         {
-          c[j] = 0;
+        c[j] = TypeTraits<DataType>::Zero();
           for(unsigned int k = 0; k < Coefficients::points / 2; ++k)
           {
-            c[j] += even[k] * coeffs.coeffs[j][k];
+            c[j] = c[j] + even[k] * coeffs.coeffs[j][k];
           }
         }
         for(unsigned int j = 1; j < Coefficients::order + 1; j += 2)
         {
-          c[j] = 0;
+          c[j] = TypeTraits<DataType>::Zero();
           for(unsigned int k = 0; k < Coefficients::points / 2; ++k)
           {
-            c[j] += odd[k] * coeffs.coeffs[j][k];
+            c[j] = c[j] + odd[k] * coeffs.coeffs[j][k];
           }
         }
 
         for (unsigned int j = 0; j < Coefficients::oversampling_factor; ++j)
         {
-        DataType z = static_cast<typename TypeTraits<DataType>::Scalar>(j) / Coefficients::oversampling_factor - static_cast<typename TypeTraits<DataType>::Scalar>(1 / 2.);
+          auto z = static_cast<typename TypeTraits<DataType>::Scalar>(j) / Coefficients::oversampling_factor - static_cast<typename TypeTraits<DataType>::Scalar>(1 / 2.);
 
-          DataType temp = 0;
+          DataType temp = TypeTraits<DataType>::Zero();
           for(unsigned int k = 0; k <= Coefficients::order; ++k)
           {
             temp = temp * z + c[Coefficients::order - k];

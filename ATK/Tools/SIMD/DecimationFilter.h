@@ -12,7 +12,7 @@
 
 namespace ATK
 {
-  /// Create a SIMD filter to multiply channels together
+  /// Create a SIMD filter to decimate channels
   template<typename DataType, std::size_t VL>
   ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDecimationFilter(std::size_t nb_channels = 1);
 }
