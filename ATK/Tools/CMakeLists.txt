@@ -11,6 +11,7 @@ SET(ATK_TOOLS_SIMD_SRC
     SIMD/MSFilter.cpp
     SIMD/OffsetVolumeFilter.cpp
     SIMD/OneMinusFilter.cpp
+    SIMD/SumFilter.cpp
     SIMD/VolumeFilter.cpp
 )
 
