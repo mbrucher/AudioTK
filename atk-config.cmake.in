@@ -2,12 +2,7 @@
 #### ATK configuration file for CMake
 ####
 
-set(HAS_STD_ALIGN2 @HAS_STD_ALIGN2@) # required for GCC < 5.0
 set(ATK_VERSION @ATK_VERSION@)
-
-if(HAS_STD_ALIGN2)
-  add_definitions(-DHAS_STD_ALIGN)
-endif(HAS_STD_ALIGN2)
 
 set(PREFIX ${CMAKE_CURRENT_LIST_DIR})
 
