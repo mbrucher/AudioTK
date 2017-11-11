@@ -2,8 +2,8 @@
  * \file BroadcastFilter.h
  */
 
-#ifndef ATK_TOOLS_BROADCASTFILTER_H
-#define ATK_TOOLS_BROADCASTFILTER_H
+#ifndef ATK_TOOLS_SIMD_BROADCASTFILTER_H
+#define ATK_TOOLS_SIMD_BROADCASTFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Tools/config.h>
@@ -35,6 +35,10 @@ namespace ATK
   protected:
     void process_impl(std::size_t size) const final;
   };
+  
+  /// Broadcast an input signal to all SIMD vector lines
+  template<typename DataType, std::size_t VL>
+  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createBroadcastFilter(std::size_t nb_channels = 1);
 }
 
 #endif

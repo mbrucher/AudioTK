@@ -1,16 +1,16 @@
 /**
- * \file REDUCEFilter.h
+ * \file ReduceFilter.h
  */
 
-#ifndef ATK_TOOLS_REDUCEFILTER_H
-#define ATK_TOOLS_REDUCEFILTER_H
+#ifndef ATK_TOOLS_SIMD_REDUCEFILTER_H
+#define ATK_TOOLS_SIMD_REDUCEFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Tools/config.h>
 
 namespace ATK
 {
-  /// Reduce all SIMD vector lines in the input signal
+  /// Sum all SIMD vector lines in the input signal
   template<typename DataType_, typename DataType__>
   class ATK_TOOLS_EXPORT ReduceFilter final : public TypedBaseFilter<DataType_, DataType__>
   {
@@ -35,6 +35,10 @@ namespace ATK
   protected:
     void process_impl(std::size_t size) const final;
   };
+  
+  /// Sum all SIMD vector lines in the input signal
+  template<typename DataType, std::size_t VL>
+  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createReduceFilter(std::size_t nb_channels = 1);
 }
 
 #endif
