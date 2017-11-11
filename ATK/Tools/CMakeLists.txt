@@ -15,6 +15,8 @@ SET(ATK_TOOLS_SIMD_SRC
     SIMD/OversamplingFilter.cpp
     SIMD/SumFilter.cpp
     SIMD/VolumeFilter.cpp
+
+    SIMD/BroadcastFilter.cpp
 )
 
 FILE(GLOB
