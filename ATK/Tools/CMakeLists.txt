@@ -17,6 +17,7 @@ SET(ATK_TOOLS_SIMD_SRC
     SIMD/VolumeFilter.cpp
 
     SIMD/BroadcastFilter.cpp
+    SIMD/ReduceFilter.cpp
 )
 
 FILE(GLOB
