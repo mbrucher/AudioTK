@@ -27,7 +27,7 @@ namespace ATK
 
   template<typename DataType_>
   UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(std::size_t max_delay)
-    :Parent(1, 2), impl(new UFDLF_Impl(max_delay)), delay(0), blend(0), feedback(0), feedforward(1)
+    :Parent(1, 2), impl(new UFDLF_Impl(max_delay)), delay(100), blend(0), feedback(0), feedforward(1)
   {
   }
   
