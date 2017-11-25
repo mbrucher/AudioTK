@@ -41,7 +41,7 @@ namespace ATK
       {
         for(unsigned int j = 0; j < channels; ++j)
         {
-          outputs[j][i] = 0;
+        outputs[j][i] = TypeTraits<DataType>::Zero();
         }
       }
     }
@@ -59,7 +59,7 @@ namespace ATK
       {
         for(unsigned int j = 0; j < channels; ++j)
         {
-          outputs[j][i] = 0;
+          outputs[j][i] = TypeTraits<DataType>::Zero();
         }
       }
     }

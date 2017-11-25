@@ -4,6 +4,8 @@
 
 #include <ATK/Core/SIMD/ComplexConvertFilter.h>
 
+#include <simdpp/simd.h>
+
 #include <simdpp/dispatch/dispatcher.h>
 #include <simdpp/dispatch/get_arch_gcc_builtin_cpu_supports.h>
 #include <simdpp/dispatch/get_arch_raw_cpuid.h>
