@@ -17,7 +17,7 @@ namespace ATK
     std::size_t index;
 
     FDLF_Impl(std::size_t max_delay)
-      :delay_line(max_delay, 0), index(0)
+  :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
     {
     }
   };
@@ -59,7 +59,7 @@ namespace ATK
   void FixedDelayLineFilter<DataType_>::full_setup()
   {
     // reset the delay line
-    impl->delay_line.assign(impl->delay_line.size(), 0);
+    impl->delay_line.assign(impl->delay_line.size(), TypeTraits<DataType>::Zero());
     impl->index = 0;
   }
 
