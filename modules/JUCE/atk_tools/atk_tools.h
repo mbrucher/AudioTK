@@ -20,7 +20,7 @@
 
   ID:               atk_tools
   vendor:           Matthieu Brucher
-  version:          2.2.1
+  version:          2.2.2
   name:             ATK Tools
   description:      Tools classes for ATK
   website:          http://www.audio-tk.com/
