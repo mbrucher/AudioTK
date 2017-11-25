@@ -18,6 +18,10 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.2.2
+* Adding a new Broadcast filter (filling all SIMD vector lines with the same input value)
+* Adding a new Reduce filter (summing all SIMD vector lines to the output value)
+
 ### 2.2.1
 * Fix alignment issues in SIMD filters
 * Fix SIMD EQ dispatcher export issues on Windows (too many possible filters!)
