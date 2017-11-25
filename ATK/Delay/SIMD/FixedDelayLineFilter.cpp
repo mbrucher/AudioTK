@@ -42,9 +42,9 @@ namespace ATK
                          ((std::size_t) max_delay))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 2>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 8>(std::size_t)));
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 2>(std::size_t)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 4>(std::size_t)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 4>(std::size_t)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 8>(std::size_t)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 8>(std::size_t)));
 }
