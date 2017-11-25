@@ -17,7 +17,7 @@ namespace ATK
     std::size_t index;
 
     FDLF_Impl(std::size_t max_delay)
-  :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
+      :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
     {
     }
   };
