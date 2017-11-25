@@ -13,7 +13,7 @@ namespace ATK
   class FixedDelayLineFilter<DataType>::FDLF_Impl
   {
   public:
-    std::vector<DataType> delay_line;
+    typename FixedDelayLineFilter<DataType>::AlignedOutVector delay_line;
     std::size_t index;
 
     FDLF_Impl(std::size_t max_delay)
