@@ -9,12 +9,13 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
+#include <ATK/Delay/DelayInterface.h>
 
 namespace ATK
 {
   /// Fixed delay line, max_delay should always be higher than the actual delay
   template<typename DataType_>
-  class ATK_DELAY_EXPORT FixedDelayLineFilter final : public TypedBaseFilter<DataType_>
+  class ATK_DELAY_EXPORT FixedDelayLineFilter final : public TypedBaseFilter<DataType_>, public DelayInterface
   {
     class FDLF_Impl;
   protected:
@@ -37,9 +38,9 @@ namespace ATK
     ~FixedDelayLineFilter() override;
     
     /// Changes the delay used for the filter
-    void set_delay(std::size_t delay);
+    void set_delay(std::size_t delay) override;
     /// Returns the elay used for the system
-    std::size_t get_delay() const;
+    std::size_t get_delay() const override;
 
     void full_setup() final;
   protected:
