@@ -26,6 +26,7 @@ namespace ATK
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
     using Parent::output_delay;
+    typedef typename TypeTraits<DataType>::Scalar Scalar;
 
   public:
     /*!
@@ -42,19 +43,19 @@ namespace ATK
     std::size_t get_delay() const;
 
     /// Sets the blend (between -1 and 1)
-    void set_blend(DataType_ blend);
+    void set_blend(Scalar blend);
     /// Gets the blend
-    DataType_ get_blend() const;
+    Scalar get_blend() const;
 
     /// Sets feedback amount (between -1 and 1)
-    void set_feedback(DataType_ feedback);
+    void set_feedback(Scalar feedback);
     /// Gets feedback amount
-    DataType_ get_feedback() const;
+    Scalar get_feedback() const;
 
     /// Sets feedforward amount (between -1 and 1)
-    void set_feedforward(DataType_ feedforward);
+    void set_feedforward(Scalar feedforward);
     /// Gets feedforward amount
-    DataType_ get_feedforward() const;
+    Scalar get_feedforward() const;
 
     void full_setup() final;
   protected:
@@ -64,9 +65,9 @@ namespace ATK
     // internal state
     std::unique_ptr<UFDLF_Impl> impl;
     std::size_t delay;
-    DataType_ blend;
-    DataType_ feedback;
-    DataType_ feedforward;
+    Scalar blend;
+    Scalar feedback;
+    Scalar feedforward;
   };
 }
 
