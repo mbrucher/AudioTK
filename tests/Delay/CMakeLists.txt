@@ -12,6 +12,7 @@ FILE(GLOB
 SET(
   ATK_DELAY_TEST_SIMD_SRC
   SIMD/FixedDelayLineFilter.cpp
+  SIMD/UniversalFixedDelayLineFilter.cpp
 )
 
 FILE(GLOB
