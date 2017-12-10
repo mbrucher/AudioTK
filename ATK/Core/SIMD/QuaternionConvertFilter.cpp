@@ -4,6 +4,8 @@
 
 #include <ATK/Core/SIMD/QuaternionConvertFilter.h>
 
+#include <simdpp/simd.h>
+
 #include <simdpp/dispatch/dispatcher.h>
 #include <simdpp/dispatch/get_arch_gcc_builtin_cpu_supports.h>
 #include <simdpp/dispatch/get_arch_raw_cpuid.h>
@@ -47,7 +49,7 @@ namespace ATK
       
       for (std::size_t i = 0; i < size; ++i)
       {
-        DataType_ data[SIMDType::length];
+        alignas(32) DataType_ data[SIMDType::length];
         data[0] = input1[i];
         data[1] = input2[i];
         data[2] = input3[i];
@@ -83,7 +85,7 @@ namespace ATK
       
       for (std::size_t i = 0; i < size; ++i)
       {
-        DataType__ data[SIMDType::length];
+        alignas(32) DataType__ data[SIMDType::length];
         
         simdpp::store(data, input[i]);
         output1[i] = data[0];

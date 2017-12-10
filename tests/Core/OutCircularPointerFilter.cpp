@@ -17,8 +17,8 @@
 
 BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_test )
 {
-  std::array<float, PROCESSSIZE*100> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE*100; ++i)
+  std::array<float, PROCESSSIZE*200> data;
+  for(ptrdiff_t i = 0; i < PROCESSSIZE*200; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }

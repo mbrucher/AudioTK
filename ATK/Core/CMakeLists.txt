@@ -6,7 +6,9 @@ FILE(GLOB
 
 SET(ATK_CORE_SIMD_SRC
     SIMD/ComplexConvertFilter.cpp
+    SIMD/InPointerFilter.cpp
     SIMD/OctonionConvertFilter.cpp
+    SIMD/OutPointerFilter.cpp
     SIMD/QuaternionConvertFilter.cpp
     SIMD/TypedBaseFilter.cpp
     SIMD/Utilities.cpp
