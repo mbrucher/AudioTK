@@ -11,6 +11,7 @@
 
 #include "atk_delay.h"
 
+#include <ATK/Delay/DelayInterface.cpp>
 #include <ATK/Delay/FixedDelayLineFilter.cpp>
 #include <ATK/Delay/HadamardMixture.cpp>
 #include <ATK/Delay/HouseholderMixture.cpp>

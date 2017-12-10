@@ -37,6 +37,7 @@
 #ifndef ATK_DELAY
 #define ATK_DELAY
 
+#include <ATK/Delay/DelayInterface.h>
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 #include <ATK/Delay/FixedDelayLineFilter.h>
 #include <ATK/Delay/HadamardMixture.h>
