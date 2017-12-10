@@ -17,7 +17,7 @@ namespace ATK
   {
   public:
     static const unsigned int slice_size = 1024;
-    static const unsigned int nb_slices = 34;
+    static const unsigned int nb_slices = 66;
     static const unsigned int out_slice_size = (nb_slices - 2) * slice_size;
 
     /// Simplify parent calls
