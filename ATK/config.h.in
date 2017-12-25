@@ -23,7 +23,11 @@
 # define ATK_VECTORIZE_REMAINDER __pragma(simd vecremainder)
 #elif defined _MSC_VER
 # define ATK_RESTRICT __restrict
-# define ATK_VECTORIZE
+# define ATK_VECTORIZE __pragma(loop(hint_parallel(8)))
+# define ATK_VECTORIZE_REMAINDER
+#elif defined __clang__
+# define ATK_RESTRICT __restrict__
+# define ATK_VECTORIZE _Pragma("clang loop vectorize(enable) interleave(enable)")
 # define ATK_VECTORIZE_REMAINDER
 #elif defined __GNUC__
 # define ATK_RESTRICT __restrict__
