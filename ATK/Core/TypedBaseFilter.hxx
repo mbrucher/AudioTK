@@ -128,13 +128,13 @@ namespace ATK
 
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
-  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), direct_filters(nb_input_ports, nullptr), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
+  :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), converted_in_delays(nb_input_ports, 0), direct_filters(nb_input_ports, nullptr), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), out_delays(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
   {
   }
 
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(TypedBaseFilter&& other)
-  : Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), converted_inputs_size(std::move(other.converted_inputs_size)), direct_filters(std::move(other.direct_filters)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
+  : Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), converted_inputs_size(std::move(other.converted_inputs_size)), converted_in_delays(std::move(other.converted_in_delays)), direct_filters(std::move(other.direct_filters)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
   {
   }
 
@@ -152,6 +152,7 @@ namespace ATK
     converted_inputs_delay = std::vector<AlignedVector>(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
     converted_inputs_size.assign(nb_ports, 0);
+    converted_in_delays.assign(nb_ports, 0);
     direct_filters.assign(nb_ports, nullptr);
     default_input.assign(nb_ports, TypeTraits<DataTypeInput>::Zero());
   }
@@ -165,6 +166,7 @@ namespace ATK
     outputs_delay = std::vector<AlignedOutVector>(nb_ports);
     outputs.assign(nb_ports, nullptr);
     outputs_size.assign(nb_ports, 0);
+    out_delays.assign(nb_ports, 0);
     default_output.assign(nb_ports, TypeTraits<DataTypeOutput>::Zero());
   }
 
@@ -209,10 +211,12 @@ namespace ATK
       {
         converted_inputs[i] = direct_filters[i]->get_output_array(connections[i].first);
         converted_inputs_size[i] = size;
+        converted_in_delays[i] = input_delay;
         continue;
       }
       auto input_size = converted_inputs_size[i];
-      if(input_size < size)
+      auto in_delay = converted_in_delays[i];
+      if(input_size < size || in_delay < input_delay)
       {
         AlignedVector temp(input_delay + size);
         if(input_size == 0)
@@ -234,6 +238,7 @@ namespace ATK
         converted_inputs_delay[i] = std::move(temp);
         converted_inputs[i] = converted_inputs_delay[i].data() + input_delay;
         converted_inputs_size[i] = size;
+        converted_in_delays[i] = input_delay;
       }
       else
       {
@@ -254,7 +259,8 @@ namespace ATK
     for(unsigned int i = 0; i < nb_output_ports; ++i)
     {
       auto output_size = outputs_size[i];
-      if(output_size < size)
+      auto out_delay = out_delays[i];
+      if(output_size < size || out_delay < output_delay)
       {
         AlignedOutVector temp(output_delay + size);
         if(output_size == 0)
@@ -295,11 +301,13 @@ namespace ATK
     converted_inputs_delay = std::vector<AlignedVector>(nb_input_ports);
     converted_inputs.assign(nb_input_ports, nullptr);
     converted_inputs_size.assign(nb_input_ports, 0);
+    converted_in_delays.assign(nb_input_ports, 0);
 
     // Reset output arrays
     outputs_delay = std::vector<AlignedOutVector>(nb_output_ports);
     outputs.assign(nb_output_ports, nullptr);
     outputs_size.assign(nb_output_ports, 0);
+    out_delays.assign(nb_output_ports, 0);
 
     Parent::full_setup();
   }
@@ -309,6 +317,7 @@ namespace ATK
   {
     Parent::set_input_port(input_port, filter, output_port);
     converted_inputs_size[input_port] = 0;
+    converted_in_delays[input_port] = 0;
     direct_filters[input_port] = dynamic_cast<OutputArrayInterface<DataType_>*>(filter);
   }
 }
