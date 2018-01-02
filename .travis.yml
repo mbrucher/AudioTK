@@ -90,16 +90,16 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.3
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
-  - compiler: clang-5.0
+  - compiler: clang-5.1
     os: linux
     dist: trusty
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-precise-5.0
+        - llvm-toolchain-precise-5.1
         packages:
-        - clang-5.0
+        - clang-5.1
         - g++-6
         - libfftw3-dev
         - libeigen3-dev
@@ -107,46 +107,46 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
-    - COMPILER=clang++-5.0
-    - PLATFORM=clang-5.0
+    - COMPILER=clang++-5.1
+    - PLATFORM=clang-5.1
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
-  - compiler: clang-5.0
+  - compiler: clang-5.1
     os: linux
     dist: trusty
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-precise-5.0
+        - llvm-toolchain-precise-5.1
         packages:
-        - clang-5.0
+        - clang-5.1
         - g++-6
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
         - swig
     env:
-    - COMPILER=clang++-5.0
-    - PLATFORM=clang-5.0
+    - COMPILER=clang++-5.1
+    - PLATFORM=clang-5.1
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=3.6
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.3
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
-  - compiler: clang-4.0
+  - compiler: clang-4.1
     os: linux
     dist: trusty
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-precise-4.0
+        - llvm-toolchain-precise-4.1
         packages:
-        - clang-4.0
+        - clang-4.1
         - g++-6
         - libfftw3-dev
         - libeigen3-dev
@@ -154,31 +154,31 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
-    - COMPILER=clang++-4.0
-    - PLATFORM=clang-4.0
+    - COMPILER=clang++-4.1
+    - PLATFORM=clang-4.1
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
-  - compiler: clang-4.0
+  - compiler: clang-4.1
     os: linux
     dist: trusty
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-precise-4.0
+        - llvm-toolchain-precise-4.1
         packages:
-        - clang-4.0
+        - clang-4.1
         - g++-6
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
         - swig
     env:
-    - COMPILER=clang++-4.0
-    - PLATFORM=clang-4.0
+    - COMPILER=clang++-4.1
+    - PLATFORM=clang-4.1
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=3.6
     - PYTHON=python3
