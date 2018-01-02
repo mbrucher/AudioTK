@@ -128,7 +128,7 @@ environment:
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_64_0
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
@@ -143,7 +143,7 @@ environment:
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_64_0
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
@@ -158,7 +158,7 @@ environment:
 
     # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_64_0
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
@@ -173,7 +173,7 @@ environment:
 
     # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_64_0
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
