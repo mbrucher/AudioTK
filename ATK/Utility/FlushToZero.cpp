@@ -7,10 +7,12 @@
 #if defined(__APPLE__)
 #elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
 /* GCC-compatible compiler, targeting x86/x86-64 */
-#include <x86intrin.h>
-#define _MM_DENORMALS_ZERO_MASK   0x0040
-#define _MM_DENORMALS_ZERO_ON     0x0040
-#define _MM_DENORMALS_ZERO_OFF    0x0000
+# include <x86intrin.h>
+# ifndef _MM_DENORMALS_ZERO_OFF
+#  define _MM_DENORMALS_ZERO_MASK   0x0040
+#  define _MM_DENORMALS_ZERO_ON     0x0040
+#  define _MM_DENORMALS_ZERO_OFF    0x0000
+# endif
 #endif
 
 namespace ATK
