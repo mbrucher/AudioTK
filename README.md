@@ -19,6 +19,8 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.2.2
+* Fix a TDF2 IIR filter bug when the state was not reinitialized, leading to unstabilities
+* Fix a bug when delays were changed but not the underlying buffers, leading to buffer underflows
 * Adding a new Broadcast filter (filling all SIMD vector lines with the same input value)
 * Adding a new Reduce filter (summing all SIMD vector lines to the output value)
 
