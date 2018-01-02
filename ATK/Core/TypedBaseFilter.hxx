@@ -230,9 +230,9 @@ namespace ATK
         else
         {
           const auto input_ptr = converted_inputs[i];
-          for(int j = 0; j < static_cast<int>(input_delay); ++j)
+          for(int j = 0; j < static_cast<int>(in_delay); ++j)
           {
-            temp[j] = input_ptr[last_size + j - input_delay];
+            temp[j] = input_ptr[last_size + j - in_delay];
           }
         }
 
@@ -275,15 +275,16 @@ namespace ATK
         else
         {
           const auto output_ptr = outputs[i];
-          for(int j = 0; j < static_cast<int>(output_delay); ++j)
+          for(int j = 0; j < static_cast<int>(out_delay); ++j)
           {
-            temp[j] = output_ptr[last_size + j - output_delay];
+            temp[j] = output_ptr[last_size + j - out_delay];
           }
         }
 
         outputs_delay[i] = std::move(temp);
         outputs[i] = outputs_delay[i].data() + output_delay;
         outputs_size[i] = size;
+        out_delays[i] = output_delay;
       }
       else
       {
