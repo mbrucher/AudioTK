@@ -218,7 +218,8 @@ namespace ATK
       auto in_delay = converted_in_delays[i];
       if(input_size < size || in_delay < input_delay)
       {
-        AlignedVector temp(input_delay + size);
+        // TODO Properly align the beginning of the data, not depending on input delay
+        AlignedVector temp(input_delay + size, TypeTraits<DataTypeInput>::Zero());
         if(input_size == 0)
         {
           for(unsigned int j = 0; j < input_delay; ++j)
@@ -262,7 +263,8 @@ namespace ATK
       auto out_delay = out_delays[i];
       if(output_size < size || out_delay < output_delay)
       {
-        AlignedOutVector temp(output_delay + size);
+        // TODO Properly align the beginning of the data, not depending on output delay
+        AlignedOutVector temp(output_delay + size, TypeTraits<DataTypeOutput>::Zero());
         if(output_size == 0)
         {
           for(unsigned int j = 0; j < output_delay; ++j)
