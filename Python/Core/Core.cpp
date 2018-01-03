@@ -34,7 +34,7 @@ namespace
   void create_base_filter(py::module& m)
   {
     py::class_<BaseFilter>(m, "BaseFilter")
-      .def("set_input_port", &BaseFilter::set_input_port)
+    .def("set_input_port", [](BaseFilter& instance, std::size_t input_port, BaseFilter& filter, std::size_t output_port){instance.set_input_port(input_port, &filter, output_port);})
       .def("process", &BaseFilter::process)
       .def("full_setup", &BaseFilter::full_setup)
       .def_property("input_sampling_rate", &BaseFilter::get_input_sampling_rate, &BaseFilter::set_input_sampling_rate)
@@ -157,8 +157,8 @@ PYBIND11_PLUGIN(PythonCore) {
 
   py::class_<PipelineGlobalSinkFilter, BaseFilter>(m, "PipelineGlobalSinkFilter")
     .def(py::init())
-    .def("add_filter", &PipelineGlobalSinkFilter::add_filter)
-    .def("remove_filter", &PipelineGlobalSinkFilter::remove_filter);
+    .def("add_filter", [](PipelineGlobalSinkFilter& instance, BaseFilter& filter){instance.add_filter(&filter);})
+    .def("remove_filter", [](PipelineGlobalSinkFilter& instance, BaseFilter& filter){instance.remove_filter(&filter);});
   
   populate_ComplexToRealFilter<float>(m, "FloatComplexToRealFilter");
   populate_ComplexToRealFilter<double>(m, "DoubleComplexToRealFilter");
