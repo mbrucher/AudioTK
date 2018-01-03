@@ -28,12 +28,12 @@ namespace ATK
      * @brief Adds a filter to the list of filters to process
      * @param filter is an additional filter
      */
-    void add_filter(BaseFilter* filter);
+    void add_filter(gsl::not_null<BaseFilter*> filter);
     /*!
     * @brief Removes a filter from the list of filters to process
     * @param filter is an additional filter
     */
-    void remove_filter(const BaseFilter* filter);
+    void remove_filter(gsl::not_null<const BaseFilter*> filter);
 
     int get_type() const final;
     /*!
@@ -46,7 +46,7 @@ namespace ATK
     void prepare_outputs(std::size_t size) final;
 
     /// List of filters in this sink
-    std::vector<BaseFilter*> filters;
+    std::vector<gsl::not_null<BaseFilter*>> filters;
     /// Are we in parallel mode?
     bool activate_parallel;
   };

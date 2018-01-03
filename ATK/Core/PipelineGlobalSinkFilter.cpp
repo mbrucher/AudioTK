@@ -21,7 +21,7 @@ namespace ATK
   {
   }
   
-  void PipelineGlobalSinkFilter::add_filter(BaseFilter* filter)
+  void PipelineGlobalSinkFilter::add_filter(gsl::not_null<BaseFilter*> filter)
   {
     if(std::find(filters.begin(), filters.end(), filter) == filters.end())
     {
@@ -29,9 +29,9 @@ namespace ATK
     }
   }
 
-  void PipelineGlobalSinkFilter::remove_filter(const BaseFilter* filter)
+  void PipelineGlobalSinkFilter::remove_filter(gsl::not_null<const BaseFilter*> filter)
   {
-    std::vector<BaseFilter*>::iterator it = std::find(filters.begin(), filters.end(), filter);
+    auto it = std::find(filters.begin(), filters.end(), filter);
     if(it != filters.end())
     {
       filters.erase(it);
