@@ -12,8 +12,6 @@ notifications:
 git:
   depth: 500
 
-env:
-
 matrix:
   include:
   - compiler: gcc
@@ -304,9 +302,6 @@ matrix:
     - PYTHON_VERSION=3.6
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.4
-  allow_failures:
-  - env: PLATFORM=clang-5.0
-  - env: PLATFORM=gcc-7
 
 before_install:
   - mkdir $HOME/usr
