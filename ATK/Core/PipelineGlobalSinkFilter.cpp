@@ -27,6 +27,10 @@ namespace ATK
     {
       filters.push_back(filter);
     }
+    else
+    {
+      throw std::runtime_error("Try to ad a filter that was aleady added");
+    }
   }
 
   void PipelineGlobalSinkFilter::remove_filter(gsl::not_null<const BaseFilter*> filter)
@@ -35,6 +39,10 @@ namespace ATK
     if(it != filters.end())
     {
       filters.erase(it);
+    }
+    else
+    {
+      throw std::runtime_error("Try to remove a filter that was not added");
     }
   }
 

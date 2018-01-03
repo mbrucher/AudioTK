@@ -34,7 +34,8 @@ BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_check_remove_existing_test )
   ATK::TriangleCheckerFilter<int64_t> checker;
   
   ATK::PipelineGlobalSinkFilter globalsink;
-  globalsink.add_filter(&checker);
+  BOOST_CHECK_NO_THROW(globalsink.add_filter(&checker));
+  BOOST_CHECK_THROW(globalsink.add_filter(&checker), std::runtime_error);
   
   BOOST_CHECK_NO_THROW(globalsink.remove_filter(&checker));
   BOOST_CHECK_THROW(globalsink.remove_filter(&checker), std::runtime_error);
