@@ -12,6 +12,8 @@ notifications:
 git:
   depth: 500
 
+env:
+
 matrix:
   include:
   - compiler: gcc
@@ -178,7 +180,7 @@ matrix:
         - llvm-toolchain-trusty-5.0
         packages:
         - clang-5.0
-        - g++-6
+        - g++-7
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
@@ -202,7 +204,7 @@ matrix:
         - llvm-toolchain-trusty-5.0
         packages:
         - clang-5.0
-        - g++-6
+        - g++-7
         - libfftw3-dev
         - libeigen3-dev
         - libsndfile-dev
