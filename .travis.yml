@@ -38,8 +38,8 @@ matrix:
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
-    - COVERALLS_SERVICE_NAME=travis-ci
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+    - ENABLE_CODECOVERAGE=ON
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON"
   - compiler: gcc
     os: linux
     dist: trusty
@@ -319,16 +319,24 @@ script:
   - echo $LD_LIBRARY_PATH
   - ls ${HOME}/ATK/lib
   - |
-    if [[ "${COVERALLS_SERVICE_NAME}" = "travis-ci" ]]; then
-      make coveralls
-      exit
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+      make codecoverage
       else
       CTEST_OUTPUT_ON_FAILURE=TRUE make test
     fi
 
 after_success:
-  - cd ${HOME}/ATK
-  - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz *
+  - |
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+      cd ${TRAVIS_BUILD_DIR}
+      lcov --directory . --capture --output-file coverage.info # capture coverage info
+      lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+      lcov --list coverage.info #debug info
+      bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+    else
+      cd ${HOME}/ATK
+      tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz *
+    fi
 
 deploy:
   provider: releases

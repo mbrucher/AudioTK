@@ -4,6 +4,3 @@
 [submodule "3rdParty/pybind11"]
 	path = 3rdParty/pybind11
 	url = https://github.com/mbrucher/pybind11
-[submodule "3rdParty/coveralls"]
-	path = 3rdParty/coveralls
-url=https://github.com/mbrucher/coveralls-cmake

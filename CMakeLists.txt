@@ -17,7 +17,7 @@ option(ENABLE_PYTHON "Enable Python support" ON)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
 option(ENABLE_SIMD "Enable SIMD support through libsimdpp" OFF)
 option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)
-option(ENABLE_COVERALLS "Generate coveralls data" OFF)
+option(ENABLE_COVERAGE "Generate coveralls data" OFF)
 option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
@@ -60,20 +60,11 @@ if(ENABLE_PYTHON)
  endif(NOT ENABLE_SHARED_LIBRARIES)
 endif(ENABLE_PYTHON)
 
-if(ENABLE_COVERALLS)
-  list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/3rdParty/coveralls/cmake)
-  include(Coveralls)
-  coveralls_turn_on_coverage()
-
-  FILE(GLOB_RECURSE COVERAGE_SRCS ATK/*.cpp ATK/*.h ATK/*.hxx)
-
-  # Create the coveralls target.
-  coveralls_setup(
-    "${COVERAGE_SRCS}" # The source files.
-    ON                 # If we should upload.
-    "${PROJECT_SOURCE_DIR}/3rdParty/coveralls/cmake") # coveralls-cmake files
-
-endif(ENABLE_COVERALLS)
+if(ENABLE_COVERAGE)
+  include(CodeCoverage)
+  setup_target_for_coverage(codecoverage tests coverage)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+endif(ENABLE_COVERAGE)
 
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
   set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
