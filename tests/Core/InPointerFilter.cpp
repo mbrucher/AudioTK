@@ -173,3 +173,35 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
   checker.process(2);
   checker.process(PROCESSSIZE - 2);
 }
+
+BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_overflow_test )
+{
+  std::array<float, PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
+  }
+  
+  ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
+  generator.set_output_sampling_rate(48000);
+  
+  ATK::SimpleSinusGeneratorFilter<float> check;
+  check.set_output_sampling_rate(48000);
+  check.set_amplitude(-1);
+  check.set_frequency(1000);
+  
+  ATK::SumFilter<float> sum;
+  sum.set_input_sampling_rate(48000);
+  sum.set_input_port(0, &generator, 0);
+  sum.set_input_port(1, &check, 0);
+  
+  ATK::TriangleCheckerFilter<float> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(0);
+  checker.set_frequency(1000);
+  checker.set_input_port(0, &sum, 0);
+  
+  checker.process(PROCESSSIZE);
+  check.set_amplitude(0);
+  checker.process(PROCESSSIZE);
+}
