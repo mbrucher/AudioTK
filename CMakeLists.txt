@@ -65,7 +65,7 @@ if(ENABLE_COVERALLS)
   include(Coveralls)
   coveralls_turn_on_coverage()
 
-  FILES(GLOB_RECURSE COVERAGE_SRCS ATK/*.cpp ATK/*.h ATK/*.hxx)
+  FILE(GLOB_RECURSE COVERAGE_SRCS ATK/*.cpp ATK/*.h ATK/*.hxx)
 
   # Create the coveralls target.
   coveralls_setup(
