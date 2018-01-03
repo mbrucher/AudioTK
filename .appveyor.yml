@@ -2,6 +2,13 @@ version: '2.2.2.{build}'
 
 shallow_clone: true
 
+notifications:
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/6f33fb3550cb96501f64
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: true
+
 environment:
   ATK_ROOT: C:\projects\AudioTK
   ATK_OUT: C:\projects\ATK
