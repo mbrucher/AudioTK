@@ -6,4 +6,4 @@
 	url = https://github.com/mbrucher/pybind11
 [submodule "3rdParty/coveralls"]
 	path = 3rdParty/coveralls
-	url = git@github.com:mbrucher/coveralls-cmake.git
+url=https://github.com/mbrucher/coveralls-cmake

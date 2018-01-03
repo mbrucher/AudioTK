@@ -2,8 +2,9 @@
 
 [![Travis](https://travis-ci.org/mbrucher/AudioTK.svg?branch=master)](https://travis-ci.org/mbrucher/AudioTK)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/j6k8jkxk2ebwvvoe/branch/master?svg=true)](https://ci.appveyor.com/project/mbrucher/audiotk)
+[![Coverage Status](https://coveralls.io/repos/github/mbrucher/AudioTK/badge.svg?branch=master)](https://coveralls.io/github/mbrucher/AudioTK?branch=master)
 
-Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing.
+Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing workloads.
 
 The audio workflow is split in independent components (without feedback loops) that consist of filters. 
 Each filter has a set of synchronized input and output ports that can be connected together. All input 
