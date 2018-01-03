@@ -71,7 +71,7 @@ if(ENABLE_COVERALLS)
   coveralls_setup(
     "${COVERAGE_SRCS}" # The source files.
     ON                 # If we should upload.
-${PROJECT_SOURCE_DIR}/3rdParty/coveralls/cmake") # coveralls-cmake files
+    "${PROJECT_SOURCE_DIR}/3rdParty/coveralls/cmake") # coveralls-cmake files
 
 endif(ENABLE_COVERALLS)
 
