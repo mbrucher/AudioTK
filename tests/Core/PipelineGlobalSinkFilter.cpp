@@ -20,6 +20,26 @@ BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_constructor_test )
   BOOST_CHECK_NO_THROW(ATK::PipelineGlobalSinkFilter filter);
 }
 
+BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_check_remove_inexisting_test )
+{
+  ATK::TriangleCheckerFilter<int64_t> checker;
+  
+  ATK::PipelineGlobalSinkFilter globalsink;
+  
+  BOOST_CHECK_THROW(globalsink.remove_filter(&checker), std::runtime_error);
+}
+
+BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_check_remove_existing_test )
+{
+  ATK::TriangleCheckerFilter<int64_t> checker;
+  
+  ATK::PipelineGlobalSinkFilter globalsink;
+  globalsink.add_filter(&checker);
+  
+  BOOST_CHECK_NO_THROW(globalsink.remove_filter(&checker));
+  BOOST_CHECK_THROW(globalsink.remove_filter(&checker), std::runtime_error);
+}
+
 BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_2sinks_first_test )
 {
   ATK::TriangleGeneratorFilter<int64_t> generator;
