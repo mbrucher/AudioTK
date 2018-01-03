@@ -74,7 +74,7 @@ namespace ATK
     setup();
   }
 
-  void BaseFilter::set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port)
+  void BaseFilter::set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port)
   {
     if(output_port >= filter->nb_output_ports)
     {

@@ -4,3 +4,6 @@
 [submodule "3rdParty/pybind11"]
 	path = 3rdParty/pybind11
 	url = https://github.com/mbrucher/pybind11
+[submodule "3rdParty/gsl"]
+	path = 3rdParty/gsl
+	url = https://github.com/mbrucher/GSL.git

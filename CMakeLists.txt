@@ -175,6 +175,7 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
 
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(SYSTEM ${Boost_INCLUDE_DIR})
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
