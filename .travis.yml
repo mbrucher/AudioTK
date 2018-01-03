@@ -298,7 +298,6 @@ install:
   - "(cd $BOOST_ROOT; ./b2 threading=multi --prefix=$BOOST_BUILD -d0 install)"
 
 before_script:
-  - git submodule update --init --recursive
   - mkdir build
   - cd build
   - |

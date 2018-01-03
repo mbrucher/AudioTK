@@ -2,7 +2,7 @@
 
 [![Travis](https://travis-ci.org/mbrucher/AudioTK.svg?branch=master)](https://travis-ci.org/mbrucher/AudioTK)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/j6k8jkxk2ebwvvoe/branch/master?svg=true)](https://ci.appveyor.com/project/mbrucher/audiotk)
-[![Coverage Status](https://coveralls.io/repos/github/mbrucher/AudioTK/badge.svg?branch=master)](https://coveralls.io/github/mbrucher/AudioTK?branch=master)
+[![codecov](https://codecov.io/gh/mbrucher/AudioTK/branch/master/graph/badge.svg)](https://codecov.io/gh/mbrucher/AudioTK)
 
 Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing workloads.
 
