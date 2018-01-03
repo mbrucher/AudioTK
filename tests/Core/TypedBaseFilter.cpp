@@ -47,7 +47,7 @@ BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_complex_float)
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<float>> filter(0, 0));
 }
 
-BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_xomplex_double)
+BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_complex_double)
 {
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<double>> filter(0, 0));
 }
@@ -168,6 +168,51 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_input_delay_test )
 
   checker.set_input_delay(2);
   checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_no_such_input_test )
+{
+  ATK::TriangleGeneratorFilter<int64_t> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
+  
+  ATK::TriangleCheckerFilter<int64_t> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(1000000);
+  checker.set_frequency(1000);
+  
+  BOOST_CHECK_THROW(checker.set_input_port(1, &generator, 0), std::runtime_error);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_no_such_output_test )
+{
+  ATK::TriangleGeneratorFilter<int64_t> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
+  
+  ATK::TriangleCheckerFilter<int64_t> checker;
+  checker.set_input_sampling_rate(48000);
+  checker.set_amplitude(1000000);
+  checker.set_frequency(1000);
+  
+  BOOST_CHECK_THROW(checker.set_input_port(0, &generator, 1), std::runtime_error);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline_bad_sampling_rate_test )
+{
+  ATK::TriangleGeneratorFilter<int64_t> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
+  
+  ATK::TriangleCheckerFilter<int64_t> checker;
+  checker.set_input_sampling_rate(48001);
+  checker.set_amplitude(1000000);
+  checker.set_frequency(1000);
+  
+  BOOST_CHECK_THROW(checker.set_input_port(0, &generator, 0), std::runtime_error);
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_output_delay_test )
