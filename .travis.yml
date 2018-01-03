@@ -327,7 +327,7 @@ script:
 after_success:
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
-      cd ${TRAVIS_BUILD_DIR}
+      cd ${TRAVIS_BUILD_DIR}/build
       lcov --directory . --capture --output-file coverage.info # capture coverage info
       lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
       lcov --list coverage.info #debug info

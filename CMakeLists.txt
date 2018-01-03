@@ -60,11 +60,11 @@ if(ENABLE_PYTHON)
  endif(NOT ENABLE_SHARED_LIBRARIES)
 endif(ENABLE_PYTHON)
 
-if(ENABLE_COVERAGE)
+if(ENABLE_CODECOVERAGE)
   include(CodeCoverage)
   setup_target_for_coverage(codecoverage tests coverage)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-endif(ENABLE_COVERAGE)
+endif(ENABLE_CODECOVERAGE)
 
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
   set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
