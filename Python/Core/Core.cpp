@@ -113,7 +113,7 @@ namespace
         channels = array.shape(0);
         size = array.shape(1);
       }
-      if (channels != instance.get_nb_output_ports())
+      if (channels != instance.get_nb_input_ports())
       {
         throw std::length_error("Wrong size for the number of channels");
       }
