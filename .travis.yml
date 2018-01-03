@@ -1,6 +1,17 @@
+
 sudo: required
-dist: precise
-language: cpp
+dist: trusty
+language: c++
+
+notifications:
+  email: false
+  # gitter
+  webhooks:
+  urls: https://webhooks.gitter.im/e/b43314c68a0082edd974
+  on_success: change
+  on_failure: always
+git:
+  depth: 500
 
 matrix:
   include:
