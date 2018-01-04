@@ -69,7 +69,7 @@ namespace ATK
   template<typename DataType_>
   void UniversalFixedDelayLineFilter<DataType_>::set_feedback(Scalar feedback)
   {
-    if(std::abs(feedback) > 1)
+    if(std::abs(feedback) >= 1)
     {
       throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
     }

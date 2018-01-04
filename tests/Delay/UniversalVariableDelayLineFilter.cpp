@@ -126,11 +126,11 @@ BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_feedback_test )
 BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_feedback_range_test )
 {
   ATK::UniversalVariableDelayLineFilter<float> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(1), std::range_error);
+  BOOST_CHECK_THROW(filter.set_feedback(1), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_feedback_range2_test )
 {
   ATK::UniversalVariableDelayLineFilter<float> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(-1), std::range_error);
+  BOOST_CHECK_THROW(filter.set_feedback(-1), std::out_of_range);
 }

@@ -167,7 +167,7 @@ BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_0
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(24);
   filter.set_blend(0);
-  filter.set_feedback(1);
+  filter.set_feedback(.9999999);
   filter.set_feedforward(0);
 
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
@@ -183,4 +183,56 @@ BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_0
   {
     BOOST_REQUIRE_SMALL(outdata[i], 0.0001f);
   }
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_delay_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  filter.set_delay(10);
+  BOOST_CHECK_EQUAL(filter.get_delay(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_delay_range_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_delay_range2_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(128), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_blend_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  filter.set_blend(0.5);
+  BOOST_CHECK_EQUAL(filter.get_blend(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_feedforward_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  filter.set_feedforward(0.5);
+  BOOST_CHECK_EQUAL(filter.get_feedforward(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_feedback_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  filter.set_feedback(0.5);
+  BOOST_CHECK_EQUAL(filter.get_feedback(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_feedback_range_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( UniversalFixedDelayLineFilter_sinus_feedback_range2_test )
+{
+  ATK::UniversalFixedDelayLineFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(-1), std::out_of_range);
 }
