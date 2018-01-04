@@ -103,8 +103,9 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonPreamplifier) {
-  py::module m("PythonPreamplifier", "Audio ToolKit Preamplifier module");
+PYBIND11_MODULE(PythonPreamplifier, m)
+{
+  m.doc() = "Audio ToolKit Preamplifier module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -156,6 +157,4 @@ PYBIND11_PLUGIN(PythonPreamplifier) {
   populate_TriodeFilter<double, ModifiedMunroPiazzaTriodeFunction<double>>(m, "DoubleModifiedMunroPiazzaTriodeFilter", f2);
   populate_TriodeFilter<float, MunroPiazzaTriodeFunction<float>>(m, "FloatMunroPiazzaTriodeFilter", f1);
   populate_TriodeFilter<double, MunroPiazzaTriodeFunction<double>>(m, "DoubleMunroPiazzaTriodeFilter", f2);
-
-  return m.ptr();
 }

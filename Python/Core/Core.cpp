@@ -136,8 +136,8 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonCore) {
-  py::module m("PythonCore", "Audio ToolKit Core module");
+PYBIND11_MODULE(PythonCore, m) {
+  m.doc() = "Audio ToolKit Core module";
 
   create_base_filter(m);
   populate_InPointerFilter<int16_t>(m, "Int16InPointerFilter");
@@ -164,6 +164,4 @@ PYBIND11_PLUGIN(PythonCore) {
   populate_ComplexToRealFilter<double>(m, "DoubleComplexToRealFilter");
   populate_RealToComplexFilter<float>(m, "FloatRealToComplexFilter");
   populate_RealToComplexFilter<double>(m, "DoubleRealToComplexFilter");
-  
-  return m.ptr();
 }

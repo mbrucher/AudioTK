@@ -108,8 +108,8 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonDynamic) {
-  py::module m("PythonDynamic", "Audio ToolKit Dynamic module");
+PYBIND11_MODULE(PythonDynamic, m) {
+  m.doc() = "Audio ToolKit Dynamic module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -167,6 +167,4 @@ PYBIND11_PLUGIN(PythonDynamic) {
   populate_GainFilter<GainMaxCompressorFilter<double>>(m, "DoubleGainMaxCompressorFilter");
   populate_GainFilter<GainMaxExpanderFilter<float>>(m, "FloatGainMaxExpanderFilter");
   populate_GainFilter<GainMaxExpanderFilter<double>>(m, "DoubleGainMaxExpanderFilter");
-
-  return m.ptr();
 }

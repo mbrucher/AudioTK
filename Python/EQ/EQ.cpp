@@ -262,8 +262,9 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonEQ) {
-  py::module m("PythonEQ", "Audio ToolKit EQ module");
+PYBIND11_MODULE(PythonEQ, m)
+{
+  m.doc() = "Audio ToolKit EQ module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -572,6 +573,4 @@ PYBIND11_PLUGIN(PythonEQ) {
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowShelfFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighShelfFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighShelfFilter");
-
-  return m.ptr();
 }

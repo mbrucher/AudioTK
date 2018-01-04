@@ -23,13 +23,13 @@ namespace
     ;
   }
 }
-PYBIND11_PLUGIN(PythonSpecial) {
-  py::module m("PythonSpecial", "Audio ToolKit Special module");
+
+PYBIND11_MODULE(PythonSpecial, m)
+{
+  m.doc() = "Audio ToolKit Special module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
 
   populate_ConvolutionFilter<double>(m, "DoubleConvolutionFilter", f2);
-  
-  return m.ptr();
 }

@@ -139,8 +139,9 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonTools) {
-  py::module m("PythonTools", "Audio ToolKit Tools module");
+PYBIND11_MODULE(PythonTools, m)
+{
+  m.doc() = "Audio ToolKit Tools module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -211,6 +212,4 @@ PYBIND11_PLUGIN(PythonTools) {
 
   populate_WhiteNoiseGeneratorFilter<float>(m, "FloatWhiteNoiseGeneratorFilter", f1);
   populate_WhiteNoiseGeneratorFilter<double>(m, "DoubleWhiteNoiseGeneratorFilter", f2);
-
-  return m.ptr();
 }

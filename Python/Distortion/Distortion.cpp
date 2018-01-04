@@ -43,8 +43,8 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonDistortion) {
-  py::module m("PythonDistortion", "Audio ToolKit Distortion module");
+PYBIND11_MODULE(PythonDistortion, m) {
+  m.doc() = "Audio ToolKit Distortion module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -66,6 +66,4 @@ PYBIND11_PLUGIN(PythonDistortion) {
 
   populate_ShaperFilter<HalfTanhShaperFilter<float>>(m, "FloatHalfTanhShaperFilter", f1);
   populate_ShaperFilter<HalfTanhShaperFilter<double>>(m, "DoubleHalfTanhShaperFilter", f2);
-
-  return m.ptr();
 }

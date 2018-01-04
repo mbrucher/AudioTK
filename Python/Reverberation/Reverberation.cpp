@@ -24,8 +24,9 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonReverberation) {
-  py::module m("PythonReverberation", "Audio ToolKit Reverberation module");
+PYBIND11_MODULE(PythonReverberation, m)
+{
+  m.doc() = "Audio ToolKit Reverberation module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -34,6 +35,4 @@ PYBIND11_PLUGIN(PythonReverberation) {
   populate_ReverbFilter<AllPassReverbFilter<double>>(m, "DoubleAllPassReverbFilter", f2);
   populate_ReverbFilter<LowPassReverbFilter<float>>(m, "FloatLowPassReverbFilter", f1);
   populate_ReverbFilter<LowPassReverbFilter<double>>(m, "DoubleLowPassReverbFilter", f2);
-
-  return m.ptr();
 }

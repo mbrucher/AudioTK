@@ -75,8 +75,9 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonAdaptive) {
-  py::module m("PythonAdaptive", "Audio ToolKit Adaptive module");
+PYBIND11_MODULE(PythonAdaptive, m)
+{
+  m.doc() = "Audio ToolKit Adaptive module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -95,6 +96,4 @@ PYBIND11_PLUGIN(PythonAdaptive) {
   populate_RLSFilter<double>(m, "DoubleRLSFilter", f2);
   populate_RLSFilter<std::complex<float>>(m, "ComplexFloatRLSFilter", f3);
   populate_RLSFilter<std::complex<double>>(m, "ComplexDoubleRLSFilter", f4);
-
-  return m.ptr();
 }

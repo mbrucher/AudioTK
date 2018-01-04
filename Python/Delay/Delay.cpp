@@ -90,8 +90,9 @@ namespace
   }
 }
 
-PYBIND11_PLUGIN(PythonDelay) {
-  py::module m("PythonDelay", "Audio ToolKit Delay module");
+PYBIND11_MODULE(PythonDelay, m)
+{
+  m.doc() = "Audio ToolKit Delay module";
 
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
@@ -158,6 +159,4 @@ PYBIND11_PLUGIN(PythonDelay) {
   populate_FeedbackDelayNetworkFilter<HouseholderMixture<double, 8>>(m, "DoubleOctHouseholderFeedbackDelayNetworkFilter", f2);
   populate_FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<float>, 8>>(m, "ComplexFloatOctHouseholderFeedbackDelayNetworkFilter", f3);
   populate_FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<double>, 8>>(m, "ComplexDoubleOctHouseholderFeedbackDelayNetworkFilter", f4);
-
-  return m.ptr();
 }
