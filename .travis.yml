@@ -30,6 +30,7 @@ matrix:
         - lcov
         - curl
     env:
+    - MY_NAME: Code Coverage
     - COMPILER=g++-5
     - PLATFORM=gcc-5
     - ENABLE_PYTHON=ON
@@ -52,6 +53,7 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
+    - MY_NAME: GCC 5 Python 2
     - COMPILER=g++-5
     - PLATFORM=gcc-5
     - ENABLE_PYTHON=ON
@@ -72,6 +74,7 @@ matrix:
         - libsndfile-dev
         - swig
     env:
+    - MY_NAME: GCC 5 Python 3
     - COMPILER=g++-5
     - PLATFORM=gcc-5
     - ENABLE_PYTHON=ON
@@ -93,6 +96,7 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
+    - MY_NAME: GCC 6 Python 2
     - COMPILER=g++-6
     - PLATFORM=gcc-6
     - ENABLE_PYTHON=ON
@@ -113,6 +117,7 @@ matrix:
         - libsndfile-dev
         - swig
     env:
+    - MY_NAME: GCC 6 Python 3
     - COMPILER=g++-6
     - PLATFORM=gcc-6
     - ENABLE_PYTHON=ON
@@ -134,6 +139,7 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
+    - MY_NAME: GCC 7 Python 2
     - COMPILER=g++-7
     - PLATFORM=gcc-7
     - ENABLE_PYTHON=ON
@@ -154,6 +160,7 @@ matrix:
         - libsndfile-dev
         - swig
     env:
+    - MY_NAME: GCC 7 Python 3
     - COMPILER=g++-7
     - PLATFORM=gcc-7
     - ENABLE_PYTHON=ON
@@ -177,6 +184,7 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
+    - MY_NAME: clang 5 Python 2
     - COMPILER=clang++-5.0
     - PLATFORM=clang-5.0
     - ENABLE_PYTHON=ON
@@ -199,6 +207,7 @@ matrix:
         - libsndfile-dev
         - swig
     env:
+    - MY_NAME: clang 5 Python 3
     - COMPILER=clang++-5.0
     - PLATFORM=clang-5.0
     - ENABLE_PYTHON=ON
@@ -222,6 +231,7 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
+    - MY_NAME: clang 4 Python 2
     - COMPILER=clang++-4.0
     - PLATFORM=clang-4.0
     - ENABLE_PYTHON=ON
@@ -244,6 +254,7 @@ matrix:
         - libsndfile-dev
         - swig
     env:
+    - MY_NAME: clang 4 Python 3
     - COMPILER=clang++-4.0
     - PLATFORM=clang-4.0
     - ENABLE_PYTHON=ON
@@ -254,6 +265,7 @@ matrix:
   - os: osx
     osx_image: xcode9.2
     env:
+    - MY_NAME: XCode 9 Python 2
     - COMPILER=clang++
     - PLATFORM=xcode-9.2
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
@@ -264,6 +276,7 @@ matrix:
   - os: osx
     osx_image: xcode9.2
     env:
+    - MY_NAME: XCode 9 Python 3
     - COMPILER=clang++
     - PLATFORM=xcode-9.2
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
@@ -274,6 +287,7 @@ matrix:
   - os: osx
     osx_image: xcode8.3
     env:
+    - MY_NAME: XCode 8 Python 2
     - COMPILER=clang++
     - PLATFORM=xcode-8.3
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
@@ -284,6 +298,7 @@ matrix:
   - os: osx
     osx_image: xcode8.3
     env:
+    - MY_NAME: XCode 8 Python 3
     - COMPILER=clang++
     - PLATFORM=xcode-8.3
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
@@ -291,8 +306,6 @@ matrix:
     - PYTHON_VERSION=3.6
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.4
-  allow_failures:
-  - compiler: clang-5.0
 
 before_install:
   - mkdir $HOME/usr
