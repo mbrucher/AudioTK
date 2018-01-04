@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
   filter.set_input_port(1, &generator, 0);
   filter.set_delay(0, 24);
   filter.set_blend(0, 0);
-  filter.set_feedback(0, 0, 1);
+  filter.set_feedback(0, 0, .999999);
   filter.set_feedforward(0, 0, 0);
 
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
@@ -353,7 +353,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
   filter.set_input_port(1, &generator, 0);
   filter.set_delay(1, 24);
   filter.set_blend(1, 0);
-  filter.set_feedback(1, 1, 1);
+  filter.set_feedback(1, 1, .999999);
   filter.set_feedforward(1, 1, 0);
 
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
@@ -426,4 +426,57 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_lr_complex_test)
     BOOST_CHECK_CLOSE(outdatal[i], filter.get_output_array(0)[i], 0.0001);
     BOOST_CHECK_CLOSE(outdatar[i], filter.get_output_array(1)[i], 0.0001);
   }
+}
+
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_delay_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  filter.set_delay(0, 10);
+  BOOST_CHECK_EQUAL(filter.get_delay(0), 10);
+}
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_delay_range_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(0, 0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_delay_range2_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(0, 128), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_blend_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  filter.set_blend(0, 0.5);
+  BOOST_CHECK_EQUAL(filter.get_blend(0), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_feedforward_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  filter.set_feedforward(0, 0, 0.5);
+  BOOST_CHECK_EQUAL(filter.get_feedforward(0, 0), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_feedback_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  filter.set_feedback(0, 0, 0.5);
+  BOOST_CHECK_EQUAL(filter.get_feedback(0, 0), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_feedback_range_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(0, 0, 1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_feedback_range2_test )
+{
+  ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(0, 0, -1), std::out_of_range);
 }

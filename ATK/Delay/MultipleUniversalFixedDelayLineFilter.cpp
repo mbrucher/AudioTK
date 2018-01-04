@@ -82,7 +82,7 @@ namespace ATK
   template<class DataType_, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType_, nb_channels>::set_feedback(unsigned int from_channel, unsigned int to_channel, DataType_ feedback)
   {
-    if (std::abs(feedback) > 1)
+    if (std::abs(feedback) >= 1)
     {
       throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
     }
