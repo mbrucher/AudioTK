@@ -314,13 +314,19 @@ namespace ATK
 
     Parent::full_setup();
   }
-
+  
   template<typename DataType_, typename DataType__>
   void TypedBaseFilter<DataType_, DataType__>::set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port)
+  {
+    set_input_port(input_port, *filter, output_port);
+  }
+  
+  template<typename DataType_, typename DataType__>
+  void TypedBaseFilter<DataType_, DataType__>::set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port)
   {
     Parent::set_input_port(input_port, filter, output_port);
     converted_inputs_size[input_port] = 0;
     converted_in_delays[input_port] = 0;
-    direct_filters[input_port] = dynamic_cast<OutputArrayInterface<DataType_>*>(filter.get());
+    direct_filters[input_port] = dynamic_cast<OutputArrayInterface<DataType_>*>(&filter);
   }
 }
