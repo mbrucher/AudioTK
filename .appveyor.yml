@@ -1,4 +1,4 @@
-version: '2.2.2.{build}'
+version: '2.3.0.{build}'
 
 shallow_clone: true
 
@@ -12,7 +12,6 @@ notifications:
 environment:
   ATK_ROOT: C:\projects\AudioTK
   ATK_OUT: C:\projects\ATK
-  EIGEN_ROOT: C:\projects\Eigen
   FFTW_ROOT: C:\projects\fftw
   matrix:
 #### VS 2015
@@ -201,17 +200,12 @@ before_build:
   - 7z x %FFTW_NAME%
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3-3.def
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3f-3.def
-  - mkdir -p %EIGEN_ROOT%
-  - cd %EIGEN_ROOT%
-  - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.4.zip -OutFile eigen.zip
-  - 7z x eigen.zip
   - cd %ATK_ROOT%
   - mkdir 3rdParty
-  - git clone https://github.com/mbrucher/pybind11 3rdParty\pybind11
-  - git clone https://github.com/mbrucher/GSL 3rdParty\gsl
+  - git submodule update --init --recursiveß
   - mkdir build
   - cd build
-  - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_ROOT=%EIGEN_ROOT% -DENABLE_STATIC_LIBRARIES=ON ..
+  - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DENABLE_STATIC_LIBRARIES=ON ..
 
 build_script:
   - msbuild INSTALL.vcxproj /property:Configuration=Release

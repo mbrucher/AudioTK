@@ -8,9 +8,6 @@
 // Set to activate instrumented profiling (stdout)
 #define ATK_PROFILING 0
 
-// Set if you want to use filters using Eigen
-#define ATK_EIGEN 0
-
 // Set FFTW or IPP if you want to use FFT capabilities, set both to 0 otherwise
 #define ATK_USE_FFTW 0
 #ifndef ATK_NO_FFT

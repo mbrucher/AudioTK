@@ -5,8 +5,6 @@
 #include <ATK/Delay/FeedbackDelayNetworkFilter.hxx>
 #include <ATK/Delay/HadamardMixture.h>
 
-#if ATK_EIGEN == 1
-
 #include <complex>
 
 #include <Eigen/Dense>
@@ -78,5 +76,3 @@ namespace ATK
   template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<float>, 3>>;
   template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<double>, 3>>;
 }
-
-#endif

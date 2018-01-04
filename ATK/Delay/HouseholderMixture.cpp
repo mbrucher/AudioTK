@@ -5,8 +5,6 @@
 #include <ATK/Delay/FeedbackDelayNetworkFilter.hxx>
 #include <ATK/Delay/HouseholderMixture.h>
 
-#if ATK_EIGEN == 1
-
 #include <complex>
 
 #include <Eigen/Dense>
@@ -54,5 +52,3 @@ namespace ATK
   template class FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<float>, 8>>;
   template class FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<double>, 8>>;
 }
-
-#endif

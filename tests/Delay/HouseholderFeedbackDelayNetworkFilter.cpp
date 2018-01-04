@@ -5,7 +5,6 @@
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 #include <ATK/Delay/HouseholderMixture.h>
 
-#if ATK_EIGEN == 1
 #ifndef EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT
 
 #include <array>
@@ -63,5 +62,4 @@ BOOST_AUTO_TEST_CASE(HouseholderFeedbackDelayNetworkFilter_sinus_complex_test)
     BOOST_CHECK_CLOSE(outdata[i], filter.get_output_array(0)[i], 0.0001);
   }
 }
-#endif
 #endif

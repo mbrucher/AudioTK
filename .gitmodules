@@ -7,3 +7,6 @@
 [submodule "3rdParty/gsl"]
 	path = 3rdParty/gsl
 	url = https://github.com/mbrucher/GSL.git
+[submodule "3rdParty/eigen"]
+	path = 3rdParty/eigen
+	url = https://github.com/mbrucher/eigen-git-mirror.git

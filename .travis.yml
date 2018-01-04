@@ -24,7 +24,6 @@ matrix:
         packages:
         - g++-5
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
@@ -49,7 +48,6 @@ matrix:
         packages:
         - g++-5
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
@@ -71,7 +69,6 @@ matrix:
         packages:
         - g++-5
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
     env:
@@ -92,7 +89,6 @@ matrix:
         packages:
         - g++-6
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
@@ -114,7 +110,6 @@ matrix:
         packages:
         - g++-6
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
     env:
@@ -135,7 +130,6 @@ matrix:
         packages:
         - g++-7
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
@@ -157,7 +151,6 @@ matrix:
         packages:
         - g++-7
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
     env:
@@ -180,7 +173,6 @@ matrix:
         - clang-5.0
         - g++-7
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
@@ -204,7 +196,6 @@ matrix:
         - clang-5.0
         - g++-7
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
     env:
@@ -227,7 +218,6 @@ matrix:
         - clang-4.0
         - g++-6
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
@@ -251,7 +241,6 @@ matrix:
         - clang-4.0
         - g++-6
         - libfftw3-dev
-        - libeigen3-dev
         - libsndfile-dev
         - swig
     env:
@@ -323,7 +312,7 @@ before_install:
     if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
       brew update
       rm -f /usr/local/include/c++
-      brew install eigen fftw libsndfile swig
+      brew install fftw libsndfile swig
       brew upgrade cmake
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
         if [[ "$PYTHON" == "python3" ]]; then brew install python3 ; fi

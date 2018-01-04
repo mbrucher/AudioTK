@@ -7,8 +7,6 @@
 
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 
-#if ATK_EIGEN == 1
-
 #include <complex>
 
 #include <Eigen/Dense>
@@ -146,5 +144,4 @@ namespace ATK
   }
 }
 
-#endif
 #endif

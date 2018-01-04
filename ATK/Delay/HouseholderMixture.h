@@ -11,8 +11,6 @@
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
 
-#if ATK_EIGEN == 1
-
 namespace ATK
 {
   /// Mixture matrix for Householder
@@ -29,5 +27,4 @@ namespace ATK
   };
 }
 
-#endif
 #endif

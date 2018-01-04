@@ -5,7 +5,7 @@ project(AudioTK)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(ATK_VERSION 2.2.2)
+set(ATK_VERSION 2.3.0)
 
 include(Utilities)
 
@@ -25,6 +25,8 @@ option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
 message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
 message(INFO " Build tests: ${ENABLE_TESTS}")
+
+SET(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
 
 if(ENABLE_SIMD)
   LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/libsimdpp/cmake)
@@ -125,7 +127,6 @@ endif(ENABLE_GPL)
 
 find_package(IPP)
 find_package(Boost REQUIRED)
-find_package(Eigen)
 
 SET(USE_FFTW 0)
 SET(USE_IPP 0)
@@ -148,11 +149,8 @@ else(HAVE_IPP)
     MESSAGE(FATAL_ERROR "No FFT support")
   endif(ENABLE_GPL)
 endif(HAVE_IPP)
-if(EIGEN_FOUND)
-  SET(USE_EIGEN 1)
-else(EIGEN_FOUND)
-  SET(USE_EIGEN 0)
-endif(EIGEN_FOUND)
+
+SET(USE_EIGEN 1)
 
 if(ENABLE_TESTS)
   find_package(Boost REQUIRED unit_test_framework system)

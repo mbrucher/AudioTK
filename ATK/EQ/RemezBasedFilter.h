@@ -8,8 +8,6 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
-#if ATK_EIGEN == 1
-
 namespace ATK
 {
   /**
@@ -52,7 +50,5 @@ namespace ATK
     void set_order(std::size_t order);
   };
 }
-
-#endif
 
 #endif
