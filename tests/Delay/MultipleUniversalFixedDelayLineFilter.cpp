@@ -428,7 +428,6 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_lr_complex_test)
   }
 }
 
-
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_delay_test )
 {
   ATK::MultipleUniversalFixedDelayLineFilter<float, 2> filter(128);
