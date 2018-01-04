@@ -15,7 +15,7 @@ environment:
   EIGEN_ROOT: C:\projects\Eigen
   FFTW_ROOT: C:\projects\fftw
   matrix:
-    # 32 bits
+#### VS 2015
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -29,7 +29,6 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON_VERSION: none
 
-    # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -43,7 +42,7 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON_VERSION: none
 
-    # 32 bits
+ ### shared runtime
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -58,7 +57,6 @@ environment:
       PYTHON: C:\\Python27
       PYTHON_VERSION: 2.7
 
-    # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -73,8 +71,6 @@ environment:
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: 2.7
 
-
-    # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -89,7 +85,6 @@ environment:
       PYTHON: C:\\Python36
       PYTHON_VERSION: 3.6
 
-    # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -104,9 +99,9 @@ environment:
       PYTHON: C:\\Python36-x64
       PYTHON_VERSION: 3.6
 
-    # 32 bits
+#### VS 2017
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_64_0
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
@@ -118,9 +113,8 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON_VERSION: none
 
-    # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_64_0
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
@@ -133,7 +127,7 @@ environment:
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: none
 
-    # 32 bits
+ ### shared runtime
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -148,7 +142,6 @@ environment:
       PYTHON: C:\\Python27
       PYTHON_VERSION: 2.7
 
-    # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -163,7 +156,6 @@ environment:
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: 2.7
 
-    # 32 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -178,7 +170,6 @@ environment:
       PYTHON: C:\\Python36
       PYTHON_VERSION: 3.6
 
-    # 64 bits
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -217,6 +208,7 @@ before_build:
   - cd %ATK_ROOT%
   - mkdir 3rdParty
   - git clone https://github.com/mbrucher/pybind11 3rdParty\pybind11
+  - git clone https://github.com/mbrucher/GSL 3rdParty\gsl
   - mkdir build
   - cd build
   - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_ROOT=%EIGEN_ROOT% -DENABLE_STATIC_LIBRARIES=ON ..

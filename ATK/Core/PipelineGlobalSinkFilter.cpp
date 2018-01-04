@@ -21,20 +21,28 @@ namespace ATK
   {
   }
   
-  void PipelineGlobalSinkFilter::add_filter(BaseFilter* filter)
+  void PipelineGlobalSinkFilter::add_filter(gsl::not_null<BaseFilter*> filter)
   {
     if(std::find(filters.begin(), filters.end(), filter) == filters.end())
     {
       filters.push_back(filter);
     }
+    else
+    {
+      throw std::runtime_error("Try to ad a filter that was aleady added");
+    }
   }
 
-  void PipelineGlobalSinkFilter::remove_filter(const BaseFilter* filter)
+  void PipelineGlobalSinkFilter::remove_filter(gsl::not_null<const BaseFilter*> filter)
   {
-    std::vector<BaseFilter*>::iterator it = std::find(filters.begin(), filters.end(), filter);
+    auto it = std::find(filters.begin(), filters.end(), filter);
     if(it != filters.end())
     {
       filters.erase(it);
+    }
+    else
+    {
+      throw std::runtime_error("Try to remove a filter that was not added");
     }
   }
 
