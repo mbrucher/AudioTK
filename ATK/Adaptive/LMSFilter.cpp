@@ -73,9 +73,6 @@ namespace ATK
         return &LMSFilterImpl::update_signdata;
       case Mode::SIGNSIGN:
         return &LMSFilterImpl::update_signsign;
-
-      default:
-        return &LMSFilterImpl::update;
       }
     }
   };
