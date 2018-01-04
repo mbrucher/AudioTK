@@ -278,7 +278,7 @@ test_script:
   - set PYTHONPATH=%ATK_OUT%\lib\site-packages:%PYTHONPATH%
   - cd %ATK_ROOT%\build
   - set CTEST_OUTPUT_ON_FAILURE=True
-  - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
+  - msbuild RUN_TESTS.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 artifacts: 
   - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%.zip
