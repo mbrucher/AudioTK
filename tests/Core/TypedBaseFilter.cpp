@@ -52,6 +52,12 @@ BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_complex_double)
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<double>> filter(0, 0));
 }
 
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_check_out_sampling_rate_test )
+{
+  ATK::TypedBaseFilter<float> filter(0, 0);
+  BOOST_CHECK_THROW(filter.process(100), std::runtime_error);
+}
+
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int16_t )
 {
   ATK::TypedBaseFilter<std::int16_t> filter(0, 0);
@@ -148,6 +154,17 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_output_delay_test )
   BOOST_CHECK_EQUAL(filter.get_output_delay(), 0);
   filter.set_output_delay(1);
   BOOST_CHECK_EQUAL(filter.get_output_delay(), 1);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_dryrun_test )
+{
+  ATK::TriangleGeneratorFilter<int64_t> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
+  
+  generator.dryrun(PROCESSSIZE);
+  BOOST_CHECK(generator.get_output_array(0));
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_triangle_test )
