@@ -15,6 +15,22 @@ environment:
   FFTW_ROOT: C:\projects\fftw
   matrix:
 #### VS 2015
+ ### Debug build
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      BOOST_ROOT: C:/Libraries/boost_1_63_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 14 2015 Win64
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
+      VSINSTALL: "\\Microsoft Visual Studio 14.0\\VC"
+      MSVC_VERSION: msvc-14.0
+      PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Debug
+
+ ### static runtime
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -27,6 +43,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
@@ -40,6 +57,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
  ### shared runtime
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -55,6 +73,7 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
@@ -69,6 +88,7 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
@@ -83,6 +103,7 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python36
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
@@ -97,8 +118,25 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python36-x64
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
 #### VS 2017
+ ### Debug build
+    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 15 2017 Win64
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
+      VSINSTALL: "\\Microsoft Visual Studio 14.0\\VC"
+      MSVC_VERSION: msvc-14.1
+      PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Debug
+
+ ### static runtime
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
@@ -111,6 +149,7 @@ environment:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
@@ -125,6 +164,7 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
  ### shared runtime
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
@@ -140,6 +180,7 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
@@ -154,6 +195,7 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
@@ -168,6 +210,7 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python36
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
     - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
@@ -182,6 +225,7 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python36-x64
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
 matrix:
   allow_failures:
@@ -208,7 +252,7 @@ before_build:
   - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DENABLE_STATIC_LIBRARIES=ON ..
 
 build_script:
-  - msbuild INSTALL.vcxproj /property:Configuration=Release
+  - msbuild INSTALL.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 after_build:
   - cd %ATK_OUT%
