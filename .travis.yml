@@ -306,6 +306,8 @@ matrix:
     - PYTHON_VERSION=3.6
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.4
+  allow_failures:
+  - compiler: clang-5.0
 
 before_install:
   - mkdir $HOME/usr
