@@ -36,6 +36,8 @@ namespace ATK
     void remove_filter(gsl::not_null<const BaseFilter*> filter);
 
     int get_type() const final;
+    void set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port) final;
+    void set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port) final;
     /*!
      * @brief Indicates if we can process the pipeline in parallel
      */

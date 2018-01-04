@@ -14,7 +14,6 @@ namespace ATK
   OutCircularPointerFilter<DataType>::OutCircularPointerFilter()
   :TypedBaseFilter<DataType>(1, 0), offset(0), current_slice(0), last_checked_out_buffer(-1)
   {
-    array.fill(0);
   }
   
   template<typename DataType>
@@ -25,9 +24,9 @@ namespace ATK
   template<typename DataType>
   void OutCircularPointerFilter<DataType>::full_setup()
   {
-    array.fill(0);
     last_checked_out_buffer = -1;
     offset = 0;
+    array.fill(0);
   }
 
   template<typename DataType>

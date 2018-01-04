@@ -379,6 +379,13 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_global_latency_test )
   BOOST_CHECK_EQUAL(checker.get_global_latency(), 3);
 }
 
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_global_latency_throw_test )
+{
+  ATK::TriangleCheckerFilter<float> checker;
+  
+  BOOST_CHECK_THROW(checker.get_global_latency(), std::runtime_error);
+}
+
 #if ATK_USE_THREADPOOL == 1
 BOOST_AUTO_TEST_CASE(TypedBaseFilter_parallel)
 {

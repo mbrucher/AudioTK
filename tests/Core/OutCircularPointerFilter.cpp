@@ -55,3 +55,34 @@ BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_test )
     }
   }
 }
+
+BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_full_setup_test )
+{
+  std::array<float, PROCESSSIZE*200> data;
+  for(ptrdiff_t i = 0; i < PROCESSSIZE*200; ++i)
+  {
+    data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
+  }
+  
+  ATK::InPointerFilter<float> generator(data.data(), 1, data.size(), false);
+  generator.set_output_sampling_rate(48000);
+  
+  ATK::OutCircularPointerFilter<float> output;
+  output.set_input_sampling_rate(48000);
+  output.set_input_port(0, &generator, 0);
+  
+  auto nb_iterations = 4 + ATK::OutCircularPointerFilter<float>::slice_size * ATK::OutCircularPointerFilter<float>::nb_slices / PROCESSSIZE;
+  
+  for(int i = 0; i < nb_iterations; ++i)
+  {
+    output.process(PROCESSSIZE);
+    output.full_setup();
+    bool process;
+    const auto& outdata = output.get_last_slice(process);
+    
+    for(ptrdiff_t j = 0; j < outdata.size(); ++j)
+    {
+      BOOST_REQUIRE_EQUAL(outdata[j], 0);
+    }
+  }
+}
