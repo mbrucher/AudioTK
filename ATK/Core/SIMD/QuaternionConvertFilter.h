@@ -5,8 +5,6 @@
 #ifndef ATK_CORE_SIMD_QUATERNIONCONVERTFILTER_H
 #define ATK_CORE_SIMD_QUATERNIONCONVERTFILTER_H
 
-#include <simdpp/simd.h>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Core/config.h>
 

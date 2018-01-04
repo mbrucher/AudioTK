@@ -5,7 +5,7 @@ project(AudioTK)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(ATK_VERSION 2.2.1)
+set(ATK_VERSION 2.2.2)
 
 include(Utilities)
 
@@ -17,6 +17,7 @@ option(ENABLE_PYTHON "Enable Python support" ON)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
 option(ENABLE_SIMD "Enable SIMD support through libsimdpp" OFF)
 option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)
+option(ENABLE_COVERAGE "Generate coveralls data" OFF)
 option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
@@ -58,6 +59,12 @@ if(ENABLE_PYTHON)
   message (ERROR " Python support depends on shared libraries to run")
  endif(NOT ENABLE_SHARED_LIBRARIES)
 endif(ENABLE_PYTHON)
+
+if(ENABLE_CODECOVERAGE)
+  include(CodeCoverage)
+  setup_target_for_coverage(codecoverage "make test" coverage)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+endif(ENABLE_CODECOVERAGE)
 
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
   set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
@@ -168,6 +175,7 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
 
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(SYSTEM ${Boost_INCLUDE_DIR})
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
@@ -188,7 +196,7 @@ endif(ENABLE_PYTHON)
 
 add_subdirectory(modules)
 
-FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake)
+FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake *.in ATK/*.in *.yml *.md)
 SOURCE_GROUP_BY_FOLDER(CMAKE_OTHER)
 add_custom_target(CMake SOURCES ${CMAKE_OTHER_SRC})
 
@@ -214,5 +222,4 @@ IF (BUILD_DOC)
     COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_INPUT}
     COMMAND ${CMAKE_COMMAND} -E echo "Done."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-
 ENDIF (BUILD_DOC)

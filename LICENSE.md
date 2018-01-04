@@ -1,4 +1,4 @@
-Copyright (c) 2013-2014, Matthieu Brucher
+Copyright (c) 2013-2018, Matthieu Brucher
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

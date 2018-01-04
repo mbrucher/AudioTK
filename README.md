@@ -2,8 +2,10 @@
 
 [![Travis](https://travis-ci.org/mbrucher/AudioTK.svg?branch=master)](https://travis-ci.org/mbrucher/AudioTK)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/j6k8jkxk2ebwvvoe/branch/master?svg=true)](https://ci.appveyor.com/project/mbrucher/audiotk)
+[![codecov](https://codecov.io/gh/mbrucher/AudioTK/branch/master/graph/badge.svg)](https://codecov.io/gh/mbrucher/AudioTK)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing.
+Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing workloads.
 
 The audio workflow is split in independent components (without feedback loops) that consist of filters. 
 Each filter has a set of synchronized input and output ports that can be connected together. All input 
@@ -18,6 +20,12 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.2.2
+* Fix a TDF2 IIR filter bug when the state was not reinitialized, leading to unstabilities
+* Fix a bug when delays were changed but not the underlying buffers, leading to buffer underflows
+* Adding a new Broadcast filter (filling all SIMD vector lines with the same input value)
+* Adding a new Reduce filter (summing all SIMD vector lines to the output value)
+
 ### 2.2.1
 * Fix alignment issues in SIMD filters
 * Fix SIMD EQ dispatcher export issues on Windows (too many possible filters!)

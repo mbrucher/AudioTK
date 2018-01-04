@@ -252,7 +252,7 @@ namespace ATK
       Parent::setup();
       input_delay = in_order;
       output_delay = out_order;
-      state.resize(nb_input_ports * (std::max(input_delay, output_delay) + 1), TypeTraits<DataType>::Zero());
+      state.assign(nb_input_ports * (std::max(input_delay, output_delay) + 1), TypeTraits<DataType>::Zero());
     }
     
     void process_impl(std::size_t size) const final

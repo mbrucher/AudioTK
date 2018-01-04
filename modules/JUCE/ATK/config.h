@@ -13,7 +13,11 @@
 
 // Set FFTW or IPP if you want to use FFT capabilities, set both to 0 otherwise
 #define ATK_USE_FFTW 0
+#ifndef ATK_NO_FFT
 #define ATK_USE_IPP 1
+#else
+#define ATK_USE_IPP 0
+#endif
 
 #define ATK_USE_SIMD 0
 

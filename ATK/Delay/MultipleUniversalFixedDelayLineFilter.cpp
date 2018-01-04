@@ -13,7 +13,7 @@
 
 namespace ATK
 {
-  template<class DataType, unsigned int nb_channels>
+  template<class DataType, int nb_channels>
   class MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::SUFDLF_Impl
   {
   public:
@@ -31,7 +31,7 @@ namespace ATK
     }
   };
 
-  template<class DataType, unsigned int nb_channels>
+  template<class DataType, int nb_channels>
   MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::MultipleUniversalFixedDelayLineFilter(std::size_t max_delay)
     :Parent(nb_channels, 2 * nb_channels), impl(new SUFDLF_Impl(max_delay)), max_delay(max_delay)
   {
@@ -41,12 +41,12 @@ namespace ATK
     feedforward.fill(0);
   }
 
-  template<class DataType, unsigned int nb_channels>
+  template<class DataType, int nb_channels>
   MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::~MultipleUniversalFixedDelayLineFilter()
   {
   }
 
-  template<class DataType, unsigned int nb_channels>
+  template<class DataType, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::set_delay(unsigned int channel, std::size_t delay)
   {
     if (delay == 0)
@@ -61,25 +61,25 @@ namespace ATK
     this->delay[channel] = delay;
   }
 
-  template<class DataType, unsigned int nb_channels>
+  template<class DataType, int nb_channels>
   std::size_t MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::get_delay(unsigned int channel) const
   {
     return delay[channel];
   }
 
-  template<class DataType_, unsigned int nb_channels>
+  template<class DataType_, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType_, nb_channels>::set_blend(unsigned int channel, DataType_ blend)
   {
     this->blend[channel] = blend;
   }
 
-  template<class DataType_, unsigned int nb_channels>
+  template<class DataType_, int nb_channels>
   DataType_ MultipleUniversalFixedDelayLineFilter<DataType_, nb_channels>::get_blend(unsigned int channel) const
   {
     return blend[channel];
   }
 
-  template<class DataType_, unsigned int nb_channels>
+  template<class DataType_, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType_, nb_channels>::set_feedback(unsigned int from_channel, unsigned int to_channel, DataType_ feedback)
   {
     if (std::abs(feedback) > 1)
@@ -89,40 +89,40 @@ namespace ATK
     this->feedback[from_channel * nb_channels + to_channel] = feedback;
   }
 
-  template<class DataType_, unsigned int nb_channels>
+  template<class DataType_, int nb_channels>
   DataType_ MultipleUniversalFixedDelayLineFilter<DataType_, nb_channels>::get_feedback(unsigned int from_channel, unsigned int to_channel) const
   {
     return feedback[from_channel * nb_channels + to_channel];
   }
 
-  template<class DataType_, unsigned int nb_channels>
+  template<class DataType_, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType_, nb_channels>::set_feedforward(unsigned int from_channel, unsigned int to_channel, DataType_ feedforward)
   {
     this->feedforward[from_channel * nb_channels + to_channel] = feedforward;
   }
 
-  template<class DataType_, unsigned int nb_channels>
+  template<class DataType_, int nb_channels>
   DataType_ MultipleUniversalFixedDelayLineFilter<DataType_, nb_channels>::get_feedforward(unsigned int from_channel, unsigned int to_channel) const
   {
     return feedforward[from_channel * nb_channels + to_channel];
   }
 
-  template<class DataType, unsigned int nb_channels>
+  template<class DataType, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::full_setup()
   {
     // reset the delay line
-    for (unsigned int channel = 0; channel < nb_channels; ++channel)
+    for (int channel = 0; channel < nb_channels; ++channel)
     {
       impl->processed_input[channel].assign(max_delay, 0);
     }
   }
 
-  template<class DataType, unsigned int nb_channels>
+  template<class DataType, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::process_impl(std::size_t size) const
   {
-    ATK_VECTORIZE for (std::size_t i = 0; i < size; ++i)
+    for (std::size_t i = 0; i < size; ++i)
     {
-      for (unsigned int channel = 0; channel < nb_channels; ++channel)
+      ATK_VECTORIZE for (int channel = 0; channel < nb_channels; ++channel)
       {
         auto j = impl->index - static_cast<int64_t>(delay[channel]);
         if (j < 0)
@@ -131,18 +131,18 @@ namespace ATK
         }
         outputs[nb_channels + channel][i] = impl->processed_input[channel][j];
       }
-      for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
+      ATK_VECTORIZE for (int to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
         impl->processed_input[to_channel][impl->index] = converted_inputs[to_channel][i];
-        for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
+        ATK_VECTORIZE for (int from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
           impl->processed_input[to_channel][impl->index] += feedback[from_channel * nb_channels + to_channel] * outputs[nb_channels + from_channel][i];
         }
       }
-      for (unsigned int to_channel = 0; to_channel < nb_channels; ++to_channel)
+      ATK_VECTORIZE for (int to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
         outputs[to_channel][i] = blend[to_channel] * impl->processed_input[to_channel][impl->index];
-        for (unsigned int from_channel = 0; from_channel < nb_channels; ++from_channel)
+        ATK_VECTORIZE for (int from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
           outputs[to_channel][i] += feedforward[from_channel * nb_channels + to_channel] * outputs[nb_channels + from_channel][i];
         }

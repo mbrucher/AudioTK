@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from nose.tools import raises
+from numpy import testing
 
 def FloatInPointerFilter_new_test():
   import numpy as np
@@ -22,6 +23,34 @@ def DoubleInPointerFilter_new_test():
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
   filter = DoubleInPointerFilter(d, False)
   assert filter.nb_output_ports == 1
+
+def DoubleInPointerFilter_assign_test():
+  import numpy as np
+  from ATK.Core import DoubleInPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
+  filter = DoubleInPointerFilter(d, False)
+  filter.set_pointer(d)
+  assert filter.nb_output_ports == 1
+
+def DoubleInPointerFilter_retrieve_test():
+  import numpy as np
+  from ATK.Core import DoubleInPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
+  filter = DoubleInPointerFilter(d, False)
+  filter.input_sampling_rate = 48000
+  filter.process(1000)
+  out = filter.get_output_array(0)
+  testing.assert_array_equal(d[0], out)
+
+@raises(ValueError)
+def DoubleInPointerFilter_wrong_retrieve_test():
+  import numpy as np
+  from ATK.Core import DoubleInPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
+  filter = DoubleInPointerFilter(d, False)
+  filter.input_sampling_rate = 48000
+  filter.process(1000)
+  filter.get_output_array(1)
 
 def DoubleIn2PointerFilter_new_test():
   import numpy as np
@@ -64,6 +93,13 @@ def DoubleOut2PointerFilter_new_test():
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2, 500))
   filter = DoubleOutPointerFilter(d, False)
   assert filter.nb_input_ports == 2
+
+def DoubleOutPointerFilter_assign_test():
+  import numpy as np
+  from ATK.Core import DoubleOutPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
+  filter = DoubleOutPointerFilter(d, False)
+  filter.set_pointer(d)
 
 @raises(TypeError)
 def FloatOutPointerFilter_new_fail_test():

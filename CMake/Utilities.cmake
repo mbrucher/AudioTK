@@ -3,7 +3,7 @@
 #
 
 macro(stagedebug target)
-  if(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
+  if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     if(APPLE)
       add_custom_command(TARGET ${target}
         POST_BUILD
@@ -13,7 +13,7 @@ macro(stagedebug target)
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         VERBATIM)
     endif(APPLE)
-  endif(NOT(CMAKE_BUILD_TYPE STREQUAL ""))
+  endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endmacro()
 
 MACRO(SOURCE_GROUP_BY_FOLDER target)

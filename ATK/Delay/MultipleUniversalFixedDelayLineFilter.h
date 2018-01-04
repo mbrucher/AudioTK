@@ -14,7 +14,7 @@
 namespace ATK
 {
   /// A stereo/ping-pong delay effect
-  template<class DataType_, unsigned int nb_channels>
+  template<class DataType_, int nb_channels>
   class ATK_DELAY_EXPORT MultipleUniversalFixedDelayLineFilter final : public TypedBaseFilter<DataType_>
   {
     class SUFDLF_Impl;

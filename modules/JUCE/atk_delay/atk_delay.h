@@ -20,7 +20,7 @@
 
   ID:               atk_delay
   vendor:           Matthieu Brucher
-  version:          2.2.1
+  version:          2.2.2
   name:             ATK delay
   description:      Delay classes for ATK
   website:          http://www.audio-tk.com/
@@ -37,6 +37,7 @@
 #ifndef ATK_DELAY
 #define ATK_DELAY
 
+#include <ATK/Delay/DelayInterface.h>
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 #include <ATK/Delay/FixedDelayLineFilter.h>
 #include <ATK/Delay/HadamardMixture.h>

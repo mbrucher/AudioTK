@@ -79,7 +79,7 @@ namespace ATK
     void full_setup() override;
 
     /// Connects this filter input to another's output
-    void set_input_port(std::size_t input_port, BaseFilter* filter, std::size_t output_port) final;
+    void set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port) final;
 
   private:
     int get_type() const override;
@@ -100,6 +100,8 @@ namespace ATK
     std::vector<DataTypeInput*> converted_inputs;
     /// Current size of the input arrays, without delay
     std::vector<std::size_t> converted_inputs_size;
+    /// Current input delay
+    std::vector<std::size_t> converted_in_delays;
     /// Pointer to the output interface of the connected filters
     std::vector<OutputArrayInterface<DataType_>*> direct_filters;
 
@@ -109,6 +111,8 @@ namespace ATK
     std::vector<DataTypeOutput*> outputs;
     /// Current size of the output arrays, without delay
     std::vector<std::size_t> outputs_size;
+    /// Current output delay
+    std::vector<std::size_t> out_delays;
 
     /// A vector containing the default values for the input arrays
     AlignedVector default_input;

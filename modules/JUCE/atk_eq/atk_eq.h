@@ -20,7 +20,7 @@
 
   ID:               atk_eq
   vendor:           Matthieu Brucher
-  version:          2.2.1
+  version:          2.2.2
   name:             ATK EQ
   description:      EQ classes for ATK
   website:          http://www.audio-tk.com/
