@@ -4,7 +4,8 @@ shallow_clone: true
 
 notifications:
   - provider: Webhook
-    url: https://webhooks.gitter.im/e/6f33fb3550cb96501f64
+    url:
+    - https://webhooks.gitter.im/e/6f33fb3550cb96501f64
     on_build_success: true
     on_build_failure: true
     on_build_status_changed: true
@@ -139,7 +140,7 @@ environment:
       COMPILER: Visual Studio 15 2017 Win64
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
-      VSINSTALL: "\\Microsoft Visual Studio 14.1\\VC"
+      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON_VERSION: none
       BUILD_CONFIGURATION: Debug

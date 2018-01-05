@@ -6,8 +6,9 @@ notifications:
   email: false
   # gitter
   webhooks:
-    urls: https://webhooks.gitter.im/e/b43314c68a0082edd974
-    on_success: change
+    urls:
+    - https://webhooks.gitter.im/e/b43314c68a0082edd974
+    on_success: always
     on_failure: always
 git:
   depth: 500
