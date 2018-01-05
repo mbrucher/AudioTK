@@ -134,8 +134,8 @@ namespace ATK
 
     void process(const DataType_* input, std::size_t input_size, std::size_t size) const
     {
-      double factor = static_cast<double>(size);
 #if ATK_USE_FFTW == 1
+      double factor = static_cast<double>(size);
       for(std::size_t j = 0; j < std::min(input_size, size); ++j)
       {
         input_data[j][0] = input[j] / factor;
@@ -220,8 +220,8 @@ namespace ATK
 
     void process(const std::complex<DataType_>* input, std::size_t input_size, std::size_t size) const
     {
-      double factor = static_cast<double>(size);
 #if ATK_USE_FFTW == 1
+      double factor = static_cast<double>(size);
       for (std::size_t j = 0; j < std::min(input_size, size); ++j)
       {
         input_data[j][0] = std::real(input[j]) / factor;
