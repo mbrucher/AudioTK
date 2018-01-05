@@ -54,6 +54,25 @@ BOOST_AUTO_TEST_CASE( LMSFilter_memory_positive1_test )
   BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE(LMSFilter_mu_negative_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  BOOST_CHECK_THROW(filter.set_mu(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(LMSFilter_mu_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  filter.set_mu(0.5);
+  BOOST_CHECK_EQUAL(filter.get_mu(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( LMSFilter_mu_positive1_test )
+{
+  ATK::LMSFilter<float> filter(100);
+  BOOST_CHECK_THROW(filter.set_mu(1), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( LMSFilter_memory_99_test )
 {
   std::array<double, PROCESSSIZE> data;
