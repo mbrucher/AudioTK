@@ -32,12 +32,20 @@ BOOST_AUTO_TEST_CASE(LMSFilter_size_set_test)
 {
   ATK::LMSFilter<float> filter(100);
   filter.set_size(10);
+  BOOST_CHECK_EQUAL(filter.get_size(), 10);
 }
 
 BOOST_AUTO_TEST_CASE(LMSFilter_memory_negative_test)
 {
   ATK::LMSFilter<float> filter(100);
   BOOST_CHECK_THROW(filter.set_memory(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(LMSFilter_memory_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  filter.set_memory(0.5);
+  BOOST_CHECK_EQUAL(filter.get_memory(), 0.5);
 }
 
 BOOST_AUTO_TEST_CASE( LMSFilter_memory_positive1_test )
