@@ -20,7 +20,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1200)
+const size_t PROCESSSIZE = 1200;
 
 BOOST_AUTO_TEST_CASE(LMSFilter_size_negative_test)
 {

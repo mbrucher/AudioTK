@@ -20,7 +20,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024 * 64;
 
 BOOST_AUTO_TEST_CASE(RLSFilter_size_negative_test)
 {
@@ -32,12 +32,20 @@ BOOST_AUTO_TEST_CASE(RLSFilter_size_set_test)
 {
   ATK::RLSFilter<float> filter(100);
   filter.set_size(10);
+  BOOST_CHECK_EQUAL(filter.get_size(), 10);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_memory_negative_test)
 {
   ATK::RLSFilter<float> filter(100);
   BOOST_CHECK_THROW(filter.set_memory(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(RLSFilter_memory_test)
+{
+  ATK::RLSFilter<float> filter(100);
+  filter.set_memory(0.5);
+  BOOST_CHECK_EQUAL(filter.get_memory(), 0.5);
 }
 
 BOOST_AUTO_TEST_CASE( RLSFilter_memory_positive1_test )

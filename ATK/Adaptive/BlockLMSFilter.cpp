@@ -132,7 +132,7 @@ namespace ATK
   template<typename DataType_>
   std::size_t BlockLMSFilter<DataType_>::get_size() const
   {
-    return input_delay - 1;
+    return impl->wfft.size() / 2;
   }
   
   template<typename DataType_>
