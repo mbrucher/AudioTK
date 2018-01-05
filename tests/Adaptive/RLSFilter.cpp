@@ -54,6 +54,14 @@ BOOST_AUTO_TEST_CASE( RLSFilter_memory_positive1_test )
   BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE(RLSFilter_learning_set_test)
+{
+  ATK::RLSFilter<float> filter(100);
+  BOOST_CHECK_EQUAL(filter.get_learning(), true);
+  filter.set_learning(false);
+  BOOST_CHECK_EQUAL(filter.get_learning(), false);
+}
+
 BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
 {
   ATK::SimpleSinusGeneratorFilter<float> generator;
