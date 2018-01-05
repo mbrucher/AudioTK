@@ -73,6 +73,7 @@ BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   filter.set_memory(.99);
+  filter.set_learning(false);
   
   ATK::TriangleCheckerFilter<float> checker;
   checker.set_input_sampling_rate(48000);
@@ -101,6 +102,7 @@ BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   filter.set_memory(.99);
+  filter.set_learning(false);
   Eigen::Matrix<float, Eigen::Dynamic, 1> w(1);
   w << 1;
   filter.set_w(w.data());
