@@ -139,7 +139,7 @@ environment:
       COMPILER: Visual Studio 15 2017 Win64
       OUTPUT: dynamic-x64
       ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
-      VSINSTALL: "\\Microsoft Visual Studio 14.0\\VC"
+      VSINSTALL: "\\Microsoft Visual Studio 14.1\\VC"
       MSVC_VERSION: msvc-14.1
       PYTHON_VERSION: none
       BUILD_CONFIGURATION: Debug
