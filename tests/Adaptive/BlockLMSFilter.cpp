@@ -39,6 +39,24 @@ BOOST_AUTO_TEST_CASE(BlockLMSFilter_size_set_test)
   BOOST_CHECK_EQUAL(filter.get_size(), 10);
 }
 
+BOOST_AUTO_TEST_CASE(BlockLMSFilter_build_throw_test)
+{
+  BOOST_CHECK_THROW(ATK::BlockLMSFilter<double> filter(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(BlockLMSFilter_blocksize_negative_test)
+{
+  ATK::BlockLMSFilter<double> filter(100);
+  BOOST_CHECK_THROW(filter.set_block_size(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(BlockLMSFilter_blocksize_set_test)
+{
+  ATK::BlockLMSFilter<double> filter(100);
+  filter.set_block_size(10);
+  BOOST_CHECK_EQUAL(filter.get_block_size(), 10);
+}
+
 BOOST_AUTO_TEST_CASE(BlockLMSFilter_memory_negative_test)
 {
   ATK::BlockLMSFilter<double> filter(100);
@@ -75,6 +93,14 @@ BOOST_AUTO_TEST_CASE( BlockLMSFilter_mu_positive1_test )
 {
   ATK::BlockLMSFilter<double> filter(100);
   BOOST_CHECK_THROW(filter.set_mu(1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(BlockLMSFilter_learning_set_test)
+{
+  ATK::BlockLMSFilter<double> filter(100);
+  BOOST_CHECK_EQUAL(filter.get_learning(), true);
+  filter.set_learning(false);
+  BOOST_CHECK_EQUAL(filter.get_learning(), false);
 }
 
 BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_999_test )
