@@ -22,7 +22,7 @@ matrix:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-5
+        - g++-7
         - libfftw3-dev
         - libsndfile-dev
         - swig
@@ -31,8 +31,8 @@ matrix:
         - curl
     env:
     - MY_NAME: Code Coverage
-    - COMPILER=g++-5
-    - PLATFORM=gcc-5
+    - COMPILER=g++-7
+    - PLATFORM=gcc-7
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
