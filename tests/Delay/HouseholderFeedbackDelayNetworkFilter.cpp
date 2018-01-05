@@ -5,6 +5,8 @@
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 #include <ATK/Delay/HouseholderMixture.h>
 
+#ifndef EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT
+
 #include <array>
 #include <fstream>
 
@@ -22,7 +24,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-const int PROCESSSIZE = 1024*64;
+const std::size_t PROCESSSIZE = 1024*64;
 
 BOOST_AUTO_TEST_CASE( HouseholderFeedbackDelayNetworkFilter_sinus_linel100_delay50_test )
 {
@@ -224,7 +226,7 @@ BOOST_AUTO_TEST_CASE(HouseholderFeedbackDelayNetworkFilter_sinus_liner1000_delay
   }
 }
 
-const int OTHERPROCESSSIZE = 9600;
+const std::size_t OTHERPROCESSSIZE = 9600;
 
 BOOST_AUTO_TEST_CASE(HouseholderFeedbackDelayNetworkFilter_sinus_complex_test)
 {
@@ -323,3 +325,4 @@ BOOST_AUTO_TEST_CASE( HouseholderFeedbackDelayNetworkFilter_sinus_feedback_range
   BOOST_CHECK_THROW(filter.set_feedback(0, -2), std::out_of_range);
 }
 
+#endif
