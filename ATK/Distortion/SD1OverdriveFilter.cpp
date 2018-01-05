@@ -44,11 +44,6 @@ namespace ATK
       this->drive = (R1 + drive * Q);
     }
 
-    DataType get_drive() const
-    {
-      return (drive - R1) / Q;
-    }
-
     std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
     {
       auto x1 = input[0];
