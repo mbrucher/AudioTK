@@ -78,10 +78,10 @@ namespace ATK
       return affine_estimate(x0, x1, y0);
     }
 
-    DataType id_estimate(DataType x0, DataType x1, DataType y0)
+/*    DataType id_estimate(DataType x0, DataType x1, DataType y0)
     {
       return y0;
-    }
+    }*/
 
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
@@ -126,13 +126,14 @@ namespace ATK
       throw std::out_of_range("Drive must be a value between 0 and 1");
     }
     this->drive = drive;
-    optimizer->get_function().set_drive(drive);
+    if(optimizer)
+      optimizer->get_function().set_drive(drive);
   }
 
   template <typename DataType_>
   DataType_ TS9OverdriveFilter<DataType_>::get_drive() const
   {
-    return optimizer->get_function().get_drive();
+    return drive;
   }
 
   template <typename DataType>
