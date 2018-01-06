@@ -13,7 +13,20 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (64)
+const size_t PROCESSSIZE = 64;
+
+BOOST_AUTO_TEST_CASE( GainLimiterFilter_softness_test )
+{
+  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter;
+  filter.set_softness(0.5);
+  BOOST_CHECK_EQUAL(filter.get_softness(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( GainLimiterFilter_softness_range_test )
+{
+  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter;
+  BOOST_CHECK_THROW(filter.set_softness(-0.000001), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_test )
 {

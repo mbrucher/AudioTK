@@ -11,7 +11,14 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( PowerFilter_RMS_memory_test )
+{
+  ATK::PowerFilter<float> filter;
+  filter.set_memory(0.5);
+  BOOST_CHECK_EQUAL(filter.get_memory(), 0.5);
+}
 
 BOOST_AUTO_TEST_CASE( PowerFilter_RMS_throw_memory_0_test )
 {

@@ -13,7 +13,45 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( AttackRelease_attack_test )
+{
+  ATK::AttackReleaseFilter<float> filter;
+  filter.set_attack(0.5);
+  BOOST_CHECK_EQUAL(filter.get_attack(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( AttackRelease_attack_range_test )
+{
+  ATK::AttackReleaseFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_attack(-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackRelease_attack_range2_test )
+{
+  ATK::AttackReleaseFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_attack(1.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackRelease_release_test )
+{
+  ATK::AttackReleaseFilter<float> filter;
+  filter.set_release(0.5);
+  BOOST_CHECK_EQUAL(filter.get_release(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( AttackRelease_release_range_test )
+{
+  ATK::AttackReleaseFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_release(-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackRelease_release_range2_test )
+{
+  ATK::AttackReleaseFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_release(1.000001), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )
 {

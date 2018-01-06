@@ -48,6 +48,19 @@ BOOST_AUTO_TEST_CASE( GainFilter_ratio_range_test )
   BOOST_CHECK_THROW(filter.set_ratio(0), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_softness_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  filter.set_softness(0.5);
+  BOOST_CHECK_EQUAL(filter.get_softness(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_softness_range_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  BOOST_CHECK_THROW(filter.set_softness(-0.000001), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 {
   std::array<float, PROCESSSIZE> data;

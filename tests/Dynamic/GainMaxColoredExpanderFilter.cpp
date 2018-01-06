@@ -1,8 +1,8 @@
 /**
- * \ file GainExpanderFilter.cpp
+ * \ file GainMaxColoredExpanderFilter.cpp
  */
 
-#include <ATK/Dynamic/GainExpanderFilter.h>
+#include <ATK/Dynamic/GainMaxColoredExpanderFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
@@ -15,20 +15,60 @@
 
 const size_t PROCESSSIZE = 64;
 
-BOOST_AUTO_TEST_CASE( GainExpanderFilter_softness_test )
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_softness_test )
 {
-  ATK::GainFilter<ATK::GainExpanderFilter<float>> filter;
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
   filter.set_softness(0.5);
   BOOST_CHECK_EQUAL(filter.get_softness(), 0.5);
 }
 
-BOOST_AUTO_TEST_CASE( GainExpanderFilter_softness_range_test )
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_softness_range_test )
 {
-  ATK::GainFilter<ATK::GainExpanderFilter<float>> filter;
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
   BOOST_CHECK_THROW(filter.set_softness(-0.000001), std::out_of_range);
 }
 
-BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_test )
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_color_test )
+{
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
+  filter.set_color(0.5);
+  BOOST_CHECK_EQUAL(filter.get_color(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_quality_test )
+{
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
+  filter.set_quality(0.5);
+  BOOST_CHECK_EQUAL(filter.get_quality(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_quality_range_test )
+{
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
+  BOOST_CHECK_THROW(filter.set_quality(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_maxreduc_test )
+{
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
+  filter.set_max_reduction(0.5);
+  BOOST_CHECK_EQUAL(filter.get_max_reduction(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_maxreduc_db_test )
+{
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
+  filter.set_max_reduction_db(20);
+  BOOST_CHECK_EQUAL(filter.get_max_reduction(), 100);
+}
+
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_maxreduc_range_test )
+{
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter;
+  BOOST_CHECK_THROW(filter.set_max_reduction(-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_const_1_test )
 {
   std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
@@ -41,9 +81,10 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_test )
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainExpanderFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
+  filter.set_threshold(10);
 
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
@@ -57,7 +98,7 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_0_test )
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_const_0_test )
 {
   std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
@@ -70,11 +111,9 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_0_test )
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainExpanderFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
-  filter.set_threshold(0.1);
-  filter.set_ratio(2);
 
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
@@ -88,7 +127,7 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_0_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_2_test )
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_const_1_threshold_2_ratio_2_test )
 {
   std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
@@ -101,7 +140,7 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_2_test )
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainExpanderFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(2);
@@ -120,7 +159,7 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_2_test )
   }
 }
 
-BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_4_test )
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_const_1_threshold_2_ratio_4_test )
 {
   std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
@@ -133,7 +172,7 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_4_test )
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainExpanderFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(2);
@@ -148,16 +187,16 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_4_test )
 
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(0.343814075, outdata[i], 0.1);
+    BOOST_REQUIRE_CLOSE(0.389224231, outdata[i], 0.1);
   }
 }
 
-BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_4_test_twice )
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_always_more_1_test )
 {
   std::array<float, PROCESSSIZE> data;
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    data[i] = 1;
+    data[i] = i/1024.;
   }
   
   ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
@@ -165,12 +204,44 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_4_test_twice 
   
   std::array<float, PROCESSSIZE> outdata;
   
-  ATK::GainFilter<ATK::GainExpanderFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
-  filter.set_threshold(2);
-  filter.set_ratio(4);
-  filter.set_softness(1);
+  filter.set_threshold(1);
+  filter.set_quality(.1);
+  filter.set_color(.1);
+  
+  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
+  output.set_input_sampling_rate(48000);
+  output.set_input_port(0, &filter, 0);
+  
+  output.process(PROCESSSIZE);
+  
+  for(ptrdiff_t i = 1; i < PROCESSSIZE; ++i)
+  {
+    BOOST_REQUIRE_GE(outdata[i], 1);
+  }
+}
+
+BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_always_less_1_test )
+{
+  std::array<float, PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  {
+    data[i] = i/1024.;
+  }
+  
+  ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
+  generator.set_output_sampling_rate(48000);
+  
+  std::array<float, PROCESSSIZE> outdata;
+  
+  ATK::GainFilter<ATK::GainMaxColoredExpanderFilter<float>> filter(1);
+  filter.set_input_sampling_rate(48000);
+  filter.set_input_port(0, &generator, 0);
+  filter.set_threshold(1);
+  filter.set_quality(.1);
+  filter.set_color(-.1);
   
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
@@ -180,17 +251,6 @@ BOOST_AUTO_TEST_CASE( GainExpanderFilter_const_1_threshold_2_ratio_4_test_twice 
   
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(0.343814075, outdata[i], 0.1);
-  }
-  
-  generator.set_pointer(data.data(), PROCESSSIZE);
-  output.set_pointer(outdata.data(), PROCESSSIZE);
-  
-  output.process(PROCESSSIZE);
-  
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
-  {
-    BOOST_REQUIRE_CLOSE(0.343814075, outdata[i], 0.1);
+    BOOST_REQUIRE_LE(outdata[i], 1);
   }
 }
-
