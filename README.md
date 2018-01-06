@@ -20,7 +20,8 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
-### 2.3.0
+### 2.2.3
+- Increased test coverage and fix lots of small mistakes in the API
 
 ### 2.2.2
 * Fix a TDF2 IIR filter bug when the state was not reinitialized, leading to unstabilities
