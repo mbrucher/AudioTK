@@ -12,7 +12,124 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonLowPassCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonLowPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonHighPassCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighPassCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonHighPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandPassCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandPassCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandPassCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandPass2Coefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandPass2Coefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandPass2Coefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandPass2Coefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandStopCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandStopCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandStopCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandStopCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonAllPassCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonAllPassCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonAllPassCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonAllPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandPassPeakCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonBandPassPeakCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonBandPassPeakCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonLowShelvingCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonLowShelvingCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonHighShelvingCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonHighShelvingCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_1k_test )
 {

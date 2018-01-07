@@ -12,7 +12,80 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderLowPassCoefficients_frequency_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> > filter;
+  filter.set_cut_frequency(20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderLowPassCoefficients_frequency_range_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderLowPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderBandPassCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderBandPassCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderBandPassPeakCoefficients_gain_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> > filter;
+  filter.set_gain(20);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderBandPassPeakCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderBandPassPeakCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderBandPassPeakCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderAllPassCoefficients_Q_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<double> > filter;
+  filter.set_Q(20);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderLowShelvingCoefficients_gain_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderLowShelvingCoefficients<double> > filter;
+  filter.set_gain(20);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderHighShelvingCoefficients_gain_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderHighShelvingCoefficients<double> > filter;
+  filter.set_gain(20);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SecondOrderAllPassCoefficients_Q_range_test )
+{
+  ATK::IIRFilter<ATK::SecondOrderAllPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BandPassCoefficients_1k_test )
 {

@@ -12,7 +12,14 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_frequency_test )
+{
+  ATK::IIRFilter<ATK::LinkwitzRileyLowPassCoefficients<double> > filter;
+  filter.set_cut_frequency(20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
+}
 
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_1k_test )
 {

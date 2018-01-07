@@ -70,6 +70,10 @@ namespace ATK
   template <typename DataType_>
   void SecondOrderBandPassCoefficients<DataType_>::set_Q(CoeffDataType Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q can't be negative");
+    }
     this->Q = Q;
     setup();
   }
@@ -162,6 +166,10 @@ namespace ATK
   template <typename DataType_>
   void SecondOrderBandPassPeakCoefficients<DataType_>::set_Q(CoeffDataType Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q can't be negative");
+    }
     this->Q = Q;
     setup();
   }
@@ -209,6 +217,10 @@ namespace ATK
   template <typename DataType_>
   void SecondOrderAllPassCoefficients<DataType_>::set_Q(CoeffDataType Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q can't be negative");
+    }
     this->Q = Q;
     setup();
   }
