@@ -30,6 +30,10 @@ namespace ATK
   template <typename DataType_>
   void FourthOrderBaseCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
+    if(cut_frequency <= 0)
+    {
+      throw std::out_of_range("Frequency can't be negative");
+    }
     this->cut_frequency = cut_frequency;
     setup();
   }

@@ -12,7 +12,125 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_frequency_test )
+{
+  ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> > filter;
+  filter.set_cut_frequency(20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_frequency_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_order_test )
+{
+  ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> > filter;
+  filter.set_order(3);
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_order_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthLowPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthHighPassCoefficients_frequency_test )
+{
+  ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<double> > filter;
+  filter.set_cut_frequency(20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthHighPassCoefficients_frequency_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthHighPassCoefficients_order_test )
+{
+  ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<double> > filter;
+  filter.set_order(3);
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthHighPassCoefficients_order_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthHighPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandPassCoefficients_frequency_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<double> > filter;
+  filter.set_cut_frequencies(20, 100);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().first, 20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().second, 100);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandPassCoefficients_frequency_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(0, 100), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandPassCoefficients_frequency_range2_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(100, 0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandPassCoefficients_order_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<double> > filter;
+  filter.set_order(3);
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandPassCoefficients_order_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandStopCoefficients_frequency_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandStopCoefficients<double> > filter;
+  filter.set_cut_frequencies(20, 100);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().first, 20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().second, 100);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandStopCoefficients_frequency_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandStopCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(0, 100), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandStopCoefficients_frequency_range2_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandStopCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(100, 0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandStopCoefficients_order_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandStopCoefficients<double> > filter;
+  filter.set_order(3);
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthBandStopCoefficients_order_range_test )
+{
+  ATK::IIRFilter<ATK::ButterworthBandStopCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ButterworthLowPassCoefficients_1k_test )
 {
