@@ -14,7 +14,34 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024)
+const size_t PROCESSSIZE = 1024;
+
+BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_volume_test )
+{
+  ATK::SinusGeneratorFilter<double> filter;
+  filter.set_volume(10);
+  BOOST_CHECK_EQUAL(filter.get_volume(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_offset_test )
+{
+  ATK::SinusGeneratorFilter<double> filter;
+  filter.set_offset(10);
+  BOOST_CHECK_EQUAL(filter.get_offset(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_frequency_test )
+{
+  ATK::SinusGeneratorFilter<double> filter;
+  filter.set_frequency(100);
+  BOOST_CHECK_EQUAL(filter.get_frequency(), 100);
+}
+
+BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_frequency_range_test )
+{
+  ATK::SinusGeneratorFilter<double> filter;
+  BOOST_CHECK_THROW(filter.set_frequency(0), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_1k_test )
 {

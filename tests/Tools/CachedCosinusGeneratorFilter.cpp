@@ -38,6 +38,12 @@ BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_frequency_test )
   BOOST_CHECK_EQUAL(filter.get_frequency().second, 1);
 }
 
+BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_frequency_range_test )
+{
+  ATK::CachedCosinusGeneratorFilter<double> filter(10000, 10);
+  BOOST_CHECK_THROW(filter.set_frequency(0), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_1k_test )
 {
   ATK::SimpleSinusGeneratorFilter<float> generator;

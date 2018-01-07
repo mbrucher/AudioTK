@@ -26,6 +26,10 @@ namespace ATK
   template<typename DataType_>
   void CachedCosinusGeneratorFilter<DataType_>::set_frequency(int periods, int seconds)
   {
+    if(periods <= 0)
+    {
+      throw std::out_of_range("Periods must be strictly positive");
+    }
     this->periods = periods;
     this->seconds = seconds;
     setup();
