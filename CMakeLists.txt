@@ -66,6 +66,7 @@ if(ENABLE_CODECOVERAGE)
   include(CodeCoverage)
   setup_target_for_coverage(codecoverage "make test" coverage)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+  SET(CMAKE_BUILD_TYPE "Debug")
 endif(ENABLE_CODECOVERAGE)
 
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
