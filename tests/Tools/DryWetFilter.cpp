@@ -16,7 +16,26 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024)
+const size_t PROCESSSIZE = 1024;
+
+BOOST_AUTO_TEST_CASE( DryWetFilter_drywet_set_test )
+{
+  ATK::DryWetFilter<double> filter;
+  filter.set_dry(0.5);
+  BOOST_CHECK_EQUAL(filter.get_dry(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( DryWetFilter_drywet_range_test )
+{
+  ATK::DryWetFilter<double> filter;
+  BOOST_CHECK_THROW(filter.set_dry(-0.00001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( DryWetFilter_drywet_range2_test )
+{
+  ATK::DryWetFilter<double> filter;
+  BOOST_CHECK_THROW(filter.set_dry(1.00001), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( DryWetFilter_1_test )
 {
