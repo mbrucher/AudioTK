@@ -137,7 +137,7 @@ namespace
         p.push_back(std::complex<DataType>(-.3512792323389821669401925, -1.127591548317705678613239));
         break;
       default:
-        throw std::range_error("Can't create a Bessel filter with this order");
+        throw std::out_of_range("Can't create a Bessel filter with this order");
     }
   }
   

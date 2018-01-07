@@ -15,6 +15,17 @@
 
 const size_t PROCESSSIZE = 1024*64;
 
+
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_order_all_test )
+{
+  ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
+
+  for(unsigned int order = 1; order < 14; ++order)
+    filter.set_order(order);
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_order(14), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_frequency_test )
 {
   ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
@@ -33,12 +44,6 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_order_test )
   ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
   filter.set_order(3);
   BOOST_CHECK_EQUAL(filter.get_order(), 3);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_order_range_test )
-{
-  ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_frequency_test )
