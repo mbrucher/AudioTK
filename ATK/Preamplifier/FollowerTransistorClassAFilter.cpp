@@ -65,7 +65,7 @@ namespace ATK
       return y0;
     }
 
-    Vector affine_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+/*    Vector affine_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((output[3][i - 1] - output[1][i - 1]) / transistor_function_1.Vt), fmath::exp((output[3][i - 1] - output[2][i - 1]) / transistor_function_1.Vt));
 
@@ -124,7 +124,7 @@ namespace ATK
         a04*a23*(a11*a32 - a12*a31), a04*a23*(-a10*a32 + a12*a30), a04*a23*(a10*a31 - a11*a30), a04*(a10*a21*a32 - a10*a22*a31 - a11*a20*a32 + a11*a22*a30 + a12*a20*a31 - a12*a21*a30), a03*(-a10*a21*a32 + a10*a22*a31 + a11*a20*a32 - a11*a22*a30 - a12*a20*a31 + a12*a21*a30);
 
       return M * F * invdet;
-    }
+    }*/
 
     void update_state(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {

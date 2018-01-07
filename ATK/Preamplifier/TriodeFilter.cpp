@@ -49,7 +49,7 @@ namespace ATK
       return affine_estimate(i, input, output);
     }
     
-    Vector id_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+/*    Vector id_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       Vector y0 = Vector::Zero();
       for (int j = 0; j < 4; ++j)
@@ -58,7 +58,7 @@ namespace ATK
       }
       
       return y0;
-    }
+    }*/
     
     Vector affine_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
