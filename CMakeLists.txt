@@ -66,7 +66,7 @@ if(ENABLE_CODECOVERAGE)
   include(CodeCoverage)
   setup_target_for_coverage(codecoverage "make test" coverage)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-  SET(CMAKE_BUILD_TYPE "Debug" CACHE FORCE STRING "")
+  SET(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
 endif(ENABLE_CODECOVERAGE)
 
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
@@ -222,3 +222,9 @@ IF (BUILD_DOC)
     COMMAND ${CMAKE_COMMAND} -E echo "Done."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 ENDIF (BUILD_DOC)
+
+IF(CMAKE_BUILD_TYPE MATCHES Debug)
+  message("Debug build.")
+ELSEIF(CMAKE_BUILD_TYPE MATCHES Release)
+  message("Release build.")
+ENDIF()
