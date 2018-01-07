@@ -18,7 +18,21 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024)
+const size_t PROCESSSIZE = 1024;
+
+BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_volume_test )
+{
+  ATK::OffsetVolumeFilter<double> volumefilter;
+  volumefilter.set_volume(10);
+  BOOST_CHECK_EQUAL(volumefilter.get_volume(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_offset_test )
+{
+  ATK::OffsetVolumeFilter<double> volumefilter;
+  volumefilter.set_offset(10);
+  BOOST_CHECK_EQUAL(volumefilter.get_offset(), 10);
+}
 
 BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_1_0_test )
 {

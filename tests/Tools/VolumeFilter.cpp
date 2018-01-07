@@ -13,7 +13,14 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024)
+const size_t PROCESSSIZE = 1024;
+
+BOOST_AUTO_TEST_CASE( VolumeFilter_volume_test )
+{
+  ATK::VolumeFilter<double> volumefilter;
+  volumefilter.set_volume(10);
+  BOOST_CHECK_EQUAL(volumefilter.get_volume(), 10);
+}
 
 BOOST_AUTO_TEST_CASE( VolumeFilter_1_test )
 {
