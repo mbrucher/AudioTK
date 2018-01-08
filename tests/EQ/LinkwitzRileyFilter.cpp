@@ -21,6 +21,13 @@ BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_frequency_test 
   BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
 }
 
+BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRiley4LowPassCoefficients_frequency_test )
+{
+  ATK::IIRFilter<ATK::LinkwitzRiley4LowPassCoefficients<double> > filter;
+  filter.set_cut_frequency(20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
+}
+
 BOOST_AUTO_TEST_CASE( IIRFilter_LinkwitzRileyLowPassCoefficients_1k_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;
