@@ -16,7 +16,33 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_min_frequency_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  filter.set_min_frequency(100);
+  BOOST_CHECK_EQUAL(filter.get_min_frequency(), 100);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_min_range_frequency_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_min_frequency(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_max_frequency_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  filter.set_max_frequency(100);
+  BOOST_CHECK_EQUAL(filter.get_max_frequency(), 100);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_max_range_frequency_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_max_frequency(0), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_1k_test )
 {

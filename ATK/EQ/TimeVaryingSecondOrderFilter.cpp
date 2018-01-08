@@ -35,6 +35,10 @@ namespace ATK
   template <typename DataType>
   void TimeVaryingBaseSecondOrderCoefficients<DataType>::set_min_frequency(double min_frequency)
   {
+    if(min_frequency <= 0)
+    {
+      throw std::out_of_range("Min frequency must be positive");
+    }
     this->min_frequency = min_frequency;
     setup();
   }
@@ -48,6 +52,10 @@ namespace ATK
   template <typename DataType>
   void TimeVaryingBaseSecondOrderCoefficients<DataType>::set_max_frequency(double max_frequency)
   {
+    if(max_frequency <= min_frequency)
+    {
+      throw std::out_of_range("Max frequency must be greater than min frequency");
+    }
     this->max_frequency = max_frequency;
     setup();
   }
