@@ -253,6 +253,10 @@ namespace ATK
   template <typename DataType_>
   void TimeVaryingBandPassPeakCoefficients<DataType_>::set_gain(DataType_ gain)
   {
+    if(gain <= 0)
+    {
+      throw std::out_of_range("Gain must be strictly positive");
+    }
     this->gain = gain;
     setup();
   }
