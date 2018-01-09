@@ -69,6 +69,10 @@ namespace ATK
   template <typename DataType>
   void TimeVaryingBaseSecondOrderCoefficients<DataType>::set_number_of_steps(int number_of_steps)
   {
+    if(number_of_steps <= 0)
+    {
+      throw std::out_of_range("Number of steps must be strictly positive");
+    }
     this->number_of_steps = number_of_steps;
     setup();
   }
@@ -84,7 +88,7 @@ namespace ATK
   {
     if(memory < 0 || memory >= 1)
     {
-      throw std::out_of_range("Memory for time varying EQ had to be int he range [0, 1[");
+      throw std::out_of_range("Memory for time varying EQ had to be in the range [0, 1[");
     }
     this->memory = memory;
   }
@@ -124,6 +128,10 @@ namespace ATK
   template <typename DataType_>
   void TimeVaryingBandPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q must be strictly positive");
+    }
     this->Q = Q;
     setup();
   }
@@ -228,6 +236,10 @@ namespace ATK
   template <typename DataType_>
   void TimeVaryingBandPassPeakCoefficients<DataType_>::set_Q(DataType_ Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q must be strictly positive");
+    }
     this->Q = Q;
     setup();
   }

@@ -44,6 +44,64 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_max_r
   BOOST_CHECK_THROW(filter.set_max_frequency(0), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_set_steps_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  filter.set_number_of_steps(100);
+  BOOST_CHECK_EQUAL(filter.get_number_of_steps(), 100);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_set_steps_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_number_of_steps(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_memory_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  filter.set_memory(0.5);
+  BOOST_CHECK_EQUAL(filter.get_memory(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_memory_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_memory(-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_memory_range2_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_Q_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  filter.set_Q(0.5);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_Q_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0.), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_Q_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassPeakCoefficients<double> > filter;
+  filter.set_Q(0.5);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_Q_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassPeakCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0.), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_1k_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;
