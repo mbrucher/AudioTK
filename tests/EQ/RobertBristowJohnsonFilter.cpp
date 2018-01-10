@@ -131,6 +131,19 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_Q_ra
   BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_gain_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonLowShelvingCoefficients<double> > filter;
+  filter.set_gain(20);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowShelvingCoefficients_gain_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonLowShelvingCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_gain(0), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_Q_test )
 {
   ATK::IIRFilter<ATK::RobertBristowJohnsonHighShelvingCoefficients<double> > filter;
@@ -142,6 +155,19 @@ BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_Q_r
 {
   ATK::IIRFilter<ATK::RobertBristowJohnsonHighShelvingCoefficients<double> > filter;
   BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_gain_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonHighShelvingCoefficients<double> > filter;
+  filter.set_gain(20);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonHighShelvingCoefficients_gain_range_test )
+{
+  ATK::IIRFilter<ATK::RobertBristowJohnsonHighShelvingCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_gain(0), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( IIRFilter_RobertBristowJohnsonLowPassCoefficients_1k_test )

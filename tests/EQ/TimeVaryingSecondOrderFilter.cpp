@@ -102,6 +102,58 @@ BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_Q
   BOOST_CHECK_THROW(filter.set_Q(0.), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_gain_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassPeakCoefficients<double> > filter;
+  filter.set_gain(0.5);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassPeakCoefficients_gain_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingBandPassPeakCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_gain(0.), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_Q_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingAllPassCoefficients<double> > filter;
+  filter.set_Q(0.5);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingAllPassCoefficients_Q_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingAllPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0.), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_gain_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingLowShelvingCoefficients<double> > filter;
+  filter.set_gain(0.5);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingLowShelvingCoefficients_gain_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingLowShelvingCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_gain(0.), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_gain_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingHighShelvingCoefficients<double> > filter;
+  filter.set_gain(0.5);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingHighShelvingCoefficients_gain_range_test )
+{
+  ATK::TimeVaryingIIRFilter<ATK::TimeVaryingHighShelvingCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_gain(0.), std::out_of_range);
+}
+
 BOOST_AUTO_TEST_CASE( TimeVaryingIIRFilter_TimeVaryingBandPassCoefficients_1k_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;

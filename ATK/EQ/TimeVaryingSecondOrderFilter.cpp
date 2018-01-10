@@ -295,6 +295,10 @@ namespace ATK
   template <typename DataType_>
   void TimeVaryingAllPassCoefficients<DataType_>::set_Q(DataType_ Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q must be strictly positive");
+    }
     this->Q = Q;
     setup();
   }
@@ -347,6 +351,10 @@ namespace ATK
   template <typename DataType_>
   void TimeVaryingLowShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
+    if(gain <= 0)
+    {
+      throw std::out_of_range("Gain must be strictly positive");
+    }
     this->gain = gain;
     setup();
   }
@@ -399,6 +407,10 @@ namespace ATK
   template<typename DataType_>
   void TimeVaryingHighShelvingCoefficients<DataType_>::set_gain(DataType_ gain)
   {
+    if(gain <= 0)
+    {
+      throw std::out_of_range("Gain must be strictly positive");
+    }
     this->gain = gain;
     setup();
   }
