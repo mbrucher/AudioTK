@@ -175,7 +175,7 @@ namespace ATK
     a3 = g * a2;
     m0 = 1;
     m1 = -k;
-    m2 = 2;
+    m2 = 0;
   }
 
   template<typename DataType_>
@@ -194,12 +194,12 @@ namespace ATK
     a3 = g * a2;
     m0 = 1;
     m1 = -k;
-    m2 = 0;
+    m2 = 2;
   }
 
   template<typename DataType_>
   SecondOrderSVFBellCoefficients<DataType_>::SecondOrderSVFBellCoefficients(std::size_t nb_channels)
-  :Parent(nb_channels), gain(0)
+  :Parent(nb_channels), gain(1)
   {
     
   }
@@ -207,6 +207,10 @@ namespace ATK
   template<typename DataType_>
   void SecondOrderSVFBellCoefficients<DataType_>::set_gain(CoeffDataType gain)
   {
+    if(gain <= 0)
+    {
+      throw std::out_of_range("Gain must be positive");
+    }
     this->gain = gain;
     setup();
   }
@@ -221,7 +225,7 @@ namespace ATK
   void SecondOrderSVFBellCoefficients<DataType>::setup()
   {
     auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
-    auto k = 1 / (Q* gain);
+    auto k = 1 / (Q * gain);
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
     a3 = g * a2;
