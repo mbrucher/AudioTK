@@ -36,7 +36,7 @@ namespace ATK
   template<typename SVFCoefficients>
   void TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::full_setup()
   {
-    state.reset(new SVFState[nb_input_ports]);
+    state.reset(new SVFState[nb_input_ports - 1]);
   }
 
   template<typename DataType>
@@ -48,7 +48,7 @@ namespace ATK
     {
       update_coeffs(converted_inputs[0][i]);
       
-      for(unsigned int j = 0; j < nb_input_ports; ++j)
+      for(unsigned int j = 0; j < nb_input_ports - 1; ++j)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[j+1];
         DataType* ATK_RESTRICT output = outputs[j];
@@ -73,6 +73,10 @@ namespace ATK
   template<typename DataType_>
   void TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>::set_Q(DataType_ Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q must be strictly positive");
+    }
     this->Q = Q;
     setup();
   }

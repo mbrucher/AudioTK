@@ -22,9 +22,9 @@ option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
 
-message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
-message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
-message(INFO " Build tests: ${ENABLE_TESTS}")
+message(STATUS " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
+message(STATUS " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
+message(STATUS " Build tests: ${ENABLE_TESTS}")
 
 SET(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
 
