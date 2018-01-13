@@ -71,6 +71,10 @@ namespace ATK
   template<typename DataType_>
   void SecondOrderSVFBaseCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
+    if(cut_frequency <= 0)
+    {
+      throw std::out_of_range("Frequencies must be positive");
+    }
     this->cut_frequency = cut_frequency;
     setup();
   }
@@ -84,6 +88,10 @@ namespace ATK
   template<typename DataType_>
   void SecondOrderSVFBaseCoefficients<DataType_>::set_Q(CoeffDataType Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q must be positive");
+    }
     this->Q = Q;
     setup();
   }

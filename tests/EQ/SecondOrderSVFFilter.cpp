@@ -11,7 +11,33 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_cut_frequency_test )
+{
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
+  filter.set_cut_frequency(1000);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 1000);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_cut_frequency_range_test )
+{
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_Q_test )
+{
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
+  filter.set_Q(10);
+  BOOST_CHECK_EQUAL(filter.get_Q(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_Q_range_test )
+{
+  ATK::SecondOrderSVFFilter<ATK::SecondOrderSVFLowPassCoefficients<double> > filter;
+  BOOST_CHECK_THROW(filter.set_Q(0), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( SecondOrderSVFFilter_SVFLowPassCoefficients_1k_test )
 {
