@@ -156,7 +156,7 @@ namespace ATK
     a3 = g * a2;
     m0 = 1;
     m1 = -k;
-    m2 = 2;
+    m2 = 0;
   }
 
   template<typename DataType_>
@@ -174,7 +174,7 @@ namespace ATK
     a3 = g * a2;
     m0 = 1;
     m1 = -k;
-    m2 = 0;
+    m2 = 2;
   }
 
   template<typename DataType_>

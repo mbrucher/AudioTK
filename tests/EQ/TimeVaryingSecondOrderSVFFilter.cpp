@@ -33,6 +33,20 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFBandPassCoefficients_Q_range_test
   BOOST_CHECK_THROW(filter.set_Q(0.), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowShelfCoefficients_Q_test )
+{
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFLowShelfCoefficients<double> > filter;
+  filter.set_gain(0.5);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighShelfCoefficients_Q_test )
+{
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFHighShelfCoefficients<double> > filter;
+  filter.set_gain(0.5);
+  BOOST_CHECK_EQUAL(filter.get_gain(), 0.5);
+}
+
 BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFBandPassCoefficients_1k_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;
@@ -438,6 +452,302 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighPassCoefficients_200_test )
   filter.set_input_port(0, &generator2, 0);
   filter.set_input_port(1, &generator, 0);
 
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_1k_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(1000);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFNotchCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0.997469278));
+  frequency_checks.push_back(std::make_pair(10000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_100_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(100);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFNotchCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(10, 0));
+  frequency_checks.push_back(std::make_pair(100, 2.43511333e-04));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_2k_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(2000);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFNotchCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  frequency_checks.push_back(std::make_pair(2000, 0.999376691));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_200_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(200);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFNotchCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(200, 0.912173284));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_1k_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(1000);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFPeakCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0.98735801));
+  frequency_checks.push_back(std::make_pair(10000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_100_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(100);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFPeakCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(10, 0));
+  frequency_checks.push_back(std::make_pair(100, 1.41421356));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_2k_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(2000);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFPeakCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  frequency_checks.push_back(std::make_pair(2000, 0.99688421));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
+  filter.process(1024*64);
+  
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_200_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(1024*64);
+  generator.set_amplitude(1);
+  generator.set_frequency(200);
+  
+  ATK::TimeVaryingSecondOrderSVFFilter<ATK::TimeVaryingSecondOrderSVFPeakCoefficients<double> > filter;
+  filter.set_input_sampling_rate(1024*64);
+  filter.set_output_sampling_rate(1024*64);
+
+  std::array<float, 2*PROCESSSIZE> data;
+  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  {
+    data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
+  }
+  
+  ATK::InPointerFilter<float> generator2(data.data(), 1, 2*PROCESSSIZE, false);
+  generator2.set_output_sampling_rate(1024*64);
+
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(1024*64);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0));
+  frequency_checks.push_back(std::make_pair(200, 0.52667576));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator2, 0);
+  filter.set_input_port(1, &generator, 0);
+  
   filter.process(1024*64);
   
   checker.process(PROCESSSIZE);
