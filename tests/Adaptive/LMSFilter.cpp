@@ -35,6 +35,13 @@ BOOST_AUTO_TEST_CASE(LMSFilter_size_set_test)
   BOOST_CHECK_EQUAL(filter.get_size(), 10);
 }
 
+BOOST_AUTO_TEST_CASE(LMSFilter_mode_set_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  filter.set_mode(ATK::LMSFilter<float>::Mode::NORMALIZED);
+  BOOST_CHECK(filter.get_mode() == ATK::LMSFilter<float>::Mode::NORMALIZED);
+}
+
 BOOST_AUTO_TEST_CASE(LMSFilter_memory_negative_test)
 {
   ATK::LMSFilter<float> filter(100);

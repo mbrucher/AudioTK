@@ -25,8 +25,14 @@ namespace
     .def_property("memory", &BlockLMSFilter<DataType>::get_memory, &BlockLMSFilter<DataType>::set_memory)
     .def_property("mu", &BlockLMSFilter<DataType>::get_mu, &BlockLMSFilter<DataType>::set_mu)
     .def_property("learning", &BlockLMSFilter<DataType>::get_learning, &BlockLMSFilter<DataType>::set_learning)
-    .def_property_readonly("w", [](const BlockLMSFilter<DataType>& instance){
-      return py::array_t<DataType>(instance.get_size(), instance.get_w());
+    .def_property("w", [](const BlockLMSFilter<DataType>& instance){
+      return py::array_t<std::complex<double>>(instance.get_size() * 2, instance.get_w());
+    },[](BlockLMSFilter<DataType>& instance, py::array_t<std::complex<double>>& array){
+      if(array.shape()[0] != instance.get_size() * 2)
+      {
+        std::runtime_error("Wrong size for w, it must be complex with the size equal to twice the size of the filter");
+      }
+      instance.set_w(array.data());
     });
   }
 
@@ -43,7 +49,11 @@ namespace
     .def_property("w", [](const LMSFilter<DataType>& instance){
       return py::array_t<DataType>(instance.get_size(), instance.get_w());
     }, [](LMSFilter<DataType>& instance, py::array_t<DataType>& array){
-      return instance.set_w(array.data());
+      if(array.shape()[0] != instance.get_size())
+      {
+        std::runtime_error("Wrong size for w, must have the size of the filter");
+      }
+      instance.set_w(array.data());
     });
     
     py::enum_<typename LMSFilter<DataType>::Mode>(filter, "Mode")
@@ -66,12 +76,16 @@ namespace
     .def_property("w", [](const RLSFilter<DataType>& instance){
       return py::array_t<DataType>(instance.get_size(), instance.get_w());
     },[](RLSFilter<DataType>& instance, py::array_t<DataType>& array){
-      return instance.set_w(array.data());
+      if(array.shape()[0] != instance.get_size())
+      {
+        std::runtime_error("Wrong size for w, must have the size of the filter");
+      }
+      instance.set_w(array.data());
     })
     .def_property("P", [](const RLSFilter<DataType>& instance){
       return py::array_t<DataType>(instance.get_size()*instance.get_size(), instance.get_P());
     },[](RLSFilter<DataType>& instance, py::array_t<DataType>& array){
-      return instance.set_P(array.data());
+      instance.set_P(array.data());
     }
     );
   }

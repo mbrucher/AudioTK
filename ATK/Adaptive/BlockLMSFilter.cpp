@@ -208,14 +208,20 @@ namespace ATK
     
     for(std::size_t i = 0; i < size; ++i)
     {
-      impl.get()->update(input[i], ref[i], output[i]);
+      impl->update(input[i], ref[i], output[i]);
     }
   }
 
   template<typename DataType_>
-  const DataType_* BlockLMSFilter<DataType_>::get_w() const
+  const std::complex<double>* BlockLMSFilter<DataType_>::get_w() const
   {
-    return nullptr;
+    return impl->wfft.data();
+  }
+  
+  template<typename DataType_>
+  void BlockLMSFilter<DataType_>::set_w(gsl::not_null<const std::complex<double>*> w)
+  {
+    impl->wfft = Eigen::Map<const typename BlockLMSFilterImpl::cwType>(w.get(), get_size() * 2);
   }
 
   template<typename DataType_>
