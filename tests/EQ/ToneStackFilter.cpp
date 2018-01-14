@@ -12,8 +12,17 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*1024)
-#define SAMPLINGRATE (1024*64)
+const size_t PROCESSSIZE = 1024*128;
+const size_t SAMPLINGRATE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_low_test )
+{
+  ATK::IIRFilter<ATK::ToneStackCoefficients<double> > filter(ATK::ToneStackCoefficients<double>::buildBassmanStack());
+  filter.set_input_sampling_rate(SAMPLINGRATE);
+  filter.set_output_sampling_rate(SAMPLINGRATE);
+  filter.set_low(0.5);
+  BOOST_CHECK_EQUAL(filter.get_low(), 0.5);
+}
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_throw_low_1_test )
 {
@@ -27,6 +36,15 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_throw_low_0_test )
   BOOST_CHECK_THROW(filter.set_low(-0.001), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_middle_test )
+{
+  ATK::IIRFilter<ATK::ToneStackCoefficients<double> > filter(ATK::ToneStackCoefficients<double>::buildBassmanStack());
+  filter.set_input_sampling_rate(SAMPLINGRATE);
+  filter.set_output_sampling_rate(SAMPLINGRATE);
+  filter.set_middle(0.5);
+  BOOST_CHECK_EQUAL(filter.get_middle(), 0.5);
+}
+
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_throw_middle_1_test )
 {
   ATK::IIRFilter<ATK::ToneStackCoefficients<double> > filter;
@@ -37,6 +55,15 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_throw_middle_0_test )
 {
   ATK::IIRFilter<ATK::ToneStackCoefficients<double> > filter;
   BOOST_CHECK_THROW(filter.set_middle(-0.001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_high_test )
+{
+  ATK::IIRFilter<ATK::ToneStackCoefficients<double> > filter(ATK::ToneStackCoefficients<double>::buildBassmanStack());
+  filter.set_input_sampling_rate(SAMPLINGRATE);
+  filter.set_output_sampling_rate(SAMPLINGRATE);
+  filter.set_high(0.5);
+  BOOST_CHECK_EQUAL(filter.get_high(), 0.5);
 }
 
 BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackCoefficients_throw_high_1_test )
@@ -804,5 +831,33 @@ BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_Bassman_high05_10k_test )
 
   filter.process(1024*64);
 
+  checker.process(PROCESSSIZE);
+}
+
+BOOST_AUTO_TEST_CASE( IIRFilter_ToneStackFilter_JCM800_low0_100_test )
+{
+  ATK::SimpleSinusGeneratorFilter<double> generator;
+  generator.set_output_sampling_rate(SAMPLINGRATE);
+  generator.set_amplitude(1);
+  generator.set_frequency(100);
+  
+  ATK::IIRFilter<ATK::ToneStackCoefficients<double> > filter(ATK::ToneStackCoefficients<double>::buildJCM800Stack());
+  filter.set_input_sampling_rate(SAMPLINGRATE);
+  filter.set_output_sampling_rate(SAMPLINGRATE);
+  filter.set_low(0);
+  
+  ATK::FFTCheckerFilter<double> checker;
+  checker.set_input_sampling_rate(SAMPLINGRATE);
+  std::vector<std::pair<int, double> > frequency_checks;
+  frequency_checks.push_back(std::make_pair(100, 0.5503711902590647));
+  frequency_checks.push_back(std::make_pair(1000, 0));
+  frequency_checks.push_back(std::make_pair(10000, 0));
+  checker.set_checks(frequency_checks);
+  
+  checker.set_input_port(0, &filter, 0);
+  filter.set_input_port(0, &generator, 0);
+  
+  filter.process(1024*64);
+  
   checker.process(PROCESSSIZE);
 }
