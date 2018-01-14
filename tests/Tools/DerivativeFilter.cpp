@@ -1,5 +1,5 @@
 /**
- * \ file TanFilter.cpp
+ * \ file DerivativeFilter.cpp
  */
 
 #include <array>
@@ -7,7 +7,7 @@
 
 #include <ATK/config.h>
 
-#include <ATK/Tools/TanFilter.h>
+#include <ATK/Tools/DerivativeFilter.h>
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
 #include <boost/math/constants/constants.hpp>
@@ -17,16 +17,18 @@
 #include <boost/test/unit_test.hpp>
 
 const size_t PROCESSSIZE = 1000;
-const size_t SAMPLING_RATE = 1024*64;
+const size_t SAMPLING_RATE = 2*1024*1024;
+const size_t freq = 1024;
+const size_t offset = SAMPLING_RATE / (4 * freq);
 
-BOOST_AUTO_TEST_CASE( TanFilter_const_sin1k )
+BOOST_AUTO_TEST_CASE( DerivativeFilter_const_sin1k )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(SAMPLING_RATE);
   generator.set_amplitude(1);
-  generator.set_frequency(1000);
+  generator.set_frequency(freq);
   
-  ATK::TanFilter<double> filter;
+  ATK::DerivativeFilter<double> filter;
   filter.set_input_sampling_rate(SAMPLING_RATE);
   filter.set_output_sampling_rate(SAMPLING_RATE);
   
@@ -36,8 +38,10 @@ BOOST_AUTO_TEST_CASE( TanFilter_const_sin1k )
   auto sin = generator.get_output_array(0);
   auto array = filter.get_output_array(0);
   
-  for(size_t i = 0; i < PROCESSSIZE; ++i)
+  auto coeff = 2 * freq * boost::math::constants::pi<double>() / SAMPLING_RATE;
+  
+  for(size_t i = 1; i < PROCESSSIZE - offset; ++i)
   {
-    BOOST_CHECK_CLOSE(array[i], std::tan(sin[i] * boost::math::constants::pi<double>() / SAMPLING_RATE), 0.00001);
+    BOOST_CHECK_CLOSE(array[i], coeff * sin[i + offset], 5);
   }
 }

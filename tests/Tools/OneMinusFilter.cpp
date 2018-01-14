@@ -13,7 +13,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024)
+const size_t PROCESSSIZE = 1024;
 
 BOOST_AUTO_TEST_CASE( OneMinusFilter_sinus_test )
 {
