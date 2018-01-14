@@ -40,8 +40,10 @@ namespace
     .def_property("mu", &LMSFilter<DataType>::get_mu, &LMSFilter<DataType>::set_mu)
     .def_property("mode", &LMSFilter<DataType>::get_mode, &LMSFilter<DataType>::set_mode)
     .def_property("learning", &LMSFilter<DataType>::get_learning, &LMSFilter<DataType>::set_learning)
-    .def_property_readonly("w", [](const LMSFilter<DataType>& instance){
+    .def_property("w", [](const LMSFilter<DataType>& instance){
       return py::array_t<DataType>(instance.get_size(), instance.get_w());
+    }, [](LMSFilter<DataType>& instance, py::array_t<DataType>& array){
+      return instance.set_w(array.data());
     });
     
     py::enum_<typename LMSFilter<DataType>::Mode>(filter, "Mode")

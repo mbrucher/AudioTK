@@ -184,6 +184,12 @@ namespace ATK
   {
     return impl->w.data();
   }
+  
+  template<typename DataType_>
+  void LMSFilter<DataType_>::set_w(gsl::not_null<const DataType_*> w)
+  {
+    impl->w = Eigen::Map<const typename LMSFilterImpl::wType>(w.get(), get_size());
+  }
 
   template<typename DataType_>
   void LMSFilter<DataType_>::set_learning(bool learning)
