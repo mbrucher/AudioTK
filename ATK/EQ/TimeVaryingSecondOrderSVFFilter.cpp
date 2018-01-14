@@ -179,7 +179,7 @@ namespace ATK
 
   template<typename DataType_>
   TimeVaryingSecondOrderSVFBellCoefficients<DataType_>::TimeVaryingSecondOrderSVFBellCoefficients(std::size_t nb_channels)
-  :Parent(nb_channels), gain(0)
+  :Parent(nb_channels), gain(1)
   {
     
   }
@@ -187,6 +187,10 @@ namespace ATK
   template<typename DataType_>
   void TimeVaryingSecondOrderSVFBellCoefficients<DataType_>::set_gain(DataType_ gain)
   {
+    if(gain <= 0)
+    {
+      throw std::out_of_range("Gain must be strictly positive");
+    }
     this->gain = gain;
     setup();
   }
@@ -200,7 +204,7 @@ namespace ATK
   template<typename DataType>
   void TimeVaryingSecondOrderSVFBellCoefficients<DataType>::update_coeffs(DataType g) const
   {
-    auto k = 1 / (Q* gain);
+    auto k = 1 / (Q * gain);
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
     a3 = g * a2;
