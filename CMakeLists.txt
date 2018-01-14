@@ -26,7 +26,8 @@ message(STATUS " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(STATUS " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
 message(STATUS " Build tests: ${ENABLE_TESTS}")
 
-SET(EIGEN3_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
 
 if(ENABLE_SIMD)
   LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/libsimdpp/cmake)
@@ -151,8 +152,6 @@ else(HAVE_IPP)
   endif(ENABLE_GPL)
 endif(HAVE_IPP)
 
-SET(USE_EIGEN 1)
-
 if(ENABLE_TESTS)
   find_package(Boost REQUIRED unit_test_framework system)
 endif(ENABLE_TESTS)
@@ -174,7 +173,6 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
 
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(SYSTEM ${Boost_INCLUDE_DIR})
-include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)

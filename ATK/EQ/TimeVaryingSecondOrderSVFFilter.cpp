@@ -42,7 +42,7 @@ namespace ATK
   template<typename DataType>
   void TimeVaryingSecondOrderSVFFilter<DataType>::process_impl(std::size_t size) const
   {
-    assert(nb_input_ports == nb_output_ports);
+    assert(nb_input_ports - 1 == nb_output_ports);
 
     for(std::size_t i = 0; i < size; ++i)
     {
