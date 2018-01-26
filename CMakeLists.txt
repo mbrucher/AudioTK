@@ -189,7 +189,7 @@ if(ENABLE_PYTHON)
   LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/pybind11/tools)
   FIND_PACKAGE(PythonLibsNew REQUIRED)
 
-  add_subdirectory(Python)
+  add_subdirectory(Python/ATK)
 endif(ENABLE_PYTHON)
 
 add_subdirectory(modules)

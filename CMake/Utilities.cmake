@@ -169,7 +169,7 @@ target_link_libraries(${${PREFIX}_NAME} PRIVATE ${${PREFIX}_LIBRARIES})
 SET(ATK_PYTHON_NAME "${${PREFIX}_NAME}")
 
 configure_file (
-  "${CMAKE_SOURCE_DIR}/Python/__init__.py.in"
+  "${CMAKE_SOURCE_DIR}/Python/ATK/__init__.py.in"
   "${CMAKE_CURRENT_BINARY_DIR}/__init__.py" @ONLY
 )
 
