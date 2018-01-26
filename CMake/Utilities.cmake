@@ -166,7 +166,14 @@ include_directories(${PROJECT_SOURCE_DIR} ${NUMPY_INCLUDE_DIRS} ${${PREFIX}_INCL
 pybind11_add_module(${${PREFIX}_NAME} MODULE ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE})
 target_link_libraries(${${PREFIX}_NAME} PRIVATE ${${PREFIX}_LIBRARIES})
 
-INSTALL(FILES __init__.py
+SET(ATK_PYTHON_NAME "${${PREFIX}_NAME}")
+
+configure_file (
+  "${CMAKE_SOURCE_DIR}/Python/__init__.py.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/__init__.py" @ONLY
+)
+
+INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/__init__.py
   DESTINATION ${PYTHON_INSTALL_FOLDER}/site-packages/ATK/${${PREFIX}_FOLDER}
 )
 INSTALL(TARGETS ${${PREFIX}_NAME}
