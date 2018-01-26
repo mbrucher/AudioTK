@@ -83,7 +83,7 @@ namespace
       instance.set_w(array.data());
     })
     .def_property("P", [](const RLSFilter<DataType>& instance){
-      return py::array_t<DataType>(instance.get_size()*instance.get_size(), instance.get_P());
+      return py::array_t<DataType>({instance.get_size(), instance.get_size()}, instance.get_P());
     },[](RLSFilter<DataType>& instance, py::array_t<DataType>& array){
       instance.set_P(array.data());
     }

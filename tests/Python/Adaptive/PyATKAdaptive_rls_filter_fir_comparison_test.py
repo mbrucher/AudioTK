@@ -14,6 +14,7 @@ class Filter:
     self.rls.input_sampling_rate = fs
     self.rls.memory = 0.999
     self.rls.w = np.ones((40,))
+    self.rls.P = np.eye(40)/40
     self.rls.learning = False
 
   def process(self, input):
@@ -64,6 +65,7 @@ def RLS_IIR_test():
   assert_almost_equal(output1, output2)
   assert_almost_equal(filter.rls.w, np.ones((40,)))
   assert_almost_equal(firFilter.filter.coefficients_in, [1,] * 40 + [0,])
+  assert_almost_equal(filter.rls.P, np.eye(40)/40)
 
 if __name__ == "__main__":
   size = 48000
