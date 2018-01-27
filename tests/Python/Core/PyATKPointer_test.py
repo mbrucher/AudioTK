@@ -32,6 +32,15 @@ def DoubleInPointerFilter_assign_test():
   filter.set_pointer(d)
   assert filter.nb_output_ports == 1
 
+@raises(ValueError)
+def DoubleInPointerFilter_assign_fail_test():
+  import numpy as np
+  from ATK.Core import DoubleInPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
+  filter = DoubleInPointerFilter(d, False)
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2,-1))
+  filter.set_pointer(d)
+
 def DoubleInPointerFilter_retrieve_test():
   import numpy as np
   from ATK.Core import DoubleInPointerFilter
@@ -99,6 +108,16 @@ def DoubleOutPointerFilter_assign_test():
   from ATK.Core import DoubleOutPointerFilter
   d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
   filter = DoubleOutPointerFilter(d, False)
+  filter.set_pointer(d)
+  assert filter.nb_input_ports == 1
+
+@raises(ValueError)
+def DoubleOutPointerFilter_assign_fail_test():
+  import numpy as np
+  from ATK.Core import DoubleOutPointerFilter
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64)[None,:])
+  filter = DoubleOutPointerFilter(d, False)
+  d = np.ascontiguousarray(np.arange(1000, dtype=np.float64).reshape(2, -1))
   filter.set_pointer(d)
 
 @raises(TypeError)
