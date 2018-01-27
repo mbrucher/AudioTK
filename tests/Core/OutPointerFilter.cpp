@@ -121,9 +121,9 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_interleaved_test )
   output.set_input_port(1, &generator, 1);
   
   output.process(2);
-  output.process(PROCESSSIZE - 2);
-  output.process(1); // noop
-  output.process(1); // noop
+  output.process(PROCESSSIZE);
+  output.process(PROCESSSIZE);
+  output.process(PROCESSSIZE);
   
   for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
   {
