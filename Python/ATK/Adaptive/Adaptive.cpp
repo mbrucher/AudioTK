@@ -87,7 +87,7 @@ namespace
     },[](RLSFilter<DataType>& instance, const py::array_t<DataType>& array){
       if(array.ndim() != 2 || (array.shape()[0] != instance.get_size() && array.shape()[1] != instance.get_size()))
       {
-        throw std::length_error("Wrong size for w, must have the size of the filter");
+        throw std::length_error("Wrong size for P, must have (size, size)");
       }
       instance.set_P(array.data());
     }

@@ -38,18 +38,32 @@ def RLS_test():
   assert_almost_equal(out, ref)
 
 @raises(ValueError)
-def RLS_bad_dim_test():
+def RLS_bad_w_dim_test():
   import numpy as np
 
   rls = DoubleRLSFilter(100)
   rls.w = np.array(())
 
 @raises(ValueError)
-def RLS_bad_size_test():
+def RLS_bad_w_size_test():
   import numpy as np
 
   rls = DoubleRLSFilter(100)
   rls.w = np.ones((10,))
+
+@raises(ValueError)
+def RLS_bad_P_dim_test():
+  import numpy as np
+
+  rls = DoubleRLSFilter(100)
+  rls.P = np.array((100,))
+
+@raises(ValueError)
+def RLS_bad_P_size_test():
+  import numpy as np
+
+  rls = DoubleRLSFilter(100)
+  rls.P = np.ones((10,10))
 
 if __name__ == "__main__":
   import numpy as np
