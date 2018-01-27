@@ -63,6 +63,16 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_conj_double )
   BOOST_CHECK_EQUAL(ATK::TypeTraits<double>::conj(-1), -1);
 }
 
+BOOST_AUTO_TEST_CASE( TypeTraits_test_conj_cfloat )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::complex<float>>::conj(std::complex<float>(-1, 1)), std::complex<float>(-1, -1));
+}
+
+BOOST_AUTO_TEST_CASE( TypeTraits_test_conj_cdouble )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::complex<double>>::conj(std::complex<double>(-1, 1)), std::complex<double>(-1, -1));
+}
+
 BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_int16_t )
 {
   BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int16_t>::Zero(), 0);
@@ -88,6 +98,16 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_double )
   BOOST_CHECK_EQUAL(ATK::TypeTraits<double>::Zero(), 0);
 }
 
+BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_cfloat )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::complex<float>>::Zero(), 0);
+}
+
+BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_cdouble )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::complex<double>>::Zero(), 0);
+}
+
 BOOST_AUTO_TEST_CASE( TypeTraits_test_one_int16_t )
 {
   BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int16_t>::One(), 1);
@@ -111,6 +131,16 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_one_float )
 BOOST_AUTO_TEST_CASE( TypeTraits_test_one_double )
 {
   BOOST_CHECK_EQUAL(ATK::TypeTraits<double>::One(), 1);
+}
+
+BOOST_AUTO_TEST_CASE( TypeTraits_test_one_cfloat )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::complex<float>>::One(), 1);
+}
+
+BOOST_AUTO_TEST_CASE( TypeTraits_test_one_cdouble )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<std::complex<double>>::One(), 1);
 }
 
 BOOST_AUTO_TEST_CASE( TypeTraits_test_max_int16_t )
