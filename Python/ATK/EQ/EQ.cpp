@@ -70,6 +70,10 @@ namespace
     },
         [](FIRFilter<CustomFIRCoefficients<DataType>>& instance, const py::array_t<DataType>& array)
     {
+      if(array.ndim() != 1 || array.shape()[0] == 0)
+      {
+        throw std::length_error("Wrong size for input coefficients, must be of dimension 1 and not empty");
+      }
       instance.set_coefficients_in(std::vector<DataType>(array.data(), array.data() + array.size()));
     });
   }
@@ -100,6 +104,10 @@ namespace
     },
         [](IIRFilter<CustomIIRCoefficients<DataType>>& instance, const py::array_t<DataType>& array)
     {
+      if(array.ndim() != 1 || array.shape()[0] == 0)
+      {
+        throw std::length_error("Wrong size for input coefficients, must be of dimension 1 and not empty");
+      }
       instance.set_coefficients_in(std::vector<DataType>(array.data(), array.data() + array.size()));
     })
       .def_property("coefficients_out", [](const IIRFilter<CustomIIRCoefficients<DataType>>& instance)
@@ -108,6 +116,10 @@ namespace
     },
         [](IIRFilter<CustomIIRCoefficients<DataType>>& instance, const py::array_t<DataType>& array)
     {
+      if(array.ndim() != 1 || array.shape()[0] == 0)
+      {
+        throw std::length_error("Wrong size for input coefficients, must be of dimension 1 and not empty");
+      }
       instance.set_coefficients_out(std::vector<DataType>(array.data(), array.data() + array.size()));
     });
   }
