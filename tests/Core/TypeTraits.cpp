@@ -13,6 +13,12 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_to_double_int16_t )
   BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int16_t>::to_double(std::numeric_limits<std::int16_t>::min()), -1);
 }
 
+BOOST_AUTO_TEST_CASE( TypeTraits_test_to_double_char3 )
+{
+  char data[3] = {static_cast<char>(0),static_cast<char>(0),static_cast<char>(0x80)};
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<char[3]>::to_double(data), -1);
+}
+
 BOOST_AUTO_TEST_CASE( TypeTraits_test_to_double_int32_t )
 {
   BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int32_t>::to_double(std::numeric_limits<std::int32_t>::min()), -1);
@@ -26,6 +32,12 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_to_double_int64_t )
 BOOST_AUTO_TEST_CASE( TypeTraits_test_from_double_int16_t )
 {
   BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int16_t>::from_double(-1), std::numeric_limits<std::int16_t>::min());
+}
+
+BOOST_AUTO_TEST_CASE( TypeTraits_test_from_double_char3 )
+{
+  std::int32_t ref = (1L << 8) * std::numeric_limits<std::int16_t>::min();
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<char[3]>::from_double(-1), ref);
 }
 
 BOOST_AUTO_TEST_CASE( TypeTraits_test_from_double_int32_t )
@@ -83,6 +95,11 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_int32_t )
   BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int32_t>::Zero(), 0);
 }
 
+BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_char3 )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<char[3]>::Zero(), 0);
+}
+
 BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_int64_t )
 {
   BOOST_CHECK_EQUAL(ATK::TypeTraits<int64_t>::Zero(), 0);
@@ -111,6 +128,11 @@ BOOST_AUTO_TEST_CASE( TypeTraits_test_zero_cdouble )
 BOOST_AUTO_TEST_CASE( TypeTraits_test_one_int16_t )
 {
   BOOST_CHECK_EQUAL(ATK::TypeTraits<std::int16_t>::One(), 1);
+}
+
+BOOST_AUTO_TEST_CASE( TypeTraits_test_one_char3 )
+{
+  BOOST_CHECK_EQUAL(ATK::TypeTraits<char[3]>::One(), 1);
 }
 
 BOOST_AUTO_TEST_CASE( TypeTraits_test_one_int32_t )
