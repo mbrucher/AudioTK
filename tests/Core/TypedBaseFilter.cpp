@@ -156,6 +156,20 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_output_delay_test )
   BOOST_CHECK_EQUAL(filter.get_output_delay(), 1);
 }
 
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_process_0_test )
+{
+  ATK::TypedBaseFilter<double> filter(0, 0);
+  filter.process(0);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_process_something_test )
+{
+  ATK::TypedBaseFilter<double> filter(0, 1);
+  filter.set_output_sampling_rate(48000);
+  filter.process(1);
+  BOOST_CHECK(nullptr != filter.get_output_array(0));
+}
+
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_dryrun_test )
 {
   ATK::TriangleGeneratorFilter<int64_t> generator;
@@ -165,22 +179,6 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_dryrun_test )
   
   generator.dryrun(PROCESSSIZE);
   BOOST_CHECK(generator.get_output_array(0));
-}
-
-BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_0_test )
-{
-  ATK::TriangleGeneratorFilter<int64_t> generator;
-  generator.set_output_sampling_rate(48000);
-  generator.set_amplitude(1000000);
-  generator.set_frequency(1000);
-  
-  ATK::TriangleCheckerFilter<int64_t> checker;
-  checker.set_input_sampling_rate(48000);
-  checker.set_amplitude(1000000);
-  checker.set_frequency(1000);
-  
-  checker.set_input_port(0, &generator, 0);
-  checker.process(0);
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_triangle_test )
