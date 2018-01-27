@@ -27,10 +27,10 @@ namespace
     .def_property("learning", &BlockLMSFilter<DataType>::get_learning, &BlockLMSFilter<DataType>::set_learning)
     .def_property("w", [](const BlockLMSFilter<DataType>& instance){
       return py::array_t<std::complex<double>>(instance.get_size() * 2, instance.get_w());
-    },[](BlockLMSFilter<DataType>& instance, py::array_t<std::complex<double>>& array){
-      if(array.shape()[0] != instance.get_size() * 2)
+    },[](BlockLMSFilter<DataType>& instance, const py::array_t<std::complex<double>>& array){
+      if(array.ndim() != 1 || array.shape()[0] != instance.get_size() * 2)
       {
-        std::runtime_error("Wrong size for w, it must be complex with the size equal to twice the size of the filter");
+        throw std::length_error("Wrong size for w, it must be complex with the size equal to twice the size of the filter");
       }
       instance.set_w(array.data());
     });
@@ -48,10 +48,10 @@ namespace
     .def_property("learning", &LMSFilter<DataType>::get_learning, &LMSFilter<DataType>::set_learning)
     .def_property("w", [](const LMSFilter<DataType>& instance){
       return py::array_t<DataType>(instance.get_size(), instance.get_w());
-    }, [](LMSFilter<DataType>& instance, py::array_t<DataType>& array){
-      if(array.shape()[0] != instance.get_size())
+    }, [](LMSFilter<DataType>& instance, const py::array_t<DataType>& array){
+      if(array.ndim() != 1 || array.shape()[0] != instance.get_size())
       {
-        std::runtime_error("Wrong size for w, must have the size of the filter");
+        throw std::length_error("Wrong size for w, must have the size of the filter");
       }
       instance.set_w(array.data());
     });
@@ -76,15 +76,19 @@ namespace
     .def_property("w", [](const RLSFilter<DataType>& instance){
       return py::array_t<DataType>(instance.get_size(), instance.get_w());
     },[](RLSFilter<DataType>& instance, py::array_t<DataType>& array){
-      if(array.shape()[0] != instance.get_size())
+      if(array.ndim() != 1 || array.shape()[0] != instance.get_size())
       {
-        std::runtime_error("Wrong size for w, must have the size of the filter");
+        throw std::length_error("Wrong size for w, must have the size of the filter");
       }
       instance.set_w(array.data());
     })
     .def_property("P", [](const RLSFilter<DataType>& instance){
       return py::array_t<DataType>({instance.get_size(), instance.get_size()}, instance.get_P());
-    },[](RLSFilter<DataType>& instance, py::array_t<DataType>& array){
+    },[](RLSFilter<DataType>& instance, const py::array_t<DataType>& array){
+      if(array.ndim() != 2 || (array.shape()[0] != instance.get_size() && array.shape()[1] != instance.get_size()))
+      {
+        throw std::length_error("Wrong size for w, must have the size of the filter");
+      }
       instance.set_P(array.data());
     }
     );

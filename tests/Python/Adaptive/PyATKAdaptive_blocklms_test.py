@@ -3,6 +3,8 @@
 from ATK.Core import DoubleInPointerFilter, DoubleOutPointerFilter
 from ATK.Adaptive import DoubleBlockLMSFilter
 
+from nose.tools import raises
+
 def filter(input, reference):
   import numpy as np
   output = np.zeros(input.shape, dtype=np.float64)
@@ -35,6 +37,20 @@ def BlockLMS_test():
   ref = np.fromfile(dirname + os.sep + "output_blocklms.dat", dtype=np.float64).reshape(1, -1)
   out = filter(d, d)
   assert_almost_equal(out, ref)
+
+@raises(ValueError)
+def BlockLMS_bad_dim_test():
+  import numpy as np
+
+  blms = DoubleBlockLMSFilter(100)
+  blms.w = np.array((100,100))
+
+@raises(ValueError)
+def BlockLMS_bad_size_test():
+  import numpy as np
+
+  blms = DoubleBlockLMSFilter(100)
+  blms.w = np.ones((100,))
 
 if __name__ == "__main__":
   import numpy as np
