@@ -224,7 +224,7 @@ namespace fmath {
     
   } // fmath::local
   
-#if defined(__GNUC__) && defined(__ARM_NEON__)
+#if defined(__GNUC__) && !(defined(__x86_64__) || defined(__i386__))
   using std::exp;
   using std::log;
 #else
