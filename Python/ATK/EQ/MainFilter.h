@@ -63,6 +63,23 @@ namespace ATK
     pybind11::class_<Coefficients>(m, type, parent)
     .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency);
   }
+
+  template<typename Coefficients, typename T>
+  void populate_SingleCoefficients(pybind11::module& m, const char* type, T& parent)
+  {
+    pybind11::class_<Coefficients>(m, type, parent)
+    .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency)
+    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
+  }
+  
+  template<typename Coefficients, typename T>
+  void populate_DualCoefficients(pybind11::module& m, const char* type, T& parent)
+  {
+    typedef typename Coefficients::DataType DataType;
+    pybind11::class_<Coefficients>(m, type, parent)
+    .def_property("cut_frequencies", &Coefficients::get_cut_frequencies, [](Coefficients& instance, const std::pair<DataType, DataType> f){instance.set_cut_frequencies(f);})
+    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
+  }
 }
 
 #endif

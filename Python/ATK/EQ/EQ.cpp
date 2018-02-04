@@ -18,6 +18,7 @@
 #include <ATK/EQ/CustomFIRFilter.h>
 #include <ATK/EQ/FIRFilter.h>
 
+#include "ChebyshevFilter.h"
 #include "MainFilter.h"
 #include "RobertBristowJohnsonFilter.h"
 #include "SecondOrderFilter.h"
@@ -155,6 +156,7 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_CustomIIR<double>(m, "DoubleCustomIIRFilter", f2);
   
   populate_StandardFilters(m, f1, f2);
+  populate_ChebyshevFilter(m, f1, f2);
   populate_SecondOrderFilter(m, f1, f2);
   populate_RobertBristowJohnsonFilter(m, f1, f2);
   populate_SecondOrderSVFFilter(m, f1, f2);
