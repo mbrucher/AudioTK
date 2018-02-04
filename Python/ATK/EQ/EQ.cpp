@@ -8,20 +8,20 @@
 #include <ATK/EQ/ChamberlinFilter.h>
 
 #include <ATK/EQ/CustomIIRFilter.h>
-#include <ATK/EQ/FourthOrderFilter.h>
-#include <ATK/EQ/LinkwitzRileyFilter.h>
 #include <ATK/EQ/PedalToneStackFilter.h>
 #include <ATK/EQ/RIAAFilter.h>
+#include <ATK/EQ/FourthOrderFilter.h>
+#include <ATK/EQ/LinkwitzRileyFilter.h>
 #include <ATK/EQ/RobertBristowJohnsonFilter.h>
-#include <ATK/EQ/SecondOrderFilter.h>
 #include <ATK/EQ/ToneStackFilter.h>
 
 #include <ATK/EQ/CustomFIRFilter.h>
 #include <ATK/EQ/FIRFilter.h>
 
-#include <ATK/EQ/SecondOrderSVFFilter.h>
-
 #include "MainFilter.h"
+#include "RobertBristowJohnsonFilter.h"
+#include "SecondOrderFilter.h"
+#include "SecondOrderSVFFilter.h"
 #include "StandardFilters.h"
 #include "TimeVaryingIIRFilter.h"
 #include "TimeVaryingSVFFilter.h"
@@ -110,13 +110,6 @@ namespace
   {
     py::class_<Coefficients>(m, type, parent);
   }
-
-  template<typename Coefficients, typename T>
-  void populate_ndOrderCoefficients(py::module& m, const char* type, T& parent)
-  {
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency);
-  }
   
   template<typename Coefficients, typename T>
   void populate_PedalCoefficients(py::module& m, const char* type, T& parent)
@@ -143,21 +136,6 @@ namespace
     .def_static("build_Bassman_stack", &Coefficients::buildBassmanStack)
     .def_static("build_JCM800_stack", &Coefficients::buildJCM800Stack);
   }
-  
-  template<typename Coefficients, typename T>
-  void populate_SVFCoefficients(py::module& m, const char* type, T& parent)
-  {
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency)
-    .def_property("Q", &Coefficients::get_Q, &Coefficients::set_Q);
-  }
-
-  template<typename Coefficients>
-  void populate_SVFFilter(py::module& m, const char* type)
-  {
-    py::class_<SecondOrderSVFFilter<Coefficients>, Coefficients>(m, type)
-    .def(py::init<std::size_t>(), "nb_channels"_a = 1);
-  }
 }
 
 PYBIND11_MODULE(PythonEQ, m)
@@ -177,9 +155,10 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_CustomIIR<double>(m, "DoubleCustomIIRFilter", f2);
   
   populate_StandardFilters(m, f1, f2);
+  populate_SecondOrderFilter(m, f1, f2);
+  populate_RobertBristowJohnsonFilter(m, f1, f2);
+  populate_SecondOrderSVFFilter(m, f1, f2);
 
-  populate_ndOrderCoefficients<SecondOrderBaseCoefficients<float>>(m, "FloatSecondOrderBaseCoefficients", f1);
-  populate_ndOrderCoefficients<SecondOrderBaseCoefficients<double>>(m, "DoubleSecondOrderBaseCoefficients", f2);
   populate_ndOrderCoefficients<FourthOrderBaseCoefficients<float>>(m, "FloatFourthOrderBaseCoefficients", f1);
   populate_ndOrderCoefficients<FourthOrderBaseCoefficients<double>>(m, "DoubleFourthOrderBaseCoefficients", f2);
 
@@ -211,74 +190,6 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_IIRFilter<InverseRIAACoefficients<float>>(m, "FloatInverseRIAAFilter");
   populate_IIRFilter<InverseRIAACoefficients<double>>(m, "DoubleInverseRIAAFilter");
 
-  populate_QCoefficients<RobertBristowJohnsonLowPassCoefficients<float>>(m, "FloatRobertBristowJohnsonLowPassCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonLowPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonLowPassCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonHighPassCoefficients<float>>(m, "FloatRobertBristowJohnsonHighPassCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonHighPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonHighPassCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonBandPassCoefficients<float>>(m, "FloatRobertBristowJohnsonBandPassCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonBandPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonBandPassCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonBandPass2Coefficients<float>>(m, "FloatRobertBristowJohnsonBandPass2Coefficients");
-  populate_QCoefficients<RobertBristowJohnsonBandPass2Coefficients<double>>(m, "DoubleRobertBristowJohnsonBandPass2Coefficients");
-  populate_QCoefficients<RobertBristowJohnsonBandStopCoefficients<float>>(m, "FloatRobertBristowJohnsonBandStopCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonBandStopCoefficients<double>>(m, "DoubleRobertBristowJohnsonBandStopCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonAllPassCoefficients<float>>(m, "FloatRobertBristowJohnsonAllPassCoefficients");
-  populate_QCoefficients<RobertBristowJohnsonAllPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonAllPassCoefficients");
-  populate_QshelfCoefficients<RobertBristowJohnsonBandPassPeakCoefficients<float>>(m, "FloatRobertBristowJohnsonBandPassPeakCoefficients");
-  populate_QshelfCoefficients<RobertBristowJohnsonBandPassPeakCoefficients<double>>(m, "DoubleRobertBristowJohnsonBandPassPeakCoefficients");
-  populate_QshelfCoefficients<RobertBristowJohnsonLowShelvingCoefficients<float>>(m, "FloatRobertBristowJohnsonLowShelvingCoefficients");
-  populate_QshelfCoefficients<RobertBristowJohnsonLowShelvingCoefficients<double>>(m, "DoubleRobertBristowJohnsonLowShelvingCoefficients");
-  populate_QshelfCoefficients<RobertBristowJohnsonHighShelvingCoefficients<float>>(m, "FloatRobertBristowJohnsonHighShelvingCoefficients");
-  populate_QshelfCoefficients<RobertBristowJohnsonHighShelvingCoefficients<double>>(m, "DoubleRobertBristowJohnsonHighShelvingCoefficients");
-
-  populate_IIRFilter<RobertBristowJohnsonLowPassCoefficients<float>>(m, "FloatRobertBristowJohnsonLowPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonLowPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonLowPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonHighPassCoefficients<float>>(m, "FloatRobertBristowJohnsonHighPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonHighPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonHighPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonBandPassCoefficients<float>>(m, "FloatRobertBristowJohnsonBandPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonBandPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonBandPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonBandPass2Coefficients<float>>(m, "FloatRobertBristowJohnsonBandPass2Filter");
-  populate_IIRFilter<RobertBristowJohnsonBandPass2Coefficients<double>>(m, "DoubleRobertBristowJohnsonBandPass2Filter");
-  populate_IIRFilter<RobertBristowJohnsonBandStopCoefficients<float>>(m, "FloatRobertBristowJohnsonBandStopFilter");
-  populate_IIRFilter<RobertBristowJohnsonBandStopCoefficients<double>>(m, "DoubleRobertBristowJohnsonBandStopFilter");
-  populate_IIRFilter<RobertBristowJohnsonAllPassCoefficients<float>>(m, "FloatRobertBristowJohnsonAllPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonAllPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonAllPassFilter");
-  populate_IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<float>>(m, "FloatRobertBristowJohnsonBandPassPeakFilter");
-  populate_IIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<double>>(m, "DoubleRobertBristowJohnsonBandPassPeakFilter");
-  populate_IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<float>>(m, "FloatRobertBristowJohnsonLowShelvingFilter");
-  populate_IIRFilter<RobertBristowJohnsonLowShelvingCoefficients<double>>(m, "DoubleRobertBristowJohnsonLowShelvingkFilter");
-  populate_IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<float>>(m, "FloatRobertBristowJohnsonHighShelvingFilter");
-  populate_IIRFilter<RobertBristowJohnsonHighShelvingCoefficients<double>>(m, "DoubleRobertBristowJohnsonHighShelvingFilter");
-
-  populate_QCoefficients<SecondOrderBandPassCoefficients<float>>(m, "FloatSecondOrderBandPassCoefficients");
-  populate_QCoefficients<SecondOrderBandPassCoefficients<double>>(m, "DoubleSecondOrderBandPassCoefficients");
-  populate_DirectCoefficients<SecondOrderLowPassCoefficients<float>>(m, "FloatSecondOrderLowPassCoefficients");
-  populate_DirectCoefficients<SecondOrderLowPassCoefficients<double>>(m, "DoubleSecondOrderLowPassCoefficients");
-  populate_DirectCoefficients<SecondOrderHighPassCoefficients<float>>(m, "FloatSecondOrderHighPassCoefficients");
-  populate_DirectCoefficients<SecondOrderHighPassCoefficients<double>>(m, "DoubleSecondOrderHighPassCoefficients");
-  populate_QshelfCoefficients<SecondOrderBandPassPeakCoefficients<float>>(m, "FloatSecondOrderBandPassPeakCoefficients");
-  populate_QshelfCoefficients<SecondOrderBandPassPeakCoefficients<double>>(m, "DoubleSecondOrderBandPassPeakCoefficients");
-  populate_QCoefficients<SecondOrderAllPassCoefficients<float>>(m, "FloatSecondOrderAllPassCoefficients");
-  populate_QCoefficients<SecondOrderAllPassCoefficients<double>>(m, "DoubleSecondOrderAllPassCoefficients");
-  populate_shelfCoefficients<SecondOrderLowShelvingCoefficients<float>>(m, "FloatSecondOrderLowShelvingCoefficients");
-  populate_shelfCoefficients<SecondOrderLowShelvingCoefficients<double>>(m, "DoubleSecondOrderLowShelvingCoefficients");
-  populate_shelfCoefficients<SecondOrderHighShelvingCoefficients<float>>(m, "FloatSecondOrderHighShelvingCoefficients");
-  populate_shelfCoefficients<SecondOrderHighShelvingCoefficients<double>>(m, "DoubleSecondOrderHighShelvingCoefficients");
-
-  populate_IIRFilter<SecondOrderBandPassCoefficients<float>>(m, "FloatSecondOrderBandPassFilter");
-  populate_IIRFilter<SecondOrderBandPassCoefficients<double>>(m, "DoubleSecondOrderBandPassFilter");
-  populate_IIRFilter<SecondOrderLowPassCoefficients<float>>(m, "FloatSecondOrderLowPassFilter");
-  populate_IIRFilter<SecondOrderLowPassCoefficients<double>>(m, "DoubleSecondOrderLowPassFilter");
-  populate_IIRFilter<SecondOrderHighPassCoefficients<float>>(m, "FloatSecondOrderHighPassFilter");
-  populate_IIRFilter<SecondOrderHighPassCoefficients<double>>(m, "DoubleSecondOrderHighPassFilter");
-  populate_IIRFilter<SecondOrderBandPassPeakCoefficients<float>>(m, "FloatSecondOrderBandPassPeakFilter");
-  populate_IIRFilter<SecondOrderBandPassPeakCoefficients<double>>(m, "DoubleSecondOrderBandPassPeakFilter");
-  populate_IIRFilter<SecondOrderAllPassCoefficients<float>>(m, "FloatSecondOrderAllPassFilter");
-  populate_IIRFilter<SecondOrderAllPassCoefficients<double>>(m, "DoubleSecondOrderAllPassFilter");
-  populate_IIRFilter<SecondOrderLowShelvingCoefficients<float>>(m, "FloatSecondOrderLowShelvingFilter");
-  populate_IIRFilter<SecondOrderLowShelvingCoefficients<double>>(m, "DoubleSecondOrderLowShelvingFilter");
-  populate_IIRFilter<SecondOrderHighShelvingCoefficients<float>>(m, "FloatSecondOrderHighShelvingFilter");
-  populate_IIRFilter<SecondOrderHighShelvingCoefficients<double>>(m, "DoubleSecondOrderHighShelvingFilter");
-
   populate_PedalCoefficients<SD1ToneCoefficients<float>>(m, "FloatSD1ToneCoefficients", f1);
   populate_PedalCoefficients<SD1ToneCoefficients<double>>(m, "DoubleSD1ToneCoefficients", f2);
   populate_PedalCoefficients<TS9ToneCoefficients<float>>(m, "FloatTS9ToneCoefficients", f1);
@@ -294,43 +205,6 @@ PYBIND11_MODULE(PythonEQ, m)
 
   populate_StackFilter<ToneStackCoefficients<float>>(m, "FloatStackToneFilter");
   populate_StackFilter<ToneStackCoefficients<double>>(m, "DoubleStackToneFilter");
-
-  populate_SVFCoefficients<SecondOrderSVFBaseCoefficients<float>>(m, "FloatSecondOrderSVFBaseCoefficients", f1);
-  populate_SVFCoefficients<SecondOrderSVFBaseCoefficients<double>>(m, "DoubleSecondOrderSVFBaseCoefficients", f2);
-
-  populate_DirectCoefficients<SecondOrderSVFLowPassCoefficients<float>>(m, "FloatSecondOrderSVFLowPassCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFLowPassCoefficients<double>>(m, "DoubleSecondOrderSVFLowPassCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFBandPassCoefficients<float>>(m, "FloatSecondOrderSVFBandPassCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFBandPassCoefficients<double>>(m, "DoubleSecondOrderSVFBandPassCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFHighPassCoefficients<float>>(m, "FloatSecondOrderSVFHighPassCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFHighPassCoefficients<double>>(m, "DoubleSecondOrderSVFHighPassCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFNotchCoefficients<float>>(m, "FloatSecondOrderSVFNotchCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFNotchCoefficients<double>>(m, "DoubleSecondOrderSVFNotchCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFPeakCoefficients<float>>(m, "FloatSecondOrderSVFPeakCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFPeakCoefficients<double>>(m, "DoubleSecondOrderSVFPeakCoefficients");
-  populate_DirectCoefficients<SecondOrderSVFBellCoefficients<float>>(m, "FloatSecondOrderSVFBellCoefficients");
-  populate_shelfCoefficients<SecondOrderSVFBellCoefficients<double>>(m, "DoubleSecondOrderSVFBellCoefficients");
-  populate_shelfCoefficients<SecondOrderSVFLowShelfCoefficients<float>>(m, "FloatSecondOrderSVFLowShelfCoefficients");
-  populate_shelfCoefficients<SecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleSecondOrderSVFLowShelfCoefficients");
-  populate_shelfCoefficients<SecondOrderSVFHighShelfCoefficients<float>>(m, "FloatSecondOrderSVFHighShelfCoefficients");
-  populate_shelfCoefficients<SecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleSecondOrderSVFHighShelfCoefficients");
-
-  populate_SVFFilter<SecondOrderSVFLowPassCoefficients<float>>(m, "FloatSecondOrderSVFLowPassFilter");
-  populate_SVFFilter<SecondOrderSVFLowPassCoefficients<double>>(m, "DoubleSecondOrderSVFLowPassFilter");
-  populate_SVFFilter<SecondOrderSVFBandPassCoefficients<float>>(m, "FloatSecondOrderSVFBandPassFilter");
-  populate_SVFFilter<SecondOrderSVFBandPassCoefficients<double>>(m, "DoubleSecondOrderSVFBandPassFilter");
-  populate_SVFFilter<SecondOrderSVFHighPassCoefficients<float>>(m, "FloatSecondOrderSVFHighPassFilter");
-  populate_SVFFilter<SecondOrderSVFHighPassCoefficients<double>>(m, "DoubleSecondOrderSVFHighPassFilter");
-  populate_SVFFilter<SecondOrderSVFNotchCoefficients<float>>(m, "FloatSecondOrderSVFNotchFilter");
-  populate_SVFFilter<SecondOrderSVFNotchCoefficients<double>>(m, "DoubleSecondOrderSVFNotchFilter");
-  populate_SVFFilter<SecondOrderSVFPeakCoefficients<float>>(m, "FloatSecondOrderSVFPeakFilter");
-  populate_SVFFilter<SecondOrderSVFPeakCoefficients<double>>(m, "DoubleSecondOrderSVFPeakFilter");
-  populate_SVFFilter<SecondOrderSVFBellCoefficients<float>>(m, "FloatSecondOrderSVFBellFilter");
-  populate_SVFFilter<SecondOrderSVFBellCoefficients<double>>(m, "DoubleSecondOrderSVFBellFilter");
-  populate_SVFFilter<SecondOrderSVFLowShelfCoefficients<float>>(m, "FloatSecondOrderSVFLowShelfFilter");
-  populate_SVFFilter<SecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleSecondOrderSVFLowShelfFilter");
-  populate_SVFFilter<SecondOrderSVFHighShelfCoefficients<float>>(m, "FloatSecondOrderSVFHighShelfFilter");
-  populate_SVFFilter<SecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleSecondOrderSVFHighShelfFilter");
 
   populate_TimeVaryingIIRFilters(m, f1, f2);
   populate_TimeVaryingSVFFilters(m, f1, f2);

@@ -28,7 +28,6 @@ namespace ATK
                              return pybind11::array_t<DataType>(instance.get_coefficients_out().size(), instance.get_coefficients_out().data());
                            });
   }
-
   
   template<typename Coefficients>
   void populate_DirectCoefficients(pybind11::module& m, const char* type)
@@ -56,6 +55,13 @@ namespace ATK
     pybind11::class_<Coefficients, typename Coefficients::Parent>(m, type)
     .def_property("Q", &Coefficients::get_Q, &Coefficients::set_Q)
     .def_property("gain", &Coefficients::get_gain, &Coefficients::set_gain);
+  }
+
+  template<typename Coefficients, typename T>
+  void populate_ndOrderCoefficients(pybind11::module& m, const char* type, T& parent)
+  {
+    pybind11::class_<Coefficients>(m, type, parent)
+    .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency);
   }
 }
 

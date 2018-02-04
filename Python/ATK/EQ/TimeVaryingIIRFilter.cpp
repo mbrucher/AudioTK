@@ -16,7 +16,6 @@ using namespace ATK;
 
 namespace
 {
-  
   template<typename Coefficients, typename T>
   void populate_TimeVaryingCoefficients(py::module& m, const char* type, T& parent)
   {
