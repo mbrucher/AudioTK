@@ -7,9 +7,6 @@
 
 #include <pybind11/pybind11.h>
 
-namespace ATK
-{
-  void populate_FeedbackDelayNetworkFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2, const pybind11::object& f3, const pybind11::object& f4);
-}
+void populate_FeedbackDelayNetworkFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2, const pybind11::object& f3, const pybind11::object& f4);
 
 #endif

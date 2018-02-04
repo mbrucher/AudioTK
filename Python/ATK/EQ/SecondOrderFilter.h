@@ -7,9 +7,6 @@
 
 #include <pybind11/pybind11.h>
 
-namespace ATK
-{
-  void populate_SecondOrderFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2);
-}
+void populate_SecondOrderFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2);
 
 #endif
