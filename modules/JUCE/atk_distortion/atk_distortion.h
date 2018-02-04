@@ -20,7 +20,7 @@
 
   ID:               atk_distortion
   vendor:           Matthieu Brucher
-  version:          2.2.3
+  version:          2.3.0
   name:             ATK distortion
   description:      Distortion and overdrive classes for ATK
   website:          http://www.audio-tk.com/
