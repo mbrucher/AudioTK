@@ -16,9 +16,4 @@ namespace ATK
   template class FeedbackDelayNetworkFilter<HadamardMixture<double, 2>>;
   template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<float>, 2>>;
   template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<double>, 2>>;
-
-  template class FeedbackDelayNetworkFilter<HadamardMixture<float, 3>>;
-  template class FeedbackDelayNetworkFilter<HadamardMixture<double, 3>>;
-  template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<float>, 3>>;
-  template class FeedbackDelayNetworkFilter<HadamardMixture<std::complex<double>, 3>>;
 }

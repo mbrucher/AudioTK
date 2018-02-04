@@ -17,9 +17,4 @@ namespace ATK
   template class FeedbackDelayNetworkFilter<HouseholderMixture<double, 4>>;
   template class FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<float>, 4>>;
   template class FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<double>, 4>>;
-
-  template class FeedbackDelayNetworkFilter<HouseholderMixture<float, 8>>;
-  template class FeedbackDelayNetworkFilter<HouseholderMixture<double, 8>>;
-  template class FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<float>, 8>>;
-  template class FeedbackDelayNetworkFilter<HouseholderMixture<std::complex<double>, 8>>;
 }
