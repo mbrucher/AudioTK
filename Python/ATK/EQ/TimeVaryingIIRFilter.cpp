@@ -34,7 +34,7 @@ namespace
   }
 }
 
-void populate_TimeVaryingIIRFilters(py::module& m, const py::object& f1, const py::object& f2)
+void populate_TimeVaryingIIRFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {
   populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<float>>(m, "FloatTimeVaryingBaseSecondOrderCoefficients", f1);
   populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<double>>(m, "DoubleTimeVaryingBaseSecondOrderCoefficients", f1);

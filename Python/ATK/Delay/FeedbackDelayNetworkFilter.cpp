@@ -31,7 +31,7 @@ namespace
   }
 }
 
-void populate_FeedbackDelayNetworkFilter(py::module& m, const py::object& f1, const py::object& f2, const py::object& f3, const py::object& f4)
+void populate_FeedbackDelayNetworkFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2, const pybind11::object& f3, const pybind11::object& f4)
 {
   populate_FeedbackDelayNetworkFilter<HadamardMixture<float, 1>>(m, "FloatDualHadamardFeedbackDelayNetworkFilter", f1);
   populate_FeedbackDelayNetworkFilter<HadamardMixture<double, 1>>(m, "DoubleDualHadamardFeedbackDelayNetworkFilter", f2);

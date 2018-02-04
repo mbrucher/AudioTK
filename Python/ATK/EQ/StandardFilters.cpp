@@ -56,7 +56,7 @@ namespace
   }
 }
 
-void populate_StandardFilters(py::module& m, const py::object& f1, const py::object& f2)
+void populate_StandardFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {
   populate_SingleCoefficients<BesselLowPassCoefficients<float>>(m, "FloatBesselLowPassCoefficients", f1);
   populate_SingleCoefficients<BesselLowPassCoefficients<double>>(m, "DoubleBesselLowPassCoefficients", f2);

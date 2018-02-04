@@ -17,7 +17,7 @@ namespace
 {
 }
 
-void populate_RobertBristowJohnsonFilter(py::module& m, const py::object& f1, const py::object& f2)
+void populate_RobertBristowJohnsonFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {
   populate_QCoefficients<RobertBristowJohnsonLowPassCoefficients<float>>(m, "FloatRobertBristowJohnsonLowPassCoefficients");
   populate_QCoefficients<RobertBristowJohnsonLowPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonLowPassCoefficients");
