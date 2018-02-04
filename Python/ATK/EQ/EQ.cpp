@@ -7,13 +7,8 @@
 
 #include <ATK/EQ/ChamberlinFilter.h>
 
-#include <ATK/EQ/BesselFilter.h>
-#include <ATK/EQ/ButterworthFilter.h>
-#include <ATK/EQ/Chebyshev1Filter.h>
-#include <ATK/EQ/Chebyshev2Filter.h>
 #include <ATK/EQ/CustomIIRFilter.h>
 #include <ATK/EQ/FourthOrderFilter.h>
-#include <ATK/EQ/IIRFilter.h>
 #include <ATK/EQ/LinkwitzRileyFilter.h>
 #include <ATK/EQ/PedalToneStackFilter.h>
 #include <ATK/EQ/RIAAFilter.h>
@@ -26,9 +21,10 @@
 
 #include <ATK/EQ/SecondOrderSVFFilter.h>
 
-#include <ATK/EQ/TimeVaryingIIRFilter.h>
-#include <ATK/EQ/TimeVaryingSecondOrderFilter.h>
-#include <ATK/EQ/TimeVaryingSecondOrderSVFFilter.h>
+#include "MainFilter.h"
+#include "StandardFilters.h"
+#include "TimeVaryingIIRFilter.h"
+#include "TimeVaryingSVFFilter.h"
 
 namespace py = pybind11;
 
@@ -77,22 +73,6 @@ namespace
       instance.set_coefficients_in(std::vector<DataType>(array.data(), array.data() + array.size()));
     });
   }
-
-  template<typename Coefficients>
-  void populate_IIRFilter(py::module& m, const char* type)
-  {
-    typedef typename Coefficients::DataType DataType;
-    py::class_<IIRFilter<Coefficients>, Coefficients>(m, type)
-      .def(py::init<std::size_t>(), "nb_channels"_a = 1)
-      .def_property_readonly("coefficients_in", [](const IIRFilter<Coefficients>& instance)
-    {
-      return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
-    })
-     .def_property_readonly("coefficients_out", [](const IIRFilter<Coefficients>& instance)
-    {
-      return py::array_t<DataType>(instance.get_coefficients_out().size(), instance.get_coefficients_out().data());
-    });
-  }
   
   template<typename DataType, typename T>
   void populate_CustomIIR(py::module& m, const char* type, T& parent)
@@ -132,74 +112,10 @@ namespace
   }
 
   template<typename Coefficients, typename T>
-  void populate_SingleCoefficients(py::module& m, const char* type, T& parent)
-  {
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency)
-    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
-  }
-  
-  template<typename Coefficients, typename T>
-  void populate_DualCoefficients(py::module& m, const char* type, T& parent)
-  {
-    typedef typename Coefficients::DataType DataType;
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequencies", &Coefficients::get_cut_frequencies, [](Coefficients& instance, const std::pair<DataType, DataType> f){instance.set_cut_frequencies(f);})
-    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
-  }
-
-  template<typename Coefficients, typename T>
-  void populate_SingleCoefficients_ripple(py::module& m, const char* type, T& parent)
-  {
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency)
-    .def_property("ripple", &Coefficients::get_ripple, &Coefficients::set_ripple)
-    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
-  }
-  
-  template<typename Coefficients, typename T>
-  void populate_DualCoefficients_ripple(py::module& m, const char* type, T& parent)
-  {
-    typedef typename Coefficients::DataType DataType;
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequencies", &Coefficients::get_cut_frequencies, [](Coefficients& instance, const std::pair<DataType, DataType> f){instance.set_cut_frequencies(f);})
-    .def_property("ripple", &Coefficients::get_ripple, &Coefficients::set_ripple)
-    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
-  }
-
-  template<typename Coefficients, typename T>
   void populate_ndOrderCoefficients(py::module& m, const char* type, T& parent)
   {
     py::class_<Coefficients>(m, type, parent)
     .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency);
-  }
-
-  template<typename Coefficients>
-  void populate_DirectCoefficients(py::module& m, const char* type)
-  {
-    py::class_<Coefficients, typename Coefficients::Parent>(m, type);
-  }
-
-  template<typename Coefficients>
-  void populate_QCoefficients(py::module& m, const char* type)
-  {
-    py::class_<Coefficients, typename Coefficients::Parent>(m, type)
-    .def_property("Q", &Coefficients::get_Q, &Coefficients::set_Q);
-  }
-  
-  template<typename Coefficients>
-  void populate_shelfCoefficients(py::module& m, const char* type)
-  {
-    py::class_<Coefficients, typename Coefficients::Parent>(m, type)
-    .def_property("gain", &Coefficients::get_gain, &Coefficients::set_gain);
-  }
-  
-  template<typename Coefficients>
-  void populate_QshelfCoefficients(py::module& m, const char* type)
-  {
-    py::class_<Coefficients, typename Coefficients::Parent>(m, type)
-    .def_property("Q", &Coefficients::get_Q, &Coefficients::set_Q)
-    .def_property("gain", &Coefficients::get_gain, &Coefficients::set_gain);
   }
   
   template<typename Coefficients, typename T>
@@ -242,37 +158,6 @@ namespace
     py::class_<SecondOrderSVFFilter<Coefficients>, Coefficients>(m, type)
     .def(py::init<std::size_t>(), "nb_channels"_a = 1);
   }
-
-  template<typename Coefficients, typename T>
-  void populate_TimeVaryingCoefficients(py::module& m, const char* type, T& parent)
-  {
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("min_frequency", &Coefficients::get_min_frequency, &Coefficients::set_min_frequency)
-    .def_property("max_frequency", &Coefficients::get_max_frequency, &Coefficients::set_max_frequency)
-    .def_property("number_of_steps", &Coefficients::get_number_of_steps, &Coefficients::set_number_of_steps)
-    .def_property("memory", &Coefficients::get_memory, &Coefficients::set_memory);
-  }
-
-  template<typename Coefficients>
-  void populate_TimeVaryingIIRFilter(py::module& m, const char* type)
-  {
-    py::class_<TimeVaryingIIRFilter<Coefficients>, Coefficients>(m, type)
-    .def(py::init<>());
-  }
-
-  template<typename Coefficients, typename T>
-  void populate_TimeVaryingSVFCoefficients(py::module& m, const char* type, T& parent)
-  {
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("Q", &Coefficients::get_Q, &Coefficients::set_Q);
-  }
-
-  template<typename Coefficients>
-  void populate_TimeVaryingSVFFilter(py::module& m, const char* type)
-  {
-    py::class_<TimeVaryingSecondOrderSVFFilter<Coefficients>, Coefficients>(m, type)
-    .def(py::init<std::size_t>(), "nb_channels"_a = 1);
-  }
 }
 
 PYBIND11_MODULE(PythonEQ, m)
@@ -291,77 +176,7 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_CustomIIR<float>(m, "FloatCustomIIRFilter", f1);
   populate_CustomIIR<double>(m, "DoubleCustomIIRFilter", f2);
   
-  populate_SingleCoefficients<BesselLowPassCoefficients<float>>(m, "FloatBesselLowPassCoefficients", f1);
-  populate_SingleCoefficients<BesselLowPassCoefficients<double>>(m, "DoubleBesselLowPassCoefficients", f2);
-  populate_SingleCoefficients<BesselHighPassCoefficients<float>>(m, "FloatBesselHighPassCoefficients", f1);
-  populate_SingleCoefficients<BesselHighPassCoefficients<double>>(m, "DoubleBesselHighPassCoefficients", f2);
-  populate_DualCoefficients<BesselBandPassCoefficients<float>>(m, "FloatBesselBandPassCoefficients", f1);
-  populate_DualCoefficients<BesselBandPassCoefficients<double>>(m, "DoubleBesselBandPassCoefficients", f2);
-  populate_DualCoefficients<BesselBandStopCoefficients<float>>(m, "FloatBesselBandStopCoefficients", f1);
-  populate_DualCoefficients<BesselBandStopCoefficients<double>>(m, "DoubleBesselBandStopCoefficients", f2);
-
-  populate_IIRFilter<BesselLowPassCoefficients<float>>(m, "FloatBesselLowPassFilter");
-  populate_IIRFilter<BesselLowPassCoefficients<double>>(m, "DoubleBesselLowPassFilter");
-  populate_IIRFilter<BesselHighPassCoefficients<float>>(m, "FloatBesselHighPassFilter");
-  populate_IIRFilter<BesselHighPassCoefficients<double>>(m, "DoubleBesselHighPassFilter");
-  populate_IIRFilter<BesselBandPassCoefficients<float>>(m, "FloatBesselBandPassFilter");
-  populate_IIRFilter<BesselBandPassCoefficients<double>>(m, "DoubleBesselBandPassFilter");
-  populate_IIRFilter<BesselBandStopCoefficients<float>>(m, "FloatBesselBandStopFilter");
-  populate_IIRFilter<BesselBandStopCoefficients<double>>(m, "DoubleBesselBandStopFilter");
-  
-  populate_SingleCoefficients<ButterworthLowPassCoefficients<float>>(m, "FloatButterworthLowPassCoefficients", f1);
-  populate_SingleCoefficients<ButterworthLowPassCoefficients<double>>(m, "DoubleButterworthLowPassCoefficients", f2);
-  populate_SingleCoefficients<ButterworthHighPassCoefficients<float>>(m, "FloatButterworthHighPassCoefficients", f1);
-  populate_SingleCoefficients<ButterworthHighPassCoefficients<double>>(m, "DoubleButterworthHighPassCoefficients", f2);
-  populate_DualCoefficients<ButterworthBandPassCoefficients<float>>(m, "FloatButterworthBandPassCoefficients", f1);
-  populate_DualCoefficients<ButterworthBandPassCoefficients<double>>(m, "DoubleButterworthBandPassCoefficients", f2);
-  populate_DualCoefficients<ButterworthBandStopCoefficients<float>>(m, "FloatButterworthBandStopCoefficients", f1);
-  populate_DualCoefficients<ButterworthBandStopCoefficients<double>>(m, "DoubleButterworthBandStopCoefficients", f2);
-  
-  populate_IIRFilter<ButterworthLowPassCoefficients<float>>(m, "FloatButterworthLowPassFilter");
-  populate_IIRFilter<ButterworthLowPassCoefficients<double>>(m, "DoubleButterworthLowPassFilter");
-  populate_IIRFilter<ButterworthHighPassCoefficients<float>>(m, "FloatButterworthHighPassFilter");
-  populate_IIRFilter<ButterworthHighPassCoefficients<double>>(m, "DoubleButterworthHighPassFilter");
-  populate_IIRFilter<ButterworthBandPassCoefficients<float>>(m, "FloatButterworthBandPassFilter");
-  populate_IIRFilter<ButterworthBandPassCoefficients<double>>(m, "DoubleButterworthBandPassFilter");
-  populate_IIRFilter<ButterworthBandStopCoefficients<float>>(m, "FloatButterworthBandStopFilter");
-  populate_IIRFilter<ButterworthBandStopCoefficients<double>>(m, "DoubleButterworthBandStopFilter");
-  
-  populate_SingleCoefficients_ripple<Chebyshev1LowPassCoefficients<float>>(m, "FloatChebyshev1LowPassCoefficients", f1);
-  populate_SingleCoefficients_ripple<Chebyshev1LowPassCoefficients<double>>(m, "DoubleChebyshev1LowPassCoefficients", f2);
-  populate_SingleCoefficients_ripple<Chebyshev1HighPassCoefficients<float>>(m, "FloatChebyshev1HighPassCoefficients", f1);
-  populate_SingleCoefficients_ripple<Chebyshev1HighPassCoefficients<double>>(m, "DoubleChebyshev1HighPassCoefficients", f2);
-  populate_DualCoefficients_ripple<Chebyshev1BandPassCoefficients<float>>(m, "FloatChebyshev1BandPassCoefficients", f1);
-  populate_DualCoefficients_ripple<Chebyshev1BandPassCoefficients<double>>(m, "DoubleChebyshev1BandPassCoefficients", f2);
-  populate_DualCoefficients_ripple<Chebyshev1BandStopCoefficients<float>>(m, "FloatChebyshev1BandStopCoefficients", f1);
-  populate_DualCoefficients_ripple<Chebyshev1BandStopCoefficients<double>>(m, "DoubleChebyshev1BandStopCoefficients", f2);
-  
-  populate_IIRFilter<Chebyshev1LowPassCoefficients<float>>(m, "FloatChebyshev1LowPassFilter");
-  populate_IIRFilter<Chebyshev1LowPassCoefficients<double>>(m, "DoubleChebyshev1LowPassFilter");
-  populate_IIRFilter<Chebyshev1HighPassCoefficients<float>>(m, "FloatChebyshev1HighPassFilter");
-  populate_IIRFilter<Chebyshev1HighPassCoefficients<double>>(m, "DoubleChebyshev1HighPassFilter");
-  populate_IIRFilter<Chebyshev1BandPassCoefficients<float>>(m, "FloatChebyshev1BandPassFilter");
-  populate_IIRFilter<Chebyshev1BandPassCoefficients<double>>(m, "DoubleChebyshev1BandPassFilter");
-  populate_IIRFilter<Chebyshev1BandStopCoefficients<float>>(m, "FloatChebyshev1BandStopFilter");
-  populate_IIRFilter<Chebyshev1BandStopCoefficients<double>>(m, "DoubleChebyshev1BandStopFilter");
-  
-  populate_SingleCoefficients_ripple<Chebyshev2LowPassCoefficients<float>>(m, "FloatChebyshev2LowPassCoefficients", f1);
-  populate_SingleCoefficients_ripple<Chebyshev2LowPassCoefficients<double>>(m, "DoubleChebyshev2LowPassCoefficients", f2);
-  populate_SingleCoefficients_ripple<Chebyshev2HighPassCoefficients<float>>(m, "FloatChebyshev2HighPassCoefficients", f1);
-  populate_SingleCoefficients_ripple<Chebyshev2HighPassCoefficients<double>>(m, "DoubleChebyshev2HighPassCoefficients", f2);
-  populate_DualCoefficients_ripple<Chebyshev2BandPassCoefficients<float>>(m, "FloatChebyshev2BandPassCoefficients", f1);
-  populate_DualCoefficients_ripple<Chebyshev2BandPassCoefficients<double>>(m, "DoubleChebyshev2BandPassCoefficients", f2);
-  populate_DualCoefficients_ripple<Chebyshev2BandStopCoefficients<float>>(m, "FloatChebyshev2BandStopCoefficients", f1);
-  populate_DualCoefficients_ripple<Chebyshev2BandStopCoefficients<double>>(m, "DoubleChebyshev2BandStopCoefficients", f2);
-  
-  populate_IIRFilter<Chebyshev2LowPassCoefficients<float>>(m, "FloatChebyshev2LowPassFilter");
-  populate_IIRFilter<Chebyshev2LowPassCoefficients<double>>(m, "DoubleChebyshev2LowPassFilter");
-  populate_IIRFilter<Chebyshev2HighPassCoefficients<float>>(m, "FloatChebyshev2HighPassFilter");
-  populate_IIRFilter<Chebyshev2HighPassCoefficients<double>>(m, "DoubleChebyshev2HighPassFilter");
-  populate_IIRFilter<Chebyshev2BandPassCoefficients<float>>(m, "FloatChebyshev2BandPassFilter");
-  populate_IIRFilter<Chebyshev2BandPassCoefficients<double>>(m, "DoubleChebyshev2BandPassFilter");
-  populate_IIRFilter<Chebyshev2BandStopCoefficients<float>>(m, "FloatChebyshev2BandStopFilter");
-  populate_IIRFilter<Chebyshev2BandStopCoefficients<double>>(m, "DoubleChebyshev2BandStopFilter");
+  populate_StandardFilters(m, f1, f2);
 
   populate_ndOrderCoefficients<SecondOrderBaseCoefficients<float>>(m, "FloatSecondOrderBaseCoefficients", f1);
   populate_ndOrderCoefficients<SecondOrderBaseCoefficients<double>>(m, "DoubleSecondOrderBaseCoefficients", f2);
@@ -517,73 +332,6 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_SVFFilter<SecondOrderSVFHighShelfCoefficients<float>>(m, "FloatSecondOrderSVFHighShelfFilter");
   populate_SVFFilter<SecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleSecondOrderSVFHighShelfFilter");
 
-  populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<float>>(m, "FloatTimeVaryingBaseSecondOrderCoefficients", f1);
-  populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<double>>(m, "DoubleTimeVaryingBaseSecondOrderCoefficients", f1);
-  
-  populate_QCoefficients<TimeVaryingBandPassCoefficients<float>>(m, "FloatTimeVaryingBandPassCoefficients");
-  populate_QCoefficients<TimeVaryingBandPassCoefficients<double>>(m, "DoubleTimeVaryingBandPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingLowPassCoefficients<float>>(m, "FloatTimeVaryingLowPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingLowPassCoefficients<double>>(m, "DoubleTimeVaryingLowPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingHighPassCoefficients<float>>(m, "FloatTimeVaryingHighPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingHighPassCoefficients<double>>(m, "DoubleTimeVaryingHighPassCoefficients");
-  populate_QshelfCoefficients<TimeVaryingBandPassPeakCoefficients<float>>(m, "FloatTimeVaryingBandPassPeakCoefficients");
-  populate_QshelfCoefficients<TimeVaryingBandPassPeakCoefficients<double>>(m, "DoubleTimeVaryingBandPassPeakCoefficients");
-  populate_QCoefficients<TimeVaryingAllPassCoefficients<float>>(m, "FloatTimeVaryingAllPassCoefficients");
-  populate_QCoefficients<TimeVaryingAllPassCoefficients<double>>(m, "DoubleTimeVaryingAllPassCoefficients");
-  populate_shelfCoefficients<TimeVaryingLowShelvingCoefficients<float>>(m, "FloatTimeVaryingLowShelvingCoefficients");
-  populate_shelfCoefficients<TimeVaryingLowShelvingCoefficients<double>>(m, "DoubleTimeVaryingLowShelvingCoefficients");
-  populate_shelfCoefficients<TimeVaryingHighShelvingCoefficients<float>>(m, "FloatTimeVaryingHighShelvingCoefficients");
-  populate_shelfCoefficients<TimeVaryingHighShelvingCoefficients<double>>(m, "DoubleTimeVaryingHighShelvingCoefficients");
-  
-  populate_TimeVaryingIIRFilter<TimeVaryingBandPassCoefficients<float>>(m, "FloatTimeVaryingBandPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingBandPassCoefficients<double>>(m, "DoubleTimeVaryingBandPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingLowPassCoefficients<float>>(m, "FloatTimeVaryingLowPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingLowPassCoefficients<double>>(m, "DoubleTimeVaryingLowPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingHighPassCoefficients<float>>(m, "FloatTimeVaryingHighPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingHighPassCoefficients<double>>(m, "DoubleTimeVaryingHighPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingBandPassPeakCoefficients<float>>(m, "FloatTimeVaryingBandPassPeakFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingBandPassPeakCoefficients<double>>(m, "DoubleTimeVaryingBandPassPeakFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingAllPassCoefficients<float>>(m, "FloatTimeVaryingAllPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingAllPassCoefficients<double>>(m, "DoubleTimeVaryingAllPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingLowShelvingCoefficients<float>>(m, "FloatTimeVaryingLowShelvingFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingLowShelvingCoefficients<double>>(m, "DoubleTimeVaryingLowShelvingFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingHighShelvingCoefficients<float>>(m, "FloatTimeVaryingHighShelvingFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingHighShelvingCoefficients<double>>(m, "DoubleTimeVaryingHighShelvingFilter");
-
-  populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBaseCoefficients", f1);
-  populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBaseCoefficients", f1);
-
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFBandPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBandPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFBandPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBandPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFHighPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFHighPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFNotchCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFNotchCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFNotchCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFNotchCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFPeakCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFPeakCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFPeakCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFPeakCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFBellCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBellCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFBellCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBellCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFLowShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowSheldCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowShelfCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFHighShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighShelfCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighShelfCoefficients");
-  
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBandPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBandPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFNotchFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFNotchFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFPeakFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFPeakFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBellFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBellFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowSheldFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowShelfFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighShelfFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighShelfFilter");
+  populate_TimeVaryingIIRFilters(m, f1, f2);
+  populate_TimeVaryingSVFFilters(m, f1, f2);
 }
