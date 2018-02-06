@@ -94,3 +94,14 @@ BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_2sinks_second_test )
   globalsink.process(PROCESSSIZE);
   checker2.process(PROCESSSIZE);
 }
+
+BOOST_AUTO_TEST_CASE( PipelineGlobalSinkFilter_no_set_input_test )
+{
+  ATK::TriangleGeneratorFilter<int64_t> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
+  
+  ATK::PipelineGlobalSinkFilter globalsink;
+  BOOST_CHECK_THROW(globalsink.set_input_port(0, &generator, 0), std::runtime_error);
+}

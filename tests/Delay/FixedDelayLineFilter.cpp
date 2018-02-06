@@ -25,7 +25,7 @@
 BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_line100_delay_1_test )
 {
   ATK::FixedDelayLineFilter<float> filter(100);
-  BOOST_CHECK_THROW(filter.set_delay(-1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_delay(0), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_line100_delay_100_test )
@@ -128,3 +128,10 @@ BOOST_AUTO_TEST_CASE(FixedDelayLineFilter_sinus_line1000_delay50_progressive_tes
   }
 }
 
+
+BOOST_AUTO_TEST_CASE(FixedDelayLineFilter_sinus_delay_test )
+{
+  ATK::FixedDelayLineFilter<float> filter(128);
+  filter.set_delay(10);
+  BOOST_CHECK_EQUAL(filter.get_delay(), 10);
+}

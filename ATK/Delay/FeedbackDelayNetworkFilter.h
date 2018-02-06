@@ -11,8 +11,6 @@
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
 
-#if ATK_EIGEN == 1
-
 namespace ATK
 {
   /// A FDN class with custom mixture matrix
@@ -73,5 +71,4 @@ namespace ATK
   };
 }
 
-#endif
 #endif

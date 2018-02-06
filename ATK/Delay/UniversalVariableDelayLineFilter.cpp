@@ -85,7 +85,7 @@ namespace ATK
   template<typename DataType_>
   void UniversalVariableDelayLineFilter<DataType_>::set_feedback(DataType_ feedback)
   {
-    if(std::abs(feedback) > 1)
+    if(std::abs(feedback) >= 1)
     {
       throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
     }

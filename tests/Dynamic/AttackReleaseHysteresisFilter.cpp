@@ -13,7 +13,100 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  filter.set_attack(0.5);
+  BOOST_CHECK_EQUAL(filter.get_attack(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_range_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_attack(-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_range2_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_attack(1.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_release_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  filter.set_release(0.5);
+  BOOST_CHECK_EQUAL(filter.get_release(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( AttackRelease_Hysteresisrelease_range_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_release(-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_release_range2_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_release(1.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_hysteresis_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  filter.set_release_hysteresis(0.1);
+  filter.set_attack_hysteresis(0.5);
+  BOOST_CHECK_EQUAL(filter.get_attack_hysteresis(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_hysteresis_db_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  filter.set_release_hysteresis(0.001);
+  filter.set_attack_hysteresis_db(-20);
+  BOOST_CHECK_CLOSE(filter.get_attack_hysteresis(), 0.1, 0.1);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_hysteresis_range_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  filter.set_release_hysteresis(.5);
+  BOOST_CHECK_THROW(filter.set_attack_hysteresis(.5-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_hysteresis_range2_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_attack_hysteresis(1.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_hysteresis_release_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  filter.set_release_hysteresis(0.5);
+  BOOST_CHECK_EQUAL(filter.get_release_hysteresis(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_release_hysteresis_db_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  filter.set_release_hysteresis_db(-20);
+  BOOST_CHECK_CLOSE(filter.get_release_hysteresis(), 0.1, 0.1);
+}
+
+BOOST_AUTO_TEST_CASE( AttackRelease_Hysteresisrelease_hysteresis_range_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_release_hysteresis(-0.000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_release_hysteresis_range2_test )
+{
+  ATK::AttackReleaseHysteresisFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_release_hysteresis(1.000001), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_triangle_test )
 {

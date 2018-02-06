@@ -1,4 +1,4 @@
-version: '2.2.2.{build}'
+version: '2.3.0.{build}'
 
 shallow_clone: true
 
@@ -12,11 +12,28 @@ notifications:
 environment:
   ATK_ROOT: C:\projects\AudioTK
   ATK_OUT: C:\projects\ATK
-  EIGEN_ROOT: C:\projects\Eigen
   FFTW_ROOT: C:\projects\fftw
   matrix:
 #### VS 2015
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+ ### Debug build
+    - MY_NAME: VS 2015 Debug
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+      BOOST_ROOT: C:/Libraries/boost_1_63_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 14 2015 Win64
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
+      VSINSTALL: "\\Microsoft Visual Studio 14.0\\VC"
+      MSVC_VERSION: msvc-14.0
+      PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Debug
+
+ ### static runtime
+    - MY_NAME: VS 2015 Release Static 32
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
@@ -28,8 +45,10 @@ environment:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    - MY_NAME: VS 2015 Release Static 64
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
@@ -41,9 +60,11 @@ environment:
       VSINSTALL: "Microsoft Visual Studio 14.0\\VC"
       MSVC_VERSION: msvc-14.0
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
  ### shared runtime
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    - MY_NAME: VS 2015 Release Shared 32 Python 2
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
@@ -56,8 +77,10 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    - MY_NAME: VS 2015 Release Shared 64 Python 2
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
@@ -70,8 +93,10 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    - MY_NAME: VS 2015 Release Shared 32 Python 3
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
@@ -84,8 +109,10 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python36
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    - MY_NAME: VS 2015 Release Shared 64 Python 3
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
       BOOST_ROOT: C:/Libraries/boost_1_63_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
@@ -98,9 +125,28 @@ environment:
       MSVC_VERSION: msvc-14.0
       PYTHON: C:\\Python36-x64
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
 #### VS 2017
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+ ### Debug build
+    - MY_NAME: VS 2017 Debug
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+      BOOST_ROOT: C:/Libraries/boost_1_65_1
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 15 2017 Win64
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
+      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.1
+      PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Debug
+
+ ### static runtime
+    - MY_NAME: VS 2017 Release Static 32
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
@@ -112,8 +158,10 @@ environment:
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - MY_NAME: VS 2017 Release Static 64
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
@@ -126,9 +174,11 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
  ### shared runtime
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - MY_NAME: VS 2017 Release Shared 32 Python 2
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
@@ -141,8 +191,10 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - MY_NAME: VS 2017 Release Shared 64 Python 2
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
@@ -155,8 +207,10 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: 2.7
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - MY_NAME: VS 2017 Release Shared 32 Python 3
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
@@ -169,8 +223,10 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python36
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    - MY_NAME: VS 2017 Release Shared 64 Python 3
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
       BOOST_ROOT: C:/Libraries/boost_1_65_1
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
@@ -183,10 +239,10 @@ environment:
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python36-x64
       PYTHON_VERSION: 3.6
+      BUILD_CONFIGURATION: Release
 
 matrix:
-  allow_failures:
-    - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+  fast_finish: true
 
 init:
   - cmake --version
@@ -201,34 +257,31 @@ before_build:
   - 7z x %FFTW_NAME%
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3-3.def
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3f-3.def
-  - mkdir -p %EIGEN_ROOT%
-  - cd %EIGEN_ROOT%
-  - ps: wget http://bitbucket.org/eigen/eigen/get/3.3.4.zip -OutFile eigen.zip
-  - 7z x eigen.zip
   - cd %ATK_ROOT%
   - mkdir 3rdParty
   - git clone https://github.com/mbrucher/pybind11 3rdParty\pybind11
   - git clone https://github.com/mbrucher/GSL 3rdParty\gsl
+  - git clone https://github.com/mbrucher/eigen-git-mirror 3rdParty\eigen
   - mkdir build
   - cd build
-  - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DEIGEN_ROOT=%EIGEN_ROOT% -DENABLE_STATIC_LIBRARIES=ON ..
+  - cmake -G "%COMPILER%" %ADDITONAL_CMAKE_FLAGS% -DENABLE_GPL=ON -DBOOST_ROOT=%BOOST_ROOT% -DCMAKE_INSTALL_PREFIX=%ATK_OUT% -DFFTW_INCLUDES=%FFTW_ROOT% -DFFTW_LIBRARY_FFTW3=%FFTW_ROOT%\libfftw3-3.lib -DFFTW_LIBRARY_FFTW3F=%FFTW_ROOT%\libfftw3f-3.lib -DENABLE_STATIC_LIBRARIES=ON ..
 
 build_script:
-  - msbuild INSTALL.vcxproj /property:Configuration=Release
+  - msbuild INSTALL.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 after_build:
   - cd %ATK_OUT%
-  - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%.zip * -tzip
+  - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
 
 test_script:
   - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-%MSVC_VERSION%;%FFTW_ROOT%;%PATH%
   - set PYTHONPATH=%ATK_OUT%\lib\site-packages:%PYTHONPATH%
   - cd %ATK_ROOT%\build
   - set CTEST_OUTPUT_ON_FAILURE=True
-  - msbuild RUN_TESTS.vcxproj /property:Configuration=Release
+  - msbuild RUN_TESTS.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 artifacts: 
-  - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%.zip
+  - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip
     name: package
 
 deploy:

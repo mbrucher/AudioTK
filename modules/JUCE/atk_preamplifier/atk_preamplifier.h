@@ -20,7 +20,7 @@
 
   ID:               atk_preamplifier
   vendor:           Matthieu Brucher
-  version:          2.2.2
+  version:          2.3.0
   name:             ATK Preamplifier
   description:      Preamplifier classes for ATK
   website:          http://www.audio-tk.com/
@@ -37,8 +37,6 @@
 #ifndef ATK_PREAMPLIFIER
 #define ATK_PREAMPLIFIER
 
-#if defined (ATK_EIGEN)
-
 # include <ATK/Preamplifier/DempwolfTriodeFunction.h>
 # include <ATK/Preamplifier/EnhancedKorenTriodeFunction.h>
 # include <ATK/Preamplifier/FollowerTransistorClassAFilter.h>
@@ -50,7 +48,5 @@
 # include <ATK/Preamplifier/TransistorFunction.h>
 # include <ATK/Preamplifier/Triode2Filter.h>
 # include <ATK/Preamplifier/TriodeFilter.h>
-
-#endif
 
 #endif

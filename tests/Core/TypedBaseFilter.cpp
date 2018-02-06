@@ -52,6 +52,12 @@ BOOST_AUTO_TEST_CASE(TypedBaseFilter_constructor_test_complex_double)
   BOOST_CHECK_NO_THROW(ATK::TypedBaseFilter<std::complex<double>> filter(0, 0));
 }
 
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_check_out_sampling_rate_test )
+{
+  ATK::TypedBaseFilter<float> filter(0, 0);
+  BOOST_CHECK_THROW(filter.process(100), std::runtime_error);
+}
+
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int16_t )
 {
   ATK::TypedBaseFilter<std::int16_t> filter(0, 0);
@@ -60,6 +66,8 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int16_t )
   BOOST_CHECK_EQUAL(filter.get_output_sampling_rate(), 44100);
   BOOST_CHECK_EQUAL(filter.get_nb_input_ports(), 0);
   BOOST_CHECK_EQUAL(filter.get_nb_output_ports(), 0);
+  filter.set_nb_input_ports(0);
+  filter.set_nb_output_ports(0);
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_input_sampling_rate_test_int32_t )
@@ -148,6 +156,31 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_set_output_delay_test )
   BOOST_CHECK_EQUAL(filter.get_output_delay(), 0);
   filter.set_output_delay(1);
   BOOST_CHECK_EQUAL(filter.get_output_delay(), 1);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_process_0_test )
+{
+  ATK::TypedBaseFilter<double> filter(0, 0);
+  filter.process(0);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_process_something_test )
+{
+  ATK::TypedBaseFilter<double> filter(0, 1);
+  filter.set_output_sampling_rate(48000);
+  filter.process(1);
+  BOOST_CHECK(nullptr != filter.get_output_array(0));
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_dryrun_test )
+{
+  ATK::TriangleGeneratorFilter<int64_t> generator;
+  generator.set_output_sampling_rate(48000);
+  generator.set_amplitude(1000000);
+  generator.set_frequency(1000);
+  
+  generator.dryrun(PROCESSSIZE);
+  BOOST_CHECK(generator.get_output_array(0));
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_triangle_test )
@@ -360,6 +393,13 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_global_latency_test )
   BOOST_CHECK_EQUAL(checker.get_global_latency(), 1);
   generator.set_latency(2);
   BOOST_CHECK_EQUAL(checker.get_global_latency(), 3);
+}
+
+BOOST_AUTO_TEST_CASE( TypedBaseFilter_global_latency_throw_test )
+{
+  ATK::TriangleCheckerFilter<float> checker;
+  
+  BOOST_CHECK_THROW(checker.get_global_latency(), std::runtime_error);
 }
 
 #if ATK_USE_THREADPOOL == 1

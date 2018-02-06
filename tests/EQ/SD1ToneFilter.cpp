@@ -12,8 +12,15 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*1024)
-#define SAMPLINGRATE (1024*64)
+const size_t PROCESSSIZE = 1024*1026;
+const size_t SAMPLINGRATE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_tone_test )
+{
+  ATK::IIRFilter<ATK::SD1ToneCoefficients<double> > filter;
+  filter.set_tone(.5);
+  BOOST_CHECK_EQUAL(filter.get_tone(), .5);
+}
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_throw_1_test )
 {

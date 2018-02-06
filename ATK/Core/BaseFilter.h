@@ -48,7 +48,8 @@ namespace ATK
      * @param filter is a pointer to the previous filter
      * @param output_port is the port number where this filter will be connected
      */
-    ATK_CORE_EXPORT virtual void set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port);
+    ATK_CORE_EXPORT virtual void set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port) = 0;
+    ATK_CORE_EXPORT virtual void set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port);
     
     /// Starts processing after calling reset
     ATK_CORE_EXPORT void process(std::size_t size);

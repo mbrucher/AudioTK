@@ -136,7 +136,7 @@ BOOST_AUTO_TEST_CASE(BOOST_PP_CAT(SIMDPP_ARCH_NAMESPACE, UniversalFixedDelayLine
   filter.set_input_port(0, &broadcaster, 0);
   filter.set_delay(24);
   filter.set_blend(0);
-  filter.set_feedback(1);
+  filter.set_feedback(.9999999);
   filter.set_feedforward(0);
 
   ATK::ReduceFilter<simdpp::float32<4>, float> reducer;
@@ -272,7 +272,7 @@ BOOST_AUTO_TEST_CASE(UniversalFixedDelayLineFilter_sinus_line25_delay24_blend_0_
   filter->set_input_port(0, broadcaster.get(), 0);
   dynamic_cast<ATK::DelayInterface*>(filter.get())->set_delay(24);
   dynamic_cast<ATK::UniversalDelayInterface<float>*>(filter.get())->set_blend(0);
-  dynamic_cast<ATK::UniversalDelayInterface<float>*>(filter.get())->set_feedback(1);
+  dynamic_cast<ATK::UniversalDelayInterface<float>*>(filter.get())->set_feedback(.999999);
   dynamic_cast<ATK::UniversalDelayInterface<float>*>(filter.get())->set_feedforward(0);
   
   auto reducer = ATK::createReduceFilter<float, 4>();

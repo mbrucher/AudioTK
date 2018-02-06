@@ -13,7 +13,45 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_delay_test )
+{
+  ATK::AllPassReverbFilter<float> filter(128);
+  filter.set_delay(10);
+  BOOST_CHECK_EQUAL(filter.get_delay(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_delay_range_test )
+{
+  ATK::AllPassReverbFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_delay_range2_test )
+{
+  ATK::AllPassReverbFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(128), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_feedback_test )
+{
+  ATK::AllPassReverbFilter<float> filter(128);
+  filter.set_feedback(0.5);
+  BOOST_CHECK_EQUAL(filter.get_feedback(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_feedback_range_test )
+{
+  ATK::AllPassReverbFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_feedback_range2_test )
+{
+  ATK::AllPassReverbFilter<float> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(-1), std::out_of_range);
+}
 
 namespace
 {
@@ -138,7 +176,7 @@ BOOST_AUTO_TEST_CASE( AllPassReverbFilter_sinus_line25_delay24_feedback_1_test )
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_delay(24);
-  filter.set_feedback(1);
+  filter.set_feedback(.999999);
 
   ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);

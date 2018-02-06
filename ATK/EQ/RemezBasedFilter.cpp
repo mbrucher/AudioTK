@@ -6,11 +6,10 @@
 
 #include <boost/math/constants/constants.hpp>
 
+#include <Eigen/Dense>
+
 #include <ATK/EQ/RemezBasedFilter.h>
 #include <ATK/EQ/FIRFilter.h>
-
-#if ATK_EIGEN == 1
-#include <Eigen/Dense>
 
 #include <ATK/Utility/FFT.h>
 
@@ -368,5 +367,3 @@ namespace ATK
   template class FIRFilter<RemezBasedCoefficients<double> >;
   template class FIRFilter<RemezBasedCoefficients<std::complex<double> > >;
 }
-
-#endif

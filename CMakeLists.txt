@@ -5,7 +5,7 @@ project(AudioTK)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(ATK_VERSION 2.2.2)
+set(ATK_VERSION 2.3.0)
 
 include(Utilities)
 
@@ -22,9 +22,13 @@ option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
 
-message(INFO " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
-message(INFO " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
-message(INFO " Build tests: ${ENABLE_TESTS}")
+message(STATUS " Build SIMD: ${ENABLE_SIMD}")
+message(STATUS " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
+message(STATUS " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
+message(STATUS " Build tests: ${ENABLE_TESTS}")
+
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
+include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
 
 if(ENABLE_SIMD)
   LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/libsimdpp/cmake)
@@ -61,6 +65,7 @@ if(ENABLE_PYTHON)
 endif(ENABLE_PYTHON)
 
 if(ENABLE_CODECOVERAGE)
+  SET(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
   include(CodeCoverage)
   setup_target_for_coverage(codecoverage "make test" coverage)
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
@@ -125,7 +130,6 @@ endif(ENABLE_GPL)
 
 find_package(IPP)
 find_package(Boost REQUIRED)
-find_package(Eigen)
 
 SET(USE_FFTW 0)
 SET(USE_IPP 0)
@@ -148,11 +152,6 @@ else(HAVE_IPP)
     MESSAGE(FATAL_ERROR "No FFT support")
   endif(ENABLE_GPL)
 endif(HAVE_IPP)
-if(EIGEN_FOUND)
-  SET(USE_EIGEN 1)
-else(EIGEN_FOUND)
-  SET(USE_EIGEN 0)
-endif(EIGEN_FOUND)
 
 if(ENABLE_TESTS)
   find_package(Boost REQUIRED unit_test_framework system)
@@ -175,7 +174,6 @@ INSTALL(FILES ${PROJECT_BINARY_DIR}/atk-config.cmake
 
 include_directories(${CMAKE_BINARY_DIR})
 include_directories(SYSTEM ${Boost_INCLUDE_DIR})
-include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
 
 add_subdirectory(ATK)
 if(ENABLE_TESTS)
@@ -191,7 +189,7 @@ if(ENABLE_PYTHON)
   LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/pybind11/tools)
   FIND_PACKAGE(PythonLibsNew REQUIRED)
 
-  add_subdirectory(Python)
+  add_subdirectory(Python/ATK)
 endif(ENABLE_PYTHON)
 
 add_subdirectory(modules)
@@ -223,3 +221,9 @@ IF (BUILD_DOC)
     COMMAND ${CMAKE_COMMAND} -E echo "Done."
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 ENDIF (BUILD_DOC)
+
+IF(CMAKE_BUILD_TYPE MATCHES Debug)
+  message("Debug build.")
+ELSEIF(CMAKE_BUILD_TYPE MATCHES Release)
+  message("Release build.")
+ENDIF()

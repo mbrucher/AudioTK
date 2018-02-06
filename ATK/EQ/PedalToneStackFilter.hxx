@@ -70,7 +70,7 @@ namespace ATK
   template<typename DataType>
   TS9ToneCoefficients<DataType>::TS9ToneCoefficients(std::size_t nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(1e3), R2(10e3), R3(1e3), R4(220), P(22e3),
-  C1(0.022e-6), C2(0.022e-6), alpha(1)
+  C1(0.022e-6), C2(0.022e-6), alpha(.5)
   {
   }
   
@@ -82,7 +82,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    CoeffDataType tempm[2] = {static_cast<CoeffDataType>(-2 * input_sampling_rate), static_cast<CoeffDataType>(2 * input_sampling_rate)};
+    CoeffDataType tempm[2] = {static_cast<CoeffDataType>(-2) * input_sampling_rate, static_cast<CoeffDataType>(2) * input_sampling_rate};
     CoeffDataType tempp[2] = {static_cast<CoeffDataType>(1), static_cast<CoeffDataType>(1)};
     boost::math::tools::polynomial<CoeffDataType> poly1(tempm, 1);
     boost::math::tools::polynomial<CoeffDataType> poly2(tempp, 1);
@@ -90,10 +90,10 @@ namespace ATK
     boost::math::tools::polynomial<CoeffDataType> b;
     boost::math::tools::polynomial<CoeffDataType> a;
     
-    b += R2 * poly2 * poly2;
+    b += poly2 * poly2 * R2;
     b += poly2 * poly1 * (alpha * C2 * R2 * R3 + alpha * (1-alpha) * C2 * P * R2 + R2 * R4 * C2);
     
-    a += (R2 + R1) * poly2 * poly2;
+    a += poly2 * poly2 * (R2 + R1);
     a += poly2 * poly1 * ((1-alpha) * C2 * (alpha * P * R2 + R1 * alpha * P + R1 * R2) + R4 * C2 * (R2 + R1) + R1 * C1 * R2);
     a += poly1 * poly1 * (C2 * R4 * C1 * R2 * R1 + (1-alpha) * C2 * R1 * P * C1 * R2);
     

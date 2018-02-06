@@ -20,7 +20,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1200)
+const size_t PROCESSSIZE = 1200;
 
 BOOST_AUTO_TEST_CASE(LMSFilter_size_negative_test)
 {
@@ -32,6 +32,14 @@ BOOST_AUTO_TEST_CASE(LMSFilter_size_set_test)
 {
   ATK::LMSFilter<float> filter(100);
   filter.set_size(10);
+  BOOST_CHECK_EQUAL(filter.get_size(), 10);
+}
+
+BOOST_AUTO_TEST_CASE(LMSFilter_mode_set_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  filter.set_mode(ATK::LMSFilter<float>::Mode::NORMALIZED);
+  BOOST_CHECK(filter.get_mode() == ATK::LMSFilter<float>::Mode::NORMALIZED);
 }
 
 BOOST_AUTO_TEST_CASE(LMSFilter_memory_negative_test)
@@ -40,10 +48,44 @@ BOOST_AUTO_TEST_CASE(LMSFilter_memory_negative_test)
   BOOST_CHECK_THROW(filter.set_memory(0), std::out_of_range);
 }
 
+BOOST_AUTO_TEST_CASE(LMSFilter_memory_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  filter.set_memory(0.5);
+  BOOST_CHECK_EQUAL(filter.get_memory(), 0.5);
+}
+
 BOOST_AUTO_TEST_CASE( LMSFilter_memory_positive1_test )
 {
   ATK::LMSFilter<float> filter(100);
   BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(LMSFilter_mu_negative_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  BOOST_CHECK_THROW(filter.set_mu(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(LMSFilter_mu_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  filter.set_mu(0.5);
+  BOOST_CHECK_EQUAL(filter.get_mu(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( LMSFilter_mu_positive1_test )
+{
+  ATK::LMSFilter<float> filter(100);
+  BOOST_CHECK_THROW(filter.set_mu(1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE(LMSFilter_learning_set_test)
+{
+  ATK::LMSFilter<float> filter(100);
+  BOOST_CHECK_EQUAL(filter.get_learning(), true);
+  filter.set_learning(false);
+  BOOST_CHECK_EQUAL(filter.get_learning(), false);
 }
 
 BOOST_AUTO_TEST_CASE( LMSFilter_memory_99_test )

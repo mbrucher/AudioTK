@@ -80,6 +80,7 @@ namespace ATK
 
     /// Connects this filter input to another's output
     void set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port) final;
+    void set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port) final;
 
   private:
     int get_type() const override;

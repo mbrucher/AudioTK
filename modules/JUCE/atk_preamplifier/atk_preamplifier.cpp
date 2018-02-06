@@ -11,12 +11,7 @@
 
 #include "atk_preamplifier.h"
 
-#if defined (ATK_EIGEN)
-
 # include <ATK/Preamplifier/FollowerTransistorClassAFilter.cpp>
 # include <ATK/Preamplifier/TransistorClassAFilter.cpp>
 # include <ATK/Preamplifier/Triode2Filter.cpp>
 # include <ATK/Preamplifier/TriodeFilter.cpp>
-
-#endif
-

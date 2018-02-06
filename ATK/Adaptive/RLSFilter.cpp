@@ -65,7 +65,7 @@ namespace ATK
 
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(std::size_t size)
-  :Parent(1, 1), impl(new RLSFilterImpl(size)), global_size(size), learning(false)
+  :Parent(1, 1), impl(new RLSFilterImpl(size)), global_size(size), learning(true)
   {
     input_delay = size + 1;
   }

@@ -14,7 +14,35 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024)
+const size_t PROCESSSIZE = 1024;
+
+BOOST_AUTO_TEST_CASE( MuteSoloBufferFilter_mute_test )
+{
+  ATK::MuteSoloBufferFilter<double> bufferfilter;
+  BOOST_CHECK_EQUAL(bufferfilter.get_mute(0), false);
+  bufferfilter.set_mute(0, true);
+  BOOST_CHECK_EQUAL(bufferfilter.get_mute(0), true);
+}
+
+BOOST_AUTO_TEST_CASE( MuteSoloBufferFilter_solo_test )
+{
+  ATK::MuteSoloBufferFilter<double> bufferfilter;
+  BOOST_CHECK_EQUAL(bufferfilter.get_solo(0), false);
+  bufferfilter.set_solo(0, true);
+  BOOST_CHECK_EQUAL(bufferfilter.get_solo(0), true);
+}
+
+BOOST_AUTO_TEST_CASE( MuteSoloBufferFilter_input_ports_test )
+{
+  ATK::MuteSoloBufferFilter<double> bufferfilter;
+  BOOST_CHECK_THROW(bufferfilter.set_nb_input_ports(10), std::runtime_error);
+}
+
+BOOST_AUTO_TEST_CASE( MuteSoloBufferFilter_output_ports_test )
+{
+  ATK::MuteSoloBufferFilter<double> bufferfilter;
+  BOOST_CHECK_THROW(bufferfilter.set_nb_output_ports(10), std::runtime_error);
+}
 
 BOOST_AUTO_TEST_CASE( MuteSoloBufferFilter_test )
 {

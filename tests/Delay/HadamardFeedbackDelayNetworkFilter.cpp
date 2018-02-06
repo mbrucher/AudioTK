@@ -5,7 +5,6 @@
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
 #include <ATK/Delay/HadamardMixture.h>
 
-#if ATK_EIGEN == 1
 #ifndef EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT
 
 #include <array>
@@ -25,7 +24,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (1024*64)
+const std::size_t PROCESSSIZE = 1024*64;
 
 BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_linel100_delay50_test )
 {
@@ -227,7 +226,7 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_liner1000_delay50_
   }
 }
 
-const int OTHERPROCESSSIZE = 9600;
+const std::size_t OTHERPROCESSSIZE = 9600;
 
 BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_complex_test)
 {
@@ -273,5 +272,57 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_complex_test)
     BOOST_CHECK_CLOSE(outdata[i], filter.get_output_array(0)[i], 0.0001);
   }
 }
-#endif
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  filter.set_delay(0, 10);
+  BOOST_CHECK_EQUAL(filter.get_delay(0), 10);
+}
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_range_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(0, 0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_range2_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  BOOST_CHECK_THROW(filter.set_delay(0, 128), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_ingain_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  filter.set_ingain(0, 0.5);
+  BOOST_CHECK_EQUAL(filter.get_ingain(0), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_outgain_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  filter.set_outgain(0, 0.5);
+  BOOST_CHECK_EQUAL(filter.get_outgain(0), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  filter.set_feedback(0, 0.5);
+  BOOST_CHECK_EQUAL(filter.get_feedback(0), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_range_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(0, 1), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_range2_test )
+{
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
+  BOOST_CHECK_THROW(filter.set_feedback(0, -1), std::out_of_range);
+}
+
 #endif

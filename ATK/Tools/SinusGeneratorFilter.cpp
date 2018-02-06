@@ -24,6 +24,10 @@ namespace ATK
   template<typename DataType_>
   void SinusGeneratorFilter<DataType_>::set_frequency(DataType_ frequency)
   {
+    if(frequency <= 0)
+    {
+      throw std::out_of_range("Frequency must be strictly positive");
+    }
     this->frequency = frequency;
     this->frequ_cos = std::cos(2 * boost::math::constants::pi<DataType_>() * frequency / output_sampling_rate);
     this->frequ_sin = std::sin(2 * boost::math::constants::pi<DataType_>() * frequency / output_sampling_rate);

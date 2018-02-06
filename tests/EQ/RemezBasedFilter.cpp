@@ -8,8 +8,6 @@
 #include <ATK/Mock/FFTCheckerFilter.h>
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
-#if ATK_EIGEN == 1
-
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
@@ -73,5 +71,3 @@ BOOST_AUTO_TEST_CASE( FIRFilter_Remez_LowPassCoefficients_16k_test )
   
   checker.process(PROCESSSIZE);
 }
-
-#endif

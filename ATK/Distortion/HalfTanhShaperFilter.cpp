@@ -25,6 +25,10 @@ namespace ATK
   template<typename DataType_>
   void HalfTanhShaperFilter<DataType_>::set_coefficient(DataType coeff)
   {
+    if(coeff <= 0)
+    {
+      throw std::out_of_range("Coefficient must be strictly positive.");
+    }
     this->coeff = coeff;
   }
   

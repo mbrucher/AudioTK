@@ -36,19 +36,19 @@ namespace ATK
   template<typename SVFCoefficients>
   void TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::full_setup()
   {
-    state.reset(new SVFState[nb_input_ports]);
+    state.reset(new SVFState[nb_input_ports - 1]);
   }
 
   template<typename DataType>
   void TimeVaryingSecondOrderSVFFilter<DataType>::process_impl(std::size_t size) const
   {
-    assert(nb_input_ports == nb_output_ports);
+    assert(nb_input_ports - 1 == nb_output_ports);
 
     for(std::size_t i = 0; i < size; ++i)
     {
       update_coeffs(converted_inputs[0][i]);
       
-      for(unsigned int j = 0; j < nb_input_ports; ++j)
+      for(unsigned int j = 0; j < nb_input_ports - 1; ++j)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[j+1];
         DataType* ATK_RESTRICT output = outputs[j];
@@ -73,6 +73,10 @@ namespace ATK
   template<typename DataType_>
   void TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>::set_Q(DataType_ Q)
   {
+    if(Q <= 0)
+    {
+      throw std::out_of_range("Q must be strictly positive");
+    }
     this->Q = Q;
     setup();
   }
@@ -152,7 +156,7 @@ namespace ATK
     a3 = g * a2;
     m0 = 1;
     m1 = -k;
-    m2 = 2;
+    m2 = 0;
   }
 
   template<typename DataType_>
@@ -170,12 +174,12 @@ namespace ATK
     a3 = g * a2;
     m0 = 1;
     m1 = -k;
-    m2 = 0;
+    m2 = 2;
   }
 
   template<typename DataType_>
   TimeVaryingSecondOrderSVFBellCoefficients<DataType_>::TimeVaryingSecondOrderSVFBellCoefficients(std::size_t nb_channels)
-  :Parent(nb_channels), gain(0)
+  :Parent(nb_channels), gain(1)
   {
     
   }
@@ -183,6 +187,10 @@ namespace ATK
   template<typename DataType_>
   void TimeVaryingSecondOrderSVFBellCoefficients<DataType_>::set_gain(DataType_ gain)
   {
+    if(gain <= 0)
+    {
+      throw std::out_of_range("Gain must be strictly positive");
+    }
     this->gain = gain;
     setup();
   }
@@ -196,7 +204,7 @@ namespace ATK
   template<typename DataType>
   void TimeVaryingSecondOrderSVFBellCoefficients<DataType>::update_coeffs(DataType g) const
   {
-    auto k = 1 / (Q* gain);
+    auto k = 1 / (Q * gain);
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
     a3 = g * a2;

@@ -57,7 +57,9 @@ namespace ATK
     double get_mu() const;
 
     /// Retrieves the coefficients
-    const DataType_* get_w() const;
+    const std::complex<double>* get_w() const;
+    /// Sets the coefficients
+    void set_w(gsl::not_null<const std::complex<double>*> w);
 
     /// Sets the learning mode
     void set_learning(bool learning);

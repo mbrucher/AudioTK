@@ -20,7 +20,7 @@
 
   ID:               atk_delay
   vendor:           Matthieu Brucher
-  version:          2.2.2
+  version:          2.3.0
   name:             ATK delay
   description:      Delay classes for ATK
   website:          http://www.audio-tk.com/

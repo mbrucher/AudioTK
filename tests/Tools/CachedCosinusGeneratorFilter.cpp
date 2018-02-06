@@ -14,7 +14,35 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_volume_test )
+{
+  ATK::CachedCosinusGeneratorFilter<double> filter(10000, 10);
+  filter.set_volume(10);
+  BOOST_CHECK_EQUAL(filter.get_volume(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_offset_test )
+{
+  ATK::CachedCosinusGeneratorFilter<double> filter(10000, 10);
+  filter.set_offset(10);
+  BOOST_CHECK_EQUAL(filter.get_offset(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_frequency_test )
+{
+  ATK::CachedCosinusGeneratorFilter<double> filter(10000, 10);
+  filter.set_frequency(1000, 1);
+  BOOST_CHECK_EQUAL(filter.get_frequency().first, 1000);
+  BOOST_CHECK_EQUAL(filter.get_frequency().second, 1);
+}
+
+BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_frequency_range_test )
+{
+  ATK::CachedCosinusGeneratorFilter<double> filter(10000, 10);
+  BOOST_CHECK_THROW(filter.set_frequency(0), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_1k_test )
 {

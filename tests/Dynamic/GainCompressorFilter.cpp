@@ -13,7 +13,53 @@
 
 #include <boost/math/constants/constants.hpp>
 
-#define PROCESSSIZE (64)
+const size_t PROCESSSIZE = 64;
+
+BOOST_AUTO_TEST_CASE( GainFilter_threshold_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  filter.set_threshold(10);
+  BOOST_CHECK_EQUAL(filter.get_threshold(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( GainFilter_threshold_db_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  filter.set_threshold_db(20);
+  BOOST_CHECK_EQUAL(filter.get_threshold(), 100);
+}
+
+BOOST_AUTO_TEST_CASE( GainFilter_threshold_range_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  BOOST_CHECK_THROW(filter.set_threshold(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( GainFilter_ratio_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  filter.set_ratio(10);
+  BOOST_CHECK_EQUAL(filter.get_ratio(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( GainFilter_ratio_range_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  BOOST_CHECK_THROW(filter.set_ratio(0), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_softness_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  filter.set_softness(0.5);
+  BOOST_CHECK_EQUAL(filter.get_softness(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( GainCompressorFilter_softness_range_test )
+{
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
+  BOOST_CHECK_THROW(filter.set_softness(-0.000001), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 {
@@ -28,7 +74,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
 
   std::array<float, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainCompressorFilter<float>> filter;
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(10);

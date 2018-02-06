@@ -20,7 +20,7 @@
 
   ID:               atk_adaptive
   vendor:           Matthieu Brucher
-  version:          2.2.2
+  version:          2.3.0
   name:             ATK adaptive
   description:      Adaptive classes for ATK
   website:          http://www.audio-tk.com/
@@ -37,15 +37,11 @@
 #ifndef ATK_ADAPTIVE
 #define ATK_ADAPTIVE
 
-#if defined (ATK_EIGEN)
-
 # include <ATK/Adaptive/LMSFilter.h>
 # include <ATK/Adaptive/RLSFilter.h>
 
 # if (ATK_USE_FFTW == 1) or (ATK_USE_IPP == 1)
 #  include <ATK/Adaptive/BlockLMSFilter.h>
 # endif
-
-#endif
 
 #endif

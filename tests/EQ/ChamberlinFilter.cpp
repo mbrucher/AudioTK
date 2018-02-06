@@ -11,7 +11,28 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1024*64)
+const size_t PROCESSSIZE = 1024*64;
+
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_frequency_test )
+{
+  ATK::ChamberlinFilter<double> filter;
+  filter.set_cut_frequency(20);
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
+}
+
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_attenuation_test )
+{
+  ATK::ChamberlinFilter<double> filter;
+  filter.set_attenuation(10);
+  BOOST_CHECK_EQUAL(filter.get_attenuation(), 10);
+}
+
+BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_selected_test )
+{
+  ATK::ChamberlinFilter<double> filter;
+  filter.select(1);
+  BOOST_CHECK_EQUAL(filter.get_selected(), 1);
+}
 
 BOOST_AUTO_TEST_CASE( ChamberlinFilter_BandPassCoefficients_1k_test )
 {

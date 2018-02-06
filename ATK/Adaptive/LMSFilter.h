@@ -53,6 +53,8 @@ namespace ATK
 
     /// Retrieves the coefficients
     const DataType_* get_w() const;
+    /// Sets the coefficients
+    void set_w(gsl::not_null<const DataType_*> w);
 
     enum class Mode
     {

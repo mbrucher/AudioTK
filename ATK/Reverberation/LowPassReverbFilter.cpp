@@ -47,7 +47,7 @@ namespace ATK
   template<typename DataType_>
   void LowPassReverbFilter<DataType_>::set_feedback(DataType_ feedback)
   {
-    if(std::abs(feedback + cutoff) > 1)
+    if(std::abs(feedback + cutoff) >= 1)
     {
       throw std::out_of_range("Sum of Feedback and Cutoff must be between -1 and 1 to avoid divergence");
     }
@@ -63,7 +63,7 @@ namespace ATK
   template<typename DataType_>
   void LowPassReverbFilter<DataType_>::set_cutoff(DataType_ cutoff)
   {
-    if(std::abs(feedback + cutoff) > 1)
+    if(std::abs(feedback + cutoff) >= 1)
     {
       throw std::out_of_range("Sum of Feedback and Cutoff must be between -1 and 1 to avoid divergence");
     }

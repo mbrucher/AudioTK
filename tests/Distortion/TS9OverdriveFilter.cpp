@@ -26,7 +26,26 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-#define PROCESSSIZE (1000)
+const size_t PROCESSSIZE = 1000;
+
+BOOST_AUTO_TEST_CASE( TS9OverdriveFilter_sinus_drive_test )
+{
+  ATK::TS9OverdriveFilter<float> filter;
+  filter.set_drive(0.5);
+  BOOST_CHECK_EQUAL(filter.get_drive(), 0.5);
+}
+
+BOOST_AUTO_TEST_CASE( TS9OverdriveFilter_sinus_drive_range_test )
+{
+  ATK::TS9OverdriveFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_drive(1.0000001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( TS9OverdriveFilter_sinus_drive_range2_test )
+{
+  ATK::TS9OverdriveFilter<float> filter;
+  BOOST_CHECK_THROW(filter.set_drive(-0.0000001), std::out_of_range);
+}
 
 BOOST_AUTO_TEST_CASE( TS9OverdriveFilter_const_sin1k )
 {

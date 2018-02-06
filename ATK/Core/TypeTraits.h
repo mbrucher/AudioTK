@@ -69,27 +69,28 @@ namespace ATK
     /// Converts an integer 24bits to a double
     static Scalar to_double(const char el[3])
     {
-      int64_t data = 0;
+      int32_t data = 0;
       char* temp = reinterpret_cast<char*>(&data);
       for(int i = 0; i < 3; ++i)
       {
-        temp[i] = el[i];
+        temp[1+i] = el[i];
       }
-      return -static_cast<double>(data) / ((static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
+      data = data >> 8;
+      return -static_cast<double>(data) / ((static_cast<double>(1 << 8) * std::numeric_limits<std::int16_t>::min()));
     }
 
     /// Converts a double to an integer 64bits
-    static int64_t from_double(double el)
+    static int32_t from_double(double el)
     {
-      return static_cast<int64_t>(-el * (static_cast<double>(1 << 8) * std::numeric_limits<std::int32_t>::min()));
+      return static_cast<int32_t>(-el * (static_cast<double>(1 << 8) * std::numeric_limits<std::int16_t>::min()));
     }
 
-    static int64_t Zero()
+    static int32_t Zero()
     {
       return 0;
     }
 
-    static int64_t One()
+    static int32_t One()
     {
       return 1;
     }

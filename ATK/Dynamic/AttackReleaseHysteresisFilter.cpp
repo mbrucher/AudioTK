@@ -70,6 +70,10 @@ namespace ATK
     {
       throw std::out_of_range("Attack hysteresis factor must be bigger than release hysteresis");
     }
+    if(attack_hysteresis > 1)
+    {
+      throw std::out_of_range("Attack hysteresis factor must be smaller than 1");
+    }
     this->attack_hysteresis = attack_hysteresis;
   }
 
@@ -102,10 +106,6 @@ namespace ATK
   template<typename DataType_>
   void AttackReleaseHysteresisFilter<DataType_>::set_release_hysteresis_db(DataType_ release_hysteresis_db)
   {
-    if(release_hysteresis_db < 0)
-    {
-      throw std::out_of_range("Release hysteresis factor in dB must be smaller than 0");
-    }
     set_release_hysteresis(static_cast<DataType_>(std::pow(10., release_hysteresis_db/20)));
   }
   

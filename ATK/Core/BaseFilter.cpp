@@ -74,16 +74,16 @@ namespace ATK
     setup();
   }
 
-  void BaseFilter::set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port)
+  void BaseFilter::set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port)
   {
-    if(output_port >= filter->nb_output_ports)
+    if(output_port >= filter.nb_output_ports)
     {
       throw std::runtime_error("Output port does not exist for this filter");
     }
     if(input_port < nb_input_ports)
     {
-      connections[input_port] = std::make_pair(output_port, filter);
-      if(filter->get_output_sampling_rate() != get_input_sampling_rate())
+      connections[input_port] = std::make_pair(output_port, &filter);
+      if(filter.get_output_sampling_rate() != get_input_sampling_rate())
       {
         throw std::runtime_error("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
       }
@@ -93,7 +93,7 @@ namespace ATK
       throw std::runtime_error("Input port doesn't exist for this filter");
     }
   }
-  
+
   void BaseFilter::set_input_sampling_rate(std::size_t rate)
   {
     input_sampling_rate = rate;

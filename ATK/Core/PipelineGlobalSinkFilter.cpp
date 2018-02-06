@@ -51,6 +51,16 @@ namespace ATK
     return 0; // bogus
   }
 
+  void PipelineGlobalSinkFilter::set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port)
+  {
+    set_input_port(input_port, *filter, output_port);
+  }
+
+  void PipelineGlobalSinkFilter::set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port)
+  {
+    throw std::runtime_error("This function must not be called on pipelines");
+  }
+
   void PipelineGlobalSinkFilter::set_parallel(bool parallel)
   {
     activate_parallel = parallel;

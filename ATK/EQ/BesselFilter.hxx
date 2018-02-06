@@ -137,7 +137,7 @@ namespace
         p.push_back(std::complex<DataType>(-.3512792323389821669401925, -1.127591548317705678613239));
         break;
       default:
-        throw std::range_error("Can't create a Bessel filter with this order");
+        throw std::out_of_range("Can't create a Bessel filter with this order");
     }
   }
   
@@ -247,6 +247,10 @@ namespace ATK
   template <typename DataType_>
   void BesselLowPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
+    if(cut_frequency <= 0)
+    {
+      throw std::out_of_range("Frequency can't be negative");
+    }
     this->cut_frequency = cut_frequency;
     setup();
   }
@@ -260,6 +264,10 @@ namespace ATK
   template <typename DataType>
   void BesselLowPassCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = order;
     setup();
   }
@@ -289,6 +297,10 @@ namespace ATK
   template <typename DataType_>
   void BesselHighPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
+    if(cut_frequency <= 0)
+    {
+      throw std::out_of_range("Frequency can't be negative");
+    }
     this->cut_frequency = cut_frequency;
     setup();
   }
@@ -302,6 +314,10 @@ namespace ATK
   template <typename DataType>
   void BesselHighPassCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = order;
     setup();
   }
@@ -336,6 +352,10 @@ namespace ATK
   template <typename DataType_>
   void BesselBandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
+    if(cut_frequencies.first <= 0 || cut_frequencies.second <= 0)
+    {
+      throw std::out_of_range("Frequencies can't be negative");
+    }
     this->cut_frequencies = cut_frequencies;
     setup();
   }
@@ -343,8 +363,7 @@ namespace ATK
   template <typename DataType_>
   void BesselBandPassCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
-    this->cut_frequencies = std::make_pair(f0, f1);
-    setup();
+    set_cut_frequencies(std::make_pair(f0, f1));
   }
   
   template <typename DataType_>
@@ -356,6 +375,10 @@ namespace ATK
   template <typename DataType>
   void BesselBandPassCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = 2 * order;
     setup();
   }
@@ -385,6 +408,10 @@ namespace ATK
   template <typename DataType_>
   void BesselBandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
+    if(cut_frequencies.first <= 0 || cut_frequencies.second <= 0)
+    {
+      throw std::out_of_range("Frequencies can't be negative");
+    }
     this->cut_frequencies = cut_frequencies;
     setup();
   }
@@ -392,8 +419,7 @@ namespace ATK
   template <typename DataType_>
   void BesselBandStopCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
-    this->cut_frequencies = std::make_pair(f0, f1);
-    setup();
+    set_cut_frequencies(std::make_pair(f0, f1));
   }
   
   template <typename DataType_>
@@ -405,6 +431,10 @@ namespace ATK
   template <typename DataType>
   void BesselBandStopCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = 2 * order;
     setup();
   }

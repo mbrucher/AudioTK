@@ -165,6 +165,10 @@ namespace ATK
   template <typename DataType_>
   void Chebyshev2LowPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
+    if(cut_frequency <= 0)
+    {
+      throw std::out_of_range("Frequency can't be negative");
+    }
     this->cut_frequency = cut_frequency;
     setup();
   }
@@ -178,6 +182,10 @@ namespace ATK
   template <typename DataType>
   void Chebyshev2LowPassCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = order;
     setup();
   }
@@ -207,6 +215,10 @@ namespace ATK
   template <typename DataType_>
   void Chebyshev2HighPassCoefficients<DataType_>::set_cut_frequency(CoeffDataType cut_frequency)
   {
+    if(cut_frequency <= 0)
+    {
+      throw std::out_of_range("Frequency can't be negative");
+    }
     this->cut_frequency = cut_frequency;
     setup();
   }
@@ -233,6 +245,10 @@ namespace ATK
   template <typename DataType>
   void Chebyshev2HighPassCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = order;
     setup();
   }
@@ -267,6 +283,10 @@ namespace ATK
   template <typename DataType_>
   void Chebyshev2BandPassCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
+    if(cut_frequencies.first <= 0 || cut_frequencies.second <= 0)
+    {
+      throw std::out_of_range("Frequencies can't be negative");
+    }
     this->cut_frequencies = cut_frequencies;
     setup();
   }
@@ -274,8 +294,7 @@ namespace ATK
   template <typename DataType_>
   void Chebyshev2BandPassCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
-    this->cut_frequencies = std::make_pair(f0, f1);
-    setup();
+    set_cut_frequencies(std::make_pair(f0, f1));
   }
   
   template <typename DataType_>
@@ -300,6 +319,10 @@ namespace ATK
   template <typename DataType>
   void Chebyshev2BandPassCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = 2 * order;
     setup();
   }
@@ -329,6 +352,10 @@ namespace ATK
   template <typename DataType_>
   void Chebyshev2BandStopCoefficients<DataType_>::set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies)
   {
+    if(cut_frequencies.first <= 0 || cut_frequencies.second <= 0)
+    {
+      throw std::out_of_range("Frequencies can't be negative");
+    }
     this->cut_frequencies = cut_frequencies;
     setup();
   }
@@ -336,8 +363,7 @@ namespace ATK
   template <typename DataType_>
   void Chebyshev2BandStopCoefficients<DataType_>::set_cut_frequencies(CoeffDataType f0, CoeffDataType f1)
   {
-    this->cut_frequencies = std::make_pair(f0, f1);
-    setup();
+    set_cut_frequencies(std::make_pair(f0, f1));
   }
   
   template <typename DataType_>
@@ -362,6 +388,10 @@ namespace ATK
   template <typename DataType>
   void Chebyshev2BandStopCoefficients<DataType>::set_order(unsigned int order)
   {
+    if(order == 0)
+    {
+      throw std::out_of_range("Order can't be null");
+    }
     in_order = out_order = 2 * order;
     setup();
   }

@@ -73,9 +73,6 @@ namespace ATK
         return &LMSFilterImpl::update_signdata;
       case Mode::SIGNSIGN:
         return &LMSFilterImpl::update_signsign;
-
-      default:
-        return &LMSFilterImpl::update;
       }
     }
   };
@@ -186,6 +183,12 @@ namespace ATK
   const DataType_* LMSFilter<DataType_>::get_w() const
   {
     return impl->w.data();
+  }
+  
+  template<typename DataType_>
+  void LMSFilter<DataType_>::set_w(gsl::not_null<const DataType_*> w)
+  {
+    impl->w = Eigen::Map<const typename LMSFilterImpl::wType>(w.get(), get_size());
   }
 
   template<typename DataType_>
