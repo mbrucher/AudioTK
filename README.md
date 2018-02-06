@@ -21,9 +21,9 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 2.3.0
-- Increased test coverage and fix lots of small mistakes in the API
-- Allow inplace Python tests (before make install) on Linux
-- Split big files to allow native compilation on embedded platforms
+# Increased test coverage and fix lots of small mistakes in the API
+# Allow inplace Python tests (before make install) on Linux
+# Split big files to allow native compilation on embedded platforms
 
 ### 2.2.2
 * Fix a TDF2 IIR filter bug when the state was not reinitialized, leading to unstabilities
