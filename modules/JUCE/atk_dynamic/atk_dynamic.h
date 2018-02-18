@@ -20,7 +20,7 @@
 
   ID:               atk_dynamic
   vendor:           Matthieu Brucher
-  version:          2.3.0
+  version:          2.3.1
   name:             ATK dynamic
   description:      Dynamic classes for ATK
   website:          http://www.audio-tk.com/
