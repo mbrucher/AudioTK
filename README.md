@@ -20,6 +20,9 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.3.1
+* Fix Python wrappers
+
 ### 2.3.0
 * Increased test coverage and fix lots of small mistakes in the API
 * Allow inplace Python tests (before make install) on Linux
