@@ -15,7 +15,7 @@ namespace ATK
 {
   template <typename DataType>
   CustomFIRCoefficients<DataType>::CustomFIRCoefficients(std::size_t nb_channels)
-    :Parent(nb_channels, nb_channels)
+    :Parent(nb_channels, nb_channels), in_order(0)
   {
   }
 
@@ -23,8 +23,7 @@ namespace ATK
   void ATK::CustomFIRCoefficients<DataType_>::set_coefficients_in(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_in)
   {
     in_order = static_cast<int>(coefficients_in.size() - 1);
-    this->coefficients_in.clear();
-    this->coefficients_in.insert(this->coefficients_in.end(), coefficients_in.begin(), coefficients_in.end());
+    this->coefficients_in.assign(coefficients_in.begin(), coefficients_in.end());
 
     setup();
   }
