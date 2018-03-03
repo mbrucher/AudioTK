@@ -5,7 +5,7 @@ project(AudioTK)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(ATK_VERSION 2.3.1)
+set(ATK_VERSION 2.3.2)
 
 include(Utilities)
 

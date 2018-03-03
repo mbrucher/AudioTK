@@ -20,6 +20,10 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 2.3.2
+* Fix initialization indices in Custom IIR and FIR Filters
+* USe gsl::index for loop indices
+
 ### 2.3.1
 * Fix Python wrappers
 
