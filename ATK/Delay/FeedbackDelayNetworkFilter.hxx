@@ -121,9 +121,9 @@ namespace ATK
 
     impl->delay_line.resize(size);
 
-    for (std::size_t i = 0; i < size; ++i)
+    for (gsl::index i = 0; i < size; ++i)
     {
-      for (unsigned int channel = 0; channel < nb_channels; ++channel)
+      for (gsl::index channel = 0; channel < nb_channels; ++channel)
       {
         auto j = impl->index - static_cast<int64_t>(delay[channel]);
         if (j < 0)

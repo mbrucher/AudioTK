@@ -44,12 +44,12 @@ namespace ATK
     zpk2ba(input_sampling_rate, z, p, k, b, a);
     
     auto in_size = std::min(std::size_t(in_order + 1), b.size());
-    for (size_t i = 0; i < in_size; ++i)
+    for (gsl::index i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
     auto out_size = std::min(std::size_t(in_order), a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
+    for (gsl::index i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
     }
@@ -89,12 +89,12 @@ namespace ATK
     zpk2ba(input_sampling_rate, z, p, k, b, a);
     
     auto in_size = std::min(std::size_t(in_order + 1), a.size());
-    for (size_t i = 0; i < in_size; ++i)
+    for (gsl::index i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = a[i] / b[b.size() - 1];
     }
     auto out_size = std::min(std::size_t(in_order), b.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
+    for (gsl::index i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -b[i] / b[b.size() - 1];
     }

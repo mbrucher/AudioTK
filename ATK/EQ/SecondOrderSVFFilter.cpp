@@ -44,12 +44,12 @@ namespace ATK
   {
     assert(nb_input_ports == nb_output_ports);
     
-    for(unsigned int j = 0; j < nb_input_ports; ++j)
+    for(gsl::index j = 0; j < nb_input_ports; ++j)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[j];
       DataType* ATK_RESTRICT output = outputs[j];
       
-      for(std::size_t i = 0; i < size; ++i)
+      for(gsl::index i = 0; i < size; ++i)
       {
         DataType v3 = input[i] - state[j].iceq2;
         DataType v1 = a1 * state[j].iceq1 + a2 * v3;

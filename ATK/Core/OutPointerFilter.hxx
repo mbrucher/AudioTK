@@ -37,16 +37,16 @@ namespace ATK
       {
         i = 0;
       }
-      for(unsigned int j = 0; j < channels; ++j)
+      for(gsl::index j = 0; j < channels; ++j)
       {
         memcpy(reinterpret_cast<void*>(&array[offset + (j * mysize)]), reinterpret_cast<const void*>(converted_inputs[j]), static_cast<size_t>(i) * sizeof(DataType));
       }
     }
     else
     {
-      for(std::size_t i = 0; i < size && (i + offset < mysize); ++i)
+      for(gsl::index i = 0; i < size && (i + offset < mysize); ++i)
       {
-        for(unsigned int j = 0; j < channels; ++j)
+        for(gsl::index j = 0; j < channels; ++j)
         {
           array[channels * offset + (j + i * channels)] = converted_inputs[j][i];
         }

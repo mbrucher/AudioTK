@@ -16,7 +16,7 @@ namespace
   {
     int nbChannels = outputs.size();
     int64_t size = outputs[0].size();
-    for(int j = 0; j < nbChannels; ++j)
+    for(gsl::index j = 0; j < nbChannels; ++j)
     {
       ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data() + j * sizeof(DataType2)), outputs[j].data(), size, nbChannels);
     }
@@ -42,9 +42,9 @@ namespace ATK
     std::size_t nb_inputs = converted_inputs.size();
     std::vector<DataType> buffer(nb_inputs * size);
     
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
-      for(std::size_t j = 0; j < nb_inputs; ++j)
+      for(gsl::index j = 0; j < nb_inputs; ++j)
       {
         buffer[j + i * nb_inputs] = converted_inputs[j][i];
       }

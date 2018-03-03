@@ -16,6 +16,8 @@
 #include <ipp.h>
 #endif
 
+#include <gsl/gsl>
+
 namespace ATK
 {
   template<class DataType_>
@@ -136,12 +138,12 @@ namespace ATK
     {
 #if ATK_USE_FFTW == 1
       double factor = static_cast<double>(size);
-      for(std::size_t j = 0; j < std::min(input_size, size); ++j)
+      for(gsl::index j = 0; j < std::min(input_size, size); ++j)
       {
         input_data[j][0] = input[j] / factor;
         input_data[j][1] = 0;
       }
-      for(std::size_t j = input_size; j < size; ++j)
+      for(gsl::index j = input_size; j < size; ++j)
       {
         input_data[j][0] = 0;
         input_data[j][1] = 0;
@@ -149,12 +151,12 @@ namespace ATK
       fftw_execute(fft_plan);
 #endif
 #if ATK_USE_IPP == 1
-      for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+      for (gsl::index j = 0; j < std::min(input_size, size); ++j)
       {
         pSrc[j].re = input[j];
         pSrc[j].im = 0;
       }
-      for (std::size_t j = input_size; j < size; ++j)
+      for (gsl::index j = input_size; j < size; ++j)
       {
         pSrc[j].re = 0;
         pSrc[j].im = 0;
@@ -172,7 +174,7 @@ namespace ATK
     
     void process_forward(std::complex<DataType_>* output, std::size_t size) const
     {
-      for(std::size_t j = 0; j < size; ++j)
+      for(gsl::index j = 0; j < size; ++j)
       {
 #if ATK_USE_FFTW == 1
         output[j] = std::complex<DataType_>(output_freqs[j][0], output_freqs[j][1]);
@@ -186,19 +188,19 @@ namespace ATK
     void process_backward(const std::complex<DataType_>* input, DataType_* output, std::size_t input_size, std::size_t size) const
     {
 #if ATK_USE_FFTW == 1
-      for(std::size_t j = 0; j < size; ++j)
+      for(gsl::index j = 0; j < size; ++j)
       {
         output_freqs[j][0] = input[j].real();
         output_freqs[j][1] = input[j].imag();
       }
       fftw_execute(fft_reverse_plan);
-      for(std::size_t j = 0; j < input_size; ++j)
+      for(gsl::index j = 0; j < input_size; ++j)
       {
         output[j] = input_data[j][0];
       }
 #endif
 #if ATK_USE_IPP == 1
-      for (std::size_t j = 0; j < size; ++j)
+      for (gsl::index j = 0; j < size; ++j)
       {
         pDst[j].re = input[j].real();
         pDst[j].im = input[j].imag();
@@ -211,7 +213,7 @@ namespace ATK
       {
         ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pFFTWorkBuf);
       }
-      for (std::size_t j = 0; j < input_size; ++j)
+      for (gsl::index j = 0; j < input_size; ++j)
       {
         output[j] = pDst[j].re;
       }
@@ -222,12 +224,12 @@ namespace ATK
     {
 #if ATK_USE_FFTW == 1
       double factor = static_cast<double>(size);
-      for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+      for (gsl::index j = 0; j < std::min(input_size, size); ++j)
       {
         input_data[j][0] = std::real(input[j]) / factor;
         input_data[j][1] = std::imag(input[j]) / factor;
       }
-      for (std::size_t j = input_size; j < size; ++j)
+      for (gsl::index j = input_size; j < size; ++j)
       {
         input_data[j][0] = 0;
         input_data[j][1] = 0;
@@ -235,12 +237,12 @@ namespace ATK
       fftw_execute(fft_plan);
 #endif
 #if ATK_USE_IPP == 1
-      for (std::size_t j = 0; j < std::min(input_size, size); ++j)
+      for (gsl::index j = 0; j < std::min(input_size, size); ++j)
       {
         pSrc[j].re = std::real(input[j]);
         pSrc[j].im = std::imag(input[j]);
       }
-      for (std::size_t j = input_size; j < size; ++j)
+      for (gsl::index j = input_size; j < size; ++j)
       {
         pSrc[j].re = 0;
         pSrc[j].im = 0;
@@ -259,19 +261,19 @@ namespace ATK
     void process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size, std::size_t size) const
     {
 #if ATK_USE_FFTW == 1
-      for (std::size_t j = 0; j < size; ++j)
+      for (gsl::index j = 0; j < size; ++j)
       {
         output_freqs[j][0] = input[j].real();
         output_freqs[j][1] = input[j].imag();
       }
       fftw_execute(fft_reverse_plan);
-      for (std::size_t j = 0; j < input_size; ++j)
+      for (gsl::index j = 0; j < input_size; ++j)
       {
         output[j] = std::complex<DataType_>(input_data[j][0], input_data[j][1]);
       }
 #endif
 #if ATK_USE_IPP == 1
-      for (std::size_t j = 0; j < size; ++j)
+      for (gsl::index j = 0; j < size; ++j)
       {
         pDst[j].re = input[j].real();
         pDst[j].im = input[j].imag();
@@ -284,7 +286,7 @@ namespace ATK
       {
         ippsDFTInv_CToC_64fc(pDst, pDst, pDFTSpec, pFFTWorkBuf);
       }
-      for (std::size_t j = 0; j < input_size; ++j)
+      for (gsl::index j = 0; j < input_size; ++j)
       {
         output[j] = std::complex<DataType_>(pDst[j].re, pDst[j].im);
       }
@@ -293,7 +295,7 @@ namespace ATK
     
     void get_amp(std::vector<DataType_>& amp) const
     {
-      for(std::size_t i = 0; i < amp.size(); ++i)
+      for(gsl::index i = 0; i < amp.size(); ++i)
       {
 #if ATK_USE_FFTW == 1
         amp[i] = output_freqs[i][0] * output_freqs[i][0];
@@ -310,7 +312,7 @@ namespace ATK
     
     void get_angle(std::vector<DataType_>& angle) const
     {
-      for(std::size_t i = 0; i < angle.size(); ++i)
+      for(gsl::index i = 0; i < angle.size(); ++i)
       {
 #if ATK_USE_FFTW == 1
         angle[i] = std::arg(std::complex<DataType_>(output_freqs[i][0], output_freqs[i][1]));

@@ -71,27 +71,27 @@ namespace ATK
       const auto* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
       const auto* ATK_RESTRICT coefficients_out_ptr = coefficients_out.data();
 
-      for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+      for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
         DataType* ATK_RESTRICT output = outputs[channel];
 
-        for(std::size_t i = 0; i < size; ++i)
+        for(gsl::index i = 0; i < size; ++i)
         {
           output[i] = TypeTraits<DataType>::Zero();
         }
 
-        for (unsigned int j = 0; j < in_order + 1; ++j)
+        for (gsl::index j = 0; j < in_order + 1; ++j)
         {
-          for (std::size_t i = 0; i < size; ++i)
+          for (gsl::index i = 0; i < size; ++i)
           {
             output[i] = output[i] + coefficients_in_ptr[j] * input[i + j];
           }
         }
 
-        for (std::size_t i = 0; i < size; ++i)
+        for (gsl::index i = 0; i < size; ++i)
         {
-          for (unsigned int j = 0; j < out_order; ++j)
+          for (gsl::index j = 0; j < out_order; ++j)
           {
             output[i] = output[i] + coefficients_out_ptr[j] * output[static_cast<int64_t>(i) - out_order + j];
           }

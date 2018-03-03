@@ -170,7 +170,7 @@ namespace ATK
     
     auto update_function = impl->select(mode);
 
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       typename LMSFilterImpl::xType x(input - input_delay + i, input_delay + 1, 1);
       output[i] = impl->w.conjugate().dot(x);

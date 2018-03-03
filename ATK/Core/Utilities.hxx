@@ -11,6 +11,8 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
+#include <gsl/gsl>
+
 namespace
 {
   template<typename DataType>
@@ -22,7 +24,7 @@ namespace
     }
     else
     {
-      for(std::size_t i = 0; i < size; ++i)
+      for(gsl::index i = 0; i < size; ++i)
       {
         output_array[i] = input_array[i * ports + offset];
       }
@@ -32,7 +34,7 @@ namespace
   template<typename DataType1, typename DataType2>
   typename std::enable_if<!std::is_same<DataType1, DataType2>::value>::type convert_to_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset, int ports)
   {
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       output_array[i] = ATK::TypeTraits<DataType2>::from_double(ATK::TypeTraits<DataType1>::to_double(input_array[i * ports + offset]));
     }

@@ -39,7 +39,7 @@ namespace ATK
   {    
     double real_increment = 2. / output_sampling_rate * frequency;
     
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       state += real_increment;
       outputs[0][i] = static_cast<DataType_>(amplitude * std::sin(state * boost::math::constants::pi<double>()));

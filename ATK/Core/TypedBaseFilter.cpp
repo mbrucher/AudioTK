@@ -20,4 +20,12 @@ namespace ATK
   template class TypedBaseFilter<double, std::complex<double>>;
   template class TypedBaseFilter<std::complex<float>, float>;
   template class TypedBaseFilter<std::complex<double>, double>;
+  
+  template class OutputArrayInterface<std::int16_t>;
+  template class OutputArrayInterface<std::int32_t>;
+  template class OutputArrayInterface<std::int64_t>;
+  template class OutputArrayInterface<float>;
+  template class OutputArrayInterface<double>;
+  template class OutputArrayInterface<std::complex<float>>;
+  template class OutputArrayInterface<std::complex<double>>;
 }

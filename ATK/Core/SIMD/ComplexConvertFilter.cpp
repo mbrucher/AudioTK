@@ -39,13 +39,13 @@ namespace ATK
   {
     assert(nb_input_ports == SIMDType::length * nb_output_ports);
     
-    for(std::size_t j = 0; j < nb_output_ports; ++j)
+    for(gsl::index j = 0; j < nb_output_ports; ++j)
     {
       const auto* ATK_RESTRICT input1 = converted_inputs[2 * j + 0];
       const auto* ATK_RESTRICT input2 = converted_inputs[2 * j + 1];
       auto* ATK_RESTRICT output = outputs[j];
       
-      for (std::size_t i = 0; i < size; ++i)
+      for (gsl::index i = 0; i < size; ++i)
       {
         alignas(32) DataType_ data[SIMDType::length];
         data[0] = input1[i];
@@ -71,13 +71,13 @@ namespace ATK
   {
     assert(SIMDType::length * nb_input_ports == nb_output_ports);
     
-    for(std::size_t j = 0; j < nb_input_ports; ++j)
+    for(gsl::index j = 0; j < nb_input_ports; ++j)
     {
       const auto* ATK_RESTRICT input = converted_inputs[j];
       auto* ATK_RESTRICT output1 = outputs[2 * j + 0];
       auto* ATK_RESTRICT output2 = outputs[2 * j + 1];
       
-      for (std::size_t i = 0; i < size; ++i)
+      for (gsl::index i = 0; i < size; ++i)
       {
         alignas(32) DataType__ data[SIMDType::length];
         

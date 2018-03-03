@@ -24,16 +24,16 @@ namespace ATK
   {
     assert(nb_input_ports == summed_channels * nb_output_ports);
 
-    for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
+    for (gsl::index channel = 0; channel < nb_output_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[summed_channels * channel];
       DataType* ATK_RESTRICT output = outputs[channel];
       std::memcpy(output, input, size * sizeof(DataType_));
       
-      for(std::size_t summed_channel = 1; summed_channel < summed_channels; ++summed_channel)
+      for(gsl::index summed_channel = 1; summed_channel < summed_channels; ++summed_channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[summed_channels * channel + summed_channel];
-        for (std::size_t i = 0; i < size; ++i)
+        for (gsl::index i = 0; i < size; ++i)
         {
           output[i] = output[i] + input[i];
         }

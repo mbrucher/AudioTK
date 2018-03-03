@@ -58,12 +58,12 @@ namespace ATK
         first_index += nb_slices * slice_size;
       }
       auto last_index = std::min(first_index + out_slice_size, nb_slices * slice_size) - first_index;
-      for(std::size_t i = 0; i < last_index; ++i)
+      for(gsl::index i = 0; i < last_index; ++i)
       {
         last_slice[i] = array[first_index + i];
       }
       auto remaining_index = out_slice_size - last_index;
-      for(std::size_t i = 0; i < remaining_index; ++i)
+      for(gsl::index i = 0; i < remaining_index; ++i)
       {
         last_slice[i + last_index] = array[i];
       }

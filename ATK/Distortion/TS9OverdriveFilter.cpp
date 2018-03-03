@@ -136,7 +136,7 @@ namespace ATK
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       optimizer->optimize(input + i, output + i);
       optimizer->get_function().update_state(input + i, output + i);

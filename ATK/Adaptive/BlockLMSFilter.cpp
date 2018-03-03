@@ -63,12 +63,12 @@ namespace ATK
       if (accumulate_block_size == block_size)
       {
         fft.process_forward(block_input.data(), block_fft2.data(), block_size * 2);
-        for(std::size_t i = 0; i < 2 * block_size; ++i)
+        for(gsl::index i = 0; i < 2 * block_size; ++i)
         {
           block_fft[i] = block_fft2[i] * wfft(i, 0) * std::complex<double>(block_size * 2); // Diagonal U * FFT factor
         }
         fft.process_backward(block_fft.data(), block_ifft.data(), block_size * 2);
-        for (std::size_t i = 0; i < block_size; ++i)
+        for (gsl::index i = 0; i < block_size; ++i)
         {
           block_ifft[block_size + i] = block_ref[i] - block_ifft[block_size + i]; // error on last elements of Y
           block_error[i] = block_ifft[block_size + i];
@@ -77,7 +77,7 @@ namespace ATK
         {
           std::fill(block_ifft.begin(), block_ifft.begin() + block_size, 0);
           fft.process_forward(block_ifft.data(), block_fft.data(), block_size * 2); // FFT of the error stored in ifft
-          for (std::size_t i = 0; i < 2 * block_size; ++i)
+          for (gsl::index i = 0; i < 2 * block_size; ++i)
           {
             block_fft[i] = std::conj(block_fft2[i]) * block_fft[i] * std::complex<double>(block_size * 2); // diagonal * FFT factor
           }
@@ -206,7 +206,7 @@ namespace ATK
     const DataType* ATK_RESTRICT ref = converted_inputs[1];
     DataType* ATK_RESTRICT output = outputs[0];
     
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       impl->update(input[i], ref[i], output[i]);
     }

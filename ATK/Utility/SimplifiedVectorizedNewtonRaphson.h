@@ -63,7 +63,7 @@ namespace ATK
     Vector optimize()
     {
       Vector y1 = y0;
-      int j;
+      gsl::index j;
       for(j = 0; j < max_iterations; ++j)
       {
         Vector cx = function(y1);

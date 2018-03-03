@@ -47,7 +47,7 @@ namespace ATK
     
     // The size is twice as big than the impulse, less
     partial_frequency_impulse.assign(split_size * 2 * (nb_splits - 1), 0);
-    for(std::size_t i = 1; i < nb_splits; ++i)
+    for(gsl::index i = 1; i < nb_splits; ++i)
     {
       processor.process_forward(impulse.data() + i * split_size, partial_frequency_impulse.data() + (i - 1) * split_size * 2, split_size);
     }
@@ -60,7 +60,7 @@ namespace ATK
   template<typename DataType_>
   void ConvolutionFilter<DataType_>::compute_convolutions() const
   {
-    for(unsigned int i = 0; i < split_size; ++i)
+    for(gsl::index i = 0; i < split_size; ++i)
     {
       temp_out_buffer[i] = temp_out_buffer[i + split_size];
       temp_out_buffer[i + split_size] = 0;
@@ -78,7 +78,7 @@ namespace ATK
       const DataType* ATK_RESTRICT buffer_ptr = reinterpret_cast<const DataType*>(buffer.data());
       const DataType* ATK_RESTRICT partial_frequency_impulse_ptr = partial_frequency_impulse_ptr_orig + offset;
       // Add the frequency result of this partial FFT
-      for(unsigned int i = 0; i < split_size; ++i)
+      for(gsl::index i = 0; i < split_size; ++i)
       {
         DataType br1 = *(buffer_ptr++);
         DataType bi1 = *(buffer_ptr++);
@@ -98,7 +98,7 @@ namespace ATK
 
     std::vector<DataType> ifft_result(2*split_size, 0);
     processor.process_backward(result.data(), ifft_result.data(), 2*split_size);
-    for(unsigned int i = 0; i < 2*split_size; ++i)
+    for(gsl::index i = 0; i < 2*split_size; ++i)
     {
       temp_out_buffer[i] += ifft_result[i] * split_size * 2;
     }
@@ -124,14 +124,14 @@ namespace ATK
     const DataType* ATK_RESTRICT impulse_ptr = impulse.data();
     DataType* ATK_RESTRICT output = outputs[0] + processed_size;
 
-    for(unsigned int i = 0; i < size_to_process; ++i)
+    for(gsl::index i = 0; i < size_to_process; ++i)
     {
       output[i] = temp_out_buffer[split_position + i];
     }
 
-    for(unsigned int j = 0; j < input_delay + 1; ++j)
+    for(gsl::index j = 0; j < input_delay + 1; ++j)
     {
-      for(unsigned int i = 0; i < size_to_process; ++i)
+      for(gsl::index i = 0; i < size_to_process; ++i)
       {
         output[i] += impulse_ptr[j] * input[static_cast<int>(i) - static_cast<int>(j)];
       }
