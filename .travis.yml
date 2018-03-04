@@ -223,7 +223,7 @@ before_install:
       brew install fftw libsndfile swig
       brew upgrade cmake
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
-        if [[ "$PYTHON" == "python3" ]]; then brew install python3 ; fi
+        if [[ "$PYTHON" == "python3" ]]; then brew upgrade python ; fi
         sudo ${PYTHON} -m pip install numpy scipy nose
       fi
     fi
