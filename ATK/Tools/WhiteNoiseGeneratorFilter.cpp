@@ -4,8 +4,6 @@
 
 #include <ATK/Tools/WhiteNoiseGeneratorFilter.h>
 
-#include <cmath>
-#include <cstdint>
 
 #include <boost/math/constants/constants.hpp>
 
