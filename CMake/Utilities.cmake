@@ -185,3 +185,9 @@ set_target_properties (${${PREFIX}_NAME} PROPERTIES
 )
 
 endfunction()
+
+FILE(GLOB CMAKE_FILES ${PROJECT_SOURCE_DIR}/*/*.cmake)
+
+INSTALL(FILES ${CMAKE_FILES}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake
+)
