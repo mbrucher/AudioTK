@@ -75,8 +75,6 @@ IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
   set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
 ENDIF(NOT DEFINED PYTHON_INSTALL_FOLDER)
 
-include(CheckCXXCompilerFlag)
-
 enable_testing()
 
 option(ENABLE_PROFILING "Enable the internal perf counter" OFF)

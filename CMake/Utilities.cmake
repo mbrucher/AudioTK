@@ -192,6 +192,8 @@ INSTALL(FILES ${CMAKE_FILES}
   DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake
 )
 
+include(CheckCXXCompilerFlag)
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "Apple")
   include(apple-clang)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
