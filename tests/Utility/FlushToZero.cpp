@@ -13,5 +13,5 @@
 BOOST_AUTO_TEST_CASE(FTZ_test)
 {
   ATK::FlushToZero ftz;
-  BOOST_CHECK_EQUAL(0, 0); // to make unit test happy
+  BOOST_CHECK_THROW(throw std::runtime_error("check"), std::runtime_error); // to make unit test happy
 }
