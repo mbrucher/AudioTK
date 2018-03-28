@@ -191,9 +191,11 @@ INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/CMake
   FILES_MATCHING PATTERN "*.cmake"
 )
 
-INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/3rdParty/gsl/include/gsl ${PROJECT_SOURCE_DIR}/3rdParty/eigen/Eigen ${PROJECT_SOURCE_DIR}/3rdParty/libsimdpp/simdpp
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-)
+if(ENABLE_SIMD)
+  INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/3rdParty/gsl/include/gsl ${PROJECT_SOURCE_DIR}/3rdParty/eigen/Eigen ${PROJECT_SOURCE_DIR}/3rdParty/libsimdpp/simdpp
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+  )
+endif(ENABLE_SIMD)
 
 include(CheckCXXCompilerFlag)
 
