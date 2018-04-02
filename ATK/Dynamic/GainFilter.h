@@ -124,13 +124,17 @@ namespace ATK
         auto* ATK_RESTRICT output = outputs[channel];
         for (gsl::index i = 0; i < size; ++i)
         {
-          auto value = *(input++) * threshold;
-          size_t step = static_cast<size_t>(value * LUTprecision);
-          if (step >= LUTsize)
+          auto value = input[i] * threshold * LUTprecision;
+          auto step = std::lround(std::ceil(value));
+          if (step >= LUTsize - 1)
           {
             step = static_cast<int>(LUTsize) - 1;
+            output[i] = gainLUT[step];
           }
-          *(output++) = gainLUT[step];
+          else
+          {
+            output[i] = (1 - (value - step)) * gainLUT[step] + (value - step) * gainLUT[step + 1];
+          }
         }
       }
     }
@@ -144,7 +148,7 @@ namespace ATK
         auto* ATK_RESTRICT output = outputs[channel];
         for (gsl::index i = 0; i < size; ++i)
         {
-          *(output++) = computeGain(*(input++) * threshold);
+          output[i] = computeGain(*(input++) * threshold);
         }
       }
     }
