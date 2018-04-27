@@ -60,10 +60,6 @@ if(NOT ${PREFIX}_NAME)
   message(ERROR "No name set for ${PREFIX}")
 endif(NOT ${PREFIX}_NAME)
 
-add_definitions(${${PREFIX}_DEFINITIONS})
-
-include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
-
 ATK_scan_SIMD(${PREFIX} COMPILABLE_ARCHS)
 
 if(ENABLE_STATIC_LIBRARIES)
@@ -71,6 +67,9 @@ if(ENABLE_STATIC_LIBRARIES)
     STATIC
       ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
   )
+
+  target_compile_definitions(${${PREFIX}_NAME}_static PRIVATE ${${PREFIX}_DEFINITIONS})
+  target_include_directories(${${PREFIX}_NAME}_static PRIVATE ${${PREFIX}_INCLUDE} ${PROJECT_SOURCE_DIR})
 
   set_target_properties (${${PREFIX}_NAME}_static PROPERTIES
     FOLDER C++/static
@@ -84,13 +83,13 @@ if(ENABLE_STATIC_LIBRARIES)
 endif(ENABLE_STATIC_LIBRARIES)
 
 if(ENABLE_SHARED_LIBRARIES)
-  add_definitions(-DBUILD_${PREFIX})
-  add_definitions(-DATK_SHARED)
-
   add_library(${${PREFIX}_NAME}
     SHARED
     ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE} ${${PREFIX}_ARCH_GEN_SRC}
   )
+
+  target_compile_definitions(${${PREFIX}_NAME} PRIVATE ${${PREFIX}_DEFINITIONS} -DBUILD_${PREFIX} -DATK_SHARED)
+  target_include_directories(${${PREFIX}_NAME} PRIVATE ${${PREFIX}_INCLUDE} ${PROJECT_SOURCE_DIR})
 
   set_target_properties (${${PREFIX}_NAME} PROPERTIES
     FOLDER C++/shared
