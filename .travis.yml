@@ -262,8 +262,6 @@ matrix:
   allow_failures:
   - compiler: clang-5.0
   - compiler: clang-6.0
-  - env:
-    ENABLE_STATIC_ANALYSIS: ON
 
 before_install:
   - mkdir $HOME/usr
