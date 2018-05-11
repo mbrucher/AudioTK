@@ -22,7 +22,10 @@ Audio Toolkit is published under the BSD license.
 ## Changelog
 ### 2.3.2
 * Fix initialization indices in Custom IIR and FIR Filters
-* USe gsl::index for loop indices
+* Use gsl::index for loop indices
+* Fix gradient for transistors
+* Enhance interpolation for the gain filter
+* Installation of the third party headers (gsl, simdpp or Eigen)
 
 ### 2.3.1
 * Fix Python wrappers
