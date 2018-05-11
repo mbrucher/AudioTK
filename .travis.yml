@@ -283,7 +283,9 @@ script:
   - ${MAKE_WRAPPER} make -j16
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
+      cd ..
       sonar-scanner
+      cd build
     fi
   - make install
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
