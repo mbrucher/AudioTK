@@ -55,19 +55,6 @@ matrix:
         - libsndfile-dev
         - swig
         - libatlas-base-dev
-  - compiler: gcc
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - g++-7
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-        - libatlas-base-dev
         - lcov
         - curl
     env:
@@ -284,7 +271,7 @@ before_script:
   - |
     if [[ "${COVERALLS_SERVICE_NAME}" = "travis-ci" ]]; then
       cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DENABLE_PYTHON=${ENABLE_PYTHON} -DENABLE_COVERALLS=ON -DENABLE_SIMD=ON ${ADDITONAL_CMAKE_FLAGS} ..
-      else
+    else
       cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} ${ADDITONAL_CMAKE_FLAGS} ..
     fi
 
@@ -295,7 +282,8 @@ script:
   - |
     if [[ "${ENABLE_SYTATIC_ANALYSIS}" = "ON" ]]; then
       build-wrapper make -j16
-      else
+      sonar-scanner
+    else
       make -j16
     fi
   - make install
@@ -306,7 +294,7 @@ script:
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
       make codecoverage
-      else
+    else
       CTEST_OUTPUT_ON_FAILURE=TRUE make test
     fi
 
