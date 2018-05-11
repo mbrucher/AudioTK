@@ -280,12 +280,10 @@ script:
   - pwd
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib ; fi
+  - ${MAKE_WRAPPER} make -j16
   - |
-    if [[ "${ENABLE_SYNTAX_ANALYSIS}" = "ON" ]]; then
-      ${MAKE_WRAPPER} make -j16
+    if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       sonar-scanner
-    else
-      make -j16
     fi
   - make install
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
