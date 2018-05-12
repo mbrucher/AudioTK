@@ -30,6 +30,34 @@ matrix:
         - libatlas-base-dev
         - lcov
         - curl
+      sonarcloud:
+        organization: "mbrucher-github"
+    env:
+    - MY_NAME: Static Analysis
+    - COMPILER=g++-7
+    - PLATFORM=gcc-7
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - ENABLE_STATIC_ANALYSIS=ON
+    - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON"
+  - compiler: gcc
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        packages:
+        - g++-7
+        - libfftw3-dev
+        - libsndfile-dev
+        - swig
+        - libatlas-base-dev
+        - lcov
+        - curl
     env:
     - MY_NAME: Code Coverage
     - COMPILER=g++-7
@@ -130,6 +158,53 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.3
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+  - compiler: clang-6.0
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-trusty-6.0
+        packages:
+        - clang-6.0
+        - g++-7
+        - libfftw3-dev
+        - libsndfile-dev
+        - swig
+        - libatlas-base-dev
+    env:
+    - MY_NAME: clang 6 Python 2
+    - COMPILER=clang++-6.0
+    - PLATFORM=clang-6.0
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+  - compiler: clang-6.0
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-trusty-6.0
+        packages:
+        - clang-6.0
+        - g++-7
+        - libfftw3-dev
+        - libsndfile-dev
+        - swig
+    env:
+    - MY_NAME: clang 6 Python 3
+    - COMPILER=clang++-6.0
+    - PLATFORM=clang-6.0
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=3.6
+    - PYTHON=python3
+    - Python_ADDITIONAL_VERSIONS=3.6.3
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
   - compiler: clang-4.0
     os: linux
     dist: trusty
@@ -201,6 +276,7 @@ matrix:
     - Python_ADDITIONAL_VERSIONS=3.6.4
   allow_failures:
   - compiler: clang-5.0
+  - compiler: clang-6.0
 
 before_install:
   - mkdir $HOME/usr
@@ -244,15 +320,21 @@ before_script:
   - |
     if [[ "${COVERALLS_SERVICE_NAME}" = "travis-ci" ]]; then
       cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DENABLE_PYTHON=${ENABLE_PYTHON} -DENABLE_COVERALLS=ON -DENABLE_SIMD=ON ${ADDITONAL_CMAKE_FLAGS} ..
-      else
-      cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} ${ADDITONAL_CMAKE_FLAGS} ..
+    else
+      ${MAKE_WRAPPER} cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=Release -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} ${ADDITONAL_CMAKE_FLAGS} ..
     fi
 
 script:
   - pwd
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib ; fi
-  - make -j 16
+  - ${MAKE_WRAPPER} make -j16
+  - |
+    if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
+      cd ..
+      sonar-scanner
+      cd build
+    fi
   - make install
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
   - echo $DYLD_LIBRARY_PATH
@@ -261,7 +343,7 @@ script:
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
       make codecoverage
-      else
+    else
       CTEST_OUTPUT_ON_FAILURE=TRUE make test
     fi
 
