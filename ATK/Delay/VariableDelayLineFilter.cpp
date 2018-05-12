@@ -31,7 +31,7 @@ namespace ATK
     {
       auto array_size = delay_line.size();
       // Update delay line
-      ATK_VECTORIZE for (std::size_t i = 0; i < max_delay; ++i)
+      ATK_VECTORIZE for (gsl::index i = 0; i < max_delay; ++i)
       {
         delay_line[i] = delay_line[array_size + i - max_delay];
       }
@@ -76,14 +76,14 @@ namespace ATK
 
     memcpy(reinterpret_cast<void*>(delay_line + max_delay), reinterpret_cast<const void*>(input1), size * sizeof(DataType));
 
-    ATK_VECTORIZE for(std::size_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(gsl::index i = 0; i < size; ++i)
     {
       auto rounded = static_cast<std::size_t>(input2[i]);
       integer_delay[i] = rounded >= max_delay ? 0 : rounded;
       fractional_delay[i] = input2[i] - integer_delay[i];
     }
 
-    ATK_VECTORIZE for(std::size_t i = 0; i < size; ++i)
+    ATK_VECTORIZE for(gsl::index i = 0; i < size; ++i)
     {
       output[i] = delay_line[i + max_delay - integer_delay[i]] * (1 - fractional_delay[i]) + delay_line[i + max_delay - integer_delay[i] - 1] * fractional_delay[i];
     }

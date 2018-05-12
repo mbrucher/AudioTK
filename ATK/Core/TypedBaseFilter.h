@@ -13,13 +13,15 @@
 
 #include <boost/align/aligned_allocator.hpp>
 
+#include <gsl/gsl>
+
 namespace ATK
 {
   const std::size_t ALIGNMENT = 32;
 
   /// Interface for output filters
   template<typename DataType>
-  class OutputArrayInterface
+  class ATK_CORE_EXPORT OutputArrayInterface
   {
   public:
     virtual ~OutputArrayInterface();

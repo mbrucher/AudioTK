@@ -71,7 +71,7 @@ namespace ATK
       const DataType* ATK_RESTRICT input = converted_inputs[0];
       const DataType* ATK_RESTRICT cut_frequencies = converted_inputs[1];
       DataType* ATK_RESTRICT output = outputs[0];
-      for(std::size_t i = 0; i < size; ++i)
+      for(gsl::index i = 0; i < size; ++i)
       {
         int frequency_index = static_cast<int>((cut_frequencies[i] - min_frequency) * scale);
         if(frequency_index < 0)
@@ -82,27 +82,27 @@ namespace ATK
         {
           frequency_index = number_of_steps - 1;
         }
-        for(unsigned int j = 0; j < in_order+1; ++j)
+        for(gsl::index j = 0; j < in_order+1; ++j)
         {
           current_coeffs_in[j] = static_cast<DataType>(current_coeffs_in[j] * memory + coefficients_in[frequency_index * (in_order+1) + j] * (1 - memory));
         }
-        for(unsigned int j = 0; j < out_order; ++j)
+        for(gsl::index j = 0; j < out_order; ++j)
         {
           current_coeffs_out[j] = static_cast<DataType>(current_coeffs_out[j] * memory + coefficients_out[frequency_index * (out_order) + j] * (1 - memory));
         }
 
         output[i] = current_coeffs_in[in_order] * input[i] + state[0];
-        for(size_t j = 0; j < state.size() - 1; ++j)
+        for(gsl::index j = 0; j < state.size() - 1; ++j)
         {
           state[j] = state[j + 1];
         }
         state[state.size() - 1] = 0;
 
-        for(unsigned int j = 0; j < in_order; ++j)
+        for(gsl::index j = 0; j < in_order; ++j)
         {
           state[j] += input[i] * current_coeffs_in[in_order - static_cast<int64_t>(j) - 1];
         }
-        for(unsigned int j = 0; j < out_order; ++j)
+        for(gsl::index j = 0; j < out_order; ++j)
         {
           state[j] += output[i] * current_coeffs_out[out_order - static_cast<int64_t>(j) - 1];
         }

@@ -52,6 +52,19 @@ def BlockLMS_bad_size_test():
   blms = DoubleBlockLMSFilter(100)
   blms.w = np.ones((100,))
 
+def BlockLMS_set_size_test():
+  import numpy as np
+
+  blms = DoubleBlockLMSFilter(100)
+  blms.w = np.ones((200,))
+
+
+def BlockLMS_get_size_test():
+  import numpy as np
+
+  blms = DoubleBlockLMSFilter(100)
+  w = blms.w
+
 if __name__ == "__main__":
   import numpy as np
   size = 1200

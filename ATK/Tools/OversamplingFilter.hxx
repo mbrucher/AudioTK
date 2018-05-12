@@ -136,47 +136,47 @@ namespace ATK
     assert(input_sampling_rate * Coefficients::oversampling_factor == output_sampling_rate);
     assert(nb_input_ports == nb_output_ports);
 
-    for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+    for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::size_t i = 0; i < size / Coefficients::oversampling_factor; ++i)
+      for(gsl::index i = 0; i < size / Coefficients::oversampling_factor; ++i)
       {
         DataType even[Coefficients::points / 2];
-        for(unsigned int j = 0; j < Coefficients::points / 2; ++j)
+        for(gsl::index j = 0; j < Coefficients::points / 2; ++j)
         {
           even[j] = input[i - Coefficients::points + Coefficients::points / 2 + j] + input[i - Coefficients::points + Coefficients::points / 2 - 1 - j];
         }
         DataType odd[Coefficients::points / 2];
-        for(unsigned int j = 0; j < Coefficients::points / 2; ++j)
+        for(gsl::index j = 0; j < Coefficients::points / 2; ++j)
         {
           odd[j] = input[i - Coefficients::points + Coefficients::points / 2 + j] - input[i - Coefficients::points + Coefficients::points / 2 - 1 - j];
         }
         DataType c[Coefficients::order + 1];
 
-        for(unsigned int j = 0; j < Coefficients::order + 1; j += 2)
+        for(gsl::index j = 0; j < Coefficients::order + 1; j += 2)
         {
         c[j] = TypeTraits<DataType>::Zero();
-          for(unsigned int k = 0; k < Coefficients::points / 2; ++k)
+          for(gsl::index k = 0; k < Coefficients::points / 2; ++k)
           {
             c[j] = c[j] + even[k] * coeffs.coeffs[j][k];
           }
         }
-        for(unsigned int j = 1; j < Coefficients::order + 1; j += 2)
+        for(gsl::index j = 1; j < Coefficients::order + 1; j += 2)
         {
           c[j] = TypeTraits<DataType>::Zero();
-          for(unsigned int k = 0; k < Coefficients::points / 2; ++k)
+          for(gsl::index k = 0; k < Coefficients::points / 2; ++k)
           {
             c[j] = c[j] + odd[k] * coeffs.coeffs[j][k];
           }
         }
 
-        for (unsigned int j = 0; j < Coefficients::oversampling_factor; ++j)
+        for (gsl::index j = 0; j < Coefficients::oversampling_factor; ++j)
         {
           auto z = static_cast<typename TypeTraits<DataType>::Scalar>(j) / Coefficients::oversampling_factor - static_cast<typename TypeTraits<DataType>::Scalar>(1 / 2.);
 
           DataType temp = TypeTraits<DataType>::Zero();
-          for(unsigned int k = 0; k <= Coefficients::order; ++k)
+          for(gsl::index k = 0; k <= Coefficients::order; ++k)
           {
             temp = temp * z + c[Coefficients::order - k];
           }

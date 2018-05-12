@@ -81,7 +81,7 @@ namespace ATK
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       output[i] = feedback * output[i - delay] + input[i - delay] + cutoff * (output[i - 1] - input[i - delay - 1]);
     }

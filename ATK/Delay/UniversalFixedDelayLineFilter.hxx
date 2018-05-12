@@ -116,29 +116,29 @@ namespace ATK
     auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
     // Update intermediate input
-    ATK_VECTORIZE for (std::size_t i = 0; i < size_after_index; ++i)
+    ATK_VECTORIZE for (gsl::index i = 0; i < size_after_index; ++i)
     {
       processed_input[i] = input[i] + feedback * delay_line[delay_line_size + i - (delay - impl->index)];
     }
-    ATK_VECTORIZE for (std::size_t i = 0; i < size_before_index; ++i)
+    ATK_VECTORIZE for (gsl::index i = 0; i < size_before_index; ++i)
     {
       processed_input[i + size_after_index] = input[i + size_after_index] + feedback * delay_line[i + size_after_index + impl->index - delay];
     }
-    ATK_VECTORIZE for(std::size_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for(gsl::index i = delay; i < size; ++i)
     {
       processed_input[i] = input[i] + feedback * processed_input[i - delay];
     }
 
     //update output
-    ATK_VECTORIZE for (std::size_t i = 0; i < size_after_index; ++i)
+    ATK_VECTORIZE for (gsl::index i = 0; i < size_after_index; ++i)
     {
       output[i] = blend * processed_input[i] + feedforward * delay_line[delay_line_size + i - (delay - impl->index)];
     }
-    ATK_VECTORIZE for (std::size_t i = 0; i < size_before_index; ++i)
+    ATK_VECTORIZE for (gsl::index i = 0; i < size_before_index; ++i)
     {
       output[i + size_after_index] = blend * processed_input[i + size_after_index] + feedforward * delay_line[i + size_after_index + impl->index - delay];
     }
-    ATK_VECTORIZE for (std::size_t i = delay; i < size; ++i)
+    ATK_VECTORIZE for (gsl::index i = delay; i < size; ++i)
     {
       output[i] = blend * processed_input[i] + feedforward * processed_input[i - delay];
     }

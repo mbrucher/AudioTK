@@ -70,7 +70,7 @@ namespace ATK
   {
     indice = 0;
     cache.resize(output_sampling_rate * seconds);
-    for(std::size_t i = 0; i < cache.size(); ++i)
+    for(gsl::index i = 0; i < cache.size(); ++i)
     {
       cache[i] = static_cast<DataType>(std::sin(2 * boost::math::constants::pi<double>() * (i+1) * periods / seconds / output_sampling_rate));
     }
@@ -92,7 +92,7 @@ namespace ATK
         indice = 0;
       }
     }
-    for (std::size_t i = 0; i < size; ++i)
+    for (gsl::index i = 0; i < size; ++i)
     {
       output[i] = static_cast<DataType>(offset + volume * output[i]);
     }

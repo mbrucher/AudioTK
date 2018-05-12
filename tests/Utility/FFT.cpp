@@ -57,6 +57,12 @@ BOOST_AUTO_TEST_CASE( doubleFFT_test )
   
   processor.process_forward(input.data(), frequency.data(), 100);
   processor.process_forward(double_input.data(), double_frequency.data(), 100);
+  
+  std::vector<double> angle;
+  processor.get_angle(angle);
+
+  BOOST_REQUIRE_SMALL(angle[0], 0.0001);
+  
   processor.process_backward(frequency.data(), input.data(), 128);
   processor.process_backward(double_frequency.data(), double_input.data(), 128);
   

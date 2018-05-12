@@ -9,6 +9,8 @@
 #include <cstdint>
 #include <vector>
 
+#include <gsl/gsl>
+
 #include <ATK/config.h>
 #include <ATK/EQ/config.h>
 
@@ -67,19 +69,19 @@ namespace ATK
 
       const auto* ATK_RESTRICT coefficients_in_ptr = coefficients_in.data();
 
-      for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
+      for (gsl::index channel = 0; channel < nb_input_ports; ++channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
         DataType* ATK_RESTRICT output = outputs[channel];
 
-        for (std::size_t i = 0; i < size; ++i)
+        for (gsl::index i = 0; i < size; ++i)
         {
           output[i] = 0;
         }
 
-        for (unsigned int j = 0; j < in_order + 1; ++j)
+        for (gsl::index j = 0; j < in_order + 1; ++j)
         {
-          for (std::size_t i = 0; i < size; ++i)
+          for (gsl::index i = 0; i < size; ++i)
           {
             output[i] += coefficients_in_ptr[j] * input[i + j];
           }

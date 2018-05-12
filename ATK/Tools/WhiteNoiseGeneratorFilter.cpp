@@ -4,8 +4,6 @@
 
 #include <ATK/Tools/WhiteNoiseGeneratorFilter.h>
 
-#include <cmath>
-#include <cstdint>
 
 #include <boost/math/constants/constants.hpp>
 
@@ -13,7 +11,7 @@ namespace ATK
 {
   template<typename DataType_>
   WhiteNoiseGeneratorFilter<DataType_>::WhiteNoiseGeneratorFilter()
-  :Parent(0, 1), volume(1), offset(0), dist(static_cast<DataType>(1e-3), static_cast<DataType>(2e-3))
+  :Parent(0, 1), volume(1), offset(0), dist(static_cast<DataType>(-1), static_cast<DataType>(1))
   {
   }
   
@@ -52,7 +50,7 @@ namespace ATK
   void WhiteNoiseGeneratorFilter<DataType_>::process_impl(std::size_t size) const
   {
     DataType* ATK_RESTRICT output = outputs[0];
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       output[i] = dist(gen);
     }

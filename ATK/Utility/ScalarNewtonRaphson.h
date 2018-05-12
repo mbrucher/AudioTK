@@ -22,7 +22,6 @@ namespace ATK
   template<typename Function, int max_iterations=10, bool check_convergence=true>
   class ScalarNewtonRaphson
   {
-    
     typedef typename Function::DataType DataType;
     
     Function function;
@@ -92,7 +91,7 @@ namespace ATK
     DataType optimize_impl(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output)
     {
       DataType y1 = function.estimate(input, output);
-      int i;
+      gsl::index i;
       
       for(i = 0; i < max_iterations; ++i)
       {

@@ -15,7 +15,7 @@ namespace
   {
     std::size_t nbChannels = outputs.size();
     std::size_t size = outputs[0].size();
-    for(std::size_t j = 0; j < nbChannels; ++j)
+    for(gsl::index j = 0; j < nbChannels; ++j)
     {
       ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, static_cast<int>(nbChannels));
     }
@@ -70,9 +70,9 @@ namespace ATK
     assert(output_sampling_rate == format.Frequence);
     read_from_file(size);
 
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
-      for(int j = 0; j < format.NbChannels; ++j)
+      for(gsl::index j = 0; j < format.NbChannels; ++j)
       {
         outputs[j][i] = temp_arrays[j][i];
       }
@@ -92,7 +92,7 @@ namespace ATK
 
     if(temp_arrays[0].size() != static_cast<std::size_t>(size))
     {
-      for(int j = 0; j < format.NbChannels; ++j)
+      for(gsl::index j = 0; j < format.NbChannels; ++j)
       {
         temp_arrays[j].resize(size);
       }

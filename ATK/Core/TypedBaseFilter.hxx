@@ -202,7 +202,7 @@ namespace ATK
   template<typename DataType_, typename DataType__>
   void TypedBaseFilter<DataType_, DataType__>::convert_inputs(std::size_t size)
   {
-    for(unsigned int i = 0; i < nb_input_ports; ++i)
+    for(gsl::index i = 0; i < nb_input_ports; ++i)
     {
       // if the input delay is smaller than the preceding filter output delay, we may have overlap
       // if the types are identical and if the type is not -1 (an unknown type)
@@ -230,7 +230,7 @@ namespace ATK
         else
         {
           const auto input_ptr = converted_inputs[i];
-          for(int j = 0; j < static_cast<int>(in_delay); ++j)
+          for(gsl::index j = 0; j < in_delay; ++j)
           {
             temp[j] = input_ptr[last_size + j - in_delay];
           }
@@ -245,7 +245,7 @@ namespace ATK
       {
         auto my_last_size = static_cast<int64_t>(last_size) * input_sampling_rate / output_sampling_rate;
         const auto input_ptr = converted_inputs[i];
-        for(int j = 0; j < static_cast<int>(input_delay); ++j)
+        for(gsl::index j = 0; j < input_delay; ++j)
         {
           input_ptr[j - input_delay] = input_ptr[my_last_size + j - input_delay];
         }
@@ -257,7 +257,7 @@ namespace ATK
   template<typename DataType_, typename DataType__>
   void TypedBaseFilter<DataType_, DataType__>::prepare_outputs(std::size_t size)
   {
-    for(unsigned int i = 0; i < nb_output_ports; ++i)
+    for(gsl::index i = 0; i < nb_output_ports; ++i)
     {
       auto output_size = outputs_size[i];
       auto out_delay = out_delays[i];
@@ -267,7 +267,7 @@ namespace ATK
         AlignedOutVector temp(output_delay + size, TypeTraits<DataTypeOutput>::Zero());
         if(output_size == 0)
         {
-          for(unsigned int j = 0; j < output_delay; ++j)
+          for(gsl::index j = 0; j < output_delay; ++j)
           {
             temp[j] = default_output[i];
           }
@@ -275,7 +275,7 @@ namespace ATK
         else
         {
           const auto output_ptr = outputs[i];
-          for(int j = 0; j < static_cast<int>(out_delay); ++j)
+          for(gsl::index j = 0; j < static_cast<int>(out_delay); ++j)
           {
             temp[j] = output_ptr[last_size + j - out_delay];
           }
@@ -289,7 +289,7 @@ namespace ATK
       else
       {
         const auto output_ptr = outputs[i];
-        for(int j = 0; j < static_cast<int>(output_delay); ++j)
+        for(gsl::index j = 0; j < static_cast<int>(output_delay); ++j)
         {
           output_ptr[j - output_delay] = output_ptr[last_size + j - output_delay];
         }

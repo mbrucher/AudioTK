@@ -20,7 +20,7 @@
 
   ID:               atk_utility
   vendor:           Matthieu Brucher
-  version:          2.3.1
+  version:          2.3.2
   name:             ATK utilities
   description:      Utility classes for ATK
   website:          http://www.audio-tk.com/
@@ -39,7 +39,6 @@
 
 #include <ATK/config.h>
 
-#include <ATK/Utility/exp.h>
 #include <ATK/Utility/fmath.h>
 #include <ATK/Utility/FlushToZero.h>
 

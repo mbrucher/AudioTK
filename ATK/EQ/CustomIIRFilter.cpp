@@ -15,7 +15,7 @@ namespace ATK
 {
   template <typename DataType>
   CustomIIRCoefficients<DataType>::CustomIIRCoefficients(std::size_t nb_channels)
-    :Parent(nb_channels, nb_channels)
+    :Parent(nb_channels, nb_channels), in_order(0), out_order(0)
   {
   }
 
@@ -23,8 +23,7 @@ namespace ATK
   void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_in(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_in )
   {
     in_order = static_cast<int>(coefficients_in.size() - 1);
-    this->coefficients_in.clear();
-    this->coefficients_in.insert(this->coefficients_in.end(), coefficients_in.begin(), coefficients_in.end());
+    this->coefficients_in.assign(coefficients_in.begin(), coefficients_in.end());
 
     setup();
   }
@@ -33,8 +32,7 @@ namespace ATK
   void ATK::CustomIIRCoefficients<DataType_>::set_coefficients_out(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_out )
   {
     out_order = static_cast<int>(coefficients_out.size());
-    this->coefficients_out.clear();
-    this->coefficients_out.insert(this->coefficients_out.end(), coefficients_out.begin(), coefficients_out.end());
+    this->coefficients_out.assign(coefficients_out.begin(), coefficients_out.end());
 
     setup();
   }

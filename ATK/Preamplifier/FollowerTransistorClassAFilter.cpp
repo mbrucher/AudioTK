@@ -320,7 +320,7 @@ namespace ATK
   {
     assert(input_sampling_rate == output_sampling_rate);
 
-    for (std::size_t i = 0; i < size; ++i)
+    for (gsl::index i = 0; i < size; ++i)
     {
       optimizer->optimize(i, converted_inputs.data(), outputs.data());
       optimizer->get_function().update_state(i, converted_inputs.data(), outputs.data());

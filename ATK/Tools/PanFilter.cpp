@@ -91,12 +91,12 @@ namespace ATK
     
     assert(2 * nb_input_ports == nb_output_ports);
 
-    for (unsigned int channel = 0; channel < nb_input_ports; ++channel)
+    for (gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output0 = outputs[2 * channel];
       DataType* ATK_RESTRICT output1 = outputs[2 * channel + 1];
-      for(std::size_t i = 0; i < size; ++i)
+      for(gsl::index i = 0; i < size; ++i)
       {
         output0[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(left_coeff) * input[i]);
         output1[i] = static_cast<DataType>(static_cast<typename TypeTraits<DataType>::Scalar>(right_coeff) * input[i]);

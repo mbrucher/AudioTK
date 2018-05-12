@@ -38,7 +38,7 @@ namespace ATK
   {
     assert(nb_input_ports == nb_output_ports);
 
-    for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+    for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];

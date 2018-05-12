@@ -25,12 +25,12 @@ namespace ATK
 
     DataType_ Lb_Vbe(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * (exp.first / Bf + exp.second / Br);
+      return Is / Vt * (exp.first / Bf);
     }
 
     DataType_ Lb_Vbc(const std::pair<DataType_, DataType_>& exp)
     {
-      return -Is / Vt * (exp.second / Br);
+      return Is / Vt * (exp.second / Br);
     }
 
     DataType_ Lc(const std::pair<DataType_, DataType_>& exp)
@@ -40,12 +40,12 @@ namespace ATK
 
     DataType_ Lc_Vbe(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * ((exp.first - exp.second) - exp.second / Br);
+      return Is / Vt * (exp.first);
     }
 
     DataType_ Lc_Vbc(const std::pair<DataType_, DataType_>& exp)
     {
-      return Is / Vt * (exp.second + exp.second / Br);
+      return -Is / Vt * (exp.second + exp.second / Br);
     }
 
     TransistorFunction(DataType_ Is, DataType_ Vt, DataType_ Br, DataType_ Bf)

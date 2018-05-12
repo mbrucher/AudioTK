@@ -118,19 +118,23 @@ namespace ATK
     /// Computes the gain based on the LUT
     void process_impl_LUT(std::size_t size) const
     {
-      for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
+      for (gsl::index channel = 0; channel < nb_output_ports; ++channel)
       {
         const auto* ATK_RESTRICT input = converted_inputs[channel];
         auto* ATK_RESTRICT output = outputs[channel];
-        for (std::size_t i = 0; i < size; ++i)
+        for (gsl::index i = 0; i < size; ++i)
         {
-          auto value = *(input++) * threshold;
-          size_t step = static_cast<size_t>(value * LUTprecision);
-          if (step >= LUTsize)
+          auto value = input[i] * threshold * LUTprecision;
+          auto step = std::lround(std::ceil(value));
+          if (step >= LUTsize - 1)
           {
             step = static_cast<int>(LUTsize) - 1;
+            output[i] = gainLUT[step];
           }
-          *(output++) = gainLUT[step];
+          else
+          {
+            output[i] = (1 - (value - step)) * gainLUT[step] + (value - step) * gainLUT[step + 1];
+          }
         }
       }
     }
@@ -138,13 +142,13 @@ namespace ATK
     /// Computes the gain directly
     void process_impl_direct(std::size_t size) const
     {
-      for (unsigned int channel = 0; channel < nb_output_ports; ++channel)
+      for (gsl::index channel = 0; channel < nb_output_ports; ++channel)
       {
         const auto* ATK_RESTRICT input = converted_inputs[channel];
         auto* ATK_RESTRICT output = outputs[channel];
-        for (std::size_t i = 0; i < size; ++i)
+        for (gsl::index i = 0; i < size; ++i)
         {
-          *(output++) = computeGain(*(input++) * threshold);
+          output[i] = computeGain(*(input++) * threshold);
         }
       }
     }
@@ -154,7 +158,7 @@ namespace ATK
     {
       auto gainLUT_ptr = gainLUT.data();
 
-      for (size_t i = 0; i < LUTsize; i += 16)
+      for (gsl::index i = 0; i < LUTsize; i += 16)
       {
         if (resetRequest)
         {
@@ -162,7 +166,7 @@ namespace ATK
           resetRequest = false;
           gainLUT_ptr = gainLUT.data();
         }
-        for (unsigned int j = 0; j < 16; ++j)
+        for (gsl::index j = 0; j < 16; ++j)
         {
           *(gainLUT_ptr++) = computeGain(static_cast<DataType>(i + j) / LUTprecision);
         }

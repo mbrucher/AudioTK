@@ -5,7 +5,7 @@ project(AudioTK)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(ATK_VERSION 2.3.1)
+set(ATK_VERSION 2.3.2)
 
 include(Utilities)
 
@@ -74,26 +74,6 @@ endif(ENABLE_CODECOVERAGE)
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
   set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
 ENDIF(NOT DEFINED PYTHON_INSTALL_FOLDER)
-
-include(CheckCXXCompilerFlag)
-
-if(CMAKE_CXX_COMPILER_ID MATCHES "Apple")
-  include(apple-clang)
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  include(clang)
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU")
-  include(gcc)
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-  if(MSVC)
-    include(intel-msvc)
-  else()
-    include(intel-gcc)
-  endif()
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-  include(msvc)
-else()
-  message(FATAL_ERROR "Compiler '${CMAKE_CXX_COMPILER_ID}' not recognized")
-endif()
 
 enable_testing()
 

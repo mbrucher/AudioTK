@@ -9,6 +9,8 @@
 #include <cassert>
 #include <vector>
 
+#include <gsl/gsl>
+
 #include <ATK/config.h>
 #include <ATK/Core/TypeTraits.h>
 #include <ATK/EQ/config.h>
@@ -117,19 +119,19 @@ namespace ATK
       const auto* ATK_RESTRICT coefficients_out_3_ptr = coefficients_out_3.data();
       const auto* ATK_RESTRICT coefficients_out_4_ptr = coefficients_out_4.data();
 
-      for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+      for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel] - static_cast<int64_t>(in_order);
         DataType* ATK_RESTRICT output = outputs[channel];
 
-        for(std::size_t i = 0; i < size; ++i)
+        for(gsl::index i = 0; i < size; ++i)
         {
           output[i] = 0;
         }
 
-        for (unsigned int j = 0; j < in_order + 1; ++j)
+        for (gsl::index j = 0; j < in_order + 1; ++j)
         {
-          for (std::size_t i = 0; i < size; ++i)
+          for (gsl::index i = 0; i < size; ++i)
           {
             output[i] += coefficients_in_ptr[j] * input[i + j];
           }
@@ -259,26 +261,26 @@ namespace ATK
     {
       assert(input_sampling_rate == output_sampling_rate);
       
-      for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+      for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
       {
         const DataType* ATK_RESTRICT input = converted_inputs[channel];
         DataType* ATK_RESTRICT output = outputs[channel];
         DataType* ATK_RESTRICT current_state = &state[channel * (std::max(input_delay, output_delay) + 1)];
         
-        for(std::size_t i = 0; i < size; ++i)
+        for(gsl::index i = 0; i < size; ++i)
         {
           output[i] = coefficients_in[in_order] * input[i] + current_state[0];
           auto min_order = std::min(input_delay, output_delay);
           
-          for(size_t j = 0; j < min_order; ++j)
+          for(gsl::index j = 0; j < min_order; ++j)
           {
             current_state[j] = current_state[j + 1] + input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1] + output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
           }
-          for(size_t j = min_order; j < input_delay; ++j)
+          for(gsl::index j = min_order; j < input_delay; ++j)
           {
             current_state[j] = current_state[j + 1] + input[i] * coefficients_in[in_order - static_cast<int64_t>(j) - 1];
           }
-          for(size_t j = min_order; j < output_delay; ++j)
+          for(gsl::index j = min_order; j < output_delay; ++j)
           {
             current_state[j] = current_state[j + 1] + output[i] * coefficients_out[out_order - static_cast<int64_t>(j) - 1];
           }

@@ -110,7 +110,7 @@ namespace ATK
   {
     Parent::setup();
     
-    for(int i = 0; i < number_of_steps; ++i)
+    for(gsl::index i = 0; i < number_of_steps; ++i)
     {
       DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
@@ -153,7 +153,7 @@ namespace ATK
   {
     Parent::setup();
 
-    for(int i = 0; i < number_of_steps; ++i)
+    for(gsl::index i = 0; i < number_of_steps; ++i)
     {
       DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
@@ -178,7 +178,7 @@ namespace ATK
   {
     Parent::setup();
 
-    for(int i = 0; i < number_of_steps; ++i)
+    for(gsl::index i = 0; i < number_of_steps; ++i)
     {
       DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
@@ -203,7 +203,7 @@ namespace ATK
   {
     Parent::setup();
 
-    for(int i = 0; i < number_of_steps; ++i)
+    for(gsl::index i = 0; i < number_of_steps; ++i)
     {
       DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
@@ -278,7 +278,7 @@ namespace ATK
   {
     Parent::setup();
 
-    for(int i = 0; i < number_of_steps; ++i)
+    for(gsl::index i = 0; i < number_of_steps; ++i)
     {
       DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * Q);
@@ -320,7 +320,7 @@ namespace ATK
   {
     Parent::setup();
 
-    for(int i = 0; i < number_of_steps; ++i)
+    for(gsl::index i = 0; i < number_of_steps; ++i)
     {
       DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);
@@ -376,7 +376,7 @@ namespace ATK
   {
     Parent::setup();
 
-    for(int i = 0; i < number_of_steps; ++i)
+    for(gsl::index i = 0; i < number_of_steps; ++i)
     {
       DataType cut_frequency = static_cast<DataType>((max_frequency - min_frequency) * i / (number_of_steps - 1) + min_frequency);
       DataType c = std::tan(boost::math::constants::pi<DataType>() * cut_frequency / input_sampling_rate);

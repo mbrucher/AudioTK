@@ -20,7 +20,7 @@
 
   ID:               atk_reverberation
   vendor:           Matthieu Brucher
-  version:          2.3.1
+  version:          2.3.2
   name:             ATK Reverberation
   description:      Reverberation classes for ATK
   website:          http://www.audio-tk.com/

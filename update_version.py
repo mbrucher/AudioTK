@@ -30,6 +30,13 @@ def update_changelog(new_version):
     if line.startswith("## Changelog"):
       sys.stdout.write("### %s\n\n" % new_version)
 
+def update_sonarqube(new_version):
+  for line in fileinput.input(files=("sonar-project.properties",), inplace=True):
+    if line.startswith("sonar.projectVersion"):
+      sys.stdout.write("sonar.projectVersion=%s\n" % new_version)
+    else:
+      sys.stdout.write(line)
+
 def update_juce_modules(new_version):
   import glob
   for header in glob.glob("modules/JUCE/atk_*/atk_*.h"):
@@ -44,5 +51,6 @@ if __name__ == "__main__":
   update_appveyor(sys.argv[1])
   update_doxygen(sys.argv[1])
   update_changelog(sys.argv[1])
+  update_sonarqube(sys.argv[1])
 
   update_juce_modules(sys.argv[1])

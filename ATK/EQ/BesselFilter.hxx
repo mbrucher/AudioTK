@@ -336,7 +336,7 @@ namespace ATK
     coefficients_out.assign(out_order, 0);
     
     create_default_bessel_coeffs(in_order, (input_sampling_rate - 2 * cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
-    for(int i = in_order - 1; i >= 0; i -= 2)
+    for(gsl::index i = in_order - 1; i >= 0; i -= 2)
     {
       coefficients_in[i] = - coefficients_in[i];
       coefficients_out[i] = - coefficients_out[i];

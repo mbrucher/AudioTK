@@ -39,7 +39,7 @@ namespace ATK
   {    
     double real_increment = 2. / output_sampling_rate * frequency;
     
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
       state += real_increment * (ascending ? 1 : -1);
       if(state >= 1)

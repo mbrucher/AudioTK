@@ -46,7 +46,7 @@ namespace
     :M(order / 2), target(target)
     {
       grid.resize(grid_size);
-      for(std::size_t i = 0; i < grid_size; ++i)
+      for(gsl::index i = 0; i < grid_size; ++i)
       {
         grid[i] = i * boost::math::constants::pi<DataType>() / grid_size;
       }
@@ -63,7 +63,7 @@ namespace
       objective.assign(grid_size, 0);
 
       int current_template = 0;
-      for(int i = 0; i < grid_size; ++i)
+      for(gsl::index i = 0; i < grid_size; ++i)
       {
         auto reduced_freq = grid[i] / boost::math::constants::pi<DataType>();
         if(reduced_freq > target[current_template].first.second && current_template + 1 < target.size())
@@ -82,7 +82,7 @@ namespace
         }
       }
       int flag = -1;
-      for (std::size_t i = 0; i < M + 2; ++i)
+      for (gsl::index i = 0; i < M + 2; ++i)
       {
         s[i] = flag;
         flag = -flag;

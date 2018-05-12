@@ -74,7 +74,7 @@ namespace ATK
       ++nb_optimizations;
 #endif
       auto res = optimize_impl(i, input, output);
-      for(std::size_t j = 0; j < size; ++j)
+      for(gsl::index j = 0; j < size; ++j)
       {
         output[j][i] = res.data()[j];
       }
@@ -98,7 +98,7 @@ namespace ATK
     {
       Vector y1 = function.estimate(i, input, output);
       
-      std::size_t j;
+      gsl::index j;
       for(j = 0; j < max_iterations; ++j)
       {
 #if ATK_PROFILING == 1
@@ -115,7 +115,7 @@ namespace ATK
       if(check_convergence && j == max_iterations)
       {
         Vector y0;
-        for(std::size_t j = 0; j < size; ++j)
+        for(gsl::index j = 0; j < size; ++j)
         {
           y0.data()[j] = output[j][i-1];
         }

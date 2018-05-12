@@ -120,9 +120,9 @@ namespace ATK
   template<class DataType, int nb_channels>
   void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::process_impl(std::size_t size) const
   {
-    for (std::size_t i = 0; i < size; ++i)
+    for (gsl::index i = 0; i < size; ++i)
     {
-      ATK_VECTORIZE for (int channel = 0; channel < nb_channels; ++channel)
+      ATK_VECTORIZE for (gsl::index channel = 0; channel < nb_channels; ++channel)
       {
         auto j = impl->index - static_cast<int64_t>(delay[channel]);
         if (j < 0)
@@ -131,18 +131,18 @@ namespace ATK
         }
         outputs[nb_channels + channel][i] = impl->processed_input[channel][j];
       }
-      ATK_VECTORIZE for (int to_channel = 0; to_channel < nb_channels; ++to_channel)
+      ATK_VECTORIZE for (gsl::index to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
         impl->processed_input[to_channel][impl->index] = converted_inputs[to_channel][i];
-        ATK_VECTORIZE for (int from_channel = 0; from_channel < nb_channels; ++from_channel)
+        ATK_VECTORIZE for (gsl::index from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
           impl->processed_input[to_channel][impl->index] += feedback[from_channel * nb_channels + to_channel] * outputs[nb_channels + from_channel][i];
         }
       }
-      ATK_VECTORIZE for (int to_channel = 0; to_channel < nb_channels; ++to_channel)
+      ATK_VECTORIZE for (gsl::index to_channel = 0; to_channel < nb_channels; ++to_channel)
       {
         outputs[to_channel][i] = blend[to_channel] * impl->processed_input[to_channel][impl->index];
-        ATK_VECTORIZE for (int from_channel = 0; from_channel < nb_channels; ++from_channel)
+        ATK_VECTORIZE for (gsl::index from_channel = 0; from_channel < nb_channels; ++from_channel)
         {
           outputs[to_channel][i] += feedforward[from_channel * nb_channels + to_channel] * outputs[nb_channels + from_channel][i];
         }

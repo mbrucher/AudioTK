@@ -19,7 +19,7 @@ namespace
     DataType de = static_cast<DataType>(1.0 / std::sqrt(std::pow(10, (0.1 * ripple)) - 1));
     DataType mu = static_cast<DataType>(boost::math::asinh(1.0 / de) / order);
     
-    for(int i = -order+1; i < order; i += 2)
+    for(gsl::index i = -order+1; i < order; i += 2)
     {
       std::complex<DataType> p1 = -std::complex<DataType>(std::cos(i * boost::math::constants::pi<DataType>() / (2 * order)), std::sin(i * boost::math::constants::pi<DataType>() / (2 * order)));
       std::complex<DataType> p2 = std::complex<DataType>(std::sinh(mu) * p1.real(), std::cosh(mu) * p1.imag());
@@ -35,11 +35,11 @@ namespace
     }
     
     std::complex<DataType> f = 1;
-    for(size_t i = 0; i < p.size(); ++i)
+    for(gsl::index i = 0; i < p.size(); ++i)
     {
       f *= - p[i];
     }
-    for(size_t i = 0; i < z.size(); ++i)
+    for(gsl::index i = 0; i < z.size(); ++i)
     {
       f /= - z[i];
     }
@@ -267,7 +267,7 @@ namespace ATK
     coefficients_out.assign(out_order, 0);
     
     create_default_chebyshev2_coeffs(in_order, ripple, (input_sampling_rate - 2 * cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
-    for(int i = in_order - 1; i >= 0; i -= 2)
+    for(gsl::index i = in_order - 1; i >= 0; i -= 2)
     {
       coefficients_in[i] = - coefficients_in[i];
       coefficients_out[i] = - coefficients_out[i];

@@ -39,11 +39,11 @@ namespace ATK
     a += poly2 * poly1 * (C2*R3+R1*C1+alpha*(1-alpha)*R2*C2+(1-alpha)*C2*R1);
     a += poly1 * poly1 * (C1*R1*(R3*C2+alpha*(1-alpha)*R2*C2));
 
-    for(unsigned int i = 0; i < in_order + 1; ++i)
+    for(gsl::index i = 0; i < in_order + 1; ++i)
     {
       coefficients_in[i] = b[i] / a[out_order];
     }
-    for(unsigned int i = 0; i < out_order; ++i)
+    for(gsl::index i = 0; i < out_order; ++i)
     {
       coefficients_out[i] = -a[i] / a[out_order];
     }
@@ -97,11 +97,11 @@ namespace ATK
     a += poly2 * poly1 * ((1-alpha) * C2 * (alpha * P * R2 + R1 * alpha * P + R1 * R2) + R4 * C2 * (R2 + R1) + R1 * C1 * R2);
     a += poly1 * poly1 * (C2 * R4 * C1 * R2 * R1 + (1-alpha) * C2 * R1 * P * C1 * R2);
     
-    for(unsigned int i = 0; i < in_order + 1; ++i)
+    for(gsl::index i = 0; i < in_order + 1; ++i)
     {
       coefficients_in[i] = b[i] / a[out_order];
     }
-    for(unsigned int i = 0; i < out_order; ++i)
+    for(gsl::index i = 0; i < out_order; ++i)
     {
       coefficients_out[i] = -a[i] / a[out_order];
     }

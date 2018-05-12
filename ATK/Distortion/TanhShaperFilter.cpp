@@ -41,11 +41,11 @@ namespace ATK
   template<typename DataType_>
   void TanhShaperFilter<DataType_>::process_impl(std::size_t size) const
   {
-    for(unsigned int channel = 0; channel < nb_input_ports; ++channel)
+    for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::size_t i = 0; i < size; ++i)
+      for(gsl::index i = 0; i < size; ++i)
       {
         auto exp = fmath::exp(coeff * input[i]);
         auto invexp = 1 / exp;
