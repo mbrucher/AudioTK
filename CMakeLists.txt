@@ -174,7 +174,7 @@ endif(ENABLE_PYTHON)
 
 add_subdirectory(modules)
 
-FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake *.in ATK/*.in *.yml *.md)
+FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake *.in ATK/*.in *.yml *.md *.properties)
 SOURCE_GROUP_BY_FOLDER(CMAKE_OTHER)
 add_custom_target(CMake SOURCES ${CMAKE_OTHER_SRC})
 
