@@ -19,10 +19,11 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::outputs;
     using Parent::output_sampling_rate;
-    using Parent::set_output_sampling_rate;
-    using Parent::set_nb_output_ports;
     
   public:
+    using Parent::set_output_sampling_rate;
+    using Parent::set_nb_output_ports;
+
     /**
     * @brief Create a filter for the beginning of a pipeline
     * @param array is the pointer to the data that will be reused during all the processing

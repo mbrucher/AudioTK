@@ -26,9 +26,10 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;
-    using Parent::set_input_sampling_rate;
     
   public:
+    using Parent::set_input_sampling_rate;
+
     /**
      * @brief Create a circular filter for the end of a pipeline
      */

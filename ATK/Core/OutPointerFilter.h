@@ -19,9 +19,10 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;
-    using Parent::set_input_sampling_rate;
     
   public:
+    using Parent::set_input_sampling_rate;
+
     /**
      * @brief Create a filter for the end of a pipeline
      * @param array is the pointer to the data that will be reused during all the processing
