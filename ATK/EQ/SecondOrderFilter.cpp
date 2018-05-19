@@ -7,6 +7,11 @@
 
 namespace ATK
 {
+  template class SecondOrderCoreCoefficients<float>;
+  template class SecondOrderCoreCoefficients<double>;
+  template class SecondOrderCoreCoefficients<std::complex<float> >;
+  template class SecondOrderCoreCoefficients<std::complex<double> >;
+
   template class SecondOrderBaseCoefficients<float>;
   template class SecondOrderBaseCoefficients<double>;
   template class SecondOrderBaseCoefficients<std::complex<float> >;

@@ -24,8 +24,8 @@ namespace ATK
   protected:
     CoeffDataType cut_frequency;
 
-    const static gsl::index in_order=4;
-    const static gsl::index out_order=4;
+    constexpr static gsl::index in_order=4;
+    constexpr static gsl::index out_order=4;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 

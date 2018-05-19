@@ -14,8 +14,14 @@
 namespace ATK
 {
   template <typename DataType_>
-  SecondOrderBaseCoefficients<DataType_>::SecondOrderBaseCoefficients(gsl::index nb_channels)
+  SecondOrderCoreCoefficients<DataType_>::SecondOrderCoreCoefficients(gsl::index nb_channels)
     :Parent(nb_channels, nb_channels)
+  {
+  }
+
+  template <typename DataType_>
+  SecondOrderBaseCoefficients<DataType_>::SecondOrderBaseCoefficients(gsl::index nb_channels)
+    : Parent(nb_channels)
   {
   }
 

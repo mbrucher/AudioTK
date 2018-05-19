@@ -15,11 +15,11 @@ namespace ATK
 {
   /// RIAA coefficients used for RIAA correction
   template<typename DataType_>
-  class RIAACoefficients : public TypedBaseFilter<DataType_>
+  class RIAACoefficients : public SecondOrderCoreCoefficients<DataType_>
   {
   public:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
+    typedef SecondOrderCoreCoefficients<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
@@ -27,11 +27,9 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
-    const static gsl::index in_order;
-    const static gsl::index out_order;
-    AlignedScalarVector coefficients_in;
-    AlignedScalarVector coefficients_out;
-    
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
+
     void setup() override;
         
   public:
@@ -44,11 +42,11 @@ namespace ATK
 
   /// RIAA coefficients used to create the inverse compensation (for mastering engineers)
   template<typename DataType_>
-  class InverseRIAACoefficients : public TypedBaseFilter<DataType_>
+  class InverseRIAACoefficients : public SecondOrderCoreCoefficients<DataType_>
   {
   public:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
+    typedef SecondOrderCoreCoefficients<DataType_> Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
@@ -56,10 +54,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
-    const static gsl::index in_order;
-    const static gsl::index out_order;
-    AlignedScalarVector coefficients_in;
-    AlignedScalarVector coefficients_out;
+    using Parent::coefficients_in;
+    using Parent::coefficients_out;
 
     void setup() override;
 

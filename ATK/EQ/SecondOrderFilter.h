@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Base class for all IIR second order filters
   template<typename DataType_>
-  class SecondOrderBaseCoefficients: public TypedBaseFilter<DataType_>, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
+  class SecondOrderCoreCoefficients : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
@@ -22,20 +22,41 @@ namespace ATK
     typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::setup;
   protected:
-    CoeffDataType cut_frequency;
 
-    const static gsl::index in_order=2;
-    const static gsl::index out_order=2;
+    constexpr static gsl::index in_order = 2;
+    constexpr static gsl::index out_order = 2;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
-    void setup() override;
   public:
     /*!
-     * @brief Constructor
-     * @param nb_channels is the number of input and output channels
-     */
-    SecondOrderBaseCoefficients(gsl::index nb_channels = 1);
+    * @brief Constructor
+    * @param nb_channels is the number of input and output channels
+    */
+    SecondOrderCoreCoefficients(gsl::index nb_channels = 1);
+  };
+  /// Base class for all IIR second order filters
+  template<typename DataType_>
+  class SecondOrderBaseCoefficients : public SecondOrderCoreCoefficients<DataType_>, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
+  {
+  public:
+    /// Simplify parent calls
+    typedef SecondOrderCoreCoefficients<DataType_> Parent;
+    using typename Parent::AlignedScalarVector;
+    using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using Parent::setup;
+  protected:
+    CoeffDataType cut_frequency;
+
+    constexpr static gsl::index in_order = 2;
+    constexpr static gsl::index out_order = 2;
+    AlignedScalarVector coefficients_in;
+    AlignedScalarVector coefficients_out;
+
+    SecondOrderBaseCoefficients(gsl::index nb_channels);
+    void setup() override;
+  public:
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency

@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType>
   RIAACoefficients<DataType>::RIAACoefficients(gsl::index nb_channels)
-    :Parent(nb_channels, nb_channels)
+    :Parent(nb_channels)
   {
   }
 
@@ -57,7 +57,7 @@ namespace ATK
 
   template<typename DataType>
   InverseRIAACoefficients<DataType>::InverseRIAACoefficients(gsl::index nb_channels)
-    :Parent(nb_channels, nb_channels)
+    :Parent(nb_channels)
   {
   }
 
