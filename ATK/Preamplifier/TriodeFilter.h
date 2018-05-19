@@ -15,7 +15,7 @@
 
 namespace ATK
 {
-  template<typename Function, std::size_t size, std::size_t max_iterations, bool check_convergence>
+  template<typename Function, gsl::index size, gsl::index max_iterations, bool check_convergence>
   class VectorizedNewtonRaphson;
 
   /// A tube preamplifier
@@ -82,7 +82,7 @@ namespace ATK
     /// Destructor
     ~TriodeFilter();
 
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
     void full_setup() final;
     void setup() final;

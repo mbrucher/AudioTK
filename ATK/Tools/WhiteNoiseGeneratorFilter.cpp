@@ -47,7 +47,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void WhiteNoiseGeneratorFilter<DataType_>::process_impl(std::size_t size) const
+  void WhiteNoiseGeneratorFilter<DataType_>::process_impl(gsl::index size) const
   {
     DataType* ATK_RESTRICT output = outputs[0];
     for(gsl::index i = 0; i < size; ++i)

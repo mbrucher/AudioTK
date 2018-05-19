@@ -153,9 +153,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    OversamplingFilter(std::size_t nb_channels = 1);
+    OversamplingFilter(gsl::index nb_channels = 1);
     
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 }
 

@@ -6,6 +6,8 @@
 #ifndef ATK_EQ_RIAAFILTER_H
 #define ATK_EQ_RIAAFILTER_H
 
+#include <gsl/gsl>
+
 #include <ATK/EQ/FourthOrderFilter.h>
 #include <ATK/EQ/SecondOrderFilter.h>
 
@@ -25,8 +27,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
-    const static unsigned int in_order = 2;
-    const static unsigned int out_order = 2;
+    const static gsl::index in_order;
+    const static gsl::index out_order;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
     
@@ -37,7 +39,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RIAACoefficients(std::size_t nb_channels = 1);
+    RIAACoefficients(gsl::index nb_channels = 1);
   };
 
   /// RIAA coefficients used to create the inverse compensation (for mastering engineers)
@@ -54,8 +56,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
-    const static unsigned int in_order = 2;
-    const static unsigned int out_order = 2;
+    const static gsl::index in_order;
+    const static gsl::index out_order;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
@@ -66,8 +68,17 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    InverseRIAACoefficients(std::size_t nb_channels = 1);
+    InverseRIAACoefficients(gsl::index nb_channels = 1);
   };
+
+  template<typename DataType_>
+  const gsl::index RIAACoefficients<DataType_>::in_order = 2;
+  template<typename DataType_>
+  const gsl::index RIAACoefficients<DataType_>::out_order = 2;
+  template<typename DataType_>
+  const gsl::index InverseRIAACoefficients<DataType_>::in_order = 2;
+  template<typename DataType_>
+  const gsl::index InverseRIAACoefficients<DataType_>::out_order = 2;
 }
 
 #endif

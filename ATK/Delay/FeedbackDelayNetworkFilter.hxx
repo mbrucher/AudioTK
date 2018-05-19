@@ -27,14 +27,14 @@ namespace ATK
     Vector outgain;
     Vector feedback;
 
-    HFDN_Impl(std::size_t max_delay)
+    HFDN_Impl(gsl::index max_delay)
       :processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
     {
     }
   };
 
   template<typename Mixture>
-  FeedbackDelayNetworkFilter<Mixture>::FeedbackDelayNetworkFilter(std::size_t max_delay)
+  FeedbackDelayNetworkFilter<Mixture>::FeedbackDelayNetworkFilter(gsl::index max_delay)
     :Parent(1, 2), impl(new HFDN_Impl(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
@@ -46,7 +46,7 @@ namespace ATK
   }
 
   template<typename Mixture>
-  void FeedbackDelayNetworkFilter<Mixture>::set_delay(unsigned int channel, std::size_t delay)
+  void FeedbackDelayNetworkFilter<Mixture>::set_delay(unsigned int channel, gsl::index delay)
   {
     if (delay == 0)
     {
@@ -61,7 +61,7 @@ namespace ATK
   }
 
   template<typename Mixture>
-  std::size_t FeedbackDelayNetworkFilter<Mixture>::get_delay(unsigned int channel) const
+  gsl::index FeedbackDelayNetworkFilter<Mixture>::get_delay(unsigned int channel) const
   {
     return delay[channel];
   }
@@ -114,7 +114,7 @@ namespace ATK
   }
 
   template<typename Mixture>
-  void FeedbackDelayNetworkFilter<Mixture>::process_impl(std::size_t size) const
+  void FeedbackDelayNetworkFilter<Mixture>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

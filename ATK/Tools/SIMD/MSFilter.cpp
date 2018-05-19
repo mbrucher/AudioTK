@@ -31,20 +31,20 @@ namespace ATK
   
   namespace SIMDPP_ARCH_NAMESPACE
   {
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createMiddleSideFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createMiddleSideFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new MiddleSideFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL> >(nb_channels));
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createMiddleSideFilter)
-                         ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createMiddleSideFilter)
+                         ((gsl::index) nb_channels))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<double, 2>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<float, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<double, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<float, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<double, 8>(std::size_t)));
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<double, 2>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<float, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<double, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<float, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createMiddleSideFilter<double, 8>(gsl::index)));
 }

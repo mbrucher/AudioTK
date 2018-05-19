@@ -24,8 +24,8 @@ namespace ATK
   protected:
     CoeffDataType cut_frequency;
 
-    const static int in_order=4;
-    const static int out_order=4;
+    const static gsl::index in_order=4;
+    const static gsl::index out_order=4;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
@@ -35,7 +35,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    FourthOrderBaseCoefficients(std::size_t nb_channels = 1);
+    FourthOrderBaseCoefficients(gsl::index nb_channels = 1);
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency

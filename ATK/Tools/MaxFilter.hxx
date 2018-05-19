@@ -7,7 +7,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  MaxFilter<DataType_>::MaxFilter(std::size_t nb_channels)
+  MaxFilter<DataType_>::MaxFilter(gsl::index nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
     
@@ -20,7 +20,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void MaxFilter<DataType_>::process_impl(std::size_t size) const
+  void MaxFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == 2 * nb_output_ports);
 

@@ -43,15 +43,15 @@ namespace ATK
     
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     /// Output array
     mutable std::array<DataType, nb_slices * slice_size> array;
     SliceBuffer last_slice;
 
     /// Current offset in the array
-    mutable std::size_t offset;
-    mutable std::size_t current_slice;
-    std::size_t last_checked_out_buffer;
+    mutable gsl::index offset;
+    mutable gsl::index current_slice;
+    gsl::index last_checked_out_buffer;
     
   };
 }

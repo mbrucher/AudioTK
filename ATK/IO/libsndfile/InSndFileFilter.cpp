@@ -30,14 +30,14 @@ namespace ATK
   }
 
   template<typename DataType>
-  void InSndFileFilter<DataType>::process_impl(std::size_t size) const
+  void InSndFileFilter<DataType>::process_impl(gsl::index size) const
   {
     std::vector<DataType> temp(size * outputs.size());
     stream->read(temp.data(), size * outputs.size());
     
-    for(std::size_t i = 0; i < size; ++i)
+    for(gsl::index i = 0; i < size; ++i)
     {
-      for(std::size_t j = 0; j < outputs.size(); ++j)
+      for(gsl::index j = 0; j < outputs.size(); ++j)
       {
         outputs[j][i] = temp[j + i * outputs.size()];
       }

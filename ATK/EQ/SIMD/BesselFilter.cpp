@@ -99,96 +99,96 @@ namespace ATK
 
   namespace SIMDPP_ARCH_NAMESPACE
   {
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createLowPassBesselFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createLowPassBesselFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<BesselLowPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createHighPassBesselFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createHighPassBesselFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<BesselHighPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPassBesselFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPassBesselFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<BesselBandPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandStopBesselFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandStopBesselFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<BesselBandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<BesselLowPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<BesselHighPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<BesselBandPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<BesselBandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassBesselFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassBesselFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassBesselFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopBesselFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassBesselTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassBesselTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassBesselTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopBesselTDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassBesselFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassBesselFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassBesselFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopBesselFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassBesselTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassBesselTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassBesselTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopBesselTDF2Filter) ((gsl::index) nb_channels))
   
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 8>(std::size_t)));
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createLowPassBesselTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createHighPassBesselTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandPassBesselTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createBandStopBesselTDF2Filter<double, 8>(gsl::index)));
 }

@@ -72,7 +72,7 @@ namespace ATK
 #endif
     }
 
-    void set_size(std::size_t size)
+    void set_size(gsl::index size)
     {
 #if ATK_USE_FFTW == 1
       fftw_free(input_data);
@@ -134,7 +134,7 @@ namespace ATK
 #endif
     }
 
-    void process(const DataType_* input, std::size_t input_size, std::size_t size) const
+    void process(const DataType_* input, gsl::index input_size, gsl::index size) const
     {
 #if ATK_USE_FFTW == 1
       double factor = static_cast<double>(size);
@@ -172,7 +172,7 @@ namespace ATK
 #endif
     }
     
-    void process_forward(std::complex<DataType_>* output, std::size_t size) const
+    void process_forward(std::complex<DataType_>* output, gsl::index size) const
     {
       for(gsl::index j = 0; j < size; ++j)
       {
@@ -185,7 +185,7 @@ namespace ATK
       }
     }
     
-    void process_backward(const std::complex<DataType_>* input, DataType_* output, std::size_t input_size, std::size_t size) const
+    void process_backward(const std::complex<DataType_>* input, DataType_* output, gsl::index input_size, gsl::index size) const
     {
 #if ATK_USE_FFTW == 1
       for(gsl::index j = 0; j < size; ++j)
@@ -220,7 +220,7 @@ namespace ATK
 #endif
     }
 
-    void process(const std::complex<DataType_>* input, std::size_t input_size, std::size_t size) const
+    void process(const std::complex<DataType_>* input, gsl::index input_size, gsl::index size) const
     {
 #if ATK_USE_FFTW == 1
       double factor = static_cast<double>(size);
@@ -258,7 +258,7 @@ namespace ATK
 #endif
     }
     
-    void process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size, std::size_t size) const
+    void process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, gsl::index input_size, gsl::index size) const
     {
 #if ATK_USE_FFTW == 1
       for (gsl::index j = 0; j < size; ++j)
@@ -336,7 +336,7 @@ namespace ATK
   }
   
   template<class DataType_>
-  void FFT<DataType_>::set_size(std::size_t size)
+  void FFT<DataType_>::set_size(gsl::index size)
   {
     if(this->size == size)
       return;
@@ -345,45 +345,45 @@ namespace ATK
   }
 
   template<class DataType_>
-  std::size_t FFT<DataType_>::get_size() const
+  gsl::index FFT<DataType_>::get_size() const
   {
     return size;
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process(const DataType_* input, std::size_t input_size) const
+  void FFT<DataType_>::process(const DataType_* input, gsl::index input_size) const
   {
     impl->process(input, input_size, size);
   }
   
   template<class DataType_>
-  void FFT<DataType_>::process_forward(const DataType_* input, std::complex<DataType_>* output, std::size_t input_size) const
+  void FFT<DataType_>::process_forward(const DataType_* input, std::complex<DataType_>* output, gsl::index input_size) const
   {
     process(input, input_size);
     impl->process_forward(output, size);
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, std::size_t input_size) const
+  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, DataType_* output, gsl::index input_size) const
   {
     impl->process_backward(input, output, input_size, size);
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process(const std::complex<DataType_>* input, std::size_t input_size) const
+  void FFT<DataType_>::process(const std::complex<DataType_>* input, gsl::index input_size) const
   {
     impl->process(input, input_size, size);
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process_forward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size) const
+  void FFT<DataType_>::process_forward(const std::complex<DataType_>* input, std::complex<DataType_>* output, gsl::index input_size) const
   {
     process(input, input_size);
     impl->process_forward(output, size);
   }
 
   template<class DataType_>
-  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size) const
+  void FFT<DataType_>::process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, gsl::index input_size) const
   {
     impl->process_backward(input, output, input_size, size);
   }

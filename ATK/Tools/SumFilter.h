@@ -29,14 +29,14 @@ namespace ATK
      * @param nb_output_channels is the number of output channels
      * @param summed_channels is the number of input channels summed in one output channel
      */
-    SumFilter(std::size_t nb_output_channels = 1, std::size_t summed_channels = 2);
+    SumFilter(gsl::index nb_output_channels = 1, gsl::index summed_channels = 2);
     /// Destructor
     ~SumFilter() override;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   private:
-    std::size_t summed_channels;
+    gsl::index summed_channels;
   };
 }
 

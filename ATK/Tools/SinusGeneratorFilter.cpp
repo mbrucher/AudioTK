@@ -72,7 +72,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SinusGeneratorFilter<DataType_>::process_impl(std::size_t size) const
+  void SinusGeneratorFilter<DataType_>::process_impl(gsl::index size) const
   {
     DataType* ATK_RESTRICT output_cos = outputs[0];
     DataType* ATK_RESTRICT output_sin = outputs[1];

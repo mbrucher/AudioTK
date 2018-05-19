@@ -13,8 +13,8 @@
 namespace ATK
 {
   /// Create a SIMD filter to mix channels together
-  template<typename DataType, std::size_t VL>
-  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createDryWetFilter(gsl::index nb_channels = 1);
 }
 
 #endif

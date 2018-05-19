@@ -32,19 +32,19 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    VariableDelayLineFilter(std::size_t max_delay);
+    VariableDelayLineFilter(gsl::index max_delay);
     /// Destructor
     ~VariableDelayLineFilter() override;
 
     void full_setup() final;
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   private:
     std::unique_ptr<VDLF_Impl> impl;
     
     /// Max delay for the delay line
-    std::size_t max_delay;
+    gsl::index max_delay;
   };
 }
 

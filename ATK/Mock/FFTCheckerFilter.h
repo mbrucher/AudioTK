@@ -34,7 +34,7 @@ namespace ATK
     void set_checks(const std::vector<std::pair<int, DataType> >& frequency_checks);
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     void setup() final;
 
   private:

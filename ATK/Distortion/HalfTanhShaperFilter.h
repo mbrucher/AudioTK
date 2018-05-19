@@ -30,7 +30,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    HalfTanhShaperFilter(std::size_t nb_channels = 1);
+    HalfTanhShaperFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~HalfTanhShaperFilter() override;
     
@@ -38,7 +38,7 @@ namespace ATK
     DataType_ get_coefficient() const;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   private:
     DataType coeff;
   };

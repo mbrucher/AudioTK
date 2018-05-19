@@ -32,12 +32,12 @@ namespace ATK
     using Parent::update_coeffs;
 
   public:
-    TimeVaryingSecondOrderSVFFilter(std::size_t nb_channels = 1);
+    TimeVaryingSecondOrderSVFFilter(gsl::index nb_channels = 1);
     ~TimeVaryingSecondOrderSVFFilter();
     
   protected:
     void full_setup() final;
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
     struct SVFState;
     std::unique_ptr<SVFState[]> state;
@@ -62,7 +62,7 @@ namespace ATK
     mutable DataType m2;
 
   public:
-    TimeVaryingSecondOrderSVFBaseCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFBaseCoefficients(gsl::index nb_channels);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -89,7 +89,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFLowPassCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFLowPassCoefficients(gsl::index nb_channels);
 
   protected:
     void update_coeffs(DataType g) const;
@@ -111,7 +111,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFBandPassCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFBandPassCoefficients(gsl::index nb_channels);
 
   protected:
     void update_coeffs(DataType g) const;
@@ -133,7 +133,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFHighPassCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFHighPassCoefficients(gsl::index nb_channels);
 
   protected:
     void update_coeffs(DataType g) const;
@@ -155,7 +155,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFNotchCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFNotchCoefficients(gsl::index nb_channels);
 
   protected:
     void update_coeffs(DataType g) const;
@@ -177,7 +177,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFPeakCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFPeakCoefficients(gsl::index nb_channels);
 
   protected:
     void update_coeffs(DataType g) const;
@@ -199,7 +199,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFBellCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFBellCoefficients(gsl::index nb_channels);
 
     /// Sets the gain of the bell
     void set_gain(DataType_ gain);
@@ -227,7 +227,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFLowShelfCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFLowShelfCoefficients(gsl::index nb_channels);
 
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);
@@ -255,7 +255,7 @@ namespace ATK
     using Parent::m2;
     using Parent::Q;
 
-    TimeVaryingSecondOrderSVFHighShelfCoefficients(std::size_t nb_channels);
+    TimeVaryingSecondOrderSVFHighShelfCoefficients(gsl::index nb_channels);
     
     /// Sets the gain of the shelf
     void set_gain(DataType_ gain);

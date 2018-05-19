@@ -20,7 +20,7 @@ namespace ATK
     std::array<std::vector<DataType>, nb_channels> processed_input;
     int64_t index;
 
-    SUFDLF_Impl(std::size_t max_delay)
+    SUFDLF_Impl(gsl::index max_delay)
       :index(0)
     {
       // reset the delay line
@@ -32,7 +32,7 @@ namespace ATK
   };
 
   template<class DataType, int nb_channels>
-  MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::MultipleUniversalFixedDelayLineFilter(std::size_t max_delay)
+  MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::MultipleUniversalFixedDelayLineFilter(gsl::index max_delay)
     :Parent(nb_channels, 2 * nb_channels), impl(new SUFDLF_Impl(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
@@ -47,7 +47,7 @@ namespace ATK
   }
 
   template<class DataType, int nb_channels>
-  void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::set_delay(unsigned int channel, std::size_t delay)
+  void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::set_delay(unsigned int channel, gsl::index delay)
   {
     if (delay == 0)
     {
@@ -62,7 +62,7 @@ namespace ATK
   }
 
   template<class DataType, int nb_channels>
-  std::size_t MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::get_delay(unsigned int channel) const
+  gsl::index MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::get_delay(unsigned int channel) const
   {
     return delay[channel];
   }
@@ -118,7 +118,7 @@ namespace ATK
   }
 
   template<class DataType, int nb_channels>
-  void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::process_impl(std::size_t size) const
+  void MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::process_impl(gsl::index size) const
   {
     for (gsl::index i = 0; i < size; ++i)
     {

@@ -77,13 +77,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void CachedCosinusGeneratorFilter<DataType_>::process_impl(std::size_t size) const
+  void CachedCosinusGeneratorFilter<DataType_>::process_impl(gsl::index size) const
   {
     DataType* ATK_RESTRICT output = outputs[0];
-    std::size_t processed = 0;
+    gsl::index processed = 0;
     while(processed < size)
     {
-      auto to_copy = std::min(size - processed, cache.size() - indice);
+      auto to_copy = std::min(size - processed, static_cast<gsl::index>(cache.size()) - indice);
       memcpy(reinterpret_cast<void*>(output + processed), reinterpret_cast<const void*>(cache.data() + indice), to_copy * sizeof(DataType_));
       indice += to_copy;
       processed += to_copy;

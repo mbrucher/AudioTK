@@ -11,17 +11,17 @@
 namespace ATK
 {
   /// Create a vectorized RIAA filter
-  template<typename DataType, std::size_t VL>
-  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter(gsl::index nb_channels = 1);
   /// Create a vectorized inverse RIAA filter
-  template<typename DataType, std::size_t VL>
-  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter(gsl::index nb_channels = 1);
   /// Create a vectorized RIAA filter
-  template<typename DataType, std::size_t VL>
-  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter(gsl::index nb_channels = 1);
   /// Create a vectorized inverse RIAA filter
-  template<typename DataType, std::size_t VL>
-  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_EQSIMD_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter(gsl::index nb_channels = 1);
 }
 
 #endif

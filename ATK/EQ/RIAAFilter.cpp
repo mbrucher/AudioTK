@@ -2,6 +2,8 @@
  * \file RIAAFilter.cpp
  */
 
+#include <gsl/gsl>
+
 #include <ATK/EQ/RIAAFilter.hxx>
 #include <ATK/EQ/IIRFilter.h>
 

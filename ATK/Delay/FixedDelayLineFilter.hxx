@@ -14,16 +14,16 @@ namespace ATK
   {
   public:
     typename FixedDelayLineFilter<DataType>::AlignedOutVector delay_line;
-    std::size_t index;
+    gsl::index index;
 
-    FDLF_Impl(std::size_t max_delay)
+    FDLF_Impl(gsl::index max_delay)
       :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
     {
     }
   };
 
   template<typename DataType_>
-  FixedDelayLineFilter<DataType_>::FixedDelayLineFilter(std::size_t max_delay)
+  FixedDelayLineFilter<DataType_>::FixedDelayLineFilter(gsl::index max_delay)
     :Parent(1, 1), impl(new FDLF_Impl(max_delay)), delay(0)
   {
   }
@@ -35,7 +35,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void FixedDelayLineFilter<DataType_>::set_delay(std::size_t delay)
+  void FixedDelayLineFilter<DataType_>::set_delay(gsl::index delay)
   {
     if(delay == 0)
     {
@@ -50,7 +50,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t FixedDelayLineFilter<DataType_>::get_delay() const
+  gsl::index FixedDelayLineFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -64,22 +64,22 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void FixedDelayLineFilter<DataType_>::process_impl(std::size_t size) const
+  void FixedDelayLineFilter<DataType_>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
-    auto delay_line_size = impl->delay_line.size();
+    auto delay_line_size = static_cast<gsl::index>(impl->delay_line.size());
 
     auto size_before_index = std::min(impl->index, impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index): 0) : std::min(size, delay));
     auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
-    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - (delay - impl->index)), static_cast<std::size_t>(size_after_index * sizeof(DataType_)));
-    memcpy(reinterpret_cast<void*>(output + size_after_index), reinterpret_cast<const void*>(delay_line + size_after_index + impl->index - delay), static_cast<std::size_t>(size_before_index * sizeof(DataType_)));
+    memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - (delay - impl->index)), static_cast<gsl::index>(size_after_index * sizeof(DataType_)));
+    memcpy(reinterpret_cast<void*>(output + size_after_index), reinterpret_cast<const void*>(delay_line + size_after_index + impl->index - delay), static_cast<gsl::index>(size_before_index * sizeof(DataType_)));
 
     if(size > delay)
     {
-      memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), static_cast<std::size_t>((size - delay) * sizeof(DataType_)));
+      memcpy(reinterpret_cast<void*>(output + delay), reinterpret_cast<const void*>(input), static_cast<gsl::index>((size - delay) * sizeof(DataType_)));
     }
 
     if(size > delay_line_size)

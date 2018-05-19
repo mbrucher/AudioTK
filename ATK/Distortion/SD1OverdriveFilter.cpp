@@ -132,7 +132,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void SD1OverdriveFilter<DataType>::process_impl(std::size_t size) const
+  void SD1OverdriveFilter<DataType>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

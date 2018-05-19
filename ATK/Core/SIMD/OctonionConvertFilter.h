@@ -27,12 +27,12 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
      */
-    RealToOctonionFilter(std::size_t nb_channels = 1);
+    RealToOctonionFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~RealToOctonionFilter() override;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 
   /// Converts a complex channels into a two real one
@@ -52,20 +52,20 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of channels, equal to the number of input channels, half the number of output ones
     */
-    OctonionToRealFilter(std::size_t nb_channels = 1);
+    OctonionToRealFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~OctonionToRealFilter() override;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 
   /// Create a filter to convert real streams to SIMD ones
   template<typename DataType_>
-  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter(std::size_t nb_channels = 1);
+  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter(gsl::index nb_channels = 1);
   /// Create a filter to convert SIMD streams to real ones
   template<typename DataType_>
-  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter(std::size_t nb_channels = 1);
+  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter(gsl::index nb_channels = 1);
 }
 
 #endif

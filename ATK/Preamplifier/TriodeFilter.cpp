@@ -44,12 +44,12 @@ namespace ATK
     {
     }
 
-    Vector estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       return affine_estimate(i, input, output);
     }
     
-/*    Vector id_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+/*    Vector id_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       Vector y0 = Vector::Zero();
       for (int j = 0; j < 4; ++j)
@@ -60,7 +60,7 @@ namespace ATK
       return y0;
     }*/
     
-    Vector affine_estimate(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    Vector affine_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       auto Ib = tube_function.Lb(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
       auto Ic = tube_function.Lc(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
@@ -85,13 +85,13 @@ namespace ATK
       return M.inverse() * y0;
     }
 
-    void update_state(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
+    void update_state(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       ickeq = 2 * Ck * output[1][i] - ickeq;
       icoeq = -2 * Co * output[2][i] - icoeq;
     }
 
-    Vector operator()(std::size_t i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
+    Vector operator()(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output, const Vector& y1)
     {
       auto Ib = tube_function.Lb(y1(3) - y1(0), y1(2) - y1(0));
       auto Ic = tube_function.Lc(y1(3) - y1(0), y1(2) - y1(0));
@@ -224,7 +224,7 @@ namespace ATK
   }
 
   template<typename DataType, typename TriodeFunction>
-  void TriodeFilter<DataType, TriodeFunction>::process_impl(std::size_t size) const
+  void TriodeFilter<DataType, TriodeFunction>::process_impl(gsl::index size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
 

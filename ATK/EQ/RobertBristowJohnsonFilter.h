@@ -34,7 +34,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonLowPassCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonLowPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -69,7 +69,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonHighPassCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonHighPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -104,7 +104,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandPassCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonBandPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -139,7 +139,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandPass2Coefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonBandPass2Coefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -174,7 +174,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandStopCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonBandStopCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -209,7 +209,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonAllPassCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonAllPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -245,7 +245,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonBandPassPeakCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonBandPassPeakCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -285,7 +285,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonLowShelvingCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonLowShelvingCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -325,7 +325,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RobertBristowJohnsonHighShelvingCoefficients(std::size_t nb_channels = 1);
+    RobertBristowJohnsonHighShelvingCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!

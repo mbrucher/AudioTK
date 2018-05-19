@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType>
-  RIAACoefficients<DataType>::RIAACoefficients(std::size_t nb_channels)
+  RIAACoefficients<DataType>::RIAACoefficients(gsl::index nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }
@@ -43,12 +43,12 @@ namespace ATK
     EQUtilities::zpk_bilinear(input_sampling_rate, z, p, k);
     EQUtilities::zpk2ba(input_sampling_rate, z, p, k, b, a);
     
-    auto in_size = std::min(std::size_t(in_order + 1), b.size());
+    auto in_size = std::min(in_order + 1, static_cast<gsl::index>(b.size()));
     for (gsl::index i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = b[i];
     }
-    auto out_size = std::min(std::size_t(in_order), a.size() - 1);
+    auto out_size = std::min(out_order, static_cast<gsl::index>(a.size() - 1));
     for (gsl::index i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -a[i];
@@ -56,7 +56,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  InverseRIAACoefficients<DataType>::InverseRIAACoefficients(std::size_t nb_channels)
+  InverseRIAACoefficients<DataType>::InverseRIAACoefficients(gsl::index nb_channels)
     :Parent(nb_channels, nb_channels)
   {
   }
@@ -88,12 +88,12 @@ namespace ATK
     z.back() = -.8;
     EQUtilities::zpk2ba(input_sampling_rate, z, p, k, b, a);
     
-    auto in_size = std::min(std::size_t(in_order + 1), a.size());
+    auto in_size = std::min(in_order + 1, static_cast<gsl::index>(a.size()));
     for (gsl::index i = 0; i < in_size; ++i)
     {
       coefficients_in[i] = a[i] / b[b.size() - 1];
     }
-    auto out_size = std::min(std::size_t(in_order), b.size() - 1);
+    auto out_size = std::min(out_order, static_cast<gsl::index>(b.size() - 1));
     for (gsl::index i = 0; i < out_size; ++i)
     {
       coefficients_out[i] = -b[i] / b[b.size() - 1];

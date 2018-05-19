@@ -29,8 +29,8 @@ namespace ATK
     /// Parameters of the stack
     CoeffDataType low, middle, high;
     
-    static const int in_order = 3;
-    static const int out_order = 3;
+    static const gsl::index in_order = 3;
+    static const gsl::index out_order = 3;
     
     void setup() override;
     
@@ -43,7 +43,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ToneStackCoefficients(std::size_t nb_channels = 1);
+    ToneStackCoefficients(gsl::index nb_channels = 1);
   public:
     /// Move constructor
     ToneStackCoefficients(ToneStackCoefficients&& other);

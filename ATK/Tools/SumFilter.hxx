@@ -9,7 +9,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  SumFilter<DataType_>::SumFilter(std::size_t nb_output_channels, std::size_t summed_channels)
+  SumFilter<DataType_>::SumFilter(gsl::index nb_output_channels, gsl::index summed_channels)
   :Parent(summed_channels * nb_output_channels, nb_output_channels), summed_channels(summed_channels)
   {
   }
@@ -20,7 +20,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void SumFilter<DataType_>::process_impl(std::size_t size) const
+  void SumFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == summed_channels * nb_output_ports);
 

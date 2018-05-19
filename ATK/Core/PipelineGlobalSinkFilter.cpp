@@ -51,12 +51,12 @@ namespace ATK
     return 0; // bogus
   }
 
-  void PipelineGlobalSinkFilter::set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port)
+  void PipelineGlobalSinkFilter::set_input_port(gsl::index input_port, gsl::not_null<BaseFilter*> filter, gsl::index output_port)
   {
     set_input_port(input_port, *filter, output_port);
   }
 
-  void PipelineGlobalSinkFilter::set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port)
+  void PipelineGlobalSinkFilter::set_input_port(gsl::index input_port, BaseFilter& filter, gsl::index output_port)
   {
     throw std::runtime_error("This function must not be called on pipelines");
   }
@@ -66,15 +66,15 @@ namespace ATK
     activate_parallel = parallel;
   }
 
-  void PipelineGlobalSinkFilter::prepare_process(std::size_t size)
+  void PipelineGlobalSinkFilter::prepare_process(gsl::index size)
   {
   }
 
-  void PipelineGlobalSinkFilter::prepare_outputs(std::size_t size )
+  void PipelineGlobalSinkFilter::prepare_outputs(gsl::index size )
   {
   }
 
-  void PipelineGlobalSinkFilter::process_impl(std::size_t size ) const
+  void PipelineGlobalSinkFilter::process_impl(gsl::index size ) const
   {
     for (auto it = filters.begin(); it != filters.end(); ++it)
     {

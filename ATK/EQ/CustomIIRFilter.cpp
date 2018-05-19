@@ -14,7 +14,7 @@
 namespace ATK
 {
   template <typename DataType>
-  CustomIIRCoefficients<DataType>::CustomIIRCoefficients(std::size_t nb_channels)
+  CustomIIRCoefficients<DataType>::CustomIIRCoefficients(gsl::index nb_channels)
     :Parent(nb_channels, nb_channels), in_order(0), out_order(0)
   {
   }

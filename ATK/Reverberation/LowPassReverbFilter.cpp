@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  LowPassReverbFilter<DataType_>::LowPassReverbFilter(std::size_t max_delay)
+  LowPassReverbFilter<DataType_>::LowPassReverbFilter(gsl::index max_delay)
     :Parent(1, 1), delay(0), feedback(0), cutoff(0)
   {
     output_delay = max_delay;
@@ -24,7 +24,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void LowPassReverbFilter<DataType_>::set_delay(std::size_t delay)
+  void LowPassReverbFilter<DataType_>::set_delay(gsl::index delay)
   {
     if(delay == 0)
     {
@@ -39,7 +39,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t LowPassReverbFilter<DataType_>::get_delay() const
+  gsl::index LowPassReverbFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -77,7 +77,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void LowPassReverbFilter<DataType_>::process_impl(std::size_t size) const
+  void LowPassReverbFilter<DataType_>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

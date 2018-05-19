@@ -7,7 +7,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  MiddleSideFilter<DataType_>::MiddleSideFilter(std::size_t nb_channels)
+  MiddleSideFilter<DataType_>::MiddleSideFilter(gsl::index nb_channels)
     :Parent(2 * nb_channels, 2 * nb_channels)
   {
   }
@@ -18,7 +18,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void MiddleSideFilter<DataType_>::process_impl(std::size_t size) const
+  void MiddleSideFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);
 

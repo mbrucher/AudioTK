@@ -31,7 +31,7 @@ namespace ATK
     std::unique_ptr<SndfileHandle> stream;
     std::string filename;
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     void setup() final;
     
   public:

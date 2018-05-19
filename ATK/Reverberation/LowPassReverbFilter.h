@@ -32,14 +32,14 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    LowPassReverbFilter(std::size_t max_delay);
+    LowPassReverbFilter(gsl::index max_delay);
     /// Destructor
     ~LowPassReverbFilter() override;
 
     /// Changes the delay used for the filter
-    void set_delay(std::size_t delay);
+    void set_delay(gsl::index delay);
     /// Returns the elay used for the system
-    std::size_t get_delay() const;
+    gsl::index get_delay() const;
 
     /// Sets feedback amount (sum of cutoff and feedback must be between 0 and 1)
     void set_feedback(DataType_ feedback);
@@ -50,9 +50,9 @@ namespace ATK
     /// Gets cutoff amount
     DataType_ get_cutoff() const;
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   private:
-    std::size_t delay;
+    gsl::index delay;
     DataType_ feedback;
     DataType_ cutoff;
   };

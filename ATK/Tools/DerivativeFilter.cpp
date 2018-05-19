@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  DerivativeFilter<DataType_>::DerivativeFilter(std::size_t nb_channels)
+  DerivativeFilter<DataType_>::DerivativeFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels)
   {
     output_delay = 1;
@@ -25,7 +25,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void DerivativeFilter<DataType_>::process_impl(std::size_t size) const
+  void DerivativeFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);
 
@@ -33,7 +33,7 @@ namespace ATK
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::size_t i = 0; i < size; ++i)
+      for(gsl::index i = 0; i < size; ++i)
       {
         output[i] = input[i] - input[i-1];
       }

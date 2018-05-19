@@ -26,8 +26,8 @@ namespace ATK
     /// Parameter of the stack
     CoeffDataType alpha;
     
-    static const int in_order = 2;
-    static const int out_order = 2;
+    static const gsl::index in_order = 2;
+    static const gsl::index out_order = 2;
     
     void setup() override;
     
@@ -41,7 +41,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SD1ToneCoefficients(std::size_t nb_channels = 1);
+    SD1ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);
@@ -66,8 +66,8 @@ namespace ATK
     /// Parameter of the stack
     CoeffDataType alpha;
     
-    static const int in_order = 2;
-    static const int out_order = 2;
+    static const gsl::index in_order = 2;
+    static const gsl::index out_order = 2;
     
     void setup() override;
     
@@ -81,7 +81,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    TS9ToneCoefficients(std::size_t nb_channels = 1);
+    TS9ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);

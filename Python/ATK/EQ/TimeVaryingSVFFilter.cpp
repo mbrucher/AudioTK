@@ -26,7 +26,7 @@ namespace
   void populate_TimeVaryingSVFFilter(py::module& m, const char* type)
   {
     py::class_<TimeVaryingSecondOrderSVFFilter<Coefficients>, Coefficients>(m, type)
-    .def(py::init<std::size_t>(), "nb_channels"_a = 1);
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
 }
 

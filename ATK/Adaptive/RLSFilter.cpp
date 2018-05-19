@@ -22,7 +22,7 @@ namespace ATK
     typedef Eigen::Matrix<DataType_, Eigen::Dynamic, 1> wType;
     typedef Eigen::Map<const wType> xType;
 
-    RLSFilterImpl(std::size_t size)
+    RLSFilterImpl(gsl::index size)
       :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size)), memory(.99)
     {
     }
@@ -64,7 +64,7 @@ namespace ATK
   };
 
   template<typename DataType_>
-  RLSFilter<DataType_>::RLSFilter(std::size_t size)
+  RLSFilter<DataType_>::RLSFilter(gsl::index size)
   :Parent(1, 1), impl(new RLSFilterImpl(size)), global_size(size), learning(true)
   {
     input_delay = size + 1;
@@ -76,7 +76,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void RLSFilter<DataType_>::set_size(std::size_t size)
+  void RLSFilter<DataType_>::set_size(gsl::index size)
   {
     if(size == 0)
     {
@@ -90,7 +90,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t RLSFilter<DataType_>::get_size() const
+  gsl::index RLSFilter<DataType_>::get_size() const
   {
     return global_size;
   }
@@ -129,7 +129,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void RLSFilter<DataType_>::process_impl(std::size_t size) const
+  void RLSFilter<DataType_>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

@@ -27,12 +27,12 @@ namespace ATK
     /*!
     * @brief Constructor
     */
-    MiddleSideFilter(std::size_t nb_channels = 1);
+    MiddleSideFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~MiddleSideFilter() override;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 }
 

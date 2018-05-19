@@ -27,12 +27,12 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
      */
-    RealToQuaternionFilter(std::size_t nb_channels = 1);
+    RealToQuaternionFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~RealToQuaternionFilter() override;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 
   /// Converts a complex channels into a two real one
@@ -52,20 +52,20 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of channels, equal to the number of input channels, half the number of output ones
     */
-    QuaternionToRealFilter(std::size_t nb_channels = 1);
+    QuaternionToRealFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~QuaternionToRealFilter() override;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 
   /// Create a filter to convert real streams to SIMD ones
   template<typename DataType_>
-  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToQuaternionFilter(std::size_t nb_channels = 1);
+  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToQuaternionFilter(gsl::index nb_channels = 1);
   /// Create a filter to convert SIMD streams to real ones
   template<typename DataType_>
-  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createQuaternionToRealFilter(std::size_t nb_channels = 1);
+  ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createQuaternionToRealFilter(gsl::index nb_channels = 1);
 }
 
 #endif

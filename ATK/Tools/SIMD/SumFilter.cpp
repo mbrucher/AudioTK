@@ -31,20 +31,20 @@ namespace ATK
   
   namespace SIMDPP_ARCH_NAMESPACE
   {
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createSumFilter(std::size_t nb_channels, std::size_t summed_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createSumFilter(gsl::index nb_channels, gsl::index summed_channels)
     {
       return std::unique_ptr<BaseFilter>(new SumFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL> >(nb_channels, summed_channels));
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createSumFilter)
-                         ((std::size_t) nb_channels, (std::size_t) summed_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createSumFilter)
+                         ((gsl::index) nb_channels, (gsl::index) summed_channels))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<double, 2>(std::size_t, std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<float, 4>(std::size_t, std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<double, 4>(std::size_t, std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<float, 8>(std::size_t, std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<double, 8>(std::size_t, std::size_t)));
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<double, 2>(gsl::index, gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<float, 4>(gsl::index, gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<double, 4>(gsl::index, gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<float, 8>(gsl::index, gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter<double, 8>(gsl::index, gsl::index)));
 }

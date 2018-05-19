@@ -29,12 +29,12 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    OneMinusFilter(std::size_t nb_channels = 1);
+    OneMinusFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~OneMinusFilter() override;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 }
 

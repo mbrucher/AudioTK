@@ -18,7 +18,7 @@ namespace ATK
   class HouseholderMixture
   {
   public:
-    static const int nb_channels = nb_channels_;
+    static const gsl::index nb_channels = nb_channels_;
     typedef DataType_ DataType;
     /// Gain factor to take into account in the feedback loop due to the instability of the mixture
     static constexpr float gain_factor = 0.5f; // should be std::pow(2, -order / 2.);, but pow is not constexpr :/

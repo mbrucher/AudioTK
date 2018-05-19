@@ -44,7 +44,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1LowPassCoefficients(std::size_t nb_channels = 1);
+    Chebyshev1LowPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -94,7 +94,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1HighPassCoefficients(std::size_t nb_channels = 1);
+    Chebyshev1HighPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -144,7 +144,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1BandPassCoefficients(std::size_t nb_channels = 1);
+    Chebyshev1BandPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;
@@ -197,7 +197,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1BandStopCoefficients(std::size_t nb_channels = 1);
+    Chebyshev1BandStopCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;

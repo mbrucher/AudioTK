@@ -28,7 +28,7 @@ namespace ATK
      */
     std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > > target;
     /// Oarger of the polynomial we can use
-    std::size_t in_order;
+    gsl::index in_order;
     /// Launches the computation
     void setup() override;
     /// Final coefficients
@@ -36,7 +36,7 @@ namespace ATK
     
   public:
     /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template
-    RemezBasedCoefficients(std::size_t nb_channels = 1);
+    RemezBasedCoefficients(gsl::index nb_channels = 1);
 
     /// Move constructor
     RemezBasedCoefficients(RemezBasedCoefficients&& other);
@@ -47,7 +47,7 @@ namespace ATK
     const std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > >& get_template() const;
     
     /// Order of the FIR filter
-    void set_order(std::size_t order);
+    void set_order(gsl::index order);
   };
 }
 

@@ -13,8 +13,8 @@
 namespace ATK
 {
   /// Create a SIMD filter to multiply channels together
-  template<typename DataType, std::size_t VL>
-  ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createUniversalFixedDelayLineFilter(std::size_t max_delay);
+  template<typename DataType, gsl::index VL>
+  ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createUniversalFixedDelayLineFilter(gsl::index max_delay);
 }
 
 #endif

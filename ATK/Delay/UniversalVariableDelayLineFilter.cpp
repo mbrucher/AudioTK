@@ -21,17 +21,17 @@ namespace ATK
     std::vector<DataType> processed_input;
 
     /// Integer portion of the delay for the last processed chunk
-    std::vector<std::size_t> integer_delay;
+    std::vector<gsl::index> integer_delay;
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
     DataType last_delay;
 
-    UVDLF_Impl(std::size_t max_delay)
+    UVDLF_Impl(gsl::index max_delay)
       :processed_input(max_delay, 0), last_delay(0)
     {
     }
 
-    void update_delay_line(std::size_t max_delay, std::size_t size)
+    void update_delay_line(gsl::index max_delay, gsl::index size)
     {
       auto array_size = processed_input.size();
       // Update delay line
@@ -47,7 +47,7 @@ namespace ATK
   };
 
   template<typename DataType_>
-  UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(std::size_t max_delay)
+  UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(gsl::index max_delay)
     :Parent(2, 1), impl(new UVDLF_Impl(max_delay)), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
   {
   }
@@ -59,13 +59,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalVariableDelayLineFilter<DataType_>::set_central_delay(std::size_t central_delay)
+  void UniversalVariableDelayLineFilter<DataType_>::set_central_delay(gsl::index central_delay)
   {
     this->central_delay = central_delay;
   }
 
   template<typename DataType_>
-  std::size_t UniversalVariableDelayLineFilter<DataType_>::get_central_delay() const
+  gsl::index UniversalVariableDelayLineFilter<DataType_>::get_central_delay() const
   {
     return central_delay;
   }
@@ -119,7 +119,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalVariableDelayLineFilter<DataType_>::process_impl(std::size_t size) const
+  void UniversalVariableDelayLineFilter<DataType_>::process_impl(gsl::index size) const
   {
     impl->update_delay_line(max_delay, size);
     const DataType* ATK_RESTRICT input1 = converted_inputs[0]; // samples
@@ -128,13 +128,13 @@ namespace ATK
 
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     DataType* ATK_RESTRICT processed_input = impl->processed_input.data();
-    std::size_t* ATK_RESTRICT integer_delay = impl->integer_delay.data();
+    gsl::index* ATK_RESTRICT integer_delay = impl->integer_delay.data();
     DataType* ATK_RESTRICT fractional_delay = impl->fractional_delay.data();
 
     // Update the delay line
     ATK_VECTORIZE for(gsl::index i = 0; i < size; ++i)
     {
-      auto rounded = static_cast<std::size_t>(input2[i]);
+      auto rounded = static_cast<gsl::index>(input2[i]);
       integer_delay[i] = rounded >= max_delay ? 0 : rounded;
       fractional_delay[i] = input2[i] - integer_delay[i];
     }

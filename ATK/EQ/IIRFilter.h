@@ -46,7 +46,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    IIRFilter(std::size_t nb_channels = 1)
+    IIRFilter(gsl::index nb_channels = 1)
       :Parent(nb_channels)
     {
     }
@@ -106,7 +106,7 @@ namespace ATK
       }
     }
     
-    void process_impl(std::size_t size) const final
+    void process_impl(gsl::index size) const final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);
@@ -137,7 +137,7 @@ namespace ATK
           }
         }
 
-        std::size_t i = 0;
+        gsl::index i = 0;
         if (out_order > 2)
         {
           for (i = 0; i < std::min(size - 3, size); i += 4)
@@ -238,7 +238,7 @@ namespace ATK
   protected:
     mutable typename Parent::AlignedVector state;
   public:
-    IIRTDF2Filter(std::size_t nb_channels = 1)
+    IIRTDF2Filter(gsl::index nb_channels = 1)
       :Parent(nb_channels)
     {
     }
@@ -257,7 +257,7 @@ namespace ATK
       state.assign(nb_input_ports * (std::max(input_delay, output_delay) + 1), TypeTraits<DataType>::Zero());
     }
     
-    void process_impl(std::size_t size) const final
+    void process_impl(gsl::index size) const final
     {
       assert(input_sampling_rate == output_sampling_rate);
       

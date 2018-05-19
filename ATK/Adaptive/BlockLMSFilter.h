@@ -34,18 +34,18 @@ namespace ATK
      * of the reference and the estimate. The block variant only updates the coefficients each time a block is processed.
      * @param size is the size of the underlying MA filter
      */
-    BlockLMSFilter(std::size_t size);
+    BlockLMSFilter(gsl::index size);
     /// Destructor
     ~BlockLMSFilter() override;
     
     /// Changes the underlying size
-    void set_size(std::size_t size);
+    void set_size(gsl::index size);
     /// Retrieve the size
-    std::size_t get_size() const;
+    gsl::index get_size() const;
     /// Changes the block size
-    void set_block_size(std::size_t size);
+    void set_block_size(gsl::index size);
     /// Retrieve the block size
-    std::size_t get_block_size() const;
+    gsl::index get_block_size() const;
 
     /// Sets the memory of the LMS algorithm
     void set_memory(double memory);
@@ -67,7 +67,7 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 }
 

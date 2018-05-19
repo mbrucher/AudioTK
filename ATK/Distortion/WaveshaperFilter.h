@@ -30,7 +30,7 @@ namespace ATK
     using Parent::LUTprecision;
     using Parent::gainLUT;
 
-    WaveshaperFilter(std::size_t nb_channels = 1, size_t LUTsize = 128 * 1024, size_t LUTprecision = 1024)
+    WaveshaperFilter(gsl::index nb_channels = 1, size_t LUTsize = 128 * 1024, size_t LUTprecision = 1024)
     :Parent(nb_channels, nb_channels), LUTsize(LUTsize), LUTprecision(LUTprecision), positiveShaperLUT(LUTsize, 0), negativeShaperLUT(LUTsize, 0)
     {
     }
@@ -40,7 +40,7 @@ namespace ATK
     }
 
   protected:
-    void process_impl(std::size_t size) const final
+    void process_impl(gsl::index size) const final
     {
       assert(nb_input_ports == nb_output_ports);
 
@@ -48,7 +48,7 @@ namespace ATK
       {
         const auto* ATK_RESTRICT input = converted_inputs[channel];
         auto* ATK_RESTRICT output = outputs[channel];
-        for (std::size_t i = 0; i < size; ++i)
+        for (gsl::index i = 0; i < size; ++i)
         {
           if(input[i] < 0)
           {

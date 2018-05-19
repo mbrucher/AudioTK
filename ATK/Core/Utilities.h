@@ -6,6 +6,9 @@
 #define ATK_CORE_UTILITIES_H
 
 #include <cstddef>
+
+#include <gsl/gsl>
+
 #include <ATK/Core/config.h>
 
 namespace ATK
@@ -22,7 +25,7 @@ namespace ATK
      * @param offset
      * @param ports
      */
-    static void convert_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset = 0, int ports = 1);
+    static void convert_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset = 0, gsl::index ports = 1);
   };
 }
 

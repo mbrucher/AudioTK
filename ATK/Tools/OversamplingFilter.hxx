@@ -124,14 +124,14 @@ namespace ATK
   }
 
   template<class DataType, class Coefficients>
-  OversamplingFilter<DataType, Coefficients>::OversamplingFilter(std::size_t nb_channels)
+  OversamplingFilter<DataType, Coefficients>::OversamplingFilter(gsl::index nb_channels)
     :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
     input_delay = Coefficients::points;
   }
 
   template<class DataType, class Coefficients>
-  void OversamplingFilter<DataType, Coefficients>::process_impl(std::size_t size) const
+  void OversamplingFilter<DataType, Coefficients>::process_impl(gsl::index size) const
   {
     assert(input_sampling_rate * Coefficients::oversampling_factor == output_sampling_rate);
     assert(nb_input_ports == nb_output_ports);

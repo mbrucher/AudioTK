@@ -31,14 +31,14 @@ namespace ATK
      * @brief Creates the filter with a given size
      * @param size is the size of the underlying MA filter
      */
-    RLSFilter(std::size_t size);
+    RLSFilter(gsl::index size);
     /// Destructor
     ~RLSFilter() override;
     
     /// Changes the underlying size
-    void set_size(std::size_t size);
+    void set_size(gsl::index size);
     /// Retrieve the size
-    std::size_t get_size() const;
+    gsl::index get_size() const;
 
     /// Sets the starting P matrix
     void set_P(const DataType_* P);
@@ -60,10 +60,10 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
   private:
-    std::size_t global_size;
+    gsl::index global_size;
     bool learning;
   };
 }

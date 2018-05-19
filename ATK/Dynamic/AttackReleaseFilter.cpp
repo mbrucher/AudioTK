@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  AttackReleaseFilter<DataType_>::AttackReleaseFilter(std::size_t nb_channels)
+  AttackReleaseFilter<DataType_>::AttackReleaseFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), attack(1), release(1)
   {
     output_delay = 1;
@@ -63,7 +63,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void AttackReleaseFilter<DataType_>::process_impl(std::size_t size) const
+  void AttackReleaseFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)

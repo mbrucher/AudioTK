@@ -24,7 +24,7 @@
 namespace ATK
 {
   template<typename DataType_, typename SIMDType>
-  RealToQuaternionFilter<DataType_, SIMDType>::RealToQuaternionFilter(std::size_t nb_channels)
+  RealToQuaternionFilter<DataType_, SIMDType>::RealToQuaternionFilter(gsl::index nb_channels)
   :Parent(SIMDType::length * nb_channels, nb_channels)
   {
   }
@@ -35,7 +35,7 @@ namespace ATK
   }
 
   template<typename DataType_, typename SIMDType>
-  void RealToQuaternionFilter<DataType_, SIMDType>::process_impl(std::size_t size) const
+  void RealToQuaternionFilter<DataType_, SIMDType>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == SIMDType::length * nb_output_ports);
 
@@ -60,7 +60,7 @@ namespace ATK
   }
 
   template<typename SIMDType, typename DataType__>
-  QuaternionToRealFilter<SIMDType, DataType__>::QuaternionToRealFilter(std::size_t nb_channels)
+  QuaternionToRealFilter<SIMDType, DataType__>::QuaternionToRealFilter(gsl::index nb_channels)
   :Parent(nb_channels, SIMDType::length * nb_channels)
   {
   }
@@ -71,7 +71,7 @@ namespace ATK
   }
 
   template<typename SIMDType, typename DataType__>
-  void QuaternionToRealFilter<SIMDType, DataType__>::process_impl(std::size_t size) const
+  void QuaternionToRealFilter<SIMDType, DataType__>::process_impl(gsl::index size) const
   {
     assert(SIMDType::length * nb_input_ports == nb_output_ports);
 
@@ -104,26 +104,26 @@ namespace ATK
 namespace SIMDPP_ARCH_NAMESPACE
 {
   template<typename DataType_>
-  std::unique_ptr<BaseFilter> createRealToQuaternionFilter(std::size_t nb_channels)
+  std::unique_ptr<BaseFilter> createRealToQuaternionFilter(gsl::index nb_channels)
   {
     return std::unique_ptr<BaseFilter>(new RealToQuaternionFilter<DataType_, typename SIMDTypeTraits<DataType_>::template SIMDType<4> >(nb_channels));
   }
 
   template<typename DataType__>
-  std::unique_ptr<BaseFilter> createQuaternionToRealFilter(std::size_t nb_channels)
+  std::unique_ptr<BaseFilter> createQuaternionToRealFilter(gsl::index nb_channels)
   {
     return std::unique_ptr<BaseFilter>(new QuaternionToRealFilter<typename SIMDTypeTraits<DataType__>::template SIMDType<4>, DataType__>(nb_channels));
   }
 }
   
 SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToQuaternionFilter)
-                       ((std::size_t) nb_channels))
+                       ((gsl::index) nb_channels))
 SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createQuaternionToRealFilter)
-                       ((std::size_t) nb_channels))
+                       ((gsl::index) nb_channels))
 
 SIMDPP_INSTANTIATE_DISPATCHER(
-  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToQuaternionFilter<float>(std::size_t)),
-  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToQuaternionFilter<double>(std::size_t)),
-  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createQuaternionToRealFilter<float>(std::size_t)),
-  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createQuaternionToRealFilter<double>(std::size_t)));
+  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToQuaternionFilter<float>(gsl::index)),
+  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToQuaternionFilter<double>(gsl::index)),
+  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createQuaternionToRealFilter<float>(gsl::index)),
+  (template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createQuaternionToRealFilter<double>(gsl::index)));
 }

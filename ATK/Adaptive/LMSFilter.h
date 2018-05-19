@@ -33,14 +33,14 @@ namespace ATK
      * of the reference and the estimate.
      * @param size is the size of the underlying MA filter
      */
-    LMSFilter(std::size_t size);
+    LMSFilter(gsl::index size);
     /// Destructor
     ~LMSFilter() override;
     
     /// Changes the underlying size
-    void set_size(std::size_t size);
+    void set_size(gsl::index size);
     /// Retrieve the size
-    std::size_t get_size() const;
+    gsl::index get_size() const;
 
     /// Sets the memory of the LMS algorithm
     void set_memory(double memory);
@@ -76,7 +76,7 @@ namespace ATK
     bool get_learning() const;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     bool learning;
     
   private:

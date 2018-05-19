@@ -29,7 +29,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    PowerFilter(std::size_t nb_channels = 1);
+    PowerFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~PowerFilter() override;
 
@@ -39,7 +39,7 @@ namespace ATK
     DataType_ get_memory() const;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
   private:
     DataType_ memory_factor;

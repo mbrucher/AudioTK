@@ -30,9 +30,9 @@ namespace ATK
   }
 
   template<typename DataType>
-  void OutCircularPointerFilter<DataType>::process_impl(std::size_t size) const
+  void OutCircularPointerFilter<DataType>::process_impl(gsl::index size) const
   {
-    auto update_size = std::min(size, array.size() - offset);
+    auto update_size = std::min(size, static_cast<gsl::index>(array.size()) - offset);
     memcpy(reinterpret_cast<void*>(&array[offset]), reinterpret_cast<const void*>(converted_inputs[0]), static_cast<size_t>(update_size) * sizeof(DataType));
     offset += update_size;
     if(offset == array.size())

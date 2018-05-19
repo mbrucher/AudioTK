@@ -9,7 +9,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  VolumeFilter<DataType_>::VolumeFilter(std::size_t nb_channels)
+  VolumeFilter<DataType_>::VolumeFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), volume(TypeTraits<DataType_>::One())
   {
   }
@@ -38,7 +38,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void VolumeFilter<DataType_>::process_impl(std::size_t size) const
+  void VolumeFilter<DataType_>::process_impl(gsl::index size) const
   {
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {

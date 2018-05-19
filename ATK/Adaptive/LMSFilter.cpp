@@ -27,7 +27,7 @@ namespace ATK
     /// line search
     double mu;
 
-    LMSFilterImpl(std::size_t size)
+    LMSFilterImpl(gsl::index size)
     :w(wType::Zero(size)), alpha(.99), mu(0.05)
     {
     }
@@ -78,7 +78,7 @@ namespace ATK
   };
 
   template<typename DataType_>
-  LMSFilter<DataType_>::LMSFilter(std::size_t size)
+  LMSFilter<DataType_>::LMSFilter(gsl::index size)
   :Parent(2, 1), impl(new LMSFilterImpl(size)), learning(true), mode(Mode::NORMAL)
   {
     input_delay = size - 1;
@@ -90,7 +90,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void LMSFilter<DataType_>::set_size(std::size_t size)
+  void LMSFilter<DataType_>::set_size(gsl::index size)
   {
     if(size == 0)
     {
@@ -102,7 +102,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t LMSFilter<DataType_>::get_size() const
+  gsl::index LMSFilter<DataType_>::get_size() const
   {
     return input_delay + 1;
   }
@@ -162,7 +162,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void LMSFilter<DataType_>::process_impl(std::size_t size) const
+  void LMSFilter<DataType_>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     const DataType* ATK_RESTRICT ref = converted_inputs[1];

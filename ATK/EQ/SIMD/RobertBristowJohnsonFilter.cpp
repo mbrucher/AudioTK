@@ -173,189 +173,189 @@ namespace ATK
 
   namespace SIMDPP_ARCH_NAMESPACE
   {
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonLowPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonHighPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonBandPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonBandPass2Coefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonBandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonAllPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonBandPassPeakCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonLowShelvingCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RobertBristowJohnsonHighShelvingCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonLowPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonHighPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonBandPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonBandPass2Coefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonBandStopCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonAllPassCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonBandPassPeakCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonLowShelvingCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RobertBristowJohnsonHighShelvingCoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPass2RobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createAllPassRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassPeakRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowShelvingRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighShelvingRobertBristowJohnsonFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPass2RobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createAllPassRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassPeakRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowShelvingRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighShelvingRobertBristowJohnsonTDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPass2RobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createAllPassRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassPeakRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowShelvingRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighShelvingRobertBristowJohnsonFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowPassRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighPassRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPass2RobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandStopRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createAllPassRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createBandPassPeakRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createLowShelvingRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createHighShelvingRobertBristowJohnsonTDF2Filter) ((gsl::index) nb_channels))
   
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<double, 8>(std::size_t)));
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonFilter<double, 8>(gsl::index)));
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<double, 8>(std::size_t)));
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowPassRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighPassRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPass2RobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandStopRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createAllPassRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createBandPassPeakRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createLowShelvingRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createHighShelvingRobertBristowJohnsonTDF2Filter<double, 8>(gsl::index)));
 }

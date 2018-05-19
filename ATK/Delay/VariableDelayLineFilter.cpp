@@ -18,16 +18,16 @@ namespace ATK
     std::vector<DataType> delay_line;
 
     /// Integer portion of the delay for the last processed chunk
-    std::vector<std::size_t> integer_delay;
+    std::vector<gsl::index> integer_delay;
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
 
-    VDLF_Impl(std::size_t max_delay)
+    VDLF_Impl(gsl::index max_delay)
       :delay_line(max_delay, 0)
     {
     }
 
-    void update_delay_line(std::size_t max_delay, std::size_t size)
+    void update_delay_line(gsl::index max_delay, gsl::index size)
     {
       auto array_size = delay_line.size();
       // Update delay line
@@ -44,7 +44,7 @@ namespace ATK
 
 
   template<typename DataType_>
-  VariableDelayLineFilter<DataType_>::VariableDelayLineFilter(std::size_t max_delay)
+  VariableDelayLineFilter<DataType_>::VariableDelayLineFilter(gsl::index max_delay)
     :Parent(2, 1), impl(new VDLF_Impl(max_delay)), max_delay(max_delay)
   {
   }
@@ -62,7 +62,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void VariableDelayLineFilter<DataType_>::process_impl(std::size_t size) const
+  void VariableDelayLineFilter<DataType_>::process_impl(gsl::index size) const
   {
     impl->update_delay_line(max_delay, size);
 
@@ -70,7 +70,7 @@ namespace ATK
     const DataType* ATK_RESTRICT input2 = converted_inputs[1]; // delay
     DataType* ATK_RESTRICT output = outputs[0];
 
-    std::size_t* ATK_RESTRICT integer_delay = impl->integer_delay.data();
+    gsl::index* ATK_RESTRICT integer_delay = impl->integer_delay.data();
     DataType* ATK_RESTRICT fractional_delay = impl->fractional_delay.data();
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
 
@@ -78,7 +78,7 @@ namespace ATK
 
     ATK_VECTORIZE for(gsl::index i = 0; i < size; ++i)
     {
-      auto rounded = static_cast<std::size_t>(input2[i]);
+      auto rounded = static_cast<gsl::index>(input2[i]);
       integer_delay[i] = rounded >= max_delay ? 0 : rounded;
       fractional_delay[i] = input2[i] - integer_delay[i];
     }

@@ -53,11 +53,11 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     void setup() final;
     
   private:
-    mutable std::size_t indice;
+    mutable gsl::index indice;
     int periods;
     int seconds;
     DataType_ volume;

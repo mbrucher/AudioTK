@@ -19,7 +19,7 @@ namespace
   void populate_FeedbackDelayNetworkFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<FeedbackDelayNetworkFilter<Mixture>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("max_delay"))
+    .def(py::init<gsl::index>(), py::arg("max_delay"))
     .def("get_delay", &FeedbackDelayNetworkFilter<Mixture>::get_delay, "channel")
     .def("set_delay", &FeedbackDelayNetworkFilter<Mixture>::set_delay, "channel", "delay")
     .def("get_ingain", &FeedbackDelayNetworkFilter<Mixture>::get_ingain, "channel")

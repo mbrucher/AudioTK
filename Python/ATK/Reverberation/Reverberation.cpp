@@ -2,6 +2,8 @@
 * \file Reverberation.cpp
 */
 
+#include <gsl/gsl>
+
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 
@@ -18,7 +20,7 @@ namespace
   void populate_ReverbFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<Filter>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("max_delay"))
+    .def(py::init<gsl::index>(), py::arg("max_delay"))
     .def_property("delay", &Filter::get_delay, &Filter::set_delay)
     .def_property("feedback", &Filter::get_feedback, &Filter::set_feedback);
   }

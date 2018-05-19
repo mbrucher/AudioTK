@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  AllPassReverbFilter<DataType_>::AllPassReverbFilter(std::size_t max_delay)
+  AllPassReverbFilter<DataType_>::AllPassReverbFilter(gsl::index max_delay)
     :Parent(1, 1), delay(0), feedback(0)
   {
     output_delay = max_delay;
@@ -24,7 +24,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void AllPassReverbFilter<DataType_>::set_delay(std::size_t delay)
+  void AllPassReverbFilter<DataType_>::set_delay(gsl::index delay)
   {
     if(delay == 0)
     {
@@ -39,7 +39,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t AllPassReverbFilter<DataType_>::get_delay() const
+  gsl::index AllPassReverbFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -61,7 +61,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void AllPassReverbFilter<DataType_>::process_impl(std::size_t size) const
+  void AllPassReverbFilter<DataType_>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

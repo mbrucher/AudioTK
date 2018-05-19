@@ -46,11 +46,11 @@ namespace ATK
     /// line search
     double mu;
     /// block size
-    std::size_t block_size;
-    std::size_t accumulate_block_size;
+    gsl::index block_size;
+    gsl::index accumulate_block_size;
     bool learning;
 
-    BlockLMSFilterImpl(std::size_t size)
+    BlockLMSFilterImpl(gsl::index size)
     :wfft(cwType::Zero(2*size)), block_input(2 * size, DataType_(0)), block_ref(size, DataType_(0)), block_error(size, DataType_(0)),
      block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0), learning(true)
     {
@@ -102,7 +102,7 @@ namespace ATK
   };
 
   template<typename DataType_>
-  BlockLMSFilter<DataType_>::BlockLMSFilter(std::size_t size)
+  BlockLMSFilter<DataType_>::BlockLMSFilter(gsl::index size)
   :Parent(2, 1), impl(new BlockLMSFilterImpl(size))
   {
     if (size == 0)
@@ -118,7 +118,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void BlockLMSFilter<DataType_>::set_size(std::size_t size)
+  void BlockLMSFilter<DataType_>::set_size(gsl::index size)
   {
     if(size == 0)
     {
@@ -130,13 +130,13 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t BlockLMSFilter<DataType_>::get_size() const
+  gsl::index BlockLMSFilter<DataType_>::get_size() const
   {
     return impl->wfft.size() / 2;
   }
   
   template<typename DataType_>
-  void BlockLMSFilter<DataType_>::set_block_size(std::size_t size)
+  void BlockLMSFilter<DataType_>::set_block_size(gsl::index size)
   {
     if (size == 0)
     {
@@ -152,7 +152,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t BlockLMSFilter<DataType_>::get_block_size() const
+  gsl::index BlockLMSFilter<DataType_>::get_block_size() const
   {
     return impl->block_size;
   }
@@ -200,7 +200,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void BlockLMSFilter<DataType_>::process_impl(std::size_t size) const
+  void BlockLMSFilter<DataType_>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     const DataType* ATK_RESTRICT ref = converted_inputs[1];

@@ -32,21 +32,21 @@ namespace Utilities
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     throw std::runtime_error("Cannot convert types for these filters");
   }
 
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
-  convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
   }
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
-    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     if(type != 0)
     {
@@ -62,14 +62,14 @@ namespace Utilities
 
   template<typename Vector, typename DataType>
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     throw std::runtime_error("Can't convert types");
   }
 
   template<typename Vector, typename DataType>
   typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     assert(type >= 0);
     if (type != 0)
@@ -86,14 +86,14 @@ namespace Utilities
 
   /// Conversion function for arithmetic types
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  typename boost::enable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     convert_scalar_array<Vector, DataType>(filter, port, converted_input, size, type);
   }
 
   /// Conversion function for other types not contained in ConversionTypes (no conversion in that case, just copy)
   template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     assert(dynamic_cast<ATK::OutputArrayInterface<DataType>*>(filter));
      // For SIMD, you shouldn't call this, but adapt input/output delays so that there is no copy from one filter to another.
@@ -103,7 +103,7 @@ namespace Utilities
 
   /// Conversion function for std::complex contained in ConversionTypes
   template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, std::size_t size, int type)
+  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     convert_complex_array<Vector, DataType>(filter, port, converted_input, size, type);
   }
@@ -127,7 +127,7 @@ namespace Utilities
   }
 
   template<typename DataType_, typename DataType__>
-  TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
+  TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(gsl::index nb_input_ports, gsl::index nb_output_ports)
   :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), converted_in_delays(nb_input_ports, 0), direct_filters(nb_input_ports, nullptr), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), out_delays(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
   {
   }
@@ -144,7 +144,7 @@ namespace Utilities
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::set_nb_input_ports(std::size_t nb_ports)
+  void TypedBaseFilter<DataType_, DataType__>::set_nb_input_ports(gsl::index nb_ports)
   {
     if(nb_ports == nb_input_ports)
       return;
@@ -158,7 +158,7 @@ namespace Utilities
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::set_nb_output_ports(std::size_t nb_ports)
+  void TypedBaseFilter<DataType_, DataType__>::set_nb_output_ports(gsl::index nb_ports)
   {
     if(nb_ports == nb_output_ports)
       return;
@@ -171,12 +171,12 @@ namespace Utilities
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::process_impl(std::size_t size) const
+  void TypedBaseFilter<DataType_, DataType__>::process_impl(gsl::index size) const
   {
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::prepare_process(std::size_t size)
+  void TypedBaseFilter<DataType_, DataType__>::prepare_process(gsl::index size)
   {
     convert_inputs(size);
   }
@@ -188,19 +188,19 @@ namespace Utilities
   }
 
   template<typename DataType_, typename DataType__>
-  DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(std::size_t port) const
+  DataType__* TypedBaseFilter<DataType_, DataType__>::get_output_array(gsl::index port) const
   {
     return outputs[port];
   }
 
   template<typename DataType_, typename DataType__>
-  std::size_t TypedBaseFilter<DataType_, DataType__>::get_output_array_size() const
+  gsl::index TypedBaseFilter<DataType_, DataType__>::get_output_array_size() const
   {
     return outputs_size.front();
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::convert_inputs(std::size_t size)
+  void TypedBaseFilter<DataType_, DataType__>::convert_inputs(gsl::index size)
   {
     for(gsl::index i = 0; i < nb_input_ports; ++i)
     {
@@ -255,7 +255,7 @@ namespace Utilities
   }
 
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::prepare_outputs(std::size_t size)
+  void TypedBaseFilter<DataType_, DataType__>::prepare_outputs(gsl::index size)
   {
     for(gsl::index i = 0; i < nb_output_ports; ++i)
     {
@@ -316,13 +316,13 @@ namespace Utilities
   }
   
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port)
+  void TypedBaseFilter<DataType_, DataType__>::set_input_port(gsl::index input_port, gsl::not_null<BaseFilter*> filter, gsl::index output_port)
   {
     set_input_port(input_port, *filter, output_port);
   }
   
   template<typename DataType_, typename DataType__>
-  void TypedBaseFilter<DataType_, DataType__>::set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port)
+  void TypedBaseFilter<DataType_, DataType__>::set_input_port(gsl::index input_port, BaseFilter& filter, gsl::index output_port)
   {
     Parent::set_input_port(input_port, filter, output_port);
     converted_inputs_size[input_port] = 0;

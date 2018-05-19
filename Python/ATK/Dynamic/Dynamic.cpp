@@ -23,7 +23,7 @@ namespace
   void populate_AttackReleaseFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<AttackReleaseFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1)
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = 1)
     .def_property("attack", &AttackReleaseFilter<DataType>::get_attack, &AttackReleaseFilter<DataType>::set_attack)
     .def_property("release", &AttackReleaseFilter<DataType>::get_release, &AttackReleaseFilter<DataType>::set_release);
   }
@@ -32,7 +32,7 @@ namespace
   void populate_AttackReleaseHysteresisFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<AttackReleaseHysteresisFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1)
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = 1)
     .def_property("attack", &AttackReleaseHysteresisFilter<DataType>::get_attack, &AttackReleaseHysteresisFilter<DataType>::set_attack)
     .def_property("attack_hysteresis", &AttackReleaseHysteresisFilter<DataType>::get_attack_hysteresis, &AttackReleaseHysteresisFilter<DataType>::set_attack_hysteresis)
     .def_property("release", &AttackReleaseHysteresisFilter<DataType>::get_release, &AttackReleaseHysteresisFilter<DataType>::set_release)
@@ -43,7 +43,7 @@ namespace
   void populate_PowerFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<Filter>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1)
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = 1)
     .def_property("memory", &Filter::get_memory, &Filter::set_memory);
   }
 }

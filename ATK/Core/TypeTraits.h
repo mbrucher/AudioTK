@@ -185,7 +185,7 @@ namespace ATK
   class ComplexRealTypeTraits<simdpp::float64<2> >
   {
   public:
-    static const std::size_t VECTOR_LANES = 2;
+    static constexpr int VECTOR_LANES = 2;
     typedef double Scalar;
     
     /// Converts to a double
@@ -221,7 +221,7 @@ namespace ATK
   class ComplexRealTypeTraits<simdpp::float32<4> >
   {
   public:
-    static const std::size_t VECTOR_LANES = 4;
+    static const int VECTOR_LANES = 4;
     typedef float Scalar;
 
     /// Converts to a double
@@ -257,7 +257,7 @@ namespace ATK
   class ComplexRealTypeTraits<simdpp::float32<8> >
   {
   public:
-    static const std::size_t VECTOR_LANES = 8;
+    static const int VECTOR_LANES = 8;
     typedef float Scalar;
 
     /// Converts to a double
@@ -293,7 +293,7 @@ namespace ATK
   class ComplexRealTypeTraits<simdpp::float64<4> >
   {
   public:
-    static const std::size_t VECTOR_LANES = 4;
+    static const int VECTOR_LANES = 4;
     typedef double Scalar;
 
     /// Converts to a double
@@ -329,7 +329,7 @@ namespace ATK
   class ComplexRealTypeTraits<simdpp::float64<8> >
   {
   public:
-    static const std::size_t VECTOR_LANES = 8;
+    static const int VECTOR_LANES = 8;
     typedef double Scalar;
 
     /// Converts to a double

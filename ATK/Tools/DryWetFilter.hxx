@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  DryWetFilter<DataType_>::DryWetFilter(std::size_t nb_channels)
+  DryWetFilter<DataType_>::DryWetFilter(gsl::index nb_channels)
   :Parent(2 * nb_channels, nb_channels), dry(1)
   {
   }
@@ -39,7 +39,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void DryWetFilter<DataType_>::process_impl(std::size_t size) const
+  void DryWetFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == 2 * nb_output_ports);
     

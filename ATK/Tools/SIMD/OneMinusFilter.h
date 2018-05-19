@@ -13,8 +13,8 @@
 namespace ATK
 {
   /// Create a SIMD filter to get 1 - previous value
-  template<typename DataType, std::size_t VL>
-  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOneMinusFilter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOneMinusFilter(gsl::index nb_channels = 1);
 }
 
 #endif

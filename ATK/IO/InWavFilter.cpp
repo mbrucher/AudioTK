@@ -13,8 +13,8 @@ namespace
   template<typename DataType1, typename DataType2>
   void convert(std::vector<std::vector<DataType1> >& outputs, const std::vector<char>& inputs)
   {
-    std::size_t nbChannels = outputs.size();
-    std::size_t size = outputs[0].size();
+    gsl::index nbChannels = outputs.size();
+    gsl::index size = outputs[0].size();
     for(gsl::index j = 0; j < nbChannels; ++j)
     {
       ATK::ConversionUtilities<DataType2, DataType1>::convert_array(reinterpret_cast<const DataType2*>(inputs.data()), outputs[j].data(), size, j, static_cast<int>(nbChannels));
@@ -65,7 +65,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  void InWavFilter<DataType>::process_impl(std::size_t size) const
+  void InWavFilter<DataType>::process_impl(gsl::index size) const
   {
     assert(output_sampling_rate == format.Frequence);
     read_from_file(size);
@@ -80,7 +80,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void InWavFilter<DataType>::read_from_file(std::size_t size) const
+  void InWavFilter<DataType>::read_from_file(gsl::index size) const
   {
     if(!wavstream.is_open())
     {
@@ -90,7 +90,7 @@ namespace ATK
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
     wavstream.read(buffer.data(), buffer.size());
 
-    if(temp_arrays[0].size() != static_cast<std::size_t>(size))
+    if(temp_arrays[0].size() != static_cast<gsl::index>(size))
     {
       for(gsl::index j = 0; j < format.NbChannels; ++j)
       {

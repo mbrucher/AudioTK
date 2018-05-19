@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  RealToComplexFilter<DataType_>::RealToComplexFilter(std::size_t nb_channels)
+  RealToComplexFilter<DataType_>::RealToComplexFilter(gsl::index nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
   }
@@ -23,7 +23,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void RealToComplexFilter<DataType_>::process_impl(std::size_t size) const
+  void RealToComplexFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == 2*nb_output_ports);
 
@@ -40,7 +40,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  ComplexToRealFilter<DataType_>::ComplexToRealFilter(std::size_t nb_channels)
+  ComplexToRealFilter<DataType_>::ComplexToRealFilter(gsl::index nb_channels)
     :Parent(nb_channels, 2 * nb_channels)
   {
   }
@@ -51,7 +51,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ComplexToRealFilter<DataType_>::process_impl(std::size_t size) const
+  void ComplexToRealFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(2* nb_input_ports == nb_output_ports);
 

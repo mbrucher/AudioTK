@@ -19,7 +19,7 @@ namespace
   void populate_BlockLMSFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<BlockLMSFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("size"))
+    .def(py::init<gsl::index>(), py::arg("size"))
     .def_property("size", &BlockLMSFilter<DataType>::get_size, &BlockLMSFilter<DataType>::set_size)
     .def_property("block_size", &BlockLMSFilter<DataType>::get_block_size, &BlockLMSFilter<DataType>::set_block_size)
     .def_property("memory", &BlockLMSFilter<DataType>::get_memory, &BlockLMSFilter<DataType>::set_memory)
@@ -40,7 +40,7 @@ namespace
   void populate_LMSFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<LMSFilter<DataType>> filter(m, type, parent);
-    filter.def(py::init<std::size_t>(), py::arg("size"))
+    filter.def(py::init<gsl::index>(), py::arg("size"))
     .def_property("size", &LMSFilter<DataType>::get_size, &LMSFilter<DataType>::set_size)
     .def_property("memory", &LMSFilter<DataType>::get_memory, &LMSFilter<DataType>::set_memory)
     .def_property("mu", &LMSFilter<DataType>::get_mu, &LMSFilter<DataType>::set_mu)
@@ -69,7 +69,7 @@ namespace
   void populate_RLSFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<RLSFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("size"))
+    .def(py::init<gsl::index>(), py::arg("size"))
     .def_property("size", &RLSFilter<DataType>::get_size, &RLSFilter<DataType>::set_size)
     .def_property("memory", &RLSFilter<DataType>::get_memory, &RLSFilter<DataType>::set_memory)
     .def_property("learning", &RLSFilter<DataType>::get_learning, &RLSFilter<DataType>::set_learning)

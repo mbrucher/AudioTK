@@ -7,7 +7,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  OffsetVolumeFilter<DataType_>::OffsetVolumeFilter(std::size_t nb_channels)
+  OffsetVolumeFilter<DataType_>::OffsetVolumeFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), volume(TypeTraits<DataType_>::One()), offset(TypeTraits<DataType_>::Zero())
   {
   }
@@ -42,7 +42,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void OffsetVolumeFilter<DataType_>::process_impl(std::size_t size) const
+  void OffsetVolumeFilter<DataType_>::process_impl(gsl::index size) const
   {
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {
