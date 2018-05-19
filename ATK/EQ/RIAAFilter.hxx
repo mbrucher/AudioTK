@@ -40,8 +40,8 @@ namespace ATK
     boost::math::tools::polynomial<CoeffDataType> b({ 1 });
     boost::math::tools::polynomial<CoeffDataType> a({ 1 });
     
-    zpk_bilinear(input_sampling_rate, z, p, k);
-    zpk2ba(input_sampling_rate, z, p, k, b, a);
+    EQUtilities::zpk_bilinear(input_sampling_rate, z, p, k);
+    EQUtilities::zpk2ba(input_sampling_rate, z, p, k, b, a);
     
     auto in_size = std::min(std::size_t(in_order + 1), b.size());
     for (gsl::index i = 0; i < in_size; ++i)
@@ -84,9 +84,9 @@ namespace ATK
     boost::math::tools::polynomial<CoeffDataType> b({ 1 });
     boost::math::tools::polynomial<CoeffDataType> a({ 1 });
     
-    zpk_bilinear(input_sampling_rate, z, p, k);
+    EQUtilities::zpk_bilinear(input_sampling_rate, z, p, k);
     z.back() = -.8;
-    zpk2ba(input_sampling_rate, z, p, k, b, a);
+    EQUtilities::zpk2ba(input_sampling_rate, z, p, k, b, a);
     
     auto in_size = std::min(std::size_t(in_order + 1), a.size());
     for (gsl::index i = 0; i < in_size; ++i)

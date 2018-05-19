@@ -11,7 +11,7 @@
 #include <boost/math/tools/polynomial.hpp>
 
 /// Namespace to build filters based on their zpk description
-namespace
+namespace EQUtilities
 {
   /// Transform the Wn=1 low pass analog filter in a Wn=Wn low pass filter
   template<typename DataType>

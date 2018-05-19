@@ -8,7 +8,7 @@
 #include <ATK/EQ/Chebyshev2Filter.h>
 #include <ATK/EQ/helpers.h>
 
-namespace Chebyshev3Utilities
+namespace Chebyshev2Utilities
 {
   template<typename DataType>
   void create_chebyshev2_analog_coefficients(int order, DataType ripple, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
@@ -56,13 +56,13 @@ namespace Chebyshev3Utilities
     int fs = 2;
     create_chebyshev2_analog_coefficients(static_cast<int>(order), ripple, z, p, k);
     DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
-    zpk_lp2lp(warped, z, p, k);
-    zpk_bilinear(fs, z, p, k);
+    EQUtilities::zpk_lp2lp(warped, z, p, k);
+    EQUtilities::zpk_bilinear(fs, z, p, k);
     
     boost::math::tools::polynomial<DataType> b({ 1 });
     boost::math::tools::polynomial<DataType> a({ 1 });
 
-    zpk2ba(fs, z, p, k, b, a);
+    EQUtilities::zpk2ba(fs, z, p, k, b, a);
     
     auto in_size = std::min(order + 1, b.size());
     for (size_t i = 0; i < in_size; ++i)
@@ -88,13 +88,13 @@ namespace Chebyshev3Utilities
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
-    zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    zpk_bilinear(fs, z, p, k);
+    EQUtilities::zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    EQUtilities::zpk_bilinear(fs, z, p, k);
     
     boost::math::tools::polynomial<DataType> b({ 1 });
     boost::math::tools::polynomial<DataType> a({ 1 });
 
-    zpk2ba(fs, z, p, k, b, a);
+    EQUtilities::zpk2ba(fs, z, p, k, b, a);
     
     auto in_size = std::min(order + 1, b.size());
     for (size_t i = 0; i < in_size; ++i)
@@ -120,13 +120,13 @@ namespace Chebyshev3Utilities
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
-    zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    zpk_bilinear(fs, z, p, k);
+    EQUtilities::zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    EQUtilities::zpk_bilinear(fs, z, p, k);
     
     boost::math::tools::polynomial<DataType> b({ 1 });
     boost::math::tools::polynomial<DataType> a({ 1 });
 
-    zpk2ba(fs, z, p, k, b, a);
+    EQUtilities::zpk2ba(fs, z, p, k, b, a);
     
     auto in_size = std::min(order + 1, b.size());
     for (size_t i = 0; i < in_size; ++i)
