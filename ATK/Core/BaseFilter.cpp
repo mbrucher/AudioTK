@@ -3,6 +3,7 @@
  */
 
 #include <ATK/Core/BaseFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <cassert>
 #include <cstdint>
@@ -78,19 +79,19 @@ namespace ATK
   {
     if(output_port >= filter.nb_output_ports)
     {
-      throw std::runtime_error("Output port does not exist for this filter");
+      throw RuntimeError("Output port does not exist for this filter");
     }
     if(input_port < nb_input_ports)
     {
       connections[input_port] = std::make_pair(output_port, &filter);
       if(filter.get_output_sampling_rate() != get_input_sampling_rate())
       {
-        throw std::runtime_error("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
+        throw RuntimeError("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
       }
     }
     else
     {
-      throw std::runtime_error("Input port doesn't exist for this filter");
+      throw RuntimeError("Input port doesn't exist for this filter");
     }
   }
 
@@ -169,7 +170,7 @@ namespace ATK
     }
     if(output_sampling_rate == 0)
     {
-      throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
+      throw RuntimeError("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
     }
     if(!is_reset)
     {
@@ -180,7 +181,7 @@ namespace ATK
       if(connections[port].second == nullptr)
       {
         if(!input_mandatory_connection[port])
-          throw std::runtime_error("Input port " + std::to_string(port) + " is not connected");
+          throw RuntimeError("Input port " + std::to_string(port) + " is not connected");
       }
       else
       {
@@ -225,7 +226,7 @@ namespace ATK
     }
     if (output_sampling_rate == 0)
     {
-      throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
+      throw RuntimeError("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
     }
     { // lock this entire loop, as we only want to do the processing if we are not reseted
       tbb::queuing_mutex::scoped_lock lock(mutex);
@@ -239,7 +240,7 @@ namespace ATK
         if(connections[port].second == nullptr)
         {
           if(!input_mandatory_connection[port])
-          throw std::runtime_error("Input port " + std::to_string(port) + " is not connected");
+          throw RuntimeError("Input port " + std::to_string(port) + " is not connected");
         }
         else
         {
@@ -317,7 +318,7 @@ namespace ATK
     {
       if(it->second == nullptr)
       {
-        throw std::runtime_error("Input port " + std::to_string(it - connections.begin()) + " is not connected");
+        throw RuntimeError("Input port " + std::to_string(it - connections.begin()) + " is not connected");
       }
       
       global_latency = std::max(global_latency, it->second->get_global_latency());

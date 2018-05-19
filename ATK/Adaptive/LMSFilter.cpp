@@ -73,6 +73,8 @@ namespace ATK
         return &LMSFilterImpl::update_signdata;
       case Mode::SIGNSIGN:
         return &LMSFilterImpl::update_signsign;
+      default:
+          throw std::range_error("Wrong mode for LMS filter");
       }
     }
   };

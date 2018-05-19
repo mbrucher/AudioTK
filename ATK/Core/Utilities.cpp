@@ -6,6 +6,16 @@
 
 namespace ATK
 {
+  RuntimeError::RuntimeError(const std::string& what_arg)
+  :std::runtime_error(what_arg)
+  {
+  }
+
+  RuntimeError::RuntimeError(const char* what_arg)
+  :std::runtime_error(what_arg)
+  {
+  }
+
   template struct ConversionUtilities<std::int8_t, std::int16_t>;
   template struct ConversionUtilities<std::int8_t, std::int32_t>;
   template struct ConversionUtilities<std::int8_t, std::int64_t>;
