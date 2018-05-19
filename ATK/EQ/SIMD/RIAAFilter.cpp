@@ -27,6 +27,15 @@
 
 namespace ATK
 {
+  template<typename DataType_>
+  const static gsl::index RIAACoefficients<DataType_>::in_order = 4;
+  template<typename DataType_>
+  const static gsl::index RIAACoefficients<DataType_>::out_order = 4;
+  template<typename DataType_>
+  const static gsl::index InverseRIAACoefficients<DataType_>::in_order = 4;
+  template<typename DataType_>
+  const static gsl::index InverseRIAACoefficients<DataType_>::out_order = 4;
+
   template class RIAACoefficients<simdpp::float64<2> >;
   template class InverseRIAACoefficients<simdpp::float64<2> >;
 
