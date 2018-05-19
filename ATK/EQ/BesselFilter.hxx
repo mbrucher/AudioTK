@@ -7,7 +7,7 @@
 #include <ATK/EQ/BesselFilter.h>
 #include <ATK/EQ/helpers.h>
 
-namespace
+namespace BesselUtilities
 {
   template<typename DataType>
   void create_bessel_analog_coefficients(int order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
@@ -285,7 +285,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_default_bessel_coeffs(in_order, 2 * cut_frequency / input_sampling_rate, coefficients_in, coefficients_out);
+    BesselUtilities::create_default_bessel_coeffs(in_order, 2 * cut_frequency / input_sampling_rate, coefficients_in, coefficients_out);
   }
   
   template <typename DataType>
@@ -335,7 +335,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_default_bessel_coeffs(in_order, (input_sampling_rate - 2 * cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
+    BesselUtilities::create_default_bessel_coeffs(in_order, (input_sampling_rate - 2 * cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
     for(gsl::index i = in_order - 1; i >= 0; i -= 2)
     {
       coefficients_in[i] = - coefficients_in[i];
@@ -396,7 +396,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_bp_bessel_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
+    BesselUtilities::create_bp_bessel_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
   }
   
   template <typename DataType>
@@ -452,6 +452,6 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_bs_bessel_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
+    BesselUtilities::create_bs_bessel_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
   }
 }
