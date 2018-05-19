@@ -27,6 +27,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
+    using Parent::in_order;
+    using Parent::out_order;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
@@ -54,6 +56,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
+    using Parent::in_order;
+    using Parent::out_order;
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
