@@ -24,7 +24,9 @@
 #include <simdpp/simd.h>
 #endif
 
-namespace
+namespace ATK
+{
+namespace Utilities
 {
   typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double, std::complex<float>, std::complex<double> > ConversionTypes;
 
@@ -119,8 +121,6 @@ namespace
   }
 }
 
-namespace ATK
-{
   template<typename DataType>
   OutputArrayInterface<DataType>::~OutputArrayInterface()
   {
@@ -184,7 +184,7 @@ namespace ATK
   template<typename DataType_, typename DataType__>
   int TypedBaseFilter<DataType_, DataType__>::get_type() const
   {
-    return ::get_type<ConversionTypes, DataType__>();
+    return Utilities::get_type<Utilities::ConversionTypes, DataType__>();
   }
 
   template<typename DataType_, typename DataType__>
@@ -250,7 +250,7 @@ namespace ATK
           input_ptr[j - input_delay] = input_ptr[my_last_size + j - input_delay];
         }
       }
-      convert_array<ConversionTypes, DataTypeInput>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
+      Utilities::convert_array<Utilities::ConversionTypes, DataTypeInput>(connections[i].second, connections[i].first, converted_inputs[i], size, connections[i].second->get_type());
     }
   }
 

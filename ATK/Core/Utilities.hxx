@@ -13,7 +13,9 @@
 
 #include <gsl/gsl>
 
-namespace
+namespace ATK
+{
+namespace Utilities
 {
   template<typename DataType>
   void convert_to_array(const DataType* input_array, DataType* output_array, std::size_t size, std::size_t offset, int ports)
@@ -39,14 +41,11 @@ namespace
       output_array[i] = ATK::TypeTraits<DataType2>::from_double(ATK::TypeTraits<DataType1>::to_double(input_array[i * ports + offset]));
     }
   }
-
 }
 
-namespace ATK
-{
   template<typename DataType1, typename DataType2>
   void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset, int ports)
   {
-    convert_to_array(input_array, output_array, size, offset, ports);
+    Utilities::convert_to_array(input_array, output_array, size, offset, ports);
   }
 }
