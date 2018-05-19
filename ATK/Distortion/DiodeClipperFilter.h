@@ -20,7 +20,7 @@ namespace ATK
   class ATK_DISTORTION_EXPORT DiodeClipperFilter final : public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
-  public:
+  protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;

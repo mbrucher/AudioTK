@@ -22,7 +22,7 @@ namespace ATK
   template<class Coefficients >
   class ATK_EQ_EXPORT FIRFilter final : public Coefficients
   {
-  public:
+  protected:
     typedef Coefficients Parent;
     using typename Parent::DataType;
     using typename Parent::AlignedScalarVector;

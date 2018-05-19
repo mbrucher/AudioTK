@@ -32,8 +32,8 @@ namespace ATK
   class RuntimeError: public std::runtime_error
   {
   public:
-    RuntimeError(const std::string& what_arg);
-    RuntimeError(const char* what_arg);
+    explicit RuntimeError(const std::string& what_arg);
+    explicit RuntimeError(const char* what_arg);
   };
 }
 

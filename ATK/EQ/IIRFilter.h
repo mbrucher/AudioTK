@@ -21,7 +21,7 @@ namespace ATK
   template<class Coefficients >
   class IIRFilter final : public Coefficients
   {
-  public:
+  protected:
     /// Simplify parent calls
     typedef Coefficients Parent;
     using typename Parent::DataType;

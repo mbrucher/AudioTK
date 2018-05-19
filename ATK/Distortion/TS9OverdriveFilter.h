@@ -20,7 +20,7 @@ namespace ATK
   class ATK_DISTORTION_EXPORT TS9OverdriveFilter final : public TypedBaseFilter<DataType_>
   {
     class TS9OverdriveFunction;
-  public:
+  protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
