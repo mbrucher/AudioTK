@@ -13,7 +13,7 @@ namespace ATK
   template<typename DataType_>
   class ATK_CORE_EXPORT InPointerFilter final : public TypedBaseFilter<DataType_>
   {
-  public:
+  protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;

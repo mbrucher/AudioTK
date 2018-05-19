@@ -173,6 +173,7 @@ namespace Utilities
   template<typename DataType_, typename DataType__>
   void TypedBaseFilter<DataType_, DataType__>::process_impl(gsl::index size) const
   {
+    // Nothing to do by default
   }
 
   template<typename DataType_, typename DataType__>

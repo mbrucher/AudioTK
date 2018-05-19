@@ -3,6 +3,7 @@
  */
 
 #include <ATK/Core/PipelineGlobalSinkFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <algorithm>
 
@@ -29,7 +30,7 @@ namespace ATK
     }
     else
     {
-      throw std::runtime_error("Try to ad a filter that was aleady added");
+      throw RuntimeError("Try to ad a filter that was aleady added");
     }
   }
 
@@ -42,7 +43,7 @@ namespace ATK
     }
     else
     {
-      throw std::runtime_error("Try to remove a filter that was not added");
+      throw RuntimeError("Try to remove a filter that was not added");
     }
   }
 
@@ -58,7 +59,7 @@ namespace ATK
 
   void PipelineGlobalSinkFilter::set_input_port(gsl::index input_port, BaseFilter& filter, gsl::index output_port)
   {
-    throw std::runtime_error("This function must not be called on pipelines");
+    throw RuntimeError("This function must not be called on pipelines");
   }
 
   void PipelineGlobalSinkFilter::set_parallel(bool parallel)
@@ -68,10 +69,12 @@ namespace ATK
 
   void PipelineGlobalSinkFilter::prepare_process(gsl::index size)
   {
+    // Nothing to do
   }
 
   void PipelineGlobalSinkFilter::prepare_outputs(gsl::index size )
   {
+    // Nothing to do
   }
 
   void PipelineGlobalSinkFilter::process_impl(gsl::index size ) const

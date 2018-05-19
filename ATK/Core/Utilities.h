@@ -15,8 +15,9 @@ namespace ATK
 {
   /// Class to convert arrays from different type to another type
   template<typename DataType1, typename DataType2>
-  struct ATK_CORE_EXPORT ConversionUtilities
+  class ATK_CORE_EXPORT ConversionUtilities
   {
+  public:
     /*!
      * @brief Method to convert an array to another, using double as the intermediate type
      * @param input_array
