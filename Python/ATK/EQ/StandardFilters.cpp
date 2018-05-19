@@ -11,8 +11,6 @@
 #include "MainFilter.h"
 #include "StandardFilters.h"
 
-namespace py = pybind11;
-
 using namespace ATK;
 
 namespace
