@@ -102,7 +102,7 @@ namespace ATK
     {
       for (auto it = filters.begin(); it != filters.end(); ++it)
       {
-        (*it)->process_conditionnally<true>(size * (*it)->get_output_sampling_rate() / input_sampling_rate);
+        (*it)->process_conditionnally<true>(uint64_t(size) * (*it)->get_output_sampling_rate() / input_sampling_rate);
       }
     }
   }
