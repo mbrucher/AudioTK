@@ -3,9 +3,9 @@
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=ncloc)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
-[comment]: # [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=cognitive_complexity)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
+<!---[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=cognitive_complexity)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)-->
 [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=coverage)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
-[comment]: # [![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=branch_coverage)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
+<!---[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=branch_coverage)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)-->
 
 [![Travis](https://travis-ci.org/mbrucher/AudioTK.svg?branch=master)](https://travis-ci.org/mbrucher/AudioTK)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/j6k8jkxk2ebwvvoe/branch/master?svg=true)](https://ci.appveyor.com/project/mbrucher/audiotk)
