@@ -27,8 +27,6 @@
 #include "TimeVaryingIIRFilter.h"
 #include "TimeVaryingSVFFilter.h"
 
-namespace py = pybind11;
-
 using namespace ATK;
 using namespace py::literals;
 
