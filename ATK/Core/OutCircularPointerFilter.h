@@ -15,11 +15,12 @@ namespace ATK
   template<typename DataType_>
   class ATK_CORE_EXPORT OutCircularPointerFilter final : public TypedBaseFilter<DataType_>
   {
-  protected:
+  public:
     static const unsigned int slice_size = 1024;
     static const unsigned int nb_slices = 66;
     static const unsigned int out_slice_size = (nb_slices - 2) * slice_size;
 
+  protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     typedef std::array<DataType_, out_slice_size> SliceBuffer;
