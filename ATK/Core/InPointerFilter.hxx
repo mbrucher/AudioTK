@@ -33,6 +33,10 @@ namespace ATK
     if(!interleaved)
     {
       auto i = std::min(size, mysize - offset);
+      if (mysize < offset)
+      {
+        i = 0;
+      }
       for(gsl::index j = 0; j < channels; ++j)
       {
         memcpy(reinterpret_cast<void*>(outputs[j]), reinterpret_cast<const void*>(&array[offset + (j * mysize)]), static_cast<size_t>(i) * sizeof(DataType));
@@ -41,7 +45,7 @@ namespace ATK
       {
         for(gsl::index j = 0; j < channels; ++j)
         {
-        outputs[j][i] = TypeTraits<DataType>::Zero();
+          outputs[j][i] = TypeTraits<DataType>::Zero();
         }
       }
     }
