@@ -27,8 +27,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
-    const static gsl::index in_order;
-    const static gsl::index out_order;
+    const static gsl::index in_order = 4;
+    const static gsl::index out_order = 4;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
     
@@ -56,8 +56,8 @@ namespace ATK
     using Parent::output_sampling_rate;
     using Parent::setup;
   protected:
-    const static gsl::index in_order;
-    const static gsl::index out_order;
+    const static gsl::index in_order = 4;
+    const static gsl::index out_order = 4;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
@@ -70,15 +70,6 @@ namespace ATK
      */
     InverseRIAACoefficients(gsl::index nb_channels = 1);
   };
-
-  template<typename DataType_>
-  const gsl::index RIAACoefficients<DataType_>::in_order = 2;
-  template<typename DataType_>
-  const gsl::index RIAACoefficients<DataType_>::out_order = 2;
-  template<typename DataType_>
-  const gsl::index InverseRIAACoefficients<DataType_>::in_order = 2;
-  template<typename DataType_>
-  const gsl::index InverseRIAACoefficients<DataType_>::out_order = 2;
 }
 
 #endif

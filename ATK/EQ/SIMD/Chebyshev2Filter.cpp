@@ -28,74 +28,28 @@
 
 namespace ATK
 {
-  template class Chebyshev2LowPassCoefficients<simdpp::float64<2> >;
-  template class Chebyshev2HighPassCoefficients<simdpp::float64<2> >;
-  template class Chebyshev2BandPassCoefficients<simdpp::float64<2> >;
-  template class Chebyshev2BandStopCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2LowPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2HighPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandStopCoefficients<simdpp::float64<2> >;
 
-  template class Chebyshev2LowPassCoefficients<simdpp::float32<4> >;
-  template class Chebyshev2LowPassCoefficients<simdpp::float64<4> >;
-  template class Chebyshev2HighPassCoefficients<simdpp::float32<4> >;
-  template class Chebyshev2HighPassCoefficients<simdpp::float64<4> >;
-  template class Chebyshev2BandPassCoefficients<simdpp::float32<4> >;
-  template class Chebyshev2BandPassCoefficients<simdpp::float64<4> >;
-  template class Chebyshev2BandStopCoefficients<simdpp::float32<4> >;
-  template class Chebyshev2BandStopCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2LowPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2LowPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2HighPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2HighPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandStopCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandStopCoefficients<simdpp::float64<4> >;
   
-  template class Chebyshev2LowPassCoefficients<simdpp::float32<8> >;
-  template class Chebyshev2LowPassCoefficients<simdpp::float64<8> >;
-  template class Chebyshev2HighPassCoefficients<simdpp::float32<8> >;
-  template class Chebyshev2HighPassCoefficients<simdpp::float64<8> >;
-  template class Chebyshev2BandPassCoefficients<simdpp::float32<8> >;
-  template class Chebyshev2BandPassCoefficients<simdpp::float64<8> >;
-  template class Chebyshev2BandStopCoefficients<simdpp::float32<8> >;
-  template class Chebyshev2BandStopCoefficients<simdpp::float64<8> >;
-
-  template class SimpleIIRFilter<Chebyshev2LowPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<Chebyshev2HighPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<Chebyshev2BandPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<Chebyshev2BandStopCoefficients<simdpp::float64<2> > >;
-
-  template class SimpleIIRFilter<Chebyshev2LowPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<Chebyshev2LowPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<Chebyshev2HighPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<Chebyshev2HighPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<Chebyshev2BandPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<Chebyshev2BandPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<Chebyshev2BandStopCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<Chebyshev2BandStopCoefficients<simdpp::float64<4> > >;
-  
-  template class SimpleIIRFilter<Chebyshev2LowPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<Chebyshev2LowPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<Chebyshev2HighPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<Chebyshev2HighPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<Chebyshev2BandPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<Chebyshev2BandPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<Chebyshev2BandStopCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<Chebyshev2BandStopCoefficients<simdpp::float64<8> > >;
-
-  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float64<2> > >;
-
-  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float64<4> > >;
-  
-  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<Chebyshev2LowPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<Chebyshev2HighPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<Chebyshev2BandPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<Chebyshev2BandStopCoefficients<simdpp::float64<8> > >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2LowPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2LowPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2HighPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2HighPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandStopCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT Chebyshev2BandStopCoefficients<simdpp::float64<8> >;
 
   namespace SIMDPP_ARCH_NAMESPACE
   {

@@ -28,74 +28,28 @@
 
 namespace ATK
 {
-  template class BesselLowPassCoefficients<simdpp::float64<2> >;
-  template class BesselHighPassCoefficients<simdpp::float64<2> >;
-  template class BesselBandPassCoefficients<simdpp::float64<2> >;
-  template class BesselBandStopCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT BesselLowPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT BesselHighPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT BesselBandPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT BesselBandStopCoefficients<simdpp::float64<2> >;
 
-  template class BesselLowPassCoefficients<simdpp::float32<4> >;
-  template class BesselLowPassCoefficients<simdpp::float64<4> >;
-  template class BesselHighPassCoefficients<simdpp::float32<4> >;
-  template class BesselHighPassCoefficients<simdpp::float64<4> >;
-  template class BesselBandPassCoefficients<simdpp::float32<4> >;
-  template class BesselBandPassCoefficients<simdpp::float64<4> >;
-  template class BesselBandStopCoefficients<simdpp::float32<4> >;
-  template class BesselBandStopCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT BesselLowPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT BesselLowPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT BesselHighPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT BesselHighPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT BesselBandPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT BesselBandPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT BesselBandStopCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT BesselBandStopCoefficients<simdpp::float64<4> >;
 
-  template class BesselLowPassCoefficients<simdpp::float32<8> >;
-  template class BesselLowPassCoefficients<simdpp::float64<8> >;
-  template class BesselHighPassCoefficients<simdpp::float32<8> >;
-  template class BesselHighPassCoefficients<simdpp::float64<8> >;
-  template class BesselBandPassCoefficients<simdpp::float32<8> >;
-  template class BesselBandPassCoefficients<simdpp::float64<8> >;
-  template class BesselBandStopCoefficients<simdpp::float32<8> >;
-  template class BesselBandStopCoefficients<simdpp::float64<8> >;
-
-  template class SimpleIIRFilter<BesselLowPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<BesselHighPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<BesselBandPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<BesselBandStopCoefficients<simdpp::float64<2> > >;
-
-  template class SimpleIIRFilter<BesselLowPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<BesselLowPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<BesselHighPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<BesselHighPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<BesselBandPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<BesselBandPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<BesselBandStopCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<BesselBandStopCoefficients<simdpp::float64<4> > >;
-
-  template class SimpleIIRFilter<BesselLowPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<BesselLowPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<BesselHighPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<BesselHighPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<BesselBandPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<BesselBandPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<BesselBandStopCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<BesselBandStopCoefficients<simdpp::float64<8> > >;
-
-  template class IIRTDF2Filter<BesselLowPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<BesselHighPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<BesselBandPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<BesselBandStopCoefficients<simdpp::float64<2> > >;
-
-  template class IIRTDF2Filter<BesselLowPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<BesselLowPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<BesselHighPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<BesselHighPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<BesselBandPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<BesselBandPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<BesselBandStopCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<BesselBandStopCoefficients<simdpp::float64<4> > >;
-  
-  template class IIRTDF2Filter<BesselLowPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<BesselLowPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<BesselHighPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<BesselHighPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<BesselBandPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<BesselBandPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<BesselBandStopCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<BesselBandStopCoefficients<simdpp::float64<8> > >;
+  template class ATK_EQSIMD_EXPORT BesselLowPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT BesselLowPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT BesselHighPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT BesselHighPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT BesselBandPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT BesselBandPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT BesselBandStopCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT BesselBandStopCoefficients<simdpp::float64<8> >;
 
   namespace SIMDPP_ARCH_NAMESPACE
   {

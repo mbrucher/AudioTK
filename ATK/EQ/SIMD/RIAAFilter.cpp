@@ -27,7 +27,6 @@
 
 namespace ATK
 {
-
   template class RIAACoefficients<simdpp::float64<2> >;
   template class InverseRIAACoefficients<simdpp::float64<2> >;
 

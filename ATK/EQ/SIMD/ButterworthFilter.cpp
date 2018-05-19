@@ -28,74 +28,28 @@
 
 namespace ATK
 {
-  template class ButterworthLowPassCoefficients<simdpp::float64<2> >;
-  template class ButterworthHighPassCoefficients<simdpp::float64<2> >;
-  template class ButterworthBandPassCoefficients<simdpp::float64<2> >;
-  template class ButterworthBandStopCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT ButterworthLowPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT ButterworthHighPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandPassCoefficients<simdpp::float64<2> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandStopCoefficients<simdpp::float64<2> >;
 
-  template class ButterworthLowPassCoefficients<simdpp::float32<4> >;
-  template class ButterworthLowPassCoefficients<simdpp::float64<4> >;
-  template class ButterworthHighPassCoefficients<simdpp::float32<4> >;
-  template class ButterworthHighPassCoefficients<simdpp::float64<4> >;
-  template class ButterworthBandPassCoefficients<simdpp::float32<4> >;
-  template class ButterworthBandPassCoefficients<simdpp::float64<4> >;
-  template class ButterworthBandStopCoefficients<simdpp::float32<4> >;
-  template class ButterworthBandStopCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthLowPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthLowPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthHighPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthHighPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandPassCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandPassCoefficients<simdpp::float64<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandStopCoefficients<simdpp::float32<4> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandStopCoefficients<simdpp::float64<4> >;
   
-  template class ButterworthLowPassCoefficients<simdpp::float32<8> >;
-  template class ButterworthLowPassCoefficients<simdpp::float64<8> >;
-  template class ButterworthHighPassCoefficients<simdpp::float32<8> >;
-  template class ButterworthHighPassCoefficients<simdpp::float64<8> >;
-  template class ButterworthBandPassCoefficients<simdpp::float32<8> >;
-  template class ButterworthBandPassCoefficients<simdpp::float64<8> >;
-  template class ButterworthBandStopCoefficients<simdpp::float32<8> >;
-  template class ButterworthBandStopCoefficients<simdpp::float64<8> >;
-
-  template class SimpleIIRFilter<ButterworthLowPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<ButterworthHighPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<ButterworthBandPassCoefficients<simdpp::float64<2> > >;
-  template class SimpleIIRFilter<ButterworthBandStopCoefficients<simdpp::float64<2> > >;
-
-  template class SimpleIIRFilter<ButterworthLowPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<ButterworthLowPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<ButterworthHighPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<ButterworthHighPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<ButterworthBandPassCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<ButterworthBandPassCoefficients<simdpp::float64<4> > >;
-  template class SimpleIIRFilter<ButterworthBandStopCoefficients<simdpp::float32<4> > >;
-  template class SimpleIIRFilter<ButterworthBandStopCoefficients<simdpp::float64<4> > >;
-  
-  template class SimpleIIRFilter<ButterworthLowPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<ButterworthLowPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<ButterworthHighPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<ButterworthHighPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<ButterworthBandPassCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<ButterworthBandPassCoefficients<simdpp::float64<8> > >;
-  template class SimpleIIRFilter<ButterworthBandStopCoefficients<simdpp::float32<8> > >;
-  template class SimpleIIRFilter<ButterworthBandStopCoefficients<simdpp::float64<8> > >;
-
-  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float64<2> > >;
-  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float64<2> > >;
-
-  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float64<4> > >;
-  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float32<4> > >;
-  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float64<4> > >;
-  
-  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<ButterworthLowPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<ButterworthHighPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<ButterworthBandPassCoefficients<simdpp::float64<8> > >;
-  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float32<8> > >;
-  template class IIRTDF2Filter<ButterworthBandStopCoefficients<simdpp::float64<8> > >;
+  template class ATK_EQSIMD_EXPORT ButterworthLowPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT ButterworthLowPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT ButterworthHighPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT ButterworthHighPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandPassCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandPassCoefficients<simdpp::float64<8> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandStopCoefficients<simdpp::float32<8> >;
+  template class ATK_EQSIMD_EXPORT ButterworthBandStopCoefficients<simdpp::float64<8> >;
 
   namespace SIMDPP_ARCH_NAMESPACE
   {

@@ -2,8 +2,8 @@
  * \file CustomFIRFilter.cpp
  */
 
+#include <ATK/EQ/config.h>
 #include <ATK/EQ/CustomFIRFilter.h>
-#include <ATK/EQ/FIRFilter.h>
 
 #include <complex>
 #include <cassert>
@@ -28,15 +28,9 @@ namespace ATK
     setup();
   }
 
-  template class CustomFIRCoefficients<float>;
-  template class CustomFIRCoefficients<double>;
+  template class ATK_EQ_EXPORT CustomFIRCoefficients<float>;
+  template class ATK_EQ_EXPORT CustomFIRCoefficients<double>;
   
-  template class CustomFIRCoefficients<std::complex<float>>;
-  template class CustomFIRCoefficients<std::complex<double>>;
-
-  template class FIRFilter<CustomFIRCoefficients<float>>;
-  template class FIRFilter<CustomFIRCoefficients<double>>;
-
-  template class FIRFilter<CustomFIRCoefficients<std::complex<float>>>;
-  template class FIRFilter<CustomFIRCoefficients<std::complex<double>>>;
+  template class ATK_EQ_EXPORT CustomFIRCoefficients<std::complex<float>>;
+  template class ATK_EQ_EXPORT CustomFIRCoefficients<std::complex<double>>;
 }

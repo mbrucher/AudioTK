@@ -7,6 +7,7 @@
 
 #include <ATK/EQ/SIMD/LinkwitzRileyFilter.h>
 
+#include <ATK/EQ/FourthOrderFilter.hxx>
 #include <ATK/EQ/IIRFilter.h>
 #include <ATK/EQ/LinkwitzRileyFilter.hxx>
 #include <ATK/EQ/SimpleIIRFilter.h>
@@ -28,6 +29,8 @@
 
 namespace ATK
 {
+  template class FourthOrderBaseCoefficients<simdpp::float64<2> >;
+
   template class LinkwitzRileyLowPassCoefficients<simdpp::float64<2> >;
   template class LinkwitzRileyHighPassCoefficients<simdpp::float64<2> >;
   template class LinkwitzRiley4LowPassCoefficients<simdpp::float64<2> >;

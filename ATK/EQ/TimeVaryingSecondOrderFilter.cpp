@@ -424,33 +424,18 @@ namespace ATK
   template class TimeVaryingBaseSecondOrderCoefficients<float>;
   template class TimeVaryingBaseSecondOrderCoefficients<double>;
   
-  template class TimeVaryingBandPassCoefficients<float>;
-  template class TimeVaryingBandPassCoefficients<double>;
-  template class TimeVaryingLowPassCoefficients<float>;
-  template class TimeVaryingLowPassCoefficients<double>;
-  template class TimeVaryingHighPassCoefficients<float>;
-  template class TimeVaryingHighPassCoefficients<double>;
-  template class TimeVaryingBandPassPeakCoefficients<float>;
-  template class TimeVaryingBandPassPeakCoefficients<double>;
-  template class TimeVaryingAllPassCoefficients<float>;
-  template class TimeVaryingAllPassCoefficients<double>;
-  template class TimeVaryingLowShelvingCoefficients<float>;
-  template class TimeVaryingLowShelvingCoefficients<double>;
-  template class TimeVaryingHighShelvingCoefficients<float>;
-  template class TimeVaryingHighShelvingCoefficients<double>;
-  
-  template class TimeVaryingIIRFilter<TimeVaryingBandPassCoefficients<float> >;
-  template class TimeVaryingIIRFilter<TimeVaryingBandPassCoefficients<double> >;
-  template class TimeVaryingIIRFilter<TimeVaryingLowPassCoefficients<float> >;
-  template class TimeVaryingIIRFilter<TimeVaryingLowPassCoefficients<double> >;
-  template class TimeVaryingIIRFilter<TimeVaryingHighPassCoefficients<float> >;
-  template class TimeVaryingIIRFilter<TimeVaryingHighPassCoefficients<double> >;
-  template class TimeVaryingIIRFilter<TimeVaryingBandPassPeakCoefficients<float> >;
-  template class TimeVaryingIIRFilter<TimeVaryingBandPassPeakCoefficients<double> >;
-  template class TimeVaryingIIRFilter<TimeVaryingAllPassCoefficients<float> >;
-  template class TimeVaryingIIRFilter<TimeVaryingAllPassCoefficients<double> >;
-  template class TimeVaryingIIRFilter<TimeVaryingLowShelvingCoefficients<float> >;
-  template class TimeVaryingIIRFilter<TimeVaryingLowShelvingCoefficients<double> >;
-  template class TimeVaryingIIRFilter<TimeVaryingHighShelvingCoefficients<float> >;
-  template class TimeVaryingIIRFilter<TimeVaryingHighShelvingCoefficients<double> >;
+  template class ATK_EQ_EXPORT TimeVaryingBandPassCoefficients<float>;
+  template class ATK_EQ_EXPORT TimeVaryingBandPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingLowPassCoefficients<float>;
+  template class ATK_EQ_EXPORT TimeVaryingLowPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingHighPassCoefficients<float>;
+  template class ATK_EQ_EXPORT TimeVaryingHighPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingBandPassPeakCoefficients<float>;
+  template class ATK_EQ_EXPORT TimeVaryingBandPassPeakCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingAllPassCoefficients<float>;
+  template class ATK_EQ_EXPORT TimeVaryingAllPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingLowShelvingCoefficients<float>;
+  template class ATK_EQ_EXPORT TimeVaryingLowShelvingCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingHighShelvingCoefficients<float>;
+  template class ATK_EQ_EXPORT TimeVaryingHighShelvingCoefficients<double>;
 }

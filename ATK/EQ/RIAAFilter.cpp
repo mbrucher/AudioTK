@@ -9,18 +9,8 @@
 
 namespace ATK
 {
-  template class RIAACoefficients<float>;
-  template class RIAACoefficients<double>;
-  template class InverseRIAACoefficients<float>;
-  template class InverseRIAACoefficients<double>;
-  
-  template class IIRFilter<RIAACoefficients<float> >;
-  template class IIRFilter<RIAACoefficients<double> >;
-  template class IIRFilter<InverseRIAACoefficients<float> >;
-  template class IIRFilter<InverseRIAACoefficients<double> >;
-
-  template class IIRTDF2Filter<RIAACoefficients<float> >;
-  template class IIRTDF2Filter<RIAACoefficients<double> >;
-  template class IIRTDF2Filter<InverseRIAACoefficients<float> >;
-  template class IIRTDF2Filter<InverseRIAACoefficients<double> >;
+  template class ATK_EQ_EXPORT RIAACoefficients<float>;
+  template class ATK_EQ_EXPORT RIAACoefficients<double>;
+  template class ATK_EQ_EXPORT InverseRIAACoefficients<float>;
+  template class ATK_EQ_EXPORT InverseRIAACoefficients<double>;
 }

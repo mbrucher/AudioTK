@@ -2,8 +2,8 @@
  * \file CustomIIRFilter.cpp
  */
 
+#include <ATK/EQ/config.h>
 #include <ATK/EQ/CustomIIRFilter.h>
-#include <ATK/EQ/IIRFilter.h>
 
 #include <cassert>
 #include <cmath>
@@ -37,19 +37,9 @@ namespace ATK
     setup();
   }
 
-  template class CustomIIRCoefficients<float>;
-  template class CustomIIRCoefficients<double>;
+  template class ATK_EQ_EXPORT CustomIIRCoefficients<float>;
+  template class ATK_EQ_EXPORT CustomIIRCoefficients<double>;
   
-  template class CustomIIRCoefficients<std::complex<float>>;
-  template class CustomIIRCoefficients<std::complex<double>>;
-
-  template class IIRFilter<CustomIIRCoefficients<float>>;
-  template class IIRFilter<CustomIIRCoefficients<double>>;
-  template class IIRFilter<CustomIIRCoefficients<std::complex<float>>>;
-  template class IIRFilter<CustomIIRCoefficients<std::complex<double>>>;
-
-  template class IIRTDF2Filter<CustomIIRCoefficients<float>>;
-  template class IIRTDF2Filter<CustomIIRCoefficients<double>>;
-  template class IIRTDF2Filter<CustomIIRCoefficients<std::complex<float>>>;
-  template class IIRTDF2Filter<CustomIIRCoefficients<std::complex<double>>>;
+  template class ATK_EQ_EXPORT CustomIIRCoefficients<std::complex<float>>;
+  template class ATK_EQ_EXPORT CustomIIRCoefficients<std::complex<double>>;
 }
