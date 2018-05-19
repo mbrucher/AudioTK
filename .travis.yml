@@ -325,6 +325,7 @@ after_success:
       cd ..
       sonar-scanner
       cd build
+      ls
     fi
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
