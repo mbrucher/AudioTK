@@ -22,9 +22,13 @@ namespace ATK
     typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::setup;
   protected:
-
+#ifdef _MSC_VER
     constexpr static gsl::index in_order = 2;
     constexpr static gsl::index out_order = 2;
+#else
+    const static gsl::index in_order;
+    const static gsl::index out_order;
+#endif
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
@@ -35,6 +39,7 @@ namespace ATK
     */
     SecondOrderCoreCoefficients(gsl::index nb_channels = 1);
   };
+  
   /// Base class for all IIR second order filters
   template<typename DataType_>
   class SecondOrderBaseCoefficients : public SecondOrderCoreCoefficients<DataType_>, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
