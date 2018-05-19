@@ -7,6 +7,13 @@
 
 namespace ATK
 {
+#ifndef _MSC_VER
+  template<typename DataType_>
+  const gsl::index SecondOrderCoreCoefficients<DataType_>::in_order = 2;
+  template<typename DataType_>
+  const gsl::index SecondOrderCoreCoefficients<DataType_>::out_order = 2;
+#endif
+  
   template class SecondOrderCoreCoefficients<float>;
   template class SecondOrderCoreCoefficients<double>;
   template class SecondOrderCoreCoefficients<std::complex<float> >;
