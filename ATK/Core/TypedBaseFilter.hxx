@@ -34,7 +34,7 @@ namespace Utilities
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
     convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
-    throw std::runtime_error("Cannot convert types for these filters");
+    throw RuntimeError("Cannot convert types for these filters");
   }
 
   template<typename Vector, typename DataType>
@@ -64,7 +64,7 @@ namespace Utilities
   typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
     convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
-    throw std::runtime_error("Can't convert types");
+    throw RuntimeError("Can't convert types");
   }
 
   template<typename Vector, typename DataType>
