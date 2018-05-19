@@ -8,7 +8,6 @@
 
 #include <gsl/gsl>
 
-#include <ATK/EQ/FourthOrderFilter.h>
 #include <ATK/EQ/SecondOrderFilter.h>
 
 namespace ATK
