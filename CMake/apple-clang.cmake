@@ -26,6 +26,12 @@ if(ENABLE_PROFILE_INFO)
   endif(COMPILER_SUPPORTS_fopt_info)
 endif(ENABLE_PROFILE_INFO)
 
+if(ENABLE_ADDRESS_SANITIZER)
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
+  set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
+  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
+endif(ENABLE_ADDRESS_SANITIZER)
+
 CHECK_CXX_COMPILER_FLAG("-Werror=inconsistent-missing-override" COMPILER_HAS_INCONSISTENT_MISSING_OVERRIDE)
 if(COMPILER_HAS_INCONSISTENT_MISSING_OVERRIDE)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=inconsistent-missing-override")
