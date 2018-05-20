@@ -12,14 +12,15 @@ namespace ATK
 {
   /// Empty traits
   template<typename DataType>
-  struct SndfileTraits
+  class SndfileTraits
   {
   };
 
   /// Traits for integer 16bits
   template<>
-  struct SndfileTraits<std::int16_t>
+  class SndfileTraits<std::int16_t>
   {
+  public:
     static int get_type()
     {
       return SF_FORMAT_PCM_16;
@@ -28,8 +29,9 @@ namespace ATK
   
   /// Traits for integer 32bits
   template<>
-  struct SndfileTraits<std::int32_t>
+  class SndfileTraits<std::int32_t>
   {
+  public:
     static int get_type()
     {
       return SF_FORMAT_PCM_32;
@@ -38,8 +40,9 @@ namespace ATK
   
   /// Traits for float 32bits
   template<>
-  struct SndfileTraits<float>
+  class SndfileTraits<float>
   {
+  public:
     static int get_type()
     {
       return SF_FORMAT_FLOAT;
@@ -48,8 +51,9 @@ namespace ATK
 
   /// Traits for float 64bits
   template<>
-  struct SndfileTraits<double>
+  class SndfileTraits<double>
   {
+  public:
     static int get_type()
     {
       return SF_FORMAT_DOUBLE;
