@@ -38,7 +38,7 @@ namespace ATK
 #elif defined(__APPLE__)
     fesetenv(&previous_state);
 #elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))
-    _mm_setcsr((_mm_getcsr() & ~_MM_DENORMALS_ZERO_MASK));
+    _mm_setcsr(_mm_getcsr() & ~_MM_DENORMALS_ZERO_MASK);
 #endif
   }
 }
