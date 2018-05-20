@@ -105,7 +105,8 @@ matrix:
           - libsndfile-dev
           - swig
           - libatlas-base-dev
-      env:ASANclang 6 Python 2
+      env:
+      - MY_NAME=ASAN
       - COMPILER=clang++-6.0
       - PLATFORM=clang-6.0
       - ENABLE_PYTHON=ON
