@@ -31,7 +31,7 @@ namespace
 void populate_TimeVaryingSVFFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {
   populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBaseCoefficients", f1);
-  populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBaseCoefficients", f1);
+  populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBaseCoefficients", f2);
   
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowPassCoefficients");
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassCoefficients");

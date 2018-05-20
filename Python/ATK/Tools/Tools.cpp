@@ -31,28 +31,28 @@ namespace
   void populate_ApplyGainFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<ApplyGainFilter<DataType>>(m, type, parent)
-      .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1));
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
 
   template<typename DataType, typename T>
   void populate_BufferFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<BufferFilter<DataType>>(m, type, parent)
-      .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1));
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
 
   template<typename DataType, typename T>
   void populate_DecimationFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<DecimationFilter<DataType>>(m, type, parent)
-      .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1));
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
 
   template<typename DataType, typename T>
   void populate_DryWetFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<DryWetFilter<DataType>>(m, type, parent)
-      .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1))
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
       .def_property("dry", &DryWetFilter<DataType>::get_dry, &DryWetFilter<DataType>::set_dry);
   }
 
@@ -60,14 +60,14 @@ namespace
   void populate_MiddleSideFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<MiddleSideFilter<DataType>>(m, type, parent)
-      .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1));
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
   
   template<typename DataType, typename T>
   void populate_MuteSoloBufferFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<MuteSoloBufferFilter<DataType>>(m, type, parent)
-    .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1))
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
     .def_property("mute", &MuteSoloBufferFilter<DataType>::get_mute, &MuteSoloBufferFilter<DataType>::set_mute)
     .def_property("solo", &MuteSoloBufferFilter<DataType>::get_solo, &MuteSoloBufferFilter<DataType>::set_solo);
   }
@@ -77,14 +77,14 @@ namespace
   {
     typedef typename Coefficients::DataType DataType;
     py::class_<OversamplingFilter<DataType, Coefficients>>(m, type, parent)
-      .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1));
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
 
   template<typename DataType, typename T>
   void populate_PanFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<PanFilter<DataType>> pan(m, type, parent);
-    pan.def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1))
+    pan.def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
       .def_property("pan_law", &PanFilter<DataType>::get_pan_law, &PanFilter<DataType>::set_pan_law)
       .def_property("pan", &PanFilter<DataType>::get_pan, &PanFilter<DataType>::set_pan);
 
@@ -113,21 +113,21 @@ namespace
   void populate_SumFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<SumFilter<DataType>>(m, type, parent)
-      .def(py::init<gsl::index, gsl::index>(), py::arg("nb_output_channels") = gsl::index(1), py::arg("summed_channels") = gsl::index(2));
+      .def(py::init<gsl::index, gsl::index>(), py::arg("nb_output_channels") = static_cast<gsl::index>(1), py::arg("summed_channels") = gsl::index(2));
   }
 
   template<typename DataType, typename T>
   void populate_TanFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<TanFilter<DataType>>(m, type, parent)
-    .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1));
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
 
   template<typename DataType, typename T>
   void populate_VolumeFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<VolumeFilter<DataType>>(m, type, parent)
-      .def(py::init<gsl::index>(), py::arg("nb_channels") = gsl::index(1))
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
       .def_property("volume", &VolumeFilter<DataType>::get_volume, &VolumeFilter<DataType>::set_volume);
   }
   

@@ -114,6 +114,7 @@ matrix:
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Debug
+- ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_ADDRESS_SANITIZER=ON"
   - compiler: clang-6.0
     os: linux

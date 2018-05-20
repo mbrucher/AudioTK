@@ -35,7 +35,7 @@ namespace
 void populate_TimeVaryingIIRFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {
   populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<float>>(m, "FloatTimeVaryingBaseSecondOrderCoefficients", f1);
-  populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<double>>(m, "DoubleTimeVaryingBaseSecondOrderCoefficients", f1);
+  populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<double>>(m, "DoubleTimeVaryingBaseSecondOrderCoefficients", f2);
   
   populate_QCoefficients<TimeVaryingBandPassCoefficients<float>>(m, "FloatTimeVaryingBandPassCoefficients");
   populate_QCoefficients<TimeVaryingBandPassCoefficients<double>>(m, "DoubleTimeVaryingBandPassCoefficients");
