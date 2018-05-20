@@ -156,7 +156,7 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_StandardFilters(m, f1, f2);
   populate_ChebyshevFilter(m, f1, f2);
   populate_SecondOrderFilter(m, f1, f2);
-  populate_RobertBristowJohnsonFilter(m, f1, f2);
+  populate_RobertBristowJohnsonFilter(m);
   populate_SecondOrderSVFFilter(m, f1, f2);
 
   populate_ndOrderCoefficients<FourthOrderBaseCoefficients<float>>(m, "FloatFourthOrderBaseCoefficients", f1);

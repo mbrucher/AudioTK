@@ -11,7 +11,6 @@
 
 namespace ATK
 {
-  using namespace pybind11::literals;
   namespace py = pybind11;
 
   template<typename Coefficients>

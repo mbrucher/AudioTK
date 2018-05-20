@@ -36,8 +36,8 @@ endif(ENABLE_PROFILE_INFO)
 
 if(ENABLE_ADDRESS_SANITIZER)
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
-  set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
-  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address")
+  set (CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address -lasan")
+  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fno-omit-frame-pointer -fsanitize=address -lasan")
 endif(ENABLE_ADDRESS_SANITIZER)
 
 CHECK_CXX_COMPILER_FLAG("-Werror=missing-override" COMPILER_HAS_MISSING_OVERRIDE)
