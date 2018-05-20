@@ -27,6 +27,13 @@
 
 namespace ATK
 {
+#if !(!defined(_MSC_VER) || __cplusplus >= 201703L)
+  template<typename DataType_>
+  constexpr gsl::index SecondOrderCoreCoefficients<DataType_>::in_order = 2;
+  template<typename DataType_>
+  constexpr gsl::index SecondOrderCoreCoefficients<DataType_>::out_order = 2;
+#endif
+
   template class SecondOrderBaseCoefficients<simdpp::float64<2> >;
   template class SecondOrderBaseCoefficients<simdpp::float32<4> >;
   template class SecondOrderBaseCoefficients<simdpp::float64<4> >;
