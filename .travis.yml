@@ -278,6 +278,7 @@ before_install:
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
   - "(cd $BOOST_ROOT; ./b2 threading=multi --prefix=$BOOST_BUILD -d0 install)"
+  - ls /usr/lib/x86_64-linux-gnu/
 
 before_script:
   - mkdir build
