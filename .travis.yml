@@ -133,6 +133,32 @@ matrix:
         - swig
         - libatlas-base-dev
     env:
+    - MY_NAME=LLVM coverage
+    - COMPILER=clang++-6.0
+    - PLATFORM=clang-6.0
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - BUILD_TYPE=Debug
+    - ENABLE_COVERAGE=ON
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_COVERAGE=ON -DLCOV_SCRIPT='--gcov-tool ${TRAVIS_BUILD_DIR}/script/llvm-gcov.sh'"
+  - compiler: clang-6.0
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-trusty-6.0
+        packages:
+        - clang-6.0
+        - g++-7
+        - libfftw3-dev
+        - libsndfile-dev
+        - swig
+        - libatlas-base-dev
+    env:
     - MY_NAME: clang 6 Python 2
     - COMPILER=clang++-6.0
     - PLATFORM=clang-6.0
@@ -255,6 +281,8 @@ before_install:
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
         /opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python${Python_ADDITIONAL_VERSIONS} -m pip install numpy scipy nose
       fi
+      ls /usr/lib/llvm-6.0/
+      ls /usr/lib/llvm-6.0/lib/clang/6.0.0/lib/linux/
     fi
 
   - |
@@ -295,7 +323,7 @@ script:
   - echo $LD_LIBRARY_PATH
   - ls ${HOME}/ATK/lib
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
       make codecoverage
     else
       LD_PRELOAD=${LD_PRELOAD_} CTEST_OUTPUT_ON_FAILURE=TRUE make test
@@ -303,7 +331,7 @@ script:
 
 after_success:
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
       bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     else
       cd ${HOME}/ATK
@@ -317,7 +345,7 @@ after_success:
       ls
     fi
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
       exit
     fi
 
