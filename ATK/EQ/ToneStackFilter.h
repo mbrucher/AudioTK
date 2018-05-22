@@ -33,7 +33,9 @@ namespace ATK
     CoeffDataType C2;
     CoeffDataType C3;
     /// Parameters of the stack
-    CoeffDataType low, middle, high;
+    CoeffDataType low;
+    CoeffDataType middle;
+    CoeffDataType high;
     
     static const gsl::index in_order = 3;
     static const gsl::index out_order = 3;
