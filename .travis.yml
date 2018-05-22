@@ -271,8 +271,8 @@ before_install:
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
       ls /opt/python/
-ls /usr/lib/llvm-6.0/lib/clang/6.0.1/lib/
-ls /usr/lib/llvm-6.0/lib/clang/6.0.1/lib/linux
+      ls /usr/lib/llvm-6.0/lib/clang/6.0.1/lib/
+      ls /usr/lib/llvm-6.0/lib/clang/6.0.1/lib/linux
       wget https://cmake.org/files/v3.10/cmake-3.10.1-Linux-x86_64.sh
       chmod +x cmake-3.10.1-Linux-x86_64.sh
       ./cmake-3.10.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license
