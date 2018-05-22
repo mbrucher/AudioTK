@@ -275,14 +275,16 @@ before_install:
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
       ls /opt/python/
+      ls /usr/lib/llvm-6.0/lib/
+      ls /usr/lib/llvm-6.0/lib/clang/
+      ls /usr/lib/llvm-6.0/lib/clang/6.0.0/lib/
+      exit
       wget https://cmake.org/files/v3.10/cmake-3.10.1-Linux-x86_64.sh
       chmod +x cmake-3.10.1-Linux-x86_64.sh
       ./cmake-3.10.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
         /opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python${Python_ADDITIONAL_VERSIONS} -m pip install numpy scipy nose
       fi
-      ls /usr/lib/llvm-6.0/
-      ls /usr/lib/llvm-6.0/lib/clang/6.0.0/lib/linux/
     fi
 
   - |
