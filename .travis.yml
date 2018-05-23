@@ -100,6 +100,7 @@ matrix:
         - llvm-toolchain-trusty-6.0
         packages:
         - clang-6.0
+        - g++-6
         - libfftw3-dev
         - libsndfile-dev
         - swig
@@ -126,6 +127,7 @@ matrix:
         - llvm-toolchain-trusty-6.0
         packages:
         - clang-6.0
+        - g++-6
         - libfftw3-dev
         - libsndfile-dev
         - swig
@@ -151,6 +153,7 @@ matrix:
         - llvm-toolchain-trusty-6.0
         packages:
         - clang-6.0
+        - g++-6
         - libfftw3-dev
         - libsndfile-dev
         - swig
@@ -175,6 +178,7 @@ matrix:
         - llvm-toolchain-trusty-6.0
         packages:
         - clang-6.0
+        - g++-6
         - libfftw3-dev
         - libsndfile-dev
         - swig
