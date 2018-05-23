@@ -7,7 +7,7 @@
 
 namespace ATK
 {
-#ifndef _MSC_VER
+#if !(defined(_MSC_VER) || __cplusplus >= 201703L)
   template<typename DataType_>
   const gsl::index SecondOrderCoreCoefficients<DataType_>::in_order = 2;
   template<typename DataType_>

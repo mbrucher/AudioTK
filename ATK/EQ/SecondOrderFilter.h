@@ -22,7 +22,7 @@ namespace ATK
     typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::setup;
   protected:
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || __cplusplus >= 201703L
     constexpr static gsl::index in_order = 2;
     constexpr static gsl::index out_order = 2;
 #else

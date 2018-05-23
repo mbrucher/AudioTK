@@ -11,8 +11,9 @@
 namespace ATK
 {
   template<typename SVFCoefficients>
-  struct SecondOrderSVFFilter<SVFCoefficients>::SVFState
+  class SecondOrderSVFFilter<SVFCoefficients>::SVFState
   {
+  public:
     typename SVFCoefficients::DataType iceq1;
     typename SVFCoefficients::DataType iceq2;
     

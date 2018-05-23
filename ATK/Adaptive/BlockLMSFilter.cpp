@@ -109,7 +109,6 @@ namespace ATK
     {
       throw std::out_of_range("Size must be strictly positive");
     }
-    // former input delay for the non fast version is input_delay = size - 1;
   }
   
   template<typename DataType_>

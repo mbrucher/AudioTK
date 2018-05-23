@@ -7,6 +7,9 @@
 
 namespace ATK
 {
+  template class FourthOrderBaseCoefficients<float>;
+  template class FourthOrderBaseCoefficients<double>;
+
   template class ATK_EQ_EXPORT LinkwitzRileyLowPassCoefficients<float>;
   template class ATK_EQ_EXPORT LinkwitzRileyLowPassCoefficients<double>;
   template class ATK_EQ_EXPORT LinkwitzRileyLowPassCoefficients<std::complex<float> >;

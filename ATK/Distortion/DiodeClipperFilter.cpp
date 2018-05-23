@@ -85,19 +85,6 @@ namespace ATK
       return affine_estimate(x0, x1, y0);
     }
 
-/*    DataType id_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      return y0;
-    }
-    
-    DataType linear_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      if(y0 == 0)
-        return 0;
-      auto sinh = is * (oldexpy1 - oldinvexpy1);
-      return (y0 + A * (2 * x1 - y0) - B * sinh) / (1 + A + B * sinh / y0);
-    }*/
-    
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       auto sinh = is * (oldexpy1 - oldinvexpy1);

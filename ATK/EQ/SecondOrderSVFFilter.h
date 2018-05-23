@@ -13,9 +13,9 @@ namespace ATK
 {
   /// Second order SVF main filter class
   template<typename SVFCoefficients>
-  class ATK_EQ_EXPORT SecondOrderSVFFilter: public SVFCoefficients
+  class ATK_EQ_EXPORT SecondOrderSVFFilter final: public SVFCoefficients
   {
-  public:
+  protected:
     typedef SVFCoefficients Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
@@ -39,7 +39,7 @@ namespace ATK
   protected:
     void process_impl(gsl::index size) const final;
 
-    struct SVFState;
+    class SVFState;
     std::unique_ptr<SVFState[]> state;
   };
 

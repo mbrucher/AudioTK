@@ -39,7 +39,7 @@ namespace ATK
     void full_setup() final;
     void process_impl(gsl::index size) const final;
 
-    struct SVFState;
+    class SVFState;
     std::unique_ptr<SVFState[]> state;
   };
 

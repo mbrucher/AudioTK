@@ -65,6 +65,7 @@ namespace ATK
   
   void BaseFilter::setup()
   {
+    // Nothing to do by default
   }
 
   void BaseFilter::full_setup()

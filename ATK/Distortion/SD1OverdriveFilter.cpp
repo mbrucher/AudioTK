@@ -73,11 +73,6 @@ namespace ATK
       return affine_estimate(x0, x1, y0);
     }
 
-/*    DataType id_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      return y0;
-    }*/
-
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;

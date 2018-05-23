@@ -39,14 +39,15 @@ namespace ATK
   
   /// Empty traits
   template<typename DataType>
-  struct WavTraits
+  class WavTraits
   {
   };
   
   /// Traits for integer 16bits
   template<>
-  struct WavTraits<std::int16_t>
+  class WavTraits<std::int16_t>
   {
+  public:
     static int get_wav_type()
     {
       return 1;
@@ -55,8 +56,9 @@ namespace ATK
   
   /// Traits for float 32bits
   template<>
-  struct WavTraits<float>
+  class WavTraits<float>
   {
+  public:
     static int get_wav_type()
     {
       return 3;
@@ -65,8 +67,9 @@ namespace ATK
   
   /// Traits for double 64bits
   template<>
-  struct WavTraits<double>
+  class WavTraits<double>
   {
+  public:
     static int get_wav_type()
     {
       return 3;
