@@ -310,7 +310,7 @@ namespace fmath {
       float rev;
     } tbl1_[1 << N];
   public:
-    PowGenerator(float y)
+    explicit PowGenerator(float y)
     {
       for (int i = 0; i < 256; i++) {
         tbl0_[i] = ::powf(2, (i - 127) * y);
