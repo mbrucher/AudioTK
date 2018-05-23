@@ -247,7 +247,7 @@ namespace ATK
         {
           assert(output_sampling_rate);
           auto filter = connections[port];
-          g.run([=]{filter->process_conditionnally_parallel(size * input_sampling_rate / output_sampling_rate); });
+          g.run([=]{filter->process_conditionnally_parallel(uint64_t(size) * input_sampling_rate / output_sampling_rate); });
         }
       }
       g.wait();
