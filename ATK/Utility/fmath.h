@@ -33,7 +33,7 @@
 #include <cstddef>
 #include <cassert>
 #include <limits>
-#include <cstdlib>
+#include <cstdint>
 #include <cfloat>
 #include <cstring> // for memcpy
 
@@ -57,8 +57,6 @@ namespace fmath {
     const size_t EXP_TABLE_SIZE = 10;
     const size_t EXPD_TABLE_SIZE = 11;
     const size_t LOG_TABLE_SIZE = 12;
-    
-    typedef unsigned long long uint64_t;
     
     union fi {
       float f;
