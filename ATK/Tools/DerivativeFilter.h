@@ -20,10 +20,10 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;
-    using Parent::output_delay;
+    using Parent::input_delay;
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
-    
+
   public:
     /*!
     * @brief Constructor
@@ -32,7 +32,7 @@ namespace ATK
     DerivativeFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~DerivativeFilter() override;
-    
+
   protected:
     void process_impl(gsl::index size) const final;
   };

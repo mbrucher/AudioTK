@@ -15,13 +15,12 @@ namespace ATK
   DerivativeFilter<DataType_>::DerivativeFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels)
   {
-    output_delay = 1;
+    input_delay = 1;
   }
-  
+
   template<typename DataType_>
   DerivativeFilter<DataType_>::~DerivativeFilter()
   {
-    
   }
 
   template<typename DataType_>
@@ -39,7 +38,7 @@ namespace ATK
       }
     }
   }
-  
+
   template class DerivativeFilter<std::int16_t>;
   template class DerivativeFilter<std::int32_t>;
   template class DerivativeFilter<std::int64_t>;
