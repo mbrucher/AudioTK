@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-#include <boost/dynamic_bitset.hpp>
+#include <boost/dynamic_bitset/dynamic_bitset.hpp>
 #include <gsl/gsl>
 
 #include <ATK/config.h>
