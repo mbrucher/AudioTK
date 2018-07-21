@@ -29,7 +29,7 @@ namespace ATK
     static void convert_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset = 0, gsl::index ports = 1);
   };
   
-  class RuntimeError: public std::runtime_error
+  class ATK_CORE_EXPORT RuntimeError: public std::runtime_error
   {
   public:
     explicit RuntimeError(const std::string& what_arg);
