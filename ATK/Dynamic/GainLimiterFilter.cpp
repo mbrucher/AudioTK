@@ -44,7 +44,9 @@ namespace ATK
   DataType_ GainLimiterFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
+    {
       return 1;
+    }
     DataType diff = 10 * fmath::log10(value);
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40));
   }
