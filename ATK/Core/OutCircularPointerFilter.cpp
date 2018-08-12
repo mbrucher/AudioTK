@@ -46,7 +46,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  const typename OutCircularPointerFilter<DataType>::SliceBuffer& OutCircularPointerFilter<DataType>::get_last_slice(bool& process)
+  auto OutCircularPointerFilter<DataType>::get_last_slice(bool& process) -> const SliceBuffer&
   {
     process = false;
     if(last_checked_out_buffer != current_slice)

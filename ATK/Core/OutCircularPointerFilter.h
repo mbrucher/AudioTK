@@ -41,7 +41,7 @@ namespace ATK
     void full_setup() final;
 
     /// Retrieves a slice of the processed data, setting process to true if it's a new one
-    const SliceBuffer& get_last_slice(bool& process);
+    auto get_last_slice(bool& process) -> const SliceBuffer&;
     
   protected:
     /// This implementation retrieves inputs from other filters and converts it accordingly
