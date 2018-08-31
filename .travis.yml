@@ -98,15 +98,15 @@ matrix:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-8
+        - g++-7
         - libfftw3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
     env:
-    - MY_NAME: GCC 8 Python 2
-    - COMPILER=g++-8
-    - PLATFORM=gcc-8
+    - MY_NAME: GCC 7 Python 2
+    - COMPILER=g++-7
+    - PLATFORM=gcc-7
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
