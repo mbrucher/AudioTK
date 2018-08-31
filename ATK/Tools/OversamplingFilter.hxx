@@ -140,6 +140,8 @@ namespace ATK
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
+      
+      process_one_channel(size, input, output);
     }
   }
   
