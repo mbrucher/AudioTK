@@ -241,8 +241,8 @@ namespace EQUtilities
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
-    EQUtilities::zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    EQUtilities::zpk_bilinear(fs, z, p, k);
+    zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    zpk_bilinear(fs, z, p, k);
     
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
@@ -256,8 +256,8 @@ namespace EQUtilities
     wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
     wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
     
-    EQUtilities::zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    EQUtilities::zpk_bilinear(fs, z, p, k);
+    zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    zpk_bilinear(fs, z, p, k);
     
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
