@@ -314,7 +314,7 @@ matrix:
     - Python_ADDITIONAL_VERSIONS=3.6.4
     - BUILD_TYPE=Release
   allow_failures:
-  - compiler: g++-8
+  - compiler: gcc-8
   - compiler: clang-6.0
 
 before_install:
