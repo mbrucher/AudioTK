@@ -204,6 +204,82 @@ namespace EQUtilities
       }
     }
   }
+  
+  template<typename DataType, typename Container>
+  void populate_lp_coeffs(DataType Wn, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  {
+    DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
+    zpk_lp2lp(warped, z, p, k);
+    zpk_bilinear(fs, z, p, k);
+    
+    boost::math::tools::polynomial<DataType> b({ 1 });
+    boost::math::tools::polynomial<DataType> a({ 1 });
+    
+    EQUtilities::zpk2ba(fs, z, p, k, b, a);
+    
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
+    {
+      coefficients_in[i] = b[i];
+    }
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
+    {
+      coefficients_out[i] = -a[i];
+    }
+  }
+  
+  template<typename DataType, typename Container>
+  void populate_bp_coeffs(DataType wc1, DataType wc2, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  {
+    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
+    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
+    
+    EQUtilities::zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    EQUtilities::zpk_bilinear(fs, z, p, k);
+    
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
+    
+    EQUtilities::zpk2ba(fs, z, p, k, b, a);
+    
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
+    {
+      coefficients_in[i] = b[i];
+    }
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
+    {
+      coefficients_out[i] = -a[i];
+    }
+  }
+  
+  template<typename DataType, typename Container>
+  void populate_bs_coeffs(DataType wc1, DataType wc2, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  {
+    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
+    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
+    
+    EQUtilities::zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    EQUtilities::zpk_bilinear(fs, z, p, k);
+    
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
+    
+    EQUtilities::zpk2ba(fs, z, p, k, b, a);
+    
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
+    {
+      coefficients_in[i] = b[i];
+    }
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
+    {
+      coefficients_out[i] = -a[i];
+    }
+  }
 }
 
 #endif

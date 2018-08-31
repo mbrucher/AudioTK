@@ -150,25 +150,7 @@ namespace BesselUtilities
     
     int fs = 2;
     create_bessel_analog_coefficients(static_cast<int>(order), z, p, k);
-    DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
-    EQUtilities::zpk_lp2lp(warped, z, p, k);
-    EQUtilities::zpk_bilinear(fs, z, p, k);
-    
-    boost::math::tools::polynomial<DataType> b({ 1 });
-    boost::math::tools::polynomial<DataType> a({ 1 });
-    
-    EQUtilities::zpk2ba(fs, z, p, k, b, a);
-    
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    EQUtilities::populate_lp_coeffs(Wn, fs, order, z, p, k, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
@@ -180,27 +162,7 @@ namespace BesselUtilities
     
     int fs = 2;
     create_bessel_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
-    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
-    
-    EQUtilities::zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    EQUtilities::zpk_bilinear(fs, z, p, k);
-    
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-
-    EQUtilities::zpk2ba(fs, z, p, k, b, a);
-    
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
@@ -212,27 +174,7 @@ namespace BesselUtilities
     
     int fs = 2;
     create_bessel_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
-    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
-    
-    EQUtilities::zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    EQUtilities::zpk_bilinear(fs, z, p, k);
-    
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-
-    EQUtilities::zpk2ba(fs, z, p, k, b, a);
-    
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
   }
 }
 
