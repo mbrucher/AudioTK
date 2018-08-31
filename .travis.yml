@@ -293,7 +293,7 @@ before_install:
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
       ls /opt/python/
-      wget https://cmake.org/files/v3.10/cmake-3.10.1-Linux-x86_64.sh
+      wget https://cmake.org/files/v3.12/cmake-3.12.1-Linux-x86_64.sh
       chmod +x cmake-3.10.1-Linux-x86_64.sh
       ./cmake-3.10.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
@@ -313,11 +313,11 @@ before_install:
       fi
     fi
 
-  - wget --no-verbose --output-document=boost_1_66_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.66.0/boost_1_66_0.tar.bz2/download
+  - wget --no-verbose --output-document=boost_1_68_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.68.0/boost_1_68_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
   - mkdir -p $BOOST_ROOT
-  - tar jxf boost_1_66_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
+  - tar jxf boost_1_68_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
