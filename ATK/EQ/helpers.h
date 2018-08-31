@@ -206,8 +206,11 @@ namespace EQUtilities
   }
   
   template<typename DataType, typename Container>
-  void to_bilinear(const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, boost::math::tools::polynomial<DataType>& a, boost::math::tools::polynomial<DataType>& b, Container& coefficients_in, Container& coefficients_out, int fs, size_t order)
+  void to_bilinear(const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out, int fs, size_t order)
   {
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
+
     EQUtilities::zpk2ba(fs, z, p, k, b, a);
     
     auto in_size = std::min(order + 1, b.size());
@@ -229,10 +232,7 @@ namespace EQUtilities
     zpk_lp2lp(warped, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
-    to_bilinear(z, p, k, a, b, coefficients_in, coefficients_out, fs, order);
+    to_bilinear(z, p, k, coefficients_in, coefficients_out, fs, order);
   }
   
   template<typename DataType, typename Container>
@@ -244,10 +244,7 @@ namespace EQUtilities
     zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
-    to_bilinear(z, p, k, a, b, coefficients_in, coefficients_out, fs, order);
+    to_bilinear(z, p, k, coefficients_in, coefficients_out, fs, order);
   }
   
   template<typename DataType, typename Container>
@@ -259,10 +256,7 @@ namespace EQUtilities
     zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
     zpk_bilinear(fs, z, p, k);
     
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-    
-    to_bilinear(z, p, k, a, b, coefficients_in, coefficients_out, fs, order);
+    to_bilinear(z, p, k, coefficients_in, coefficients_out, fs, order);
   }
 }
 
