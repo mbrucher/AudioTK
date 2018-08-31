@@ -206,15 +206,8 @@ namespace EQUtilities
   }
   
   template<typename DataType, typename Container>
-  void populate_lp_coeffs(DataType Wn, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  void to_bilinear(const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, boost::math::tools::polynomial<DataType>& a, boost::math::tools::polynomial<DataType>& b, Container& coefficients_in, Container& coefficients_out, int fs, size_t order)
   {
-    DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
-    zpk_lp2lp(warped, z, p, k);
-    zpk_bilinear(fs, z, p, k);
-    
-    boost::math::tools::polynomial<DataType> b({ 1 });
-    boost::math::tools::polynomial<DataType> a({ 1 });
-    
     EQUtilities::zpk2ba(fs, z, p, k, b, a);
     
     auto in_size = std::min(order + 1, b.size());
@@ -227,6 +220,19 @@ namespace EQUtilities
     {
       coefficients_out[i] = -a[i];
     }
+  }
+
+  template<typename DataType, typename Container>
+  void populate_lp_coeffs(DataType Wn, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  {
+    DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
+    zpk_lp2lp(warped, z, p, k);
+    zpk_bilinear(fs, z, p, k);
+    
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
+    
+    to_bilinear(z, p, k, a, b, coefficients_in, coefficients_out, fs, order);
   }
   
   template<typename DataType, typename Container>
@@ -241,18 +247,7 @@ namespace EQUtilities
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
     
-    EQUtilities::zpk2ba(fs, z, p, k, b, a);
-    
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    to_bilinear(z, p, k, a, b, coefficients_in, coefficients_out, fs, order);
   }
   
   template<typename DataType, typename Container>
@@ -267,18 +262,7 @@ namespace EQUtilities
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
     
-    EQUtilities::zpk2ba(fs, z, p, k, b, a);
-    
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    to_bilinear(z, p, k, a, b, coefficients_in, coefficients_out, fs, order);
   }
 }
 
