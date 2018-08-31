@@ -148,6 +148,8 @@ namespace ATK
 
   private:
     Coefficients coeffs;
+
+    void process_one_channel(gsl::index size, const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output) const;
   public:
     /*!
     * @brief Constructor
