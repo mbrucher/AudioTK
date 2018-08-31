@@ -288,6 +288,8 @@ matrix:
   - compiler: clang-6.0
 
 before_install:
+  - ls /usr/lib/clang/ | echo 0
+  - ls /usr/lib/clang/6.0.1 | echo 0
   - mkdir $HOME/usr
   - export PATH="$HOME/usr/bin:$PATH"
   - |
