@@ -149,7 +149,8 @@ endif(NOT ${PREFIX}_TESTNAME)
 SET(${PREFIX}_FOLDER_PROJECT Tests)
 
 ATK_add_executable(${PREFIX})
-add_test(${${PREFIX}_TESTNAME} ${${PREFIX}_NAME} --log_level=message)
+add_test(NAME ${${PREFIX}_TESTNAME}
+         COMMAND ${${PREFIX}_NAME} --log_level=message)
 
 endfunction()
 

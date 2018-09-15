@@ -7,10 +7,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(ATK_VERSION 3.0.0)
 
-include(Utilities)
-
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
+option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_PYTHON "Enable Python support" ON)
@@ -27,6 +26,15 @@ message(STATUS " Build SIMD: ${ENABLE_SIMD}")
 message(STATUS " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(STATUS " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
 message(STATUS " Build tests: ${ENABLE_TESTS}")
+
+enable_testing()
+
+if(ENABLE_PYTHON)
+  add_subdirectory(${CMAKE_SOURCE_DIR}/3rdParty/pybind11)
+
+  LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/pybind11/tools)
+  FIND_PACKAGE(PythonLibsNew REQUIRED)
+endif(ENABLE_PYTHON)
 
 include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
 include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
@@ -75,11 +83,6 @@ endif(ENABLE_CODECOVERAGE)
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
   set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
 ENDIF(NOT DEFINED PYTHON_INSTALL_FOLDER)
-
-enable_testing()
-
-option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
-option(ENABLE_PYTHON "Enable the Python wrappers" OFF)
 
 if(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 1)
@@ -138,6 +141,8 @@ if(ENABLE_TESTS)
   find_package(Boost REQUIRED unit_test_framework system)
 endif(ENABLE_TESTS)
 
+include(Utilities)
+
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
@@ -165,11 +170,6 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
-  add_subdirectory(${CMAKE_SOURCE_DIR}/3rdParty/pybind11)
-
-  LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/pybind11/tools)
-  FIND_PACKAGE(PythonLibsNew REQUIRED)
-
   add_subdirectory(Python/ATK)
 endif(ENABLE_PYTHON)
 
