@@ -25,7 +25,7 @@ namespace ATK
 
   public:
     /// Constructor
-    PanFilter(std::size_t nb_channels = 1);
+    PanFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~PanFilter() override;
     
@@ -55,7 +55,7 @@ namespace ATK
     double get_pan() const;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   private:
     PAN_LAWS law;

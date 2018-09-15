@@ -27,8 +27,6 @@
 #include "TimeVaryingIIRFilter.h"
 #include "TimeVaryingSVFFilter.h"
 
-namespace py = pybind11;
-
 using namespace ATK;
 using namespace py::literals;
 
@@ -49,7 +47,7 @@ namespace
   {
     typedef typename Coefficients::DataType DataType;
     py::class_<FIRFilter<Coefficients>, Coefficients>(m, type)
-    .def(py::init<std::size_t>(), "nb_channels"_a = 1)
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
     .def_property_readonly("coefficients_in", [](const FIRFilter<Coefficients>& instance)
     {
       return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
@@ -60,7 +58,7 @@ namespace
   void populate_CustomFIR(py::module& m, const char* type, T& parent)
   {
     py::class_<FIRFilter<CustomFIRCoefficients<DataType>>>(m, type, parent)
-      .def(py::init<std::size_t>(), "nb_channels"_a = 1)
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
       .def_property("coefficients_in", [](const FIRFilter<CustomFIRCoefficients<DataType>>& instance)
     {
       return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
@@ -79,7 +77,7 @@ namespace
   void populate_CustomIIR(py::module& m, const char* type, T& parent)
   {
     py::class_<IIRFilter<CustomIIRCoefficients<DataType>>>(m, type, parent)
-      .def(py::init<std::size_t>(), "nb_channels"_a = 1)
+      .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
       .def_property("coefficients_in", [](const IIRFilter<CustomIIRCoefficients<DataType>>& instance)
     {
       return py::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());
@@ -158,7 +156,7 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_StandardFilters(m, f1, f2);
   populate_ChebyshevFilter(m, f1, f2);
   populate_SecondOrderFilter(m, f1, f2);
-  populate_RobertBristowJohnsonFilter(m, f1, f2);
+  populate_RobertBristowJohnsonFilter(m);
   populate_SecondOrderSVFFilter(m, f1, f2);
 
   populate_ndOrderCoefficients<FourthOrderBaseCoefficients<float>>(m, "FloatFourthOrderBaseCoefficients", f1);

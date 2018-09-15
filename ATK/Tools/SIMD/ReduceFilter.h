@@ -28,17 +28,17 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    ReduceFilter(std::size_t nb_channels = 1);
+    ReduceFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~ReduceFilter() override;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
   
   /// Sum all SIMD vector lines in the input signal
-  template<typename DataType, std::size_t VL>
-  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createReduceFilter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createReduceFilter(gsl::index nb_channels = 1);
 }
 
 #endif

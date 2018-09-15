@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  GainColoredCompressorFilter<DataType_>::GainColoredCompressorFilter(std::size_t nb_channels, size_t LUTsize, size_t LUTprecision)
+  GainColoredCompressorFilter<DataType_>::GainColoredCompressorFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), color(0), quality(0)
   {
   }

@@ -49,7 +49,7 @@ namespace ATK
     
   protected:
     void setup() final;
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   private:
     int selected;

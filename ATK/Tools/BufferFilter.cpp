@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  BufferFilter<DataType_>::BufferFilter(std::size_t nb_channels)
+  BufferFilter<DataType_>::BufferFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels)
   {
     
@@ -23,7 +23,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void BufferFilter<DataType_>::process_impl(std::size_t size) const
+  void BufferFilter<DataType_>::process_impl(gsl::index size) const
   {
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {

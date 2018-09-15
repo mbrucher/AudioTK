@@ -9,7 +9,7 @@
 namespace ATK
 {
   template<class DataType>
-  DecimationFilter<DataType>::DecimationFilter(std::size_t nb_channels)
+  DecimationFilter<DataType>::DecimationFilter(gsl::index nb_channels)
   :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
   }
@@ -34,7 +34,7 @@ namespace ATK
   }
   
   template<class DataType>
-  void DecimationFilter<DataType>::process_impl(std::size_t size) const
+  void DecimationFilter<DataType>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);
 
@@ -42,7 +42,7 @@ namespace ATK
     {
       const DataType* ATK_RESTRICT input = converted_inputs[channel];
       DataType* ATK_RESTRICT output = outputs[channel];
-      for(std::size_t i = 0; i < size; ++i)
+      for(gsl::index i = 0; i < size; ++i)
       {
         output[i] = input[i*decimation];
       }

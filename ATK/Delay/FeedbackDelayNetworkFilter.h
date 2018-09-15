@@ -34,14 +34,14 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    FeedbackDelayNetworkFilter(std::size_t max_delay);
+    FeedbackDelayNetworkFilter(gsl::index max_delay);
     /// Destructor
     ~FeedbackDelayNetworkFilter() override;
 
     /// Set the initial delay from a channel
-    void set_delay(unsigned int channel, std::size_t delay);
+    void set_delay(unsigned int channel, gsl::index delay);
     /// Gets the initial delay from a channel
-    std::size_t get_delay(unsigned int channel) const;
+    gsl::index get_delay(unsigned int channel) const;
 
     /// Sets the input gain of a channel (between -1 and 1)
     void set_ingain(unsigned int channel, DataType ingain);
@@ -60,14 +60,14 @@ namespace ATK
 
     void full_setup() final;
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   private:
     // internal state
     std::unique_ptr<HFDN_Impl> impl;
-    std::array<std::size_t, nb_channels> delay;
+    std::array<gsl::index, nb_channels> delay;
     /// Max delay for the delay line
-    std::size_t max_delay;
+    gsl::index max_delay;
   };
 }
 

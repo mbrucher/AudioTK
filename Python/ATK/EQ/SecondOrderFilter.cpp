@@ -9,13 +9,7 @@
 
 #include "MainFilter.h"
 
-namespace py = pybind11;
-
 using namespace ATK;
-
-namespace
-{
-}
 
 void populate_SecondOrderFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {

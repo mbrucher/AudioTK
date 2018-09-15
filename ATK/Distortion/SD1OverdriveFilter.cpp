@@ -73,11 +73,6 @@ namespace ATK
       return affine_estimate(x0, x1, y0);
     }
 
-/*    DataType id_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      return y0;
-    }*/
-
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       y0 -= x0;
@@ -132,7 +127,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void SD1OverdriveFilter<DataType>::process_impl(std::size_t size) const
+  void SD1OverdriveFilter<DataType>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];

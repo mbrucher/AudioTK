@@ -20,7 +20,7 @@ namespace ATK
   class ATK_DISTORTION_EXPORT DiodeClipperFilter final : public TypedBaseFilter<DataType_>
   {
     class SimpleOverdriveFunction;
-  public:
+  protected:
     /// Simplify parent calls
     typedef TypedBaseFilter<DataType_> Parent;
     using typename Parent::DataType;
@@ -41,7 +41,7 @@ namespace ATK
     
   protected:
     void setup() final;
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
   private:
     std::unique_ptr<ScalarNewtonRaphson<SimpleOverdriveFunction, 10, true> > optimizer;

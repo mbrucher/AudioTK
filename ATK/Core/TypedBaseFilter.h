@@ -17,7 +17,7 @@
 
 namespace ATK
 {
-  const std::size_t ALIGNMENT = 32;
+  const gsl::index ALIGNMENT = 32;
 
   /// Interface for output filters
   template<typename DataType>
@@ -30,11 +30,11 @@ namespace ATK
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
-    virtual DataType* get_output_array(std::size_t port) const = 0;
+    virtual DataType* get_output_array(gsl::index port) const = 0;
     /**
      * Returns the size of the output arrays (usually the last size processed)
      */
-    virtual std::size_t get_output_array_size() const = 0;
+    virtual gsl::index get_output_array_size() const = 0;
   };
 
   /// Base class for typed filters, contains arrays
@@ -59,7 +59,7 @@ namespace ATK
     typedef std::vector<typename TypeTraits<DataType>::Scalar, boost::alignment::aligned_allocator<typename TypeTraits<DataType>::Scalar, ALIGNMENT> > AlignedScalarVector;
 
     /// Base constructor for filters with actual data
-    TypedBaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports);
+    TypedBaseFilter(gsl::index nb_input_ports, gsl::index nb_output_ports);
     /// Move constructor
     TypedBaseFilter(TypedBaseFilter&& other);
     /// Destructor
@@ -72,39 +72,39 @@ namespace ATK
      * @brief Returns an array with the processed output
      * @param port is the port that the next plugin listens to
      */
-    DataType__* get_output_array(std::size_t port) const final;
-    std::size_t get_output_array_size() const final;
+    DataType__* get_output_array(gsl::index port) const final;
+    gsl::index get_output_array_size() const final;
 
-    void set_nb_input_ports(std::size_t nb_ports) override;
-    void set_nb_output_ports(std::size_t nb_ports) override;
+    void set_nb_input_ports(gsl::index nb_ports) override;
+    void set_nb_output_ports(gsl::index nb_ports) override;
 
     void full_setup() override;
 
     /// Connects this filter input to another's output
-    void set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port) final;
-    void set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port) final;
+    void set_input_port(gsl::index input_port, gsl::not_null<BaseFilter*> filter, gsl::index output_port) final;
+    void set_input_port(gsl::index input_port, BaseFilter& filter, gsl::index output_port) final;
 
   private:
     int get_type() const override;
   protected:
     /// This implementation does nothing
-    void process_impl(std::size_t size) const override;
+    void process_impl(gsl::index size) const override;
     /// Prepares the filter by retrieving the inputs arrays
-    void prepare_process(std::size_t size) final;
+    void prepare_process(gsl::index size) final;
     /// Prepares the filter by resizing the outputs arrays
-    void prepare_outputs(std::size_t size) final;
+    void prepare_outputs(gsl::index size) final;
 
     /// Used to convert other filter outputs to DataType*
-    void convert_inputs(std::size_t size);
+    void convert_inputs(gsl::index size);
 
     /// Input arrays with the input delay, owned here
     std::vector<AlignedVector> converted_inputs_delay;
     /// Input arrays, starting from t=0 (without input delay)
     std::vector<DataTypeInput*> converted_inputs;
     /// Current size of the input arrays, without delay
-    std::vector<std::size_t> converted_inputs_size;
+    std::vector<gsl::index> converted_inputs_size;
     /// Current input delay
-    std::vector<std::size_t> converted_in_delays;
+    std::vector<gsl::index> converted_in_delays;
     /// Pointer to the output interface of the connected filters
     std::vector<OutputArrayInterface<DataType_>*> direct_filters;
 
@@ -113,9 +113,9 @@ namespace ATK
     /// Output arrays, starting from t=0 (without output delay)
     std::vector<DataTypeOutput*> outputs;
     /// Current size of the output arrays, without delay
-    std::vector<std::size_t> outputs_size;
+    std::vector<gsl::index> outputs_size;
     /// Current output delay
-    std::vector<std::size_t> out_delays;
+    std::vector<gsl::index> out_delays;
 
     /// A vector containing the default values for the input arrays
     AlignedVector default_input;

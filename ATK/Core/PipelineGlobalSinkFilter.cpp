@@ -3,6 +3,7 @@
  */
 
 #include <ATK/Core/PipelineGlobalSinkFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <algorithm>
 
@@ -29,7 +30,7 @@ namespace ATK
     }
     else
     {
-      throw std::runtime_error("Try to ad a filter that was aleady added");
+      throw RuntimeError("Try to ad a filter that was aleady added");
     }
   }
 
@@ -42,7 +43,7 @@ namespace ATK
     }
     else
     {
-      throw std::runtime_error("Try to remove a filter that was not added");
+      throw RuntimeError("Try to remove a filter that was not added");
     }
   }
 
@@ -51,14 +52,14 @@ namespace ATK
     return 0; // bogus
   }
 
-  void PipelineGlobalSinkFilter::set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port)
+  void PipelineGlobalSinkFilter::set_input_port(gsl::index input_port, gsl::not_null<BaseFilter*> filter, gsl::index output_port)
   {
     set_input_port(input_port, *filter, output_port);
   }
 
-  void PipelineGlobalSinkFilter::set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port)
+  void PipelineGlobalSinkFilter::set_input_port(gsl::index input_port, BaseFilter& filter, gsl::index output_port)
   {
-    throw std::runtime_error("This function must not be called on pipelines");
+    throw RuntimeError("This function must not be called on pipelines");
   }
 
   void PipelineGlobalSinkFilter::set_parallel(bool parallel)
@@ -66,15 +67,17 @@ namespace ATK
     activate_parallel = parallel;
   }
 
-  void PipelineGlobalSinkFilter::prepare_process(std::size_t size)
+  void PipelineGlobalSinkFilter::prepare_process(gsl::index size)
   {
+    // Nothing to do
   }
 
-  void PipelineGlobalSinkFilter::prepare_outputs(std::size_t size )
+  void PipelineGlobalSinkFilter::prepare_outputs(gsl::index size )
   {
+    // Nothing to do
   }
 
-  void PipelineGlobalSinkFilter::process_impl(std::size_t size ) const
+  void PipelineGlobalSinkFilter::process_impl(gsl::index size ) const
   {
     for (auto it = filters.begin(); it != filters.end(); ++it)
     {
@@ -90,7 +93,7 @@ namespace ATK
       for (auto it = filters.begin(); it != filters.end(); ++it)
       {
         auto filter = (*it);
-        g.run([=] {filter->process_conditionnally(size * (*it)->get_output_sampling_rate() / input_sampling_rate); });
+        g.run([=] {filter->process_conditionnally(uint64_t(size) * (*it)->get_output_sampling_rate() / input_sampling_rate); });
       }
       g.wait();
     }
@@ -99,7 +102,7 @@ namespace ATK
     {
       for (auto it = filters.begin(); it != filters.end(); ++it)
       {
-        (*it)->process_conditionnally<true>(size * (*it)->get_output_sampling_rate() / input_sampling_rate);
+        (*it)->process_conditionnally<true>(uint64_t(size) * (*it)->get_output_sampling_rate() / input_sampling_rate);
       }
     }
   }

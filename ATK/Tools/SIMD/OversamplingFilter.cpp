@@ -51,63 +51,63 @@ namespace ATK
   
   namespace SIMDPP_ARCH_NAMESPACE
   {
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new OversamplingFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL>, Oversampling6points5order_2<DataType> >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new OversamplingFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL>, Oversampling6points5order_4<DataType> >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8(gsl::index nb_channels)
     {
         return std::unique_ptr<BaseFilter>(new OversamplingFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL>, Oversampling6points5order_8<DataType> >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new OversamplingFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL>, Oversampling6points5order_16<DataType> >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new OversamplingFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL>, Oversampling6points5order_32<DataType> >(nb_channels));
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_2) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_4) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_8) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_16) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_32) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_2) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_4) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_8) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_16) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createOversamplingFilter6points5order_32) ((gsl::index) nb_channels))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<double, 2>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<float, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<double, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<float, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<double, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<double, 2>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<float, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<double, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<float, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<double, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<double, 2>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<float, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<double, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<float, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<double, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<double, 2>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<float, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<double, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<float, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<double, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<double, 2>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<float, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<double, 4>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<float, 8>(std::size_t)),
-    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<double, 8>(std::size_t)));
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<double, 2>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<float, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<double, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<float, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_2<double, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<double, 2>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<float, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<double, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<float, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_4<double, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<double, 2>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<float, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<double, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<float, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_8<double, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<double, 2>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<float, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<double, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<float, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_16<double, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<double, 2>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<float, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<double, 4>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<float, 8>(gsl::index)),
+    (template ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createOversamplingFilter6points5order_32<double, 8>(gsl::index)));
 }

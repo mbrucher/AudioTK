@@ -31,20 +31,20 @@ namespace ATK
   
   namespace SIMDPP_ARCH_NAMESPACE
   {
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createFixedDelayLineFilter(std::size_t max_delay)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createFixedDelayLineFilter(gsl::index max_delay)
     {
       return std::unique_ptr<BaseFilter>(new FixedDelayLineFilter<typename SIMDTypeTraits<DataType>::template SIMDType<VL> >(max_delay));
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createFixedDelayLineFilter)
-                         ((std::size_t) max_delay))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createFixedDelayLineFilter)
+                         ((gsl::index) max_delay))
 
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 2>(std::size_t)),
-    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 4>(std::size_t)),
-    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 4>(std::size_t)),
-    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 8>(std::size_t)),
-    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 8>(std::size_t)));
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 2>(gsl::index)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 4>(gsl::index)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 4>(gsl::index)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<float, 8>(gsl::index)),
+    (template ATK_DELAY_EXPORT std::unique_ptr<BaseFilter> createFixedDelayLineFilter<double, 8>(gsl::index)));
 }

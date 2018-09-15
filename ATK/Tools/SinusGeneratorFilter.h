@@ -47,7 +47,7 @@ namespace ATK
     void full_setup() final;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
   private:
     DataType_ volume;

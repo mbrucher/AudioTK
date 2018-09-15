@@ -14,8 +14,14 @@
 namespace ATK
 {
   template <typename DataType_>
-  SecondOrderBaseCoefficients<DataType_>::SecondOrderBaseCoefficients(std::size_t nb_channels)
+  SecondOrderCoreCoefficients<DataType_>::SecondOrderCoreCoefficients(gsl::index nb_channels)
     :Parent(nb_channels, nb_channels)
+  {
+  }
+
+  template <typename DataType_>
+  SecondOrderBaseCoefficients<DataType_>::SecondOrderBaseCoefficients(gsl::index nb_channels)
+    : Parent(nb_channels)
   {
   }
 
@@ -46,7 +52,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderBandPassCoefficients<DataType_>::SecondOrderBandPassCoefficients(std::size_t nb_channels)
+  SecondOrderBandPassCoefficients<DataType_>::SecondOrderBandPassCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -85,7 +91,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderLowPassCoefficients<DataType_>::SecondOrderLowPassCoefficients(std::size_t nb_channels)
+  SecondOrderLowPassCoefficients<DataType_>::SecondOrderLowPassCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -106,7 +112,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderHighPassCoefficients<DataType_>::SecondOrderHighPassCoefficients(std::size_t nb_channels)
+  SecondOrderHighPassCoefficients<DataType_>::SecondOrderHighPassCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -127,7 +133,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderBandPassPeakCoefficients<DataType_>::SecondOrderBandPassPeakCoefficients(std::size_t nb_channels)
+  SecondOrderBandPassPeakCoefficients<DataType_>::SecondOrderBandPassPeakCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -194,7 +200,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderAllPassCoefficients<DataType_>::SecondOrderAllPassCoefficients(std::size_t nb_channels)
+  SecondOrderAllPassCoefficients<DataType_>::SecondOrderAllPassCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -232,7 +238,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderLowShelvingCoefficients<DataType_>::SecondOrderLowShelvingCoefficients(std::size_t nb_channels)
+  SecondOrderLowShelvingCoefficients<DataType_>::SecondOrderLowShelvingCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -280,7 +286,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  SecondOrderHighShelvingCoefficients<DataType_>::SecondOrderHighShelvingCoefficients(std::size_t nb_channels)
+  SecondOrderHighShelvingCoefficients<DataType_>::SecondOrderHighShelvingCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }

@@ -11,7 +11,7 @@
 #include <boost/math/tools/polynomial.hpp>
 
 /// Namespace to build filters based on their zpk description
-namespace
+namespace EQUtilities
 {
   /// Transform the Wn=1 low pass analog filter in a Wn=Wn low pass filter
   template<typename DataType>
@@ -203,6 +203,60 @@ namespace
         a *= poly2;
       }
     }
+  }
+  
+  template<typename DataType, typename Container>
+  void to_bilinear(const std::vector<std::complex<DataType> >& z, const std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out, int fs, size_t order)
+  {
+    boost::math::tools::polynomial<DataType> b;
+    boost::math::tools::polynomial<DataType> a;
+
+    EQUtilities::zpk2ba(fs, z, p, k, b, a);
+    
+    auto in_size = std::min(order + 1, b.size());
+    for (size_t i = 0; i < in_size; ++i)
+    {
+      coefficients_in[i] = b[i];
+    }
+    auto out_size = std::min(order, a.size() - 1);
+    for (size_t i = 0; i < out_size; ++i)
+    {
+      coefficients_out[i] = -a[i];
+    }
+  }
+
+  template<typename DataType, typename Container>
+  void populate_lp_coeffs(DataType Wn, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  {
+    DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
+    zpk_lp2lp(warped, z, p, k);
+    zpk_bilinear(fs, z, p, k);
+    
+    to_bilinear(z, p, k, coefficients_in, coefficients_out, fs, order);
+  }
+  
+  template<typename DataType, typename Container>
+  void populate_bp_coeffs(DataType wc1, DataType wc2, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  {
+    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
+    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
+    
+    zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    zpk_bilinear(fs, z, p, k);
+    
+    to_bilinear(z, p, k, coefficients_in, coefficients_out, fs, order);
+  }
+  
+  template<typename DataType, typename Container>
+  void populate_bs_coeffs(DataType wc1, DataType wc2, int fs, size_t order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType k, Container& coefficients_in, Container& coefficients_out)
+  {
+    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
+    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
+    
+    zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
+    zpk_bilinear(fs, z, p, k);
+    
+    to_bilinear(z, p, k, coefficients_in, coefficients_out, fs, order);
   }
 }
 

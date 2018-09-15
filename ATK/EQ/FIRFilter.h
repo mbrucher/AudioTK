@@ -22,7 +22,7 @@ namespace ATK
   template<class Coefficients >
   class ATK_EQ_EXPORT FIRFilter final : public Coefficients
   {
-  public:
+  protected:
     typedef Coefficients Parent;
     using typename Parent::DataType;
     using typename Parent::AlignedScalarVector;
@@ -44,7 +44,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    FIRFilter(std::size_t nb_channels = 1)
+    FIRFilter(gsl::index nb_channels = 1)
       :Parent(nb_channels)
     {
     }
@@ -61,7 +61,7 @@ namespace ATK
       input_delay = in_order;
     }
     
-    void process_impl(std::size_t size) const final
+    void process_impl(gsl::index size) const final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);

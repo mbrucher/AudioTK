@@ -42,7 +42,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselLowPassCoefficients(std::size_t nb_channels = 1);
+    BesselLowPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -86,7 +86,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselHighPassCoefficients(std::size_t nb_channels = 1);
+    BesselHighPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -130,7 +130,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselBandPassCoefficients(std::size_t nb_channels = 1);
+    BesselBandPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;
@@ -176,7 +176,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    BesselBandStopCoefficients(std::size_t nb_channels = 1);
+    BesselBandStopCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;

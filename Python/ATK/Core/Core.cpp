@@ -21,7 +21,7 @@ namespace
   void populate_TypedBaseFilter(py::module& m, const char* type)
   {
     py::class_<TypedBaseFilter<DataType_, DataType__>, BaseFilter>(m, type)
-      .def("get_output_array", [](TypedBaseFilter<DataType__>& instance, std::size_t port)
+      .def("get_output_array", [](TypedBaseFilter<DataType__>& instance, gsl::index port)
     {
       if (port >= instance.get_nb_output_ports())
       {
@@ -34,7 +34,7 @@ namespace
   void create_base_filter(py::module& m)
   {
     py::class_<BaseFilter>(m, "BaseFilter")
-    .def("set_input_port", [](BaseFilter& instance, std::size_t input_port, BaseFilter& filter, std::size_t output_port){instance.set_input_port(input_port, filter, output_port);})
+    .def("set_input_port", [](BaseFilter& instance, gsl::index input_port, BaseFilter& filter, gsl::index output_port){instance.set_input_port(input_port, filter, output_port);})
       .def("process", &BaseFilter::process)
       .def("full_setup", &BaseFilter::full_setup)
       .def_property("input_sampling_rate", &BaseFilter::get_input_sampling_rate, &BaseFilter::set_input_sampling_rate)
@@ -64,8 +64,8 @@ namespace
   {
     py::class_<InPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
       .def("__init__", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array, bool interleaved) {
-        std::size_t channels = 1;
-        std::size_t size = array.shape(0);
+        gsl::index channels = 1;
+        gsl::index size = array.shape(0);
         if(array.ndim() == 2)
         {
           channels = array.shape(0);
@@ -75,8 +75,8 @@ namespace
     }, py::arg().noconvert(), py::arg("interleaved") = false)
       .def("set_pointer", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array)
     {
-      std::size_t channels = 1;
-      std::size_t size = array.shape(0);
+      gsl::index channels = 1;
+      gsl::index size = array.shape(0);
       if(array.ndim() == 2)
       {
         channels = array.shape(0);
@@ -95,8 +95,8 @@ namespace
   {
     py::class_<OutPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
       .def("__init__", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array, bool interleaved) {
-        std::size_t channels = 1;
-        std::size_t size = array.shape(0);
+        gsl::index channels = 1;
+        gsl::index size = array.shape(0);
         if(array.ndim() == 2)
         {
           channels = array.shape(0);
@@ -106,8 +106,8 @@ namespace
     }, py::arg().noconvert(), py::arg("interleaved") = false)
       .def("set_pointer", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array)
     {
-      std::size_t channels = 1;
-      std::size_t size = array.shape(0);
+      gsl::index channels = 1;
+      gsl::index size = array.shape(0);
       if(array.ndim() == 2)
       {
         channels = array.shape(0);
@@ -125,14 +125,14 @@ namespace
   void populate_ComplexToRealFilter(py::module& m, const char* type)
   {
     py::class_<ComplexToRealFilter<DataType>, TypedBaseFilter<std::complex<DataType>, DataType>>(m, type)
-    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = 1);
   }
 
   template<typename DataType>
   void populate_RealToComplexFilter(py::module& m, const char* type)
   {
     py::class_<RealToComplexFilter<DataType>, TypedBaseFilter<DataType, std::complex<DataType>>>(m, type)
-    .def(py::init<std::size_t>(), py::arg("nb_channels") = 1);
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = 1);
   }
 }
 

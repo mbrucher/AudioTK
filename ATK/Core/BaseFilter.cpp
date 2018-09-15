@@ -3,6 +3,7 @@
  */
 
 #include <ATK/Core/BaseFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <cassert>
 #include <cstdint>
@@ -18,7 +19,7 @@
 
 namespace ATK
 {
-  BaseFilter::BaseFilter(std::size_t nb_input_ports, std::size_t nb_output_ports)
+  BaseFilter::BaseFilter(gsl::index nb_input_ports, gsl::index nb_output_ports)
   :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
    input_sampling_rate(0), output_sampling_rate(0),
    connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
@@ -64,6 +65,7 @@ namespace ATK
   
   void BaseFilter::setup()
   {
+    // Nothing to do by default
   }
 
   void BaseFilter::full_setup()
@@ -74,27 +76,27 @@ namespace ATK
     setup();
   }
 
-  void BaseFilter::set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port)
+  void BaseFilter::set_input_port(gsl::index input_port, BaseFilter& filter, gsl::index output_port)
   {
     if(output_port >= filter.nb_output_ports)
     {
-      throw std::runtime_error("Output port does not exist for this filter");
+      throw RuntimeError("Output port does not exist for this filter");
     }
     if(input_port < nb_input_ports)
     {
       connections[input_port] = std::make_pair(output_port, &filter);
       if(filter.get_output_sampling_rate() != get_input_sampling_rate())
       {
-        throw std::runtime_error("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
+        throw RuntimeError("Input sample rate from this filter must be equal to the output sample rate of the connected filter");
       }
     }
     else
     {
-      throw std::runtime_error("Input port doesn't exist for this filter");
+      throw RuntimeError("Input port doesn't exist for this filter");
     }
   }
 
-  void BaseFilter::set_input_sampling_rate(std::size_t rate)
+  void BaseFilter::set_input_sampling_rate(gsl::index rate)
   {
     input_sampling_rate = rate;
     if(output_sampling_rate == 0)
@@ -104,56 +106,56 @@ namespace ATK
     full_setup();
   }
   
-  std::size_t BaseFilter::get_input_sampling_rate() const
+  gsl::index BaseFilter::get_input_sampling_rate() const
   {
     return input_sampling_rate;
   }
   
-  void BaseFilter::set_output_sampling_rate(std::size_t rate)
+  void BaseFilter::set_output_sampling_rate(gsl::index rate)
   {
     output_sampling_rate = rate;
     full_setup();
   }
   
-  std::size_t BaseFilter::get_output_sampling_rate() const
+  gsl::index BaseFilter::get_output_sampling_rate() const
   {
     return output_sampling_rate;
   }
 
-  void BaseFilter::set_input_delay(std::size_t delay)
+  void BaseFilter::set_input_delay(gsl::index delay)
   {
     input_delay = delay;
   }
 
-  std::size_t BaseFilter::get_input_delay() const
+  gsl::index BaseFilter::get_input_delay() const
   {
     return input_delay;
   }
 
-  void BaseFilter::set_output_delay(std::size_t delay)
+  void BaseFilter::set_output_delay(gsl::index delay)
   {
     output_delay = delay;
   }
 
-  std::size_t BaseFilter::get_output_delay() const
+  gsl::index BaseFilter::get_output_delay() const
   {
     return output_delay;
   }
 
-  void BaseFilter::process(std::size_t size)
+  void BaseFilter::process(gsl::index size)
   {
     reset();
     process_conditionnally<true>(size);
   }
 
-  void BaseFilter::dryrun(std::size_t size)
+  void BaseFilter::dryrun(gsl::index size)
   {
     reset();
     process_conditionnally<false>(size);
   }
 
 #if ATK_USE_THREADPOOL == 1
-  void BaseFilter::process_parallel(std::size_t size)
+  void BaseFilter::process_parallel(gsl::index size)
   {
     reset();
     process_conditionnally_parallel(size);
@@ -161,7 +163,7 @@ namespace ATK
 #endif
 
   template<bool must_process>
-  void BaseFilter::process_conditionnally(std::size_t size)
+  void BaseFilter::process_conditionnally(gsl::index size)
   {
     if(size == 0)
     {
@@ -169,18 +171,18 @@ namespace ATK
     }
     if(output_sampling_rate == 0)
     {
-      throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
+      throw RuntimeError("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
     }
     if(!is_reset)
     {
       return;
     }
-    for(std::size_t port = 0; port < connections.size(); ++port)
+    for(gsl::index port = 0; port < connections.size(); ++port)
     {
       if(connections[port].second == nullptr)
       {
         if(!input_mandatory_connection[port])
-          throw std::runtime_error("Input port " + std::to_string(port) + " is not connected");
+          throw RuntimeError("Input port " + std::to_string(port) + " is not connected");
       }
       else
       {
@@ -217,7 +219,7 @@ namespace ATK
   }
 
 #if ATK_USE_THREADPOOL == 1
-  void BaseFilter::process_conditionnally_parallel(std::size_t size)
+  void BaseFilter::process_conditionnally_parallel(gsl::index size)
   {
     if (size == 0)
     {
@@ -225,7 +227,7 @@ namespace ATK
     }
     if (output_sampling_rate == 0)
     {
-      throw std::runtime_error("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
+      throw RuntimeError("Output sampling rate is 0, must be non 0 to compute the needed size for filters processing");
     }
     { // lock this entire loop, as we only want to do the processing if we are not reseted
       tbb::queuing_mutex::scoped_lock lock(mutex);
@@ -234,18 +236,18 @@ namespace ATK
         return;
       }
       tbb::task_group g;
-      for(std::size_t port = 0; port < connections.size(); ++port)
+      for(gsl::index port = 0; port < connections.size(); ++port)
       {
         if(connections[port].second == nullptr)
         {
           if(!input_mandatory_connection[port])
-          throw std::runtime_error("Input port " + std::to_string(port) + " is not connected");
+          throw RuntimeError("Input port " + std::to_string(port) + " is not connected");
         }
         else
         {
           assert(output_sampling_rate);
           auto filter = connections[port];
-          g.run([=]{filter->process_conditionnally_parallel(size * input_sampling_rate / output_sampling_rate); });
+          g.run([=]{filter->process_conditionnally_parallel(uint64_t(size) * input_sampling_rate / output_sampling_rate); });
         }
       }
       g.wait();
@@ -273,12 +275,12 @@ namespace ATK
   }
 #endif
 
-  std::size_t BaseFilter::get_nb_input_ports() const
+  gsl::index BaseFilter::get_nb_input_ports() const
   {
     return nb_input_ports;
   }
 
-  void BaseFilter::set_nb_input_ports(std::size_t nb_ports)
+  void BaseFilter::set_nb_input_ports(gsl::index nb_ports)
   {
     connections.resize(nb_ports, std::make_pair(-1, nullptr));
     input_mandatory_connection.resize(nb_ports);
@@ -290,34 +292,34 @@ namespace ATK
     input_mandatory_connection[port] = true;
   }
 
-  std::size_t BaseFilter::get_nb_output_ports() const
+  gsl::index BaseFilter::get_nb_output_ports() const
   {
     return nb_output_ports;
   }
   
-  void BaseFilter::set_nb_output_ports(std::size_t nb_ports)
+  void BaseFilter::set_nb_output_ports(gsl::index nb_ports)
   {
     nb_output_ports = nb_ports;
   }
   
-  void BaseFilter::set_latency(std::size_t latency)
+  void BaseFilter::set_latency(gsl::index latency)
   {
     this->latency = latency;
   }
 
-  std::size_t BaseFilter::get_latency() const
+  gsl::index BaseFilter::get_latency() const
   {
     return latency;
   }
 
-  std::size_t BaseFilter::get_global_latency() const
+  gsl::index BaseFilter::get_global_latency() const
   {
-    std::size_t global_latency = 0;
+    gsl::index global_latency = 0;
     for(auto it = connections.begin(); it != connections.end(); ++it)
     {
       if(it->second == nullptr)
       {
-        throw std::runtime_error("Input port " + std::to_string(it - connections.begin()) + " is not connected");
+        throw RuntimeError("Input port " + std::to_string(it - connections.begin()) + " is not connected");
       }
       
       global_latency = std::max(global_latency, it->second->get_global_latency());

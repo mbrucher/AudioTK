@@ -11,31 +11,7 @@
 #include "MainFilter.h"
 #include "StandardFilters.h"
 
-namespace py = pybind11;
-
 using namespace ATK;
-
-namespace
-{  
-  template<typename Coefficients, typename T>
-  void populate_SingleCoefficients_ripple(py::module& m, const char* type, T& parent)
-  {
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequency", &Coefficients::get_cut_frequency, &Coefficients::set_cut_frequency)
-    .def_property("ripple", &Coefficients::get_ripple, &Coefficients::set_ripple)
-    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
-  }
-  
-  template<typename Coefficients, typename T>
-  void populate_DualCoefficients_ripple(py::module& m, const char* type, T& parent)
-  {
-    typedef typename Coefficients::DataType DataType;
-    py::class_<Coefficients>(m, type, parent)
-    .def_property("cut_frequencies", &Coefficients::get_cut_frequencies, [](Coefficients& instance, const std::pair<DataType, DataType> f){instance.set_cut_frequencies(f);})
-    .def_property("ripple", &Coefficients::get_ripple, &Coefficients::set_ripple)
-    .def_property("order", &Coefficients::get_order, &Coefficients::set_order);
-  }
-}
 
 void populate_StandardFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {

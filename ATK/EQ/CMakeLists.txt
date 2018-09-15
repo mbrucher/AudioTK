@@ -14,7 +14,6 @@ SET(
 
 SET(
   ATK_EQSIMD2_SIMD_SRC
-  SIMD/FourthOrderFilter.cpp
   SIMD/LinkwitzRileyFilter.cpp
   SIMD/RIAAFilter.cpp
   SIMD/RobertBristowJohnsonFilter.cpp

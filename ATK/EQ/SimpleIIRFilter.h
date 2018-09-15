@@ -16,7 +16,7 @@ namespace ATK
 {
   /// IIR filter template class (Direct Form I)
   template<class Coefficients>
-  class ATK_EQ_EXPORT SimpleIIRFilter final : public Coefficients
+  class SimpleIIRFilter final : public Coefficients
   {
   public:
     /// Simplify parent calls
@@ -43,7 +43,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SimpleIIRFilter(std::size_t nb_channels = 1)
+    SimpleIIRFilter(gsl::index nb_channels = 1)
       :Parent(nb_channels)
     {
     }
@@ -61,7 +61,7 @@ namespace ATK
       output_delay = out_order;
     }
     
-    void process_impl(std::size_t size) const final
+    void process_impl(gsl::index size) const final
     {
       assert(input_sampling_rate == output_sampling_rate);
       assert(nb_input_ports == nb_output_ports);

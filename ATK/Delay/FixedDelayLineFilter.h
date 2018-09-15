@@ -33,23 +33,23 @@ namespace ATK
      * @brief construct the filter with a maximum delay line size
      * @param max_delay is the maximum delay allowed
      */
-    FixedDelayLineFilter(std::size_t max_delay);
+    FixedDelayLineFilter(gsl::index max_delay);
     /// Destructor
     ~FixedDelayLineFilter() override;
     
     /// Changes the delay used for the filter
-    void set_delay(std::size_t delay) override;
+    void set_delay(gsl::index delay) override;
     /// Returns the elay used for the system
-    std::size_t get_delay() const override;
+    gsl::index get_delay() const override;
 
     void full_setup() final;
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   private:
     std::unique_ptr<FDLF_Impl> impl;
 
-    std::size_t delay;
+    gsl::index delay;
   };
 }
 

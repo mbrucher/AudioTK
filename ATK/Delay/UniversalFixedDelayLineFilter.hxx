@@ -14,16 +14,16 @@ namespace ATK
   {
   public:
     std::vector<DataType> delay_line;
-    std::size_t index;
+    gsl::index index;
 
-    UFDLF_Impl(std::size_t max_delay)
+    UFDLF_Impl(gsl::index max_delay)
   :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
     {
     }
   };
 
   template<typename DataType_>
-  UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(std::size_t max_delay)
+  UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(gsl::index max_delay)
     :Parent(1, 2), impl(new UFDLF_Impl(max_delay)), delay(100), blend(0), feedback(0), feedforward(1)
   {
   }
@@ -34,7 +34,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::set_delay(std::size_t delay)
+  void UniversalFixedDelayLineFilter<DataType_>::set_delay(gsl::index delay)
   {
     if(delay == 0)
     {
@@ -49,7 +49,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  std::size_t UniversalFixedDelayLineFilter<DataType_>::get_delay() const
+  gsl::index UniversalFixedDelayLineFilter<DataType_>::get_delay() const
   {
     return delay;
   }
@@ -103,14 +103,14 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void UniversalFixedDelayLineFilter<DataType_>::process_impl(std::size_t size) const
+  void UniversalFixedDelayLineFilter<DataType_>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
     DataType* ATK_RESTRICT processed_input = outputs[1];
 
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
-    auto delay_line_size = impl->delay_line.size();
+    auto delay_line_size = static_cast<gsl::index>(impl->delay_line.size());
 
     auto size_before_index = std::min(impl->index, impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index) : 0) : std::min(size, delay));
     auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;

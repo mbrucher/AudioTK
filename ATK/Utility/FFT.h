@@ -10,6 +10,8 @@
 #include <memory>
 #include <vector>
 
+#include <gsl/gsl>
+
 #include <ATK/Utility/config.h>
 
 namespace ATK
@@ -31,48 +33,48 @@ namespace ATK
      * @brief Sets a new size for the FFT and creates an associated plan for it
      * @ size is the new size of the plan
      */
-    void set_size(std::size_t size);
-    std::size_t get_size() const;
+    void set_size(gsl::index size);
+    gsl::index get_size() const;
     /*!
      * @brief Processes a FFT from a real input array and stores it internally
      * @param input is the real input array of data to process
      * @param input_size is the size of the input array
      */
-    void process(const DataType_* input, std::size_t input_size) const;
+    void process(const DataType_* input, gsl::index input_size) const;
     /*!
     * @brief Processes a FFT from a real input to a complex output
     * @param input is the real input array of data to process
     * @param output is the complex output array
     * @param input_size is the size of both input and output arrays
     */
-    void process_forward(const DataType_* input, std::complex<DataType_>* output, std::size_t input_size) const;
+    void process_forward(const DataType_* input, std::complex<DataType_>* output, gsl::index input_size) const;
     /*!
     * @brief Processes an inverse FFT from a complex input to a real output
     * @param input is the complex input array of data to process
     * @param output is the real output array
     * @param input_size is the size of both input and output arrays
     */
-    void process_backward(const std::complex<DataType_>* input, DataType_* output, std::size_t input_size) const;
+    void process_backward(const std::complex<DataType_>* input, DataType_* output, gsl::index input_size) const;
     /*!
     * @brief Processes a FFT from a complex input array and stores it internally
     * @param input is the real input array of data to process
     * @param input_size is the size of the input array
     */
-    void process(const std::complex<DataType_>* input, std::size_t input_size) const;
+    void process(const std::complex<DataType_>* input, gsl::index input_size) const;
     /*!
     * @brief Processes a FFT from a complex input to a complex output
     * @param input is the real input array of data to process
     * @param output is the complex output array
     * @param input_size is the size of both input and output arrays
     */
-    void process_forward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size) const;
+    void process_forward(const std::complex<DataType_>* input, std::complex<DataType_>* output, gsl::index input_size) const;
     /*!
     * @brief Processes an inverse FFT from a complex input to a complex output
     * @param input is the complex input array of data to process
     * @param output is the real output array
     * @param input_size is the size of both input and output arrays
     */
-    void process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, std::size_t input_size) const;
+    void process_backward(const std::complex<DataType_>* input, std::complex<DataType_>* output, gsl::index input_size) const;
     /*!
     * @brief Computes the amplitude of the resulting spectrum
     * @param amp is the output angle container
@@ -85,7 +87,7 @@ namespace ATK
     void get_angle(std::vector<DataType_>& angle) const;
 
   protected:
-	  std::size_t size;
+	  gsl::index size;
 
     class FFTImpl;
     std::unique_ptr<FFTImpl> impl;

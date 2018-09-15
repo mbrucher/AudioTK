@@ -139,7 +139,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ConvolutionFilter<DataType_>::process_impl(std::size_t size) const
+  void ConvolutionFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(input_sampling_rate == output_sampling_rate);
     

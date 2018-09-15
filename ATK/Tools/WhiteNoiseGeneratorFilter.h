@@ -41,7 +41,7 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
   private:
     DataType_ volume;

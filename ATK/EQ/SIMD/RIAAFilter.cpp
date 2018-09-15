@@ -27,7 +27,6 @@
 
 namespace ATK
 {
-
   template class RIAACoefficients<simdpp::float64<2> >;
   template class InverseRIAACoefficients<simdpp::float64<2> >;
 
@@ -69,52 +68,52 @@ namespace ATK
 
   namespace SIMDPP_ARCH_NAMESPACE
   {
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createRIAAFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createRIAAFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<RIAACoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createInverseRIAAFilter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createInverseRIAAFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new SimpleIIRFilter<InverseRIAACoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createRIAATDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createRIAATDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<RIAACoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
-    template<typename DataType, std::size_t VL>
-    std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter(std::size_t nb_channels)
+    template<typename DataType, gsl::index VL>
+    std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new IIRTDF2Filter<InverseRIAACoefficients<typename SIMDTypeTraits<DataType>::template SIMDType<VL> > >(nb_channels));
     }
   }
   
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createRIAAFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createInverseRIAAFilter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createRIAATDF2Filter) ((std::size_t) nb_channels))
-  SIMDPP_MAKE_DISPATCHER((template<typename DataType, std::size_t VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createInverseRIAATDF2Filter) ((std::size_t) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createRIAAFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createInverseRIAAFilter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createRIAATDF2Filter) ((gsl::index) nb_channels))
+  SIMDPP_MAKE_DISPATCHER((template<typename DataType, gsl::index VL>) (<DataType, VL>) (std::unique_ptr<BaseFilter>) (createInverseRIAATDF2Filter) ((gsl::index) nb_channels))
   
   SIMDPP_INSTANTIATE_DISPATCHER(
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 2>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 4>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 8>(std::size_t)),
-    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 8>(std::size_t)));
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 2>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAAFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAAFilter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 4>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createRIAATDF2Filter<double, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<float, 8>(gsl::index)),
+    (template ATK_EQSIMD2_EXPORT std::unique_ptr<BaseFilter> createInverseRIAATDF2Filter<double, 8>(gsl::index)));
 }

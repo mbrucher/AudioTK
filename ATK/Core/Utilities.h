@@ -6,14 +6,18 @@
 #define ATK_CORE_UTILITIES_H
 
 #include <cstddef>
+
+#include <gsl/gsl>
+
 #include <ATK/Core/config.h>
 
 namespace ATK
 {
   /// Class to convert arrays from different type to another type
   template<typename DataType1, typename DataType2>
-  struct ATK_CORE_EXPORT ConversionUtilities
+  class ATK_CORE_EXPORT ConversionUtilities
   {
+  public:
     /*!
      * @brief Method to convert an array to another, using double as the intermediate type
      * @param input_array
@@ -22,7 +26,14 @@ namespace ATK
      * @param offset
      * @param ports
      */
-    static void convert_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset = 0, int ports = 1);
+    static void convert_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset = 0, gsl::index ports = 1);
+  };
+  
+  class ATK_CORE_EXPORT RuntimeError: public std::runtime_error
+  {
+  public:
+    explicit RuntimeError(const std::string& what_arg);
+    explicit RuntimeError(const char* what_arg);
   };
 }
 

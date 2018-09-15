@@ -9,7 +9,7 @@
 namespace ATK
 {
   template<typename DataType>
-  LinkwitzRileyLowPassCoefficients<DataType>::LinkwitzRileyLowPassCoefficients(std::size_t nb_channels)
+  LinkwitzRileyLowPassCoefficients<DataType>::LinkwitzRileyLowPassCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -31,7 +31,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  LinkwitzRileyHighPassCoefficients<DataType>::LinkwitzRileyHighPassCoefficients(std::size_t nb_channels)
+  LinkwitzRileyHighPassCoefficients<DataType>::LinkwitzRileyHighPassCoefficients(gsl::index nb_channels)
     :Parent(nb_channels)
   {
   }
@@ -53,7 +53,7 @@ namespace ATK
   }
 
   template<typename DataType>
-  LinkwitzRiley4LowPassCoefficients<DataType>::LinkwitzRiley4LowPassCoefficients(std::size_t nb_channels)
+  LinkwitzRiley4LowPassCoefficients<DataType>::LinkwitzRiley4LowPassCoefficients(gsl::index nb_channels)
   :Parent(nb_channels)
   {
   }
@@ -87,7 +87,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  LinkwitzRiley4HighPassCoefficients<DataType>::LinkwitzRiley4HighPassCoefficients(std::size_t nb_channels)
+  LinkwitzRiley4HighPassCoefficients<DataType>::LinkwitzRiley4HighPassCoefficients(gsl::index nb_channels)
   :Parent(nb_channels)
   {
   }

@@ -37,7 +37,7 @@ namespace ATK
     WavData data;
     std::streamoff offset;
         
-    void read_from_file(std::size_t size) const;
+    void read_from_file(gsl::index size) const;
 
   public:
     /*!
@@ -46,7 +46,7 @@ namespace ATK
     */
     InWavFilter(const std::string& filename);
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 }
 #endif

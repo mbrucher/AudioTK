@@ -27,7 +27,7 @@ namespace ATK
      * @param LUTsize is the total LUT size used by the filter
      * @param LUTprecision is the number of elements used to compute values < 1
      */
-    GainMaxCompressorFilter(std::size_t nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
+    GainMaxCompressorFilter(gsl::index nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     /// Destructor
     ~GainMaxCompressorFilter();
 

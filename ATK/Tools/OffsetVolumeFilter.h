@@ -28,7 +28,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    OffsetVolumeFilter(std::size_t nb_channels = 1);
+    OffsetVolumeFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~OffsetVolumeFilter();
 
@@ -43,7 +43,7 @@ namespace ATK
     DataType_ get_offset() const;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
   private:
     DataType_ volume;

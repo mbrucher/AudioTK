@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  AttackReleaseHysteresisFilter<DataType_>::AttackReleaseHysteresisFilter(std::size_t nb_channels)
+  AttackReleaseHysteresisFilter<DataType_>::AttackReleaseHysteresisFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), attack(1), release(1), attack_hysteresis(1), release_hysteresis(1)
   {
     output_delay = 1;
@@ -116,7 +116,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void AttackReleaseHysteresisFilter<DataType_>::process_impl(std::size_t size) const
+  void AttackReleaseHysteresisFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)

@@ -12,7 +12,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  HalfTanhShaperFilter<DataType_>::HalfTanhShaperFilter(std::size_t nb_channels)
+  HalfTanhShaperFilter<DataType_>::HalfTanhShaperFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), coeff(1)
   {
   }
@@ -39,7 +39,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void HalfTanhShaperFilter<DataType_>::process_impl(std::size_t size) const
+  void HalfTanhShaperFilter<DataType_>::process_impl(gsl::index size) const
   {
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {

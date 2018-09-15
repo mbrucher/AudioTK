@@ -34,7 +34,7 @@ namespace ATK
     * @param LUTsize is the total LUT size used by the filter
     * @param LUTprecision is the number of elements used to compute values < 1
     */
-    ParentGainFilter(std::size_t nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
+    ParentGainFilter(gsl::index nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     /// Destructor
     ~ParentGainFilter() override;
     
@@ -78,7 +78,7 @@ namespace ATK
     using Parent::LUTprecision;
     using Parent::gainLUT;
 
-    GainFilter(std::size_t nb_channels = 1, size_t LUTsize = 128 * 1024, size_t LUTprecision = 64)
+    GainFilter(gsl::index nb_channels = 1, gsl::index LUTsize = 128 * 1024, gsl::index LUTprecision = 64)
     :ParentFilter(nb_channels, LUTsize, LUTprecision), isRunning(false), resetRequest(false)
     {
       start_recomputeLUT();
@@ -101,7 +101,7 @@ namespace ATK
     /// Indicates to start recomputing the LUT from the start, used when asked to change LUT parameters when the LUT is recomputed
     std::atomic<bool> resetRequest;
 
-    void process_impl(std::size_t size) const final
+    void process_impl(gsl::index size) const final
     {
       assert(nb_input_ports == nb_output_ports);
 
@@ -116,7 +116,7 @@ namespace ATK
     }
 
     /// Computes the gain based on the LUT
-    void process_impl_LUT(std::size_t size) const
+    void process_impl_LUT(gsl::index size) const
     {
       for (gsl::index channel = 0; channel < nb_output_ports; ++channel)
       {
@@ -140,7 +140,7 @@ namespace ATK
     }
 
     /// Computes the gain directly
-    void process_impl_direct(std::size_t size) const
+    void process_impl_direct(gsl::index size) const
     {
       for (gsl::index channel = 0; channel < nb_output_ports; ++channel)
       {

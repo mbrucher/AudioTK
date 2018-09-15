@@ -22,12 +22,18 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    CoeffDataType R1, R2, R3, R4, C1, C2, C3;
+    CoeffDataType R1;
+    CoeffDataType R2;
+    CoeffDataType R3;
+    CoeffDataType R4;
+    CoeffDataType C1;
+    CoeffDataType C2;
+    CoeffDataType C3;
     /// Parameter of the stack
     CoeffDataType alpha;
     
-    static const int in_order = 2;
-    static const int out_order = 2;
+    static const gsl::index in_order = 2;
+    static const gsl::index out_order = 2;
     
     void setup() override;
     
@@ -41,7 +47,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SD1ToneCoefficients(std::size_t nb_channels = 1);
+    SD1ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);
@@ -62,12 +68,18 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    CoeffDataType R1, R2, R3, R4, P, C1, C2;
+    CoeffDataType R1;
+    CoeffDataType R2;
+    CoeffDataType R3;
+    CoeffDataType R4;
+    CoeffDataType P;
+    CoeffDataType C1;
+    CoeffDataType C2;
     /// Parameter of the stack
     CoeffDataType alpha;
     
-    static const int in_order = 2;
-    static const int out_order = 2;
+    static const gsl::index in_order = 2;
+    static const gsl::index out_order = 2;
     
     void setup() override;
     
@@ -81,7 +93,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    TS9ToneCoefficients(std::size_t nb_channels = 1);
+    TS9ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);

@@ -24,7 +24,7 @@
 namespace ATK
 {
   template<typename DataType_, typename SIMDType>
-  RealToComplexFilter<DataType_, SIMDType>::RealToComplexFilter(std::size_t nb_channels)
+  RealToComplexFilter<DataType_, SIMDType>::RealToComplexFilter(gsl::index nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
   }
@@ -35,7 +35,7 @@ namespace ATK
   }
 
   template<typename DataType_, typename SIMDType>
-  void RealToComplexFilter<DataType_, SIMDType>::process_impl(std::size_t size) const
+  void RealToComplexFilter<DataType_, SIMDType>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == SIMDType::length * nb_output_ports);
     
@@ -56,7 +56,7 @@ namespace ATK
   }
 
   template<typename SIMDType, typename DataType__>
-  ComplexToRealFilter<SIMDType, DataType__>::ComplexToRealFilter(std::size_t nb_channels)
+  ComplexToRealFilter<SIMDType, DataType__>::ComplexToRealFilter(gsl::index nb_channels)
     :Parent(nb_channels, 2 * nb_channels)
   {
   }
@@ -67,7 +67,7 @@ namespace ATK
   }
 
   template<typename SIMDType, typename DataType__>
-  void ComplexToRealFilter<SIMDType, DataType__>::process_impl(std::size_t size) const
+  void ComplexToRealFilter<SIMDType, DataType__>::process_impl(gsl::index size) const
   {
     assert(SIMDType::length * nb_input_ports == nb_output_ports);
     
@@ -94,24 +94,24 @@ namespace ATK
   namespace SIMDPP_ARCH_NAMESPACE
   {
     template<typename DataType_>
-    std::unique_ptr<BaseFilter> createRealToComplexFilter(std::size_t nb_channels)
+    std::unique_ptr<BaseFilter> createRealToComplexFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new RealToComplexFilter<DataType_, typename SIMDTypeTraits<DataType_>::template SIMDType<2> >(nb_channels));
     }
     
     template<typename DataType__>
-    std::unique_ptr<BaseFilter> createComplexToRealFilter(std::size_t nb_channels)
+    std::unique_ptr<BaseFilter> createComplexToRealFilter(gsl::index nb_channels)
     {
       return std::unique_ptr<BaseFilter>(new ComplexToRealFilter<typename SIMDTypeTraits<DataType__>::template SIMDType<2>, DataType__>(nb_channels));
     }
   }
   
 SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToComplexFilter)
-                        ((std::size_t) nb_channels))
+                        ((gsl::index) nb_channels))
 SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createComplexToRealFilter)
-                        ((std::size_t) nb_channels))
+                        ((gsl::index) nb_channels))
   
 SIMDPP_INSTANTIATE_DISPATCHER(
-	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToComplexFilter<double>(std::size_t)),
-	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createComplexToRealFilter<double>(std::size_t)));
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToComplexFilter<double>(gsl::index)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createComplexToRealFilter<double>(gsl::index)));
 }

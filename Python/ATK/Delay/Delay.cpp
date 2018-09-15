@@ -23,7 +23,7 @@ namespace
   void populate_FixedDelayLineFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<FixedDelayLineFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("max_delay"))
+    .def(py::init<gsl::index>(), py::arg("max_delay"))
     .def_property("delay", &FixedDelayLineFilter<DataType>::get_delay, &FixedDelayLineFilter<DataType>::set_delay);
   }
 
@@ -31,25 +31,25 @@ namespace
   void populate_VariableDelayLineFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<VariableDelayLineFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("max_delay"));
+    .def(py::init<gsl::index>(), py::arg("max_delay"));
   }
   
   template<typename DataType, typename T>
   void populate_UniversalFixedDelayLineFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<UniversalFixedDelayLineFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("max_delay"))
+    .def(py::init<gsl::index>(), py::arg("max_delay"))
     .def_property("delay", &UniversalFixedDelayLineFilter<DataType>::get_delay, &UniversalFixedDelayLineFilter<DataType>::set_delay)
     .def_property("blend", &UniversalFixedDelayLineFilter<DataType>::get_blend, &UniversalFixedDelayLineFilter<DataType>::set_blend)
     .def_property("feedback", &UniversalFixedDelayLineFilter<DataType>::get_feedback, &UniversalFixedDelayLineFilter<DataType>::set_feedback)
     .def_property("feedforward", &UniversalFixedDelayLineFilter<DataType>::get_feedforward, &UniversalFixedDelayLineFilter<DataType>::set_feedforward);
   }
   
-  template<typename DataType, int size, typename T>
+  template<typename DataType, gsl::index size, typename T>
   void populate_MultipleUniversalFixedDelayLineFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<MultipleUniversalFixedDelayLineFilter<DataType, size>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("max_delay"))
+    .def(py::init<gsl::index>(), py::arg("max_delay"))
     .def("get_delay", &MultipleUniversalFixedDelayLineFilter<DataType, size>::get_delay, py::arg("channel"))
     .def("set_delay", &MultipleUniversalFixedDelayLineFilter<DataType, size>::set_delay, py::arg("channel"), py::arg("delay"))
     .def("get_blend", &MultipleUniversalFixedDelayLineFilter<DataType, size>::get_blend, py::arg("channel"))
@@ -64,7 +64,7 @@ namespace
   void populate_UniversalVariableDelayLineFilter(py::module& m, const char* type, T& parent)
   {
     py::class_<UniversalVariableDelayLineFilter<DataType>>(m, type, parent)
-    .def(py::init<std::size_t>(), py::arg("max_delay"))
+    .def(py::init<gsl::index>(), py::arg("max_delay"))
     .def_property("central_delay", &UniversalVariableDelayLineFilter<DataType>::get_central_delay, &UniversalVariableDelayLineFilter<DataType>::set_central_delay)
     .def_property("blend", &UniversalVariableDelayLineFilter<DataType>::get_blend, &UniversalVariableDelayLineFilter<DataType>::set_blend)
     .def_property("feedback", &UniversalVariableDelayLineFilter<DataType>::get_feedback, &UniversalVariableDelayLineFilter<DataType>::set_feedback)

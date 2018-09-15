@@ -21,17 +21,17 @@ namespace
   public:
     typedef typename ATK::TypedBaseFilter<DataType>::AlignedScalarVector AlignedScalarVector;
   private:
-    const static std::size_t grid_size = 1024; // grid size, power of two better for FFT
+    const static gsl::index grid_size = 1024; // grid size, power of two better for FFT
     constexpr static DataType SN = 1e-8;
 
-    std::size_t M;
+    gsl::index M;
     std::vector<DataType> grid;
     std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> > target;
     
     /// Computed coefficients
     AlignedScalarVector coeffs;
     /// Selected indices
-    std::vector<std::size_t> indices;
+    std::vector<gsl::index> indices;
     /// Weight function on the grid
     std::vector<DataType> weights;
     /// Objective function on the grid
@@ -42,7 +42,7 @@ namespace
     ATK::FFT<DataType> fft_processor;
 
   public:
-    RemezBuilder(std::size_t order, const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> >& target)
+    RemezBuilder(gsl::index order, const std::vector<std::pair<std::pair<DataType, DataType>, std::pair<DataType, DataType>> >& target)
     :M(order / 2), target(target)
     {
       grid.resize(grid_size);
@@ -90,12 +90,12 @@ namespace
       indices = set_starting_conditions();
     }
 
-    std::vector<std::size_t> set_starting_conditions() const
+    std::vector<gsl::index> set_starting_conditions() const
     {
-      std::vector<std::size_t> indices;
+      std::vector<gsl::index> indices;
 
-      std::vector<std::size_t> valid_indices;
-      for (std::size_t i = 0; i < grid_size; ++i)
+      std::vector<gsl::index> valid_indices;
+      for (gsl::index i = 0; i < grid_size; ++i)
       {
         if (weights[i] != 0)
         {
@@ -103,7 +103,7 @@ namespace
         }
       }
 
-      for (std::size_t i = 0; i < M + 2; ++i)
+      for (gsl::index i = 0; i < M + 2; ++i)
       {
         indices.push_back(valid_indices[std::lround(valid_indices.size() / (M + 4.) * (i + 1))]);
       }
@@ -122,26 +122,26 @@ namespace
       while(true)
       {
         Eigen::Matrix<DataType, Eigen::Dynamic, Eigen::Dynamic> A(M + 2, M + 2);
-        for (std::size_t i = 0; i < M + 2; ++i)
+        for (gsl::index i = 0; i < M + 2; ++i)
         {
-          for (std::size_t j = 0; j < M + 1; ++j)
+          for (gsl::index j = 0; j < M + 1; ++j)
           {
             A(i, j) = std::cos(grid[indices[i]] * j);
           }
         }
-        for (std::size_t i = 0; i < M + 2; ++i)
+        for (gsl::index i = 0; i < M + 2; ++i)
         {
           A(i, M + 1) = s[i] / weights[indices[i]];
         }
 
         Eigen::Matrix<DataType, Eigen::Dynamic, 1> b(M + 2, 1);
-        for (std::size_t i = 0; i < M + 2; ++i)
+        for (gsl::index i = 0; i < M + 2; ++i)
         {
           b(i) = objective[indices[i]];
         }
         Eigen::Matrix<DataType, Eigen::Dynamic, 1> x = A.colPivHouseholderQr().solve(b);
 
-        for (std::size_t i = 0; i < M; ++i)
+        for (gsl::index i = 0; i < M; ++i)
         {
           coeffs[i] = coeffs[2 * M - i] = x[M - i] / 2;
         }
@@ -176,7 +176,7 @@ namespace
       std::vector<std::complex<DataType>> output(grid_size * 2);
       fft_processor.process_forward(coeffs.data(), output.data(), coeffs.size());
       std::vector<DataType> amp(grid_size);
-      for (std::size_t i = 0; i < grid_size; ++i)
+      for (gsl::index i = 0; i < grid_size; ++i)
       {
         amp[i] = (std::complex<DataType>(std::cos(M * grid[i]), std::sin(M * grid[i])) * output[i]).real() * grid_size * 2;
       }
@@ -187,7 +187,7 @@ namespace
     {
       auto fir_result = firamp();
       std::vector<DataType> newerr(grid_size);
-      for (std::size_t i = 0; i < grid_size; ++i)
+      for (gsl::index i = 0; i < grid_size; ++i)
       {
         newerr[i] = (fir_result[i] - objective[i]) * weights[i];
       }
@@ -196,21 +196,21 @@ namespace
     }
 
     // Finds min and max
-    std::vector<std::size_t> locmax(const std::vector<DataType>& data) const
+    std::vector<gsl::index> locmax(const std::vector<DataType>& data) const
     {
-      std::vector<std::size_t> v;
+      std::vector<gsl::index> v;
 
       std::vector<DataType> temp1;
       std::vector<DataType> temp2;
       temp1.push_back(data[0] - 1);
-      for (std::size_t i = 0; i < data.size() - 1; ++i)
+      for (gsl::index i = 0; i < data.size() - 1; ++i)
       {
         temp1.push_back(data[i]);
         temp2.push_back(data[i + 1]);
       }
       temp2.push_back(data.back() - 1);
 
-      for (std::size_t i = 0; i < data.size(); ++i)
+      for (gsl::index i = 0; i < data.size(); ++i)
       {
         if ((data[i] > temp1[i]) && (data[i] > temp2[i]))
         {
@@ -221,14 +221,14 @@ namespace
       temp1.clear();
       temp2.clear();
       temp1.push_back(-data[0] - 1);
-      for (std::size_t i = 0; i < data.size() - 1; ++i)
+      for (gsl::index i = 0; i < data.size() - 1; ++i)
       {
         temp1.push_back(-data[i]);
         temp2.push_back(-data[i + 1]);
       }
       temp2.push_back(-data.back() - 1);
 
-      for (std::size_t i = 0; i < data.size(); ++i)
+      for (gsl::index i = 0; i < data.size(); ++i)
       {
         if ((-data[i] > temp1[i]) && (-data[i] > temp2[i]))
         {
@@ -241,9 +241,9 @@ namespace
       return v;
     }
 
-    void filter_SN(DataType delta, std::vector<std::size_t>& indices, const std::vector<DataType>& err) const
+    void filter_SN(DataType delta, std::vector<gsl::index>& indices, const std::vector<DataType>& err) const
     {
-      std::vector<std::size_t> new_indices;
+      std::vector<gsl::index> new_indices;
 
       for (auto indice : indices)
       {
@@ -256,12 +256,12 @@ namespace
       indices = std::move(new_indices);
     }
 
-    std::vector<std::size_t> etap(const std::vector<DataType>& data) const
+    std::vector<gsl::index> etap(const std::vector<DataType>& data) const
     {
-      std::vector<std::size_t> v;
+      std::vector<gsl::index> v;
       auto xe = data[0];
-      std::size_t xv = 0;
-      for (std::size_t i = 1; i < data.size(); ++i)
+      gsl::index xv = 0;
+      for (gsl::index i = 1; i < data.size(); ++i)
       {
         if (std::signbit(data[i]) == std::signbit(xe))
         {
@@ -282,7 +282,7 @@ namespace
       return v;
     }
 
-    void filter_monotony(std::vector<std::size_t>& indices, const std::vector<DataType>& err) const
+    void filter_monotony(std::vector<gsl::index>& indices, const std::vector<DataType>& err) const
     {
       std::vector<DataType> filtered_err;
       for (auto indice : indices)
@@ -291,8 +291,8 @@ namespace
       }
 
       auto selected_indices = etap(filtered_err);
-      std::vector<std::size_t> new_indices;
-      for (std::size_t i = 0; i < M + 2; ++i)
+      std::vector<gsl::index> new_indices;
+      for (gsl::index i = 0; i < M + 2; ++i)
       {
         new_indices.push_back(indices[selected_indices[i]]);
       }
@@ -304,7 +304,7 @@ namespace
 namespace ATK
 {
   template<class DataType>
-  RemezBasedCoefficients<DataType>::RemezBasedCoefficients(std::size_t nb_channels)
+  RemezBasedCoefficients<DataType>::RemezBasedCoefficients(gsl::index nb_channels)
     :Parent(nb_channels, nb_channels), in_order(0)
   {
   }
@@ -329,7 +329,7 @@ namespace ATK
   }
   
   template<class DataType>
-  void RemezBasedCoefficients<DataType>::set_order(std::size_t order)
+  void RemezBasedCoefficients<DataType>::set_order(gsl::index order)
   {
     if(order % 2 == 1)
     {
@@ -345,7 +345,7 @@ namespace ATK
     Parent::setup();
     
     std::sort(target.begin(), target.end());
-    for(std::size_t i = 0; i + 1 < target.size(); ++i)
+    for(gsl::index i = 0; i + 1 < target.size(); ++i)
     {
       if(target[i].first.second > target[i + 1].first.first)
       {
@@ -361,9 +361,6 @@ namespace ATK
     }
   }
   
-  template class RemezBasedCoefficients<double>;
-  template class RemezBasedCoefficients<std::complex<double> >;
-  
-  template class FIRFilter<RemezBasedCoefficients<double> >;
-  template class FIRFilter<RemezBasedCoefficients<std::complex<double> > >;
+  template class ATK_EQ_EXPORT RemezBasedCoefficients<double>;
+  template class ATK_EQ_EXPORT RemezBasedCoefficients<std::complex<double> >;
 }

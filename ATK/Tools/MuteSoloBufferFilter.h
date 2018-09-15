@@ -33,24 +33,24 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    MuteSoloBufferFilter(std::size_t nb_channels = 1);
+    MuteSoloBufferFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~MuteSoloBufferFilter() override;
     
     /// Mutes/unmutes a given channel (outputs 0)
-    void set_mute(std::size_t channel, bool mute);
+    void set_mute(gsl::index channel, bool mute);
     /// Returns the mute status of a channel
-    bool get_mute(std::size_t channel) const;
+    bool get_mute(gsl::index channel) const;
     /// Soloes/unsoloes a given channel (outputs 0 on the other non soloed channels)
-    void set_solo(std::size_t channel, bool solo);
+    void set_solo(gsl::index channel, bool solo);
     /// Returns the solo status of a channel
-    bool get_solo(std::size_t channel) const;
+    bool get_solo(gsl::index channel) const;
     
-    void set_nb_input_ports(std::size_t nb_ports) final;
-    void set_nb_output_ports(std::size_t nb_ports) final;
+    void set_nb_input_ports(gsl::index nb_ports) final;
+    void set_nb_output_ports(gsl::index nb_ports) final;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
   private:
     boost::dynamic_bitset<> mute_statuses;

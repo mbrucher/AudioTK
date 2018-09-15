@@ -33,14 +33,14 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    MultipleUniversalFixedDelayLineFilter(std::size_t max_delay);
+    MultipleUniversalFixedDelayLineFilter(gsl::index max_delay);
     /// Destructor
     ~MultipleUniversalFixedDelayLineFilter() override;
 
     /// Set the initial delay from a channel
-    void set_delay(unsigned int channel, std::size_t delay);
+    void set_delay(unsigned int channel, gsl::index delay);
     /// Gets the initial delay from a channel
-    std::size_t get_delay(unsigned int channel) const;
+    gsl::index get_delay(unsigned int channel) const;
 
     /// Sets the blend of channel 1 (between -1 and 1)
     void set_blend(unsigned int channel, DataType_ blend);
@@ -59,14 +59,14 @@ namespace ATK
 
     void full_setup() final;
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   private:
     // internal state
     std::unique_ptr<SUFDLF_Impl> impl;
-    std::array<std::size_t, nb_channels> delay;
+    std::array<gsl::index, nb_channels> delay;
     /// Max delay for the delay line
-    std::size_t max_delay;
+    gsl::index max_delay;
     std::array<DataType_, nb_channels> blend;
     std::array<DataType_, nb_channels*nb_channels> feedback;
     std::array<DataType_, nb_channels*nb_channels> feedforward;

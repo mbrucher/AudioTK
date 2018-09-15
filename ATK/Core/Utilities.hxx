@@ -13,10 +13,12 @@
 
 #include <gsl/gsl>
 
-namespace
+namespace ATK
+{
+namespace Utilities
 {
   template<typename DataType>
-  void convert_to_array(const DataType* input_array, DataType* output_array, std::size_t size, std::size_t offset, int ports)
+  void convert_to_array(const DataType* input_array, DataType* output_array, gsl::index size, gsl::index offset, gsl::index  ports)
   {
     if(ports == 1)
     {
@@ -32,21 +34,18 @@ namespace
   }
   
   template<typename DataType1, typename DataType2>
-  typename std::enable_if<!std::is_same<DataType1, DataType2>::value>::type convert_to_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset, int ports)
+  typename std::enable_if<!std::is_same<DataType1, DataType2>::value>::type convert_to_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset, gsl::index  ports)
   {
     for(gsl::index i = 0; i < size; ++i)
     {
       output_array[i] = ATK::TypeTraits<DataType2>::from_double(ATK::TypeTraits<DataType1>::to_double(input_array[i * ports + offset]));
     }
   }
-
 }
 
-namespace ATK
-{
   template<typename DataType1, typename DataType2>
-  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, std::size_t size, std::size_t offset, int ports)
+  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset, gsl::index  ports)
   {
-    convert_to_array(input_array, output_array, size, offset, ports);
+    Utilities::convert_to_array(input_array, output_array, size, offset, ports);
   }
 }

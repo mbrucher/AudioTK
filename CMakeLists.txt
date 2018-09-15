@@ -5,19 +5,19 @@ project(AudioTK)
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(ATK_VERSION 2.3.2)
-
-include(Utilities)
+set(ATK_VERSION 3.0.0)
 
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
+option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_PYTHON "Enable Python support" ON)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
 option(ENABLE_SIMD "Enable SIMD support through libsimdpp" OFF)
 option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)
-option(ENABLE_COVERAGE "Generate coveralls data" OFF)
+option(ENABLE_COVERAGE "Generate code coverage data" OFF)
+option(ENABLE_ADDRESS_SANITIZER "Activate address sanitizer support" OFF)
 option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
@@ -26,6 +26,15 @@ message(STATUS " Build SIMD: ${ENABLE_SIMD}")
 message(STATUS " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(STATUS " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
 message(STATUS " Build tests: ${ENABLE_TESTS}")
+
+enable_testing()
+
+if(ENABLE_PYTHON)
+  add_subdirectory(${CMAKE_SOURCE_DIR}/3rdParty/pybind11)
+
+  LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/pybind11/tools)
+  FIND_PACKAGE(PythonLibsNew REQUIRED)
+endif(ENABLE_PYTHON)
 
 include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
 include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
@@ -74,11 +83,6 @@ endif(ENABLE_CODECOVERAGE)
 IF(NOT DEFINED PYTHON_INSTALL_FOLDER)
   set(PYTHON_INSTALL_FOLDER "${CMAKE_INSTALL_PREFIX}/lib/")
 ENDIF(NOT DEFINED PYTHON_INSTALL_FOLDER)
-
-enable_testing()
-
-option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
-option(ENABLE_PYTHON "Enable the Python wrappers" OFF)
 
 if(ENABLE_PROFILING)
   set(ENABLE_INTERNAL_PROFILING 1)
@@ -137,6 +141,8 @@ if(ENABLE_TESTS)
   find_package(Boost REQUIRED unit_test_framework system)
 endif(ENABLE_TESTS)
 
+include(Utilities)
+
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file (
@@ -164,17 +170,12 @@ if(ENABLE_TESTS)
 endif(ENABLE_TESTS)
 
 if(ENABLE_PYTHON)
-  add_subdirectory(${CMAKE_SOURCE_DIR}/3rdParty/pybind11)
-
-  LIST(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/3rdParty/pybind11/tools)
-  FIND_PACKAGE(PythonLibsNew REQUIRED)
-
   add_subdirectory(Python/ATK)
 endif(ENABLE_PYTHON)
 
 add_subdirectory(modules)
 
-FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake *.in ATK/*.in *.yml *.md)
+FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake *.in ATK/*.in *.yml *.md *.properties)
 SOURCE_GROUP_BY_FOLDER(CMAKE_OTHER)
 add_custom_target(CMake SOURCES ${CMAKE_OTHER_SRC})
 

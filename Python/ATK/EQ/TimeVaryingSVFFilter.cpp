@@ -9,8 +9,6 @@
 
 #include "MainFilter.h"
 
-namespace py = pybind11;
-
 using namespace ATK;
 
 namespace
@@ -26,14 +24,14 @@ namespace
   void populate_TimeVaryingSVFFilter(py::module& m, const char* type)
   {
     py::class_<TimeVaryingSecondOrderSVFFilter<Coefficients>, Coefficients>(m, type)
-    .def(py::init<std::size_t>(), "nb_channels"_a = 1);
+    .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
 }
 
 void populate_TimeVaryingSVFFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
 {
   populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBaseCoefficients", f1);
-  populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBaseCoefficients", f1);
+  populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBaseCoefficients", f2);
   
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowPassCoefficients");
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassCoefficients");

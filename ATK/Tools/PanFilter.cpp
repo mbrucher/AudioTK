@@ -15,7 +15,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  PanFilter<DataType_>::PanFilter(std::size_t nb_channels)
+  PanFilter<DataType_>::PanFilter(gsl::index nb_channels)
   :Parent(nb_channels, 2 * nb_channels), law(PAN_LAWS::SINCOS_0_CENTER), pan(0)
   {
     
@@ -56,7 +56,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void PanFilter<DataType_>::process_impl(std::size_t size) const
+  void PanFilter<DataType_>::process_impl(gsl::index size) const
   {
     double left_coeff = 1;
     double right_coeff = 1;

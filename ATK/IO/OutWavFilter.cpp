@@ -37,9 +37,9 @@ namespace ATK
   }
 
   template<typename DataType>
-  void OutWavFilter<DataType>::process_impl(std::size_t size) const
+  void OutWavFilter<DataType>::process_impl(gsl::index size) const
   {
-    std::size_t nb_inputs = converted_inputs.size();
+    gsl::index nb_inputs = converted_inputs.size();
     std::vector<DataType> buffer(nb_inputs * size);
     
     for(gsl::index i = 0; i < size; ++i)
@@ -55,7 +55,7 @@ namespace ATK
   }
   
   template<typename DataType>
-  void OutWavFilter<DataType>::set_nb_input_ports(std::size_t nb_ports)
+  void OutWavFilter<DataType>::set_nb_input_ports(gsl::index nb_ports)
   {
     Parent::set_nb_input_ports(nb_ports);
     setup();
@@ -85,9 +85,9 @@ namespace ATK
     format.BytePerSec = static_cast<int32_t>(format.BytePerBloc * input_sampling_rate);
     format.NbChannels = static_cast<int16_t>(nb_input_ports);
 
-    std::size_t total_size = wavstream.tellp();
-    std::size_t bloc_size = sizeof(WavFormat);
-    std::size_t data_size = total_size - sizeof(WavFormat) - sizeof(WavHeader) - sizeof(WavData);
+    gsl::index total_size = wavstream.tellp();
+    gsl::index bloc_size = sizeof(WavFormat);
+    gsl::index data_size = total_size - sizeof(WavFormat) - sizeof(WavHeader) - sizeof(WavData);
     wavstream.seekp(0);
     header.FileSize = static_cast<std::int32_t>(total_size - 8);
     format.BlocSize = static_cast<std::int32_t>(bloc_size - 8);

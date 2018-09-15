@@ -13,8 +13,8 @@
 namespace ATK
 {
   /// Create a SIMD filter to sum several channels together
-  template<typename DataType, std::size_t VL>
-  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter(std::size_t nb_channels = 1, std::size_t summed_channels = 2);
+  template<typename DataType, gsl::index VL>
+  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createSumFilter(gsl::index nb_channels = 1, gsl::index summed_channels = 2);
 }
 
 #endif

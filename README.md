@@ -1,8 +1,13 @@
 # AudioTK
 
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=alert_status)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=ncloc)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)<!---[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=cognitive_complexity)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)-->
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=coverage)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)
+<!---[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=org.sonarqube%3Aaudio-tk&metric=branch_coverage)](https://sonarcloud.io/dashboard?id=org.sonarqube%3Aaudio-tk)-->
+
 [![Travis](https://travis-ci.org/mbrucher/AudioTK.svg?branch=master)](https://travis-ci.org/mbrucher/AudioTK)
 [![Appveyor](https://ci.appveyor.com/api/projects/status/j6k8jkxk2ebwvvoe/branch/master?svg=true)](https://ci.appveyor.com/project/mbrucher/audiotk)
-[![codecov](https://codecov.io/gh/mbrucher/AudioTK/branch/master/graph/badge.svg)](https://codecov.io/gh/mbrucher/AudioTK)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 Audio ToolKit is a set of audio filters. It helps assembling workflows for specific audio processing workloads.
@@ -20,12 +25,17 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 3.0.0
+* Change size for gsl::index everywhere (change of ABI)
+* Address sanitizer support
+* Technical debt and maintenance (https://sonarcloud.io/dashboard?branch=develop&id=org.sonarqube%3Aaudio-tk)
+
 ### 2.3.2
 * Fix initialization indices in Custom IIR and FIR Filters
 * Use gsl::index for loop indices
 * Fix gradient for transistors
 * Enhance interpolation for the gain filter
-* Installation of the third party headers (gsl, simdpp or Eigen)
+* Installation of the third-party headers (gsl, simdpp or Eigen)
 
 ### 2.3.1
 * Fix Python wrappers

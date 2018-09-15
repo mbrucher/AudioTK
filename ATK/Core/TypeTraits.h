@@ -23,8 +23,9 @@ namespace ATK
 {
   /// Traits to handle conversion integer full scale from/to double
   template<typename DataType>
-  struct IntegralTypeTraits
+  class IntegralTypeTraits
   {
+  public:
     typedef DataType Scalar;
 
     /// Converts an integer to a double
@@ -62,8 +63,9 @@ namespace ATK
 
   /// Special case for 24bits
   template<>
-  struct IntegralTypeTraits<char[3]>
+  class IntegralTypeTraits<char[3]>
   {
+  public:
     typedef int64_t Scalar;
 
     /// Converts an integer 24bits to a double
@@ -76,7 +78,7 @@ namespace ATK
         temp[1+i] = el[i];
       }
       data = data >> 8;
-      return -static_cast<double>(data) / ((static_cast<double>(1 << 8) * std::numeric_limits<std::int16_t>::min()));
+      return -static_cast<double>(data) / (static_cast<double>(1 << 8) * std::numeric_limits<std::int16_t>::min());
     }
 
     /// Converts a double to an integer 64bits
@@ -98,8 +100,9 @@ namespace ATK
 
   /// Traits to handle conversion floating point numbers from/to double
   template<typename DataType>
-  struct RealTypeTraits
+  class RealTypeTraits
   {
+  public:
     typedef DataType Scalar;
 
     /// Converts to a double
@@ -137,14 +140,15 @@ namespace ATK
 
   /// Traits to handle conversion complex floating point numbers from/to double
   template<typename DataType>
-  struct ComplexRealTypeTraits
+  class ComplexRealTypeTraits
   {
   };
 
   /// Traits to handle conversion complex floating point numbers from/to double
   template<typename DataType>
-  struct ComplexRealTypeTraits<std::complex<DataType> >
+  class ComplexRealTypeTraits<std::complex<DataType> >
   {
+  public:
     typedef typename std::complex<DataType>::value_type Scalar;
 
     /// Converts to a double
@@ -178,9 +182,10 @@ namespace ATK
 #if ATK_USE_SIMD
   /// Traits to handle conversion complex floating point numbers from/to double
   template<>
-  struct ComplexRealTypeTraits<simdpp::float64<2> >
+  class ComplexRealTypeTraits<simdpp::float64<2> >
   {
-    static const std::size_t VECTOR_LANES = 2;
+  public:
+    static constexpr int VECTOR_LANES = 2;
     typedef double Scalar;
     
     /// Converts to a double
@@ -213,9 +218,10 @@ namespace ATK
 
   /// Traits to handle conversion complex floating point numbers from/to double
   template<>
-  struct ComplexRealTypeTraits<simdpp::float32<4> >
+  class ComplexRealTypeTraits<simdpp::float32<4> >
   {
-    static const std::size_t VECTOR_LANES = 4;
+  public:
+    static const int VECTOR_LANES = 4;
     typedef float Scalar;
 
     /// Converts to a double
@@ -248,9 +254,10 @@ namespace ATK
 
   /// Traits to handle conversion complex floating point numbers from/to double
   template<>
-  struct ComplexRealTypeTraits<simdpp::float32<8> >
+  class ComplexRealTypeTraits<simdpp::float32<8> >
   {
-    static const std::size_t VECTOR_LANES = 8;
+  public:
+    static const int VECTOR_LANES = 8;
     typedef float Scalar;
 
     /// Converts to a double
@@ -283,9 +290,10 @@ namespace ATK
   
   /// Traits to handle conversion complex floating point numbers from/to double
   template<>
-  struct ComplexRealTypeTraits<simdpp::float64<4> >
+  class ComplexRealTypeTraits<simdpp::float64<4> >
   {
-    static const std::size_t VECTOR_LANES = 4;
+  public:
+    static const int VECTOR_LANES = 4;
     typedef double Scalar;
 
     /// Converts to a double
@@ -318,9 +326,10 @@ namespace ATK
 
   /// Traits to handle conversion complex floating point numbers from/to double
   template<>
-  struct ComplexRealTypeTraits<simdpp::float64<8> >
+  class ComplexRealTypeTraits<simdpp::float64<8> >
   {
-    static const std::size_t VECTOR_LANES = 8;
+  public:
+    static const int VECTOR_LANES = 8;
     typedef double Scalar;
 
     /// Converts to a double
@@ -353,20 +362,22 @@ namespace ATK
 
   /// Traits to retrieve SIMD typename
   template<typename DataType>
-  struct SIMDTypeTraits
+  class SIMDTypeTraits
   {
   };
 
   template<>
-  struct SIMDTypeTraits<float>
+  class SIMDTypeTraits<float>
   {
+  public:
     template<int size>
     using SIMDType = simdpp::float32<size>;
   };
 
   template<>
-  struct SIMDTypeTraits<double>
+  class SIMDTypeTraits<double>
   {
+  public:
     template<int size>
     using SIMDType = simdpp::float64<size>;
   };
@@ -375,7 +386,7 @@ namespace ATK
 
   /// Common base class for conversion type traits
   template<typename DataType>
-  struct TypeTraits : public std::conditional<std::is_class<DataType>::value, ComplexRealTypeTraits<DataType>,
+  class TypeTraits : public std::conditional<std::is_class<DataType>::value, ComplexRealTypeTraits<DataType>,
     typename std::conditional<std::is_floating_point<DataType>::value, RealTypeTraits<DataType>, IntegralTypeTraits<DataType>>::type>::type
   {
   };

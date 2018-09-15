@@ -3,6 +3,13 @@ SET_SOURCE_FILES_PROPERTIES(${NATVIS_FILE} LANGUAGE natvis)
 
 set(MSVC_RUNTIME "Dynamic" CACHE STRING "Set up MSVC Runtime (Dynamic/Static)")
 
+CHECK_CXX_COMPILER_FLAG("/std:c++17" COMPILER_SUPPORTS_CPP17)
+if(COMPILER_SUPPORTS_CPP17)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+else(COMPILER_SUPPORTS_CPP17)
+  message(STATUS "The compiler ${CMAKE_CXX_COMPILER} doesn't support /std:c++17")
+endif(COMPILER_SUPPORTS_CPP17)
+
 if("${MSVC_RUNTIME}" STREQUAL "Static")
   set(CompilerFlags
         CMAKE_CXX_FLAGS

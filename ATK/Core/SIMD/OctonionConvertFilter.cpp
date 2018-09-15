@@ -24,7 +24,7 @@
 namespace ATK
 {
   template<typename DataType_, typename SIMDType>
-  RealToOctonionFilter<DataType_, SIMDType>::RealToOctonionFilter(std::size_t nb_channels)
+  RealToOctonionFilter<DataType_, SIMDType>::RealToOctonionFilter(gsl::index nb_channels)
   :Parent(SIMDType::length * nb_channels, nb_channels)
   {
   }
@@ -35,7 +35,7 @@ namespace ATK
   }
 
   template<typename DataType_, typename SIMDType>
-  void RealToOctonionFilter<DataType_, SIMDType>::process_impl(std::size_t size) const
+  void RealToOctonionFilter<DataType_, SIMDType>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == SIMDType::length * nb_output_ports);
 
@@ -68,7 +68,7 @@ namespace ATK
   }
 
   template<typename SIMDType, typename DataType__>
-  OctonionToRealFilter<SIMDType, DataType__>::OctonionToRealFilter(std::size_t nb_channels)
+  OctonionToRealFilter<SIMDType, DataType__>::OctonionToRealFilter(gsl::index nb_channels)
   :Parent(nb_channels, SIMDType::length * nb_channels)
   {
   }
@@ -79,7 +79,7 @@ namespace ATK
   }
 
   template<typename SIMDType, typename DataType__>
-  void OctonionToRealFilter<SIMDType, DataType__>::process_impl(std::size_t size) const
+  void OctonionToRealFilter<SIMDType, DataType__>::process_impl(gsl::index size) const
   {
     assert(SIMDType::length * nb_input_ports == nb_output_ports);
 
@@ -120,26 +120,26 @@ namespace ATK
 namespace SIMDPP_ARCH_NAMESPACE
 {
   template<typename DataType_>
-  std::unique_ptr<BaseFilter> createRealToOctonionFilter(std::size_t nb_channels)
+  std::unique_ptr<BaseFilter> createRealToOctonionFilter(gsl::index nb_channels)
   {
     return std::unique_ptr<BaseFilter>(new RealToOctonionFilter<DataType_, typename SIMDTypeTraits<DataType_>::template SIMDType<8> >(nb_channels));
   }
 
   template<typename DataType__>
-  std::unique_ptr<BaseFilter> createOctonionToRealFilter(std::size_t nb_channels)
+  std::unique_ptr<BaseFilter> createOctonionToRealFilter(gsl::index nb_channels)
   {
     return std::unique_ptr<BaseFilter>(new OctonionToRealFilter<typename SIMDTypeTraits<DataType__>::template SIMDType<8>, DataType__>(nb_channels));
   }
 }
   
 SIMDPP_MAKE_DISPATCHER((template<typename DataType_>) (<DataType_>) (std::unique_ptr<BaseFilter>) (createRealToOctonionFilter)
-                        ((std::size_t) nb_channels))
+                        ((gsl::index) nb_channels))
 SIMDPP_MAKE_DISPATCHER((template<typename DataType__>) (<DataType__>) (std::unique_ptr<BaseFilter>) (createOctonionToRealFilter)
-                        ((std::size_t) nb_channels))
+                        ((gsl::index) nb_channels))
 
 SIMDPP_INSTANTIATE_DISPATCHER(
-	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter<float>(std::size_t)),
-	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter<double>(std::size_t)),
-	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter<float>(std::size_t)),
-	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter<double>(std::size_t)));
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter<float>(gsl::index)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createRealToOctonionFilter<double>(gsl::index)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter<float>(gsl::index)),
+	(template ATK_CORE_EXPORT std::unique_ptr<BaseFilter> createOctonionToRealFilter<double>(gsl::index)));
 }

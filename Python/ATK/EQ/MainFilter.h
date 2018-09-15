@@ -11,14 +11,14 @@
 
 namespace ATK
 {
-  using namespace pybind11::literals;
-  
+  namespace py = pybind11;
+
   template<typename Coefficients>
   void populate_IIRFilter(pybind11::module& m, const char* type)
   {
     typedef typename Coefficients::DataType DataType;
     pybind11::class_<IIRFilter<Coefficients>, Coefficients>(m, type)
-    .def(pybind11::init<std::size_t>(), "nb_channels"_a = 1)
+    .def(pybind11::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
     .def_property_readonly("coefficients_in", [](const IIRFilter<Coefficients>& instance)
                            {
                              return pybind11::array_t<DataType>(instance.get_coefficients_in().size(), instance.get_coefficients_in().data());

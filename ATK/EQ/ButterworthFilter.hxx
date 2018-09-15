@@ -8,7 +8,7 @@
 #include <ATK/EQ/ButterworthFilter.h>
 #include <ATK/EQ/helpers.h>
 
-namespace
+namespace ButterworthUtilities
 {
   template<typename DataType>
   void create_butterworth_analog_coefficients(int order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
@@ -31,25 +31,7 @@ namespace
     
     int fs = 2;
     create_butterworth_analog_coefficients(static_cast<int>(order), z, p, k);
-    DataType warped = 2 * fs * std::tan(boost::math::constants::pi<DataType>() *  Wn / fs);
-    zpk_lp2lp(warped, z, p, k);
-    zpk_bilinear(fs, z, p, k);
-    
-    boost::math::tools::polynomial<DataType> b({ 1 });
-    boost::math::tools::polynomial<DataType> a({ 1 });
-
-    zpk2ba(fs, z, p, k, b, a);
-
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    EQUtilities::populate_lp_coeffs(Wn, fs, order, z, p, k, coefficients_in, coefficients_out);
   }
 
   template<typename DataType, typename Container>
@@ -61,27 +43,7 @@ namespace
     
     int fs = 2;
     create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
-    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
-    
-    zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    zpk_bilinear(fs, z, p, k);
-    
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-
-    zpk2ba(fs, z, p, k, b, a);
-    
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
@@ -93,34 +55,14 @@ namespace
     
     int fs = 2;
     create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    wc1 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc1 / fs);
-    wc2 = 2 * fs * std::tan(boost::math::constants::pi<DataType>() * wc2 / fs);
-    
-    zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, z, p, k);
-    zpk_bilinear(fs, z, p, k);
-    
-    boost::math::tools::polynomial<DataType> b;
-    boost::math::tools::polynomial<DataType> a;
-
-    zpk2ba(fs, z, p, k, b, a);
-    
-    auto in_size = std::min(order + 1, b.size());
-    for (size_t i = 0; i < in_size; ++i)
-    {
-      coefficients_in[i] = b[i];
-    }
-    auto out_size = std::min(order, a.size() - 1);
-    for (size_t i = 0; i < out_size; ++i)
-    {
-      coefficients_out[i] = -a[i];
-    }
+    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
   }
 }
 
 namespace ATK
 {
   template <typename DataType>
-  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(std::size_t nb_channels)
+  ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -166,11 +108,11 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_default_coeffs(in_order, 2 * cut_frequency / input_sampling_rate, coefficients_in, coefficients_out);
+    ButterworthUtilities::create_default_coeffs(in_order, 2 * cut_frequency / input_sampling_rate, coefficients_in, coefficients_out);
   }
 
   template <typename DataType>
-  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(std::size_t nb_channels)
+  ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
   {
   }
@@ -216,7 +158,7 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_default_coeffs(in_order, (input_sampling_rate - 2 * cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
+    ButterworthUtilities::create_default_coeffs(in_order, (input_sampling_rate - 2 * cut_frequency) / input_sampling_rate, coefficients_in, coefficients_out);
     for(gsl::index i = in_order - 1; i >= 0; i -= 2)
     {
       coefficients_in[i] = - coefficients_in[i];
@@ -225,7 +167,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(std::size_t nb_channels)
+  ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
@@ -277,11 +219,11 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_bp_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
+    ButterworthUtilities::create_bp_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
   }
 
   template <typename DataType>
-  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(std::size_t nb_channels)
+  ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
   {
   }
@@ -333,6 +275,6 @@ namespace ATK
     coefficients_in.assign(in_order+1, 0);
     coefficients_out.assign(out_order, 0);
     
-    create_bs_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
+    ButterworthUtilities::create_bs_coeffs(in_order, 2 * cut_frequencies.first / input_sampling_rate, 2 * cut_frequencies.second / input_sampling_rate, coefficients_in, coefficients_out);
   }
 }

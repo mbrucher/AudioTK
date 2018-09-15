@@ -28,17 +28,17 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    BroadcastFilter(std::size_t nb_channels = 1);
+    BroadcastFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~BroadcastFilter() override;
 
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
   
   /// Broadcast an input signal to all SIMD vector lines
-  template<typename DataType, std::size_t VL>
-  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createBroadcastFilter(std::size_t nb_channels = 1);
+  template<typename DataType, gsl::index VL>
+  ATK_TOOLS_EXPORT std::unique_ptr<BaseFilter> createBroadcastFilter(gsl::index nb_channels = 1);
 }
 
 #endif

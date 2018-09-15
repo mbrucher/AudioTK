@@ -12,7 +12,7 @@ namespace ATK
 {
   /// Base class for all IIR second order filters
   template<typename DataType_>
-  class SecondOrderBaseCoefficients: public TypedBaseFilter<DataType_>, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
+  class SecondOrderCoreCoefficients : public TypedBaseFilter<DataType_>
   {
   public:
     /// Simplify parent calls
@@ -22,20 +22,46 @@ namespace ATK
     typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
     using Parent::setup;
   protected:
-    CoeffDataType cut_frequency;
-
-    const static int in_order=2;
-    const static int out_order=2;
+#if defined(_MSC_VER) || __cplusplus >= 201703L
+    constexpr static gsl::index in_order = 2;
+    constexpr static gsl::index out_order = 2;
+#else
+    const static gsl::index in_order;
+    const static gsl::index out_order;
+#endif
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
-    void setup() override;
   public:
     /*!
-     * @brief Constructor
-     * @param nb_channels is the number of input and output channels
-     */
-    SecondOrderBaseCoefficients(std::size_t nb_channels = 1);
+    * @brief Constructor
+    * @param nb_channels is the number of input and output channels
+    */
+    SecondOrderCoreCoefficients(gsl::index nb_channels = 1);
+  };
+  
+  /// Base class for all IIR second order filters
+  template<typename DataType_>
+  class SecondOrderBaseCoefficients : public SecondOrderCoreCoefficients<DataType_>, public SingleCutFrequencyInterface<typename TypeTraits<DataType_>::Scalar>
+  {
+  public:
+    /// Simplify parent calls
+    typedef SecondOrderCoreCoefficients<DataType_> Parent;
+    using typename Parent::AlignedScalarVector;
+    using typename Parent::DataType;
+    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using Parent::setup;
+  protected:
+    CoeffDataType cut_frequency;
+
+    constexpr static gsl::index in_order = 2;
+    constexpr static gsl::index out_order = 2;
+    AlignedScalarVector coefficients_in;
+    AlignedScalarVector coefficients_out;
+
+    SecondOrderBaseCoefficients(gsl::index nb_channels);
+    void setup() override;
+  public:
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency
@@ -67,7 +93,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderBandPassCoefficients(std::size_t nb_channels = 1);
+    SecondOrderBandPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -99,7 +125,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderLowPassCoefficients(std::size_t nb_channels = 1);
+    SecondOrderLowPassCoefficients(gsl::index nb_channels = 1);
   };
   
   /// Coefficients for a second order highpass filter
@@ -123,7 +149,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderHighPassCoefficients(std::size_t nb_channels = 1);
+    SecondOrderHighPassCoefficients(gsl::index nb_channels = 1);
   };
 
   /// Coefficients for a second order bandpass peak filter
@@ -152,7 +178,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderBandPassPeakCoefficients(std::size_t nb_channels = 1);
+    SecondOrderBandPassPeakCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -193,7 +219,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderAllPassCoefficients(std::size_t nb_channels = 1);
+    SecondOrderAllPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -228,7 +254,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderLowShelvingCoefficients(std::size_t nb_channels = 1);
+    SecondOrderLowShelvingCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the gain of the shelf
     void set_gain(CoeffDataType gain) final;
@@ -260,7 +286,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderHighShelvingCoefficients(std::size_t nb_channels = 1);
+    SecondOrderHighShelvingCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the gain of the shelf
     void set_gain(CoeffDataType gain) final;

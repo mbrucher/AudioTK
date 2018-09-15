@@ -78,7 +78,7 @@ namespace ATK
     */
     void set_split_size(unsigned int split_size);
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
     
     void setup() final;
     

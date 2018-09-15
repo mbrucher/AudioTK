@@ -11,7 +11,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  MuteSoloBufferFilter<DataType_>::MuteSoloBufferFilter(std::size_t nb_channels)
+  MuteSoloBufferFilter<DataType_>::MuteSoloBufferFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels), mute_statuses(nb_channels), solo_statuses(nb_channels), any_solo(false)
   {
   }
@@ -22,7 +22,7 @@ namespace ATK
   }
   
   template<typename DataType_>
-  void MuteSoloBufferFilter<DataType_>::process_impl(std::size_t size) const
+  void MuteSoloBufferFilter<DataType_>::process_impl(gsl::index size) const
   {
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)
     {
@@ -46,38 +46,38 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void MuteSoloBufferFilter<DataType_>::set_mute(std::size_t channel, bool mute)
+  void MuteSoloBufferFilter<DataType_>::set_mute(gsl::index channel, bool mute)
   {
     mute_statuses[channel] = mute;
   }
   
   template<typename DataType_>
-  bool MuteSoloBufferFilter<DataType_>::get_mute(std::size_t channel) const
+  bool MuteSoloBufferFilter<DataType_>::get_mute(gsl::index channel) const
   {
     return mute_statuses[channel];
   }
   
   template<typename DataType_>
-  void MuteSoloBufferFilter<DataType_>::set_solo(std::size_t channel, bool solo)
+  void MuteSoloBufferFilter<DataType_>::set_solo(gsl::index channel, bool solo)
   {
     solo_statuses[channel] = solo;
     any_solo = solo_statuses.any();
   }
   
   template<typename DataType_>
-  bool MuteSoloBufferFilter<DataType_>::get_solo(std::size_t channel) const
+  bool MuteSoloBufferFilter<DataType_>::get_solo(gsl::index channel) const
   {
     return solo_statuses[channel];
   }
 
   template<typename DataType_>
-  void MuteSoloBufferFilter<DataType_>::set_nb_input_ports(std::size_t nb_ports)
+  void MuteSoloBufferFilter<DataType_>::set_nb_input_ports(gsl::index nb_ports)
   {
     throw std::runtime_error("Can't change number of ports in this filter");
   }
   
   template<typename DataType_>
-  void MuteSoloBufferFilter<DataType_>::set_nb_output_ports(std::size_t nb_ports)
+  void MuteSoloBufferFilter<DataType_>::set_nb_output_ports(gsl::index nb_ports)
   {
     throw std::runtime_error("Can't change number of ports in this filter");
   }

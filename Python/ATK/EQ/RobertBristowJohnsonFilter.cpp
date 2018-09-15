@@ -9,15 +9,9 @@
 
 #include "MainFilter.h"
 
-namespace py = pybind11;
-
 using namespace ATK;
 
-namespace
-{
-}
-
-void populate_RobertBristowJohnsonFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
+void populate_RobertBristowJohnsonFilter(pybind11::module& m)
 {
   populate_QCoefficients<RobertBristowJohnsonLowPassCoefficients<float>>(m, "FloatRobertBristowJohnsonLowPassCoefficients");
   populate_QCoefficients<RobertBristowJohnsonLowPassCoefficients<double>>(m, "DoubleRobertBristowJohnsonLowPassCoefficients");

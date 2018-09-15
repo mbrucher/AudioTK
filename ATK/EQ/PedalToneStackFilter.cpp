@@ -7,33 +7,13 @@
 
 namespace ATK
 {
-  template class SD1ToneCoefficients<float>;
-  template class SD1ToneCoefficients<double>;
-  template class SD1ToneCoefficients<std::complex<float> >;
-  template class SD1ToneCoefficients<std::complex<double> >;
+  template class ATK_EQ_EXPORT SD1ToneCoefficients<float>;
+  template class ATK_EQ_EXPORT SD1ToneCoefficients<double>;
+  template class ATK_EQ_EXPORT SD1ToneCoefficients<std::complex<float> >;
+  template class ATK_EQ_EXPORT SD1ToneCoefficients<std::complex<double> >;
   
-  template class IIRFilter<SD1ToneCoefficients<float> >;
-  template class IIRFilter<SD1ToneCoefficients<double> >;
-  template class IIRFilter<SD1ToneCoefficients<std::complex<float> > >;
-  template class IIRFilter<SD1ToneCoefficients<std::complex<double> > >;
-
-  template class IIRTDF2Filter<SD1ToneCoefficients<float> >;
-  template class IIRTDF2Filter<SD1ToneCoefficients<double> >;
-  template class IIRTDF2Filter<SD1ToneCoefficients<std::complex<float> > >;
-  template class IIRTDF2Filter<SD1ToneCoefficients<std::complex<double> > >;
-
-  template class TS9ToneCoefficients<float>;
-  template class TS9ToneCoefficients<double>;
-  template class TS9ToneCoefficients<std::complex<float> >;
-  template class TS9ToneCoefficients<std::complex<double> >;
-  
-  template class IIRFilter<TS9ToneCoefficients<float> >;
-  template class IIRFilter<TS9ToneCoefficients<double> >;
-  template class IIRFilter<TS9ToneCoefficients<std::complex<float> > >;
-  template class IIRFilter<TS9ToneCoefficients<std::complex<double> > >;
-
-  template class IIRTDF2Filter<TS9ToneCoefficients<float> >;
-  template class IIRTDF2Filter<TS9ToneCoefficients<double> >;
-  template class IIRTDF2Filter<TS9ToneCoefficients<std::complex<float> > >;
-  template class IIRTDF2Filter<TS9ToneCoefficients<std::complex<double> > >;
+  template class ATK_EQ_EXPORT TS9ToneCoefficients<float>;
+  template class ATK_EQ_EXPORT TS9ToneCoefficients<double>;
+  template class ATK_EQ_EXPORT TS9ToneCoefficients<std::complex<float> >;
+  template class ATK_EQ_EXPORT TS9ToneCoefficients<std::complex<double> >;
 }

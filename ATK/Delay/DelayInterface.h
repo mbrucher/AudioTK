@@ -6,6 +6,7 @@
 #define ATK_DELAY_DELAYINTERFACE_H
 
 #include <map>
+#include <gsl/gsl>
 
 #include <ATK/Delay/config.h>
 
@@ -17,9 +18,9 @@ namespace ATK
   public:
     virtual ~DelayInterface();
     /// Sets the delay of the filter
-  virtual void set_delay(std::size_t delay) = 0;
+  virtual void set_delay(gsl::index delay) = 0;
     /// Returns the delay
-    virtual std::size_t get_delay() const = 0;
+    virtual gsl::index get_delay() const = 0;
   };
 
   /// Interface for a universal filter

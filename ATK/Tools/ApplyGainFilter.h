@@ -32,12 +32,12 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
      */
-    ApplyGainFilter(std::size_t nb_channels = 1);
+    ApplyGainFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~ApplyGainFilter() override;
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
   };
 }
 

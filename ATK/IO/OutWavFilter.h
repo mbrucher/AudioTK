@@ -36,7 +36,7 @@ namespace ATK
     void setup() final;
     /// Write sthe wav standard header
     void write_header() const;
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   public:
     /*!
@@ -45,7 +45,7 @@ namespace ATK
      */
     OutWavFilter(const std::string& filename);
     
-    void set_nb_input_ports(std::size_t nb_ports) final;
+    void set_nb_input_ports(gsl::index nb_ports) final;
   };
 }
 #endif

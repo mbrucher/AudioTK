@@ -34,7 +34,7 @@ namespace ATK
     void set_frequency(int frequency);
     
   protected:
-    void process_impl(std::size_t size) const final;
+    void process_impl(gsl::index size) const final;
 
   private:
     mutable double state;

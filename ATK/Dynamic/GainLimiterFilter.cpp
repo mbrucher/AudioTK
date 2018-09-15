@@ -13,7 +13,7 @@
 namespace ATK
 {
   template<typename DataType_>
-  GainLimiterFilter<DataType_>::GainLimiterFilter(std::size_t nb_channels, size_t LUTsize, size_t LUTprecision)
+  GainLimiterFilter<DataType_>::GainLimiterFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
   :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
   {
   }
@@ -44,7 +44,9 @@ namespace ATK
   DataType_ GainLimiterFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
+    {
       return 1;
+    }
     DataType diff = 10 * fmath::log10(value);
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40));
   }

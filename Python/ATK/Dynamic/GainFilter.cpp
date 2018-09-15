@@ -2,6 +2,8 @@
 * \file GainFilter.cpp
 */
 
+#include <gsl/gsl>
+
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 
@@ -70,7 +72,7 @@ namespace
   void populate_GainFilter(py::module& m, const char* type)
   {
     py::class_<GainFilter<Filter>, Filter>(m, type)
-    .def(py::init<std::size_t, std::size_t, std::size_t>(), py::arg("nb_channels") = 1, py::arg("LUTsize") = 128*1024, py::arg("LUTprecision") = 64);
+    .def(py::init<gsl::index, gsl::index, gsl::index>(), py::arg("nb_channels") = gsl::index(1), py::arg("LUTsize") = gsl::index(128*1024), py::arg("LUTprecision") = gsl::index(64));
   }
 }
 

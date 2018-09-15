@@ -7,6 +7,6 @@
 
 #include <pybind11/pybind11.h>
 
-void populate_RobertBristowJohnsonFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2);
+void populate_RobertBristowJohnsonFilter(pybind11::module& m);
 
 #endif

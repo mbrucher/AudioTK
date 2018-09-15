@@ -36,16 +36,16 @@ namespace ATK
     void remove_filter(gsl::not_null<const BaseFilter*> filter);
 
     int get_type() const final;
-    void set_input_port(std::size_t input_port, gsl::not_null<BaseFilter*> filter, std::size_t output_port) final;
-    void set_input_port(std::size_t input_port, BaseFilter& filter, std::size_t output_port) final;
+    void set_input_port(gsl::index input_port, gsl::not_null<BaseFilter*> filter, gsl::index output_port) final;
+    void set_input_port(gsl::index input_port, BaseFilter& filter, gsl::index output_port) final;
     /*!
      * @brief Indicates if we can process the pipeline in parallel
      */
     void set_parallel(bool parallel);
   protected:
-    void process_impl(std::size_t size) const final;
-    void prepare_process(std::size_t size) final;
-    void prepare_outputs(std::size_t size) final;
+    void process_impl(gsl::index size) const final;
+    void prepare_process(gsl::index size) final;
+    void prepare_outputs(gsl::index size) final;
 
     /// List of filters in this sink
     std::vector<gsl::not_null<BaseFilter*>> filters;

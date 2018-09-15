@@ -85,19 +85,6 @@ namespace ATK
       return affine_estimate(x0, x1, y0);
     }
 
-/*    DataType id_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      return y0;
-    }
-    
-    DataType linear_estimate(DataType x0, DataType x1, DataType y0)
-    {
-      if(y0 == 0)
-        return 0;
-      auto sinh = (oldexpy1 - oldinvexpy1);
-      return y0 * (x1 - x0 + y0 - is * sinh * B) / (is * sinh * A + y0);
-    }*/
-    
     DataType affine_estimate(DataType x0, DataType x1, DataType y0)
     {
       auto sinh = (oldexpy1 - oldinvexpy1);
@@ -128,7 +115,7 @@ namespace ATK
   }
 
   template <typename DataType>
-  void SimpleOverdriveFilter<DataType>::process_impl(std::size_t size) const
+  void SimpleOverdriveFilter<DataType>::process_impl(gsl::index size) const
   {
     const DataType* ATK_RESTRICT input = converted_inputs[0];
     DataType* ATK_RESTRICT output = outputs[0];
