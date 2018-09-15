@@ -26,7 +26,7 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 3.0.0
-* Change index for gsl::index everywhere (change of ABI)
+* Change size for gsl::index everywhere (change of ABI)
 * Address sanitizer support
 * Technical debt and maintenance (https://sonarcloud.io/dashboard?branch=develop&id=org.sonarqube%3Aaudio-tk)
 
@@ -35,7 +35,7 @@ Audio Toolkit is published under the BSD license.
 * Use gsl::index for loop indices
 * Fix gradient for transistors
 * Enhance interpolation for the gain filter
-* Installation of the third party headers (gsl, simdpp or Eigen)
+* Installation of the third-party headers (gsl, simdpp or Eigen)
 
 ### 2.3.1
 * Fix Python wrappers

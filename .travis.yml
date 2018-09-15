@@ -340,6 +340,30 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.4
     - BUILD_TYPE=Release
+  - os: osx
+    osx_image: xcode10
+    env:
+    - MY_NAME: XCode 10 Python 2
+    - COMPILER=clang++
+    - PLATFORM=xcode-10
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.11
+    - BUILD_TYPE=Release
+  - os: osx
+    osx_image: xcode10
+    env:
+    - MY_NAME: XCode 10 Python 3
+    - COMPILER=clang++
+    - PLATFORM=xcode-10
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=3.6
+    - PYTHON=python3
+    - Python_ADDITIONAL_VERSIONS=3.6.4
+    - BUILD_TYPE=Release
   allow_failures:
   - compiler: gcc-8
   - compiler: clang-6.0
