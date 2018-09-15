@@ -33,7 +33,7 @@
 #include <cstddef>
 #include <cassert>
 #include <limits>
-#include <cstdlib>
+#include <cstdint>
 #include <cfloat>
 #include <cstring> // for memcpy
 
@@ -57,8 +57,6 @@ namespace fmath {
     const size_t EXP_TABLE_SIZE = 10;
     const size_t EXPD_TABLE_SIZE = 11;
     const size_t LOG_TABLE_SIZE = 12;
-    
-    typedef unsigned long long uint64_t;
     
     union fi {
       float f;
@@ -95,7 +93,8 @@ namespace fmath {
      exp(-103.972081f) = 0 ; 0xc2cff1b5
      */
     template<size_t N = EXP_TABLE_SIZE>
-    struct ExpVar {
+    class ExpVar {
+    public:
       enum {
         s = N,
         n = 1 << s,
@@ -134,7 +133,8 @@ namespace fmath {
     };
     
     template<size_t sbit_ = EXPD_TABLE_SIZE>
-    struct ExpdVar {
+    class ExpdVar {
+    public:
       enum {
         sbit = sbit_,
         s = 1UL << sbit,
@@ -165,7 +165,8 @@ namespace fmath {
     };
     
     template<size_t N = LOG_TABLE_SIZE>
-    struct LogVar {
+    class LogVar {
+    public:
       enum {
         LEN = N - 1
       };
@@ -232,8 +233,8 @@ namespace fmath {
   {
     if (x <= -708.39641853226408) return 0;
     if (x >= 709.78271289338397) return std::numeric_limits<double>::infinity();
-    using namespace local;
-    const ExpdVar<>& c = C<>::expdVar;
+
+    const auto& c = local::C<>::expdVar;
     const double _b = double(uint64_t(3) << 51);
     __m128d b = _mm_load_sd(&_b);
     __m128d xx = _mm_load_sd(&x);
@@ -258,15 +259,14 @@ namespace fmath {
 
   inline float log(float x)
   {
-    using namespace local;
-    const LogVar<>& logVar = C<>::logVar;
+    const auto& logVar = local::C<>::logVar;
     const size_t logLen = logVar.LEN;
     
-    fi fi;
+    local::fi fi;
     fi.f = x;
-    int a = fi.i & (mask(8) << 23);
-    unsigned int b1 = fi.i & (mask(logLen) << (23 - logLen));
-    unsigned int b2 = fi.i & mask(23 - logLen);
+    int a = fi.i & (local::mask(8) << 23);
+    unsigned int b1 = fi.i & (local::mask(logLen) << (23 - logLen));
+    unsigned int b2 = fi.i & local::mask(23 - logLen);
     int idx = b1 >> (23 - logLen);
     float f = float(a - (127 << 23)) * logVar.c_log2 + logVar.tbl[idx].app + float(b2) * logVar.tbl[idx].rev;
     return f;
@@ -310,7 +310,7 @@ namespace fmath {
       float rev;
     } tbl1_[1 << N];
   public:
-    PowGenerator(float y)
+    explicit PowGenerator(float y)
     {
       for (int i = 0; i < 256; i++) {
         tbl0_[i] = ::powf(2, (i - 127) * y);
@@ -328,13 +328,12 @@ namespace fmath {
     }
     float get(float x) const
     {
-      using namespace local;
-      fi fi;
+      local::fi fi;
       fi.f = x;
-      int a = (fi.i >> 23) & mask(8);
-      unsigned int b = fi.i & mask(23);
-      unsigned int b1 = b & (mask(N) << (23 - N));
-      unsigned int b2 = b & mask(23 - N);
+      int a = (fi.i >> 23) & local::mask(8);
+      unsigned int b = fi.i & local::mask(23);
+      unsigned int b1 = b & (local::mask(N) << (23 - N));
+      unsigned int b2 = b & local::mask(23 - N);
       float f;
       int idx = b1 >> (23 - N);
       f = tbl0_[a] * (tbl1_[idx].app + float(b2) * tbl1_[idx].rev);

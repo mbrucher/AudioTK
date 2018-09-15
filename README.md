@@ -28,6 +28,7 @@ Audio Toolkit is published under the BSD license.
 ### 3.0.0
 * Change index for gsl::index everywhere (change of ABI)
 * Address sanitizer support
+* Technical debt and maintenance (https://sonarcloud.io/dashboard?branch=develop&id=org.sonarqube%3Aaudio-tk)
 
 ### 2.3.2
 * Fix initialization indices in Custom IIR and FIR Filters

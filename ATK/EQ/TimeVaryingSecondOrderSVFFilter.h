@@ -15,7 +15,7 @@ namespace ATK
   template<typename SVFCoefficients>
   class ATK_EQ_EXPORT TimeVaryingSecondOrderSVFFilter final : public SVFCoefficients
   {
-  public:
+  protected:
     typedef SVFCoefficients Parent;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;

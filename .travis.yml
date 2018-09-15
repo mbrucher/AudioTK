@@ -175,13 +175,13 @@ matrix:
         - llvm-toolchain-trusty-6.0
         packages:
         - clang-6.0
-        - g++-8
+        - g++-7
         - libfftw3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
     env:
-    - MY_NAME: ASANclang 6 Python 2
+    - MY_NAME=ASAN
     - COMPILER=clang++-6.0
     - PLATFORM=clang-6.0
     - ENABLE_PYTHON=ON
@@ -189,8 +189,35 @@ matrix:
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Debug
-    - LD_PRELOAD=/usr/lib/clang/6.0.1/lib/linux/libclang_rt.asan_dynamic.so
+    - ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
+    - LD_PRELOAD_=/usr/lib/llvm-6.0/lib/clang/6.0.1/lib/linux/libclang_rt.asan-x86_64.so
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_ADDRESS_SANITIZER=ON"
+  - compiler: clang-6.0
+    os: linux
+    dist: trusty
+    addons:
+      apt:
+        sources:
+        - ubuntu-toolchain-r-test
+        - llvm-toolchain-trusty-6.0
+        packages:
+        - clang-6.0
+        - g++-6
+        - libfftw3-dev
+        - libsndfile-dev
+        - swig
+        - libatlas-base-dev
+    env:
+    - MY_NAME=LLVM coverage
+    - COMPILER=clang++-6.0
+    - PLATFORM=clang-6.0
+    - ENABLE_PYTHON=ON
+    - PYTHON_VERSION=2.7
+    - PYTHON=python2
+    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - BUILD_TYPE=Debug
+    - ENABLE_COVERAGE=ON
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_COVERAGE=ON -DLCOV_SCRIPT='--gcov-tool ${TRAVIS_BUILD_DIR}/script/llvm-gcov.sh'"
   - compiler: clang-6.0
     os: linux
     dist: trusty
@@ -371,15 +398,15 @@ script:
   - echo $LD_LIBRARY_PATH
   - ls ${HOME}/ATK/lib
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
       make codecoverage
     else
-      CTEST_OUTPUT_ON_FAILURE=TRUE make test
+      LD_PRELOAD=${LD_PRELOAD_} CTEST_OUTPUT_ON_FAILURE=TRUE make test
     fi
 
 after_success:
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
       bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     else
       cd ${HOME}/ATK
@@ -393,7 +420,7 @@ after_success:
       ls
     fi
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
       exit
     fi
 

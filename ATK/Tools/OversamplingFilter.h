@@ -25,11 +25,9 @@ namespace ATK
     static const int order = 5;
     /// Oversampling rate
     static const int oversampling_factor = 2;
-    
-  public:
+
     typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
-  public:
     /// Constructor
     Oversampling6points5order_2();
   };
@@ -49,11 +47,9 @@ namespace ATK
     /// Oversampling rate
     static const int oversampling_factor = 4;
     
-  public:
     /// Coefficients used by OversamplingFilter
     typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
-  public:
     /// Constructor
     Oversampling6points5order_4();
   };
@@ -73,11 +69,9 @@ namespace ATK
     /// Oversampling rate
     static const int oversampling_factor = 8;
     
-  public:
     /// Coefficients used by OversamplingFilter
     typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
-  public:
     /// Constructor
     Oversampling6points5order_8();
   };
@@ -97,11 +91,9 @@ namespace ATK
     /// Oversampling rate
     static const int oversampling_factor = 16;
     
-  public:
     /// Coefficients used by OversamplingFilter
     typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
-  public:
     /// Constructor
     Oversampling6points5order_16();
   };
@@ -121,11 +113,9 @@ namespace ATK
     /// Oversampling rate
     static const int oversampling_factor = 32;
     
-  public:
     /// Coefficients used by OversamplingFilter
     typename TypeTraits<DataType>::Scalar coeffs[order + 1][points / 2];
     
-  public:
     /// Constructor
     Oversampling6points5order_32();
   };
