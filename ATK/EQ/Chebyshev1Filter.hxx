@@ -11,17 +11,17 @@
 namespace Chebyshev1Utilities
 {
   template<typename DataType>
-  void create_chebyshev1_analog_coefficients(int order, DataType ripple, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void create_chebyshev1_analog_coefficients(int order, DataType ripple, EQUtilities::ZPK<DataType>& zpk)
   {
-    z.clear(); // no zeros for this filter type
-    p.clear();
+    zpk.z.clear(); // no zeros for this filter type
+    zpk.p.clear();
     if(ripple == 0)
     {
       return;
     }
     if(order == 0)
     {
-      k = static_cast<DataType>(std::pow(10, (-ripple / 20)));
+      zpk.k = static_cast<DataType>(std::pow(10, (-ripple / 20)));
       return;
     }
     
@@ -31,56 +31,50 @@ namespace Chebyshev1Utilities
     for(gsl::index i = -order+1; i < order; i += 2)
     {
       DataType theta = boost::math::constants::pi<DataType>() * i / (2*order);
-      p.push_back(-std::sinh(std::complex<DataType>(mu, theta)));
+      zpk.p.push_back(-std::sinh(std::complex<DataType>(mu, theta)));
     }
 
     std::complex<DataType> f = 1;
     
-    for(gsl::index i = 0; i < p.size(); ++i)
+    for(gsl::index i = 0; i < zpk.p.size(); ++i)
     {
-      f *= -p[i];
+      f *= -zpk.p[i];
     }
-    k = f.real();
+    zpk.k = f.real();
     if(order % 2 == 0)
     {
-      k = k / std::sqrt((1 + eps * eps));
+      zpk.k = zpk.k / std::sqrt((1 + eps * eps));
     }
   }
   
   template<typename DataType, typename Container>
   void create_default_chebyshev1_coeffs(size_t order, DataType ripple, DataType Wn, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_chebyshev1_analog_coefficients(static_cast<int>(order), ripple, z, p, k);
-    EQUtilities::populate_lp_coeffs(Wn, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_chebyshev1_analog_coefficients(static_cast<int>(order), ripple, zpk);
+    EQUtilities::populate_lp_coeffs(Wn, fs, order, zpk, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
   void create_bp_chebyshev1_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_chebyshev1_analog_coefficients(static_cast<int>(order/2), ripple, z, p, k);
-    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_chebyshev1_analog_coefficients(static_cast<int>(order/2), ripple, zpk);
+    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
   void create_bs_chebyshev1_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_chebyshev1_analog_coefficients(static_cast<int>(order/2), ripple, z, p, k);
-    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_chebyshev1_analog_coefficients(static_cast<int>(order/2), ripple, zpk);
+    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
 }
 

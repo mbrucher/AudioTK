@@ -11,51 +11,45 @@
 namespace ButterworthUtilities
 {
   template<typename DataType>
-  void create_butterworth_analog_coefficients(int order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void create_butterworth_analog_coefficients(int order, EQUtilities::ZPK<DataType>& zpk)
   {
-    k = 1;
-    z.clear(); // no zeros for this filter type
-    p.clear();
+    zpk.k = 1;
+    zpk.z.clear(); // no zeros for this filter type
+    zpk.p.clear();
     for(gsl::index i = -order+1; i < order; i += 2)
     {
-      p.push_back(std::complex<DataType>(-std::cos(boost::math::constants::pi<DataType>() * i / (2 * order)), -std::sin(boost::math::constants::pi<DataType>() * i / (2 * order))));
+      zpk.p.push_back(std::complex<DataType>(-std::cos(boost::math::constants::pi<DataType>() * i / (2 * order)), -std::sin(boost::math::constants::pi<DataType>() * i / (2 * order))));
     }
   }
   
   template<typename DataType, typename Container>
   void create_default_coeffs(size_t order, DataType Wn, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_butterworth_analog_coefficients(static_cast<int>(order), z, p, k);
-    EQUtilities::populate_lp_coeffs(Wn, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_butterworth_analog_coefficients(static_cast<int>(order), zpk);
+    EQUtilities::populate_lp_coeffs(Wn, fs, order, zpk, coefficients_in, coefficients_out);
   }
 
   template<typename DataType, typename Container>
   void create_bp_coeffs(size_t order, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_butterworth_analog_coefficients(static_cast<int>(order/2), zpk);
+    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
   void create_bs_coeffs(size_t order, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_butterworth_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_butterworth_analog_coefficients(static_cast<int>(order/2), zpk);
+    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
 }
 
