@@ -49,16 +49,6 @@ namespace ATK
       return affine_estimate(i, input, output);
     }
 
-/*    Vector id_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
-    {
-      Vector y0 = Vector::Zero();
-      for (int j = 0; j < 4; ++j)
-      {
-        y0.data()[j] = output[j][i - 1];
-      }
-      return y0;
-    }*/
-
     Vector affine_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((output[3][i - 1] - output[0][i - 1]) / transistor_function.Vt), fmath::exp((output[3][i - 1] - output[2][i - 1]) / transistor_function.Vt));
