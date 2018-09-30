@@ -74,8 +74,9 @@ if(ENABLE_PYTHON)
 endif(ENABLE_PYTHON)
 
 if(ENABLE_CODECOVERAGE)
-  SET(CMAKE_BUILD_TYPE "Debug" CACHE STRING "" FORCE)
+  SET(CMAKE_BUILD_TYPE "Coverage" CACHE STRING "" FORCE)
   include(CodeCoverage)
+  APPEND_COVERAGE_COMPILER_FLAGS()
   setup_target_for_coverage(codecoverage "make test" coverage)
 endif(ENABLE_CODECOVERAGE)
 
