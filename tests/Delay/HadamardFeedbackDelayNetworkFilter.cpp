@@ -273,56 +273,70 @@ BOOST_AUTO_TEST_CASE(HadamardFeedbackDelayNetworkFilter_sinus_complex_test)
   }
 }
 
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  filter.set_delay(0, 10);
-  BOOST_CHECK_EQUAL(filter.get_delay(0), 10);
+#define check_params(i, j, type) \
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_delay_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  filter.set_delay(0, 10);\
+  BOOST_CHECK_EQUAL(filter.get_delay(0), 10);\
+}\
+\
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_delay_range_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  BOOST_CHECK_THROW(filter.set_delay(0, 0), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_delay_range2_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  BOOST_CHECK_THROW(filter.set_delay(0, 128), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_ingain_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  filter.set_ingain(0, 0.5);\
+  BOOST_CHECK_EQUAL(filter.get_ingain(0), type(0.5));\
+}\
+\
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_outgain_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  filter.set_outgain(0, 0.5);\
+  BOOST_CHECK_EQUAL(filter.get_outgain(0), type(0.5));\
+}\
+\
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_feedback_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  filter.set_feedback(0, 0.5);\
+  BOOST_CHECK_EQUAL(filter.get_feedback(0), type(0.5));\
+}\
+\
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_feedback_range_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  BOOST_CHECK_THROW(filter.set_feedback(0, 1), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_##i##_sinus_feedback_range2_test )\
+{\
+  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<type, j>> filter(128);\
+  BOOST_CHECK_THROW(filter.set_feedback(0, -1), std::out_of_range);\
 }
 
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_range_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  BOOST_CHECK_THROW(filter.set_delay(0, 0), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_range2_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  BOOST_CHECK_THROW(filter.set_delay(0, 128), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_ingain_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  filter.set_ingain(0, 0.5);
-  BOOST_CHECK_EQUAL(filter.get_ingain(0), 0.5);
-}
-
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_outgain_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  filter.set_outgain(0, 0.5);
-  BOOST_CHECK_EQUAL(filter.get_outgain(0), 0.5);
-}
-
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  filter.set_feedback(0, 0.5);
-  BOOST_CHECK_EQUAL(filter.get_feedback(0), 0.5);
-}
-
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_range_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(0, 1), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_range2_test )
-{
-  ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<float, 2>> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(0, -1), std::out_of_range);
-}
+check_params(0, 1, float)
+check_params(1, 2, float)
+check_params(2, 3, float)
+check_params(3, 1, double)
+check_params(4, 2, double)
+check_params(5, 3, double)
+check_params(6, 1, std::complex<float>)
+check_params(7, 2, std::complex<float>)
+check_params(8, 3, std::complex<float>)
+check_params(9, 1, std::complex<double>)
+check_params(10, 2, std::complex<double>)
+check_params(11, 3, std::complex<double>)
 
 #endif
