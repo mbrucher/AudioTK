@@ -326,7 +326,7 @@ matrix:
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.11
+    - Python_ADDITIONAL_VERSIONS=2.7.10
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_STATIC_LIBRARIES=ON"
   - os: osx
@@ -337,9 +337,9 @@ matrix:
     - PLATFORM=xcode-9.2
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.4
+    - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_STATIC_LIBRARIES=ON"
   - os: osx
@@ -352,7 +352,7 @@ matrix:
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.11
+    - Python_ADDITIONAL_VERSIONS=2.7.10
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_STATIC_LIBRARIES=ON"
   - os: osx
@@ -363,9 +363,9 @@ matrix:
     - PLATFORM=xcode-10
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.4
+    - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_STATIC_LIBRARIES=ON"
   allow_failures:
@@ -384,6 +384,7 @@ before_install:
       chmod +x cmake-3.12.1-Linux-x86_64.sh
       ./cmake-3.12.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
+        ls /opt/python/
         /opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python${Python_ADDITIONAL_VERSIONS} -m pip install numpy scipy nose
       fi
     fi
@@ -396,6 +397,7 @@ before_install:
       brew upgrade cmake
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
         if [[ "$PYTHON" == "python3" ]]; then brew upgrade python ; fi
+        ${PYTHON} -V
         sudo ${PYTHON} -m pip install numpy scipy nose
       fi
     fi
