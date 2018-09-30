@@ -138,12 +138,132 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_##i##_order_range_tes
 {\
   ATK::IIRFilter<ATK::BesselBandStopCoefficients<type> > filter;\
   BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);\
-}\
+}
 
 check_type(0, float)
 check_type(1, double)
 check_type(2, std::complex<float>)
 check_type(3, std::complex<double>)
+
+#define check_bessel(i, type) \
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_##i##_1k_test )\
+{\
+ATK::SimpleSinusGeneratorFilter<double> generator;\
+generator.set_output_sampling_rate(1024*64);\
+generator.set_amplitude(1);\
+generator.set_frequency(1000);\
+\
+ATK::IIRFilter<ATK::BesselLowPassCoefficients<type> > filter;\
+filter.set_input_sampling_rate(1024*64);\
+filter.set_output_sampling_rate(1024*64);\
+filter.set_cut_frequency(100);\
+filter.set_order(3);\
+\
+ATK::FFTCheckerFilter<double> checker;\
+checker.set_input_sampling_rate(1024*64);\
+std::vector<std::pair<int, double> > frequency_checks;\
+frequency_checks.push_back(std::make_pair(100, 0));\
+frequency_checks.push_back(std::make_pair(1000, 0.03150874916131525));\
+frequency_checks.push_back(std::make_pair(10000, 0));\
+checker.set_checks(frequency_checks);\
+\
+checker.set_input_port(0, &filter, 0);\
+filter.set_input_port(0, &generator, 0);\
+\
+filter.process(1024*64);\
+\
+checker.process(PROCESSSIZE);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_##i##_1k_test )\
+{\
+  ATK::SimpleSinusGeneratorFilter<double> generator;\
+  generator.set_output_sampling_rate(1024*64);\
+  generator.set_amplitude(1);\
+  generator.set_frequency(1000);\
+\
+  ATK::IIRFilter<ATK::BesselHighPassCoefficients<type> > filter;\
+  filter.set_input_sampling_rate(1024*64);\
+  filter.set_output_sampling_rate(1024*64);\
+  filter.set_cut_frequency(100);\
+  filter.set_order(3);\
+\
+  ATK::FFTCheckerFilter<double> checker;\
+  checker.set_input_sampling_rate(1024*64);\
+  std::vector<std::pair<int, double> > frequency_checks;\
+  frequency_checks.push_back(std::make_pair(100, 0));\
+  frequency_checks.push_back(std::make_pair(1000, 0.9969240497367295));\
+  frequency_checks.push_back(std::make_pair(10000, 0));\
+  checker.set_checks(frequency_checks);\
+\
+  checker.set_input_port(0, &filter, 0);\
+  filter.set_input_port(0, &generator, 0);\
+\
+  filter.process(1024*64);\
+\
+  checker.process(PROCESSSIZE);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_##i##_1k_test )\
+{\
+  ATK::SimpleSinusGeneratorFilter<double> generator;\
+  generator.set_output_sampling_rate(1024*64);\
+  generator.set_amplitude(1);\
+  generator.set_frequency(1000);\
+\
+  ATK::IIRFilter<ATK::BesselBandPassCoefficients<type> > filter;\
+  filter.set_input_sampling_rate(1024*64);\
+  filter.set_output_sampling_rate(1024*64);\
+  filter.set_cut_frequencies(std::make_pair(200, 1000));\
+  filter.set_order(3);\
+\
+  ATK::FFTCheckerFilter<double> checker;\
+  checker.set_input_sampling_rate(1024*64);\
+  std::vector<std::pair<int, double> > frequency_checks;\
+  frequency_checks.push_back(std::make_pair(100, 0));\
+  frequency_checks.push_back(std::make_pair(1000, 0.6982307944678048));\
+  frequency_checks.push_back(std::make_pair(10000, 0));\
+  checker.set_checks(frequency_checks);\
+\
+  checker.set_input_port(0, &filter, 0);\
+  filter.set_input_port(0, &generator, 0);\
+\
+  filter.process(1024*64);\
+\
+  checker.process(PROCESSSIZE);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_##i##_1k_test )\
+{\
+  ATK::SimpleSinusGeneratorFilter<double> generator;\
+  generator.set_output_sampling_rate(1024*64);\
+  generator.set_amplitude(1);\
+  generator.set_frequency(1000);\
+\
+  ATK::IIRFilter<ATK::BesselBandStopCoefficients<type> > filter;\
+  filter.set_input_sampling_rate(1024*64);\
+  filter.set_output_sampling_rate(1024*64);\
+  filter.set_cut_frequencies(std::make_pair(200, 1000));\
+  filter.set_order(3);\
+\
+  ATK::FFTCheckerFilter<double> checker;\
+  checker.set_input_sampling_rate(1024*64);\
+  std::vector<std::pair<int, double> > frequency_checks;\
+  frequency_checks.push_back(std::make_pair(100, 0));\
+  frequency_checks.push_back(std::make_pair(1000, 0.6982861807111302));\
+  frequency_checks.push_back(std::make_pair(10000, 0));\
+  checker.set_checks(frequency_checks);\
+\
+  checker.set_input_port(0, &filter, 0);\
+  filter.set_input_port(0, &generator, 0);\
+\
+  filter.process(1024*64);\
+\
+  checker.process(PROCESSSIZE);\
+}\
+
+check_bessel(0, float)
+check_bessel(1, double)
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_1k_test )
 {
@@ -290,35 +410,6 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_200_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_1k_test )
-{
-  ATK::SimpleSinusGeneratorFilter<double> generator;
-  generator.set_output_sampling_rate(1024*64);
-  generator.set_amplitude(1);
-  generator.set_frequency(1000);
-  
-  ATK::IIRFilter<ATK::BesselHighPassCoefficients<double> > filter;
-  filter.set_input_sampling_rate(1024*64);
-  filter.set_output_sampling_rate(1024*64);
-  filter.set_cut_frequency(100);
-  filter.set_order(3);
-  
-  ATK::FFTCheckerFilter<double> checker;
-  checker.set_input_sampling_rate(1024*64);
-  std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.9969240497367295));
-  frequency_checks.push_back(std::make_pair(10000, 0));
-  checker.set_checks(frequency_checks);
-  
-  checker.set_input_port(0, &filter, 0);
-  filter.set_input_port(0, &generator, 0);
-  
-  filter.process(1024*64);
-  
-  checker.process(PROCESSSIZE);
-}
-
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_100_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;
@@ -406,35 +497,6 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_200_test )
   checker.process(PROCESSSIZE);
 }
 
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_1k_test )
-{
-  ATK::SimpleSinusGeneratorFilter<double> generator;
-  generator.set_output_sampling_rate(1024*64);
-  generator.set_amplitude(1);
-  generator.set_frequency(1000);
-  
-  ATK::IIRFilter<ATK::BesselBandPassCoefficients<double> > filter;
-  filter.set_input_sampling_rate(1024*64);
-  filter.set_output_sampling_rate(1024*64);
-  filter.set_cut_frequencies(std::make_pair(200, 1000));
-  filter.set_order(3);
-  
-  ATK::FFTCheckerFilter<double> checker;
-  checker.set_input_sampling_rate(1024*64);
-  std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.6982307944678048));
-  frequency_checks.push_back(std::make_pair(10000, 0));
-  checker.set_checks(frequency_checks);
-  
-  checker.set_input_port(0, &filter, 0);
-  filter.set_input_port(0, &generator, 0);
-  
-  filter.process(1024*64);
-  
-  checker.process(PROCESSSIZE);
-}
-
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_100_test )
 {
   ATK::SimpleSinusGeneratorFilter<double> generator;
@@ -512,35 +574,6 @@ BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_200_test )
   frequency_checks.push_back(std::make_pair(100, 0));
   frequency_checks.push_back(std::make_pair(200, 0.6984126947004053));
   frequency_checks.push_back(std::make_pair(1000, 0));
-  checker.set_checks(frequency_checks);
-  
-  checker.set_input_port(0, &filter, 0);
-  filter.set_input_port(0, &generator, 0);
-  
-  filter.process(1024*64);
-  
-  checker.process(PROCESSSIZE);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_1k_test )
-{
-  ATK::SimpleSinusGeneratorFilter<double> generator;
-  generator.set_output_sampling_rate(1024*64);
-  generator.set_amplitude(1);
-  generator.set_frequency(1000);
-  
-  ATK::IIRFilter<ATK::BesselBandStopCoefficients<double> > filter;
-  filter.set_input_sampling_rate(1024*64);
-  filter.set_output_sampling_rate(1024*64);
-  filter.set_cut_frequencies(std::make_pair(200, 1000));
-  filter.set_order(3);
-  
-  ATK::FFTCheckerFilter<double> checker;
-  checker.set_input_sampling_rate(1024*64);
-  std::vector<std::pair<int, double> > frequency_checks;
-  frequency_checks.push_back(std::make_pair(100, 0));
-  frequency_checks.push_back(std::make_pair(1000, 0.6982861807111302));
-  frequency_checks.push_back(std::make_pair(10000, 0));
   checker.set_checks(frequency_checks);
   
   checker.set_input_port(0, &filter, 0);
