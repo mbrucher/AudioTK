@@ -15,130 +15,135 @@
 
 const size_t PROCESSSIZE = 1024*64;
 
+#define check_type(i, type) \
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_##i##_order_all_test )\
+{\
+  ATK::IIRFilter<ATK::BesselLowPassCoefficients<type> > filter;\
+\
+  for(unsigned int order = 1; order < 14; ++order)\
+  {\
+    filter.set_order(order);\
+  }\
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);\
+  BOOST_CHECK_THROW(filter.set_order(14), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_##i##_frequency_test )\
+{\
+  ATK::IIRFilter<ATK::BesselLowPassCoefficients<type> > filter;\
+  filter.set_cut_frequency(20);\
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_##i##_frequency_range_test )\
+{\
+  ATK::IIRFilter<ATK::BesselLowPassCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_##i##_order_test )\
+{\
+  ATK::IIRFilter<ATK::BesselLowPassCoefficients<type> > filter;\
+  filter.set_order(3);\
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_##i##_frequency_test )\
+{\
+  ATK::IIRFilter<ATK::BesselHighPassCoefficients<type> > filter;\
+  filter.set_cut_frequency(20);\
+  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_##i##_frequency_range_test )\
+{\
+  ATK::IIRFilter<ATK::BesselHighPassCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_##i##_order_test )\
+{\
+  ATK::IIRFilter<ATK::BesselHighPassCoefficients<type> > filter;\
+  filter.set_order(3);\
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_##i##_order_range_test )\
+{\
+  ATK::IIRFilter<ATK::BesselHighPassCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_##i##_frequency_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandPassCoefficients<type> > filter;\
+  filter.set_cut_frequencies(20, 100);\
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().first, 20);\
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().second, 100);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_##i##_frequency_range_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandPassCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(0, 100), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_##i##_frequency_range2_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandPassCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(100, 0), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_##i##_order_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandPassCoefficients<type> > filter;\
+  filter.set_order(3);\
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_##i##_order_range_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandPassCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_##i##_frequency_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandStopCoefficients<type> > filter;\
+  filter.set_cut_frequencies(20, 100);\
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().first, 20);\
+  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().second, 100);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_##i##_frequency_range_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandStopCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(0, 100), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_##i##_frequency_range2_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandStopCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_cut_frequencies(100, 0), std::out_of_range);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_##i##_order_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandStopCoefficients<type> > filter;\
+  filter.set_order(3);\
+  BOOST_CHECK_EQUAL(filter.get_order(), 3);\
+}\
+\
+BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_##i##_order_range_test )\
+{\
+  ATK::IIRFilter<ATK::BesselBandStopCoefficients<type> > filter;\
+  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);\
+}\
 
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_order_all_test )
-{
-  ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
-
-  for(unsigned int order = 1; order < 14; ++order)
-  {
-    filter.set_order(order);
-  }
-  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
-  BOOST_CHECK_THROW(filter.set_order(14), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_frequency_test )
-{
-  ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
-  filter.set_cut_frequency(20);
-  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_frequency_range_test )
-{
-  ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_order_test )
-{
-  ATK::IIRFilter<ATK::BesselLowPassCoefficients<double> > filter;
-  filter.set_order(3);
-  BOOST_CHECK_EQUAL(filter.get_order(), 3);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_frequency_test )
-{
-  ATK::IIRFilter<ATK::BesselHighPassCoefficients<double> > filter;
-  filter.set_cut_frequency(20);
-  BOOST_CHECK_EQUAL(filter.get_cut_frequency(), 20);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_frequency_range_test )
-{
-  ATK::IIRFilter<ATK::BesselHighPassCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_cut_frequency(0), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_order_test )
-{
-  ATK::IIRFilter<ATK::BesselHighPassCoefficients<double> > filter;
-  filter.set_order(3);
-  BOOST_CHECK_EQUAL(filter.get_order(), 3);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselHighPassCoefficients_order_range_test )
-{
-  ATK::IIRFilter<ATK::BesselHighPassCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_frequency_test )
-{
-  ATK::IIRFilter<ATK::BesselBandPassCoefficients<double> > filter;
-  filter.set_cut_frequencies(20, 100);
-  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().first, 20);
-  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().second, 100);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_frequency_range_test )
-{
-  ATK::IIRFilter<ATK::BesselBandPassCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_cut_frequencies(0, 100), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_frequency_range2_test )
-{
-  ATK::IIRFilter<ATK::BesselBandPassCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_cut_frequencies(100, 0), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_order_test )
-{
-  ATK::IIRFilter<ATK::BesselBandPassCoefficients<double> > filter;
-  filter.set_order(3);
-  BOOST_CHECK_EQUAL(filter.get_order(), 3);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandPassCoefficients_order_range_test )
-{
-  ATK::IIRFilter<ATK::BesselBandPassCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_frequency_test )
-{
-  ATK::IIRFilter<ATK::BesselBandStopCoefficients<double> > filter;
-  filter.set_cut_frequencies(20, 100);
-  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().first, 20);
-  BOOST_CHECK_EQUAL(filter.get_cut_frequencies().second, 100);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_frequency_range_test )
-{
-  ATK::IIRFilter<ATK::BesselBandStopCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_cut_frequencies(0, 100), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_frequency_range2_test )
-{
-  ATK::IIRFilter<ATK::BesselBandStopCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_cut_frequencies(100, 0), std::out_of_range);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_order_test )
-{
-  ATK::IIRFilter<ATK::BesselBandStopCoefficients<double> > filter;
-  filter.set_order(3);
-  BOOST_CHECK_EQUAL(filter.get_order(), 3);
-}
-
-BOOST_AUTO_TEST_CASE( IIRFilter_BesselBandStopCoefficients_order_range_test )
-{
-  ATK::IIRFilter<ATK::BesselBandStopCoefficients<double> > filter;
-  BOOST_CHECK_THROW(filter.set_order(0), std::out_of_range);
-}
+check_type(0, float)
+check_type(1, double)
+check_type(2, std::complex<float>)
+check_type(3, std::complex<double>)
 
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_1k_test )
 {

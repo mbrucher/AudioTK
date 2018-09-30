@@ -58,8 +58,8 @@ namespace ATK
   template<typename DataType_>
   void PanFilter<DataType_>::process_impl(gsl::index size) const
   {
-    double left_coeff;
-    double right_coeff;
+    double left_coeff = 1;
+    double right_coeff = 1;
     
     switch(law)
     {
@@ -87,9 +87,6 @@ namespace ATK
       left_coeff = pan < 0 ? 1 : 1 - pan;
       right_coeff = pan > 0 ? 1 : 1 + pan;
       break;
-    default:
-      left_coeff = 1;
-      right_coeff = 1;
     }
     
     assert(2 * nb_input_ports == nb_output_ports);
