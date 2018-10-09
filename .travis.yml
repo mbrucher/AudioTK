@@ -317,7 +317,7 @@ matrix:
     - BUILD_TYPE=Release
   allow_failures:
   - compiler: gcc-8
-  - BUILD_TYPE=Debug
+  - env: BUILD_TYPE=Debug
 
 before_install:
   - ls /usr/lib/clang/ | echo 0
