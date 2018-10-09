@@ -173,8 +173,10 @@ namespace ATK
     return impl->get_w();
   }
 
-  template class RLSFilter<float>;
   template class RLSFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
+  template class RLSFilter<float>;
   template class RLSFilter<std::complex<float>>;
   template class RLSFilter<std::complex<double>>;
+#endif
 }

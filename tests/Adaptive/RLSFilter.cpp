@@ -24,39 +24,39 @@ const size_t PROCESSSIZE = 1024 * 64;
 
 BOOST_AUTO_TEST_CASE(RLSFilter_size_negative_test)
 {
-  ATK::RLSFilter<float> filter(100);
+  ATK::RLSFilter<double> filter(100);
   BOOST_CHECK_THROW(filter.set_size(0), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_size_set_test)
 {
-  ATK::RLSFilter<float> filter(100);
+  ATK::RLSFilter<double> filter(100);
   filter.set_size(10);
   BOOST_CHECK_EQUAL(filter.get_size(), 10);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_memory_negative_test)
 {
-  ATK::RLSFilter<float> filter(100);
+  ATK::RLSFilter<double> filter(100);
   BOOST_CHECK_THROW(filter.set_memory(0), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_memory_test)
 {
-  ATK::RLSFilter<float> filter(100);
+  ATK::RLSFilter<double> filter(100);
   filter.set_memory(0.5);
   BOOST_CHECK_EQUAL(filter.get_memory(), 0.5);
 }
 
 BOOST_AUTO_TEST_CASE( RLSFilter_memory_positive1_test )
 {
-  ATK::RLSFilter<float> filter(100);
+  ATK::RLSFilter<double> filter(100);
   BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_learning_set_test)
 {
-  ATK::RLSFilter<float> filter(100);
+  ATK::RLSFilter<double> filter(100);
   BOOST_CHECK_EQUAL(filter.get_learning(), true);
   filter.set_learning(false);
   BOOST_CHECK_EQUAL(filter.get_learning(), false);
@@ -64,18 +64,18 @@ BOOST_AUTO_TEST_CASE(RLSFilter_learning_set_test)
 
 BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
 {
-  ATK::SimpleSinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::RLSFilter<float> filter(10);
+  ATK::RLSFilter<double> filter(10);
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   filter.set_memory(.99);
   filter.set_learning(false);
   
-  ATK::TriangleCheckerFilter<float> checker;
+  ATK::TriangleCheckerFilter<double> checker;
   checker.set_input_sampling_rate(48000);
   checker.set_amplitude(0);
   checker.set_frequency(1000);
@@ -88,30 +88,30 @@ BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
 
 BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )
 {
-  ATK::SimpleSinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
 
-  ATK::SimpleSinusGeneratorFilter<float> reference;
+  ATK::SimpleSinusGeneratorFilter<double> reference;
   reference.set_output_sampling_rate(48000);
   reference.set_amplitude(-1);
   reference.set_frequency(1000);
 
-  ATK::RLSFilter<float> filter(1);
+  ATK::RLSFilter<double> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   filter.set_memory(.99);
   filter.set_learning(false);
-  Eigen::Matrix<float, Eigen::Dynamic, 1> w(1);
+  Eigen::Matrix<double, Eigen::Dynamic, 1> w(1);
   w << 1;
   filter.set_w(w.data());
 
-  ATK::SumFilter<float> sum;
+  ATK::SumFilter<double> sum;
   sum.set_input_sampling_rate(48000);
   sum.set_output_sampling_rate(48000);
   
-  ATK::TriangleCheckerFilter<float> checker;
+  ATK::TriangleCheckerFilter<double> checker;
   checker.set_input_sampling_rate(48000);
   checker.set_amplitude(0);
   checker.set_frequency(1000);
@@ -127,28 +127,28 @@ BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )
 
 BOOST_AUTO_TEST_CASE( RLSFilter_learning_test )
 {
-  ATK::SimpleSinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
   
-  ATK::SimpleSinusGeneratorFilter<float> reference;
+  ATK::SimpleSinusGeneratorFilter<double> reference;
   reference.set_output_sampling_rate(48000);
   reference.set_amplitude(-1);
   reference.set_frequency(1000);
   
-  ATK::RLSFilter<float> filter(10);
+  ATK::RLSFilter<double> filter(10);
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   filter.set_memory(0.9999);
   filter.set_learning(true);
   
-  ATK::SumFilter<float> sum;
+  ATK::SumFilter<double> sum;
   sum.set_input_sampling_rate(48000);
   sum.set_output_sampling_rate(48000);
   
-  std::array<float, PROCESSSIZE> outdata;
-  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
+  std::array<double, PROCESSSIZE> outdata;
+  ATK::OutPointerFilter<double> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
   
   filter.set_input_port(0, &generator, 0);
@@ -160,34 +160,34 @@ BOOST_AUTO_TEST_CASE( RLSFilter_learning_test )
   
   for(std::int64_t i = 100; i < PROCESSSIZE; ++i) // let the RLS filter start learning first
   {
-    BOOST_REQUIRE_SMALL(std::abs(outdata[i]), 0.1f);
+    BOOST_REQUIRE_SMALL(std::abs(outdata[i]), 0.1);
   }
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_learning_training_test)
 {
-  ATK::SimpleSinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(1);
   generator.set_frequency(1000);
 
-  ATK::SimpleSinusGeneratorFilter<float> reference;
+  ATK::SimpleSinusGeneratorFilter<double> reference;
   reference.set_output_sampling_rate(48000);
   reference.set_amplitude(-1);
   reference.set_frequency(1000);
 
-  ATK::RLSFilter<float> filter(10);
+  ATK::RLSFilter<double> filter(10);
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   filter.set_memory(0.9999);
   filter.set_learning(true);
 
-  ATK::SumFilter<float> sum;
+  ATK::SumFilter<double> sum;
   sum.set_input_sampling_rate(48000);
   sum.set_output_sampling_rate(48000);
 
-  std::array<float, PROCESSSIZE> outdata;
-  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
+  std::array<double, PROCESSSIZE> outdata;
+  ATK::OutPointerFilter<double> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
 
   filter.set_input_port(0, &generator, 0);
@@ -201,7 +201,7 @@ BOOST_AUTO_TEST_CASE(RLSFilter_learning_training_test)
 
   for (std::int64_t i = 100; i < PROCESSSIZE; ++i) // let the RLS filter start learning first
   {
-    BOOST_REQUIRE_SMALL(std::abs(outdata[i]), 0.1f);
+    BOOST_REQUIRE_SMALL(std::abs(outdata[i]), 0.1);
   }
 
 }

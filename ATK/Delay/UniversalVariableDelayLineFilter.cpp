@@ -148,6 +148,8 @@ namespace ATK
     }
   }
   
-  template class UniversalVariableDelayLineFilter<float>;
   template class UniversalVariableDelayLineFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
+  template class UniversalVariableDelayLineFilter<float>;
+#endif
 }

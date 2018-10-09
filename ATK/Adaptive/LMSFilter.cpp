@@ -205,8 +205,10 @@ namespace ATK
     return learning;
   }
 
-  template class LMSFilter<float>;
   template class LMSFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
+  template class LMSFilter<float>;
   template class LMSFilter<std::complex<float>>;
   template class LMSFilter<std::complex<double>>;
+#endif
 }

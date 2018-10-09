@@ -236,5 +236,7 @@ namespace ATK
   }
 
   template class BlockLMSFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
   template class BlockLMSFilter<std::complex<double>>;
+#endif
 }
