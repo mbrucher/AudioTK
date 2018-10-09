@@ -13,6 +13,8 @@ notifications:
 git:
   depth: 500
 
+env:
+
 matrix:
   include:
   - compiler: gcc-8
