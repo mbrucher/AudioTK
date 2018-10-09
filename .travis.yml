@@ -13,8 +13,6 @@ notifications:
 git:
   depth: 500
 
-env:
-
 matrix:
   include:
   - compiler: gcc-8
@@ -319,7 +317,8 @@ matrix:
     - BUILD_TYPE=Release
   allow_failures:
   - compiler: gcc-8
-  - env: BUILD_TYPE=Debug
+  - compiler: clang-6.0
+    env: BUILD_TYPE=Debug
 
 before_install:
   - ls /usr/lib/clang/ | echo 0
