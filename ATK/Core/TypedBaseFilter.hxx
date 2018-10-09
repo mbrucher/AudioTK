@@ -7,22 +7,13 @@
 
 #include <complex>
 #include <cstdint>
-#include <iostream>
 #include <type_traits>
 
 #include <boost/mpl/contains.hpp>
-#include <boost/mpl/distance.hpp>
 #include <boost/mpl/empty.hpp>
-#include <boost/mpl/find.hpp>
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/vector.hpp>
-#include <boost/type_traits.hpp>
-#include <boost/utility/enable_if.hpp>
-
-#if USE_SIMD
-#include <simdpp/simd.h>
-#endif
 
 namespace ATK
 {
