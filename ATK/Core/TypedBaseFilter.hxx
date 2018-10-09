@@ -38,14 +38,14 @@ namespace Utilities
   }
 
   template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
+  typename boost::disable_if<typename std::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
   convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
   }
 
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
+  typename boost::enable_if<typename std::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
     convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
     if(type != 0)
@@ -61,26 +61,25 @@ namespace Utilities
   }
 
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
+  void convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
-    throw RuntimeError("Can't convert types");
-  }
-
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    assert(type >= 0);
-    if (type != 0)
+    if constexpr(boost::mpl::empty<Vector>::value)
     {
-      convert_complex_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+      throw RuntimeError("Can't convert types");
     }
     else
     {
-      typedef typename boost::mpl::front<Vector>::type InputOriginalType;
-      InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
-      ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
+      assert(type >= 0);
+      if (type != 0)
+      {
+        convert_complex_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+      }
+      else
+      {
+        typedef typename boost::mpl::front<Vector>::type InputOriginalType;
+        InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
+        ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
+      }
     }
   }
 
@@ -109,15 +108,16 @@ namespace Utilities
   }
 
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, int>::type get_type()
+  int get_type()
   {
-    return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType>::type >::value;
-  }
-
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, int>::type get_type()
-  {
-    return -1;
+    if constexpr(boost::mpl::contains<Vector, DataType>::value)
+    {
+      return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType>::type >::value;
+    }
+    else
+    {
+      return -1;
+    }
   }
 }
 
