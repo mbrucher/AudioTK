@@ -318,7 +318,6 @@ matrix:
   allow_failures:
   - compiler: gcc-8
   - compiler: clang-6.0
-    env: MY_NAME=ASAN
 
 before_install:
   - ls /usr/lib/clang/ | echo 0
