@@ -83,28 +83,24 @@ namespace Utilities
     }
   }
 
-  /// Conversion function for arithmetic types
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
+  void convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
-    convert_scalar_array<Vector, DataType>(filter, port, converted_input, size, type);
-  }
-
-  /// Conversion function for other types not contained in ConversionTypes (no conversion in that case, just copy)
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    assert(dynamic_cast<ATK::OutputArrayInterface<DataType>*>(filter));
-     // For SIMD, you shouldn't call this, but adapt input/output delays so that there is no copy from one filter to another.
-    DataType* original_input_array = dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
-    ATK::ConversionUtilities<DataType, DataType>::convert_array(original_input_array, converted_input, size);
-  }
-
-  /// Conversion function for std::complex contained in ConversionTypes
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    convert_complex_array<Vector, DataType>(filter, port, converted_input, size, type);
+    if constexpr(std::is_arithmetic<DataType>::value)
+    {
+      convert_scalar_array<Vector, DataType>(filter, port, converted_input, size, type);
+    }
+    else if constexpr(boost::mpl::contains<Vector, DataType>::value)
+    {
+      convert_complex_array<Vector, DataType>(filter, port, converted_input, size, type);
+    }
+    else
+    {
+      assert(dynamic_cast<ATK::OutputArrayInterface<DataType>*>(filter));
+      // For SIMD, you shouldn't call this, but adapt input/output delays so that there is no copy from one filter to another.
+      DataType* original_input_array = dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
+      ATK::ConversionUtilities<DataType, DataType>::convert_array(original_input_array, converted_input, size);
+    }
   }
 
   template<typename Vector, typename DataType>
