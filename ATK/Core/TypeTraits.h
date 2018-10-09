@@ -12,11 +12,8 @@
 #include <limits>
 #include <type_traits>
 
-#include <boost/mpl/if.hpp>
-#include <boost/utility/enable_if.hpp>
-
 #if ATK_USE_SIMD
-#include <simdpp/simd.h>
+#include <experimental/simd>
 #endif
 
 namespace ATK

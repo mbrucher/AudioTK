@@ -14,6 +14,7 @@ option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_PYTHON "Enable Python support" ON)
 option(ENABLE_THREADS "Enable thread pool support" OFF)
+option(ENABLE_SIMD "Enable SIMD support through libsimdpp" OFF)
 option(ENABLE_GPL "Enable GPL library support like FFTW and LIBSNDFILE" OFF)
 option(ENABLE_CODECOVERAGE "Generate code coverage data" OFF)
 option(ENABLE_ADDRESS_SANITIZER "Activate address sanitizer support" OFF)
@@ -21,6 +22,7 @@ option(BUILD_DOC "Build Doxygen documentation" OFF)
 option(DISABLE_EIGEN_WARNINGS "Removes lots of Eigen warnings" OFF)
 option(DISABLE_PYTHON_TESTS "Don't test Python modules" OFF) #Use this for CI
 
+message(STATUS " Build SIMD: ${ENABLE_SIMD}")
 message(STATUS " Build shared libraries: ${ENABLE_SHARED_LIBRARIES}")
 message(STATUS " Build static libraries: ${ENABLE_STATIC_LIBRARIES}")
 message(STATUS " Build tests: ${ENABLE_TESTS}")
@@ -36,6 +38,12 @@ endif(ENABLE_PYTHON)
 
 include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/eigen)
 include_directories(SYSTEM ${CMAKE_SOURCE_DIR}/3rdParty/gsl/include)
+
+if(ENABLE_SIMD)
+  SET(USE_SIMD 0)
+else(ENABLE_SIMD)
+  SET(USE_SIMD 0)
+endif(ENABLE_SIMD)
 
 if(ENABLE_TESTS)
  if(NOT ENABLE_SHARED_LIBRARIES)
