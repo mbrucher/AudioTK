@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_line16000_delaysinu
 
 BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_cachedgenerator_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -78,7 +78,7 @@ BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_cachedgenerator_tes
   generator.set_volume((1e-3)*48000);
   generator.set_offset((1.5e-3)*48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::UniversalVariableDelayLineFilter<double> filter(128);
   filter.set_input_sampling_rate(48000);
