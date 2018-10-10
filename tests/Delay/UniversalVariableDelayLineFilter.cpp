@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_line16000_delaysinu
 
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_CLOSE(ref[i], outdata[i], 0.002);
+    BOOST_REQUIRE_CLOSE(ref[i], outdata[i], 0.01);
   }
 }
 
