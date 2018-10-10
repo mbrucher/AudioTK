@@ -4,30 +4,9 @@ FILE(GLOB
     *.cpp
 )
 
-SET(ATK_TOOLS_SIMD_SRC
-    SIMD/ApplyGainFilter.cpp
-    SIMD/DecimationFilter.cpp
-    SIMD/DryWetFilter.cpp
-    SIMD/MaxFilter.cpp
-    SIMD/MSFilter.cpp
-    SIMD/OffsetVolumeFilter.cpp
-    SIMD/OneMinusFilter.cpp
-    SIMD/OversamplingFilter.cpp
-    SIMD/SumFilter.cpp
-    SIMD/VolumeFilter.cpp
-
-    SIMD/BroadcastFilter.cpp
-    SIMD/ReduceFilter.cpp
-)
-
 FILE(GLOB
     ATK_TOOLS_HEADERS
     *.h*
-)
-
-FILE(GLOB
-    ATK_TOOLS_SIMD_HEADERS
-    SIMD/*.h*
 )
 
 SET(ATK_TOOLS_DEFINITIONS)

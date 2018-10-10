@@ -4,24 +4,9 @@ FILE(GLOB
     *.cpp
 )
 
-SET(ATK_CORE_SIMD_SRC
-    SIMD/ComplexConvertFilter.cpp
-    SIMD/InPointerFilter.cpp
-    SIMD/OctonionConvertFilter.cpp
-    SIMD/OutPointerFilter.cpp
-    SIMD/QuaternionConvertFilter.cpp
-    SIMD/TypedBaseFilter.cpp
-    SIMD/Utilities.cpp
-)
-
 FILE(GLOB
     ATK_CORE_HEADERS
     *.h*
-)
-
-FILE(GLOB
-    ATK_CORE_SIMD_HEADERS
-    SIMD/*.h*
 )
 
 SET(ATK_CORE_DEFINITIONS)

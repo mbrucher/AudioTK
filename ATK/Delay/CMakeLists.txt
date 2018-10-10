@@ -9,17 +9,6 @@ FILE(GLOB
   *.h*
 )
 
-SET(
-  ATK_DELAY_SIMD_SRC
-  SIMD/FixedDelayLineFilter.cpp
-  SIMD/UniversalFixedDelayLineFilter.cpp
-)
-
-FILE(GLOB
-  ATK_DELAY_SIMD_HEADERS
-  SIMD/*.h*
-)
-
 SET(ATK_DELAY_DEFINITIONS)
 SET(ATK_DELAY_INCLUDE)
 SET(ATK_DELAY_LIBRARIES ATKCore)
