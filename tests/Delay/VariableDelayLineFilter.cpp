@@ -19,12 +19,12 @@
 
 BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
-  std::array<double, PROCESSSIZE> datadelay;
+  std::vector<double> datadelay(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     datadelay[i] = i * .25f;
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
   ATK::InPointerFilter<double> generatordelay(datadelay.data(), 1, PROCESSSIZE, false);
   generatordelay.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::VariableDelayLineFilter<double> filter(20000);
   filter.set_input_sampling_rate(48000);

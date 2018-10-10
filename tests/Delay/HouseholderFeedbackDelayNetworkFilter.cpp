@@ -28,7 +28,7 @@ const std::size_t PROCESSSIZE = 1024*64;
 
 BOOST_AUTO_TEST_CASE( HouseholderFeedbackDelayNetworkFilter_sinus_linel100_delay50_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -37,8 +37,8 @@ BOOST_AUTO_TEST_CASE( HouseholderFeedbackDelayNetworkFilter_sinus_linel100_delay
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
-  std::array<double, PROCESSSIZE> outdata;
-  
+  std::vector<double> outdata(PROCESSSIZE);
+
   ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
@@ -128,7 +128,7 @@ BOOST_AUTO_TEST_CASE(HouseholderFeedbackDelayNetworkFilter_sinus_line1000_delay5
 
 BOOST_AUTO_TEST_CASE( HouseholderFeedbackDelayNetworkFilter_sinus_liner100_delay50_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -137,8 +137,8 @@ BOOST_AUTO_TEST_CASE( HouseholderFeedbackDelayNetworkFilter_sinus_liner100_delay
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
   
-  std::array<double, PROCESSSIZE> outdata;
-  
+  std::vector<double> outdata(PROCESSSIZE);
+
   ATK::FeedbackDelayNetworkFilter<ATK::HouseholderMixture<double, 2>> filter(100);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
@@ -230,7 +230,7 @@ const std::size_t OTHERPROCESSSIZE = 9600;
 
 BOOST_AUTO_TEST_CASE(HouseholderFeedbackDelayNetworkFilter_sinus_complex_test)
 {
-  std::array<double, OTHERPROCESSSIZE> data;
+  std::vector<double> data(OTHERPROCESSSIZE);
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/input_hadamard.dat", std::ios::binary);
     input.read(reinterpret_cast<char*>(data.data()), OTHERPROCESSSIZE * sizeof(double));
@@ -261,7 +261,7 @@ BOOST_AUTO_TEST_CASE(HouseholderFeedbackDelayNetworkFilter_sinus_complex_test)
 
   filter.process(OTHERPROCESSSIZE);
 
-  std::array<double, OTHERPROCESSSIZE> outdata;
+  std::vector<double> outdata(OTHERPROCESSSIZE);
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_householder.dat", std::ios::binary);
     input.read(reinterpret_cast<char*>(outdata.data()), OTHERPROCESSSIZE * sizeof(double));

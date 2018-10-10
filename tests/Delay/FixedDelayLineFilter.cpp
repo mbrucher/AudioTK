@@ -36,7 +36,7 @@ BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_line100_delay_100_test )
 
 BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_sinus_line100_delay50_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_sinus_line100_delay50_test )
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::FixedDelayLineFilter<double> filter(100);
   filter.set_input_sampling_rate(48000);
