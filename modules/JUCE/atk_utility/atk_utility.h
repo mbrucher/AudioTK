@@ -20,7 +20,7 @@
 
   ID:               atk_utility
   vendor:           Matthieu Brucher
-  version:          3.0.0
+  version:          3.1.0
   name:             ATK utilities
   description:      Utility classes for ATK
   website:          http://www.audio-tk.com/
