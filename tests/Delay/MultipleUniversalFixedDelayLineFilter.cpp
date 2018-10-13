@@ -25,7 +25,7 @@
 
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel100_delay50_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -34,7 +34,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel100_delay50
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(100);
   filter.set_input_sampling_rate(48000);
@@ -125,7 +125,7 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_line1000_delay50_
 
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_blend_1_feedforward_1_feedback_0_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -134,7 +134,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(25);
   filter.set_input_sampling_rate(48000);
@@ -162,7 +162,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
 
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_blend_0_feedforward_0_feedback_1_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -171,7 +171,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(25);
   filter.set_input_sampling_rate(48000);
@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
 
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner100_delay50_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -208,7 +208,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner100_delay50
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(100);
   filter.set_input_sampling_rate(48000);
@@ -299,7 +299,7 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_liner1000_delay50
 
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_blend_1_feedforward_1_feedback_0_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -308,7 +308,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(25);
   filter.set_input_sampling_rate(48000);
@@ -336,7 +336,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
 
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_blend_0_feedforward_0_feedback_1_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
@@ -345,7 +345,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::MultipleUniversalFixedDelayLineFilter<double, 2> filter(25);
   filter.set_input_sampling_rate(48000);
@@ -375,12 +375,12 @@ const int OTHERPROCESSSIZE = 9600;
 
 BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_lr_complex_test)
 {
-  std::array<double, OTHERPROCESSSIZE> datal;
+  std::vector<double> datal(OTHERPROCESSSIZE);
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/input_lstereo.dat", std::ios::binary);
     input.read(reinterpret_cast<char*>(datal.data()), OTHERPROCESSSIZE * sizeof(double));
   }
-  std::array<double, OTHERPROCESSSIZE> datar;
+  std::vector<double> datar(OTHERPROCESSSIZE);
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/input_rstereo.dat", std::ios::binary);
     input.read(reinterpret_cast<char*>(datar.data()), OTHERPROCESSSIZE * sizeof(double));
@@ -410,12 +410,12 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_lr_complex_test)
 
   filter.process(OTHERPROCESSSIZE);
 
-  std::array<double, OTHERPROCESSSIZE> outdatal;
+  std::vector<double> outdatal(OTHERPROCESSSIZE);
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_lstereo.dat", std::ios::binary);
     input.read(reinterpret_cast<char*>(outdatal.data()), OTHERPROCESSSIZE * sizeof(double));
   }
-  std::array<double, OTHERPROCESSSIZE> outdatar;
+  std::vector<double> outdatar(OTHERPROCESSSIZE);
   {
     std::ifstream input(ATK_SOURCE_TREE "/tests/data/output_rstereo.dat", std::ios::binary);
     input.read(reinterpret_cast<char*>(outdatar.data()), OTHERPROCESSSIZE * sizeof(double));
