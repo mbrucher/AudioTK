@@ -20,7 +20,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-const size_t PROCESSSIZE = 1024 * 64;
+constexpr gsl::index PROCESSSIZE = 1024 * 64;
 
 BOOST_AUTO_TEST_CASE(RLSFilter_size_negative_test)
 {

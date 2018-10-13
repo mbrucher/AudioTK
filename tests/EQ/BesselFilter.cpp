@@ -13,7 +13,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1024*64;
+constexpr gsl::index PROCESSSIZE = 1024*64;
 
 #define check_type(i, type) \
 BOOST_AUTO_TEST_CASE( IIRFilter_BesselLowPassCoefficients_##i##_order_all_test )\

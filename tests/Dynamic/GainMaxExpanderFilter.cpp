@@ -15,7 +15,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-const size_t PROCESSSIZE = 64;
+constexpr gsl::index PROCESSSIZE = 64;
 
 BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_softness_test )
 {

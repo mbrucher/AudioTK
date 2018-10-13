@@ -11,7 +11,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 64;
+constexpr gsl::index PROCESSSIZE = 64;
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_memory_test )
 {

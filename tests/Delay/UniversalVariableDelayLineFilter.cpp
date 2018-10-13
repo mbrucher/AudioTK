@@ -2,8 +2,6 @@
  * \ file UniversalVariableDelayLineFilter.cpp
  */
 
-#include <iostream>
-
 #include <ATK/Delay/UniversalVariableDelayLineFilter.h>
 
 #include <ATK/Core/InPointerFilter.h>

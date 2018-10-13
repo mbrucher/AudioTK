@@ -13,7 +13,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-const size_t PROCESSSIZE = 1024*64;
+constexpr gsl::index PROCESSSIZE = 1024*64;
 
 BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_attack_test )
 {

@@ -26,7 +26,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1000;
+constexpr gsl::index PROCESSSIZE = 1000;
 
 BOOST_AUTO_TEST_CASE( SD1OverdriveFilter_sinus_drive_test )
 {

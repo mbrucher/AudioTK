@@ -16,10 +16,10 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1000;
-const size_t SAMPLING_RATE = 2*1024*1024;
-const size_t freq = 1024;
-const size_t offset = SAMPLING_RATE / (4 * freq);
+constexpr gsl::index PROCESSSIZE = 1000;
+constexpr gsl::index SAMPLING_RATE = 2*1024*1024;
+constexpr gsl::index freq = 1024;
+constexpr gsl::index offset = SAMPLING_RATE / (4 * freq);
 
 BOOST_AUTO_TEST_CASE( DerivativeFilter_const_sin1k )
 {

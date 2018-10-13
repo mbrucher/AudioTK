@@ -54,9 +54,9 @@ namespace fmath {
   
   namespace local {
     
-    const size_t EXP_TABLE_SIZE = 10;
-    const size_t EXPD_TABLE_SIZE = 11;
-    const size_t LOG_TABLE_SIZE = 12;
+    constexpr size_t EXP_TABLE_SIZE = 10;
+    constexpr size_t EXPD_TABLE_SIZE = 11;
+    constexpr size_t LOG_TABLE_SIZE = 12;
     
     union fi {
       float f;
@@ -185,7 +185,7 @@ namespace fmath {
       {
         const double e = 1 / double(1 << 24);
         const double h = 1 / double(1 << LEN);
-        const size_t n = 1U << LEN;
+        constexpr size_t n = 1U << LEN;
         for (size_t i = 0; i < n; i++) {
           double x = 1 + double(i) / n;
           double a = ::log(x);
@@ -260,7 +260,7 @@ namespace fmath {
   inline float log(float x)
   {
     const auto& logVar = local::C<>::logVar;
-    const size_t logLen = logVar.LEN;
+    constexpr size_t logLen = logVar.LEN;
     
     local::fi fi;
     fi.f = x;
@@ -317,7 +317,7 @@ namespace fmath {
       }
       const double e = 1 / double(1 << 24);
       const double h = 1 / double(1 << N);
-      const size_t n = 1U << N;
+      constexpr size_t n = 1U << N;
       for (size_t i = 0; i < n; i++) {
         double x = 1 + double(i) / n;
         double a = ::pow(x, (double)y);
