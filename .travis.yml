@@ -30,6 +30,7 @@ matrix:
         - libatlas-base-dev
         - lcov
         - curl
+        - gcov
       sonarcloud:
         organization: "mbrucher-github"
     env:
@@ -207,6 +208,8 @@ matrix:
         - libsndfile-dev
         - swig
         - libatlas-base-dev
+        - lcov
+        - curl
     env:
     - MY_NAME=LLVM coverage
     - COMPILER=clang++-6.0
