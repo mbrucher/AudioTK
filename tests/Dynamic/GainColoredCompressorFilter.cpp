@@ -199,7 +199,7 @@ BOOST_AUTO_TEST_CASE(GainColoredCompressorFilter_always_more_1_test)
 
   for (ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_GE(outdata[i], 1 - std::numeric_limits<float>::epsilon());
+    BOOST_REQUIRE_GE(outdata[i], 1 - 10 * std::numeric_limits<float>::epsilon());
   }
 }
 
@@ -231,6 +231,6 @@ BOOST_AUTO_TEST_CASE(GainColoredCompressorFilter_always_less_1_test)
 
   for (ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_LE(outdata[i], 1 + std::numeric_limits<float>::epsilon());
+    BOOST_REQUIRE_LE(outdata[i], 1 + 10 * std::numeric_limits<float>::epsilon());
   }
 }
