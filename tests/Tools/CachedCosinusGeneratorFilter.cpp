@@ -46,21 +46,21 @@ BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_frequency_range_test )
 
 BOOST_AUTO_TEST_CASE( CachedCosinusGeneratorFilter_1k_test )
 {
-  ATK::SimpleSinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_input_sampling_rate(48000);
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(-1);
   generator.set_frequency(1000);
   
-  ATK::CachedCosinusGeneratorFilter<float> filter(10000, 10);
+  ATK::CachedCosinusGeneratorFilter<double> filter(10000, 10);
   filter.set_input_sampling_rate(48000);
   filter.set_output_sampling_rate(48000);
   
-  ATK::SumFilter<float> sumfilter;
+  ATK::SumFilter<double> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
   sumfilter.set_output_sampling_rate(48000);
   
-  ATK::TriangleCheckerFilter<float> checker;
+  ATK::TriangleCheckerFilter<double> checker;
   checker.set_input_sampling_rate(48000);
   checker.set_output_sampling_rate(48000);
   checker.set_amplitude(0);

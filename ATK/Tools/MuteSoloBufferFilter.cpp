@@ -82,11 +82,13 @@ namespace ATK
     throw std::runtime_error("Can't change number of ports in this filter");
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class MuteSoloBufferFilter<std::int16_t>;
   template class MuteSoloBufferFilter<std::int32_t>;
   template class MuteSoloBufferFilter<std::int64_t>;
   template class MuteSoloBufferFilter<float>;
-  template class MuteSoloBufferFilter<double>;
   template class MuteSoloBufferFilter<std::complex<float>>;
   template class MuteSoloBufferFilter<std::complex<double>>;
+#endif
+  template class MuteSoloBufferFilter<double>;
 }

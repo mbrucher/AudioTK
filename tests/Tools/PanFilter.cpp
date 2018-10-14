@@ -22,33 +22,24 @@ BOOST_AUTO_TEST_CASE( PanFilter_pan_set_test )
   BOOST_CHECK_EQUAL(panfilter.get_pan(), 0.5);
 }
 
-#define check_pan(i, type)\
-BOOST_AUTO_TEST_CASE( PanFilter_##i##_pan_range_test )\
-{\
-  ATK::PanFilter<type> panfilter;\
-  BOOST_CHECK_THROW(panfilter.set_pan(-1.00001), std::out_of_range);\
-}\
-\
-BOOST_AUTO_TEST_CASE( PanFilter_##i##_pan_range2_test )\
-{\
-  ATK::PanFilter<type> panfilter;\
-  BOOST_CHECK_THROW(panfilter.set_pan(1.00001), std::out_of_range);\
-}\
-\
-BOOST_AUTO_TEST_CASE( PanFilter_##i##_panlaw_set_test )\
-{\
-  ATK::PanFilter<type> panfilter;\
-  panfilter.set_pan_law(ATK::PanFilter<type>::PAN_LAWS::BALANCE);\
-  BOOST_CHECK(panfilter.get_pan_law() == ATK::PanFilter<type>::PAN_LAWS::BALANCE);\
+BOOST_AUTO_TEST_CASE( PanFilter_pan_range_test )
+{
+  ATK::PanFilter<double> panfilter;
+  BOOST_CHECK_THROW(panfilter.set_pan(-1.00001), std::out_of_range);
 }
 
-check_pan(0, int16_t)
-check_pan(1, int32_t)
-check_pan(2, int64_t)
-check_pan(3, float)
-check_pan(4, double)
-check_pan(5, std::complex<float>)
-check_pan(6, std::complex<double>)
+BOOST_AUTO_TEST_CASE( PanFilter_pan_range2_test )
+{
+  ATK::PanFilter<double> panfilter;
+  BOOST_CHECK_THROW(panfilter.set_pan(1.00001), std::out_of_range);
+}
+
+BOOST_AUTO_TEST_CASE( PanFilter_panlaw_set_test )
+{
+  ATK::PanFilter<double> panfilter;
+  panfilter.set_pan_law(ATK::PanFilter<double>::PAN_LAWS::BALANCE);
+  BOOST_CHECK(panfilter.get_pan_law() == ATK::PanFilter<double>::PAN_LAWS::BALANCE);
+}
 
 BOOST_AUTO_TEST_CASE( PanFilter_center_sincos_0_left_test )
 {

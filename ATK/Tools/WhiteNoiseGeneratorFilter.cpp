@@ -56,6 +56,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class WhiteNoiseGeneratorFilter<float>;
+#endif
   template class WhiteNoiseGeneratorFilter<double>;
 }

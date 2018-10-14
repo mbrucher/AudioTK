@@ -98,6 +98,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class CachedCosinusGeneratorFilter<float>;
+#endif
   template class CachedCosinusGeneratorFilter<double>;
 }

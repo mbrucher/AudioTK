@@ -98,9 +98,11 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class CachedSinusGeneratorFilter<std::int16_t>;
   template class CachedSinusGeneratorFilter<std::int32_t>;
   template class CachedSinusGeneratorFilter<int64_t>;
   template class CachedSinusGeneratorFilter<float>;
+#endif
   template class CachedSinusGeneratorFilter<double>;
 }

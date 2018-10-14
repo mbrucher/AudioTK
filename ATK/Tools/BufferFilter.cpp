@@ -36,11 +36,13 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class BufferFilter<std::int16_t>;
   template class BufferFilter<std::int32_t>;
   template class BufferFilter<std::int64_t>;
   template class BufferFilter<float>;
-  template class BufferFilter<double>;
   template class BufferFilter<std::complex<float>>;
   template class BufferFilter<std::complex<double>>;
+#endif
+  template class BufferFilter<double>;
 }

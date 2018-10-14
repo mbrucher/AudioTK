@@ -8,8 +8,10 @@
 
 namespace ATK
 {
+#if ATK_ENABLE_INSTANTIATION
   template class OffsetVolumeFilter<float>;
-  template class OffsetVolumeFilter<double>;
   template class OffsetVolumeFilter<std::complex<float>>;
   template class OffsetVolumeFilter<std::complex<double>>;
+#endif
+  template class OffsetVolumeFilter<double>;
 }

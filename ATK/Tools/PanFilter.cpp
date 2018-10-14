@@ -104,11 +104,13 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class PanFilter<std::int16_t>;
   template class PanFilter<std::int32_t>;
   template class PanFilter<std::int64_t>;
   template class PanFilter<float>;
-  template class PanFilter<double>;
   template class PanFilter<std::complex<float>>;
   template class PanFilter<std::complex<double>>;
+#endif
+  template class PanFilter<double>;
 }
