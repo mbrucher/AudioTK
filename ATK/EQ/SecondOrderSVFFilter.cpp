@@ -300,74 +300,78 @@ namespace ATK
     m2 = 1 - gain * gain;
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class SecondOrderSVFBaseCoefficients<float>;
-  template class SecondOrderSVFBaseCoefficients<double>;
   template class SecondOrderSVFBaseCoefficients<std::complex<float> >;
   template class SecondOrderSVFBaseCoefficients<std::complex<double> >;
 
   template class SecondOrderSVFLowPassCoefficients<float>;
-  template class SecondOrderSVFLowPassCoefficients<double>;
   template class SecondOrderSVFLowPassCoefficients<std::complex<float> >;
   template class SecondOrderSVFLowPassCoefficients<std::complex<double> >;
   template class SecondOrderSVFBandPassCoefficients<float>;
-  template class SecondOrderSVFBandPassCoefficients<double>;
   template class SecondOrderSVFBandPassCoefficients<std::complex<float> >;
   template class SecondOrderSVFBandPassCoefficients<std::complex<double> >;
   template class SecondOrderSVFHighPassCoefficients<float>;
-  template class SecondOrderSVFHighPassCoefficients<double>;
   template class SecondOrderSVFHighPassCoefficients<std::complex<float> >;
   template class SecondOrderSVFHighPassCoefficients<std::complex<double> >;
   template class SecondOrderSVFNotchCoefficients<float>;
-  template class SecondOrderSVFNotchCoefficients<double>;
   template class SecondOrderSVFNotchCoefficients<std::complex<float> >;
   template class SecondOrderSVFNotchCoefficients<std::complex<double> >;
   template class SecondOrderSVFPeakCoefficients<float>;
-  template class SecondOrderSVFPeakCoefficients<double>;
   template class SecondOrderSVFPeakCoefficients<std::complex<float> >;
   template class SecondOrderSVFPeakCoefficients<std::complex<double> >;
   template class SecondOrderSVFBellCoefficients<float>;
-  template class SecondOrderSVFBellCoefficients<double>;
   template class SecondOrderSVFBellCoefficients<std::complex<float> >;
   template class SecondOrderSVFBellCoefficients<std::complex<double> >;
   template class SecondOrderSVFLowShelfCoefficients<float>;
-  template class SecondOrderSVFLowShelfCoefficients<double>;
   template class SecondOrderSVFLowShelfCoefficients<std::complex<float> >;
   template class SecondOrderSVFLowShelfCoefficients<std::complex<double> >;
   template class SecondOrderSVFHighShelfCoefficients<float>;
-  template class SecondOrderSVFHighShelfCoefficients<double>;
   template class SecondOrderSVFHighShelfCoefficients<std::complex<float> >;
   template class SecondOrderSVFHighShelfCoefficients<std::complex<double> >;
 
   template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<std::complex<double> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<float> >;
-  template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<double> >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<std::complex<float> > >;
   template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<std::complex<double> > >;
+#endif
+  template class SecondOrderSVFBaseCoefficients<double>;
+  
+  template class SecondOrderSVFLowPassCoefficients<double>;
+  template class SecondOrderSVFBandPassCoefficients<double>;
+  template class SecondOrderSVFHighPassCoefficients<double>;
+  template class SecondOrderSVFNotchCoefficients<double>;
+  template class SecondOrderSVFPeakCoefficients<double>;
+  template class SecondOrderSVFBellCoefficients<double>;
+  template class SecondOrderSVFLowShelfCoefficients<double>;
+  template class SecondOrderSVFHighShelfCoefficients<double>;
+  
+  template class SecondOrderSVFFilter<SecondOrderSVFLowPassCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFBandPassCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFHighPassCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFNotchCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFPeakCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFBellCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFLowShelfCoefficients<double> >;
+  template class SecondOrderSVFFilter<SecondOrderSVFHighShelfCoefficients<double> >;
 }

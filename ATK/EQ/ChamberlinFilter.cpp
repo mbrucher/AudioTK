@@ -84,6 +84,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class ChamberlinFilter<float>;
+#endif
   template class ChamberlinFilter<double>;
 }

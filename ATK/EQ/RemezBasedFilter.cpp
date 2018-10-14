@@ -362,5 +362,7 @@ namespace ATK
   }
   
   template class ATK_EQ_EXPORT RemezBasedCoefficients<double>;
+#if ATK_ENABLE_INSTANTIATION
   template class ATK_EQ_EXPORT RemezBasedCoefficients<std::complex<double> >;
+#endif
 }
