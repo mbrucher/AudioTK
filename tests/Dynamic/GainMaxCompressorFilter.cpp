@@ -203,6 +203,6 @@ BOOST_AUTO_TEST_CASE( GainMaxCompressorFilter_const_1_threshold_05_ratio_4_max_r
 
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_GE(outdata[i], .1);
+    BOOST_REQUIRE_GE(outdata[i], .1 - std::numeric_limits<float>::epsilon());
   }
 }

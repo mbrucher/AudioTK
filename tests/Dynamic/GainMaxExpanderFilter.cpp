@@ -203,6 +203,6 @@ BOOST_AUTO_TEST_CASE( GainMaxExpanderFilter_const_1_threshold_2_ratio_4_max_redu
 
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_GE(outdata[i], .1);
+    BOOST_REQUIRE_GE(outdata[i], .1 - std::numeric_limits<float>::epsilon());
   }
 }

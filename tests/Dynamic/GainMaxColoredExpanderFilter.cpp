@@ -251,6 +251,6 @@ BOOST_AUTO_TEST_CASE( GainMaxColoredExpanderFilter_always_less_1_test )
   
   for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
   {
-    BOOST_REQUIRE_LE(outdata[i], 1);
+    BOOST_REQUIRE_LE(outdata[i], 1 + std::numeric_limits<float>::epsilon());
   }
 }
