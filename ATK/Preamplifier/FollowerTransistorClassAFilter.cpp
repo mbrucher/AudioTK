@@ -274,6 +274,8 @@ namespace ATK
       std::move(function1), std::move(function2));
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class FollowerTransistorClassAFilter<float>;
+#endif
   template class FollowerTransistorClassAFilter<double>;
 }

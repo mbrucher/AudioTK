@@ -30,11 +30,15 @@ PYBIND11_MODULE(PythonReverberation, m)
 {
   m.doc() = "Audio ToolKit Reverberation module";
 
+#if ATK_ENABLE_INSTANTIATION
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
+#endif
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_ReverbFilter<AllPassReverbFilter<float>>(m, "FloatAllPassReverbFilter", f1);
-  populate_ReverbFilter<AllPassReverbFilter<double>>(m, "DoubleAllPassReverbFilter", f2);
   populate_ReverbFilter<LowPassReverbFilter<float>>(m, "FloatLowPassReverbFilter", f1);
+#endif
+  populate_ReverbFilter<AllPassReverbFilter<double>>(m, "DoubleAllPassReverbFilter", f2);
   populate_ReverbFilter<LowPassReverbFilter<double>>(m, "DoubleLowPassReverbFilter", f2);
 }

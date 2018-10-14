@@ -84,6 +84,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class AttackReleaseFilter<float>;
+#endif
   template class AttackReleaseFilter<double>;
 }

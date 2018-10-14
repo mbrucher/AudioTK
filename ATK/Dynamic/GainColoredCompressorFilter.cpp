@@ -81,8 +81,10 @@ namespace ATK
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio)) + additional_color;
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class GainColoredCompressorFilter<float>;
-  template class GainColoredCompressorFilter<double>;
   template class GainFilter<GainColoredCompressorFilter<float>>;
+#endif
+  template class GainColoredCompressorFilter<double>;
   template class GainFilter<GainColoredCompressorFilter<double>>;
 }

@@ -241,6 +241,8 @@ namespace ATK
       );
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class TransistorClassAFilter<float>;
+#endif
   template class TransistorClassAFilter<double>;
 }

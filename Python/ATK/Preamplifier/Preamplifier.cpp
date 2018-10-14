@@ -107,54 +107,68 @@ PYBIND11_MODULE(PythonPreamplifier, m)
 {
   m.doc() = "Audio ToolKit Preamplifier module";
 
+#if ATK_ENABLE_INSTANTIATION
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
+#endif
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_TransistorFunction<float>(m, "FloatTransistorFunction");
+#endif
   populate_TransistorFunction<double>(m, "DoubleTransistorFunction");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_FollowerTransistorClassAFilter<float>(m, "FloatFollowerTransistorClassAFilter", f1);
+#endif
   populate_FollowerTransistorClassAFilter<double>(m, "DoubleFollowerTransistorClassAFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_TransistorClassAFilter<float>(m, "FloatTransistorClassAFilter", f1);
+#endif
   populate_TransistorClassAFilter<double>(m, "DoubleTransistorClassAFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_DempwolfTriodeFunction<float>(m, "FloatDempwolfTriodeFunction");
-  populate_DempwolfTriodeFunction<double>(m, "DoubleDempwolfTriodeFunction");
   populate_EnhancedKorenTriodeFunction<float>(m, "FloatEnhancedKorenTriodeFunction");
-  populate_EnhancedKorenTriodeFunction<double>(m, "DoubleEnhancedKorenTriodeFunction");
   populate_KorenTriodeFunction<float>(m, "FloatKorenTriodeFunction");
-  populate_KorenTriodeFunction<double>(m, "DoubleKorenTriodeFunction");
   populate_LeachTriodeFunction<float>(m, "FloatLeachTriodeFunction");
-  populate_LeachTriodeFunction<double>(m, "DoubleLeachTriodeFunction");
   populate_ModifiedMunroPiazzaTriodeFunction<float>(m, "FloatModifiedMunroPiazzaTriodeFunction");
-  populate_ModifiedMunroPiazzaTriodeFunction<double>(m, "DoubleModifiedMunroPiazzaTriodeFunction");
   populate_MunroPiazzaTriodeFunction<float>(m, "FloatMunroPiazzaTriodeFunction");
+#endif
+  populate_DempwolfTriodeFunction<double>(m, "DoubleDempwolfTriodeFunction");
+  populate_EnhancedKorenTriodeFunction<double>(m, "DoubleEnhancedKorenTriodeFunction");
+  populate_KorenTriodeFunction<double>(m, "DoubleKorenTriodeFunction");
+  populate_LeachTriodeFunction<double>(m, "DoubleLeachTriodeFunction");
+  populate_ModifiedMunroPiazzaTriodeFunction<double>(m, "DoubleModifiedMunroPiazzaTriodeFunction");
   populate_MunroPiazzaTriodeFunction<double>(m, "DoubleMunroPiazzaTriodeFunction");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_Triode2Filter<float, DempwolfTriodeFunction<float>>(m, "FloatDempwolfTriode2Filter", f1);
-  populate_Triode2Filter<double, DempwolfTriodeFunction<double>>(m, "DoubleDempwolfTriode2Filter", f2);
   populate_Triode2Filter<float, KorenTriodeFunction<float>>(m, "FloatKorenTriode2Filter", f1);
-  populate_Triode2Filter<double, KorenTriodeFunction<double>>(m, "DoubleKorenTriode2Filter", f2);
   populate_Triode2Filter<float, EnhancedKorenTriodeFunction<float>>(m, "FloatEnhancedKorenTriode2Filter", f1);
-  populate_Triode2Filter<double, EnhancedKorenTriodeFunction<double>>(m, "DoubleEnhancedKorenTriode2Filter", f2);
   populate_Triode2Filter<float, LeachTriodeFunction<float>>(m, "FloatLeachTriode2Filter", f1);
-  populate_Triode2Filter<double, LeachTriodeFunction<double>>(m, "DoubleLeachTriode2Filter", f2);
   populate_Triode2Filter<float, ModifiedMunroPiazzaTriodeFunction<float>>(m, "FloatModifiedMunroPiazzaTriode2Filter", f1);
-  populate_Triode2Filter<double, ModifiedMunroPiazzaTriodeFunction<double>>(m, "DoubleModifiedMunroPiazzaTriode2Filter", f2);
   populate_Triode2Filter<float, MunroPiazzaTriodeFunction<float>>(m, "FloatMunroPiazzaTriode2Filter", f1);
+#endif
+  populate_Triode2Filter<double, DempwolfTriodeFunction<double>>(m, "DoubleDempwolfTriode2Filter", f2);
+  populate_Triode2Filter<double, KorenTriodeFunction<double>>(m, "DoubleKorenTriode2Filter", f2);
+  populate_Triode2Filter<double, EnhancedKorenTriodeFunction<double>>(m, "DoubleEnhancedKorenTriode2Filter", f2);
+  populate_Triode2Filter<double, LeachTriodeFunction<double>>(m, "DoubleLeachTriode2Filter", f2);
+  populate_Triode2Filter<double, ModifiedMunroPiazzaTriodeFunction<double>>(m, "DoubleModifiedMunroPiazzaTriode2Filter", f2);
   populate_Triode2Filter<double, MunroPiazzaTriodeFunction<double>>(m, "DoubleMunroPiazzaTriode2Filter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_TriodeFilter<float, DempwolfTriodeFunction<float>>(m, "FloatDempwolfTriodeFilter", f1);
-  populate_TriodeFilter<double, DempwolfTriodeFunction<double>>(m, "DoubleDempwolfTriodeFilter", f2);
   populate_TriodeFilter<float, KorenTriodeFunction<float>>(m, "FloatKorenTriodeFilter", f1);
-  populate_TriodeFilter<double, KorenTriodeFunction<double>>(m, "DoubleKorenTriodeFilter", f2);
   populate_TriodeFilter<float, EnhancedKorenTriodeFunction<float>>(m, "FloatEnhancedKorenTriodeFilter", f1);
-  populate_TriodeFilter<double, EnhancedKorenTriodeFunction<double>>(m, "DoubleEnhancedKorenTriodeFilter", f2);
   populate_TriodeFilter<float, LeachTriodeFunction<float>>(m, "FloatLeachTriodeFilter", f1);
-  populate_TriodeFilter<double, LeachTriodeFunction<double>>(m, "DoubleLeachTriodeFilter", f2);
   populate_TriodeFilter<float, ModifiedMunroPiazzaTriodeFunction<float>>(m, "FloatModifiedMunroPiazzaTriodeFilter", f1);
-  populate_TriodeFilter<double, ModifiedMunroPiazzaTriodeFunction<double>>(m, "DoubleModifiedMunroPiazzaTriodeFilter", f2);
   populate_TriodeFilter<float, MunroPiazzaTriodeFunction<float>>(m, "FloatMunroPiazzaTriodeFilter", f1);
+#endif
+  populate_TriodeFilter<double, DempwolfTriodeFunction<double>>(m, "DoubleDempwolfTriodeFilter", f2);
+  populate_TriodeFilter<double, KorenTriodeFunction<double>>(m, "DoubleKorenTriodeFilter", f2);
+  populate_TriodeFilter<double, EnhancedKorenTriodeFunction<double>>(m, "DoubleEnhancedKorenTriodeFilter", f2);
+  populate_TriodeFilter<double, LeachTriodeFunction<double>>(m, "DoubleLeachTriodeFilter", f2);
+  populate_TriodeFilter<double, ModifiedMunroPiazzaTriodeFunction<double>>(m, "DoubleModifiedMunroPiazzaTriodeFilter", f2);
   populate_TriodeFilter<double, MunroPiazzaTriodeFunction<double>>(m, "DoubleMunroPiazzaTriodeFilter", f2);
 }

@@ -141,71 +141,107 @@ PYBIND11_MODULE(PythonEQ, m)
 {
   m.doc() = "Audio ToolKit EQ module";
 
+#if ATK_ENABLE_INSTANTIATION
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
-  py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
-
   populate_ChamberlinFilter<float>(m, "FloatChamberlinFilter", f1);
-  populate_ChamberlinFilter<double>(m, "DoubleChamberlinFilter", f1);
+#endif
+  py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
+  populate_ChamberlinFilter<double>(m, "DoubleChamberlinFilter", f2);
   
+#if ATK_ENABLE_INSTANTIATION
   populate_CustomFIR<float>(m, "FloatCustomFIRFilter", f1);
-  populate_CustomFIR<double>(m, "DoubleCustomFIRFilter", f2);
-  
   populate_CustomIIR<float>(m, "FloatCustomIIRFilter", f1);
+#endif
+  populate_CustomFIR<double>(m, "DoubleCustomFIRFilter", f2);
   populate_CustomIIR<double>(m, "DoubleCustomIIRFilter", f2);
   
-  populate_StandardFilters(m, f1, f2);
-  populate_ChebyshevFilter(m, f1, f2);
-  populate_SecondOrderFilter(m, f1, f2);
+  populate_StandardFilters(m,
+#if ATK_ENABLE_INSTANTIATION
+  f1,
+#endif
+  f2);
+  populate_ChebyshevFilter(m,
+#if ATK_ENABLE_INSTANTIATION
+  f1,
+#endif
+  f2);
+  populate_SecondOrderFilter(m,
+#if ATK_ENABLE_INSTANTIATION
+  f1,
+#endif
+  f2);
   populate_RobertBristowJohnsonFilter(m);
-  populate_SecondOrderSVFFilter(m, f1, f2);
+  populate_SecondOrderSVFFilter(m,
+#if ATK_ENABLE_INSTANTIATION
+  f1,
+#endif
+  f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_ndOrderCoefficients<FourthOrderBaseCoefficients<float>>(m, "FloatFourthOrderBaseCoefficients", f1);
+#endif
   populate_ndOrderCoefficients<FourthOrderBaseCoefficients<double>>(m, "DoubleFourthOrderBaseCoefficients", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_DirectCoefficients<LinkwitzRileyLowPassCoefficients<float>>(m, "FloatLinkwitzRileyLowPassCoefficients");
-  populate_DirectCoefficients<LinkwitzRileyLowPassCoefficients<double>>(m, "DoubleLinkwitzRileyLowPassCoefficients");
   populate_DirectCoefficients<LinkwitzRileyHighPassCoefficients<float>>(m, "FloatLinkwitzRileyHighPassCoefficients");
-  populate_DirectCoefficients<LinkwitzRileyHighPassCoefficients<double>>(m, "DoubleLinkwitzRileyHighPassCoefficients");
   populate_DirectCoefficients<LinkwitzRiley4LowPassCoefficients<float>>(m, "FloatLinkwitzRiley4LowPassCoefficients");
-  populate_DirectCoefficients<LinkwitzRiley4LowPassCoefficients<double>>(m, "DoubleLinkwitzRiley4LowPassCoefficients");
   populate_DirectCoefficients<LinkwitzRiley4HighPassCoefficients<float>>(m, "FloatLinkwitzRiley4HighPassCoefficients");
+#endif
+  populate_DirectCoefficients<LinkwitzRileyLowPassCoefficients<double>>(m, "DoubleLinkwitzRileyLowPassCoefficients");
+  populate_DirectCoefficients<LinkwitzRileyHighPassCoefficients<double>>(m, "DoubleLinkwitzRileyHighPassCoefficients");
+  populate_DirectCoefficients<LinkwitzRiley4LowPassCoefficients<double>>(m, "DoubleLinkwitzRiley4LowPassCoefficients");
   populate_DirectCoefficients<LinkwitzRiley4HighPassCoefficients<double>>(m, "DoubleLinkwitzRiley4HighPassCoefficients");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_IIRFilter<LinkwitzRileyLowPassCoefficients<float>>(m, "FloatLinkwitzRileyLowPassFilter");
-  populate_IIRFilter<LinkwitzRileyLowPassCoefficients<double>>(m, "DoubleLinkwitzRileyLowPassFilter");
   populate_IIRFilter<LinkwitzRileyHighPassCoefficients<float>>(m, "FloatLinkwitzRileyHighPasssFilter");
-  populate_IIRFilter<LinkwitzRileyHighPassCoefficients<double>>(m, "DoubleLinkwitzRileyHighPassFilter");
   populate_IIRFilter<LinkwitzRiley4LowPassCoefficients<float>>(m, "FloatLinkwitzRiley4LowPassFilter");
-  populate_IIRFilter<LinkwitzRiley4LowPassCoefficients<double>>(m, "DoubleLinkwitzRiley4LowPassFilter");
   populate_IIRFilter<LinkwitzRiley4HighPassCoefficients<float>>(m, "FloatLinkwitzRiley4HighPassFilter");
+#endif
+  populate_IIRFilter<LinkwitzRileyLowPassCoefficients<double>>(m, "DoubleLinkwitzRileyLowPassFilter");
+  populate_IIRFilter<LinkwitzRileyHighPassCoefficients<double>>(m, "DoubleLinkwitzRileyHighPassFilter");
+  populate_IIRFilter<LinkwitzRiley4LowPassCoefficients<double>>(m, "DoubleLinkwitzRiley4LowPassFilter");
   populate_IIRFilter<LinkwitzRiley4HighPassCoefficients<double>>(m, "DoubleLinkwitzRiley4HighPassFilter");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_EmptyCoefficients<RIAACoefficients<float>>(m, "FloatRIAACoefficients", f1);
-  populate_EmptyCoefficients<RIAACoefficients<double>>(m, "DoubleRIAACoefficients", f2);
   populate_EmptyCoefficients<InverseRIAACoefficients<float>>(m, "FloatInverseRIAACoefficients", f1);
-  populate_EmptyCoefficients<InverseRIAACoefficients<double>>(m, "DoubleInverseRIAACoefficients", f2);
-
   populate_IIRFilter<RIAACoefficients<float>>(m, "FloatRIAAFilter");
-  populate_IIRFilter<RIAACoefficients<double>>(m, "DoubleRIAAFilter");
   populate_IIRFilter<InverseRIAACoefficients<float>>(m, "FloatInverseRIAAFilter");
+#endif
+  populate_EmptyCoefficients<RIAACoefficients<double>>(m, "DoubleRIAACoefficients", f2);
+  populate_EmptyCoefficients<InverseRIAACoefficients<double>>(m, "DoubleInverseRIAACoefficients", f2);
+  populate_IIRFilter<RIAACoefficients<double>>(m, "DoubleRIAAFilter");
   populate_IIRFilter<InverseRIAACoefficients<double>>(m, "DoubleInverseRIAAFilter");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_PedalCoefficients<SD1ToneCoefficients<float>>(m, "FloatSD1ToneCoefficients", f1);
-  populate_PedalCoefficients<SD1ToneCoefficients<double>>(m, "DoubleSD1ToneCoefficients", f2);
   populate_PedalCoefficients<TS9ToneCoefficients<float>>(m, "FloatTS9ToneCoefficients", f1);
-  populate_PedalCoefficients<TS9ToneCoefficients<double>>(m, "DoubleTS9ToneCoefficients", f2);
 
   populate_IIRFilter<SD1ToneCoefficients<float>>(m, "FloatSD1ToneFilter");
-  populate_IIRFilter<SD1ToneCoefficients<double>>(m, "DoubleSD1ToneFilter");
   populate_IIRFilter<TS9ToneCoefficients<float>>(m, "FloatTS9ToneFilter");
+#endif
+  populate_PedalCoefficients<SD1ToneCoefficients<double>>(m, "DoubleSD1ToneCoefficients", f2);
+  populate_PedalCoefficients<TS9ToneCoefficients<double>>(m, "DoubleTS9ToneCoefficients", f2);
+  populate_IIRFilter<SD1ToneCoefficients<double>>(m, "DoubleSD1ToneFilter");
   populate_IIRFilter<TS9ToneCoefficients<double>>(m, "DoubleTS9ToneFilter");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_StackCoefficients<ToneStackCoefficients<float>>(m, "FloatStackToneCoefficients", f1);
-  populate_StackCoefficients<ToneStackCoefficients<double>>(m, "DoubleStackToneCoefficients", f2);
-
   populate_StackFilter<ToneStackCoefficients<float>>(m, "FloatStackToneFilter");
+#endif
+  populate_StackCoefficients<ToneStackCoefficients<double>>(m, "DoubleStackToneCoefficients", f2);
   populate_StackFilter<ToneStackCoefficients<double>>(m, "DoubleStackToneFilter");
 
-  populate_TimeVaryingIIRFilters(m, f1, f2);
-  populate_TimeVaryingSVFFilters(m, f1, f2);
+  populate_TimeVaryingIIRFilters(m,
+#if ATK_ENABLE_INSTANTIATION
+  f1,
+#endif
+  f2);
+  populate_TimeVaryingSVFFilters(m,
+#if ATK_ENABLE_INSTANTIATION
+  f1,
+#endif
+  f2);
 }

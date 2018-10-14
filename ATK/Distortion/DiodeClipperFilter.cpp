@@ -125,6 +125,8 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class DiodeClipperFilter<float>;
+#endif
   template class DiodeClipperFilter<double>;
 }

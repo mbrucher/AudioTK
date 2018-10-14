@@ -28,9 +28,10 @@ namespace ATK
     setup();
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class ATK_EQ_EXPORT CustomFIRCoefficients<float>;
-  template class ATK_EQ_EXPORT CustomFIRCoefficients<double>;
-  
   template class ATK_EQ_EXPORT CustomFIRCoefficients<std::complex<float>>;
   template class ATK_EQ_EXPORT CustomFIRCoefficients<std::complex<double>>;
+#endif
+  template class ATK_EQ_EXPORT CustomFIRCoefficients<double>;
 }

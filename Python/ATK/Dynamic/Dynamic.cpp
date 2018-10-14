@@ -51,19 +51,33 @@ namespace
 PYBIND11_MODULE(PythonDynamic, m) {
   m.doc() = "Audio ToolKit Dynamic module";
 
+#if ATK_ENABLE_INSTANTIATION
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
+#endif
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
   
+#if ATK_ENABLE_INSTANTIATION
   populate_AttackReleaseFilter<float>(m, "FloatAttackReleaseFilter", f1);
+#endif
   populate_AttackReleaseFilter<double>(m, "DoubleAttackReleaseFilter", f2);
   
+#if ATK_ENABLE_INSTANTIATION
   populate_AttackReleaseHysteresisFilter<float>(m, "FloatAttackReleaseHysteresisFilter", f1);
+#endif
   populate_AttackReleaseHysteresisFilter<double>(m, "DoubleAttackReleaseHysteresisFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_PowerFilter<PowerFilter<float>>(m, "FloatPowerFilter", f1);
+#endif
   populate_PowerFilter<PowerFilter<double>>(m, "DoublePowerFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
   populate_PowerFilter<RelativePowerFilter<float>>(m, "FloatRelativePowerFilter", f1);
+#endif
   populate_PowerFilter<RelativePowerFilter<double>>(m, "DoubleRelativePowerFilter", f2);
 
-  populate_GainFilter(m, f1, f2);
+  populate_GainFilter(m,
+#if ATK_ENABLE_INSTANTIATION
+  f1,
+#endif
+  f2);
 }

@@ -37,9 +37,10 @@ namespace ATK
     setup();
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class ATK_EQ_EXPORT CustomIIRCoefficients<float>;
-  template class ATK_EQ_EXPORT CustomIIRCoefficients<double>;
-  
   template class ATK_EQ_EXPORT CustomIIRCoefficients<std::complex<float>>;
   template class ATK_EQ_EXPORT CustomIIRCoefficients<std::complex<double>>;
+#endif
+  template class ATK_EQ_EXPORT CustomIIRCoefficients<double>;
 }

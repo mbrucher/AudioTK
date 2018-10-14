@@ -421,21 +421,24 @@ namespace ATK
     return gain;
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class TimeVaryingBaseSecondOrderCoefficients<float>;
-  template class TimeVaryingBaseSecondOrderCoefficients<double>;
   
   template class ATK_EQ_EXPORT TimeVaryingBandPassCoefficients<float>;
-  template class ATK_EQ_EXPORT TimeVaryingBandPassCoefficients<double>;
   template class ATK_EQ_EXPORT TimeVaryingLowPassCoefficients<float>;
-  template class ATK_EQ_EXPORT TimeVaryingLowPassCoefficients<double>;
   template class ATK_EQ_EXPORT TimeVaryingHighPassCoefficients<float>;
-  template class ATK_EQ_EXPORT TimeVaryingHighPassCoefficients<double>;
   template class ATK_EQ_EXPORT TimeVaryingBandPassPeakCoefficients<float>;
-  template class ATK_EQ_EXPORT TimeVaryingBandPassPeakCoefficients<double>;
   template class ATK_EQ_EXPORT TimeVaryingAllPassCoefficients<float>;
-  template class ATK_EQ_EXPORT TimeVaryingAllPassCoefficients<double>;
   template class ATK_EQ_EXPORT TimeVaryingLowShelvingCoefficients<float>;
-  template class ATK_EQ_EXPORT TimeVaryingLowShelvingCoefficients<double>;
   template class ATK_EQ_EXPORT TimeVaryingHighShelvingCoefficients<float>;
+#endif
+  template class TimeVaryingBaseSecondOrderCoefficients<double>;
+
+  template class ATK_EQ_EXPORT TimeVaryingBandPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingLowPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingHighPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingBandPassPeakCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingAllPassCoefficients<double>;
+  template class ATK_EQ_EXPORT TimeVaryingLowShelvingCoefficients<double>;
   template class ATK_EQ_EXPORT TimeVaryingHighShelvingCoefficients<double>;
 }

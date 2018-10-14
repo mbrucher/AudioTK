@@ -30,6 +30,7 @@ matrix:
         - libatlas-base-dev
         - lcov
         - curl
+        - gcov
       sonarcloud:
         organization: "mbrucher-github"
     env:
@@ -68,7 +69,7 @@ matrix:
     - ENABLE_CODECOVERAGE=ON
     - BUILD_TYPE=Coverage
     - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: gcc-8
     os: linux
     dist: trusty
@@ -198,6 +199,8 @@ matrix:
         - libsndfile-dev
         - swig
         - libatlas-base-dev
+        - lcov
+        - curl
     env:
     - MY_NAME=LLVM coverage
     - COMPILER=clang++-6.0
@@ -364,7 +367,7 @@ script:
   - ls ${HOME}/ATK/lib
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
-      make codecoverage
+      CTEST_OUTPUT_ON_FAILURE=TRUE make codecoverage
     else
       LD_PRELOAD=${LD_PRELOAD_} CTEST_OUTPUT_ON_FAILURE=TRUE make test
     fi

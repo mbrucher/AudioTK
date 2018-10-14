@@ -71,6 +71,8 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class AllPassReverbFilter<float>;
+#endif
   template class AllPassReverbFilter<double>;
 }

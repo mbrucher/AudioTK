@@ -7,6 +7,7 @@
 
 #include <map>
 
+#include <ATK/config.h>
 #include <ATK/EQ/config.h>
 
 namespace ATK

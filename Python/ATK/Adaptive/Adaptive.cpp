@@ -99,21 +99,29 @@ PYBIND11_MODULE(PythonAdaptive, m)
 {
   m.doc() = "Audio ToolKit Adaptive module";
 
-  py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
+#if ATK_ENABLE_INSTANTIATION
+  py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f3 = (py::object) py::module::import("ATK.Core").attr("ComplexFloatTypedBaseFilter");
   py::object f4 = (py::object) py::module::import("ATK.Core").attr("ComplexDoubleTypedBaseFilter");
-  
+#endif
+
   populate_BlockLMSFilter<double>(m, "DoubleBlockLMSFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
   populate_BlockLMSFilter<std::complex<double>>(m, "ComplexDoubleBlockLMSFilter", f2);
-  
-  populate_LMSFilter<float>(m, "FloatLMSFilter", f1);
+#endif
+
   populate_LMSFilter<double>(m, "DoubleLMSFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
+  populate_LMSFilter<float>(m, "FloatLMSFilter", f1);
   populate_LMSFilter<std::complex<float>>(m, "ComplexFloatLMSFilter", f3);
   populate_LMSFilter<std::complex<double>>(m, "ComplexDoubleLMSFilter", f4);
+#endif
 
-  populate_RLSFilter<float>(m, "FloatRLSFilter", f1);
   populate_RLSFilter<double>(m, "DoubleRLSFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
+  populate_RLSFilter<float>(m, "FloatRLSFilter", f1);
   populate_RLSFilter<std::complex<float>>(m, "ComplexFloatRLSFilter", f3);
   populate_RLSFilter<std::complex<double>>(m, "ComplexDoubleRLSFilter", f4);
+#endif
 }
