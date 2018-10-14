@@ -224,17 +224,18 @@ namespace ATK
                                                   );
   }
 
-
+#if ATK_ENABLE_INSTANTIATION
   template class Triode2Filter<float, LeachTriodeFunction<float> >;
-  template class Triode2Filter<double, LeachTriodeFunction<double> >;
   template class Triode2Filter<float, KorenTriodeFunction<float> >;
-  template class Triode2Filter<double, KorenTriodeFunction<double> >;
   template class Triode2Filter<float, EnhancedKorenTriodeFunction<float> >;
-  template class Triode2Filter<double, EnhancedKorenTriodeFunction<double> >;
   template class Triode2Filter<float, MunroPiazzaTriodeFunction<float> >;
-  template class Triode2Filter<double, MunroPiazzaTriodeFunction<double> >;
   template class Triode2Filter<float, ModifiedMunroPiazzaTriodeFunction<float> >;
-  template class Triode2Filter<double, ModifiedMunroPiazzaTriodeFunction<double> >;
   template class Triode2Filter<float, DempwolfTriodeFunction<float> >;
+#endif
+  template class Triode2Filter<double, LeachTriodeFunction<double> >;
+  template class Triode2Filter<double, KorenTriodeFunction<double> >;
+  template class Triode2Filter<double, EnhancedKorenTriodeFunction<double> >;
+  template class Triode2Filter<double, MunroPiazzaTriodeFunction<double> >;
+  template class Triode2Filter<double, ModifiedMunroPiazzaTriodeFunction<double> >;
   template class Triode2Filter<double, DempwolfTriodeFunction<double> >;
 }
