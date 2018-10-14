@@ -107,8 +107,10 @@ namespace ATK
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1))) + additional_color;
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class GainMaxColoredExpanderFilter<float>;
-  template class GainMaxColoredExpanderFilter<double>;
   template class GainFilter<GainMaxColoredExpanderFilter<float>>;
+#endif
+  template class GainMaxColoredExpanderFilter<double>;
   template class GainFilter<GainMaxColoredExpanderFilter<double>>;
 }

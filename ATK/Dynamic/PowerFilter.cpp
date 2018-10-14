@@ -55,6 +55,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class PowerFilter<float>;
+#endif
   template class PowerFilter<double>;
 }

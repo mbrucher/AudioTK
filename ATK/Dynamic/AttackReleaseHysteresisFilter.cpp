@@ -144,6 +144,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class AttackReleaseHysteresisFilter<float>;
+#endif
   template class AttackReleaseHysteresisFilter<double>;
 }

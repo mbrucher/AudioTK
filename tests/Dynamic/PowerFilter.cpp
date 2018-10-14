@@ -15,7 +15,7 @@ constexpr gsl::index PROCESSSIZE = 1024*64;
 
 BOOST_AUTO_TEST_CASE( PowerFilter_RMS_memory_test )
 {
-  ATK::PowerFilter<float> filter;
+  ATK::PowerFilter<double> filter;
   filter.set_memory(0.5);
   BOOST_CHECK_EQUAL(filter.get_memory(), 0.5);
 }

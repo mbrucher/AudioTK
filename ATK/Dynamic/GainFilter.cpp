@@ -62,7 +62,8 @@ namespace ATK
     return ratio;
   }
 
-
+#if ATK_ENABLE_INSTANTIATION
   template class ParentGainFilter<float>;
+#endif
   template class ParentGainFilter<double>;
 }
