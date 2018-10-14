@@ -48,18 +48,7 @@ namespace ATK
     {
       return affine_estimate(i, input, output);
     }
-    
-/*    Vector id_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
-    {
-      Vector y0 = Vector::Zero();
-      for (int j = 0; j < 4; ++j)
-      {
-        y0.data()[j] = output[j][i - 1];
-      }
-      
-      return y0;
-    }*/
-    
+        
     Vector affine_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       auto Ib = tube_function.Lb(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
