@@ -231,8 +231,8 @@ PYBIND11_MODULE(PythonEQ, m)
   populate_StackCoefficients<ToneStackCoefficients<float>>(m, "FloatStackToneCoefficients", f1);
   populate_StackFilter<ToneStackCoefficients<float>>(m, "FloatStackToneFilter");
 #endif
-  populate_StackFilter<ToneStackCoefficients<double>>(m, "DoubleStackToneFilter");
   populate_StackCoefficients<ToneStackCoefficients<double>>(m, "DoubleStackToneCoefficients", f2);
+  populate_StackFilter<ToneStackCoefficients<double>>(m, "DoubleStackToneFilter");
 
   populate_TimeVaryingIIRFilters(m,
 #if ATK_ENABLE_INSTANTIATION
