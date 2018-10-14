@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE( AttackReleaseHysteresis_release_hysteresis_range2_test )
 
 BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_triangle_test )
 {
-  std::array<double, PROCESSSIZE> data;
+  std::vector<double> data(PROCESSSIZE);
   for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[i] = i / 48000;
@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_CASE( AttackReleaseHysteresisFilter_triangle_test )
   ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<double, PROCESSSIZE> outdata;
+  std::vector<double> outdata(PROCESSSIZE);
 
   ATK::AttackReleaseHysteresisFilter<double> filter(1);
   filter.set_attack(std::exp(-1./(48000 * 1e-3)));
