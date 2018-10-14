@@ -138,6 +138,8 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class TS9OverdriveFilter<float>;
+#endif
   template class TS9OverdriveFilter<double>;
 }

@@ -125,6 +125,8 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class SimpleOverdriveFilter<float>;
+#endif
   template class SimpleOverdriveFilter<double>;
   }

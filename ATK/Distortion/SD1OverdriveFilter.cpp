@@ -138,6 +138,8 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class SD1OverdriveFilter<float>;
+#endif
   template class SD1OverdriveFilter<double>;
 }
