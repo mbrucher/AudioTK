@@ -129,5 +129,9 @@ PYBIND11_MODULE(PythonDelay, m)
   populate_MultipleUniversalFixedDelayLineFilter<std::complex<double>, 8>(m, "ComplexDoubleOctMultipleUniversalFixedDelayLineFilter", f4);
 #endif
 
-  populate_FeedbackDelayNetworkFilter(m, f1, f2, f3, f4);
+  populate_FeedbackDelayNetworkFilter(m, f2
+#if ATK_ENABLE_INSTANTIATION
+  , f1, f3, f4
+#endif
+);
 }
