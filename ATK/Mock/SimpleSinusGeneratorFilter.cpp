@@ -46,11 +46,9 @@ namespace ATK
     }
   }
   
-#if ATK_ENABLE_INSTANTIATION
   template class SimpleSinusGeneratorFilter<std::int16_t>;
   template class SimpleSinusGeneratorFilter<std::int32_t>;
   template class SimpleSinusGeneratorFilter<int64_t>;
   template class SimpleSinusGeneratorFilter<float>;
-#endif
   template class SimpleSinusGeneratorFilter<double>;
 }

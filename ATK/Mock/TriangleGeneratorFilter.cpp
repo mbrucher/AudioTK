@@ -56,13 +56,11 @@ namespace ATK
     }
   }
   
-#if ATK_ENABLE_INSTANTIATION
   template class TriangleGeneratorFilter<std::int16_t>;
   template class TriangleGeneratorFilter<std::int32_t>;
   template class TriangleGeneratorFilter<std::int64_t>;
   template class TriangleGeneratorFilter<float>;
+  template class TriangleGeneratorFilter<double>;
   template class TriangleGeneratorFilter<std::complex<float>>;
   template class TriangleGeneratorFilter<std::complex<double>>;
-#endif
-  template class TriangleGeneratorFilter<double>;
 }

@@ -90,13 +90,11 @@ namespace ATK
     }
   }
 
-#if ATK_ENABLE_INSTANTIATION
   template class TriangleCheckerFilter<std::int16_t>;
   template class TriangleCheckerFilter<std::int32_t>;
   template class TriangleCheckerFilter<std::int64_t>;
   template class TriangleCheckerFilter<float>;
+  template class TriangleCheckerFilter<double>;
   template class TriangleCheckerFilter<std::complex<float>>;
   template class TriangleCheckerFilter<std::complex<double>>;
-#endif
-  template class TriangleCheckerFilter<double>;
 }
