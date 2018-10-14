@@ -32,38 +32,48 @@ namespace
   }
 }
 
-void populate_TimeVaryingIIRFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
+void populate_TimeVaryingIIRFilters(pybind11::module& m,
+#if ATK_ENABLE_INSTANTIATION
+  const pybind11::object& f1,
+#endif
+  const pybind11::object& f2)
 {
+#if ATK_ENABLE_INSTANTIATION
   populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<float>>(m, "FloatTimeVaryingBaseSecondOrderCoefficients", f1);
+#endif
   populate_TimeVaryingCoefficients<TimeVaryingBaseSecondOrderCoefficients<double>>(m, "DoubleTimeVaryingBaseSecondOrderCoefficients", f2);
   
+#if ATK_ENABLE_INSTANTIATION
   populate_QCoefficients<TimeVaryingBandPassCoefficients<float>>(m, "FloatTimeVaryingBandPassCoefficients");
-  populate_QCoefficients<TimeVaryingBandPassCoefficients<double>>(m, "DoubleTimeVaryingBandPassCoefficients");
   populate_DirectCoefficients<TimeVaryingLowPassCoefficients<float>>(m, "FloatTimeVaryingLowPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingLowPassCoefficients<double>>(m, "DoubleTimeVaryingLowPassCoefficients");
   populate_DirectCoefficients<TimeVaryingHighPassCoefficients<float>>(m, "FloatTimeVaryingHighPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingHighPassCoefficients<double>>(m, "DoubleTimeVaryingHighPassCoefficients");
   populate_QshelfCoefficients<TimeVaryingBandPassPeakCoefficients<float>>(m, "FloatTimeVaryingBandPassPeakCoefficients");
-  populate_QshelfCoefficients<TimeVaryingBandPassPeakCoefficients<double>>(m, "DoubleTimeVaryingBandPassPeakCoefficients");
   populate_QCoefficients<TimeVaryingAllPassCoefficients<float>>(m, "FloatTimeVaryingAllPassCoefficients");
-  populate_QCoefficients<TimeVaryingAllPassCoefficients<double>>(m, "DoubleTimeVaryingAllPassCoefficients");
   populate_shelfCoefficients<TimeVaryingLowShelvingCoefficients<float>>(m, "FloatTimeVaryingLowShelvingCoefficients");
-  populate_shelfCoefficients<TimeVaryingLowShelvingCoefficients<double>>(m, "DoubleTimeVaryingLowShelvingCoefficients");
   populate_shelfCoefficients<TimeVaryingHighShelvingCoefficients<float>>(m, "FloatTimeVaryingHighShelvingCoefficients");
+#endif
+  populate_QCoefficients<TimeVaryingBandPassCoefficients<double>>(m, "DoubleTimeVaryingBandPassCoefficients");
+  populate_DirectCoefficients<TimeVaryingLowPassCoefficients<double>>(m, "DoubleTimeVaryingLowPassCoefficients");
+  populate_DirectCoefficients<TimeVaryingHighPassCoefficients<double>>(m, "DoubleTimeVaryingHighPassCoefficients");
+  populate_QshelfCoefficients<TimeVaryingBandPassPeakCoefficients<double>>(m, "DoubleTimeVaryingBandPassPeakCoefficients");
+  populate_QCoefficients<TimeVaryingAllPassCoefficients<double>>(m, "DoubleTimeVaryingAllPassCoefficients");
+  populate_shelfCoefficients<TimeVaryingLowShelvingCoefficients<double>>(m, "DoubleTimeVaryingLowShelvingCoefficients");
   populate_shelfCoefficients<TimeVaryingHighShelvingCoefficients<double>>(m, "DoubleTimeVaryingHighShelvingCoefficients");
-  
+
+#if ATK_ENABLE_INSTANTIATION
   populate_TimeVaryingIIRFilter<TimeVaryingBandPassCoefficients<float>>(m, "FloatTimeVaryingBandPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingBandPassCoefficients<double>>(m, "DoubleTimeVaryingBandPassFilter");
   populate_TimeVaryingIIRFilter<TimeVaryingLowPassCoefficients<float>>(m, "FloatTimeVaryingLowPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingLowPassCoefficients<double>>(m, "DoubleTimeVaryingLowPassFilter");
   populate_TimeVaryingIIRFilter<TimeVaryingHighPassCoefficients<float>>(m, "FloatTimeVaryingHighPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingHighPassCoefficients<double>>(m, "DoubleTimeVaryingHighPassFilter");
   populate_TimeVaryingIIRFilter<TimeVaryingBandPassPeakCoefficients<float>>(m, "FloatTimeVaryingBandPassPeakFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingBandPassPeakCoefficients<double>>(m, "DoubleTimeVaryingBandPassPeakFilter");
   populate_TimeVaryingIIRFilter<TimeVaryingAllPassCoefficients<float>>(m, "FloatTimeVaryingAllPassFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingAllPassCoefficients<double>>(m, "DoubleTimeVaryingAllPassFilter");
   populate_TimeVaryingIIRFilter<TimeVaryingLowShelvingCoefficients<float>>(m, "FloatTimeVaryingLowShelvingFilter");
-  populate_TimeVaryingIIRFilter<TimeVaryingLowShelvingCoefficients<double>>(m, "DoubleTimeVaryingLowShelvingFilter");
   populate_TimeVaryingIIRFilter<TimeVaryingHighShelvingCoefficients<float>>(m, "FloatTimeVaryingHighShelvingFilter");
+#endif
+  populate_TimeVaryingIIRFilter<TimeVaryingBandPassCoefficients<double>>(m, "DoubleTimeVaryingBandPassFilter");
+  populate_TimeVaryingIIRFilter<TimeVaryingLowPassCoefficients<double>>(m, "DoubleTimeVaryingLowPassFilter");
+  populate_TimeVaryingIIRFilter<TimeVaryingHighPassCoefficients<double>>(m, "DoubleTimeVaryingHighPassFilter");
+  populate_TimeVaryingIIRFilter<TimeVaryingBandPassPeakCoefficients<double>>(m, "DoubleTimeVaryingBandPassPeakFilter");
+  populate_TimeVaryingIIRFilter<TimeVaryingAllPassCoefficients<double>>(m, "DoubleTimeVaryingAllPassFilter");
+  populate_TimeVaryingIIRFilter<TimeVaryingLowShelvingCoefficients<double>>(m, "DoubleTimeVaryingLowShelvingFilter");
   populate_TimeVaryingIIRFilter<TimeVaryingHighShelvingCoefficients<double>>(m, "DoubleTimeVaryingHighShelvingFilter");
 }
