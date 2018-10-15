@@ -17,8 +17,8 @@ namespace ATK
   class FeedbackDelayNetworkFilter<Mixture>::HFDN_Impl: public Mixture::MixtureImpl
   {
   public:
-    typedef typename Mixture::MixtureImpl::Vector Vector;
-    typedef typename Mixture::MixtureImpl::Matrix Matrix;
+    using Vector =  typename Mixture::MixtureImpl::Vector;
+    using Matrix =  typename Mixture::MixtureImpl::Matrix;
 
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> delay_line;
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> processed_input;

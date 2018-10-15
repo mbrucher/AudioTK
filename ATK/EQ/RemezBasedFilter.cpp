@@ -19,7 +19,7 @@ namespace
   class RemezBuilder
   {
   public:
-    typedef typename ATK::TypedBaseFilter<DataType>::AlignedScalarVector AlignedScalarVector;
+    using AlignedScalarVector = typename ATK::TypedBaseFilter<DataType>::AlignedScalarVector;
   private:
     const static gsl::index grid_size = 1024; // grid size, power of two better for FFT
     constexpr static DataType SN = 1e-8;

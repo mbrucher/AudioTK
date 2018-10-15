@@ -17,7 +17,7 @@ namespace ATK
   class SD1OverdriveFilter<DataType_>::SD1OverdriveFunction
   {
   public:
-    typedef DataType_ DataType;
+    using DataType = DataType_;
   protected:
     const DataType R;
     const DataType R1;

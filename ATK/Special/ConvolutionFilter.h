@@ -21,7 +21,7 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::DataType;
     using typename Parent::AlignedVector;
     using typename Parent::AlignedScalarVector;
@@ -32,7 +32,7 @@ namespace ATK
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
 
-    typedef typename TypedBaseFilter<std::complex<DataType_> >::AlignedVector AlignedComplexVector;
+    using AlignedComplexVector = typename TypedBaseFilter<std::complex<DataType_> >::AlignedVector;
   protected:
     /// Current amount of data in the buffer
     mutable unsigned int split_position;

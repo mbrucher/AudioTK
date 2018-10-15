@@ -21,8 +21,8 @@ namespace ATK
   template<typename Function, int size, int max_iterations=10>
   class SimplifiedVectorizedNewtonRaphson
   {
-    typedef typename Function::DataType DataType;
-    typedef Eigen::Matrix<DataType, size, 1> Vector;
+    using DataType = typename Function::DataType;
+    using Vector = Eigen::Matrix<DataType, size, 1>;
 
     Function function;
     

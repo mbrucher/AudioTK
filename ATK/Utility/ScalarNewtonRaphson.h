@@ -22,7 +22,7 @@ namespace ATK
   template<typename Function, int max_iterations=10, bool check_convergence=true>
   class ScalarNewtonRaphson
   {
-    typedef typename Function::DataType DataType;
+    using DataType = typename Function::DataType;
     
     Function function;
     

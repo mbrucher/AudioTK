@@ -17,7 +17,7 @@ namespace ATK
   class ATK_DYNAMIC_EXPORT GainMaxCompressorFilter : public ParentGainFilter<DataType_>
   {
   public:
-    typedef ParentGainFilter<DataType_> Parent;
+    using Parent = ParentGainFilter<DataType_>;
     using Parent::ratio;
     using Parent::start_recomputeLUT;
     using typename Parent::DataType;

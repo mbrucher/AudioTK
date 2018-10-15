@@ -23,7 +23,7 @@ namespace ATK
   class IntegralTypeTraits
   {
   public:
-    typedef DataType Scalar;
+    using Scalar = DataType;
 
     /// Converts an integer to a double
     static double to_double(DataType el)
@@ -63,7 +63,7 @@ namespace ATK
   class IntegralTypeTraits<char[3]>
   {
   public:
-    typedef int64_t Scalar;
+    using Scalar = int64_t;
 
     /// Converts an integer 24bits to a double
     static Scalar to_double(const char el[3])
@@ -100,7 +100,7 @@ namespace ATK
   class RealTypeTraits
   {
   public:
-    typedef DataType Scalar;
+    using Scalar = DataType;
 
     /// Converts to a double
     static double to_double(DataType el)
@@ -146,7 +146,7 @@ namespace ATK
   class ComplexRealTypeTraits<std::complex<DataType> >
   {
   public:
-    typedef typename std::complex<DataType>::value_type Scalar;
+    using Scalar = typename std::complex<DataType>::value_type;
 
     /// Converts to a double
     static std::complex<double> to_double(std::complex<DataType> el)
@@ -183,7 +183,7 @@ namespace ATK
   {
   public:
     static constexpr int VECTOR_LANES = 2;
-    typedef double Scalar;
+    using Scalar = double;
     
     /// Converts to a double
     static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
@@ -219,7 +219,7 @@ namespace ATK
   {
   public:
     static const int VECTOR_LANES = 4;
-    typedef float Scalar;
+    using Scalar = float;
 
     /// Converts to a double
     static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
@@ -255,7 +255,7 @@ namespace ATK
   {
   public:
     static const int VECTOR_LANES = 8;
-    typedef float Scalar;
+    using Scalar = float;
 
     /// Converts to a double
     static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
@@ -291,7 +291,7 @@ namespace ATK
   {
   public:
     static const int VECTOR_LANES = 4;
-    typedef double Scalar;
+    using Scalar = double;
 
     /// Converts to a double
     static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
@@ -327,7 +327,7 @@ namespace ATK
   {
   public:
     static const int VECTOR_LANES = 8;
-    typedef double Scalar;
+    using Scalar = double;
 
     /// Converts to a double
     static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)

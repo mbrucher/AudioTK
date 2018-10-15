@@ -34,10 +34,10 @@ namespace ATK
     TriodeFunction& tube_function;
 
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, 4, 1> Vector;
-    typedef Eigen::Matrix<DataType, 4, 4> Matrix;
-    
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, 4, 1>;
+    using Matrix = Eigen::Matrix<DataType, 4, 4>;
+
     template<typename T>
     CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction& tube_function, const T& default_output)
       :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), Vbias(Vbias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
@@ -125,9 +125,9 @@ namespace ATK
     TriodeFunction& tube_function;
 
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, 3, 1> Vector;
-    typedef Eigen::Matrix<DataType, 3, 3> Matrix;
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, 3, 1>;
+    using Matrix = Eigen::Matrix<DataType, 3, 3>;
 
     CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, TriodeFunction& tube_function)
       :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), Vbias(Vbias), tube_function(tube_function)

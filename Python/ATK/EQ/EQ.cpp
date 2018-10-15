@@ -45,7 +45,7 @@ namespace
   template<typename Coefficients>
   void populate_FIRFilter(py::module& m, const char* type)
   {
-    typedef typename Coefficients::DataType DataType;
+    using DataType = typename Coefficients::DataType;
     py::class_<FIRFilter<Coefficients>, Coefficients>(m, type)
     .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1))
     .def_property_readonly("coefficients_in", [](const FIRFilter<Coefficients>& instance)

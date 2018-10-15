@@ -15,7 +15,7 @@ namespace ATK
   class DiodeClipperFilter<DataType_>::SimpleOverdriveFunction
   {
   public:
-    typedef DataType_ DataType;
+    using DataType = DataType_;
   protected:
     DataType A;
     DataType B;

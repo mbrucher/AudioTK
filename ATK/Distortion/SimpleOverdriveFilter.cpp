@@ -15,7 +15,7 @@ namespace ATK
   class SimpleOverdriveFilter<DataType_>::SimpleOverdriveFunction
   {
   public:
-    typedef DataType_ DataType;
+    using DataType = DataType_;
   protected:
     DataType A;
     DataType B;

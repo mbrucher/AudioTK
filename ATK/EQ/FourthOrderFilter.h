@@ -16,10 +16,10 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
-    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
     CoeffDataType cut_frequency;

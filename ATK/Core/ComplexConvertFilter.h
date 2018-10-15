@@ -18,7 +18,7 @@ namespace ATK
   {
   protected:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_, std::complex<DataType_>> Parent;
+    using Parent = TypedBaseFilter<DataType_, std::complex<DataType_>>;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
@@ -43,7 +43,7 @@ namespace ATK
   {
   protected:
     /// Simplify parent calls
-    typedef TypedBaseFilter<std::complex<DataType_>, DataType_> Parent;
+    using Parent = TypedBaseFilter<std::complex<DataType_>, DataType_>;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;

@@ -27,7 +27,7 @@ namespace
   template<typename Coefficients, typename T>
   void populate_DualCoefficients_ripple(py::module& m, const char* type, T& parent)
   {
-    typedef typename Coefficients::DataType DataType;
+    using DataType = typename Coefficients::DataType;
     py::class_<Coefficients>(m, type, parent)
     .def_property("cut_frequencies", &Coefficients::get_cut_frequencies, [](Coefficients& instance, const std::pair<DataType, DataType> f){instance.set_cut_frequencies(f);})
     .def_property("ripple", &Coefficients::get_ripple, &Coefficients::set_ripple)

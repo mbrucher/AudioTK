@@ -55,7 +55,7 @@ namespace ATK
       outputs[0][i] = TypeTraits<DataType>::from_double(TypeTraits<DataType>::to_double(amplitude) * state);
     }
   }
-  
+
   template class TriangleGeneratorFilter<std::int16_t>;
   template class TriangleGeneratorFilter<std::int32_t>;
   template class TriangleGeneratorFilter<std::int64_t>;

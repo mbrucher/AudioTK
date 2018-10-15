@@ -17,9 +17,9 @@ namespace ATK
   class RemezBasedCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::DataType;
-    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using typename Parent::AlignedScalarVector;
     using Parent::input_sampling_rate;
   protected:

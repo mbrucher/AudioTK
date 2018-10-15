@@ -18,8 +18,8 @@ namespace ATK
   class HadamardMixture
   {
   public:
-    static const gsl::index nb_channels = 1 << order;
-    typedef DataType_ DataType;
+    static constexpr gsl::index nb_channels = 1 << order;
+    using DataType = DataType_;
     /// Gain factor to take into account in the feedback loop due to the instability of the mixture
     static constexpr float gain_factor = 1.f;
 

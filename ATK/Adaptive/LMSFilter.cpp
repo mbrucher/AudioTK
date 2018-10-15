@@ -18,8 +18,8 @@ namespace ATK
   class LMSFilter<DataType_>::LMSFilterImpl
   {
   public:
-    typedef Eigen::Matrix<DataType_, Eigen::Dynamic, 1> wType;
-    typedef Eigen::Map<const wType> xType;
+    using wType = Eigen::Matrix<DataType_, Eigen::Dynamic, 1>;
+    using xType = Eigen::Map<const wType>;
 
     wType w;
     /// Memory factor
@@ -32,7 +32,7 @@ namespace ATK
     {
     }
 
-    typedef void (LMSFilterImpl::*UpdateFunction)(const xType& x, DataType error);
+    using UpdateFunction = void (LMSFilterImpl::*)(const xType& x, DataType error);
 
     void update(const xType& x, DataType error)
     {

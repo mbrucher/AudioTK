@@ -18,7 +18,7 @@ namespace ATK
   class WaveshaperFilter final : public ParentFilter
   {
   public:
-    typedef ParentFilter Parent;
+    using Parent = ParentFilter;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;

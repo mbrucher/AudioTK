@@ -43,20 +43,20 @@ namespace ATK
   {
   protected:
     /// Simplify parent calls
-    typedef BaseFilter Parent;
+    using Parent = BaseFilter;
   public:
     /// To be used by inherited APIs
-    typedef DataType_ DataType;
+    using DataType = DataType_;
     /// To be used by inherited APIs
-    typedef DataType_ DataTypeInput;
+    using DataTypeInput = DataType_;
     /// To be used by inherited APIs
-    typedef DataType__ DataTypeOutput;
+    using DataTypeOutput = DataType__;
     /// To be used for filters that require aligned data
-    typedef std::vector<DataTypeInput, boost::alignment::aligned_allocator<DataTypeInput, ALIGNMENT> > AlignedVector;
+    using AlignedVector = std::vector<DataTypeInput, boost::alignment::aligned_allocator<DataTypeInput, ALIGNMENT> >;
     /// To be used for filters that require aligned data for output data
-    typedef std::vector<DataTypeOutput, boost::alignment::aligned_allocator<DataTypeOutput, ALIGNMENT> > AlignedOutVector;
+    using AlignedOutVector = std::vector<DataTypeOutput, boost::alignment::aligned_allocator<DataTypeOutput, ALIGNMENT> >;
     /// To be used for filters that required aligned data for parameters (like EQ)
-    typedef std::vector<typename TypeTraits<DataType>::Scalar, boost::alignment::aligned_allocator<typename TypeTraits<DataType>::Scalar, ALIGNMENT> > AlignedScalarVector;
+    using AlignedScalarVector = std::vector<typename TypeTraits<DataType>::Scalar, boost::alignment::aligned_allocator<typename TypeTraits<DataType>::Scalar, ALIGNMENT> >;
 
     /// Base constructor for filters with actual data
     TypedBaseFilter(gsl::index nb_input_ports, gsl::index nb_output_ports);

@@ -24,7 +24,7 @@ namespace ATK
   template<typename Function, gsl::index size, gsl::index max_iterations=10, bool check_convergence=true>
   class VectorizedNewtonRaphson
   {
-    typedef typename Function::DataType DataType;
+    using DataType = typename Function::DataType;
     
     Function function;
     
@@ -34,7 +34,7 @@ namespace ATK
     int64_t nb_iterations;
     int64_t nb_optimizations;
 #endif
-    typedef Eigen::Matrix<DataType, size, 1> Vector;
+    using Vector = Eigen::Matrix<DataType, size, 1>;
     
   public:
     /*!

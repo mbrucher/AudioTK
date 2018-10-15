@@ -17,7 +17,7 @@ namespace ATK
   {
   public:
     /// To be used by inherited APIs
-    typedef DataType_ DataType;
+    using DataType = DataType_;
     
     /// Number of points for the filter
     static const int points = 6;
@@ -38,7 +38,7 @@ namespace ATK
   {
   public:
     /// To be used by inherited APIs
-    typedef DataType_ DataType;
+    using DataType = DataType_;
     
     /// Number of points for the filter
     static const int points = 6;
@@ -60,7 +60,7 @@ namespace ATK
   {
   public:
     /// To be used by inherited APIs
-    typedef DataType_ DataType;
+    using DataType = DataType_;
     
     /// Number of points for the filter
     static const int points = 6;
@@ -82,7 +82,7 @@ namespace ATK
   {
   public:
     /// To be used by inherited APIs
-    typedef DataType_ DataType;
+    using DataType = DataType_;
     
     /// Number of points for the filter
     static const int points = 6;
@@ -104,7 +104,7 @@ namespace ATK
   {
   public:
     /// To be used by inherited APIs
-    typedef DataType_ DataType;
+    using DataType = DataType_;
     
     /// Number of points for the filter
     static const int points = 6;
@@ -126,7 +126,7 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;

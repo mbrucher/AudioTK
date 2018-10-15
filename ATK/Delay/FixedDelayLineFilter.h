@@ -20,7 +20,7 @@ namespace ATK
     class FDLF_Impl;
   protected:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;

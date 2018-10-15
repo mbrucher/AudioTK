@@ -75,7 +75,7 @@ namespace
   template<typename Coefficients, typename T>
   void populate_OversamplingFilter(py::module& m, const char* type, T& parent)
   {
-    typedef typename Coefficients::DataType DataType;
+    using DataType = typename Coefficients::DataType;
     py::class_<OversamplingFilter<DataType, Coefficients>>(m, type, parent)
       .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }

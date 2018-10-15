@@ -20,7 +20,7 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef Coefficients Parent;
+    using Parent = Coefficients;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;

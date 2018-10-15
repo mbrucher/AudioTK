@@ -19,10 +19,10 @@ namespace ATK
   class BlockLMSFilter<DataType_>::BlockLMSFilterImpl
   {
   public:
-    typedef Eigen::Matrix<std::complex<double>, Eigen::Dynamic, 1> cwType;
-    typedef Eigen::Map<const cwType> cxType;
-    typedef Eigen::Matrix<DataType_, Eigen::Dynamic, 1> wType;
-    typedef Eigen::Map<const wType> xType;
+    using cwType = Eigen::Matrix<std::complex<double>, Eigen::Dynamic, 1>;
+    using cxType = Eigen::Map<const cwType>;
+    using wType = Eigen::Matrix<DataType_, Eigen::Dynamic, 1>;
+    using xType = Eigen::Map<const wType>;
 
     /// FFT of the current coefficients
     cwType wfft;

@@ -37,9 +37,9 @@ namespace ATK
     TransistorFunction<DataType_>& transistor_function_1;
     TransistorFunction<DataType_>& transistor_function_2;
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, vector_size, 1> Vector;
-    typedef Eigen::Matrix<DataType, vector_size, vector_size> Matrix;
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, vector_size, 1>;
+    using Matrix = Eigen::Matrix<DataType, vector_size, vector_size>;
 
     std::pair<DataType, DataType> exp_y0;
   
@@ -148,9 +148,9 @@ namespace ATK
     TransistorFunction<DataType_>& transistor_function_1;
     TransistorFunction<DataType_>& transistor_function_2;
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, 4, 1> Vector;
-    typedef Eigen::Matrix<DataType, 4, 4> Matrix;
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, 4, 1>;
+    using Matrix = Eigen::Matrix<DataType, 4, 4>;
 
     TransistorClassAInitialFunction(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType Vbias, TransistorFunction<DataType_>& transistor_function_1, TransistorFunction<DataType_>& transistor_function_2)
       :Rp(1 / Rp), Rg1(1 / Rg1), Rg2(1 / Rg2), Ro(1 / Ro), Rk1(1 / Rk1), Rk2(1 / Rk2), Vbias(Vbias), transistor_function_1(transistor_function_1), transistor_function_2(transistor_function_2)
