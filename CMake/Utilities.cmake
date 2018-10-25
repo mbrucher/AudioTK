@@ -191,3 +191,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 else()
   message(FATAL_ERROR "Compiler '${CMAKE_CXX_COMPILER_ID}' not recognized")
 endif()
+
+INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/3rdParty/gsl/include/gsl ${PROJECT_SOURCE_DIR}/3rdParty/eigen/Eigen
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+  )
