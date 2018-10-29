@@ -9,7 +9,7 @@ set(ATK_VERSION 3.1.0)
 
 option(ENABLE_TESTS "Enable tests generation" ON)
 option(ENABLE_PROFILE_INFO "Enable profile info" OFF)
-option(ENABLE_PROFILING "Enable the internal perf counter" OFF)
+option(ENABLE_PROFILING "Enable the internal time counter" OFF)
 option(ENABLE_SHARED_LIBRARIES "Enable shared libraries generation" ON)
 option(ENABLE_STATIC_LIBRARIES "Enable static libraries generation" OFF)
 option(ENABLE_PYTHON "Enable Python support" ON)
