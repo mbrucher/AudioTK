@@ -20,12 +20,12 @@
 BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_line16000_delaysinus_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
   std::vector<double> datadelay(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     datadelay[i] = 1 + i * .25f;
   }
@@ -55,7 +55,7 @@ BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_line16000_delaysinu
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
 
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(ref[i], outdata[i], 0.01);
   }
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_line16000_delaysinu
 BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_cachedgenerator_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }

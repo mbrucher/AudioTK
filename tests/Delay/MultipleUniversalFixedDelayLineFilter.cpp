@@ -26,7 +26,7 @@
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel100_delay50_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
@@ -52,12 +52,12 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel100_delay50
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
 
-  for(ptrdiff_t i = 0; i < 50; ++i)
+  for(gsl::index i = 0; i < 50; ++i)
   {
     BOOST_REQUIRE_EQUAL(0, outdata[i]);
   }
 
-  for(ptrdiff_t i = 50; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 50; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i - 50], outdata[i]);
   }
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_line1000_delay50_
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_blend_1_feedforward_1_feedback_0_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
@@ -154,7 +154,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
 
-  for(ptrdiff_t i = 24; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 24; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_SMALL(outdata[i], 0.0001);
   }
@@ -163,7 +163,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_blend_0_feedforward_0_feedback_1_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
@@ -191,7 +191,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
 
-  for(ptrdiff_t i = 24; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 24; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_SMALL(outdata[i], 0.0001);
   }
@@ -200,7 +200,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_linel25_delay24_
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner100_delay50_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
@@ -226,12 +226,12 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner100_delay50
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
 
-  for(ptrdiff_t i = 0; i < 50; ++i)
+  for(gsl::index i = 0; i < 50; ++i)
   {
     BOOST_REQUIRE_EQUAL(0, outdata[i]);
   }
 
-  for(ptrdiff_t i = 50; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 50; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i - 50], outdata[i]);
   }
@@ -300,7 +300,7 @@ BOOST_AUTO_TEST_CASE(StereoUniversalFixedDelayLineFilter_sinus_liner1000_delay50
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_blend_1_feedforward_1_feedback_0_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
@@ -328,7 +328,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
 
-  for(ptrdiff_t i = 24; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 24; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_SMALL(outdata[i], 0.0001);
   }
@@ -337,7 +337,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
 BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_blend_0_feedforward_0_feedback_1_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
@@ -365,7 +365,7 @@ BOOST_AUTO_TEST_CASE( StereoUniversalFixedDelayLineFilter_sinus_liner25_delay24_
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
 
-  for(ptrdiff_t i = 24; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 24; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_SMALL(outdata[i], 0.0001);
   }

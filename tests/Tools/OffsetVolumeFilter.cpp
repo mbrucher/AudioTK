@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_1_1_test )
   volumefilter.set_offset(1);
 
   std::array<float, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = -1;
   }

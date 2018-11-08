@@ -56,11 +56,11 @@ BOOST_AUTO_TEST_CASE( AttackRelease_release_range2_test )
 BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[i] = i / 48000;
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/2; ++i)
   {
     data[PROCESSSIZE/2 + i] = (PROCESSSIZE/2 - i) / 48000;
   }
@@ -82,11 +82,11 @@ BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )
 
   output.process(PROCESSSIZE);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/2; ++i)
   {
     BOOST_REQUIRE_GE(data[i], outdata[i]);
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/2; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/2; ++i)
   {
     BOOST_REQUIRE_GE(outdata[PROCESSSIZE/2+i], outdata[PROCESSSIZE/2+i-1]);
   }

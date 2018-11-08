@@ -20,12 +20,12 @@
 BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
 {
   std::vector<double> data(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<double>() * (i+1.)/48000 * 1000);
   }
   std::vector<double> datadelay(PROCESSSIZE);
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     datadelay[i] = i * .25f;
   }
@@ -51,23 +51,23 @@ BOOST_AUTO_TEST_CASE( VariableDelayLineFilter_sinus_line16000_delaysinus_test )
   output.process(51);
   output.process(PROCESSSIZE - 1 - 49 -51);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/4; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/4; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i*4 - i], outdata[i*4]);
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/4; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/4; ++i)
   {
-    ptrdiff_t current = 4*i+1;
+    gsl::index current = 4*i+1;
     BOOST_REQUIRE_EQUAL((data[current - i]*3 + data[current - i-1])/4, outdata[current]);
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/4; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/4; ++i)
   {
-    ptrdiff_t current = 4*i+2;
+    gsl::index current = 4*i+2;
     BOOST_REQUIRE_EQUAL((data[current - i] + data[current - i-1])/2, outdata[current]);
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE/4; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE/4; ++i)
   {
-    ptrdiff_t current = 4*i+3;
+    gsl::index current = 4*i+3;
     BOOST_REQUIRE_EQUAL((data[current - i] + data[current - i-1]*3)/4, outdata[current]);
   }
 }

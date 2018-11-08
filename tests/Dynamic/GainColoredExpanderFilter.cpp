@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_quality_range_test )
 BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_test )
 
   output.process(PROCESSSIZE);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1);
   }
@@ -81,7 +81,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_test )
 BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_0_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 0;
   }
@@ -101,7 +101,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_0_test )
 
   output.process(PROCESSSIZE);
 
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_SMALL(outdata[i], 0.001);
   }
@@ -110,7 +110,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_0_test )
 BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_2_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -133,7 +133,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_2_test
 
   output.process(PROCESSSIZE);
 
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.700553358, outdata[i], 0.1);
   }
@@ -142,7 +142,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_2_test
 BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_4_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
@@ -165,7 +165,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_4_test
 
   output.process(PROCESSSIZE);
 
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.343814075, outdata[i], 0.1);
   }
@@ -174,7 +174,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_const_1_threshold_2_ratio_4_test
 BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_always_more_1_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = i/1024.;
   }
@@ -197,7 +197,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_always_more_1_test )
   
   output.process(PROCESSSIZE);
   
-  for(ptrdiff_t i = 1; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 1; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_GE(outdata[i], 1 - 10 * std::numeric_limits<float>::epsilon());
   }
@@ -206,7 +206,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_always_more_1_test )
 BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_always_less_1_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = i/1024.;
   }
@@ -229,7 +229,7 @@ BOOST_AUTO_TEST_CASE( GainColoredExpanderFilter_always_less_1_test )
   
   output.process(PROCESSSIZE);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_LE(outdata[i], 1 + 10 * std::numeric_limits<float>::epsilon());
   }

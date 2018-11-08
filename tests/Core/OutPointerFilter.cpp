@@ -18,7 +18,7 @@
 BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k_test )
 {
   std::array<float, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k_test )
   output.process(2);
   output.process(PROCESSSIZE - 2);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i], outdata[i]);
   }
@@ -44,7 +44,7 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k_test )
 BOOST_AUTO_TEST_CASE( OutPointerDouble_sin1k_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -61,7 +61,7 @@ BOOST_AUTO_TEST_CASE( OutPointerDouble_sin1k_test )
   output.process(2);
   output.process(PROCESSSIZE - 2);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i], outdata[i]);
   }
@@ -70,7 +70,7 @@ BOOST_AUTO_TEST_CASE( OutPointerDouble_sin1k_test )
 BOOST_AUTO_TEST_CASE(OutPointerDouble_check_bound_test)
 {
   std::array<double, PROCESSSIZE> data;
-  for (ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for (gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i + 1.) / 48000 * 1000);
   }
@@ -87,15 +87,15 @@ BOOST_AUTO_TEST_CASE(OutPointerDouble_check_bound_test)
 
   output.process(2*PROCESSSIZE);
 
-  for (ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for (gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i], outdata[i]);
   }
-  for (ptrdiff_t i = 0; i < PROCESSSIZE / 2; ++i)
+  for (gsl::index i = 0; i < PROCESSSIZE / 2; ++i)
   {
     BOOST_REQUIRE_EQUAL(0, outdata[PROCESSSIZE + i]); // check that input is now 0
   }
-  for (ptrdiff_t i = 0; i < PROCESSSIZE / 2; ++i)
+  for (gsl::index i = 0; i < PROCESSSIZE / 2; ++i)
   {
     BOOST_REQUIRE_EQUAL(-1, outdata[3 * PROCESSSIZE /2 + i]); // check that we don't write after what we declare was allocated
   }
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(OutPointerDouble_check_bound_test)
 BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_interleaved_test )
 {
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[2*i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
     data[2*i+1] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
@@ -123,7 +123,7 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_interleaved_test )
   output.process(2);
   output.process(PROCESSSIZE - 2);
   
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i], outdata[i]);
   }
@@ -132,11 +132,11 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_interleaved_test )
 BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_noninterleaved_test )
 {
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i+PROCESSSIZE] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
   }
@@ -156,7 +156,7 @@ BOOST_AUTO_TEST_CASE( OutPointerFloat_sin1k2k_noninterleaved_test )
   output.process(PROCESSSIZE);
   output.process(PROCESSSIZE);
   
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_EQUAL(data[i], outdata[i]);
   }
