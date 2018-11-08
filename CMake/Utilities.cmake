@@ -40,6 +40,8 @@ ENDMACRO(SOURCE_GROUP_BY_FOLDER)
 
 function(ATK_add_library PREFIX)
 
+SOURCE_GROUP_BY_FOLDER(${PREFIX})
+
 if(NOT ${PREFIX}_NAME)
   message(ERROR "No name set for ${PREFIX}")
 endif(NOT ${PREFIX}_NAME)
@@ -97,6 +99,8 @@ INSTALL(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 endfunction()
 
 function(ATK_add_executable PREFIX)
+
+SOURCE_GROUP_BY_FOLDER(${PREFIX})
 
 if(NOT ${PREFIX}_NAME)
   message(ERROR "No name set for ${PREFIX}")
