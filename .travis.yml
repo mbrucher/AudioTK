@@ -208,7 +208,7 @@ matrix:
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ENABLE_CODECOVERAGE=ON
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=${TRAVIS_BUILD_DIR}/script/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-6.0
     os: linux
     dist: trusty
@@ -367,6 +367,7 @@ script:
   - ls ${HOME}/ATK/lib
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+      export PATH=${TRAVIS_BUILD_DIR}/script/:${PATH}
       VERBOSE=1 CTEST_OUTPUT_ON_FAILURE=TRUE make codecoverage
     else
       LD_PRELOAD=${LD_PRELOAD_} CTEST_OUTPUT_ON_FAILURE=TRUE make test
