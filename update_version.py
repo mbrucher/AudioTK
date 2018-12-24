@@ -10,7 +10,7 @@ def update_cmakelist(new_version):
     else:
       sys.stdout.write(line)
 
-def update_cmakelist(new_version):
+def update_conan(new_version):
   for line in fileinput.input(files=("conanfile.py",), inplace=True):
     if line.startswith("version="):
       sys.stdout.write("version= %s\n" % new_version)
