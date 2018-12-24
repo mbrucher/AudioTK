@@ -367,7 +367,7 @@ script:
   - ls ${HOME}/ATK/lib
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
-      CTEST_OUTPUT_ON_FAILURE=TRUE make codecoverage
+      VERBOSE=1 CTEST_OUTPUT_ON_FAILURE=TRUE make codecoverage
     else
       LD_PRELOAD=${LD_PRELOAD_} CTEST_OUTPUT_ON_FAILURE=TRUE make test
     fi
