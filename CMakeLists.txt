@@ -5,7 +5,7 @@ project(AudioTK)
 if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
   include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
   conan_basic_setup()
-endif(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+endif(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
