@@ -15,7 +15,7 @@ namespace ATK
   class RobertBristowJohnsonLowPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -50,7 +50,7 @@ namespace ATK
   class RobertBristowJohnsonHighPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -85,7 +85,7 @@ namespace ATK
   class RobertBristowJohnsonBandPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -120,7 +120,7 @@ namespace ATK
   class RobertBristowJohnsonBandPass2Coefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -155,7 +155,7 @@ namespace ATK
   class RobertBristowJohnsonBandStopCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -190,7 +190,7 @@ namespace ATK
   class RobertBristowJohnsonAllPassCoefficients : public SecondOrderBaseCoefficients<DataType_>, public QInterface<typename TypeTraits<DataType_>::Scalar>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -225,7 +225,7 @@ namespace ATK
   class RobertBristowJohnsonBandPassPeakCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -265,7 +265,7 @@ namespace ATK
   class RobertBristowJohnsonLowShelvingCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;
@@ -305,7 +305,7 @@ namespace ATK
   class RobertBristowJohnsonHighShelvingCoefficients : public SecondOrderBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::input_sampling_rate;

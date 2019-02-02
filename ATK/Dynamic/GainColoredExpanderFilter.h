@@ -18,7 +18,7 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef ParentGainFilter<DataType_> Parent;
+    using Parent = ParentGainFilter<DataType_>;
     using Parent::ratio;
     using Parent::start_recomputeLUT;
     using typename Parent::DataType;

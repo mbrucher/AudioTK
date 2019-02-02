@@ -54,6 +54,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class TanhShaperFilter<float>;
+#endif
   template class TanhShaperFilter<double>;
 }

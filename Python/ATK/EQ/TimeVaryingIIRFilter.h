@@ -7,6 +7,10 @@
 
 #include <pybind11/pybind11.h>
 
-void populate_TimeVaryingIIRFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2);
+void populate_TimeVaryingIIRFilters(pybind11::module& m,
+#if ATK_ENABLE_INSTANTIATION
+  const pybind11::object& f1,
+#endif
+  const pybind11::object& f2);
 
 #endif

@@ -14,7 +14,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1024;
+constexpr gsl::index PROCESSSIZE = 1024;
 
 BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_volume_test )
 {
@@ -45,19 +45,19 @@ BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_frequency_range_test )
 
 BOOST_AUTO_TEST_CASE( SinusGeneratorFilter_1k_test )
 {
-  ATK::SimpleSinusGeneratorFilter<float> generator;
+  ATK::SimpleSinusGeneratorFilter<double> generator;
   generator.set_output_sampling_rate(48000);
   generator.set_amplitude(-1);
   generator.set_frequency(1000);
   
-  ATK::SinusGeneratorFilter<float> filter;
+  ATK::SinusGeneratorFilter<double> filter;
   filter.set_output_sampling_rate(48000);
   filter.set_frequency(1000);
 
-  ATK::SumFilter<float> sumfilter;
+  ATK::SumFilter<double> sumfilter;
   sumfilter.set_input_sampling_rate(48000);
   
-  ATK::TriangleCheckerFilter<float> checker;
+  ATK::TriangleCheckerFilter<double> checker;
   checker.set_input_sampling_rate(48000);
   checker.set_amplitude(0);
   checker.set_frequency(1000);

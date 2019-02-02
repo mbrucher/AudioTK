@@ -22,8 +22,8 @@ namespace ATK
 
   protected:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
-    typedef std::array<DataType_, out_slice_size> SliceBuffer;
+    using Parent = TypedBaseFilter<DataType_>;
+    using SliceBuffer = std::array<DataType_, out_slice_size>;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::input_sampling_rate;

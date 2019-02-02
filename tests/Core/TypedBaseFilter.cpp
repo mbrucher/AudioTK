@@ -170,6 +170,7 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_process_something_test )
   filter.set_output_sampling_rate(48000);
   filter.process(1);
   BOOST_CHECK(nullptr != filter.get_output_array(0));
+  BOOST_CHECK_EQUAL(1, filter.get_output_array_size());
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_dryrun_test )
@@ -181,6 +182,7 @@ BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_dryrun_test )
   
   generator.dryrun(PROCESSSIZE);
   BOOST_CHECK(generator.get_output_array(0));
+  BOOST_CHECK_EQUAL(PROCESSSIZE, generator.get_output_array_size());
 }
 
 BOOST_AUTO_TEST_CASE( TypedBaseFilter_pipeline64bits_triangle_test )

@@ -49,8 +49,10 @@ namespace ATK
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1)));
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class GainExpanderFilter<float>;
-  template class GainExpanderFilter<double>;
   template class GainFilter<GainExpanderFilter<float>>;
+#endif
+  template class GainExpanderFilter<double>;
   template class GainFilter<GainExpanderFilter<double>>;
 }

@@ -10,9 +10,11 @@
 namespace BesselUtilities
 {
   template<typename DataType>
-  void create_bessel_analog_coefficients(int order, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void create_bessel_analog_coefficients(int order, EQUtilities::ZPK<DataType>& zpk)
   {
-    k = 1;
+    zpk.k = 1;
+    auto& z = zpk.z;
+    auto& p = zpk.p;
     z.clear(); // no zeros for this filter type
     p.clear();
     switch (order)
@@ -144,37 +146,31 @@ namespace BesselUtilities
   template<typename DataType, typename Container>
   void create_default_bessel_coeffs(size_t order, DataType Wn, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
+    EQUtilities::ZPK<DataType> zpk;
     
     int fs = 2;
-    create_bessel_analog_coefficients(static_cast<int>(order), z, p, k);
-    EQUtilities::populate_lp_coeffs(Wn, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_bessel_analog_coefficients(static_cast<int>(order), zpk);
+    EQUtilities::populate_lp_coeffs(Wn, fs, order, zpk, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
   void create_bp_bessel_coeffs(size_t order, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_bessel_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_bessel_analog_coefficients(static_cast<int>(order/2), zpk);
+    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
   void create_bs_bessel_coeffs(size_t order, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_bessel_analog_coefficients(static_cast<int>(order/2), z, p, k);
-    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_bessel_analog_coefficients(static_cast<int>(order/2), zpk);
+    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
 }
 

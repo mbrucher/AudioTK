@@ -18,7 +18,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1024;
+constexpr gsl::index PROCESSSIZE = 1024;
 
 BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_volume_test )
 {
@@ -68,7 +68,7 @@ BOOST_AUTO_TEST_CASE( OffsetVolumeFilter_1_1_test )
   volumefilter.set_offset(1);
 
   std::array<float, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = -1;
   }

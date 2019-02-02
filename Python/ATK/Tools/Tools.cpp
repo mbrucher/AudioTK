@@ -75,7 +75,7 @@ namespace
   template<typename Coefficients, typename T>
   void populate_OversamplingFilter(py::module& m, const char* type, T& parent)
   {
-    typedef typename Coefficients::DataType DataType;
+    using DataType = typename Coefficients::DataType;
     py::class_<OversamplingFilter<DataType, Coefficients>>(m, type, parent)
       .def(py::init<gsl::index>(), py::arg("nb_channels") = static_cast<gsl::index>(1));
   }
@@ -145,73 +145,101 @@ PYBIND11_MODULE(PythonTools, m)
 {
   m.doc() = "Audio ToolKit Tools module";
 
+#if ATK_ENABLE_INSTANTIATION
   py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
-  py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
   py::object f3 = (py::object) py::module::import("ATK.Core").attr("ComplexFloatTypedBaseFilter");
   py::object f4 = (py::object) py::module::import("ATK.Core").attr("ComplexDoubleTypedBaseFilter");
+#endif
+  py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
 
+#if ATK_ENABLE_INSTANTIATION
   populate_ApplyGainFilter<float>(m, "FloatApplyGainFilter", f1);
-  populate_ApplyGainFilter<double>(m, "DoubleApplyGainFilter", f2);
   populate_ApplyGainFilter<std::complex<float>>(m, "ComplexFloatApplyGainFilter", f3);
   populate_ApplyGainFilter<std::complex<double>>(m, "ComplexDoubleApplyGainFilter", f4);
+#endif
+  populate_ApplyGainFilter<double>(m, "DoubleApplyGainFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_BufferFilter<float>(m, "FloatBufferFilter", f1);
-  populate_BufferFilter<double>(m, "DoubleBufferFilter", f2);
   populate_BufferFilter<std::complex<float>>(m, "ComplexFloatBufferFilter", f3);
   populate_BufferFilter<std::complex<double>>(m, "ComplexDoubleBufferFilter", f4);
+#endif
+  populate_BufferFilter<double>(m, "DoubleBufferFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_DecimationFilter<float>(m, "FloatDecimationFilter", f1);
-  populate_DecimationFilter<double>(m, "DoubleDecimationFilter", f2);
   populate_DecimationFilter<std::complex<float>>(m, "ComplexFloatDecimationFilter", f3);
   populate_DecimationFilter<std::complex<double>>(m, "ComplexDoubleDecimationFilter", f4);
+#endif
+  populate_DecimationFilter<double>(m, "DoubleDecimationFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_DryWetFilter<float>(m, "FloatDryWetFilter", f1);
   populate_DryWetFilter<double>(m, "DoubleDryWetFilter", f2);
   populate_DryWetFilter<std::complex<float>>(m, "ComplexFloatDryWetFilter", f3);
   populate_DryWetFilter<std::complex<double>>(m, "ComplexDoubleDryWetFilter", f4);
+#endif
 
+#if ATK_ENABLE_INSTANTIATION
   populate_MuteSoloBufferFilter<float>(m, "FloatMuteSoloBufferFilter", f1);
-  populate_MuteSoloBufferFilter<double>(m, "DoubleMuteSoloBufferFilter", f2);
   populate_MuteSoloBufferFilter<std::complex<float>>(m, "ComplexFloatMuteSoloBufferFilter", f3);
   populate_MuteSoloBufferFilter<std::complex<double>>(m, "ComplexDoubleMuteSoloBufferFilter", f4);
+#endif
+  populate_MuteSoloBufferFilter<double>(m, "DoubleMuteSoloBufferFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_MiddleSideFilter<float>(m, "FloatMiddleSideFilter", f1);
-  populate_MiddleSideFilter<double>(m, "DoubleMiddleSideFilter", f2);
   populate_MiddleSideFilter<std::complex<float>>(m, "ComplexFloatMiddleSideFilter", f3);
   populate_MiddleSideFilter<std::complex<double>>(m, "ComplexDoubleMiddleSideFilter", f4);
+#endif
+  populate_MiddleSideFilter<double>(m, "DoubleMiddleSideFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_OversamplingFilter<Oversampling6points5order_2<float>>(m, "FloatOversampling6points5order_2Filter", f1);
-  populate_OversamplingFilter<Oversampling6points5order_2<double>>(m, "DoubleOversampling6points5order_2Filter", f2);
   populate_OversamplingFilter<Oversampling6points5order_4<float>>(m, "FloatOversampling6points5order_4Filter", f1);
-  populate_OversamplingFilter<Oversampling6points5order_4<double>>(m, "DoubleOversampling6points5order_4Filter", f2);
   populate_OversamplingFilter<Oversampling6points5order_8<float>>(m, "FloatOversampling6points5order_8Filter", f1);
-  populate_OversamplingFilter<Oversampling6points5order_8<double>>(m, "DoubleOversampling6points5order_8Filter", f2);
   populate_OversamplingFilter<Oversampling6points5order_16<float>>(m, "FloatOversampling6points5order_16Filter", f1);
-  populate_OversamplingFilter<Oversampling6points5order_16<double>>(m, "DoubleOversampling6points5order_16Filter", f2);
   populate_OversamplingFilter<Oversampling6points5order_32<float>>(m, "FloatOversampling6points5order_32Filter", f1);
+#endif
+  populate_OversamplingFilter<Oversampling6points5order_2<double>>(m, "DoubleOversampling6points5order_2Filter", f2);
+  populate_OversamplingFilter<Oversampling6points5order_4<double>>(m, "DoubleOversampling6points5order_4Filter", f2);
+  populate_OversamplingFilter<Oversampling6points5order_8<double>>(m, "DoubleOversampling6points5order_8Filter", f2);
+  populate_OversamplingFilter<Oversampling6points5order_16<double>>(m, "DoubleOversampling6points5order_16Filter", f2);
   populate_OversamplingFilter<Oversampling6points5order_32<double>>(m, "DoubleOversampling6points5order_32Filter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_PanFilter<float>(m, "FloatPanFilter", f1);
-  populate_PanFilter<double>(m, "DoublePanFilter", f2);
   populate_PanFilter<std::complex<float>>(m, "ComplexFloatPanFilter", f3);
   populate_PanFilter<std::complex<double>>(m, "ComplexDoublePanFilter", f4);
+#endif
+  populate_PanFilter<double>(m, "DoublePanFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_SinusGeneratorFilter<float>(m, "FloatSinusGeneratorFilter", f1);
+#endif
   populate_SinusGeneratorFilter<double>(m, "DoubleSinusGeneratorFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_SumFilter<float>(m, "FloatSumFilter", f1);
-  populate_SumFilter<double>(m, "DoubleSumFilter", f2);
   populate_SumFilter<std::complex<float>>(m, "ComplexFloatSumFilter", f3);
   populate_SumFilter<std::complex<double>>(m, "ComplexDoubleSumFilter", f4);
-  
+#endif
+  populate_SumFilter<double>(m, "DoubleSumFilter", f2);
+
+#if ATK_ENABLE_INSTANTIATION
   populate_TanFilter<float>(m, "FloatTanFilter", f1);
+#endif
   populate_TanFilter<double>(m, "DoubleTanFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_VolumeFilter<float>(m, "FloatVolumeFilter", f1);
-  populate_VolumeFilter<double>(m, "DoubleVolumeFilter", f2);
   populate_VolumeFilter<std::complex<float>>(m, "ComplexFloatVolumeFilter", f3);
   populate_VolumeFilter<std::complex<double>>(m, "ComplexDoubleVolumeFilter", f4);
+#endif
+  populate_VolumeFilter<double>(m, "DoubleVolumeFilter", f2);
 
+#if ATK_ENABLE_INSTANTIATION
   populate_WhiteNoiseGeneratorFilter<float>(m, "FloatWhiteNoiseGeneratorFilter", f1);
+#endif
   populate_WhiteNoiseGeneratorFilter<double>(m, "DoubleWhiteNoiseGeneratorFilter", f2);
 }

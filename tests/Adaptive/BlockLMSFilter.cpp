@@ -24,7 +24,7 @@
 
 #include <boost/math/constants/constants.hpp>
 
-const size_t PROCESSSIZE = 1200;
+constexpr gsl::index PROCESSSIZE = 1200;
 
 BOOST_AUTO_TEST_CASE(BlockLMSFilter_size_negative_test)
 {

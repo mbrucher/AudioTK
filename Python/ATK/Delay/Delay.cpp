@@ -77,41 +77,61 @@ PYBIND11_MODULE(PythonDelay, m)
 {
   m.doc() = "Audio ToolKit Delay module";
 
-  py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f2 = (py::object) py::module::import("ATK.Core").attr("DoubleTypedBaseFilter");
+#if ATK_ENABLE_INSTANTIATION
+  py::object f1 = (py::object) py::module::import("ATK.Core").attr("FloatTypedBaseFilter");
   py::object f3 = (py::object) py::module::import("ATK.Core").attr("ComplexFloatTypedBaseFilter");
   py::object f4 = (py::object) py::module::import("ATK.Core").attr("ComplexDoubleTypedBaseFilter");
-  
-  populate_FixedDelayLineFilter<float>(m, "FloatFixedDelayLineFilter", f1);
+#endif
+
   populate_FixedDelayLineFilter<double>(m, "DoubleFixedDelayLineFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
+  populate_FixedDelayLineFilter<float>(m, "FloatFixedDelayLineFilter", f1);
   populate_FixedDelayLineFilter<std::complex<float>>(m, "ComplexFloatFixedDelayLineFilter", f3);
   populate_FixedDelayLineFilter<std::complex<double>>(m, "ComplexDoubleFixedDelayLineFilter", f4);
-  
-  populate_UniversalFixedDelayLineFilter<float>(m, "FloatUniversalFixedDelayLineFilter", f1);
+#endif
+
   populate_UniversalFixedDelayLineFilter<double>(m, "DoubleUniversalFixedDelayLineFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
+  populate_UniversalFixedDelayLineFilter<float>(m, "FloatUniversalFixedDelayLineFilter", f1);
   populate_UniversalFixedDelayLineFilter<std::complex<float>>(m, "ComplexFloatUniversalFixedDelayLineFilter", f3);
   populate_UniversalFixedDelayLineFilter<std::complex<double>>(m, "ComplexDoubleUniversalFixedDelayLineFilter", f4);
-  
+#endif
+
+#if ATK_ENABLE_INSTANTIATION
   populate_UniversalVariableDelayLineFilter<float>(m, "FloatUniversalVariableDelayLineFilter", f1);
+#endif
   populate_UniversalVariableDelayLineFilter<double>(m, "DoubleUniversalVariableDelayLineFilter", f2);
   
+#if ATK_ENABLE_INSTANTIATION
   populate_VariableDelayLineFilter<float>(m, "FloatVariableDelayLineFilter", f1);
+#endif
   populate_VariableDelayLineFilter<double>(m, "DoubleVariableDelayLineFilter", f2);
   
-  populate_MultipleUniversalFixedDelayLineFilter<float, 2>(m, "FloatDualMultipleUniversalFixedDelayLineFilter", f1);
   populate_MultipleUniversalFixedDelayLineFilter<double, 2>(m, "DoubleDualMultipleUniversalFixedDelayLineFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
+  populate_MultipleUniversalFixedDelayLineFilter<float, 2>(m, "FloatDualMultipleUniversalFixedDelayLineFilter", f1);
   populate_MultipleUniversalFixedDelayLineFilter<std::complex<float>, 2>(m, "ComplexFloatDualMultipleUniversalFixedDelayLineFilter", f3);
   populate_MultipleUniversalFixedDelayLineFilter<std::complex<double>, 2>(m, "ComplexDoubleDualMultipleUniversalFixedDelayLineFilter", f4);
-  
-  populate_MultipleUniversalFixedDelayLineFilter<float, 4>(m, "FloatQuadMultipleUniversalFixedDelayLineFilter", f1);
+#endif
+
   populate_MultipleUniversalFixedDelayLineFilter<double, 4>(m, "DoubleQuadMultipleUniversalFixedDelayLineFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
+  populate_MultipleUniversalFixedDelayLineFilter<float, 4>(m, "FloatQuadMultipleUniversalFixedDelayLineFilter", f1);
   populate_MultipleUniversalFixedDelayLineFilter<std::complex<float>, 4>(m, "ComplexFloatQuadMultipleUniversalFixedDelayLineFilter", f3);
   populate_MultipleUniversalFixedDelayLineFilter<std::complex<double>, 4>(m, "ComplexDoubleQuadMultipleUniversalFixedDelayLineFilter", f4);
-  
-  populate_MultipleUniversalFixedDelayLineFilter<float, 8>(m, "FloatOctMultipleUniversalFixedDelayLineFilter", f1);
+#endif
+
   populate_MultipleUniversalFixedDelayLineFilter<double, 8>(m, "DoubleOctMultipleUniversalFixedDelayLineFilter", f2);
+#if ATK_ENABLE_INSTANTIATION
+  populate_MultipleUniversalFixedDelayLineFilter<float, 8>(m, "FloatOctMultipleUniversalFixedDelayLineFilter", f1);
   populate_MultipleUniversalFixedDelayLineFilter<std::complex<float>, 8>(m, "ComplexFloatOctMultipleUniversalFixedDelayLineFilter", f3);
   populate_MultipleUniversalFixedDelayLineFilter<std::complex<double>, 8>(m, "ComplexDoubleOctMultipleUniversalFixedDelayLineFilter", f4);
-  
-  populate_FeedbackDelayNetworkFilter(m, f1, f2, f3, f4);
+#endif
+
+  populate_FeedbackDelayNetworkFilter(m, f2
+#if ATK_ENABLE_INSTANTIATION
+  , f1, f3, f4
+#endif
+);
 }

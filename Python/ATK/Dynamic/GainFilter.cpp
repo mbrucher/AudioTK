@@ -76,48 +76,62 @@ namespace
   }
 }
 
-void populate_GainFilter(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
+void populate_GainFilter(pybind11::module& m,
+#if ATK_ENABLE_INSTANTIATION
+    const pybind11::object& f1,
+#endif
+    const pybind11::object& f2)
 {
+#if ATK_ENABLE_INSTANTIATION
   populate_ParentGainFilter<float>(m, "FloatParentGainFilter", f1);
+#endif
   populate_ParentGainFilter<double>(m, "DoubleParentGainFilter", f2);
   
+#if ATK_ENABLE_INSTANTIATION
   populate_SimpleGainFilter<GainCompressorFilter<float>>(m, "FloatTempGainCompressorFilter");
-  populate_SimpleGainFilter<GainCompressorFilter<double>>(m, "DoubleTempGainCompressorFilter");
   populate_SimpleGainFilter<GainExpanderFilter<float>>(m, "FloatTempGainExpanderFilter");
-  populate_SimpleGainFilter<GainExpanderFilter<double>>(m, "DoubleTempGainExpanderFilter");
   populate_SimpleGainFilter<GainLimiterFilter<float>>(m, "FloatTempGainLimiterFilter");
-  populate_SimpleGainFilter<GainLimiterFilter<double>>(m, "DoubleTempGainLimiterFilter");
   populate_SimpleGainFilter<GainSwellFilter<float>>(m, "FloatTempGainSwellFilter");
+#endif
+  populate_SimpleGainFilter<GainCompressorFilter<double>>(m, "DoubleTempGainCompressorFilter");
+  populate_SimpleGainFilter<GainExpanderFilter<double>>(m, "DoubleTempGainExpanderFilter");
+  populate_SimpleGainFilter<GainLimiterFilter<double>>(m, "DoubleTempGainLimiterFilter");
   populate_SimpleGainFilter<GainSwellFilter<double>>(m, "DoubleTempGainSwellFilter");
   
+#if ATK_ENABLE_INSTANTIATION
   populate_GainFilter<GainCompressorFilter<float>>(m, "FloatGainCompressorFilter");
-  populate_GainFilter<GainCompressorFilter<double>>(m, "DoubleGainCompressorFilter");
   populate_GainFilter<GainExpanderFilter<float>>(m, "FloatGainExpanderFilter");
-  populate_GainFilter<GainExpanderFilter<double>>(m, "DoubleGainExpanderFilter");
   populate_GainFilter<GainLimiterFilter<float>>(m, "FloatGainLimiterFilter");
-  populate_GainFilter<GainLimiterFilter<double>>(m, "DoubleGainLimiterFilter");
   populate_GainFilter<GainSwellFilter<float>>(m, "FloatGainSwellFilter");
+#endif
+  populate_GainFilter<GainCompressorFilter<double>>(m, "DoubleGainCompressorFilter");
+  populate_GainFilter<GainExpanderFilter<double>>(m, "DoubleGainExpanderFilter");
+  populate_GainFilter<GainLimiterFilter<double>>(m, "DoubleGainLimiterFilter");
   populate_GainFilter<GainSwellFilter<double>>(m, "DoubleGainSwellFilter");
   
+#if ATK_ENABLE_INSTANTIATION
   populate_ColoredGainFilter<GainColoredCompressorFilter<float>>(m, "FloatTempGainColoredCompressorFilter");
-  populate_ColoredGainFilter<GainColoredCompressorFilter<double>>(m, "DoubleTempGainColoredCompressorFilter");
   populate_ColoredGainFilter<GainColoredExpanderFilter<float>>(m, "FloatTempGainColoredExpanderFilter");
-  populate_ColoredGainFilter<GainColoredExpanderFilter<double>>(m, "DoubleTempGainColoredExpanderFilter");
   populate_MaxColoredGainFilter<GainMaxColoredExpanderFilter<float>>(m, "FloatTempGainMaxColoredExpanderFilter");
-  populate_MaxColoredGainFilter<GainMaxColoredExpanderFilter<double>>(m, "DoubleTempGainMaxColoredExpanderFilter");
   populate_MaxGainFilter<GainMaxCompressorFilter<float>>(m, "FloatTempGainMaxCompressorFilter");
-  populate_MaxGainFilter<GainMaxCompressorFilter<double>>(m, "DoubleTempGainMaxCompressorFilter");
   populate_MaxGainFilter<GainMaxExpanderFilter<float>>(m, "FloatTempGainMaxExpanderFilter");
+#endif
+  populate_ColoredGainFilter<GainColoredCompressorFilter<double>>(m, "DoubleTempGainColoredCompressorFilter");
+  populate_ColoredGainFilter<GainColoredExpanderFilter<double>>(m, "DoubleTempGainColoredExpanderFilter");
+  populate_MaxColoredGainFilter<GainMaxColoredExpanderFilter<double>>(m, "DoubleTempGainMaxColoredExpanderFilter");
+  populate_MaxGainFilter<GainMaxCompressorFilter<double>>(m, "DoubleTempGainMaxCompressorFilter");
   populate_MaxGainFilter<GainMaxExpanderFilter<double>>(m, "DoubleTempGainMaxExpanderFilter");
   
+#if ATK_ENABLE_INSTANTIATION
   populate_GainFilter<GainColoredCompressorFilter<float>>(m, "FloatGainColoredCompressorFilter");
-  populate_GainFilter<GainColoredCompressorFilter<double>>(m, "DoubleGainColoredCompressorFilter");
   populate_GainFilter<GainColoredExpanderFilter<float>>(m, "FloatGainColoredExpanderFilter");
-  populate_GainFilter<GainColoredExpanderFilter<double>>(m, "DoubleGainColoredExpanderFilter");
   populate_GainFilter<GainMaxColoredExpanderFilter<float>>(m, "FloatGainMaxColoredExpanderFilter");
-  populate_GainFilter<GainMaxColoredExpanderFilter<double>>(m, "DoubleGainMaxColoredExpanderFilter");
   populate_GainFilter<GainMaxCompressorFilter<float>>(m, "FloatGainMaxCompressorFilter");
-  populate_GainFilter<GainMaxCompressorFilter<double>>(m, "DoubleGainMaxCompressorFilter");
   populate_GainFilter<GainMaxExpanderFilter<float>>(m, "FloatGainMaxExpanderFilter");
+#endif
+  populate_GainFilter<GainColoredCompressorFilter<double>>(m, "DoubleGainColoredCompressorFilter");
+  populate_GainFilter<GainColoredExpanderFilter<double>>(m, "DoubleGainColoredExpanderFilter");
+  populate_GainFilter<GainMaxColoredExpanderFilter<double>>(m, "DoubleGainMaxColoredExpanderFilter");
+  populate_GainFilter<GainMaxCompressorFilter<double>>(m, "DoubleGainMaxCompressorFilter");
   populate_GainFilter<GainMaxExpanderFilter<double>>(m, "DoubleGainMaxExpanderFilter");
 }

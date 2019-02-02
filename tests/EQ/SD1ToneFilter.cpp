@@ -12,8 +12,8 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1024*1026;
-const size_t SAMPLINGRATE = 1024*64;
+constexpr gsl::index PROCESSSIZE = 1024*1026;
+constexpr gsl::index SAMPLINGRATE = 1024*64;
 
 BOOST_AUTO_TEST_CASE( IIRFilter_SD1ToneCoefficients_tone_test )
 {

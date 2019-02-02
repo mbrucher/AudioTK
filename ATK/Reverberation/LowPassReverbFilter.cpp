@@ -87,6 +87,8 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class LowPassReverbFilter<float>;
+#endif
   template class LowPassReverbFilter<double>;
 }

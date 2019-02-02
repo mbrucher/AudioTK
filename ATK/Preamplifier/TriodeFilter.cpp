@@ -34,10 +34,10 @@ namespace ATK
     TriodeFunction& tube_function;
 
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, 4, 1> Vector;
-    typedef Eigen::Matrix<DataType, 4, 4> Matrix;
-    
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, 4, 1>;
+    using Matrix = Eigen::Matrix<DataType, 4, 4>;
+
     template<typename T>
     CommonCathodeTriodeFunction(DataType dt, DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, DataType Co, DataType Ck, TriodeFunction& tube_function, const T& default_output)
       :Rp(1/Rp), Rg(1/Rg), Ro(1/Ro), Rk(1/Rk), Vbias(Vbias), Co(2 / dt * Co), Ck(2 / dt * Ck), ickeq(2 / dt * Ck * default_output[1]), icoeq(-2 / dt * Co * default_output[2]), tube_function(tube_function)
@@ -48,18 +48,7 @@ namespace ATK
     {
       return affine_estimate(i, input, output);
     }
-    
-/*    Vector id_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
-    {
-      Vector y0 = Vector::Zero();
-      for (int j = 0; j < 4; ++j)
-      {
-        y0.data()[j] = output[j][i - 1];
-      }
-      
-      return y0;
-    }*/
-    
+        
     Vector affine_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
       auto Ib = tube_function.Lb(output[3][i - 1] - output[0][i - 1], output[2][i - 1] - output[0][i - 1]);
@@ -136,9 +125,9 @@ namespace ATK
     TriodeFunction& tube_function;
 
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, 3, 1> Vector;
-    typedef Eigen::Matrix<DataType, 3, 3> Matrix;
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, 3, 1>;
+    using Matrix = Eigen::Matrix<DataType, 3, 3>;
 
     CommonCathodeTriodeInitialFunction(DataType Rp, DataType Rg, DataType Ro, DataType Rk, DataType Vbias, TriodeFunction& tube_function)
       :Rp(Rp), Rg(Rg), Ro(Ro), Rk(Rk), Vbias(Vbias), tube_function(tube_function)
@@ -246,16 +235,18 @@ namespace ATK
       );
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class TriodeFilter<float, LeachTriodeFunction<float> >;
-  template class TriodeFilter<double, LeachTriodeFunction<double> >;
   template class TriodeFilter<float, MunroPiazzaTriodeFunction<float> >;
-  template class TriodeFilter<double, MunroPiazzaTriodeFunction<double> >;
   template class TriodeFilter<float, ModifiedMunroPiazzaTriodeFunction<float> >;
-  template class TriodeFilter<double, ModifiedMunroPiazzaTriodeFunction<double> >;
   template class TriodeFilter<float, KorenTriodeFunction<float> >;
-  template class TriodeFilter<double, KorenTriodeFunction<double> >;
   template class TriodeFilter<float, EnhancedKorenTriodeFunction<float> >;
-  template class TriodeFilter<double, EnhancedKorenTriodeFunction<double> >;
   template class TriodeFilter<float, DempwolfTriodeFunction<float> >;
+#endif
+  template class TriodeFilter<double, LeachTriodeFunction<double> >;
+  template class TriodeFilter<double, MunroPiazzaTriodeFunction<double> >;
+  template class TriodeFilter<double, ModifiedMunroPiazzaTriodeFunction<double> >;
+  template class TriodeFilter<double, KorenTriodeFunction<double> >;
+  template class TriodeFilter<double, EnhancedKorenTriodeFunction<double> >;
   template class TriodeFilter<double, DempwolfTriodeFunction<double> >;
 }

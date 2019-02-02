@@ -16,7 +16,7 @@ namespace ATK
   {
   protected:
     /// Simplify parent calls
-    typedef BaseFilter Parent;
+    using Parent = BaseFilter;
 
   public:
     /// Constructor of the multiple sinks filter

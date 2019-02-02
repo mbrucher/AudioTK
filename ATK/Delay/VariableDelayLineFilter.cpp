@@ -89,6 +89,8 @@ namespace ATK
     }
   }
   
-  template class VariableDelayLineFilter<float>;
   template class VariableDelayLineFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
+  template class VariableDelayLineFilter<float>;
+#endif
 }

@@ -11,10 +11,10 @@
 namespace Chebyshev2Utilities
 {
   template<typename DataType>
-  void create_chebyshev2_analog_coefficients(int order, DataType ripple, std::vector<std::complex<DataType> >& z, std::vector<std::complex<DataType> >& p, DataType& k)
+  void create_chebyshev2_analog_coefficients(int order, DataType ripple, EQUtilities::ZPK<DataType>& zpk)
   {
-    z.clear(); // no zeros for this filter type
-    p.clear();
+    zpk.z.clear(); // no zeros for this filter type
+    zpk.p.clear();
     
     DataType de = static_cast<DataType>(1.0 / std::sqrt(std::pow(10, (0.1 * ripple)) - 1));
     DataType mu = static_cast<DataType>(boost::math::asinh(1.0 / de) / order);
@@ -24,62 +24,56 @@ namespace Chebyshev2Utilities
       std::complex<DataType> p1 = -std::complex<DataType>(std::cos(i * boost::math::constants::pi<DataType>() / (2 * order)), std::sin(i * boost::math::constants::pi<DataType>() / (2 * order)));
       std::complex<DataType> p2 = std::complex<DataType>(std::sinh(mu) * p1.real(), std::cosh(mu) * p1.imag());
       
-      p.push_back(std::complex<DataType>(1, 0) / p2);
+      zpk.p.push_back(std::complex<DataType>(1, 0) / p2);
       
       if(i == 0)
       {
         continue;
       }
       
-      z.push_back(std::complex<DataType>(0, 1 / std::sin(i * boost::math::constants::pi<DataType>() / (2 * order))));
+      zpk.z.push_back(std::complex<DataType>(0, 1 / std::sin(i * boost::math::constants::pi<DataType>() / (2 * order))));
     }
     
     std::complex<DataType> f = 1;
-    for(gsl::index i = 0; i < p.size(); ++i)
+    for(gsl::index i = 0; i < zpk.p.size(); ++i)
     {
-      f *= - p[i];
+      f *= - zpk.p[i];
     }
-    for(gsl::index i = 0; i < z.size(); ++i)
+    for(gsl::index i = 0; i < zpk.z.size(); ++i)
     {
-      f /= - z[i];
+      f /= - zpk.z[i];
     }
-    k = f.real();
+    zpk.k = f.real();
   }
   
   template<typename DataType, typename Container>
   void create_default_chebyshev2_coeffs(size_t order, DataType ripple, DataType Wn, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_chebyshev2_analog_coefficients(static_cast<int>(order), ripple, z, p, k);
-    EQUtilities::populate_lp_coeffs(Wn, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_chebyshev2_analog_coefficients(static_cast<int>(order), ripple, zpk);
+    EQUtilities::populate_lp_coeffs(Wn, fs, order, zpk, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
   void create_bp_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_chebyshev2_analog_coefficients(static_cast<int>(order/2), ripple, z, p, k);
-    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_chebyshev2_analog_coefficients(static_cast<int>(order/2), ripple, zpk);
+    EQUtilities::populate_bp_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
   
   template<typename DataType, typename Container>
   void create_bs_chebyshev2_coeffs(size_t order, DataType ripple, DataType wc1, DataType wc2, Container& coefficients_in, Container& coefficients_out)
   {
-    std::vector<std::complex<DataType> > z;
-    std::vector<std::complex<DataType> > p;
-    DataType k;
-    
+    EQUtilities::ZPK<DataType> zpk;
+
     int fs = 2;
-    create_chebyshev2_analog_coefficients(static_cast<int>(order/2), ripple, z, p, k);
-    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, z, p, k, coefficients_in, coefficients_out);
+    create_chebyshev2_analog_coefficients(static_cast<int>(order/2), ripple, zpk);
+    EQUtilities::populate_bs_coeffs(wc1, wc2, fs, order, zpk, coefficients_in, coefficients_out);
   }
 }
 

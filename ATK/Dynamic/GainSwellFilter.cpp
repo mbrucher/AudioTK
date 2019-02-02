@@ -49,8 +49,10 @@ namespace ATK
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * ratio));
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class GainSwellFilter<float>;
-  template class GainSwellFilter<double>;
   template class GainFilter<GainSwellFilter<float>>;
+#endif
+  template class GainSwellFilter<double>;
   template class GainFilter<GainSwellFilter<double>>;
 }

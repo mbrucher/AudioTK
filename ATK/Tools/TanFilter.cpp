@@ -44,6 +44,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class TanFilter<float>;
+#endif
   template class TanFilter<double>;
 }

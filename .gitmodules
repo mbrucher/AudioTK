@@ -1,6 +1,3 @@
-[submodule "3rdParty/libsimdpp"]
-	path = 3rdParty/libsimdpp
-	url = https://github.com/mbrucher/libsimdpp
 [submodule "3rdParty/pybind11"]
 	path = 3rdParty/pybind11
 	url = https://github.com/mbrucher/pybind11

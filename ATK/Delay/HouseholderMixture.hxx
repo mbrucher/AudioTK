@@ -13,8 +13,8 @@ namespace ATK
   class HouseholderMixture<DataType_, nb_channels>::MixtureImpl
   {
   public:
-    typedef Eigen::Matrix<DataType, nb_channels, 1> Vector;
-    typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
+    using Vector = Eigen::Matrix<DataType, nb_channels, 1>;
+    using Matrix = Eigen::Matrix<DataType, nb_channels, nb_channels>;
 
     MixtureImpl()
       :transition(create())

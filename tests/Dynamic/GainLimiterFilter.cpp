@@ -13,46 +13,46 @@
 
 #include <boost/math/constants/constants.hpp>
 
-const size_t PROCESSSIZE = 64;
+constexpr gsl::index PROCESSSIZE = 64;
 
 BOOST_AUTO_TEST_CASE( GainLimiterFilter_softness_test )
 {
-  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter;
+  ATK::GainFilter<ATK::GainLimiterFilter<double>> filter;
   filter.set_softness(0.5);
   BOOST_CHECK_EQUAL(filter.get_softness(), 0.5);
 }
 
 BOOST_AUTO_TEST_CASE( GainLimiterFilter_softness_range_test )
 {
-  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter;
+  ATK::GainFilter<ATK::GainLimiterFilter<double>> filter;
   BOOST_CHECK_THROW(filter.set_softness(-0.000001), std::out_of_range);
 }
 
 BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_test )
 {
-  std::array<float, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  std::array<double, PROCESSSIZE> data;
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
   
-  ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<float, PROCESSSIZE> outdata;
+  std::array<double, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainLimiterFilter<double>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(10);
 
-  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
+  ATK::OutPointerFilter<double> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
   output.set_input_port(0, &filter, 0);
 
   output.process(PROCESSSIZE);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1);
   }
@@ -60,28 +60,28 @@ BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_test )
 
 BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_0_test )
 {
-  std::array<float, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  std::array<double, PROCESSSIZE> data;
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 0;
   }
 
-  ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<float, PROCESSSIZE> outdata;
+  std::array<double, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainLimiterFilter<double>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
 
-  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
+  ATK::OutPointerFilter<double> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
   output.set_input_port(0, &filter, 0);
 
   output.process(PROCESSSIZE);
 
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(1, outdata[i], 0.1); // if input is zero, we still need a gain of 1 to have a progression of 1 for values < threshold
   }
@@ -89,30 +89,30 @@ BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_0_test )
 
 BOOST_AUTO_TEST_CASE( GainLimiterFilter_const_1_threshold_05_test )
 {
-  std::array<float, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  std::array<double, PROCESSSIZE> data;
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = 1;
   }
 
-  ATK::InPointerFilter<float> generator(data.data(), 1, PROCESSSIZE, false);
+  ATK::InPointerFilter<double> generator(data.data(), 1, PROCESSSIZE, false);
   generator.set_output_sampling_rate(48000);
 
-  std::array<float, PROCESSSIZE> outdata;
+  std::array<double, PROCESSSIZE> outdata;
 
-  ATK::GainFilter<ATK::GainLimiterFilter<float>> filter(1);
+  ATK::GainFilter<ATK::GainLimiterFilter<double>> filter(1);
   filter.set_input_sampling_rate(48000);
   filter.set_input_port(0, &generator, 0);
   filter.set_threshold(0.5);
   filter.set_softness(1);
 
-  ATK::OutPointerFilter<float> output(outdata.data(), 1, PROCESSSIZE, false);
+  ATK::OutPointerFilter<double> output(outdata.data(), 1, PROCESSSIZE, false);
   output.set_input_sampling_rate(48000);
   output.set_input_port(0, &filter, 0);
 
   output.process(PROCESSSIZE);
 
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_REQUIRE_CLOSE(0.700553358, outdata[i], 0.1);
   }

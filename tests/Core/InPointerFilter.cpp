@@ -23,7 +23,7 @@
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
 {
   std::array<float, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_test )
 BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
 {
   std::array<double, PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -85,7 +85,7 @@ BOOST_AUTO_TEST_CASE( InPointerDouble_sin1k_test )
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
 {
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[2*i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
     data[2*i+1] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
@@ -130,11 +130,11 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_interleaved_test )
 BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k2k_noninterleaved_test )
 {
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[i+PROCESSSIZE] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 2000);
   }
@@ -179,7 +179,7 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_overflow_interleaved_test )
 {
   std::array<float, 2*PROCESSSIZE> data;
   std::array<float, 2*PROCESSSIZE> output;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     data[2*i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
     data[2*i+1] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
@@ -195,11 +195,11 @@ BOOST_AUTO_TEST_CASE( InPointerFloat_sin1k_overflow_interleaved_test )
   
   getter.process(PROCESSSIZE*2);
   
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_CHECK_EQUAL(data[2*i], output[i]);
   }
-  for(ptrdiff_t i = 0; i < PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE; ++i)
   {
     BOOST_CHECK_EQUAL(0, output[i + PROCESSSIZE]);
   }

@@ -153,18 +153,21 @@ namespace ATK
     }
   }
 
-  template class MultipleUniversalFixedDelayLineFilter<float, 2>;
   template class MultipleUniversalFixedDelayLineFilter<double, 2>;
+  template class MultipleUniversalFixedDelayLineFilter<double, 4>;
+  template class MultipleUniversalFixedDelayLineFilter<double, 8>;
+
+#if ATK_ENABLE_INSTANTIATION
+  template class MultipleUniversalFixedDelayLineFilter<float, 2>;
   template class MultipleUniversalFixedDelayLineFilter<std::complex<float>, 2>;
   template class MultipleUniversalFixedDelayLineFilter<std::complex<double>, 2>;
 
   template class MultipleUniversalFixedDelayLineFilter<float, 4>;
-  template class MultipleUniversalFixedDelayLineFilter<double, 4>;
   template class MultipleUniversalFixedDelayLineFilter<std::complex<float>, 4>;
   template class MultipleUniversalFixedDelayLineFilter<std::complex<double>, 4>;
 
   template class MultipleUniversalFixedDelayLineFilter<float, 8>;
-  template class MultipleUniversalFixedDelayLineFilter<double, 8>;
   template class MultipleUniversalFixedDelayLineFilter<std::complex<float>, 8>;
   template class MultipleUniversalFixedDelayLineFilter<std::complex<double>, 8>;
+#endif
 }

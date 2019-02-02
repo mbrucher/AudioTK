@@ -18,10 +18,10 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef SecondOrderCoreCoefficients<DataType_> Parent;
+    using Parent = SecondOrderCoreCoefficients<DataType_>;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
-    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     using Parent::setup;
@@ -47,10 +47,10 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef SecondOrderCoreCoefficients<DataType_> Parent;
+    using Parent = SecondOrderCoreCoefficients<DataType_>;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
-    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
     using Parent::setup;

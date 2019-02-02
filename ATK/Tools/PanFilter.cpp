@@ -64,29 +64,29 @@ namespace ATK
     switch(law)
     {
     case PAN_LAWS::SINCOS_0_CENTER:
-        left_coeff = std::sqrt(2) * std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
-        right_coeff = std::sqrt(2) * std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
-        break;
-      case PAN_LAWS::SINCOS_3_CENTER:
-        left_coeff = std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
-        right_coeff = std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
-        break;
-      case PAN_LAWS::SQUARE_0_CENTER:
-        left_coeff = std::sqrt(2) * std::sqrt((1 - pan) / 2);
-        right_coeff = std::sqrt(2) * std::sqrt((1 + pan) / 2);
-        break;
-      case PAN_LAWS::SQUARE_3_CENTER:
-        left_coeff = std::sqrt((1 - pan) / 2);
-        right_coeff = std::sqrt((1 + pan) / 2);
-        break;
-      case PAN_LAWS::LINEAR_TAPER:
-        left_coeff = (1 - pan) / 2;
-        right_coeff = (1 + pan) / 2;
-        break;
-      case PAN_LAWS::BALANCE:
-        left_coeff = pan < 0 ? 1 : 1 - pan;
-        right_coeff = pan > 0 ? 1 : 1 + pan;
-        break;
+      left_coeff = std::sqrt(2) * std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
+      right_coeff = std::sqrt(2) * std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
+      break;
+    case PAN_LAWS::SINCOS_3_CENTER:
+      left_coeff = std::cos((pan + 1) / 4 * boost::math::constants::pi<double>());
+      right_coeff = std::sin((pan + 1) / 4 * boost::math::constants::pi<double>());
+      break;
+    case PAN_LAWS::SQUARE_0_CENTER:
+      left_coeff = std::sqrt(2) * std::sqrt((1 - pan) / 2);
+      right_coeff = std::sqrt(2) * std::sqrt((1 + pan) / 2);
+      break;
+    case PAN_LAWS::SQUARE_3_CENTER:
+      left_coeff = std::sqrt((1 - pan) / 2);
+      right_coeff = std::sqrt((1 + pan) / 2);
+      break;
+    case PAN_LAWS::LINEAR_TAPER:
+      left_coeff = (1 - pan) / 2;
+      right_coeff = (1 + pan) / 2;
+      break;
+    case PAN_LAWS::BALANCE:
+      left_coeff = pan < 0 ? 1 : 1 - pan;
+      right_coeff = pan > 0 ? 1 : 1 + pan;
+      break;
     }
     
     assert(2 * nb_input_ports == nb_output_ports);
@@ -104,11 +104,13 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class PanFilter<std::int16_t>;
   template class PanFilter<std::int32_t>;
   template class PanFilter<std::int64_t>;
   template class PanFilter<float>;
-  template class PanFilter<double>;
   template class PanFilter<std::complex<float>>;
   template class PanFilter<std::complex<double>>;
+#endif
+  template class PanFilter<double>;
 }

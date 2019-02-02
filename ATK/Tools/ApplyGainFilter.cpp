@@ -11,8 +11,10 @@
 
 namespace ATK
 {
+#if ATK_ENABLE_INSTANTIATION
   template class ApplyGainFilter<float>;
-  template class ApplyGainFilter<double>;
   template class ApplyGainFilter<std::complex<float>>;
   template class ApplyGainFilter<std::complex<double>>;
+#endif
+  template class ApplyGainFilter<double>;
 }

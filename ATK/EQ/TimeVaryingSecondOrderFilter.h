@@ -13,7 +13,7 @@ namespace ATK
   class TimeVaryingBaseSecondOrderCoefficients: public TypedBaseFilter<DataType_>
   {
   public:
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::setup;
@@ -51,7 +51,7 @@ namespace ATK
   class TimeVaryingBandPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingBaseSecondOrderCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingBaseSecondOrderCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -81,7 +81,7 @@ namespace ATK
   class TimeVaryingLowPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingBaseSecondOrderCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingBaseSecondOrderCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -103,7 +103,7 @@ namespace ATK
   class TimeVaryingHighPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingBaseSecondOrderCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingBaseSecondOrderCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -125,7 +125,7 @@ namespace ATK
   class TimeVaryingBandPassPeakCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingBaseSecondOrderCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingBaseSecondOrderCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -158,7 +158,7 @@ namespace ATK
   class TimeVaryingAllPassCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingBaseSecondOrderCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingBaseSecondOrderCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -188,7 +188,7 @@ namespace ATK
   class TimeVaryingLowShelvingCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingBaseSecondOrderCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingBaseSecondOrderCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;
@@ -216,7 +216,7 @@ namespace ATK
   class TimeVaryingHighShelvingCoefficients: public TimeVaryingBaseSecondOrderCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingBaseSecondOrderCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingBaseSecondOrderCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::input_sampling_rate;
     using Parent::output_sampling_rate;

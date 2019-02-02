@@ -73,8 +73,10 @@ namespace ATK
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio));
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class GainMaxCompressorFilter<float>;
-  template class GainMaxCompressorFilter<double>;
   template class GainFilter<GainMaxCompressorFilter<float>>;
+#endif
+  template class GainMaxCompressorFilter<double>;
   template class GainFilter<GainMaxCompressorFilter<double>>;
 }

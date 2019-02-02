@@ -7,117 +7,98 @@
 
 #include <complex>
 #include <cstdint>
-#include <iostream>
 #include <type_traits>
 
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/distance.hpp>
-#include <boost/mpl/empty.hpp>
-#include <boost/mpl/find.hpp>
-#include <boost/mpl/front.hpp>
-#include <boost/mpl/pop_front.hpp>
-#include <boost/mpl/vector.hpp>
-#include <boost/type_traits.hpp>
-#include <boost/utility/enable_if.hpp>
-
-#if USE_SIMD
-#include <simdpp/simd.h>
-#endif
+#include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/list.hpp>
 
 namespace ATK
 {
 namespace Utilities
 {
-  typedef boost::mpl::vector<std::int16_t, std::int32_t, int64_t, float, double, std::complex<float>, std::complex<double> > ConversionTypes;
+  using ConversionTypes = boost::mp11::mp_list<std::int16_t, std::int32_t, int64_t, float, double, std::complex<float>, std::complex<double> > ;
 
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
+  void convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
-    throw RuntimeError("Cannot convert types for these filters");
-  }
-
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
-  convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
-  }
-
-  template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::is_arithmetic<typename boost::mpl::front<Vector>::type>::type, typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type>::type
-    convert_scalar_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    if(type != 0)
+    if constexpr(boost::mp11::mp_empty<Vector>::value)
     {
-      convert_scalar_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+      throw RuntimeError("Cannot convert types for these filters");
+    }
+    else if constexpr(std::is_arithmetic<boost::mp11::mp_front<Vector>>::value)
+    {
+      if (type != 0)
+      {
+        convert_scalar_array<boost::mp11::mp_pop_front<Vector>, DataType>(filter, port, converted_input, size, type - 1);
+      }
+      else
+      {
+        using InputOriginalType = boost::mp11::mp_front<Vector>;
+        InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
+        ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
+      }
+    }
+    else // This is in case we add arithmetic types after the non arithmetic ones (should not happen)
+    {
+      convert_scalar_array<boost::mp11::mp_pop_front<Vector>, DataType>(filter, port, converted_input, size, type - 1);
+    }
+  }
+
+
+  template<typename Vector, typename DataType>
+  void convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
+  {
+    if constexpr(boost::mp11::mp_empty<Vector>::value)
+    {
+      throw RuntimeError("Can't convert types");
     }
     else
     {
-      typedef typename boost::mpl::front<Vector>::type InputOriginalType;
-      InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
-      ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
+      assert(type >= 0);
+      if (type != 0)
+      {
+        convert_complex_array<boost::mp11::mp_pop_front<Vector>, DataType>(filter, port, converted_input, size, type - 1);
+      }
+      else
+      {
+        using InputOriginalType = boost::mp11::mp_front<Vector>;
+        InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
+        ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
+      }
     }
   }
 
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
+  void convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
   {
-    throw RuntimeError("Can't convert types");
-  }
-
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::mpl::empty<Vector>::type, void>::type
-    convert_complex_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    assert(type >= 0);
-    if (type != 0)
+    if constexpr(std::is_arithmetic<DataType>::value)
     {
-      convert_complex_array<typename boost::mpl::pop_front<Vector>::type, DataType>(filter, port, converted_input, size, type - 1);
+      convert_scalar_array<Vector, DataType>(filter, port, converted_input, size, type);
+    }
+    else if constexpr(boost::mp11::mp_contains<Vector, DataType>::value)
+    {
+      convert_complex_array<Vector, DataType>(filter, port, converted_input, size, type);
     }
     else
     {
-      typedef typename boost::mpl::front<Vector>::type InputOriginalType;
-      InputOriginalType* original_input_array = static_cast<ATK::TypedBaseFilter<InputOriginalType>*>(filter)->get_output_array(port);
-      ATK::ConversionUtilities<InputOriginalType, DataType>::convert_array(original_input_array, converted_input, size);
+      assert(dynamic_cast<ATK::OutputArrayInterface<DataType>*>(filter));
+      // For SIMD, you shouldn't call this, but adapt input/output delays so that there is no copy from one filter to another.
+      DataType* original_input_array = dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
+      ATK::ConversionUtilities<DataType, DataType>::convert_array(original_input_array, converted_input, size);
     }
   }
 
-  /// Conversion function for arithmetic types
   template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::is_arithmetic<DataType>::type, void>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
+  int get_type()
   {
-    convert_scalar_array<Vector, DataType>(filter, port, converted_input, size, type);
-  }
-
-  /// Conversion function for other types not contained in ConversionTypes (no conversion in that case, just copy)
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    assert(dynamic_cast<ATK::OutputArrayInterface<DataType>*>(filter));
-     // For SIMD, you shouldn't call this, but adapt input/output delays so that there is no copy from one filter to another.
-    DataType* original_input_array = dynamic_cast<ATK::TypedBaseFilter<DataType>*>(filter)->get_output_array(port);
-    ATK::ConversionUtilities<DataType, DataType>::convert_array(original_input_array, converted_input, size);
-  }
-
-  /// Conversion function for std::complex contained in ConversionTypes
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::is_arithmetic<DataType>::type, typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, void>::type>::type convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
-  {
-    convert_complex_array<Vector, DataType>(filter, port, converted_input, size, type);
-  }
-
-  template<typename Vector, typename DataType>
-  typename boost::enable_if<typename boost::mpl::contains<Vector, DataType>::type, int>::type get_type()
-  {
-    return boost::mpl::distance<boost::mpl::begin<ConversionTypes>::type, typename boost::mpl::find<ConversionTypes, DataType>::type >::value;
-  }
-
-  template<typename Vector, typename DataType>
-  typename boost::disable_if<typename boost::mpl::contains<Vector, DataType>::type, int>::type get_type()
-  {
-    return -1;
+    if constexpr(boost::mp11::mp_contains<Vector, DataType>::value)
+    {
+      return boost::mp11::mp_find<ConversionTypes, DataType>::value;
+    }
+    else
+    {
+      return -1;
+    }
   }
 }
 

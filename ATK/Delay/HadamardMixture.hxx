@@ -16,8 +16,8 @@ namespace ATK
   class HadamardMixture<DataType_, order>::MixtureImpl
   {
   public:
-    typedef Eigen::Matrix<DataType, nb_channels, 1> Vector;
-    typedef Eigen::Matrix<DataType, nb_channels, nb_channels> Matrix;
+    using Vector = Eigen::Matrix<DataType, nb_channels, 1>;
+    using Matrix = Eigen::Matrix<DataType, nb_channels, nb_channels>;
 
     MixtureImpl()
       :transition(create())
@@ -38,24 +38,25 @@ namespace ATK
     }
     
     template<unsigned int recursive_order>
-    static typename std::enable_if<recursive_order == 0, Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, 1, 1>>::type recursive_create()
+    static Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, (1U<<recursive_order), (1U<<recursive_order)> recursive_create()
     {
-      return Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, 1, 1>::Constant(1);
-    }
-    
-    template<unsigned int recursive_order>
-    static typename std::enable_if<recursive_order != 0, Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, (1<<recursive_order), (1<<recursive_order)>>::type recursive_create()
-    {
-      constexpr auto big_size = (1U << recursive_order);
-      constexpr auto small_size = (1U << (recursive_order - 1));
-      Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, big_size, big_size> cur_transition;
-      
-      auto M_1 = recursive_create<recursive_order - 1>();
-      cur_transition.block(0, 0, small_size, small_size) = M_1;
-      cur_transition.block(0, small_size, small_size, small_size) = M_1;
-      cur_transition.block(small_size, 0, small_size, small_size) = -M_1;
-      cur_transition.block(small_size, small_size, small_size, small_size) = M_1;
-      return cur_transition;
+      if constexpr(recursive_order == 0)
+      {
+        return Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, 1U, 1U>::Constant(1);
+      }
+      else
+      {
+        constexpr auto big_size = (1U << recursive_order);
+        constexpr auto small_size = (1U << (recursive_order - 1));
+        Eigen::Matrix<typename TypeTraits<DataType_>::Scalar, big_size, big_size> cur_transition;
+        
+        auto M_1 = recursive_create<recursive_order - 1>();
+        cur_transition.block(0, 0, small_size, small_size) = M_1;
+        cur_transition.block(0, small_size, small_size, small_size) = M_1;
+        cur_transition.block(small_size, 0, small_size, small_size) = -M_1;
+        cur_transition.block(small_size, small_size, small_size, small_size) = M_1;
+        return cur_transition;
+      }
     }
   };
 }

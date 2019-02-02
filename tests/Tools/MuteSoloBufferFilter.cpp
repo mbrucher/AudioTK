@@ -14,7 +14,7 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1024;
+constexpr gsl::index PROCESSSIZE = 1024;
 
 BOOST_AUTO_TEST_CASE( MuteSoloBufferFilter_mute_test )
 {

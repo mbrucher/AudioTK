@@ -16,7 +16,7 @@ namespace ATK
   class ATK_EQ_EXPORT SecondOrderSVFFilter final: public SVFCoefficients
   {
   protected:
-    typedef SVFCoefficients Parent;
+    using Parent = SVFCoefficients;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
@@ -48,9 +48,9 @@ namespace ATK
   class SecondOrderSVFBaseCoefficients : public TypedBaseFilter<DataType_>
   {
   public:
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::DataType;
-    typedef typename TypeTraits<DataType>::Scalar CoeffDataType;
+    using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
     CoeffDataType cut_frequency;
@@ -84,7 +84,7 @@ namespace ATK
   class SecondOrderSVFLowPassCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;
@@ -109,7 +109,7 @@ namespace ATK
   class SecondOrderSVFBandPassCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;
@@ -134,7 +134,7 @@ namespace ATK
   class SecondOrderSVFHighPassCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;
@@ -159,7 +159,7 @@ namespace ATK
   class SecondOrderSVFNotchCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;
@@ -184,7 +184,7 @@ namespace ATK
   class SecondOrderSVFPeakCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;
@@ -209,7 +209,7 @@ namespace ATK
   class SecondOrderSVFBellCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;
@@ -240,7 +240,7 @@ namespace ATK
   class SecondOrderSVFLowShelfCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;
@@ -271,7 +271,7 @@ namespace ATK
   class SecondOrderSVFHighShelfCoefficients : public SecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef SecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = SecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using typename Parent::CoeffDataType;
     using Parent::setup;

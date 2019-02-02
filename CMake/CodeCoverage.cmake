@@ -86,11 +86,11 @@ ELSEIF(NOT CMAKE_COMPILER_IS_GNUCXX)
 ENDIF() # CHECK VALID COMPILER
 
 SET(CMAKE_CXX_FLAGS_COVERAGE
-    "-g -O0 --coverage -fprofile-arcs -ftest-coverage"
+    "-g -O0 --coverage -fprofile-arcs -ftest-coverage -fno-inline"
     CACHE STRING "Flags used by the C++ compiler during coverage builds."
     FORCE )
 SET(CMAKE_C_FLAGS_COVERAGE
-    "-g -O0 --coverage -fprofile-arcs -ftest-coverage"
+    "-g -O0 --coverage -fprofile-arcs -ftest-coverage -fno-inline"
     CACHE STRING "Flags used by the C compiler during coverage builds."
     FORCE )
 SET(CMAKE_EXE_LINKER_FLAGS_COVERAGE
@@ -146,7 +146,7 @@ FUNCTION(SETUP_TARGET_FOR_COVERAGE _targetname _testrunner _outputname)
 
 		# Capturing lcov counters and generating report
     COMMAND ${LCOV_PATH} --directory . --capture ${LCOV_SCRIPT} --output-file ${coverage_info}
-		COMMAND ${LCOV_PATH} --remove ${coverage_info} 'tests/*' '/usr/*' --output-file ${coverage_cleaned}
+		COMMAND ${LCOV_PATH} --remove ${coverage_info} '/usr/*' --output-file ${coverage_cleaned}
 		COMMAND ${GENHTML_PATH} -o ${_outputname} ${coverage_cleaned}
 		COMMAND ${CMAKE_COMMAND} -E remove ${coverage_info} ${coverage_cleaned}
 

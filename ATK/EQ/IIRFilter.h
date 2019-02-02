@@ -23,7 +23,7 @@ namespace ATK
   {
   protected:
     /// Simplify parent calls
-    typedef Coefficients Parent;
+    using Parent = Coefficients;
     using typename Parent::DataType;
     using typename Parent::AlignedScalarVector;
     using Parent::converted_inputs;
@@ -224,7 +224,7 @@ namespace ATK
   {
   public:
     /// Simplify parent calls
-    typedef Coefficients Parent;
+    using Parent = Coefficients;
     using typename Parent::DataType;
     using typename Parent::AlignedScalarVector;
     using Parent::converted_inputs;

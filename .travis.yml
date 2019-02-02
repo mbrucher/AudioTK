@@ -30,21 +30,19 @@ matrix:
         - libatlas-base-dev
         - lcov
         - curl
+        - gcov
       sonarcloud:
         organization: "mbrucher-github"
     env:
     - MY_NAME: Static Analysis
     - COMPILER=g++-8
     - PLATFORM=gcc-8
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - ENABLE_PYTHON=OFF
     - ENABLE_STATIC_ANALYSIS=ON
     - ENABLE_CODECOVERAGE=ON
-    - BUILD_TYPE=Debug
+    - BUILD_TYPE=Coverage
     - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON"
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: gcc-7
     os: linux
     dist: trusty
@@ -66,15 +64,12 @@ matrix:
     - MY_NAME: Static Analysis
     - COMPILER=g++-7
     - PLATFORM=gcc-7
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - ENABLE_PYTHON=OFF
     - ENABLE_STATIC_ANALYSIS=ON
     - ENABLE_CODECOVERAGE=ON
-    - BUILD_TYPE=Debug
+    - BUILD_TYPE=Coverage
     - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON"
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: gcc-8
     os: linux
     dist: trusty
@@ -97,7 +92,7 @@ matrix:
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
   - compiler: gcc-8
     os: linux
     dist: trusty
@@ -119,7 +114,7 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.3
     - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
   - compiler: gcc-7
     os: linux
     dist: trusty
@@ -142,7 +137,7 @@ matrix:
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
   - compiler: gcc-7
     os: linux
     dist: trusty
@@ -164,7 +159,7 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.3
     - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
   - compiler: clang-6.0
     os: linux
     dist: trusty
@@ -184,14 +179,11 @@ matrix:
     - MY_NAME=ASAN
     - COMPILER=clang++-6.0
     - PLATFORM=clang-6.0
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
     - LD_PRELOAD_=/usr/lib/llvm-6.0/lib/clang/6.0.1/lib/linux/libclang_rt.asan-x86_64.so
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_ADDRESS_SANITIZER=ON"
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-6.0
     os: linux
     dist: trusty
@@ -207,17 +199,16 @@ matrix:
         - libsndfile-dev
         - swig
         - libatlas-base-dev
+        - lcov
+        - curl
     env:
     - MY_NAME=LLVM coverage
     - COMPILER=clang++-6.0
     - PLATFORM=clang-6.0
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
+    - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
-    - ENABLE_COVERAGE=ON
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_COVERAGE=ON -DLCOV_SCRIPT='--gcov-tool ${TRAVIS_BUILD_DIR}/script/llvm-gcov.sh'"
+    - ENABLE_CODECOVERAGE=ON
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-6.0
     os: linux
     dist: trusty
@@ -242,7 +233,7 @@ matrix:
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+    - ADDITONAL_CMAKE_FLAGS="-DDISABLE_PYTHON_TESTS=ON -DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
   - compiler: clang-6.0
     os: linux
     dist: trusty
@@ -266,67 +257,18 @@ matrix:
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.6.3
     - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
-  - compiler: clang-4.0
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-4.0
-        packages:
-        - clang-4.0
-        - g++-6
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-        - libatlas-base-dev
-    env:
-    - MY_NAME: clang 4 Python 2
-    - COMPILER=clang++-4.0
-    - PLATFORM=clang-4.0
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
-    - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
-  - compiler: clang-4.0
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-4.0
-        packages:
-        - clang-4.0
-        - g++-6
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-    env:
-    - MY_NAME: clang 4 Python 3
-    - COMPILER=clang++-4.0
-    - PLATFORM=clang-4.0
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
-    - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.3
-    - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python"
+    - ADDITONAL_CMAKE_FLAGS="-DDISABLE_PYTHON_TESTS=ON -DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
   - os: osx
     osx_image: xcode9.2
     env:
     - MY_NAME: XCode 9 Python 2
     - COMPILER=clang++
     - PLATFORM=xcode-9.2
-    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.11
+    - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Release
   - os: osx
     osx_image: xcode9.2
@@ -334,11 +276,11 @@ matrix:
     - MY_NAME: XCode 9 Python 3
     - COMPILER=clang++
     - PLATFORM=xcode-9.2
-    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.4
+    - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
   - os: osx
     osx_image: xcode10
@@ -346,11 +288,11 @@ matrix:
     - MY_NAME: XCode 10 Python 2
     - COMPILER=clang++
     - PLATFORM=xcode-10
-    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.11
+    - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Release
   - os: osx
     osx_image: xcode10
@@ -358,11 +300,11 @@ matrix:
     - MY_NAME: XCode 10 Python 3
     - COMPILER=clang++
     - PLATFORM=xcode-10
-    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64"
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.4
+    - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
   allow_failures:
   - compiler: gcc-8
@@ -377,9 +319,10 @@ before_install:
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
       ls /opt/python/
       wget https://cmake.org/files/v3.12/cmake-3.12.1-Linux-x86_64.sh
-      chmod +x cmake-3.10.1-Linux-x86_64.sh
-      ./cmake-3.10.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license
+      chmod +x cmake-3.12.1-Linux-x86_64.sh
+      ./cmake-3.12.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
+        ls /opt/python/
         /opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python${Python_ADDITIONAL_VERSIONS} -m pip install numpy scipy nose
       fi
     fi
@@ -392,6 +335,7 @@ before_install:
       brew upgrade cmake
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
         if [[ "$PYTHON" == "python3" ]]; then brew upgrade python ; fi
+        ${PYTHON} -V
         sudo ${PYTHON} -m pip install numpy scipy nose
       fi
     fi
@@ -409,12 +353,12 @@ install:
 before_script:
   - mkdir build
   - cd build
-  - ${MAKE_WRAPPER} cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DENABLE_STATIC_LIBRARIES=ON -DENABLE_PYTHON=${ENABLE_PYTHON} ${ADDITONAL_CMAKE_FLAGS} ..
+  - ${MAKE_WRAPPER} cmake -DENABLE_GPL=ON -DDISABLE_EIGEN_WARNINGS=ON -DCMAKE_CXX_COMPILER=$COMPILER -DBOOST_ROOT=$BOOST_BUILD -DCMAKE_INSTALL_PREFIX=${HOME}/ATK -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DENABLE_PYTHON=${ENABLE_PYTHON} ${ADDITONAL_CMAKE_FLAGS} ..
 
 script:
   - pwd
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$BOOST_BUILD/lib ; fi
   - ${MAKE_WRAPPER} make -j16
   - make install
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
@@ -422,15 +366,16 @@ script:
   - echo $LD_LIBRARY_PATH
   - ls ${HOME}/ATK/lib
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
-      make codecoverage
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+      export PATH=${TRAVIS_BUILD_DIR}/script/:${PATH}
+      VERBOSE=1 CTEST_OUTPUT_ON_FAILURE=TRUE make codecoverage
     else
       LD_PRELOAD=${LD_PRELOAD_} CTEST_OUTPUT_ON_FAILURE=TRUE make test
     fi
 
 after_success:
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
       bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     else
       cd ${HOME}/ATK
@@ -444,7 +389,7 @@ after_success:
       ls
     fi
   - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]] || [[ "${ENABLE_COVERAGE}" = "ON" ]]; then
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
       exit
     fi
 

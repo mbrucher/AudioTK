@@ -17,7 +17,7 @@ namespace ATK
   class TS9OverdriveFilter<DataType_>::TS9OverdriveFunction
   {
   public:
-    typedef DataType_ DataType;
+    using DataType = DataType_;
   protected:
     const DataType R;
     const DataType R1;
@@ -138,6 +138,8 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class TS9OverdriveFilter<float>;
+#endif
   template class TS9OverdriveFilter<double>;
 }

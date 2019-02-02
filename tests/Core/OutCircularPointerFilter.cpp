@@ -18,7 +18,7 @@
 BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_test )
 {
   std::array<float, PROCESSSIZE*200> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE*200; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE*200; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -45,11 +45,11 @@ BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_test )
       max_zero = std::max(0, int(ATK::OutCircularPointerFilter<float>::out_slice_size - (i+1) * PROCESSSIZE));
       offset = std::max(0, (i+1) * PROCESSSIZE - int(ATK::OutCircularPointerFilter<float>::out_slice_size)) - max_zero ;
     }
-    for(ptrdiff_t j = 0; j < max_zero; ++j)
+    for(gsl::index j = 0; j < max_zero; ++j)
     {
       BOOST_REQUIRE_EQUAL(outdata[j], 0);
     }
-    for(ptrdiff_t j = max_zero; j < outdata.size(); ++j)
+    for(gsl::index j = max_zero; j < outdata.size(); ++j)
     {
       BOOST_REQUIRE_EQUAL(outdata[j], data[j + offset]);
     }
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_test )
 BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_full_setup_test )
 {
   std::array<float, PROCESSSIZE*200> data;
-  for(ptrdiff_t i = 0; i < PROCESSSIZE*200; ++i)
+  for(gsl::index i = 0; i < PROCESSSIZE*200; ++i)
   {
     data[i] = std::sin(2 * boost::math::constants::pi<float>() * (i+1.)/48000 * 1000);
   }
@@ -80,7 +80,7 @@ BOOST_AUTO_TEST_CASE( OutCircularPointerFloat_sin1k_full_setup_test )
     bool process;
     const auto& outdata = output.get_last_slice(process);
     
-    for(ptrdiff_t j = 0; j < outdata.size(); ++j)
+    for(gsl::index j = 0; j < outdata.size(); ++j)
     {
       BOOST_REQUIRE_EQUAL(outdata[j], 0);
     }

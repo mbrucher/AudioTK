@@ -18,9 +18,9 @@ namespace ATK
   class RLSFilter<DataType_>::RLSFilterImpl
   {
   public:
-    typedef Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic> PType;
-    typedef Eigen::Matrix<DataType_, Eigen::Dynamic, 1> wType;
-    typedef Eigen::Map<const wType> xType;
+    using PType = Eigen::Matrix<DataType_, Eigen::Dynamic, Eigen::Dynamic>;
+    using wType = Eigen::Matrix<DataType_, Eigen::Dynamic, 1>;
+    using xType = Eigen::Map<const wType>;
 
     RLSFilterImpl(gsl::index size)
       :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size)), memory(.99)
@@ -173,8 +173,10 @@ namespace ATK
     return impl->get_w();
   }
 
-  template class RLSFilter<float>;
   template class RLSFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
+  template class RLSFilter<float>;
   template class RLSFilter<std::complex<float>>;
   template class RLSFilter<std::complex<double>>;
+#endif
 }

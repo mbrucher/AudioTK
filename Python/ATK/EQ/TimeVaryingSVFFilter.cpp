@@ -28,42 +28,52 @@ namespace
   }
 }
 
-void populate_TimeVaryingSVFFilters(pybind11::module& m, const pybind11::object& f1, const pybind11::object& f2)
+void populate_TimeVaryingSVFFilters(pybind11::module& m,
+#if ATK_ENABLE_INSTANTIATION
+  const pybind11::object& f1,
+#endif
+  const pybind11::object& f2)
 {
+#if ATK_ENABLE_INSTANTIATION
   populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBaseCoefficients", f1);
+#endif
   populate_TimeVaryingSVFCoefficients<TimeVaryingSecondOrderSVFBaseCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBaseCoefficients", f2);
   
+#if ATK_ENABLE_INSTANTIATION
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassCoefficients");
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFBandPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBandPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFBandPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBandPassCoefficients");
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFHighPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighPassCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFHighPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighPassCoefficients");
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFNotchCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFNotchCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFNotchCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFNotchCoefficients");
   populate_DirectCoefficients<TimeVaryingSecondOrderSVFPeakCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFPeakCoefficients");
-  populate_DirectCoefficients<TimeVaryingSecondOrderSVFPeakCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFPeakCoefficients");
   populate_shelfCoefficients<TimeVaryingSecondOrderSVFBellCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBellCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFBellCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBellCoefficients");
   populate_shelfCoefficients<TimeVaryingSecondOrderSVFLowShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowSheldCoefficients");
-  populate_shelfCoefficients<TimeVaryingSecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowShelfCoefficients");
   populate_shelfCoefficients<TimeVaryingSecondOrderSVFHighShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighShelfCoefficients");
+#endif
+  populate_DirectCoefficients<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassCoefficients");
+  populate_DirectCoefficients<TimeVaryingSecondOrderSVFBandPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBandPassCoefficients");
+  populate_DirectCoefficients<TimeVaryingSecondOrderSVFHighPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighPassCoefficients");
+  populate_DirectCoefficients<TimeVaryingSecondOrderSVFNotchCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFNotchCoefficients");
+  populate_DirectCoefficients<TimeVaryingSecondOrderSVFPeakCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFPeakCoefficients");
+  populate_shelfCoefficients<TimeVaryingSecondOrderSVFBellCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBellCoefficients");
+  populate_shelfCoefficients<TimeVaryingSecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowShelfCoefficients");
   populate_shelfCoefficients<TimeVaryingSecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighShelfCoefficients");
-  
+
+#if ATK_ENABLE_INSTANTIATION
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBandPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBandPassFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighPassFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighPassFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFNotchFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFNotchFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFPeakFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFPeakFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFBellFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBellFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFLowSheldFilter");
-  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowShelfFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float>>(m, "FloatTimeVaryingSecondOrderSVFHighShelfFilter");
+#endif
+  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowPassFilter");
+  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBandPassFilter");
+  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighPassFilter");
+  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFNotchFilter");
+  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFPeakFilter");
+  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFBellFilter");
+  populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFLowShelfFilter");
   populate_TimeVaryingSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double>>(m, "DoubleTimeVaryingSecondOrderSVFHighShelfFilter");
 }

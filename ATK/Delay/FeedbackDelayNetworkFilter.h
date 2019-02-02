@@ -19,8 +19,8 @@ namespace ATK
   {
     class HFDN_Impl;
   protected:
-    typedef typename Mixture::DataType DataType;
-    typedef TypedBaseFilter<DataType> Parent;
+    using DataType = typename Mixture::DataType;
+    using Parent = TypedBaseFilter<DataType>;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;

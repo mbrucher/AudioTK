@@ -16,7 +16,7 @@ namespace ATK
   class ATK_EQ_EXPORT TimeVaryingSecondOrderSVFFilter final : public SVFCoefficients
   {
   protected:
-    typedef SVFCoefficients Parent;
+    using Parent = SVFCoefficients;
     using typename Parent::AlignedScalarVector;
     using typename Parent::DataType;
     using Parent::converted_inputs;
@@ -48,7 +48,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFBaseCoefficients : public TypedBaseFilter<DataType_>
   {
   public:
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
   protected:
@@ -78,7 +78,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFLowPassCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -100,7 +100,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFBandPassCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -122,7 +122,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFHighPassCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -144,7 +144,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFNotchCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -166,7 +166,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFPeakCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -188,7 +188,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFBellCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -216,7 +216,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFLowShelfCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;
@@ -244,7 +244,7 @@ namespace ATK
   class TimeVaryingSecondOrderSVFHighShelfCoefficients : public TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>
   {
   public:
-    typedef TimeVaryingSecondOrderSVFBaseCoefficients<DataType_> Parent;
+    using Parent = TimeVaryingSecondOrderSVFBaseCoefficients<DataType_>;
     using typename Parent::DataType;
     using Parent::setup;
     using Parent::a1;

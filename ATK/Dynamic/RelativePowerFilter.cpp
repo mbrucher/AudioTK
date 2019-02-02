@@ -64,6 +64,8 @@ namespace ATK
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class RelativePowerFilter<float>;
+#endif
   template class RelativePowerFilter<double>;
 }

@@ -39,11 +39,13 @@ namespace ATK
     }
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class DerivativeFilter<std::int16_t>;
   template class DerivativeFilter<std::int32_t>;
   template class DerivativeFilter<std::int64_t>;
   template class DerivativeFilter<float>;
-  template class DerivativeFilter<double>;
   template class DerivativeFilter<std::complex<float>>;
   template class DerivativeFilter<std::complex<double>>;
+#endif
+  template class DerivativeFilter<double>;
 }

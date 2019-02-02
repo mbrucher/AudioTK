@@ -17,8 +17,8 @@
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
 
-const size_t PROCESSSIZE = 1024*64;
-const size_t input_sampling_rate = 1024*64;
+constexpr gsl::index PROCESSSIZE = 1024*64;
+constexpr gsl::index input_sampling_rate = 1024*64;
 
 BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFBandPassCoefficients_Q_test )
 {
@@ -73,7 +73,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFBandPassCoefficients_1k_test )
   filter.set_Q(1);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -111,7 +111,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFBandPassCoefficients_100_test )
   filter.set_Q(1);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -149,7 +149,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFBandPassCoefficients_2k_test )
   filter.set_Q(1);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -186,7 +186,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowPassCoefficients_1k_test )
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -223,7 +223,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowPassCoefficients_100_test )
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -260,7 +260,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowPassCoefficients_2k_test )
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -297,7 +297,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowPassCoefficients_200_test )
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -334,7 +334,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighPassCoefficients_1k_test )
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -371,7 +371,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighPassCoefficients_100_test )
   filter.set_output_sampling_rate(1024*64);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -408,7 +408,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighPassCoefficients_2k_test )
   filter.set_output_sampling_rate(1024*64);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -445,7 +445,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighPassCoefficients_200_test )
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -482,7 +482,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_1k_te
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -519,7 +519,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_100_t
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -556,7 +556,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_2k_te
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -593,7 +593,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFNotchCoefficients_200_t
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -630,7 +630,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_1k_tes
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -667,7 +667,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_100_te
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -704,7 +704,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_2k_tes
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -741,7 +741,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFPeakCoefficients_200_te
   filter.set_output_sampling_rate(1024*64);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -779,7 +779,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFBellCoefficients_1k_tes
   filter.set_gain(10);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -817,7 +817,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFBellCoefficients_100_te
   filter.set_gain(10);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -855,7 +855,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFBellCoefficients_2k_tes
   filter.set_gain(10);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -893,7 +893,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFFilter_SVFBellCoefficients_200_te
   filter.set_gain(10);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -931,7 +931,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowShelvingCoefficients_1k_test )
   filter.set_gain(.5);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -969,7 +969,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowShelvingCoefficients_100_test 
   filter.set_gain(.5);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -1007,7 +1007,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFLowShelvingCoefficients_200_test 
   filter.set_gain(.5);
 
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 100 / input_sampling_rate);;
   }
@@ -1045,7 +1045,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighShelvingCoefficients_1k_test 
   filter.set_gain(.5);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 1000 / input_sampling_rate);;
   }
@@ -1083,7 +1083,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighShelvingCoefficients_10k_test
   filter.set_gain(.5);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 1000 / input_sampling_rate);;
   }
@@ -1121,7 +1121,7 @@ BOOST_AUTO_TEST_CASE( TimeVaryingSecondOrderSVFHighShelvingCoefficients_500_test
   filter.set_gain(.5);
   
   std::array<float, 2*PROCESSSIZE> data;
-  for(ptrdiff_t i = 0; i < 2*PROCESSSIZE; ++i)
+  for(gsl::index i = 0; i < 2*PROCESSSIZE; ++i)
   {
     data[i] = std::tan(boost::math::constants::pi<double>() * 1000 / input_sampling_rate);;
   }

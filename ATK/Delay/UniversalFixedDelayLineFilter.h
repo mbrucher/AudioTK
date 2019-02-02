@@ -20,14 +20,14 @@ namespace ATK
     class UFDLF_Impl;
   protected:
     /// Simplify parent calls
-    typedef TypedBaseFilter<DataType_> Parent;
+    using Parent = TypedBaseFilter<DataType_>;
     using typename Parent::DataType;
     using Parent::converted_inputs;
     using Parent::outputs;
     using Parent::nb_input_ports;
     using Parent::nb_output_ports;
     using Parent::output_delay;
-    typedef typename TypeTraits<DataType>::Scalar Scalar;
+    using Scalar = typename TypeTraits<DataType>::Scalar;
 
   public:
     /*!

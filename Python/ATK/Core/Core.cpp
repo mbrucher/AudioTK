@@ -63,7 +63,7 @@ namespace
   void populate_InPointerFilter(py::module& m, const char* type)
   {
     py::class_<InPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def("__init__", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array, bool interleaved) {
+    .def(py::init([](const py::array_t<DataType>& array, bool interleaved) {
         gsl::index channels = 1;
         gsl::index size = array.shape(0);
         if(array.ndim() == 2)
@@ -71,8 +71,8 @@ namespace
           channels = array.shape(0);
           size = array.shape(1);
         }
-        new (&instance) InPointerFilter<DataType>(array.data(), channels, size, interleaved);
-    }, py::arg().noconvert(), py::arg("interleaved") = false)
+        return new InPointerFilter<DataType>(array.data(), channels, size, interleaved);
+    }), py::arg("array").noconvert(), py::arg("interleaved") = false)
       .def("set_pointer", [](InPointerFilter<DataType>& instance, const py::array_t<DataType>& array)
     {
       gsl::index channels = 1;
@@ -94,7 +94,7 @@ namespace
   void populate_OutPointerFilter(py::module& m, const char* type)
   {
     py::class_<OutPointerFilter<DataType>, TypedBaseFilter<DataType>>(m, type)
-      .def("__init__", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array, bool interleaved) {
+    .def(py::init([](py::array_t<DataType>& array, bool interleaved) {
         gsl::index channels = 1;
         gsl::index size = array.shape(0);
         if(array.ndim() == 2)
@@ -102,8 +102,8 @@ namespace
           channels = array.shape(0);
           size = array.shape(1);
         }
-      new (&instance) OutPointerFilter<DataType>(array.mutable_data(), channels, size, interleaved);
-    }, py::arg().noconvert(), py::arg("interleaved") = false)
+      return new OutPointerFilter<DataType>(array.mutable_data(), channels, size, interleaved);
+    }), py::arg("array").noconvert(), py::arg("interleaved") = false)
       .def("set_pointer", [](OutPointerFilter<DataType>& instance, py::array_t<DataType>& array)
     {
       gsl::index channels = 1;

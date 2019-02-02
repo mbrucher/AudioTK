@@ -96,14 +96,12 @@ namespace ATK
         g.run([=] {filter->process_conditionnally(uint64_t(size) * (*it)->get_output_sampling_rate() / input_sampling_rate); });
       }
       g.wait();
+      return;
     }
-    else
 #endif
+    for (auto it = filters.begin(); it != filters.end(); ++it)
     {
-      for (auto it = filters.begin(); it != filters.end(); ++it)
-      {
-        (*it)->process_conditionnally<true>(uint64_t(size) * (*it)->get_output_sampling_rate() / input_sampling_rate);
-      }
+      (*it)->process_conditionnally<true>(uint64_t(size) * (*it)->get_output_sampling_rate() / input_sampling_rate);
     }
   }
 

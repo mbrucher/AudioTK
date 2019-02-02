@@ -277,40 +277,44 @@ namespace ATK
     m2 = 1 - gain * gain;
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class TimeVaryingSecondOrderSVFBaseCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFBaseCoefficients<double>;
 
   template class TimeVaryingSecondOrderSVFLowPassCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFLowPassCoefficients<double>;
   template class TimeVaryingSecondOrderSVFBandPassCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFBandPassCoefficients<double>;
   template class TimeVaryingSecondOrderSVFHighPassCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFHighPassCoefficients<double>;
   template class TimeVaryingSecondOrderSVFNotchCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFNotchCoefficients<double>;
   template class TimeVaryingSecondOrderSVFPeakCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFPeakCoefficients<double>;
   template class TimeVaryingSecondOrderSVFBellCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFBellCoefficients<double>;
   template class TimeVaryingSecondOrderSVFLowShelfCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFLowShelfCoefficients<double>;
   template class TimeVaryingSecondOrderSVFHighShelfCoefficients<float>;
-  template class TimeVaryingSecondOrderSVFHighShelfCoefficients<double>;
 
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<float> >;
-  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<float> >;
-  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<float> >;
-  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<float> >;
-  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<float> >;
-  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<float> >;
-  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<float> >;
-  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<float> >;
+#endif
+  template class TimeVaryingSecondOrderSVFBaseCoefficients<double>;
+
+  template class TimeVaryingSecondOrderSVFLowPassCoefficients<double>;
+  template class TimeVaryingSecondOrderSVFBandPassCoefficients<double>;
+  template class TimeVaryingSecondOrderSVFHighPassCoefficients<double>;
+  template class TimeVaryingSecondOrderSVFNotchCoefficients<double>;
+  template class TimeVaryingSecondOrderSVFPeakCoefficients<double>;
+  template class TimeVaryingSecondOrderSVFBellCoefficients<double>;
+  template class TimeVaryingSecondOrderSVFLowShelfCoefficients<double>;
+  template class TimeVaryingSecondOrderSVFHighShelfCoefficients<double>;
+
+  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFLowPassCoefficients<double> >;
+  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFBandPassCoefficients<double> >;
+  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFHighPassCoefficients<double> >;
+  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFNotchCoefficients<double> >;
+  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFPeakCoefficients<double> >;
+  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFBellCoefficients<double> >;
+  template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFLowShelfCoefficients<double> >;
   template class TimeVaryingSecondOrderSVFFilter<TimeVaryingSecondOrderSVFHighShelfCoefficients<double> >;
 }

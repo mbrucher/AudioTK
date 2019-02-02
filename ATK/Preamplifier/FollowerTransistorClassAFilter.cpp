@@ -37,9 +37,9 @@ namespace ATK
     TransistorFunction<DataType_>& transistor_function_1;
     TransistorFunction<DataType_>& transistor_function_2;
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, vector_size, 1> Vector;
-    typedef Eigen::Matrix<DataType, vector_size, vector_size> Matrix;
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, vector_size, 1>;
+    using Matrix = Eigen::Matrix<DataType, vector_size, vector_size>;
 
     std::pair<DataType, DataType> exp_y0;
   
@@ -64,67 +64,6 @@ namespace ATK
 
       return y0;
     }
-
-/*    Vector affine_estimate(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
-    {
-      std::pair<DataType, DataType> exp_y1 = std::make_pair(fmath::exp((output[3][i - 1] - output[1][i - 1]) / transistor_function_1.Vt), fmath::exp((output[3][i - 1] - output[2][i - 1]) / transistor_function_1.Vt));
-
-      auto Ib1 = transistor_function_1.Lb(exp_y1);
-      auto Ic1 = transistor_function_1.Lc(exp_y1);
-
-      auto Ib1_Vbe = transistor_function_1.Lb_Vbe(exp_y1);
-      auto Ib1_Vbc = transistor_function_1.Lb_Vbc(exp_y1);
-
-      auto Ic1_Vbe = transistor_function_1.Lc_Vbe(exp_y1);
-      auto Ic1_Vbc = transistor_function_1.Lc_Vbc(exp_y1);
-
-      std::pair<DataType, DataType> exp_y2 = std::make_pair(fmath::exp((output[2][i - 1] - output[4][i - 1]) / transistor_function_2.Vt), fmath::exp((output[2][i - 1] - Vbias) / transistor_function_2.Vt));
-
-      auto Ib2 = transistor_function_2.Lb(exp_y2);
-      auto Ic2 = transistor_function_2.Lc(exp_y2);
-
-      auto Ib2_Vbe = transistor_function_2.Lb_Vbe(exp_y2);
-      auto Ib2_Vbc = transistor_function_2.Lb_Vbc(exp_y2);
-
-      auto Ic2_Vbe = transistor_function_2.Lc_Vbe(exp_y2);
-      auto Ic2_Vbc = transistor_function_2.Lc_Vbc(exp_y2);
-
-      auto f1 = (Ib1 - Ib1_Vbe * (output[3][i - 1] - output[1][i - 1]) - Ib1_Vbc * (output[3][i - 1] - output[2][i - 1])) + icgeq - Vbias * Rg1 - input[0][i] * Cg;
-      auto f2 = (Ib1 - Ib1_Vbe * (output[3][i - 1] - output[1][i - 1]) - Ib1_Vbc * (output[3][i - 1] - output[2][i - 1])) + (Ic1 - Ic1_Vbe * (output[3][i - 1] - output[1][i - 1]) - Ic1_Vbc * (output[3][i - 1] - output[2][i - 1])) + ickeq;
-      auto f3 = (Ic1 - Ic1_Vbe * (output[3][i - 1] - output[1][i - 1]) - Ic1_Vbc * (output[3][i - 1] - output[2][i - 1])) + (Ib2 - Ib2_Vbe * (output[2][i - 1] - output[4][i - 1]) - Ib2_Vbc * (output[2][i - 1] - Vbias)) - Vbias * Rp;
-      auto f4 = (Ib2 - Ib2_Vbe * (output[2][i - 1] - output[4][i - 1]) - Ib2_Vbc * (output[2][i - 1] - Vbias)) + (Ic2 - Ic2_Vbe * (output[2][i - 1] - output[4][i - 1]) - Ic2_Vbc * (output[2][i - 1]) - Vbias) - icoeq;
-      auto f5 = -icoeq;
-
-      auto a10 = -Ib1_Vbe - Ib1_Vbc;
-      auto a20 = Ib1_Vbc;
-      auto a30 = Ib1_Vbc + Rg2 + Rg1 + Cg;
-      auto a11 = -Ib1_Vbe - Ib1_Vbc - Ic1_Vbe - Ic1_Vbc - (Rk1 + Ck);
-      auto a21 = Ib1_Vbc + Ic1_Vbc;
-      auto a31 = Ib1_Vbe + Ic1_Vbe;
-      auto a12 = -Ic1_Vbe;
-      auto a22 = -Ic1_Vbc + Ib2_Vbe + Ib2_Vbc + Rp;
-      auto a32 = Ic1_Vbe;
-      auto a42 = -Ib2_Vbe;
-      auto a03 = Co;
-      auto a23 = Ib2_Vbe + Ib2_Vbc + Ic2_Vbe + Ic2_Vbc;
-      auto a43 = -Co - Rk2 - Ib2_Vbe - Ic2_Vbe;
-      auto a04 = Ro + Co;
-      auto a44 = -Co;
-
-      auto invdet = -1 / (-a03*a10*a21*a32*a44 + a03*a10*a22*a31*a44 + a03*a11*a20*a32*a44 - a03*a11*a22*a30*a44 - a03*a12*a20*a31*a44 + a03*a12*a21*a30*a44 + a04*a10*a21*a32*a43 - a04*a10*a22*a31*a43 + a04*a10*a23*a31*a42 - a04*a11*a20*a32*a43 + a04*a11*a22*a30*a43 - a04*a11*a23*a30*a42 + a04*a12*a20*a31*a43 - a04*a12*a21*a30*a43);
-
-      Vector F;
-      F << f1, f2, f3, f4, f5;
-
-      Matrix M;
-      M << a23*a44*(-a11*a32 + a12*a31), a23*a44*(a10*a32 - a12*a30), a23*a44*(-a10*a31 + a11*a30), a44*(-a10*a21*a32 + a10*a22*a31 + a11*a20*a32 - a11*a22*a30 - a12*a20*a31 + a12*a21*a30), a10*a21*a32*a43 - a10*a22*a31*a43 + a10*a23*a31*a42 - a11*a20*a32*a43 + a11*a22*a30*a43 - a11*a23*a30*a42 + a12*a20*a31*a43 - a12*a21*a30*a43,
-        -a03*a21*a32*a44 + a03*a22*a31*a44 + a04*a21*a32*a43 - a04*a22*a31*a43 + a04*a23*a31*a42, a03*a20*a32*a44 - a03*a22*a30*a44 - a04*a20*a32*a43 + a04*a22*a30*a43 - a04*a23*a30*a42, -a03*a20*a31*a44 + a03*a21*a30*a44 + a04*a20*a31*a43 - a04*a21*a30*a43, a04*a42*(-a20*a31 + a21*a30), a03*a42*(a20*a31 - a21*a30),
-        a03*a11*a32*a44 - a03*a12*a31*a44 - a04*a11*a32*a43 + a04*a12*a31*a43, -a03*a10*a32*a44 + a03*a12*a30*a44 + a04*a10*a32*a43 - a04*a12*a30*a43, a03*a10*a31*a44 - a03*a11*a30*a44 - a04*a10*a31*a43 + a04*a11*a30*a43, a04*a42*(a10*a31 - a11*a30), a03*a42*(-a10*a31 + a11*a30),
-        -a03*a11*a22*a44 + a03*a12*a21*a44 + a04*a11*a22*a43 - a04*a11*a23*a42 - a04*a12*a21*a43, a03*a10*a22*a44 - a03*a12*a20*a44 - a04*a10*a22*a43 + a04*a10*a23*a42 + a04*a12*a20*a43, -a03*a10*a21*a44 + a03*a11*a20*a44 + a04*a10*a21*a43 - a04*a11*a20*a43, a04*a42*(-a10*a21 + a11*a20), a03*a42*(a10*a21 - a11*a20),
-        a04*a23*(a11*a32 - a12*a31), a04*a23*(-a10*a32 + a12*a30), a04*a23*(a10*a31 - a11*a30), a04*(a10*a21*a32 - a10*a22*a31 - a11*a20*a32 + a11*a22*a30 + a12*a20*a31 - a12*a21*a30), a03*(-a10*a21*a32 + a10*a22*a31 + a11*a20*a32 - a11*a22*a30 - a12*a20*a31 + a12*a21*a30);
-
-      return M * F * invdet;
-    }*/
 
     void update_state(gsl::index i, const DataType* const * ATK_RESTRICT input, DataType* const * ATK_RESTRICT output)
     {
@@ -209,9 +148,9 @@ namespace ATK
     TransistorFunction<DataType_>& transistor_function_1;
     TransistorFunction<DataType_>& transistor_function_2;
   public:
-    typedef DataType_ DataType;
-    typedef Eigen::Matrix<DataType, 4, 1> Vector;
-    typedef Eigen::Matrix<DataType, 4, 4> Matrix;
+    using DataType = DataType_;
+    using Vector = Eigen::Matrix<DataType, 4, 1>;
+    using Matrix = Eigen::Matrix<DataType, 4, 4>;
 
     TransistorClassAInitialFunction(DataType Rp, DataType Rg1, DataType Rg2, DataType Ro, DataType Rk1, DataType Rk2, DataType Vbias, TransistorFunction<DataType_>& transistor_function_1, TransistorFunction<DataType_>& transistor_function_2)
       :Rp(1 / Rp), Rg1(1 / Rg1), Rg2(1 / Rg2), Ro(1 / Ro), Rk1(1 / Rk1), Rk2(1 / Rk2), Vbias(Vbias), transistor_function_1(transistor_function_1), transistor_function_2(transistor_function_2)
@@ -335,6 +274,8 @@ namespace ATK
       std::move(function1), std::move(function2));
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class FollowerTransistorClassAFilter<float>;
+#endif
   template class FollowerTransistorClassAFilter<double>;
 }

@@ -38,29 +38,13 @@ MACRO(SOURCE_GROUP_BY_FOLDER target)
   ENDIF (files)
 ENDMACRO(SOURCE_GROUP_BY_FOLDER)
 
-macro(ATK_scan_SIMD PREFIX ARCHS)
-if(ENABLE_SIMD)
-  foreach(SRC ${${PREFIX}_SIMD_SRC})
-simdpp_multiarch(${PREFIX}_ARCH_GEN_SRC ${SRC} ${${ARCHS}})
-  endforeach()
-  FILE(GLOB FULL_PATH ${${PREFIX}_SIMD_SRC})
-  LIST(APPEND ${PREFIX}_SRC ${FULL_PATH})
-  LIST(APPEND ${PREFIX}_HEADERS ${${PREFIX}_SIMD_HEADERS})
-  SOURCE_GROUP_BY_FOLDER(${PREFIX})
-  set_source_files_properties(${${PREFIX}_SIMD_SRC} PROPERTIES HEADER_FILE_ONLY TRUE)
-  LIST(APPEND ${PREFIX}_SRC ${${PREFIX}_ARCH_GEN_SRC})
-else(ENABLE_SIMD)
-  SOURCE_GROUP_BY_FOLDER(${PREFIX})
-endif(ENABLE_SIMD)
-endmacro()
-
 function(ATK_add_library PREFIX)
+
+SOURCE_GROUP_BY_FOLDER(${PREFIX})
 
 if(NOT ${PREFIX}_NAME)
   message(ERROR "No name set for ${PREFIX}")
 endif(NOT ${PREFIX}_NAME)
-
-ATK_scan_SIMD(${PREFIX} COMPILABLE_ARCHS)
 
 if(ENABLE_STATIC_LIBRARIES)
   add_library(${${PREFIX}_NAME}_static
@@ -116,6 +100,8 @@ endfunction()
 
 function(ATK_add_executable PREFIX)
 
+SOURCE_GROUP_BY_FOLDER(${PREFIX})
+
 if(NOT ${PREFIX}_NAME)
   message(ERROR "No name set for ${PREFIX}")
 endif(NOT ${PREFIX}_NAME)
@@ -123,8 +109,6 @@ endif(NOT ${PREFIX}_NAME)
 add_definitions(${${PREFIX}_DEFINITIONS})
 
 include_directories(${PROJECT_SOURCE_DIR} ${${PREFIX}_INCLUDE})
-
-ATK_scan_SIMD(${PREFIX} RUNNABLE_ARCHS)
 
 add_executable(${${PREFIX}_NAME}
   ${${PREFIX}_SRC} ${${PREFIX}_HEADERS} ${NATVIS_FILE}
@@ -192,12 +176,6 @@ INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/CMake
   FILES_MATCHING PATTERN "*.cmake"
 )
 
-if(ENABLE_SIMD)
-  INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/3rdParty/gsl/include/gsl ${PROJECT_SOURCE_DIR}/3rdParty/eigen/Eigen ${PROJECT_SOURCE_DIR}/3rdParty/libsimdpp/simdpp
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/include
-  )
-endif(ENABLE_SIMD)
-
 include(CheckCXXCompilerFlag)
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "Apple")
@@ -217,3 +195,10 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
 else()
   message(FATAL_ERROR "Compiler '${CMAKE_CXX_COMPILER_ID}' not recognized")
 endif()
+
+if(ATK_CURRENTLY_BUILDING)
+  INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/3rdParty/gsl/include/gsl ${PROJECT_SOURCE_DIR}/3rdParty/eigen/Eigen
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/include
+    )
+endif(ATK_CURRENTLY_BUILDING)
+
