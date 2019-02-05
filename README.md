@@ -26,6 +26,10 @@ Audio Toolkit is published under the BSD license.
 
 ## Changelog
 ### 3.1.0
+# Move to C++17 only
+# Drop support for libsimdpp (SIMD support will move in another direction)
+# Fix Eigen and gsl installs
+# Enhance coverage tests
 
 ### 3.0.0
 * Change size for gsl::index everywhere (change of ABI)
