@@ -47,9 +47,8 @@ namespace ATK
       DataType* ATK_RESTRICT output = outputs[channel];
       for(gsl::index i = 0; i < size; ++i)
       {
-        auto exp = fmath::exp(coeff * input[i]);
-        auto invexp = 1 / exp;
-        output[i] = (exp - invexp) / (coeff * (exp + invexp));
+        auto exp = fmath::exp(2 * coeff * input[i]);
+        output[i] = (exp - 1) / (coeff * (exp + 1));
       }
     }
   }

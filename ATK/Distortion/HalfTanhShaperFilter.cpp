@@ -49,9 +49,8 @@ namespace ATK
       {
         if(input[i] < 0)
         {
-          auto exp = fmath::exp(coeff * input[i]);
-          auto invexp = 1 / exp;
-          output[i] = (exp - invexp) / (coeff * (exp + invexp));
+          auto exp = fmath::exp(2 * coeff * input[i]);
+          output[i] = (exp - 1) / (coeff * (exp + 1));
         }
         else
         {
