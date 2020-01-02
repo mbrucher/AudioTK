@@ -53,7 +53,8 @@ if(ENABLE_STATIC_LIBRARIES)
   )
 
   target_compile_definitions(${${PREFIX}_NAME}_static PRIVATE ${${PREFIX}_DEFINITIONS})
-  target_include_directories(${${PREFIX}_NAME}_static PRIVATE ${${PREFIX}_INCLUDE} ${PROJECT_SOURCE_DIR})
+  target_include_directories(${${PREFIX}_NAME}_static PRIVATE ${${PREFIX}_INCLUDE})
+  target_include_directories(${${PREFIX}_NAME}_static BEFORE PRIVATE ${PROJECT_SOURCE_DIR})
 
   set_target_properties (${${PREFIX}_NAME}_static PROPERTIES
     FOLDER C++/static
@@ -73,7 +74,8 @@ if(ENABLE_SHARED_LIBRARIES)
   )
 
   target_compile_definitions(${${PREFIX}_NAME} PRIVATE ${${PREFIX}_DEFINITIONS} -DBUILD_${PREFIX} -DATK_SHARED)
-  target_include_directories(${${PREFIX}_NAME} PRIVATE ${${PREFIX}_INCLUDE} ${PROJECT_SOURCE_DIR})
+  target_include_directories(${${PREFIX}_NAME} PRIVATE ${${PREFIX}_INCLUDE})
+  target_include_directories(${${PREFIX}_NAME} BEFORE PRIVATE ${PROJECT_SOURCE_DIR})
 
   set_target_properties (${${PREFIX}_NAME} PROPERTIES
     FOLDER C++/shared
