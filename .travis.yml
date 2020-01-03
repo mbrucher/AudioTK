@@ -30,7 +30,7 @@ matrix:
         - libatlas-base-dev
         - lcov
         - curl
-        - gcov
+        - gcovr
       sonarcloud:
         organization: "mbrucher-github"
     env:
@@ -208,7 +208,7 @@ matrix:
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ENABLE_CODECOVERAGE=ON
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=scripts/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-6.0
     os: linux
     dist: trusty
@@ -272,6 +272,7 @@ matrix:
     - BUILD_TYPE=Release
   - os: osx
     osx_image: xcode11
+    python: 3.7
     env:
     - MY_NAME: XCode 11 Python 3
     - COMPILER=clang++
@@ -296,6 +297,7 @@ matrix:
     - BUILD_TYPE=Release
   - os: osx
     osx_image: xcode10
+    python: 3.7
     env:
     - MY_NAME: XCode 10 Python 3
     - COMPILER=clang++
