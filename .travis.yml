@@ -15,7 +15,7 @@ git:
 
 matrix:
   include:
-  - compiler: gcc-8
+  - compiler: gcc-9
     os: linux
     dist: trusty
     addons:
@@ -30,19 +30,18 @@ matrix:
         - libatlas-base-dev
         - lcov
         - curl
-        - gcovr
       sonarcloud:
         organization: "mbrucher-github"
     env:
     - MY_NAME: Static Analysis
     - COMPILER=g++-8
-    - PLATFORM=gcc-8
+    - PLATFORM=gcc-9
     - ENABLE_PYTHON=OFF
     - ENABLE_STATIC_ANALYSIS=ON
     - ENABLE_CODECOVERAGE=ON
     - BUILD_TYPE=Coverage
     - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: gcc-7
     os: linux
     dist: trusty
@@ -70,7 +69,7 @@ matrix:
     - BUILD_TYPE=Coverage
     - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
-  - compiler: gcc-8
+  - compiler: gcc-9
     os: linux
     dist: trusty
     addons:
@@ -86,14 +85,14 @@ matrix:
     env:
     - MY_NAME: GCC 8 Python 2
     - COMPILER=g++-8
-    - PLATFORM=gcc-8
+    - PLATFORM=gcc-9
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: gcc-8
+  - compiler: gcc-9
     os: linux
     dist: trusty
     addons:
@@ -108,7 +107,7 @@ matrix:
     env:
     - MY_NAME: GCC 8 Python 3
     - COMPILER=g++-8
-    - PLATFORM=gcc-8
+    - PLATFORM=gcc-9
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=3.6
     - PYTHON=python3
@@ -160,7 +159,7 @@ matrix:
     - Python_ADDITIONAL_VERSIONS=3.6.3
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: clang-6.0
+  - compiler: clang-9.0
     os: linux
     dist: trusty
     addons:
@@ -169,7 +168,7 @@ matrix:
         - ubuntu-toolchain-r-test
         - llvm-toolchain-trusty-6.0
         packages:
-        - clang-6.0
+        - clang-9.0
         - g++-8
         - libfftw3-dev
         - libsndfile-dev
@@ -178,13 +177,13 @@ matrix:
     env:
     - MY_NAME=ASAN
     - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
+    - PLATFORM=clang-9.0
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
     - LD_PRELOAD_=/usr/lib/llvm-6.0/lib/clang/6.0.1/lib/linux/libclang_rt.asan-x86_64.so
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF"
-  - compiler: clang-6.0
+  - compiler: clang-9.0
     os: linux
     dist: trusty
     addons:
@@ -193,7 +192,7 @@ matrix:
         - ubuntu-toolchain-r-test
         - llvm-toolchain-trusty-6.0
         packages:
-        - clang-6.0
+        - clang-9.0
         - g++-8
         - libfftw3-dev
         - libsndfile-dev
@@ -204,12 +203,12 @@ matrix:
     env:
     - MY_NAME=LLVM coverage
     - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
+    - PLATFORM=clang-9.0
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ENABLE_CODECOVERAGE=ON
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=scripts/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
-  - compiler: clang-6.0
+  - compiler: clang-9.0
     os: linux
     dist: trusty
     addons:
@@ -218,7 +217,7 @@ matrix:
         - ubuntu-toolchain-r-test
         - llvm-toolchain-trusty-6.0
         packages:
-        - clang-6.0
+        - clang-9.0
         - g++-8
         - libfftw3-dev
         - libsndfile-dev
@@ -227,14 +226,14 @@ matrix:
     env:
     - MY_NAME: clang 6 Python 2
     - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
+    - PLATFORM=clang-9.0
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=2.7
     - PYTHON=python2
     - Python_ADDITIONAL_VERSIONS=2.7.14
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DDISABLE_PYTHON_TESTS=ON -DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: clang-6.0
+  - compiler: clang-9.0
     os: linux
     dist: trusty
     addons:
@@ -243,7 +242,7 @@ matrix:
         - ubuntu-toolchain-r-test
         - llvm-toolchain-trusty-6.0
         packages:
-        - clang-6.0
+        - clang-9.0
         - g++-8
         - libfftw3-dev
         - libsndfile-dev
@@ -251,7 +250,7 @@ matrix:
     env:
     - MY_NAME: clang 6 Python 3
     - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
+    - PLATFORM=clang-9.0
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=3.6
     - PYTHON=python3
@@ -309,8 +308,8 @@ matrix:
     - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
   allow_failures:
-  - compiler: gcc-8
-  - compiler: clang-6.0
+  - compiler: gcc-9
+  - compiler: clang-9.0
 
 before_install:
   - ls /usr/lib/clang/ | echo 0
