@@ -249,6 +249,7 @@ before_install:
       tar xf lcov_1.14.orig.tar.gz
       sudo make -C lcov-1.14 install
       ln -s /usr/local/bin/lcov $HOME/usr/bin/lcov
+      ln -s /usr/bin/geninfo $HOME/usr/bin/geninfo
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
