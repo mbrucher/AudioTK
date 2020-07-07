@@ -276,11 +276,11 @@ before_install:
       fi
     fi
 
-  - wget --no-verbose --output-document=boost_1_68_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.68.0/boost_1_68_0.tar.bz2/download
+  - wget --no-verbose --output-document=boost_1_73_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.73.0/boost_1_73_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
   - mkdir -p $BOOST_ROOT
-  - tar jxf boost_1_68_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
+  - tar jxf boost_1_73_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
