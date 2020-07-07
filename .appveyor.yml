@@ -19,8 +19,8 @@ environment:
  ### Debug build
     - MY_NAME: VS 2017 Debug
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll64.zip
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
@@ -35,8 +35,8 @@ environment:
  ### static runtime
     - MY_NAME: VS 2017 Release Static 32
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll32.zip
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
+      FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
       SHORT_MSVC_PLATFORM: x86
@@ -50,8 +50,8 @@ environment:
 
     - MY_NAME: VS 2017 Release Static 64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll64.zip
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
@@ -66,8 +66,8 @@ environment:
 
     - MY_NAME: VS 2017 Release Shared 32 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll32.zip
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
+      FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
       SHORT_MSVC_PLATFORM: x86
@@ -82,8 +82,8 @@ environment:
 
     - MY_NAME: VS 2017 Release Shared 64 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll64.zip
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
@@ -101,7 +101,7 @@ environment:
     - MY_NAME: VS 2019 Debug
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll64.zip
+      FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
@@ -117,7 +117,7 @@ environment:
     - MY_NAME: VS 2019 Release Static 32
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll32.zip
+      FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
       SHORT_MSVC_PLATFORM: x86
@@ -132,7 +132,7 @@ environment:
     - MY_NAME: VS 2019 Release Static 64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll64.zip
+      FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
@@ -148,7 +148,7 @@ environment:
     - MY_NAME: VS 2019 Release Shared 32 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll32.zip
+      FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
       SHORT_MSVC_PLATFORM: x86
@@ -164,7 +164,7 @@ environment:
     - MY_NAME: VS 2019 Release Shared 64 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
-      FFTW_NAME: fftw-3.3.8-dll64.zip
+      FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
