@@ -17,7 +17,7 @@ matrix:
   include:
   - compiler: gcc-9
     os: linux
-    dist: xenial
+    dist: bionic
     python: 3.7
     addons:
       apt:
@@ -77,7 +77,7 @@ matrix:
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: gcc-9
     os: linux
-    dist: xenial
+    dist: bionic
     python: 3.7
     addons:
       apt:
@@ -128,7 +128,8 @@ matrix:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-xenial-9.0
+        - sourceline: 'deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-9 main'
+          key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
         - clang-9.0
         - g++-9
@@ -147,12 +148,13 @@ matrix:
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-9.0
     os: linux
-    dist: xenial
+    dist: bionic
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-xenial-9.0
+        - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+          key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
         - clang-9.0
         - g++-9
@@ -172,13 +174,14 @@ matrix:
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=scripts/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-9.0
     os: linux
-    dist: xenial
+    dist: bionic
     python: 3.7
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-xenial-9.0
+        - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+          key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
         - clang-9.0
         - g++-9
