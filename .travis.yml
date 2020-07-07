@@ -29,7 +29,6 @@ matrix:
         - libsndfile-dev
         - swig
         - libatlas-base-dev
-        - lcov
         - curl
       sonarcloud:
         organization: "mbrucher-github"
@@ -210,7 +209,7 @@ matrix:
     - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
   - os: osx
-    osx_image: xcode11
+    osx_image: xcode11.6
     python: 3.7
     env:
     - MY_NAME: XCode 11
@@ -245,11 +244,11 @@ before_install:
   - export PATH="$HOME/usr/bin:$PATH"
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
-      ls /usr/bin
       ln -s /usr/bin/$GCOV_VERSION $HOME/usr/bin/gcov
       wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.14.orig.tar.gz
       tar xf lcov_1.14.orig.tar.gz
       sudo make -C lcov-1.14 install
+      ln -s /usr/local/bin/lcov $HOME/usr/bin/lcov
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
