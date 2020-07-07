@@ -178,7 +178,7 @@ matrix:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-xenial-6.0
+        - llvm-toolchain-xenial-9.0
         packages:
         - clang-9.0
         - g++-9
@@ -186,7 +186,7 @@ matrix:
         - libsndfile-dev
         - swig
     env:
-    - MY_NAME: clang 6
+    - MY_NAME: clang 9
     - COMPILER=clang++-9.0
     - PLATFORM=clang-9.0
     - ENABLE_PYTHON=ON
