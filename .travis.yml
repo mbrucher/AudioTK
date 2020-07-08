@@ -1,6 +1,5 @@
 
-sudo: required
-language: c++
+language: cpp
 
 notifications:
   email: false
@@ -13,7 +12,7 @@ notifications:
 git:
   depth: 500
 
-matrix:
+jobs:
   include:
   - compiler: gcc-9
     os: linux
@@ -249,6 +248,7 @@ before_install:
       wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.14.orig.tar.gz
       tar xf lcov_1.14.orig.tar.gz
       sudo make -C lcov-1.14 install
+      lcov -v
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
@@ -327,7 +327,7 @@ after_success:
       exit
     fi
 
-deploy:
+skip_cleanup:
   provider: releases
   api_key:
     secure: ilhQ9vSyOl+QjRiRebj7CuQPYY1OygH3YxEuuFOXVa1cN4iw5yid2igEScLfKB5Xn2x2jMYDqL4bC6nLMHa1GNtCTIhCJrrHhXPeYX1W1EsOtExfAbD1G0QvUoQPZEBnK1Lu2Uf+qiQaH1IEquhzux8dxRCe/qJJzpntoWiLgm6po1giUAyQGsVzKlon4dxhgq08QcYxaQq2snOcKFJVx+zfeELfB7RZeEQXymtlMosMWnoKv3tjtFI5crWWdjD8oYKaTdLEms5EmR/cXAoYZ8jkhW0mTn1j9Ww9gaN4f/AnIlZDyggsdxVsV77rW/Kh6qqUdRbWaAnnpDgozv/HNXkgrFpxNyevIiS/pfbiyIT1zqT+iy4N9ofuc8iWuXncom3tDK/aGU+KS693ZkeLkkOT+FhT3YnIwE7UHeRS/Lqn26FQXQ/u7stuYVxCTrGR+LsfOrQdxmkQVOKicbWlOkU0+JpccaoES+j7SSCGgUkO/5f8bFzTraEu5VCN9pTuMX7TIp8OwS7b13L/TZGPwoeJDBtn5SsUl/1cqpuJbjQvf0KQqp6tJcQ8LjS9K0WrtVB+T2coQC5vYz5pM4RhYcGavj6a9+RM6U13PDvpHgP5ec5zeGbNJ2QKHLZ8s0LiuSMgffhp0vsl8E0nWjpelnSIDPtCLv5xAtk47vn+aiQ=
