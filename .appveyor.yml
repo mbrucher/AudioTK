@@ -24,9 +24,9 @@ environment:
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
-      COMPILER: Visual Studio 15 2017 Win64
+      COMPILER: Visual Studio 15 2017
       OUTPUT: dynamic-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON_VERSION: none
@@ -42,7 +42,7 @@ environment:
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 15 2017
       OUTPUT: static-x86
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF -DENABLE_SIMD=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_PYTHON=OFF -DENABLE_SIMD=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON_VERSION: none
@@ -55,9 +55,9 @@ environment:
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
-      COMPILER: Visual Studio 15 2017 Win64
+      COMPILER: Visual Studio 15 2017
       OUTPUT: static-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python27-x64
@@ -73,7 +73,7 @@ environment:
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 15 2017 
       OUTPUT: dynamic-x86
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_SIMD=OFF -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27\\python.exe"
+      ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_SIMD=OFF -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27\\python.exe"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python36
@@ -87,9 +87,9 @@ environment:
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
-      COMPILER: Visual Studio 15 2017 Win64
+      COMPILER: Visual Studio 15 2017
       OUTPUT: dynamic-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
       PYTHON: C:\\Python36-x64
@@ -107,11 +107,27 @@ environment:
       SHORT_MSVC_PLATFORM: x64
       COMPILER: Visual Studio 16 2019
       OUTPUT: dynamic-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
       PYTHON_VERSION: none
       BUILD_CONFIGURATION: Debug
+
+    - MY_NAME: VS 2019 Release Static
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      BOOST_ROOT: C:/Libraries/boost_1_73_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 16 2019
+      OUTPUT: static-x64
+      ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.2
+      PYTHON: C:\\Python27-x64
+      PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2019 Release Static 64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
@@ -122,14 +138,14 @@ environment:
       SHORT_MSVC_PLATFORM: x64
       COMPILER: Visual Studio 16 2019
       OUTPUT: static-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
       PYTHON: C:\\Python27-x64
       PYTHON_VERSION: none
       BUILD_CONFIGURATION: Release
 
-    - MY_NAME: VS 2019 Release Shared 64 Python 3
+    - MY_NAME: VS 2019 Release Shared 32 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -138,7 +154,21 @@ environment:
       SHORT_MSVC_PLATFORM: x64
       COMPILER: Visual Studio 16 2019
       OUTPUT: dynamic-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
+      ADDITONAL_CMAKE_FLAGS: "-A win32 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
+      VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.2
+      PYTHON: C:\\Python36-x64
+      PYTHON_VERSION: 3.7
+      BUILD_CONFIGURATION: Release
+
+      BOOST_ROOT: C:/Libraries/boost_1_73_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 16 2019
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
       PYTHON: C:\\Python36-x64
