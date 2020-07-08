@@ -247,7 +247,7 @@ before_install:
       ln -s /usr/bin/$GCOV_VERSION $HOME/usr/bin/gcov
       wget https://github.com/linux-test-project/lcov/archive/master.zip
       unzip master.zip
-      sudo make -C master install
+      sudo make -C lcov-master install
       lcov -v
     fi
   - |
