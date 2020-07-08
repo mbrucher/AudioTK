@@ -29,7 +29,6 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON_VERSION: none
       BUILD_CONFIGURATION: Debug
 
  ### static runtime
@@ -45,7 +44,6 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_PYTHON=OFF -DENABLE_SIMD=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON_VERSION: none
       BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2017 Release Static 64
@@ -60,8 +58,6 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON: C:\\Python27-x64
-      PYTHON_VERSION: none
       BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2017 Release Shared 32 Python 3
@@ -125,8 +121,6 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
-      PYTHON: C:\\Python27-x64
-      PYTHON_VERSION: none
       BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2019 Release Static 64
@@ -141,11 +135,9 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
-      PYTHON: C:\\Python27-x64
-      PYTHON_VERSION: none
       BUILD_CONFIGURATION: Release
 
-    - MY_NAME: VS 2019 Release Shared 32 Python 3
+    - MY_NAME: VS 2019 Release Shared Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
@@ -157,7 +149,7 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-A win32 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
-      PYTHON: C:\\Python36-x64
+      PYTHON: C:\\Python37-x32
       PYTHON_VERSION: 3.7
       BUILD_CONFIGURATION: Release
 
@@ -172,7 +164,7 @@ environment:
       ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
-      PYTHON: C:\\Python36-x64
+      PYTHON: C:\\Python37-x64
       PYTHON_VERSION: 3.7
       BUILD_CONFIGURATION: Release
 
