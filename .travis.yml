@@ -245,9 +245,9 @@ before_install:
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
       ln -s /usr/bin/$GCOV_VERSION $HOME/usr/bin/gcov
-      wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.14.orig.tar.gz
-      tar xf lcov_1.14.orig.tar.gz
-      sudo make -C lcov-1.14 install
+      wget https://github.com/linux-test-project/lcov/archive/master.zip
+      unzip master.zip
+      sudo make -C master install
       lcov -v
     fi
   - |
