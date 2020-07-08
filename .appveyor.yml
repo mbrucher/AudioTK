@@ -161,6 +161,7 @@ environment:
       PYTHON_VERSION: 3.7
       BUILD_CONFIGURATION: Release
 
+    - MY_NAME: VS 2019 Release Shared 64 Python 3
       BOOST_ROOT: C:/Libraries/boost_1_73_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
