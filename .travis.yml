@@ -143,7 +143,7 @@ jobs:
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
-    - LD_PRELOAD_=/usr/lib/llvm-9.0/lib/clang/9.0.1/lib/linux/libclang_rt.asan-x86_64.so
+    - LD_PRELOAD_=/usr/lib/llvm-9.0/lib/clang/9.0.2/lib/linux/libclang_rt.asan-x86_64.so
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-9
     os: linux
@@ -162,6 +162,7 @@ jobs:
         - swig
         - libatlas-base-dev
         - curl
+        - lcov
     env:
     - MY_NAME=LLVM coverage
     - COMPILER=clang++-9
@@ -240,7 +241,7 @@ jobs:
   - compiler: clang-9
 
 before_install:
-  - ls /usr/lib/clang/ | echo 0
+  - ls /usr/lib/llvm-*/lib/clang/ || true
   - mkdir -p $HOME/usr/bin
   - export PATH="$HOME/usr/bin:$PATH"
   - export PATH="/usr/local/bin:$PATH"
