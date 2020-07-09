@@ -254,9 +254,9 @@ before_install:
       tar xzf lcov_1.14.orig.tar.gz
       cd lcov-1.14
       wget https://github.com/linux-test-project/lcov/commit/ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.diff
-      patch -p0 < ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.diff
+      patch -p1 < ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.diff
       wget https://github.com/linux-test-project/lcov/commit/75fbae1cfc5027f818a0bb865bf6f96fab3202da.diff
-      patch -p0 < 75fbae1cfc5027f818a0bb865bf6f96fab3202da.diff
+      patch -p1 < 75fbae1cfc5027f818a0bb865bf6f96fab3202da.diff
 
       sudo make install
       cd ..
