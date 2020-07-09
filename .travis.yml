@@ -138,7 +138,7 @@ jobs:
         - libatlas-base-dev
     env:
     - MY_NAME=ASAN
-    - COMPILER=clang++-9.0
+    - COMPILER=clang++-9
     - PLATFORM=clang-9
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
@@ -164,7 +164,7 @@ jobs:
         - curl
     env:
     - MY_NAME=LLVM coverage
-    - COMPILER=clang++-9.0
+    - COMPILER=clang++-9
     - PLATFORM=clang-9
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
@@ -188,7 +188,7 @@ jobs:
         - swig
     env:
     - MY_NAME: clang 9
-    - COMPILER=clang++-9.0
+    - COMPILER=clang++-9
     - PLATFORM=clang-9
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=3.8
