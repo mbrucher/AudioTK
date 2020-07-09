@@ -260,8 +260,7 @@ before_install:
 
       sudo make install
       cd ..
-      lcov -v
-      which lcov
+      cpanm --notest PerlIO::gzip
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
