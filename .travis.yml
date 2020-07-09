@@ -253,14 +253,15 @@ before_install:
       wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.14.orig.tar.gz
       tar xzf lcov_1.14.orig.tar.gz
       cd lcov-1.14
-      wget https://github.com/linux-test-project/lcov/commit/ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.patch
-      patch -p0 < ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.patch
-      wget https://github.com/linux-test-project/lcov/commit/75fbae1cfc5027f818a0bb865bf6f96fab3202da.patch
-      patch -p0 < 75fbae1cfc5027f818a0bb865bf6f96fab3202da.patch
+      wget https://github.com/linux-test-project/lcov/commit/ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.diff
+      patch -p0 < ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.diff
+      wget https://github.com/linux-test-project/lcov/commit/75fbae1cfc5027f818a0bb865bf6f96fab3202da.diff
+      patch -p0 < 75fbae1cfc5027f818a0bb865bf6f96fab3202da.diff
 
       sudo make install
       cd ..
       lcov -v
+      which lcov
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
