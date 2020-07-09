@@ -251,7 +251,7 @@ before_install:
   - |
     if [[ "${CUSTOM_LCOV}" = "ON" ]]; then
       wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.14.orig.tar.gz
-      tar zf lcov_1.14.orig.tar.gz
+      tar xzf lcov_1.14.orig.tar.gz
       cd lcov-1.14
       wget https://github.com/linux-test-project/lcov/commit/ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.patch
       patch -p0 < ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.patch
