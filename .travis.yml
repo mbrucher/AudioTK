@@ -260,7 +260,7 @@ before_install:
 
       sudo make install
       cd ..
-      sudo cpanm --notest PerlIO::gzip
+      cpanm --sudo --notest PerlIO::gzip
     fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
