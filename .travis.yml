@@ -175,6 +175,7 @@ jobs:
 
 before_install:
   - ls /usr/lib/llvm-*/lib/clang/ || true
+  - ls /usr/lib/llvm-*/lib/clang/*/lib/linux || true
   - mkdir -p $HOME/usr/bin
   - export PATH="$HOME/usr/bin:$PATH"
   - export PATH="/usr/local/bin:$PATH"
