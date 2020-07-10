@@ -90,7 +90,7 @@ jobs:
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
-    - LD_PRELOAD_=/usr/lib/llvm-9.0/lib/clang/9.0.0/lib/linux/libclang_rt.asan-x86_64.so
+    - LD_PRELOAD_=/usr/lib/llvm-9/lib/clang/9.0.0/lib/linux/libclang_rt.asan-x86_64.so
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-9
     os: linux
