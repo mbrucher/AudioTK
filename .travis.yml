@@ -117,7 +117,7 @@ jobs:
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ENABLE_CODECOVERAGE=ON
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=scripts/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=${pwd}/../scripts/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-9
     os: linux
     dist: bionic
