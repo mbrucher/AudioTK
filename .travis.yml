@@ -172,8 +172,6 @@ jobs:
     - PYTHON=python
     - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
-  allow_failures:
-  - compiler: clang-9
 
 before_install:
   - ls /usr/lib
