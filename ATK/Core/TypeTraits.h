@@ -7,6 +7,7 @@
 
 #include <ATK/config.h>
 
+#include <algorithm>
 #include <complex>
 #include <cstdint>
 #include <limits>
@@ -66,7 +67,7 @@ namespace ATK
     using Scalar = int64_t;
 
     /// Converts an integer 24bits to a double
-    static Scalar to_double(const char el[3])
+    static double to_double(const char el[3])
     {
       int32_t data = 0;
       char* temp = reinterpret_cast<char*>(&data);
