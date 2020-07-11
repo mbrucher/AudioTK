@@ -110,12 +110,15 @@ jobs:
         - libatlas-base-dev
         - curl
         - lcov
+      sonarcloud:
+        organization: "mbrucher-github"
     env:
     - MY_NAME=LLVM coverage
     - COMPILER=clang++-9
     - PLATFORM=clang-9
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
+    - ENABLE_STATIC_ANALYSIS=ON
     - ENABLE_CODECOVERAGE=ON
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=`pwd`/../scripts/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-9
