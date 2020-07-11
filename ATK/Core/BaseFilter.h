@@ -148,7 +148,7 @@ namespace ATK
     /// Output sampling rate of the plugin
     gsl::index output_sampling_rate;
     /// The connections to the output pins of some filters
-    std::vector<std::pair<int, BaseFilter*> > connections;
+    std::vector<std::pair<gsl::index, BaseFilter*> > connections;
 
     /// Input delay of the input port
     gsl::index input_delay;

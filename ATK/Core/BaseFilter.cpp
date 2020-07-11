@@ -177,7 +177,7 @@ namespace ATK
     {
       return;
     }
-    for(gsl::index port = 0; port < connections.size(); ++port)
+    for(size_t port = 0; port < connections.size(); ++port)
     {
       if(connections[port].second == nullptr)
       {
@@ -187,13 +187,13 @@ namespace ATK
       else
       {
         assert(output_sampling_rate);
-        connections[port].second->template process_conditionnally<must_process>(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+        connections[port].second->template process_conditionnally<must_process>(static_cast<uint64_t>(size) * input_sampling_rate / output_sampling_rate);
       }
     }
 #if ATK_PROFILING == 1
     auto timer = std::chrono::steady_clock::now();
 #endif
-    prepare_process(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+    prepare_process(static_cast<uint64_t>(size) * input_sampling_rate / output_sampling_rate);
 #if ATK_PROFILING == 1
     auto timer2 = std::chrono::steady_clock::now();
     input_conversion_time += (timer2 - timer);
