@@ -187,6 +187,7 @@ before_build:
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3-3.def
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3f-3.def
   - cd %ATK_ROOT%
+  - dir %BOOST_ROOT%
   - mkdir 3rdParty
   - git clone https://github.com/mbrucher/pybind11 3rdParty\pybind11
   - git clone https://github.com/mbrucher/GSL 3rdParty\gsl
