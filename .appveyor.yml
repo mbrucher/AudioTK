@@ -171,7 +171,7 @@ environment:
 matrix:
   fast_finish: true
   allow_failures:
-    COMPILER: Visual Studio 16 2019
+    - COMPILER: Visual Studio 16 2019
 
 init:
   - cmake --version
