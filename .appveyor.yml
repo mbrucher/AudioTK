@@ -154,6 +154,7 @@ environment:
       BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2019 Release Shared 64 Python 3
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
