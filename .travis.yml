@@ -90,8 +90,10 @@ jobs:
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
-    - LD_PRELOAD_=/usr/lib/llvm-9.0/lib/clang/9.0.0/lib/linux/libclang_rt.asan-x86_64.so
+    - LD_PRELOAD_=/usr/lib/llvm-9/lib/clang/9.0.0/lib/linux/libclang_rt.asan-x86_64.so
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF"
+    - ASAN_OPTIONS=detect_leaks=0
+    - ASAN_SYMBOLIZER_PATH=llvm-symbolizer
   - compiler: clang-9
     os: linux
     dist: bionic
@@ -120,7 +122,7 @@ jobs:
     - BUILD_TYPE=Debug
     - ENABLE_STATIC_ANALYSIS=ON
     - ENABLE_CODECOVERAGE=ON
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=`pwd`/../scripts/llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=`pwd`/scripts/llvm-cov.sh -DENABLE_STATIC_LIBRARIES=OFF"
   - compiler: clang-9
     os: linux
     dist: bionic
@@ -173,8 +175,6 @@ jobs:
     - PYTHON=python
     - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
-  allow_failures:
-  - compiler: clang-9
 
 before_install:
   - ls /usr/lib
