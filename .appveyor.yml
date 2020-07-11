@@ -170,6 +170,8 @@ environment:
 
 matrix:
   fast_finish: true
+  allow_failures:
+    COMPILER: Visual Studio 16 2019
 
 init:
   - cmake --version
@@ -198,7 +200,13 @@ build_script:
 
 after_build:
   - cd %ATK_OUT%
-  - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+  - ps: |
+    if($PYTHON_VERSION) {
+      7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+    }
+    else {
+      7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+    }
 
 test_script:
   - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-%MSVC_VERSION%;%FFTW_ROOT%;%PATH%
@@ -208,7 +216,7 @@ test_script:
   - msbuild RUN_TESTS.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 artifacts: 
-  - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip
+  - path: AudioTK.*.zip
     name: package
 
 deploy:
