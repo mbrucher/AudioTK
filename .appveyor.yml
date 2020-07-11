@@ -109,11 +109,11 @@ environment:
       PYTHON_VERSION: none
       BUILD_CONFIGURATION: Debug
 
-    - MY_NAME: VS 2019 Release Static
+    - MY_NAME: VS 2019 Release Static 32
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
-      BITS: 64
+      BITS: 32
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 16 2019
@@ -137,11 +137,11 @@ environment:
       MSVC_VERSION: msvc-14.2
       BUILD_CONFIGURATION: Release
 
-    - MY_NAME: VS 2019 Release Shared Python 3
+    - MY_NAME: VS 2019 Release Shared 32 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       BOOST_ROOT: C:/Libraries/boost_1_73_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
-      BITS: 64
+      BITS: 32
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 16 2019
@@ -177,8 +177,6 @@ matrix:
 init:
   - cmake --version
   - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
-  - ls C:
-  - ls C:\Libraries
 
 before_build:
   - mkdir %FFTW_ROOT%
@@ -188,7 +186,6 @@ before_build:
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3-3.def
   - ps: lib /machine:$env:SHORT_MSVC_PLATFORM /def:libfftw3f-3.def
   - cd %ATK_ROOT%
-  - ls %BOOST_ROOT%
   - mkdir 3rdParty
   - git clone https://github.com/mbrucher/pybind11 3rdParty\pybind11
   - git clone https://github.com/mbrucher/GSL 3rdParty\gsl
