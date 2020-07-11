@@ -57,8 +57,8 @@ namespace ATK
 
     virtual void start_recomputeLUT() = 0;
 
-    size_t LUTsize;
-    size_t LUTprecision;
+    gsl::index LUTsize = 0;
+    gsl::index LUTprecision = 0;
     std::vector<DataType_> gainLUT;
   };
 
@@ -87,6 +87,11 @@ namespace ATK
     ~GainFilter() override
     {
       //Future has to be deleted in child destructor as it uses computeGain
+      wait_for_LUT_completion();
+    }
+
+    void wait_for_LUT_completion()
+    {
       if (recomputeFuture.valid())
       {
         recomputeFuture.wait();
