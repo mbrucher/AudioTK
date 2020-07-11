@@ -201,11 +201,11 @@ build_script:
 after_build:
   - cd %ATK_OUT%
   - ps: |
-    if($PYTHON_VERSION) {
-      7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
-    } else {
-      7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
-    }
+      if($PYTHON_VERSION) {
+        7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+      } else {
+        7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+      }
 
 test_script:
   - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-%MSVC_VERSION%;%FFTW_ROOT%;%PATH%
