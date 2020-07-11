@@ -1,12 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(AudioTK)
-
-if(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-  include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-  conan_basic_setup()
-endif(EXISTS ${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-
 SET(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -167,7 +161,7 @@ endif(ENABLE_PYTHON)
 
 add_subdirectory(modules)
 
-FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake *.in ATK/*.in *.yml *.md *.properties *.py)
+FILE(GLOB CMAKE_OTHER_SRC CMake/*.cmake *.in ATK/*.in *.yml *.md *.properties *.py scripts/*.sh)
 SOURCE_GROUP_BY_FOLDER(CMAKE_OTHER)
 add_custom_target(CMake SOURCES ${CMAKE_OTHER_SRC})
 
