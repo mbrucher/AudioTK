@@ -124,7 +124,7 @@ namespace ATK
   template class InWavFilter<std::int16_t>;
   template class InWavFilter<std::int32_t>;
   template class InWavFilter<int64_t>;
-  template class InWavFilter<double>;
 #endif
   template class InWavFilter<float>;
+  template class InWavFilter<double>;
 }
