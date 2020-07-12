@@ -117,14 +117,14 @@ namespace fmath {
           minX[i] = -88;
           a[i] = n / log_2;
           b[i] = log_2 / n;
-          f1[i] = 1.0f;
+          f1[i] = 1.0F;
           i127s[i] = 127 << s;
           i7fffffff[i] = 0x7fffffff;
           mask_s[i] = mask(s);
         }
         
         for (int i = 0; i < n; i++) {
-          float y = pow(2.0f, static_cast<float>(i) / n);
+          float y = std::pow(2.0F, static_cast<float>(i) / n);
           fi fi;
           fi.f = y;
           tbl[i] = fi.i & mask(23);
