@@ -42,17 +42,17 @@ namespace ATK
 
     FFT<double> fft;
     /// Memory factor
-    double alpha;
+    double alpha = .99;
     /// line search
-    double mu;
+    double mu = 0.05;
     /// block size
-    gsl::index block_size;
-    gsl::index accumulate_block_size;
-    bool learning;
+    gsl::index block_size = 0;
+    gsl::index accumulate_block_size = 0;
+    bool learning = true;
 
     BlockLMSFilterImpl(gsl::index size)
     :wfft(cwType::Zero(2*size)), block_input(2 * size, DataType_(0)), block_ref(size, DataType_(0)), block_error(size, DataType_(0)),
-     block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0), learning(true)
+     block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), block_size(size)
     {
       fft.set_size(2 * size);
     }

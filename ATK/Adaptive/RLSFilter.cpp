@@ -23,7 +23,7 @@ namespace ATK
     using xType = Eigen::Map<const wType>;
 
     RLSFilterImpl(gsl::index size)
-      :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size)), memory(.99)
+      :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size))
     {
     }
 
@@ -60,12 +60,12 @@ namespace ATK
 
     PType P;
     wType w;
-    double memory;
+    double memory = 0.99;
   };
 
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(gsl::index size)
-  :Parent(1, 1), impl(new RLSFilterImpl(size)), global_size(size), learning(true)
+  :Parent(1, 1), impl(new RLSFilterImpl(size)), global_size(size)
   {
     input_delay = size + 1;
   }

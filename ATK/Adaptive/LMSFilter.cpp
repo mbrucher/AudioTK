@@ -23,12 +23,12 @@ namespace ATK
 
     wType w;
     /// Memory factor
-    double alpha;
+    double alpha = 0.99;
     /// line search
-    double mu;
+    double mu = 0.05;
 
     LMSFilterImpl(gsl::index size)
-    :w(wType::Zero(size)), alpha(.99), mu(0.05)
+    :w(wType::Zero(size))
     {
     }
 
@@ -81,7 +81,7 @@ namespace ATK
 
   template<typename DataType_>
   LMSFilter<DataType_>::LMSFilter(gsl::index size)
-  :Parent(2, 1), impl(new LMSFilterImpl(size)), learning(true), mode(Mode::NORMAL)
+  :Parent(2, 1), impl(new LMSFilterImpl(size))
   {
     input_delay = size - 1;
   }

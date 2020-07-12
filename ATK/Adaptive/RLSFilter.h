@@ -63,8 +63,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    gsl::index global_size;
-    bool learning;
+    gsl::index global_size = 0;
+    bool learning = true;
   };
 }
 

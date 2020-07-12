@@ -73,8 +73,8 @@ namespace ATK
     CoeffDataType R3 = 1e3;
     CoeffDataType R4 = 220;
     CoeffDataType P = 22e3;
-    CoeffDataType C1 = 0.22e-6;
-    CoeffDataType C2 = 0.22e-6;
+    CoeffDataType C1 = 0.022e-6;
+    CoeffDataType C2 = 0.022e-6;
     /// Parameter of the stack
     CoeffDataType alpha = 0.5;
 

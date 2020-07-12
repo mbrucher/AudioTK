@@ -77,10 +77,10 @@ namespace ATK
 
   protected:
     void process_impl(gsl::index size) const final;
-    bool learning;
+    bool learning = true;
     
   private:
-    Mode mode;
+    Mode mode = MODE::Normal;
   };
 
 }
