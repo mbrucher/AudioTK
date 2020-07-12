@@ -62,10 +62,10 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ attack;
-    DataType_ release;
-    DataType_ attack_hysteresis;
-    DataType_ release_hysteresis;
+    DataType_ attack = 1;
+    DataType_ release = 1;
+    DataType_ attack_hysteresis = 1;
+    DataType_ release_hysteresis = 1;
   };
 }
 

@@ -52,9 +52,9 @@ namespace ATK
   protected:
     DataType_ computeGain(DataType_ value) const;
   private:
-    DataType_ softness;
-    DataType_ color;
-    DataType_ quality;
+    DataType_ softness = static_cast<DataType_>(0.0001);
+    DataType_ color = 0;
+    DataType_ quality = 0;
   };
 }
 

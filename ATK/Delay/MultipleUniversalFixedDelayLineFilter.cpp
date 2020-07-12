@@ -33,7 +33,7 @@ namespace ATK
 
   template<class DataType, int nb_channels>
   MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::MultipleUniversalFixedDelayLineFilter(gsl::index max_delay)
-    :Parent(nb_channels, 2 * nb_channels), impl(new SUFDLF_Impl(max_delay)), max_delay(max_delay)
+    :Parent(nb_channels, 2 * nb_channels), impl(std::make_unique<SUFDLF_Impl>(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
     blend.fill(0);

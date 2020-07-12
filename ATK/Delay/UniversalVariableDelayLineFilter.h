@@ -64,11 +64,11 @@ namespace ATK
     std::unique_ptr<UVDLF_Impl> impl;
 
     /// Max delay for the delay line
-    gsl::index max_delay;
-    gsl::index central_delay;
-    DataType_ blend;
-    DataType_ feedback;
-    DataType_ feedforward;
+    gsl::index max_delay = 0;
+    gsl::index central_delay = 0;
+    DataType_ blend = 0;
+    DataType_ feedback = 0;
+    DataType_ feedforward = 1;
   };
 }
 

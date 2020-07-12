@@ -40,7 +40,7 @@ namespace ATK
   protected:
     DataType_ computeGain(DataType_ value) const;
   private:
-    DataType_ softness;
+    DataType_ softness = static_cast<DataType_>(0.0001);
   };
 }
 

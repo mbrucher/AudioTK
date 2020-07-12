@@ -67,7 +67,7 @@ namespace ATK
     std::unique_ptr<HFDN_Impl> impl;
     std::array<gsl::index, nb_channels> delay;
     /// Max delay for the delay line
-    gsl::index max_delay;
+    gsl::index max_delay = 0;
   };
 }
 

@@ -49,7 +49,7 @@ namespace ATK
   private:
     std::unique_ptr<FDLF_Impl> impl;
 
-    gsl::index delay;
+    gsl::index delay = 0;
   };
 }
 

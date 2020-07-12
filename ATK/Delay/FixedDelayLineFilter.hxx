@@ -14,17 +14,17 @@ namespace ATK
   {
   public:
     typename FixedDelayLineFilter<DataType>::AlignedOutVector delay_line;
-    gsl::index index;
+    gsl::index index = 0;
 
-    FDLF_Impl(gsl::index max_delay)
-      :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
+    explicit FDLF_Impl(gsl::index max_delay)
+      :delay_line(max_delay, TypeTraits<DataType>::Zero())
     {
     }
   };
 
   template<typename DataType_>
   FixedDelayLineFilter<DataType_>::FixedDelayLineFilter(gsl::index max_delay)
-    :Parent(1, 1), impl(new FDLF_Impl(max_delay)), delay(0)
+    :Parent(1, 1), impl(std::make_unique<FDLF_Impl>(max_delay))
   {
   }
   
@@ -71,7 +71,8 @@ namespace ATK
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = static_cast<gsl::index>(impl->delay_line.size());
 
-    auto size_before_index = std::min(impl->index, impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index): 0) : std::min(size, delay));
+    auto max_index = impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index) : 0) : std::min(size, delay);
+    auto size_before_index = std::min(impl->index, max_index);
     auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
     memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - (delay - impl->index)), static_cast<gsl::index>(size_after_index * sizeof(DataType_)));

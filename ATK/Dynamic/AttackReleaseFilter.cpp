@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   AttackReleaseFilter<DataType_>::AttackReleaseFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), attack(1), release(1)
+  :Parent(nb_channels, nb_channels)
   {
     output_delay = 1;
   }

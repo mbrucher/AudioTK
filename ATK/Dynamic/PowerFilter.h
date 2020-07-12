@@ -42,7 +42,7 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ memory_factor;
+    DataType_ memory_factor = 0;
   };
 }
 

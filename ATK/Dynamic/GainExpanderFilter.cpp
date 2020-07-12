@@ -14,7 +14,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainExpanderFilter<DataType_>::GainExpanderFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
+  :Parent(nb_channels, LUTsize, LUTprecision)
   {
   }
 

@@ -15,7 +15,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainMaxColoredExpanderFilter<DataType_>::GainMaxColoredExpanderFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), max_reduction(static_cast<DataType_>(0.01)), color(0), quality(0)
+  :Parent(nb_channels, LUTsize, LUTprecision)
   {
   }
 

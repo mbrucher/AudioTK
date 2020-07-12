@@ -44,7 +44,7 @@ namespace ATK
     std::unique_ptr<VDLF_Impl> impl;
     
     /// Max delay for the delay line
-    gsl::index max_delay;
+    gsl::index max_delay = 0;
   };
 }
 

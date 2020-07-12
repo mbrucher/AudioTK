@@ -27,7 +27,7 @@ namespace ATK
     Vector outgain;
     Vector feedback;
 
-    explicit HFDN_Impl(gsl::index max_delay)
+    HFDN_Impl(gsl::index max_delay)
       :processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
     {
     }
@@ -35,7 +35,7 @@ namespace ATK
 
   template<typename Mixture>
   FeedbackDelayNetworkFilter<Mixture>::FeedbackDelayNetworkFilter(gsl::index max_delay)
-    :Parent(1, 2), impl(new HFDN_Impl(max_delay)), max_delay(max_delay)
+    :Parent(1, 2), impl(std::make_unique<HFDN_Impl>(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
   }

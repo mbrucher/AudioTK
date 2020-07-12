@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   RelativePowerFilter<DataType_>::RelativePowerFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), memory_factor(0), temp_output(0)
+  :Parent(nb_channels, nb_channels)
   {
     output_delay = 1;
   }

@@ -19,18 +19,13 @@ namespace ATK
     using Vector = Eigen::Matrix<DataType, nb_channels, 1>;
     using Matrix = Eigen::Matrix<DataType, nb_channels, nb_channels>;
 
-    MixtureImpl()
-      :transition(create())
-    {
-    }
-
     Vector mix(const Vector& x) const
     {
       return transition * x;
     }
 
   protected:
-    const Matrix transition;
+    const Matrix transition = create();
     
     static Matrix create()
     {

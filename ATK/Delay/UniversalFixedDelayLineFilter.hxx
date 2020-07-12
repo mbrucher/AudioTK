@@ -14,17 +14,17 @@ namespace ATK
   {
   public:
     std::vector<DataType> delay_line;
-    gsl::index index;
+    gsl::index index = 0;
 
     explicit UFDLF_Impl(gsl::index max_delay)
-      :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
+      :delay_line(max_delay, TypeTraits<DataType>::Zero())
     {
     }
   };
 
   template<typename DataType_>
   UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(gsl::index max_delay)
-    :Parent(1, 2), impl(new UFDLF_Impl(max_delay)), delay(100), blend(0), feedback(0), feedforward(1)
+    :Parent(1, 2), impl(std::make_unique<UFDLF_Impl>(max_delay))
   {
   }
   

@@ -65,10 +65,10 @@ namespace ATK
   private:
     // internal state
     std::unique_ptr<UFDLF_Impl> impl;
-    gsl::index delay;
-    Scalar blend;
-    Scalar feedback;
-    Scalar feedforward;
+    gsl::index delay = 100;
+    Scalar blend = 0;
+    Scalar feedback = 0;
+    Scalar feedforward = 1;
   };
 }
 

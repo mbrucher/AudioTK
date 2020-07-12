@@ -24,10 +24,10 @@ namespace ATK
     std::vector<gsl::index> integer_delay;
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
-    DataType last_delay;
+    DataType last_delay = 0;
 
     explicit UVDLF_Impl(gsl::index max_delay)
-      :processed_input(max_delay, 0), last_delay(0)
+      :processed_input(max_delay, 0)
     {
     }
 
@@ -48,7 +48,7 @@ namespace ATK
 
   template<typename DataType_>
   UniversalVariableDelayLineFilter<DataType_>::UniversalVariableDelayLineFilter(gsl::index max_delay)
-    :Parent(2, 1), impl(new UVDLF_Impl(max_delay)), max_delay(max_delay), central_delay(max_delay/2), blend(0), feedback(0), feedforward(1)
+    :Parent(2, 1), impl(std::make_unique<UVDLF_Impl>(max_delay)), max_delay(max_delay), central_delay(max_delay / 2)
   {
   }
   
