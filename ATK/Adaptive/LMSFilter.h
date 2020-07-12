@@ -80,7 +80,7 @@ namespace ATK
     bool learning = true;
     
   private:
-    Mode mode = MODE::Normal;
+    Mode mode = Mode::NORMAL;
   };
 
 }
