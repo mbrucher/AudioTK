@@ -13,7 +13,7 @@ namespace ATK
 {
   template<class DataType_>
   TriangleGeneratorFilter<DataType_>::TriangleGeneratorFilter()
-  :TypedBaseFilter<DataType_>(0, 1), state(0), ascending(true), amplitude(1), frequency(1)
+  :TypedBaseFilter<DataType_>(0, 1)
   {
   }
   

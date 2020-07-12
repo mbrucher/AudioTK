@@ -32,7 +32,7 @@ namespace ATK
     wavstream.open(filename.c_str(), std::ios_base::binary);
     if(!wavstream.good())
     {
-      throw std::runtime_error("Could not WAV file " + filename);
+      throw RuntimeError("Could not WAV file " + filename);
     }
   }
 
@@ -99,7 +99,9 @@ namespace ATK
     wavstream.seekp(0, std::ios_base::end);
   }
 
+#if ATK_ENABLE_INSTANTIATION
   template class OutWavFilter<std::int16_t>;
-  template class OutWavFilter<float>;
   template class OutWavFilter<double>;
+#endif
+  template class OutWavFilter<float>;
 }
