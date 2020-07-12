@@ -47,7 +47,7 @@ namespace ATK
     boost::math::tools::polynomial<CoeffDataType> a{ 1 };
 
     generate_RIAA_coeffs(zpk, input_sampling_rate);
-    EQUtilities::zpk2ba(input_sampling_rate, zpk, b, a);
+    EQUtilities::zpk2ba(zpk, b, a);
     
     auto in_size = std::min(in_order + 1, static_cast<gsl::index>(b.size()));
     for (gsl::index i = 0; i < in_size; ++i)
@@ -82,7 +82,7 @@ namespace ATK
     
     generate_RIAA_coeffs(zpk, input_sampling_rate);
     zpk.z.back() = -.8;
-    EQUtilities::zpk2ba(input_sampling_rate, zpk, b, a);
+    EQUtilities::zpk2ba(zpk, b, a);
     
     auto in_size = std::min(in_order + 1, static_cast<gsl::index>(a.size()));
     for (gsl::index i = 0; i < in_size; ++i)

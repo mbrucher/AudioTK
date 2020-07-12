@@ -165,7 +165,7 @@ namespace EQUtilities
 
   /// Transforms the z, p, k coefficients in b, a form
   template<typename DataType>
-  void zpk2ba(std::size_t fs, const ZPK<DataType>& zpk, boost::math::tools::polynomial<DataType>& b, boost::math::tools::polynomial<DataType>& a)
+  void zpk2ba(const ZPK<DataType>& zpk, boost::math::tools::polynomial<DataType>& b, boost::math::tools::polynomial<DataType>& a)
   {
     auto z_size = zpk.z.size();
     auto p_size = zpk.p.size();
@@ -217,12 +217,12 @@ namespace EQUtilities
   }
   
   template<typename DataType, typename Container>
-  void to_bilinear(const ZPK<DataType>& zpk, Container& coefficients_in, Container& coefficients_out, int fs, size_t order)
+  void to_bilinear(const ZPK<DataType>& zpk, Container& coefficients_in, Container& coefficients_out, size_t order)
   {
     boost::math::tools::polynomial<DataType> b;
     boost::math::tools::polynomial<DataType> a;
 
-    zpk2ba(fs, zpk, b, a);
+    zpk2ba(zpk, b, a);
     
     auto in_size = std::min(order + 1, b.size());
     for (size_t i = 0; i < in_size; ++i)
@@ -243,7 +243,7 @@ namespace EQUtilities
     zpk_lp2lp(warped, zpk);
     zpk_bilinear(fs, zpk);
     
-    to_bilinear(zpk, coefficients_in, coefficients_out, fs, order);
+    to_bilinear(zpk, coefficients_in, coefficients_out, order);
   }
   
   template<typename DataType, typename Container>
@@ -255,7 +255,7 @@ namespace EQUtilities
     zpk_lp2bp(std::sqrt(wc1 * wc2), wc2 - wc1, zpk);
     zpk_bilinear(fs, zpk);
     
-    to_bilinear(zpk, coefficients_in, coefficients_out, fs, order);
+    to_bilinear(zpk, coefficients_in, coefficients_out, order);
   }
   
   template<typename DataType, typename Container>
@@ -267,7 +267,7 @@ namespace EQUtilities
     zpk_lp2bs(std::sqrt(wc1 * wc2), wc2 - wc1, zpk);
     zpk_bilinear(fs, zpk);
     
-    to_bilinear(zpk, coefficients_in, coefficients_out, fs, order);
+    to_bilinear(zpk, coefficients_in, coefficients_out, order);
   }
 }
 
