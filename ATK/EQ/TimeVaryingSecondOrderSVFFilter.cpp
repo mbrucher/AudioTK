@@ -25,7 +25,7 @@ namespace ATK
   
   template<typename SVFCoefficients>
   TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::TimeVaryingSecondOrderSVFFilter(gsl::index nb_channels)
-  :SVFCoefficients(nb_channels), state(new SVFState[nb_channels])
+  :SVFCoefficients(nb_channels), state(std::make_unique<SVFState[]>(nb_channels))
   {
   }
 
@@ -37,7 +37,7 @@ namespace ATK
   template<typename SVFCoefficients>
   void TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::full_setup()
   {
-    state.reset(new SVFState[nb_input_ports - 1]);
+    state = std::make_unique<SVFState[]>(nb_input_ports - 1);
   }
 
   template<typename DataType>

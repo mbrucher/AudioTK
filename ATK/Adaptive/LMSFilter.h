@@ -35,7 +35,7 @@ namespace ATK
      */
     explicit LMSFilter(gsl::index size);
     /// Destructor
-    ~LMSFilter() override;
+    ~LMSFilter();
     
     /// Changes the underlying size
     void set_size(gsl::index size);

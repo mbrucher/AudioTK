@@ -20,7 +20,7 @@ namespace ATK
   
   template<typename SVFCoefficients>
   SecondOrderSVFFilter<SVFCoefficients>::SecondOrderSVFFilter(gsl::index nb_channels)
-  :SVFCoefficients(nb_channels), state(new SVFState[nb_channels])
+  :SVFCoefficients(nb_channels), state(std::make_unique<SVFState[]>(nb_channels))
   {
   }
 
@@ -32,7 +32,7 @@ namespace ATK
   template<typename SVFCoefficients>
   void SecondOrderSVFFilter<SVFCoefficients>::full_setup()
   {
-    state.reset(new SVFState[nb_input_ports]);
+    state = std::make_unique<SVFState[]>(nb_input_ports);
   }
 
   template<typename DataType>

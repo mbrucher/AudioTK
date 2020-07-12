@@ -187,12 +187,12 @@ namespace ATK
   void TransistorClassAFilter<DataType_>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, 4, nb_max_iter, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer = std::make_unique<VectorizedNewtonRaphson<TransistorClassAFunction, 4, nb_max_iter, true>>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg1, Rg2, Ro, Rk, //R
       Vbias, // Vbias
       Cg, Co, Ck, // C
       transistor_function, // transistor
-      default_output)));
+      default_output));
   }
 
   template<typename DataType_>

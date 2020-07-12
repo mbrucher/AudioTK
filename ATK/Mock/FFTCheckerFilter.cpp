@@ -16,9 +16,8 @@ namespace ATK
 {
   template<class DataType_>
   FFTCheckerFilter<DataType_>::FFTCheckerFilter()
-  :TypedBaseFilter<DataType_>(1, 0)
+  :TypedBaseFilter<DataType_>(1, 0), FFTimpl(std::make_unique<FFT<DataType_>>())
   {
-    FFTimpl.reset(new FFT<DataType_>);
   }
   
   template<class DataType_>

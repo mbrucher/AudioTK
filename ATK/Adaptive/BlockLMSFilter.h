@@ -36,7 +36,7 @@ namespace ATK
      */
     explicit BlockLMSFilter(gsl::index size);
     /// Destructor
-    ~BlockLMSFilter() override;
+    ~BlockLMSFilter();
     
     /// Changes the underlying size
     void set_size(gsl::index size);

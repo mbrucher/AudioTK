@@ -11,6 +11,7 @@
 #include <Eigen/Core>
 
 #include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -81,7 +82,7 @@ namespace ATK
 
   template<typename DataType_>
   LMSFilter<DataType_>::LMSFilter(gsl::index size)
-  :Parent(2, 1), impl(new LMSFilterImpl(size))
+  :Parent(2, 1), impl(std::make_unique<LMSFilterImpl>(size))
   {
     input_delay = size - 1;
   }
@@ -90,17 +91,17 @@ namespace ATK
   LMSFilter<DataType_>::~LMSFilter()
   {
   }
-  
+
   template<typename DataType_>
   void LMSFilter<DataType_>::set_size(gsl::index size)
   {
     if(size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw RuntimeError("Size must be strictly positive");
     }
 
     input_delay = size - 1;
-    impl.reset(new LMSFilterImpl(size));
+    impl = std::make_unique<LMSFilterImpl>(size);
   }
 
   template<typename DataType_>

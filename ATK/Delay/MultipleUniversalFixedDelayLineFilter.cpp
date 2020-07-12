@@ -18,10 +18,9 @@ namespace ATK
   {
   public:
     std::array<std::vector<DataType>, nb_channels> processed_input;
-    int64_t index;
+    int64_t index = 0;
 
     explicit SUFDLF_Impl(gsl::index max_delay)
-      :index(0)
     {
       // reset the delay line
       for (unsigned int channel = 0; channel < nb_channels; ++channel)

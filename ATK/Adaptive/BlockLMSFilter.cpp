@@ -11,6 +11,7 @@
 #include <Eigen/Core>
 
 #include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 #include <ATK/Utility/FFT.h>
 
 namespace ATK
@@ -103,11 +104,11 @@ namespace ATK
 
   template<typename DataType_>
   BlockLMSFilter<DataType_>::BlockLMSFilter(gsl::index size)
-  :Parent(2, 1), impl(new BlockLMSFilterImpl(size))
+  :Parent(2, 1), impl(std::make_unique<BlockLMSFilterImpl>(size))
   {
     if (size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw RuntimeError("Size must be strictly positive");
     }
   }
   
@@ -121,10 +122,10 @@ namespace ATK
   {
     if(size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw RuntimeError("Size must be strictly positive");
     }
     auto block_size = impl->block_size;
-    impl.reset(new BlockLMSFilterImpl(size));
+    impl = std::make_unique<BlockLMSFilterImpl>(size);
     set_block_size(block_size);
   }
 

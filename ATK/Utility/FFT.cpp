@@ -326,21 +326,24 @@ namespace ATK
 
   template<class DataType_>
   FFT<DataType_>::FFT()
-  :size(0), impl(new FFTImpl)
+  :size(0), impl(std::make_unique<FFTImpl>())
   {
   }
   
+
   template<class DataType_>
   FFT<DataType_>::~FFT()
   {
   }
-  
+
   template<class DataType_>
-  void FFT<DataType_>::set_size(gsl::index size)
+  void FFT<DataType_>::set_size(gsl::index size_)
   {
-    if(this->size == size)
+    if(size == size_)
+    {
       return;
-    this->size = size;
+    }
+    size = size_;
     impl->set_size(size);
   }
 

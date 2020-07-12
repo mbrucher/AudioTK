@@ -28,7 +28,7 @@ namespace ATK
   InWavFilter<DataType>::InWavFilter(const std::string& filename)
   :TypedBaseFilter<DataType>(0, 0), filename(filename)
   {
-    wavstream.open(filename.c_str(), std::ios_base::binary);
+    wavstream.open(filename, std::ios_base::binary);
     if(!wavstream.good())
     {
       throw RuntimeError("Could not open WAV file " + filename);
@@ -84,7 +84,7 @@ namespace ATK
   {
     if(!wavstream.is_open())
     {
-      wavstream.open(filename.c_str(), std::ios_base::binary);
+      wavstream.open(filename, std::ios_base::binary);
       wavstream.seekg(offset);
     }
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);

@@ -101,9 +101,9 @@ namespace ATK
   void SD1OverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction, num_iterations, true>(SD1OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer = std::make_unique<ScalarNewtonRaphson<SD1OverdriveFunction, num_iterations, true>>(SD1OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
       static_cast<DataType>(4.7e3), static_cast<DataType>(0.047e-6), static_cast<DataType>(33e3),
-      static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
+      static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3)));
 
     optimizer->get_function().set_drive(drive);
   }

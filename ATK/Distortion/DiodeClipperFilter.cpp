@@ -110,8 +110,8 @@ namespace ATK
   void DiodeClipperFilter<DataType>::setup()
   {
     Parent::setup();
-    optimizer.reset(new ScalarNewtonRaphson<SimpleOverdriveFunction>(SimpleOverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
-      10000, static_cast<DataType>(22e-9), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
+    optimizer = std::make_unique<ScalarNewtonRaphson<SimpleOverdriveFunction>>(SimpleOverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
+      10000, static_cast<DataType>(22e-9), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3)));
   }
 
   template <typename DataType>
