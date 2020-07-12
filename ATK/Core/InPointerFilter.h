@@ -46,15 +46,15 @@ namespace ATK
     /// This implementation retrieves inputs from other filters and converts it accordingly
     void process_impl(gsl::index size) const final;
     /// Current offset in the array
-    mutable gsl::index offset;
+    mutable gsl::index offset = 0;
     /// Input array
-    const DataType* array;
+    const DataType* array = nullptr;
     /// Size of the input array
-    gsl::index mysize;
+    gsl::index mysize = 0;
     /// Number of channels/ports in the array
-    unsigned int channels;
+    unsigned int channels = 0;
     /// Is the output array interleaved?
-    bool interleaved;
+    bool interleaved = false;
   };
 }
 
