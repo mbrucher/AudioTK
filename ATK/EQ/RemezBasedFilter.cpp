@@ -305,7 +305,7 @@ namespace ATK
 {
   template<class DataType>
   RemezBasedCoefficients<DataType>::RemezBasedCoefficients(gsl::index nb_channels)
-    :Parent(nb_channels, nb_channels), in_order(0)
+    :Parent(nb_channels, nb_channels)
   {
   }
 

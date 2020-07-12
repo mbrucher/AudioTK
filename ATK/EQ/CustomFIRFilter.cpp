@@ -15,7 +15,7 @@ namespace ATK
 {
   template <typename DataType>
   CustomFIRCoefficients<DataType>::CustomFIRCoefficients(gsl::index nb_channels)
-    :Parent(nb_channels, nb_channels), in_order(0)
+    :Parent(nb_channels, nb_channels)
   {
   }
 

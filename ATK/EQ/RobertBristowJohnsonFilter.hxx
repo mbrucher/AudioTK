@@ -10,7 +10,7 @@ namespace ATK
 {
   template<typename DataType>
   RobertBristowJohnsonLowPassCoefficients<DataType>::RobertBristowJohnsonLowPassCoefficients(gsl::index nb_channels)
-    :Parent(nb_channels), Q(1)
+    :Parent(nb_channels)
   {
   }
 
@@ -49,7 +49,7 @@ namespace ATK
 
   template<typename DataType>
   RobertBristowJohnsonHighPassCoefficients<DataType>::RobertBristowJohnsonHighPassCoefficients(gsl::index nb_channels)
-    :Parent(nb_channels), Q(1)
+    :Parent(nb_channels)
   {
   }
 
@@ -88,7 +88,7 @@ namespace ATK
 
   template<typename DataType>
   RobertBristowJohnsonBandPassCoefficients<DataType>::RobertBristowJohnsonBandPassCoefficients(gsl::index nb_channels)
-    :Parent(nb_channels), Q(1)
+    :Parent(nb_channels)
   {
   }
 
@@ -127,7 +127,7 @@ namespace ATK
 
   template<typename DataType>
   RobertBristowJohnsonBandPass2Coefficients<DataType>::RobertBristowJohnsonBandPass2Coefficients(gsl::index nb_channels)
-    :Parent(nb_channels), Q(1)
+    :Parent(nb_channels)
   {
   }
 
@@ -166,7 +166,7 @@ namespace ATK
   
   template<typename DataType>
   RobertBristowJohnsonBandStopCoefficients<DataType>::RobertBristowJohnsonBandStopCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), Q(1)
+  :Parent(nb_channels)
   {
   }
   
@@ -205,7 +205,7 @@ namespace ATK
 
   template<typename DataType>
   RobertBristowJohnsonAllPassCoefficients<DataType>::RobertBristowJohnsonAllPassCoefficients(gsl::index nb_channels)
-    :Parent(nb_channels), Q(1)
+    :Parent(nb_channels)
   {
   }
 
@@ -244,7 +244,7 @@ namespace ATK
   
   template<typename DataType>
   RobertBristowJohnsonBandPassPeakCoefficients<DataType>::RobertBristowJohnsonBandPassPeakCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), Q(1)
+  :Parent(nb_channels)
   {
   }
   
@@ -300,7 +300,7 @@ namespace ATK
   
   template<typename DataType>
   RobertBristowJohnsonLowShelvingCoefficients<DataType>::RobertBristowJohnsonLowShelvingCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), Q(1), gain(1)
+  :Parent(nb_channels)
   {
   }
   
@@ -357,7 +357,7 @@ namespace ATK
   
   template<typename DataType>
   RobertBristowJohnsonHighShelvingCoefficients<DataType>::RobertBristowJohnsonHighShelvingCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), Q(1), gain(1)
+  :Parent(nb_channels)
   {
   }
   

@@ -22,10 +22,10 @@ namespace ATK
     using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
-    CoeffDataType cut_frequency;
+    CoeffDataType cut_frequency = 0;
 
-    constexpr static gsl::index in_order=4;
-    constexpr static gsl::index out_order=4;
+    constexpr static gsl::index in_order = 4;
+    constexpr static gsl::index out_order = 4;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 

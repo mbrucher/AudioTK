@@ -178,7 +178,7 @@ namespace ATK
 {
   template <typename DataType>
   BesselLowPassCoefficients<DataType>::BesselLowPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -228,7 +228,7 @@ namespace ATK
   
   template <typename DataType>
   BesselHighPassCoefficients<DataType>::BesselHighPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -283,7 +283,7 @@ namespace ATK
   
   template <typename DataType>
   BesselBandPassCoefficients<DataType>::BesselBandPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -339,7 +339,7 @@ namespace ATK
   
   template <typename DataType>
   BesselBandStopCoefficients<DataType>::BesselBandStopCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   

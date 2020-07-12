@@ -69,8 +69,7 @@ namespace ATK
 
   template<typename DataType>
   TS9ToneCoefficients<DataType>::TS9ToneCoefficients(gsl::index nb_channels)
-  :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(1e3), R2(10e3), R3(1e3), R4(220), P(22e3),
-  C1(0.022e-6), C2(0.022e-6), alpha(.5)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
   }
   

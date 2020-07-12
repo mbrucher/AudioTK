@@ -10,7 +10,7 @@ namespace ATK
 {
   template<typename DataType>
   ToneStackCoefficients<DataType>::ToneStackCoefficients(gsl::index nb_channels)
-  :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(0), R2(0), R3(0), R4(0), C1(0), C2(0), C3(0), low(.5), middle(.5), high(.5)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
   }
   
@@ -138,7 +138,7 @@ namespace ATK
   }
 
   template<typename DataType_>
-  void ToneStackCoefficients<DataType_>::set_coefficients( CoeffDataType R1, CoeffDataType R2, CoeffDataType R3, CoeffDataType R4, CoeffDataType C1, CoeffDataType C2, CoeffDataType C3 )
+  void ToneStackCoefficients<DataType_>::set_coefficients(CoeffDataType R1, CoeffDataType R2, CoeffDataType R3, CoeffDataType R4, CoeffDataType C1, CoeffDataType C2, CoeffDataType C3)
   {
     this->R1 = R1;
     this->R2 = R2;

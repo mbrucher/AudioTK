@@ -57,7 +57,7 @@ namespace ATK
 {
   template <typename DataType>
   ButterworthLowPassCoefficients<DataType>::ButterworthLowPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -107,7 +107,7 @@ namespace ATK
 
   template <typename DataType>
   ButterworthHighPassCoefficients<DataType>::ButterworthHighPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequency(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -162,7 +162,7 @@ namespace ATK
 
   template <typename DataType>
   ButterworthBandPassCoefficients<DataType>::ButterworthBandPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
 
@@ -218,7 +218,7 @@ namespace ATK
 
   template <typename DataType>
   ButterworthBandStopCoefficients<DataType>::ButterworthBandStopCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   

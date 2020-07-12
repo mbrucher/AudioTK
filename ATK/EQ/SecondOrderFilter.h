@@ -22,13 +22,8 @@ namespace ATK
     using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
-#if defined(_MSC_VER) || __cplusplus >= 201703L
     constexpr static gsl::index in_order = 2;
     constexpr static gsl::index out_order = 2;
-#else
-    const static gsl::index in_order;
-    const static gsl::index out_order;
-#endif
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
@@ -52,7 +47,7 @@ namespace ATK
     using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
-    CoeffDataType cut_frequency;
+    CoeffDataType cut_frequency = 0;
 
     constexpr static gsl::index in_order = 2;
     constexpr static gsl::index out_order = 2;
@@ -84,7 +79,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    CoeffDataType Q;
+    CoeffDataType Q = 1;
     
   protected:
     void setup() override;
@@ -168,8 +163,8 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    CoeffDataType Q;
-    CoeffDataType gain;
+    CoeffDataType Q = 1;
+    CoeffDataType gain = 1;
   protected:
     void setup() override;
     
@@ -210,7 +205,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    CoeffDataType Q;
+    CoeffDataType Q = 1;
   protected:
     void setup() override;
     
@@ -247,7 +242,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   private:
-    CoeffDataType gain;
+    CoeffDataType gain = 1;
     
   public:
     /*!
@@ -279,7 +274,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   private:
-    CoeffDataType gain;
+    CoeffDataType gain = 1;
     
   public:
     /*!
