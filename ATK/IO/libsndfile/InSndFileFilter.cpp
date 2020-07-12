@@ -45,8 +45,10 @@ namespace ATK
 
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class InSndFileFilter<std::int16_t>;
   template class InSndFileFilter<std::int32_t>;
+#endif
   template class InSndFileFilter<float>;
   template class InSndFileFilter<double>;
 }

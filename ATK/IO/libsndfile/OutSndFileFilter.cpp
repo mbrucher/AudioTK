@@ -46,8 +46,10 @@ namespace ATK
     stream->write(temp.data(), size * converted_inputs.size());
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class OutSndFileFilter<std::int16_t>;
   template class OutSndFileFilter<std::int32_t>;
-  template class OutSndFileFilter<float>;
   template class OutSndFileFilter<double>;
+#endif
+  template class OutSndFileFilter<float>;
 }
