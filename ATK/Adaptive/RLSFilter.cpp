@@ -11,6 +11,7 @@
 #include <Eigen/Core>
 
 #include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
