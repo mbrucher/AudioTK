@@ -30,7 +30,7 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    AllPassReverbFilter(gsl::index max_delay);
+    explicit AllPassReverbFilter(gsl::index max_delay);
     /// Destructor
     ~AllPassReverbFilter() override;
 

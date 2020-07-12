@@ -27,7 +27,7 @@ namespace ATK
     /*!
     * @brief Constructor
     */
-    MaxFilter(gsl::index nb_channels = 1);
+    explicit MaxFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~MaxFilter() override;
     

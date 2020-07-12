@@ -66,7 +66,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRileyHighPassCoefficients(gsl::index nb_channels = 1);
+    explicit LinkwitzRileyHighPassCoefficients(gsl::index nb_channels = 1);
   };
 
   /// Linkwitz-Riley low pass filter coefficients to be used with IIRFilter, 4th order
@@ -95,7 +95,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    LinkwitzRiley4LowPassCoefficients(gsl::index nb_channels = 1);
+    explicit LinkwitzRiley4LowPassCoefficients(gsl::index nb_channels = 1);
   };
   
   /// Linkwitz-Riley high pass filter coefficients to be used with IIRFilter, 4th order

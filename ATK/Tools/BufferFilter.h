@@ -28,7 +28,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    BufferFilter(gsl::index nb_channels = 1);
+    explicit BufferFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~BufferFilter() override;
   protected:

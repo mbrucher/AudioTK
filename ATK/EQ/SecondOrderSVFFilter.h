@@ -32,7 +32,7 @@ namespace ATK
     using Parent::m2;
 
   public:
-    SecondOrderSVFFilter(gsl::index nb_channels = 1);
+    explicit SecondOrderSVFFilter(gsl::index nb_channels = 1);
     ~SecondOrderSVFFilter();
     
     void full_setup() final;
@@ -64,7 +64,7 @@ namespace ATK
     CoeffDataType m2;
 
   public:
-    SecondOrderSVFBaseCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFBaseCoefficients(gsl::index nb_channels);
 
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency);
@@ -98,7 +98,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFLowPassCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFLowPassCoefficients(gsl::index nb_channels);
 
   protected:
     void setup() override;
@@ -123,7 +123,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFBandPassCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFBandPassCoefficients(gsl::index nb_channels);
 
   protected:
     void setup() override;
@@ -148,7 +148,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFHighPassCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFHighPassCoefficients(gsl::index nb_channels);
 
   protected:
     void setup() override;
@@ -173,7 +173,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFNotchCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFNotchCoefficients(gsl::index nb_channels);
 
   protected:
     void setup() override;
@@ -198,7 +198,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFPeakCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFPeakCoefficients(gsl::index nb_channels);
 
   protected:
     void setup() override;
@@ -223,7 +223,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFBellCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFBellCoefficients(gsl::index nb_channels);
 
     /// Sets the gain of the bell
     void set_gain(CoeffDataType gain);
@@ -254,7 +254,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFLowShelfCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFLowShelfCoefficients(gsl::index nb_channels);
 
     /// Sets the gain of the shelf
     void set_gain(CoeffDataType gain);
@@ -285,7 +285,7 @@ namespace ATK
     using Parent::Q;
     using Parent::input_sampling_rate;
 
-    SecondOrderSVFHighShelfCoefficients(gsl::index nb_channels);
+    explicit SecondOrderSVFHighShelfCoefficients(gsl::index nb_channels);
     
     /// Sets the gain of the shelf
     void set_gain(CoeffDataType gain);

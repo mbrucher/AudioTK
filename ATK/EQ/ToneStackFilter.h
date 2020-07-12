@@ -51,7 +51,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ToneStackCoefficients(gsl::index nb_channels = 1);
+    explicit ToneStackCoefficients(gsl::index nb_channels = 1);
   public:
     /// Move constructor
     ToneStackCoefficients(ToneStackCoefficients&& other);

@@ -29,7 +29,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
     */
-    DryWetFilter(gsl::index nb_channels = 1);
+    explicit DryWetFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~DryWetFilter() override;
 

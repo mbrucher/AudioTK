@@ -47,7 +47,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SD1ToneCoefficients(gsl::index nb_channels = 1);
+    explicit SD1ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);
@@ -93,7 +93,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    TS9ToneCoefficients(gsl::index nb_channels = 1);
+    explicit TS9ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);

@@ -33,7 +33,7 @@ namespace ATK
      * of the reference and the estimate.
      * @param size is the size of the underlying MA filter
      */
-    LMSFilter(gsl::index size);
+    explicit LMSFilter(gsl::index size);
     /// Destructor
     ~LMSFilter() override;
     

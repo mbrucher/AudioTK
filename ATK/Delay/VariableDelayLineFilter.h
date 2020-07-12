@@ -32,7 +32,7 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    VariableDelayLineFilter(gsl::index max_delay);
+    explicit VariableDelayLineFilter(gsl::index max_delay);
     /// Destructor
     ~VariableDelayLineFilter() override;
 

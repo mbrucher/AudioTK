@@ -42,7 +42,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthLowPassCoefficients(gsl::index nb_channels = 1);
+    explicit ButterworthLowPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -86,7 +86,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthHighPassCoefficients(gsl::index nb_channels = 1);
+    explicit ButterworthHighPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -130,7 +130,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthBandPassCoefficients(gsl::index nb_channels = 1);
+    explicit ButterworthBandPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;
@@ -176,7 +176,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ButterworthBandStopCoefficients(gsl::index nb_channels = 1);
+    explicit ButterworthBandStopCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;

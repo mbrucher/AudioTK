@@ -28,7 +28,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    OffsetVolumeFilter(gsl::index nb_channels = 1);
+    explicit OffsetVolumeFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~OffsetVolumeFilter();
 

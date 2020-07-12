@@ -29,7 +29,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    AttackReleaseHysteresisFilter(gsl::index nb_channels = 1);
+    explicit AttackReleaseHysteresisFilter(gsl::index nb_channels = 1);
     /// destructor
     ~AttackReleaseHysteresisFilter() override;
 

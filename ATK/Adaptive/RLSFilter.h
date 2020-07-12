@@ -31,7 +31,7 @@ namespace ATK
      * @brief Creates the filter with a given size
      * @param size is the size of the underlying MA filter
      */
-    RLSFilter(gsl::index size);
+    explicit RLSFilter(gsl::index size);
     /// Destructor
     ~RLSFilter() override;
     

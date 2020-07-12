@@ -36,7 +36,7 @@ namespace ATK
     
   public:
     /// Constructor of a FIR filter using Remeze/Parks&McClellan algorithm to match a given template
-    RemezBasedCoefficients(gsl::index nb_channels = 1);
+    explicit RemezBasedCoefficients(gsl::index nb_channels = 1);
 
     /// Move constructor
     RemezBasedCoefficients(RemezBasedCoefficients&& other);

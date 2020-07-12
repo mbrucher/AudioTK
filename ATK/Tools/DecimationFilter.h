@@ -33,7 +33,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    DecimationFilter(gsl::index nb_channels = 1);
+    explicit DecimationFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~DecimationFilter()override;
     

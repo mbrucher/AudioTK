@@ -34,7 +34,7 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    FeedbackDelayNetworkFilter(gsl::index max_delay);
+    explicit FeedbackDelayNetworkFilter(gsl::index max_delay);
     /// Destructor
     ~FeedbackDelayNetworkFilter() override;
 

@@ -35,7 +35,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    FourthOrderBaseCoefficients(gsl::index nb_channels = 1);
+    explicit FourthOrderBaseCoefficients(gsl::index nb_channels = 1);
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
     /// Returns the cut or central frequency

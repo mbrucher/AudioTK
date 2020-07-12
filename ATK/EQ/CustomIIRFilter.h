@@ -35,7 +35,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    CustomIIRCoefficients(gsl::index nb_channels = 1);
+    explicit CustomIIRCoefficients(gsl::index nb_channels = 1);
 
     /// Set custom coefficients for the IIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)
     void set_coefficients_in(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_in);

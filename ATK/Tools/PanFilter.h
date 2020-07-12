@@ -25,7 +25,7 @@ namespace ATK
 
   public:
     /// Constructor
-    PanFilter(gsl::index nb_channels = 1);
+    explicit PanFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~PanFilter() override;
     
