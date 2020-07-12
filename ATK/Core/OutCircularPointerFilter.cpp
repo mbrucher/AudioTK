@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType>
   OutCircularPointerFilter<DataType>::OutCircularPointerFilter()
-  :TypedBaseFilter<DataType>(1, 0), offset(0), current_slice(0), last_checked_out_buffer(-1)
+  :TypedBaseFilter<DataType>(1, 0)
   {
   }
   
@@ -73,11 +73,15 @@ namespace ATK
     return last_slice;
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class OutCircularPointerFilter<std::int16_t>;
   template class OutCircularPointerFilter<std::int32_t>;
   template class OutCircularPointerFilter<std::int64_t>;
+#endif
   template class OutCircularPointerFilter<float>;
   template class OutCircularPointerFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
   template class OutCircularPointerFilter<std::complex<float>>;
   template class OutCircularPointerFilter<std::complex<double>>;
+#endif
 }

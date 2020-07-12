@@ -8,9 +8,11 @@
 
 namespace ATK
 {
+#if ATK_ENABLE_INSTANTIATION
   template class InPointerFilter<std::int16_t>;
   template class InPointerFilter<std::int32_t>;
   template class InPointerFilter<std::int64_t>;
+#endif
   template class InPointerFilter<float>;
   template class InPointerFilter<double>;
   template class InPointerFilter<std::complex<float>>;

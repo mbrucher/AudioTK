@@ -51,9 +51,9 @@ namespace ATK
     SliceBuffer last_slice;
 
     /// Current offset in the array
-    mutable gsl::index offset;
-    mutable gsl::index current_slice;
-    gsl::index last_checked_out_buffer;
+    mutable gsl::index offset = 0;
+    mutable gsl::index current_slice = 0;
+    gsl::index last_checked_out_buffer = -1;
     
   };
 }
