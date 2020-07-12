@@ -115,11 +115,11 @@ namespace ATK
   {
     if (memory >= 1)
     {
-      throw std::out_of_range("Memory must be less than 1");
+      throw ATK::RuntimeError("Memory must be less than 1");
     }
     if (memory <= 0)
     {
-      throw std::out_of_range("Memory must be strictly positive");
+      throw ATK::RuntimeError("Memory must be strictly positive");
     }
 
     impl->alpha = memory;
@@ -136,11 +136,11 @@ namespace ATK
   {
     if (mu >= 1)
     {
-      throw std::out_of_range("Mu must be less than 1");
+      throw ATK::RuntimeError("Mu must be less than 1");
     }
     if (mu <= 0)
     {
-      throw std::out_of_range("Mu must be strictly positive");
+      throw ATK::RuntimeError("Mu must be strictly positive");
     }
 
     impl->mu = mu;

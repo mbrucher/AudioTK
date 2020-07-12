@@ -140,7 +140,7 @@ namespace ATK
   {
     if (size == 0)
     {
-      throw std::out_of_range("Block size must be strictly positive");
+      throw ATK::RuntimeError("Block size must be strictly positive");
     }
     impl->accumulate_block_size = 0;
     impl->block_size = size;
@@ -162,11 +162,11 @@ namespace ATK
   {
     if (memory >= 1)
     {
-      throw std::out_of_range("Memory must be less than 1");
+      throw ATK::RuntimeError("Memory must be less than 1");
     }
     if (memory <= 0)
     {
-      throw std::out_of_range("Memory must be strictly positive");
+      throw ATK::RuntimeError("Memory must be strictly positive");
     }
 
     impl->alpha = memory;
@@ -183,11 +183,11 @@ namespace ATK
   {
     if (mu >= 1)
     {
-      throw std::out_of_range("Mu must be less than 1");
+      throw ATK::RuntimeError("Mu must be less than 1");
     }
     if (mu <= 0)
     {
-      throw std::out_of_range("Mu must be strictly positive");
+      throw ATK::RuntimeError("Mu must be strictly positive");
     }
 
     impl->mu = mu;

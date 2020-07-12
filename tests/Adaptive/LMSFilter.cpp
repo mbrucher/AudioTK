@@ -9,6 +9,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Tools/SumFilter.h>
 
@@ -25,7 +26,7 @@ constexpr gsl::index PROCESSSIZE = 1200;
 BOOST_AUTO_TEST_CASE(LMSFilter_size_negative_test)
 {
   ATK::LMSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_size(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_size(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(LMSFilter_size_set_test)
@@ -45,7 +46,7 @@ BOOST_AUTO_TEST_CASE(LMSFilter_mode_set_test)
 BOOST_AUTO_TEST_CASE(LMSFilter_memory_negative_test)
 {
   ATK::LMSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_memory(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_memory(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(LMSFilter_memory_test)
@@ -58,13 +59,13 @@ BOOST_AUTO_TEST_CASE(LMSFilter_memory_test)
 BOOST_AUTO_TEST_CASE( LMSFilter_memory_positive1_test )
 {
   ATK::LMSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_memory(1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(LMSFilter_mu_negative_test)
 {
   ATK::LMSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_mu(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_mu(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(LMSFilter_mu_test)
@@ -77,7 +78,7 @@ BOOST_AUTO_TEST_CASE(LMSFilter_mu_test)
 BOOST_AUTO_TEST_CASE( LMSFilter_mu_positive1_test )
 {
   ATK::LMSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_mu(1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_mu(1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(LMSFilter_learning_set_test)

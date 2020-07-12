@@ -80,7 +80,7 @@ namespace ATK
   {
     if(size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw ATK::RuntimeError("Size must be strictly positive");
     }
 
     impl->P = RLSFilterImpl::PType::Identity(size, size) / DataType(size);
@@ -100,11 +100,11 @@ namespace ATK
   {
     if(memory >= 1)
     {
-      throw std::out_of_range("Memory must be less than 1");
+      throw ATK::RuntimeError("Memory must be less than 1");
     }
     if(memory <= 0)
     {
-      throw std::out_of_range("Memory must be strictly positive");
+      throw ATK::RuntimeError("Memory must be strictly positive");
     }
     
     impl->memory = memory;

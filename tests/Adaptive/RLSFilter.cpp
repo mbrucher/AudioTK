@@ -6,6 +6,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
@@ -25,7 +26,7 @@ constexpr gsl::index PROCESSSIZE = 1024 * 64;
 BOOST_AUTO_TEST_CASE(RLSFilter_size_negative_test)
 {
   ATK::RLSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_size(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_size(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_size_set_test)
@@ -38,7 +39,7 @@ BOOST_AUTO_TEST_CASE(RLSFilter_size_set_test)
 BOOST_AUTO_TEST_CASE(RLSFilter_memory_negative_test)
 {
   ATK::RLSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_memory(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_memory(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_memory_test)
@@ -51,7 +52,7 @@ BOOST_AUTO_TEST_CASE(RLSFilter_memory_test)
 BOOST_AUTO_TEST_CASE( RLSFilter_memory_positive1_test )
 {
   ATK::RLSFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_memory(1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE(RLSFilter_learning_set_test)
