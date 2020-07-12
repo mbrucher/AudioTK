@@ -27,7 +27,7 @@ namespace ATK
     /// line search
     double mu = 0.05;
 
-    LMSFilterImpl(gsl::index size)
+    explicit LMSFilterImpl(gsl::index size)
     :w(wType::Zero(size))
     {
     }

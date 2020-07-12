@@ -27,7 +27,7 @@ namespace ATK
     Vector outgain;
     Vector feedback;
 
-    HFDN_Impl(gsl::index max_delay)
+    explicit HFDN_Impl(gsl::index max_delay)
       :processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
     {
     }

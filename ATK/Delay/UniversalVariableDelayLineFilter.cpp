@@ -26,7 +26,7 @@ namespace ATK
     std::vector<DataType> fractional_delay;
     DataType last_delay;
 
-    UVDLF_Impl(gsl::index max_delay)
+    explicit UVDLF_Impl(gsl::index max_delay)
       :processed_input(max_delay, 0), last_delay(0)
     {
     }

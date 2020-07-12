@@ -16,8 +16,8 @@ namespace ATK
     std::vector<DataType> delay_line;
     gsl::index index;
 
-    UFDLF_Impl(gsl::index max_delay)
-  :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
+    explicit UFDLF_Impl(gsl::index max_delay)
+      :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
     {
     }
   };

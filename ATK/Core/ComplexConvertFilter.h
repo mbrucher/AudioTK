@@ -29,7 +29,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
      */
-    RealToComplexFilter(gsl::index nb_channels = 1);
+    explicit RealToComplexFilter(gsl::index nb_channels = 1);
     /// Destructor
     ~RealToComplexFilter() override;
     

@@ -22,7 +22,7 @@ namespace ATK
     using wType = Eigen::Matrix<DataType_, Eigen::Dynamic, 1>;
     using xType = Eigen::Map<const wType>;
 
-    RLSFilterImpl(gsl::index size)
+    explicit RLSFilterImpl(gsl::index size)
       :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size))
     {
     }

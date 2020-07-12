@@ -37,7 +37,7 @@ namespace ATK
      * @brief Constructor
      * @param filename is the name of the input file
      */
-    InSndFileFilter(const std::string& filename);
+    explicit InSndFileFilter(const std::string& filename);
     /// Destructor
     ~InSndFileFilter();
     

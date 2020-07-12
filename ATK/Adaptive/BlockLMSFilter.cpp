@@ -50,7 +50,7 @@ namespace ATK
     gsl::index accumulate_block_size = 0;
     bool learning = true;
 
-    BlockLMSFilterImpl(gsl::index size)
+    explicit BlockLMSFilterImpl(gsl::index size)
     :wfft(cwType::Zero(2*size)), block_input(2 * size, DataType_(0)), block_ref(size, DataType_(0)), block_error(size, DataType_(0)),
      block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), block_size(size)
     {

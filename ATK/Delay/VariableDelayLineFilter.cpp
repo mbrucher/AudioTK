@@ -22,7 +22,7 @@ namespace ATK
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
 
-    VDLF_Impl(gsl::index max_delay)
+    explicit VDLF_Impl(gsl::index max_delay)
       :delay_line(max_delay, 0)
     {
     }

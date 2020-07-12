@@ -46,7 +46,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    IIRFilter(gsl::index nb_channels = 1)
+    explicit IIRFilter(gsl::index nb_channels = 1)
       :Parent(nb_channels)
     {
     }
@@ -244,7 +244,7 @@ namespace ATK
   protected:
     mutable typename Parent::AlignedVector state;
   public:
-    IIRTDF2Filter(gsl::index nb_channels = 1)
+    explicit IIRTDF2Filter(gsl::index nb_channels = 1)
       :Parent(nb_channels)
     {
     }

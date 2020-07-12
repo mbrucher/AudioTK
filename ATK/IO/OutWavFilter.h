@@ -43,7 +43,7 @@ namespace ATK
      * @brief Constructor
      * @param filename is the name of the output file
      */
-    OutWavFilter(const std::string& filename);
+    explicit OutWavFilter(const std::string& filename);
     
     void set_nb_input_ports(gsl::index nb_ports) final;
   };
