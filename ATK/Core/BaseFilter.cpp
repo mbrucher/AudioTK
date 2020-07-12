@@ -21,16 +21,15 @@ namespace ATK
 {
   BaseFilter::BaseFilter(gsl::index nb_input_ports, gsl::index nb_output_ports)
   :nb_input_ports(nb_input_ports), nb_output_ports(nb_output_ports),
-   input_sampling_rate(0), output_sampling_rate(0),
-   connections(nb_input_ports, std::make_pair(-1, nullptr)), input_delay(0), output_delay(0),
-   latency(0), input_mandatory_connection(nb_input_ports), is_reset(false)
+   connections(nb_input_ports, std::make_pair(-1, nullptr)),
+   input_mandatory_connection(nb_input_ports)
 #if ATK_PROFILING == 1
   , input_conversion_time(0), output_conversion_time(0), process_time(0)
 #endif
   {
   }
   
-  BaseFilter::BaseFilter(BaseFilter&& other)
+  BaseFilter::BaseFilter(BaseFilter&& other) noexcept
   :nb_input_ports(other.nb_input_ports), nb_output_ports(other.nb_output_ports), input_sampling_rate(other.input_sampling_rate), output_sampling_rate(other.output_sampling_rate), connections(std::move(other.connections)), input_delay(other.input_delay), output_delay(std::move(other.output_delay)), latency(std::move(other.latency)), input_mandatory_connection(std::move(other.input_mandatory_connection)), is_reset(std::move(other.is_reset))
 #if ATK_PROFILING == 1
   , input_conversion_time(0), output_conversion_time(0), process_time(0)
@@ -177,7 +176,7 @@ namespace ATK
     {
       return;
     }
-    for(gsl::index port = 0; port < connections.size(); ++port)
+    for(size_t port = 0; port < connections.size(); ++port)
     {
       if(connections[port].second == nullptr)
       {
@@ -187,13 +186,13 @@ namespace ATK
       else
       {
         assert(output_sampling_rate);
-        connections[port].second->template process_conditionnally<must_process>(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+        connections[port].second->template process_conditionnally<must_process>(static_cast<uint64_t>(size) * input_sampling_rate / output_sampling_rate);
       }
     }
 #if ATK_PROFILING == 1
     auto timer = std::chrono::steady_clock::now();
 #endif
-    prepare_process(uint64_t(size) * input_sampling_rate / output_sampling_rate);
+    prepare_process(static_cast<uint64_t>(size) * input_sampling_rate / output_sampling_rate);
 #if ATK_PROFILING == 1
     auto timer2 = std::chrono::steady_clock::now();
     input_conversion_time += (timer2 - timer);
