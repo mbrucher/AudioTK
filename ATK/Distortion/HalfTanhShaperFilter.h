@@ -40,7 +40,7 @@ namespace ATK
   protected:
     void process_impl(gsl::index size) const final;
   private:
-    DataType coeff;
+    DataType coeff = 1;
   };
 }
 

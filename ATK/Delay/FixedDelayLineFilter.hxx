@@ -71,8 +71,9 @@ namespace ATK
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = static_cast<gsl::index>(impl->delay_line.size());
 
-    auto max_index = impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index) : 0) : std::min(size, delay);
-    auto size_before_index = std::min(impl->index, max_index);
+    auto max_index1 = size > delay - impl->index ? size - (delay - impl->index) : 0;
+    auto max_index2 = impl->index < delay ? max_index1 : std::min(size, delay);
+    auto size_before_index = std::min(impl->index, max_index2);
     auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
     memcpy(reinterpret_cast<void*>(output), reinterpret_cast<const void*>(delay_line + delay_line_size - (delay - impl->index)), static_cast<gsl::index>(size_after_index * sizeof(DataType_)));

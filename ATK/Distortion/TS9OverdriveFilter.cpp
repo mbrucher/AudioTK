@@ -23,19 +23,19 @@ namespace ATK
     const DataType R1;
     const DataType Q;
     const DataType C;
-    DataType drive;
+    DataType drive = 0.5;
     const DataType is;
     const DataType vt;
 
-    DataType ieq;
-    DataType i;
+    DataType ieq = 0;
+    DataType i = 0;
 
-    DataType expdiode_y1_p;
-    DataType expdiode_y1_m;
+    DataType expdiode_y1_p = 1;
+    DataType expdiode_y1_m = 1;
 
   public:
     TS9OverdriveFunction(DataType dt, DataType R, DataType R1, DataType Q, DataType C, DataType is, DataType vt)
-      :R(R), R1(R1), Q(Q), C(2 * C / dt), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
+      :R(R), R1(R1), Q(Q), C(2 * C / dt), is(is), vt(vt)
     {
     }
     

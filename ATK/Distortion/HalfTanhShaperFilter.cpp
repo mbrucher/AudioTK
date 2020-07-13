@@ -13,7 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   HalfTanhShaperFilter<DataType_>::HalfTanhShaperFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), coeff(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   

@@ -22,13 +22,13 @@ namespace ATK
 
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> delay_line;
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> processed_input;
-    int64_t index;
-    Vector ingain;
-    Vector outgain;
-    Vector feedback;
+    int64_t index = 0;
+    Vector ingain = Vector::Zero();
+    Vector outgain = Vector::Zero();
+    Vector feedback = Vector::Zero();
 
     explicit HFDN_Impl(gsl::index max_delay)
-      :processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
+      :processed_input(max_delay, Vector::Zero())
     {
     }
   };

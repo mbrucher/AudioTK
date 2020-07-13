@@ -22,18 +22,16 @@ namespace ATK
     DataType is;
     DataType vt;
 
-    DataType oldy0;
-    DataType oldexpy0;
-    DataType oldinvexpy0;
-    DataType oldy1;
-    DataType oldexpy1;
-    DataType oldinvexpy1;
+    DataType oldy0 = 0;
+    DataType oldexpy0 = 1;
+    DataType oldinvexpy0 = 1;
+    DataType oldy1 = 0;
+    DataType oldexpy1 = 1;
+    DataType oldinvexpy1 = 1;
   public:
     SimpleOverdriveFunction(DataType dt, DataType R, DataType C, DataType is, DataType vt)
     :A(dt / (2 * C) + R), B(dt / (2 * C) - R), is(is), vt(vt)
     {
-      oldy0 = oldy1 = 0;
-      oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
     
     std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)

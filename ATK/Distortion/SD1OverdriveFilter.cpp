@@ -23,19 +23,19 @@ namespace ATK
     const DataType R1;
     const DataType C;
     const DataType Q;
-    DataType drive;
+    DataType drive = 0.5;
     const DataType is;
     const DataType vt;
 
-    DataType ieq;
-    DataType i;
+    DataType ieq = 0;
+    DataType i = 0;
 
-    DataType expdiode_y1_p;
-    DataType expdiode_y1_m;
+    DataType expdiode_y1_p = 1;
+    DataType expdiode_y1_m = 1;
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-      :R(R), R1(R1), C(2 * C / dt), Q(Q), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
+      :R(R), R1(R1), C(2 * C / dt), Q(Q), is(is), vt(vt)
     {
     }
     
