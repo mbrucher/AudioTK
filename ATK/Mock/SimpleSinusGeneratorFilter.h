@@ -35,9 +35,9 @@ namespace ATK
     void process_impl(gsl::index size) const final;
 
   private:
-    mutable double state;
-    DataType_ amplitude;
-    int frequency;
+    mutable double state = 0;
+    DataType_ amplitude = 1;
+    int frequency = 1;
   };
 }
 

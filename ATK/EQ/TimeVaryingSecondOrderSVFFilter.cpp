@@ -14,13 +14,8 @@ namespace ATK
   class TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::SVFState
   {
   public:
-    typename SVFCoefficients::DataType iceq1;
-    typename SVFCoefficients::DataType iceq2;
-    
-    SVFState()
-    :iceq1(0), iceq2(0)
-    {
-    }
+    typename SVFCoefficients::DataType iceq1 = 0;
+    typename SVFCoefficients::DataType iceq2 = 0;
   };
   
   template<typename SVFCoefficients>
@@ -67,7 +62,7 @@ namespace ATK
   
   template<typename DataType>
   TimeVaryingSecondOrderSVFBaseCoefficients<DataType>::TimeVaryingSecondOrderSVFBaseCoefficients(gsl::index nb_channels)
-  :TypedBaseFilter<DataType>(1 + nb_channels, nb_channels),Q(1)
+  :TypedBaseFilter<DataType>(1 + nb_channels, nb_channels)
   {
   }
 
@@ -180,7 +175,7 @@ namespace ATK
 
   template<typename DataType_>
   TimeVaryingSecondOrderSVFBellCoefficients<DataType_>::TimeVaryingSecondOrderSVFBellCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), gain(1)
+  :Parent(nb_channels)
   {
     
   }
@@ -216,7 +211,7 @@ namespace ATK
 
   template<typename DataType_>
   TimeVaryingSecondOrderSVFLowShelfCoefficients<DataType_>::TimeVaryingSecondOrderSVFLowShelfCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), gain(0)
+  :Parent(nb_channels)
   {
     
   }
@@ -248,7 +243,7 @@ namespace ATK
 
   template<typename DataType_>
   TimeVaryingSecondOrderSVFHighShelfCoefficients<DataType_>::TimeVaryingSecondOrderSVFHighShelfCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), gain(0)
+  :Parent(nb_channels)
   {
   }
 

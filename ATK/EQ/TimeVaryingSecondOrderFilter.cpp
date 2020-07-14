@@ -17,7 +17,7 @@ namespace ATK
   /// Time varying coefficient base class. Two input ports, the first is the data, the second one is the central frequency
   template <typename DataType>
   TimeVaryingBaseSecondOrderCoefficients<DataType>::TimeVaryingBaseSecondOrderCoefficients()
-    :Parent(2, 1), min_frequency(1), max_frequency(10), memory(.5), number_of_steps(10)
+    :Parent(2, 1)
   {
   }
 

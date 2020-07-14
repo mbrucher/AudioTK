@@ -13,7 +13,7 @@ namespace ATK
 {
   template<class DataType_>
   SimpleSinusGeneratorFilter<DataType_>::SimpleSinusGeneratorFilter()
-  :TypedBaseFilter<DataType_>(0, 1), state(0), amplitude(1), frequency(1)
+  :TypedBaseFilter<DataType_>(0, 1)
   {
   }
   

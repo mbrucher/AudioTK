@@ -8,6 +8,7 @@
 
 #include <Eigen/Dense>
 
+#include <ATK/Core/Utilities.h>
 #include <ATK/EQ/RemezBasedFilter.h>
 #include <ATK/EQ/FIRFilter.h>
 
@@ -333,7 +334,7 @@ namespace ATK
   {
     if(order % 2 == 1)
     {
-      throw std::range_error("Need an even filter order (considering order 0 has 1 coefficients)");
+      throw ATK::RuntimeError("Need an even filter order (considering order 0 has 1 coefficients)");
     }
     in_order = order;
     setup();
@@ -350,7 +351,7 @@ namespace ATK
       if(target[i].first.second > target[i + 1].first.first)
       {
         target.clear();
-        throw std::runtime_error("Bad template");
+        throw ATK::RuntimeError("Bad template");
       }
     }
     

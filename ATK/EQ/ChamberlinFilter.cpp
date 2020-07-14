@@ -10,7 +10,7 @@ namespace ATK
 {
   template<typename DataType>
   ChamberlinFilter<DataType>::ChamberlinFilter()
-  :TypedBaseFilter<DataType>(1, 1), numerical_frequency(0), numerical_attenuation(1), yh(0), yb(0), yl(0), selected(0), attenuation(1), cutoff_frequency(0)
+  :TypedBaseFilter<DataType>(1, 1)
   {
   }
   

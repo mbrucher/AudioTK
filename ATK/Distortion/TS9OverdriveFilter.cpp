@@ -117,7 +117,9 @@ namespace ATK
     }
     this->drive = drive;
     if(optimizer)
-      optimizer->get_function().set_drive(drive);
+    {
+        optimizer->get_function().set_drive(drive);
+    }
   }
 
   template <typename DataType_>

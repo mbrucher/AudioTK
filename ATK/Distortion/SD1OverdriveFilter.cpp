@@ -86,7 +86,7 @@ namespace ATK
   
   template <typename DataType>
   SD1OverdriveFilter<DataType>::SD1OverdriveFilter()
-    :TypedBaseFilter<DataType>(1, 1), drive(0)
+    :TypedBaseFilter<DataType>(1, 1)
   {
     input_delay = 1;
     output_delay = 1;
@@ -117,7 +117,9 @@ namespace ATK
     }
     this->drive = drive;
     if(optimizer)
-      optimizer->get_function().set_drive(drive);
+    {
+        optimizer->get_function().set_drive(drive);
+    }
   }
 
   template <typename DataType_>

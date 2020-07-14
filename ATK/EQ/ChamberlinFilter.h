@@ -25,12 +25,12 @@ namespace ATK
     using Parent::output_sampling_rate;
     
   private:
-    CoeffDataType numerical_frequency;
-    CoeffDataType numerical_attenuation;
+    CoeffDataType numerical_frequency = 0;
+    CoeffDataType numerical_attenuation = 1;
     
-    mutable CoeffDataType yh;
-    mutable CoeffDataType yb;
-    mutable CoeffDataType yl;
+    mutable CoeffDataType yh = 0;
+    mutable CoeffDataType yb = 0;
+    mutable CoeffDataType yl = 0;
     
   public:
     ChamberlinFilter();
@@ -52,9 +52,9 @@ namespace ATK
     void process_impl(gsl::index size) const final;
 
   private:
-    int selected;
-    CoeffDataType attenuation;
-    CoeffDataType cutoff_frequency;
+    int selected = 0;
+    CoeffDataType attenuation = 1;
+    CoeffDataType cutoff_frequency = 0;
   };
 }
 
