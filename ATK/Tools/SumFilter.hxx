@@ -15,11 +15,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  SumFilter<DataType_>::~SumFilter()
-  {
-  }
-
-  template<typename DataType_>
   void SumFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == summed_channels * nb_output_ports);

@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   SinusGeneratorFilter<DataType_>::SinusGeneratorFilter()
-  :Parent(0, 2), volume(1), offset(0), frequency(0), frequ_cos(1), frequ_sin(0), cos(1), sin(0)
+  :Parent(0, 2)
   {
   }
   

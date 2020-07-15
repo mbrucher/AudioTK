@@ -50,14 +50,14 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ volume;
-    DataType_ offset;
-    DataType_ frequency;
-    DataType_ frequ_cos;
-    DataType_ frequ_sin;
+    DataType_ volume = 1;
+    DataType_ offset = 0;
+    DataType_ frequency = 0;
+    DataType_ frequ_cos = 1;
+    DataType_ frequ_sin = 0;
 
-    mutable DataType_ cos;
-    mutable DataType_ sin;
+    mutable DataType_ cos = 1;
+    mutable DataType_ sin = 0;
   };
 }
 

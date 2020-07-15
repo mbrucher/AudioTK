@@ -32,13 +32,13 @@ namespace ATK
     */
     explicit TanFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~TanFilter() override;
+    ~TanFilter() override = default;
 
   protected:
     void process_impl(gsl::index size) const final;
     void setup() final;
   private:
-    double coeff;
+    double coeff = 1;
   };
 }
 

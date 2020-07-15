@@ -58,8 +58,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
 
   private:
-    PAN_LAWS law;
-    double pan;
+    PAN_LAWS law = PAN_LAWS::SINCOS_0_CENTER;
+    double pan = 0;
   };
 }
 
