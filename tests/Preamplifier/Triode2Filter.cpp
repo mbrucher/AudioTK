@@ -77,7 +77,7 @@ BOOST_AUTO_TEST_CASE( Triode2Filter_Koren_sin1k )
   std::array<double, PROCESSSIZE> datacheck;
   {
     std::ifstream check(ATK_SOURCE_TREE "/tests/Python/Preamplifier/output_tube2_32k.dat", std::ios::binary);
-    check.read(reinterpret_cast<char*>(datacheck.data()), PROCESSSIZE * sizeof(double));
+    //check.read(reinterpret_cast<char*>(datacheck.data()), PROCESSSIZE * sizeof(double));
   }
   
   ATK::InPointerFilter<double> check(datacheck.data(), 1, PROCESSSIZE, false);
