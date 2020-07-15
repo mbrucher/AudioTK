@@ -20,11 +20,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  GainSwellFilter<DataType_>::~GainSwellFilter()
-  {
-  }
-
-  template<typename DataType_>
   void GainSwellFilter<DataType_>::set_softness(DataType_ softness)
   {
     if (softness < 0)

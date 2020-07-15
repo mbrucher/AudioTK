@@ -33,7 +33,7 @@ namespace ATK
      */
     InPointerFilter(const DataType* array, int channels, gsl::index size, bool interleaved);
     /// Destructor
-    ~InPointerFilter() override;
+    ~InPointerFilter() override = default;
     
     /**
      * @brief Resets the pointer and the internal offset

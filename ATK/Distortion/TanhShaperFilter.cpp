@@ -18,11 +18,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  TanhShaperFilter<DataType_>::~TanhShaperFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void TanhShaperFilter<DataType_>::set_coefficient(DataType coeff)
   {
     if(coeff <= 0)

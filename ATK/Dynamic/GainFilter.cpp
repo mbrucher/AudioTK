@@ -19,11 +19,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  ParentGainFilter<DataType_>::~ParentGainFilter()
-  {
-  }
-
-  template<typename DataType_>
   void ParentGainFilter<DataType_>::set_threshold(DataType_ threshold)
   {
     if (threshold <= 0)

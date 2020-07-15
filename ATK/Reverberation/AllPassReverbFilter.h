@@ -32,7 +32,7 @@ namespace ATK
     */
     explicit AllPassReverbFilter(gsl::index max_delay);
     /// Destructor
-    ~AllPassReverbFilter() override;
+    ~AllPassReverbFilter() override = default;
 
     /// Changes the delay used for the filter
     void set_delay(gsl::index delay);

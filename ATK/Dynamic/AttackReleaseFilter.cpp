@@ -17,11 +17,6 @@ namespace ATK
   {
     output_delay = 1;
   }
-  
-  template<typename DataType_>
-  AttackReleaseFilter<DataType_>::~AttackReleaseFilter()
-  {
-  }
 
   template<typename DataType_>
   void AttackReleaseFilter<DataType_>::set_attack(DataType_ attack)

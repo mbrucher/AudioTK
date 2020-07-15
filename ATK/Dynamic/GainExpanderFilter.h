@@ -30,7 +30,7 @@ namespace ATK
     */
     GainExpanderFilter(gsl::index nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 1024);
     /// Destructor
-    ~GainExpanderFilter();
+    ~GainExpanderFilter() override = default;
 
     /// Sets the softness of the knee of the filter (positive value)
     void set_softness(DataType_ softness);

@@ -32,7 +32,7 @@ namespace ATK
      */
     OutPointerFilter(DataType* array, int channels, gsl::index size, bool interleaved);
     /// Destructor
-    ~OutPointerFilter() override;
+    ~OutPointerFilter() override = default;
     
     /**
      * @brief Resets the pointer and the internal offset

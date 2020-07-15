@@ -18,11 +18,6 @@ namespace ATK
   }
   
   template<class DataType_>
-  SimpleSinusGeneratorFilter<DataType_>::~SimpleSinusGeneratorFilter()
-  {
-  }
-  
-  template<class DataType_>
   void SimpleSinusGeneratorFilter<DataType_>::set_amplitude(DataType_ amplitude)
   {
     this->amplitude = amplitude;

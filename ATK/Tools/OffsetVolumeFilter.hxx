@@ -13,11 +13,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  OffsetVolumeFilter<DataType_>::~OffsetVolumeFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void OffsetVolumeFilter<DataType_>::set_volume(DataType_ volume)
   {
     this->volume = volume;

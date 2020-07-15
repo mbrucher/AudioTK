@@ -18,11 +18,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  RealToComplexFilter<DataType_>::~RealToComplexFilter()
-  {
-  }
-
-  template<typename DataType_>
   void RealToComplexFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == 2*nb_output_ports);
@@ -42,11 +37,6 @@ namespace ATK
   template<typename DataType_>
   ComplexToRealFilter<DataType_>::ComplexToRealFilter(gsl::index nb_channels)
     :Parent(nb_channels, 2 * nb_channels)
-  {
-  }
-
-  template<typename DataType_>
-  ComplexToRealFilter<DataType_>::~ComplexToRealFilter()
   {
   }
 

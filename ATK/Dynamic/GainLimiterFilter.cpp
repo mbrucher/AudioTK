@@ -20,11 +20,6 @@ namespace ATK
   }
 
   template<typename DataType_>
-  GainLimiterFilter<DataType_>::~GainLimiterFilter()
-  {
-  }
-
-  template<typename DataType_>
   void GainLimiterFilter<DataType_>::set_softness(DataType_ softness)
   {
     if (softness <= 0)

@@ -31,7 +31,7 @@ namespace ATK
     */
     explicit RelativePowerFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~RelativePowerFilter() override;
+    ~RelativePowerFilter() override = default;
 
     /// Sets the memory of the AR1 (must be between 0 and 1)
     void set_memory(DataType_ memory_factor);

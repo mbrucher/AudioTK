@@ -19,11 +19,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  MuteSoloBufferFilter<DataType_>::~MuteSoloBufferFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void MuteSoloBufferFilter<DataType_>::process_impl(gsl::index size) const
   {
     for(gsl::index channel = 0; channel < nb_input_ports; ++channel)

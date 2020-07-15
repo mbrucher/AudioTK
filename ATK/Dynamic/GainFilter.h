@@ -36,7 +36,7 @@ namespace ATK
     */
     ParentGainFilter(gsl::index nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     /// Destructor
-    ~ParentGainFilter() override;
+    ~ParentGainFilter() override = default;
     
     /// Sets the threshold (superior to 0)
     void set_threshold(DataType_ threshold);

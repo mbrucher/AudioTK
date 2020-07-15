@@ -31,7 +31,7 @@ namespace ATK
      */
     explicit RealToComplexFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~RealToComplexFilter() override;
+    ~RealToComplexFilter() override = default;
     
   protected:
     void process_impl(gsl::index size) const final;
@@ -56,7 +56,7 @@ namespace ATK
     */
     explicit ComplexToRealFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~ComplexToRealFilter() override;
+    ~ComplexToRealFilter() override = default;
 
   protected:
     void process_impl(gsl::index size) const final;

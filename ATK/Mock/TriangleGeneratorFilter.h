@@ -26,7 +26,7 @@ namespace ATK
     /// Constructor
     TriangleGeneratorFilter();
     /// Destructor
-    ~TriangleGeneratorFilter() override;
+    ~TriangleGeneratorFilter() override = default;
     
     /// Sets the amplitude of the triangle
     void set_amplitude(DataType_ amplitude);

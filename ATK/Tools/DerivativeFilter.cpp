@@ -19,11 +19,6 @@ namespace ATK
   }
 
   template<typename DataType_>
-  DerivativeFilter<DataType_>::~DerivativeFilter()
-  {
-  }
-
-  template<typename DataType_>
   void DerivativeFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);

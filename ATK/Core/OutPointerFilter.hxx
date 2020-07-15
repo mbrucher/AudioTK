@@ -15,11 +15,6 @@ namespace ATK
   }
   
   template<typename DataType>
-  OutPointerFilter<DataType>::~OutPointerFilter()
-  {
-  }
-  
-  template<typename DataType>
   void OutPointerFilter<DataType>::set_pointer(DataType* array, gsl::index size)
   {
     this->array = array;

@@ -21,11 +21,6 @@ namespace ATK
   }
 
   template<typename DataType_>
-  GainColoredExpanderFilter<DataType_>::~GainColoredExpanderFilter()
-  {
-  }
-
-  template<typename DataType_>
   void GainColoredExpanderFilter<DataType_>::set_softness(DataType_ softness)
   {
     if (softness < 0)

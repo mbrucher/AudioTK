@@ -19,11 +19,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  CachedCosinusGeneratorFilter<DataType_>::~CachedCosinusGeneratorFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void CachedCosinusGeneratorFilter<DataType_>::set_frequency(int periods, int seconds)
   {
     if(periods <= 0)

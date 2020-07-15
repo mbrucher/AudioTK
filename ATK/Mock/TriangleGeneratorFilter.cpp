@@ -18,11 +18,6 @@ namespace ATK
   }
   
   template<class DataType_>
-  TriangleGeneratorFilter<DataType_>::~TriangleGeneratorFilter()
-  {
-  }
-  
-  template<class DataType_>
   void TriangleGeneratorFilter<DataType_>::set_amplitude(DataType_ amplitude)
   {
     this->amplitude = amplitude;

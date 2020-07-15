@@ -17,12 +17,6 @@ namespace ATK
   {
     output_delay = 1;
   }
-  
-  template<typename DataType_>
-  PowerFilter<DataType_>::~PowerFilter()
-  {
-    
-  }
 
   template<typename DataType_>
   void PowerFilter<DataType_>::set_memory(DataType_ memory_factor)

@@ -27,7 +27,7 @@ namespace ATK
     /// Constructor
     SinusGeneratorFilter();
     /// Destructor
-    ~SinusGeneratorFilter() override;
+    ~SinusGeneratorFilter() override = default;
 
     /// Sets the frequency of the oscillator, without resetting it
     void set_frequency(DataType_ frequency);

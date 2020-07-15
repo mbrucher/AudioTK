@@ -31,7 +31,7 @@ namespace ATK
     */
     explicit DryWetFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~DryWetFilter() override;
+    ~DryWetFilter() override = default;
 
     /// Sets the amount of input signal in the output signal
     void set_dry(double dry) final;

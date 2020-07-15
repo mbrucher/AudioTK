@@ -31,7 +31,7 @@ namespace ATK
     */
     explicit DerivativeFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~DerivativeFilter() override;
+    ~DerivativeFilter() override = default;
 
   protected:
     void process_impl(gsl::index size) const final;

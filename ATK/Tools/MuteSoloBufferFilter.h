@@ -35,7 +35,7 @@ namespace ATK
     */
     explicit MuteSoloBufferFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~MuteSoloBufferFilter() override;
+    ~MuteSoloBufferFilter() override = default;
     
     /// Mutes/unmutes a given channel (outputs 0)
     void set_mute(gsl::index channel, bool mute);

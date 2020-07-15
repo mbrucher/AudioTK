@@ -20,11 +20,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  AttackReleaseHysteresisFilter<DataType_>::~AttackReleaseHysteresisFilter()
-  {
-  }
-
-  template<typename DataType_>
   void AttackReleaseHysteresisFilter<DataType_>::set_attack(DataType_ attack)
   {
     if(attack < 0)

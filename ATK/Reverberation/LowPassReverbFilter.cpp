@@ -6,7 +6,8 @@
 
 #include <iostream>
 #include <cmath>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -19,20 +20,15 @@ namespace ATK
   }
   
   template<typename DataType_>
-  LowPassReverbFilter<DataType_>::~LowPassReverbFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void LowPassReverbFilter<DataType_>::set_delay(gsl::index delay)
   {
     if(delay == 0)
     {
-      throw std::out_of_range("Delay must be strictly positive");
+      throw ATK::RuntimeError("Delay must be strictly positive");
     }
     if(delay + 1 >= output_delay)
     {
-      throw std::out_of_range("Delay must be less than delay line size - 1");
+      throw ATK::RuntimeError("Delay must be less than delay line size - 1");
     }
 
     this->delay = delay;
@@ -49,7 +45,7 @@ namespace ATK
   {
     if(std::abs(feedback + cutoff) >= 1)
     {
-      throw std::out_of_range("Sum of Feedback and Cutoff must be between -1 and 1 to avoid divergence");
+      throw ATK::RuntimeError("Sum of Feedback and Cutoff must be between -1 and 1 to avoid divergence");
     }
     this->feedback = feedback;
   }
@@ -65,7 +61,7 @@ namespace ATK
   {
     if(std::abs(feedback + cutoff) >= 1)
     {
-      throw std::out_of_range("Sum of Feedback and Cutoff must be between -1 and 1 to avoid divergence");
+      throw ATK::RuntimeError("Sum of Feedback and Cutoff must be between -1 and 1 to avoid divergence");
     }
     this->cutoff = cutoff;
   }

@@ -34,7 +34,7 @@ namespace ATK
     */
     explicit LowPassReverbFilter(gsl::index max_delay);
     /// Destructor
-    ~LowPassReverbFilter() override;
+    ~LowPassReverbFilter() override = default;
 
     /// Changes the delay used for the filter
     void set_delay(gsl::index delay);

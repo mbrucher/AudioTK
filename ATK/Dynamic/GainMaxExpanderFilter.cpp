@@ -21,11 +21,6 @@ namespace ATK
   }
 
   template<typename DataType_>
-  GainMaxExpanderFilter<DataType_>::~GainMaxExpanderFilter()
-  {
-  }
-
-  template<typename DataType_>
   void GainMaxExpanderFilter<DataType_>::set_softness(DataType_ softness)
   {
     if (softness < 0)

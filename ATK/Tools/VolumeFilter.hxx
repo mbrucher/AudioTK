@@ -15,11 +15,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  VolumeFilter<DataType_>::~VolumeFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void VolumeFilter<DataType_>::set_volume_db(double volume_db)
   {
     set_volume(TypeTraits<DataType_>::One() * static_cast<typename TypeTraits<DataType_>::Scalar>(std::pow(10., volume_db/20)));

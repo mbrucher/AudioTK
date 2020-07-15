@@ -17,11 +17,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  DryWetFilter<DataType_>::~DryWetFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void DryWetFilter<DataType_>::set_dry(double dry)
   {
     if(dry < 0 || dry > 1)

@@ -18,11 +18,6 @@ namespace ATK
   :Parent(nb_channels, LUTsize, LUTprecision)
   {
   }
-  
-  template<typename DataType_>
-  GainMaxCompressorFilter<DataType_>::~GainMaxCompressorFilter()
-  {
-  }
 
   template<typename DataType_>
   void GainMaxCompressorFilter<DataType_>::set_softness(DataType_ softness)

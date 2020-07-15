@@ -17,11 +17,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  SinusGeneratorFilter<DataType_>::~SinusGeneratorFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void SinusGeneratorFilter<DataType_>::set_frequency(DataType_ frequency)
   {
     if(frequency <= 0)

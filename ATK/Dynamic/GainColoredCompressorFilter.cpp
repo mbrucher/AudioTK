@@ -20,11 +20,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  GainColoredCompressorFilter<DataType_>::~GainColoredCompressorFilter()
-  {
-  }
-
-  template<typename DataType_>
   void GainColoredCompressorFilter<DataType_>::set_softness(DataType_ softness)
   {
     if (softness < 0)

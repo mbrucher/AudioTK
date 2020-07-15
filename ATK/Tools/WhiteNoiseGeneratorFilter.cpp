@@ -16,11 +16,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  WhiteNoiseGeneratorFilter<DataType_>::~WhiteNoiseGeneratorFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void WhiteNoiseGeneratorFilter<DataType_>::set_volume(DataType_ volume)
   {
     this->volume = volume;

@@ -18,11 +18,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  HalfTanhShaperFilter<DataType_>::~HalfTanhShaperFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void HalfTanhShaperFilter<DataType_>::set_coefficient(DataType coeff)
   {
     if(coeff <= 0)

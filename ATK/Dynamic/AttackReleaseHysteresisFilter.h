@@ -31,7 +31,7 @@ namespace ATK
     */
     explicit AttackReleaseHysteresisFilter(gsl::index nb_channels = 1);
     /// destructor
-    ~AttackReleaseHysteresisFilter() override;
+    ~AttackReleaseHysteresisFilter() override = default;
 
     /// Sets the speed of the attack (between 0 and 1)
     void set_attack(DataType_ attack);

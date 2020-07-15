@@ -31,7 +31,7 @@ namespace ATK
     */
     explicit OneMinusFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~OneMinusFilter() override;
+    ~OneMinusFilter() override = default;
     
   protected:
     void process_impl(gsl::index size) const final;

@@ -32,7 +32,7 @@ namespace ATK
     */
     explicit TanhShaperFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~TanhShaperFilter() override;
+    ~TanhShaperFilter() override = default;
     
     void set_coefficient(DataType coeff);
     DataType_ get_coefficient() const;

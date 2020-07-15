@@ -22,7 +22,7 @@ namespace ATK
     /// Constructor of the multiple sinks filter
     PipelineGlobalSinkFilter();
     /// destructor
-    ~PipelineGlobalSinkFilter() override;
+    ~PipelineGlobalSinkFilter() override = default;
     
     /*!
      * @brief Adds a filter to the list of filters to process

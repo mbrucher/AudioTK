@@ -8,7 +8,4 @@
 
 namespace ATK
 {
-  DryWetInterface::~DryWetInterface()
-  {
-  }
 }

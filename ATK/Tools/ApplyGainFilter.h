@@ -34,7 +34,7 @@ namespace ATK
      */
     explicit ApplyGainFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~ApplyGainFilter() override;
+    ~ApplyGainFilter() override = default;
     
   protected:
     void process_impl(gsl::index size) const final;

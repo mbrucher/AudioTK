@@ -20,12 +20,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  RelativePowerFilter<DataType_>::~RelativePowerFilter()
-  {
-    
-  }
-
-  template<typename DataType_>
   void RelativePowerFilter<DataType_>::set_memory(DataType_ memory_factor)
   {
     if(memory_factor < 0 || memory_factor >= 1)

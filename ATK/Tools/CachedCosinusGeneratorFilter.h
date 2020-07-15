@@ -31,7 +31,7 @@ namespace ATK
      */
     CachedCosinusGeneratorFilter(int periods, int seconds = 1);
     /// Destructor
-    ~CachedCosinusGeneratorFilter() override;
+    ~CachedCosinusGeneratorFilter() override = default;
 
     /*!
     * @brief Updates the cache with new values

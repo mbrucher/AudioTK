@@ -26,7 +26,7 @@ namespace ATK
     /// Constructor
     TriangleCheckerFilter();
     /// Destructor
-    ~TriangleCheckerFilter() override;
+    ~TriangleCheckerFilter() override = default;
     
     /// Sets the amplitude of the triangle
     void set_amplitude(DataType_ amplitude);

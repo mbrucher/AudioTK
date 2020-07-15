@@ -33,7 +33,7 @@ namespace ATK
 
   public:
     explicit SecondOrderSVFFilter(gsl::index nb_channels = 1);
-    ~SecondOrderSVFFilter();
+    ~SecondOrderSVFFilter() override = default;
     
     void full_setup() final;
   protected:

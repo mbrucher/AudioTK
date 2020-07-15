@@ -30,7 +30,7 @@ namespace ATK
     */
     explicit BufferFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~BufferFilter() override;
+    ~BufferFilter() override = default;
   protected:
     void process_impl(gsl::index size) const final;
   };

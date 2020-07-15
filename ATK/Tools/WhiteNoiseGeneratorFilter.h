@@ -28,7 +28,7 @@ namespace ATK
     /// Constructor
     WhiteNoiseGeneratorFilter();
     /// Destructor
-    ~WhiteNoiseGeneratorFilter() override;
+    ~WhiteNoiseGeneratorFilter() override = default;
 
     /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);

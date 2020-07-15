@@ -17,10 +17,6 @@ namespace ATK
   :Parent(0, 0)
   {
   }
-
-  PipelineGlobalSinkFilter::~PipelineGlobalSinkFilter()
-  {
-  }
   
   void PipelineGlobalSinkFilter::add_filter(gsl::not_null<BaseFilter*> filter)
   {

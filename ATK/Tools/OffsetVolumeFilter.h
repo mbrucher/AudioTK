@@ -30,7 +30,7 @@ namespace ATK
     */
     explicit OffsetVolumeFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~OffsetVolumeFilter();
+    ~OffsetVolumeFilter() override = default;
 
     /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);

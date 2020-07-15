@@ -8,35 +8,6 @@
 
 namespace ATK
 {
-  OrderInterface::~OrderInterface()
-  {
-  }
-  
-  template<typename DataType>
-  SingleCutFrequencyInterface<DataType>::~SingleCutFrequencyInterface()
-  {
-  }
-  
-  template<typename DataType>
-  DualCutFrequencyInterface<DataType>::~DualCutFrequencyInterface()
-  {
-  }
-  
-  template<typename DataType>
-  QInterface<DataType>::~QInterface()
-  {
-  }
-  
-  template<typename DataType>
-  GainInterface<DataType>::~GainInterface()
-  {
-  }
-  
-  template<typename DataType>
-  RippleInterface<DataType>::~RippleInterface()
-  {
-  }
-  
 #if ATK_ENABLE_INSTANTIATION
   template class SingleCutFrequencyInterface<float>;
   template class DualCutFrequencyInterface<float>;

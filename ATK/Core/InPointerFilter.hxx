@@ -15,11 +15,6 @@ namespace ATK
   }
   
   template<typename DataType>
-  InPointerFilter<DataType>::~InPointerFilter()
-  {
-  }
-  
-  template<typename DataType>
   void InPointerFilter<DataType>::set_pointer(const DataType* array, gsl::index size)
   {
     this->array = array;

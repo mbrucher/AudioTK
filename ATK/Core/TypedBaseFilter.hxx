@@ -102,11 +102,6 @@ namespace Utilities
   }
 }
 
-  template<typename DataType>
-  OutputArrayInterface<DataType>::~OutputArrayInterface()
-  {
-  }
-
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(gsl::index nb_input_ports, gsl::index nb_output_ports)
   :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), converted_in_delays(nb_input_ports, 0), direct_filters(nb_input_ports, nullptr), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), out_delays(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
@@ -116,11 +111,6 @@ namespace Utilities
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(TypedBaseFilter&& other)
   : Parent(std::move(other)), converted_inputs_delay(std::move(other.converted_inputs_delay)), converted_inputs(std::move(other.converted_inputs)), converted_inputs_size(std::move(other.converted_inputs_size)), converted_in_delays(std::move(other.converted_in_delays)), direct_filters(std::move(other.direct_filters)), outputs_delay(std::move(other.outputs_delay)), outputs(std::move(other.outputs)), outputs_size(std::move(other.outputs_size)), default_input(std::move(other.default_input)), default_output(std::move(other.default_output))
-  {
-  }
-
-  template<typename DataType_, typename DataType__>
-  TypedBaseFilter<DataType_, DataType__>::~TypedBaseFilter()
   {
   }
 

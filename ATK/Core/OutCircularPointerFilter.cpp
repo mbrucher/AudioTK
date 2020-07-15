@@ -17,11 +17,6 @@ namespace ATK
   }
   
   template<typename DataType>
-  OutCircularPointerFilter<DataType>::~OutCircularPointerFilter()
-  {
-  }
-
-  template<typename DataType>
   void OutCircularPointerFilter<DataType>::full_setup()
   {
     last_checked_out_buffer = -1;

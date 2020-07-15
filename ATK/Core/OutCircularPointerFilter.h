@@ -36,7 +36,7 @@ namespace ATK
      */
     OutCircularPointerFilter();
     /// Destructor
-    ~OutCircularPointerFilter() override;
+    ~OutCircularPointerFilter() override = default;
     
     void full_setup() final;
 

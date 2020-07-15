@@ -30,7 +30,7 @@ namespace ATK
     */
     explicit VolumeFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~VolumeFilter() override;
+    ~VolumeFilter() override = default;
 
     /// Changes the output volume
     void set_volume(DataType_ volume);

@@ -27,7 +27,7 @@ namespace ATK
     /// Constructor
     explicit PanFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~PanFilter() override;
+    ~PanFilter() override = default;
     
     /// Available laws
     enum class PAN_LAWS {

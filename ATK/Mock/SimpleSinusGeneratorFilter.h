@@ -24,7 +24,7 @@ namespace ATK
     /// Constructor
     SimpleSinusGeneratorFilter();
     /// Destructor
-    ~SimpleSinusGeneratorFilter() override;
+    ~SimpleSinusGeneratorFilter() override = default;
     
     /// Sets the amplitude of the sinusoid
     void set_amplitude(DataType_ amplitude);

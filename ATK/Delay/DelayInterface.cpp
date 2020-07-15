@@ -6,15 +6,6 @@
 
 namespace ATK
 {
-  DelayInterface::~DelayInterface()
-  {
-  }
-  
-  template<class DataType>
-  UniversalDelayInterface<DataType>::~UniversalDelayInterface()
-  {
-  }
-  
   template class UniversalDelayInterface<float>;
   template class UniversalDelayInterface<double>;
 }

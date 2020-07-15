@@ -35,7 +35,7 @@ namespace ATK
     */
     explicit DecimationFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~DecimationFilter()override;
+    ~DecimationFilter() override = default;
     
   protected:
     void process_impl(gsl::index size) const final;
