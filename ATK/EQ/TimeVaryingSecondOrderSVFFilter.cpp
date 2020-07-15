@@ -25,6 +25,11 @@ namespace ATK
   }
 
   template<typename SVFCoefficients>
+  TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::~TimeVaryingSecondOrderSVFFilter()
+  {
+  }
+
+  template<typename SVFCoefficients>
   void TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::full_setup()
   {
     state = std::make_unique<SVFState[]>(nb_input_ports - 1);

@@ -33,7 +33,7 @@ namespace ATK
 
   public:
     explicit TimeVaryingSecondOrderSVFFilter(gsl::index nb_channels = 1);
-    ~TimeVaryingSecondOrderSVFFilter() override = default;
+    ~TimeVaryingSecondOrderSVFFilter() override;
     
   protected:
     void full_setup() final;
