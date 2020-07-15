@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE( GainCompressorFilter_softness_test )
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_softness_range_test )
 {
   ATK::GainFilter<ATK::GainCompressorFilter<double>> filter;
-  BOOST_CHECK_THROW(filter.set_softness(-0.000001), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_softness(-0.000001), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_const_1_test )
