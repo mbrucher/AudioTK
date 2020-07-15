@@ -123,6 +123,7 @@ jobs:
     - ENABLE_STATIC_ANALYSIS=OFF
     - ENABLE_CODECOVERAGE=ON
     - ENABLE_STATIC_ANALYSIS=ON
+    - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=`pwd`/scripts/llvm-cov.sh -DENABLE_STATIC_LIBRARIES=OFF -DCMAKE_CXX_FLAGS_DEBUG_INIT=\"-O0\""
   - compiler: clang-9
     os: linux
