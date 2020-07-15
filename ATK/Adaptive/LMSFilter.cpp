@@ -178,7 +178,9 @@ namespace ATK
       typename LMSFilterImpl::xType x(input - input_delay + i, input_delay + 1, 1);
       output[i] = impl->w.conjugate().dot(x);
       if(learning)
+      {
         (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
+      }
     }
   }
 

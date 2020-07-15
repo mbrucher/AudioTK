@@ -70,7 +70,9 @@ namespace ATK
   DataType_ GainMaxExpanderFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
+    {
       return static_cast<DataType_>(fmath::pow(max_reduction, 1 / (ratio - 1)));
+    }
 
     DataType diff = static_cast<DataType_>(-5 * fmath::log10(value * value + fmath::pow(max_reduction, 2 / (ratio - 1))));
 

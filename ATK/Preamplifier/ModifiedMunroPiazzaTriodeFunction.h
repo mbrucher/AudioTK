@@ -48,7 +48,9 @@ namespace ATK
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       if(mu + Vbe > 0)
+      {
         return 3 * K * (mu + Vbe) * (mu + Vbe) / (2 * sqrt_muvbe);
+      }
       return 0;
     }
     

@@ -12,6 +12,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
@@ -283,13 +284,13 @@ BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_test )
 BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_range_test )
 {
   ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 3>> filter(128);
-  BOOST_CHECK_THROW(filter.set_delay(0, 0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_delay(0, 0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_delay_range2_test )
 {
   ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 3>> filter(128);
-  BOOST_CHECK_THROW(filter.set_delay(0, 128), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_delay(0, 128), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_ingain_test )
@@ -316,13 +317,13 @@ BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_test )
 BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_range_test )
 {
   ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 3>> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(0, 1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_feedback(0, 1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( HadamardFeedbackDelayNetworkFilter_sinus_feedback_range2_test )
 {
   ATK::FeedbackDelayNetworkFilter<ATK::HadamardMixture<double, 3>> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(0, -1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_feedback(0, -1), ATK::RuntimeError);
 }
 
 #endif

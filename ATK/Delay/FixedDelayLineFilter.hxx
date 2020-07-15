@@ -7,6 +7,8 @@
 #include <cstring>
 #include <stdexcept>
 
+#include <ATK/Core/Utilities.h>
+
 namespace ATK
 {
   template<typename DataType>
@@ -39,11 +41,11 @@ namespace ATK
   {
     if(delay == 0)
     {
-      throw std::out_of_range("Delay must be strictly positive");
+      throw ATK::RuntimeError("Delay must be strictly positive");
     }
     if(delay >= impl->delay_line.size())
     {
-      throw std::out_of_range("Delay must be less than delay line size");
+      throw ATK::RuntimeError("Delay must be less than delay line size");
     }
 
     this->delay = delay;

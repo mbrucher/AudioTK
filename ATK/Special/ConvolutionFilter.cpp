@@ -108,7 +108,9 @@ namespace ATK
   void ConvolutionFilter<DataType_>::process_new_chunk(int64_t position) const
   {
     if(partial_frequency_input.empty())
+    {
       return;
+    }
     partial_frequency_input.pop_back();
     AlignedComplexVector chunk(2 * split_size);
     processor.process_forward(converted_inputs[0] + position - split_size, chunk.data(), split_size);

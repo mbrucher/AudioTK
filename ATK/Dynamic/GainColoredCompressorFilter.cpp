@@ -75,7 +75,9 @@ namespace ATK
   DataType_ GainColoredCompressorFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
+    {
       return 1;
+    }
     DataType diff = 10 * fmath::log10(value);
     
     DataType additional_color = color * fmath::exp(- diff * diff * quality);

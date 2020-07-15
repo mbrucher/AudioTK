@@ -8,7 +8,8 @@
 #include <cmath>
 #include <cstdint>
 #include <cstring>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -87,7 +88,7 @@ namespace ATK
   {
     if(std::abs(feedback) >= 1)
     {
-      throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
+      throw ATK::RuntimeError("Feedback must be between -1 and 1 to avoid divergence");
     }
     this->feedback = feedback;
   }

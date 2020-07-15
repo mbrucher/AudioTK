@@ -11,6 +11,8 @@
 
 #include <Eigen/Dense>
 
+#include <ATK/Core/Utilities.h>
+
 namespace ATK
 {
   template<typename Mixture>
@@ -50,11 +52,11 @@ namespace ATK
   {
     if (delay == 0)
     {
-      throw std::out_of_range("Delay must be strictly positive");
+      throw ATK::RuntimeError("Delay must be strictly positive");
     }
     if (delay >= max_delay)
     {
-      throw std::out_of_range("Delay must be less than delay line size");
+      throw ATK::RuntimeError("Delay must be less than delay line size");
     }
 
     this->delay[channel] = delay;
@@ -83,7 +85,7 @@ namespace ATK
   {
     if (std::abs(feedback * static_cast<DataType>(Mixture::gain_factor)) >= 1)
     {
-      throw std::out_of_range("Feedback must be between " + std::to_string(-Mixture::gain_factor) + " and " + std::to_string(Mixture::gain_factor) + " to avoid divergence");
+      throw ATK::RuntimeError("Feedback must be between " + std::to_string(-Mixture::gain_factor) + " and " + std::to_string(Mixture::gain_factor) + " to avoid divergence");
     }
     impl->feedback(channel) = feedback * static_cast<DataType>(Mixture::gain_factor);
   }
@@ -139,7 +141,9 @@ namespace ATK
 
       ++impl->index;
       if(impl->index == max_delay)
+      {
         impl->index = 0;
+      }
     }
   }
 }

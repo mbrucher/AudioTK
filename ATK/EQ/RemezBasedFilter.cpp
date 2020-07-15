@@ -162,7 +162,9 @@ namespace
         }
 
         if ((max - delta) / delta < SN)
+        {
           break;
+        }
 
         indices = std::move(new_indices);
       }

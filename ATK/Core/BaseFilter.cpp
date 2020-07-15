@@ -181,7 +181,9 @@ namespace ATK
       if(connections[port].second == nullptr)
       {
         if(!input_mandatory_connection[port])
+        {
           throw RuntimeError("Input port " + std::to_string(port) + " is not connected");
+        }
       }
       else
       {

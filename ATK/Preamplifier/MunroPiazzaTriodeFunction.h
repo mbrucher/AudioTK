@@ -30,7 +30,9 @@ namespace ATK
     DataType_ Lb(DataType_ Vbe, DataType_ Vce)
     {
       if(mu + Vbe > 0)
+      {
         return K * std::sqrt(mu + Vbe) * (mu + Vbe);
+      }
       return 0;
     }
     

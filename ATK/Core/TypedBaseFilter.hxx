@@ -128,7 +128,9 @@ namespace Utilities
   void TypedBaseFilter<DataType_, DataType__>::set_nb_input_ports(gsl::index nb_ports)
   {
     if(nb_ports == nb_input_ports)
+    {
       return;
+    }
     Parent::set_nb_input_ports(nb_ports);
     converted_inputs_delay = std::vector<AlignedVector>(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
@@ -142,7 +144,9 @@ namespace Utilities
   void TypedBaseFilter<DataType_, DataType__>::set_nb_output_ports(gsl::index nb_ports)
   {
     if(nb_ports == nb_output_ports)
+    {
       return;
+    }
     Parent::set_nb_output_ports(nb_ports);
     outputs_delay = std::vector<AlignedOutVector>(nb_ports);
     outputs.assign(nb_ports, nullptr);

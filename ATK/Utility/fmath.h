@@ -231,8 +231,14 @@ namespace fmath {
 #else
   inline double exp(double x)
   {
-    if (x <= -708.39641853226408) return 0;
-    if (x >= 709.78271289338397) return std::numeric_limits<double>::infinity();
+    if (x <= -708.39641853226408)
+    {
+      return 0;
+    }
+    if (x >= 709.78271289338397)
+    {
+      return std::numeric_limits<double>::infinity();
+    }
 
     const auto& c = local::C<>::expdVar;
     const double _b = static_cast<double>(uint64_t(3) << 51);
