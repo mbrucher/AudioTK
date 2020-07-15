@@ -6,6 +6,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -32,7 +33,7 @@ BOOST_AUTO_TEST_CASE( GainFilter_threshold_db_test )
 BOOST_AUTO_TEST_CASE( GainFilter_threshold_range_test )
 {
   ATK::GainFilter<ATK::GainCompressorFilter<double>> filter;
-  BOOST_CHECK_THROW(filter.set_threshold(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_threshold(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( GainFilter_ratio_test )
@@ -45,7 +46,7 @@ BOOST_AUTO_TEST_CASE( GainFilter_ratio_test )
 BOOST_AUTO_TEST_CASE( GainFilter_ratio_range_test )
 {
   ATK::GainFilter<ATK::GainCompressorFilter<double>> filter;
-  BOOST_CHECK_THROW(filter.set_ratio(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_ratio(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( GainCompressorFilter_softness_test )

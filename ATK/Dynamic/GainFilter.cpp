@@ -4,12 +4,11 @@
 
 #include <ATK/Dynamic/GainFilter.h>
 
-#include <ATK/Core/Utilities.h>
-
 #include <cassert>
 #include <cmath>
 #include <cstdint>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

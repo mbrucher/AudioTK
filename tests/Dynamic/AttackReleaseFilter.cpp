@@ -6,6 +6,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -25,13 +26,13 @@ BOOST_AUTO_TEST_CASE( AttackRelease_attack_test )
 BOOST_AUTO_TEST_CASE( AttackRelease_attack_range_test )
 {
   ATK::AttackReleaseFilter<double> filter;
-  BOOST_CHECK_THROW(filter.set_attack(-0.000001), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_attack(-0.000001), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( AttackRelease_attack_range2_test )
 {
   ATK::AttackReleaseFilter<double> filter;
-  BOOST_CHECK_THROW(filter.set_attack(1.000001), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_attack(1.000001), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( AttackRelease_release_test )
@@ -44,13 +45,13 @@ BOOST_AUTO_TEST_CASE( AttackRelease_release_test )
 BOOST_AUTO_TEST_CASE( AttackRelease_release_range_test )
 {
   ATK::AttackReleaseFilter<double> filter;
-  BOOST_CHECK_THROW(filter.set_release(-0.000001), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_release(-0.000001), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( AttackRelease_release_range2_test )
 {
   ATK::AttackReleaseFilter<double> filter;
-  BOOST_CHECK_THROW(filter.set_release(1.000001), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_release(1.000001), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( AttackReleaseFilter_triangle_test )

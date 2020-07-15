@@ -6,7 +6,8 @@
 
 #include <cmath>
 #include <cstdint>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Utility/fmath.h>
 
@@ -28,7 +29,7 @@ namespace ATK
   {
     if (softness < 0)
     {
-      throw std::out_of_range("Softness factor must be positive value");
+      throw ATK::RuntimeError("Softness factor must be positive value");
     }
     this->softness = softness;
     start_recomputeLUT();
@@ -58,7 +59,7 @@ namespace ATK
   {
     if (quality <= 0)
     {
-      throw std::out_of_range("Quality factor must be a strictly positive value");
+      throw ATK::RuntimeError("Quality factor must be a strictly positive value");
     }
     this->quality = quality;
     start_recomputeLUT();

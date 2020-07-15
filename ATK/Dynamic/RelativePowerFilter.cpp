@@ -7,7 +7,8 @@
 #include <cassert>
 #include <cstdint>
 #include <limits>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -29,7 +30,7 @@ namespace ATK
   {
     if(memory_factor < 0 || memory_factor >= 1)
     {
-      throw std::out_of_range("Memory factor must be a positive value less than 1 (so that it doesn't diverge)");
+      throw ATK::RuntimeError("Memory factor must be a positive value less than 1 (so that it doesn't diverge)");
     }
     this->memory_factor = memory_factor;
   }

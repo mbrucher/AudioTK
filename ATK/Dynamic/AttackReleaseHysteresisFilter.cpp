@@ -4,10 +4,11 @@
 
 #include <ATK/Dynamic/AttackReleaseHysteresisFilter.h>
 
+#include <ATK/Core/Utilities.h>
+
 #include <cassert>
 #include <cmath>
 #include <cstdint>
-#include <stdexcept>
 
 namespace ATK
 {
@@ -28,11 +29,11 @@ namespace ATK
   {
     if(attack < 0)
     {
-      throw std::out_of_range("Attack factor must be positive value");
+      throw ATK::RuntimeError("Attack factor must be positive value");
     }
     if(attack > 1)
     {
-      throw std::out_of_range("Attack factor must be less than 1");
+      throw ATK::RuntimeError("Attack factor must be less than 1");
     }
     this->attack = attack;
   }
@@ -48,11 +49,11 @@ namespace ATK
   {
     if(release < 0)
     {
-      throw std::out_of_range("Release factor must be positive value");
+      throw ATK::RuntimeError("Release factor must be positive value");
     }
     if(release > 1)
     {
-      throw std::out_of_range("Release factor must be less than 1");
+      throw ATK::RuntimeError("Release factor must be less than 1");
     }
     this->release = release;
   }
@@ -68,11 +69,11 @@ namespace ATK
   {
     if(attack_hysteresis < release_hysteresis)
     {
-      throw std::out_of_range("Attack hysteresis factor must be bigger than release hysteresis");
+      throw ATK::RuntimeError("Attack hysteresis factor must be bigger than release hysteresis");
     }
     if(attack_hysteresis > 1)
     {
-      throw std::out_of_range("Attack hysteresis factor must be smaller than 1");
+      throw ATK::RuntimeError("Attack hysteresis factor must be smaller than 1");
     }
     this->attack_hysteresis = attack_hysteresis;
   }
@@ -94,11 +95,11 @@ namespace ATK
   {
     if(release_hysteresis < 0)
     {
-      throw std::out_of_range("Release hysteresis factor must be positive");
+      throw ATK::RuntimeError("Release hysteresis factor must be positive");
     }
     if(release_hysteresis > 1)
     {
-      throw std::out_of_range("Release hysteresis factor must be smaller than 1");
+      throw ATK::RuntimeError("Release hysteresis factor must be smaller than 1");
     }
     this->release_hysteresis = release_hysteresis;
   }

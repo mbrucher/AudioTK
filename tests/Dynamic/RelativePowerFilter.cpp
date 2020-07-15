@@ -4,6 +4,8 @@
 
 #include <ATK/Dynamic/RelativePowerFilter.h>
 
+#include <ATK/Core/Utilities.h>
+
 #include <ATK/Mock/FFTCheckerFilter.h>
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 
@@ -23,13 +25,13 @@ BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_memory_test )
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_throw_memory_0_test )
 {
   ATK::RelativePowerFilter<double> filter;
-  BOOST_CHECK_THROW(filter.set_memory(-1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_memory(-1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_throw_memory_1_test )
 {
   ATK::RelativePowerFilter<double> filter;
-  BOOST_CHECK_THROW(filter.set_memory(1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_memory(1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( RelativePowerFilter_RMS_0_1k_test )
