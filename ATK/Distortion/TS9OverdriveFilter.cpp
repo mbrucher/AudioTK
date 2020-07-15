@@ -86,7 +86,7 @@ namespace ATK
   
   template <typename DataType>
   TS9OverdriveFilter<DataType>::TS9OverdriveFilter()
-    :TypedBaseFilter<DataType>(1, 1), drive(0)
+    :TypedBaseFilter<DataType>(1, 1)
   {
     input_delay = 1;
     output_delay = 1;

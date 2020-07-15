@@ -12,7 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   LowPassReverbFilter<DataType_>::LowPassReverbFilter(gsl::index max_delay)
-    :Parent(1, 1), delay(0), feedback(0), cutoff(0)
+    :Parent(1, 1)
   {
     output_delay = max_delay;
     input_delay = max_delay;

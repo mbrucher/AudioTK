@@ -47,8 +47,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
 
   private:
-    gsl::index delay;
-    DataType_ feedback;
+    gsl::index delay = 0;
+    DataType_ feedback = 0;
   };
 }
 

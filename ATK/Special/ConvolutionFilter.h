@@ -35,9 +35,9 @@ namespace ATK
     using AlignedComplexVector = typename TypedBaseFilter<std::complex<DataType_> >::AlignedVector;
   protected:
     /// Current amount of data in the buffer
-    mutable unsigned int split_position;
+    mutable unsigned int split_position = 0;
     /// Size of the individual FFTs that are processed
-    unsigned int split_size;
+    unsigned int split_size = 0;
     
     /// FFT object for fast FFT/iFFT
     FFT<DataType> processor;

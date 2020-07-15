@@ -8,11 +8,13 @@
 #include <complex>
 #include <cstdint>
 
+#include <ATK/Core/Utilities.h>
+
 namespace ATK
 {
   template<typename DataType_>
   MuteSoloBufferFilter<DataType_>::MuteSoloBufferFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), mute_statuses(nb_channels), solo_statuses(nb_channels), any_solo(false)
+  :Parent(nb_channels, nb_channels), mute_statuses(nb_channels), solo_statuses(nb_channels)
   {
   }
   
@@ -73,13 +75,13 @@ namespace ATK
   template<typename DataType_>
   void MuteSoloBufferFilter<DataType_>::set_nb_input_ports(gsl::index nb_ports)
   {
-    throw std::runtime_error("Can't change number of ports in this filter");
+    throw ATK::RuntimeError("Can't change number of ports in this filter");
   }
   
   template<typename DataType_>
   void MuteSoloBufferFilter<DataType_>::set_nb_output_ports(gsl::index nb_ports)
   {
-    throw std::runtime_error("Can't change number of ports in this filter");
+    throw ATK::RuntimeError("Can't change number of ports in this filter");
   }
 
 #if ATK_ENABLE_INSTANTIATION

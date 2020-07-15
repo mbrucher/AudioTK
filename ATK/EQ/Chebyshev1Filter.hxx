@@ -43,7 +43,7 @@ namespace Chebyshev1Utilities
     zpk.k = f.real();
     if(order % 2 == 0)
     {
-      zpk.k = zpk.k / std::sqrt((1 + eps * eps));
+      zpk.k = zpk.k / std::sqrt(1 + eps * eps);
     }
   }
   

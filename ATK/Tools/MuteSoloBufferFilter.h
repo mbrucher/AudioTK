@@ -55,7 +55,7 @@ namespace ATK
   private:
     boost::dynamic_bitset<> mute_statuses;
     boost::dynamic_bitset<> solo_statuses;
-    bool any_solo;
+    bool any_solo = false;
   };
 }
 

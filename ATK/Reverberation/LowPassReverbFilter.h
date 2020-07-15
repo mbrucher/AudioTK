@@ -52,9 +52,9 @@ namespace ATK
   protected:
     void process_impl(gsl::index size) const final;
   private:
-    gsl::index delay;
-    DataType_ feedback;
-    DataType_ cutoff;
+    gsl::index delay = 0;
+    DataType_ feedback = 0;
+    DataType_ cutoff = 0;
   };
 }
 

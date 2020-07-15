@@ -14,7 +14,7 @@
 namespace ATK
 {
   PipelineGlobalSinkFilter::PipelineGlobalSinkFilter()
-  :Parent(0, 0), activate_parallel(false)
+  :Parent(0, 0)
   {
   }
 

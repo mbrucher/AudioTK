@@ -50,7 +50,7 @@ namespace ATK
     /// List of filters in this sink
     std::vector<gsl::not_null<BaseFilter*>> filters;
     /// Are we in parallel mode?
-    bool activate_parallel;
+    bool activate_parallel = false;
   };
 }
 

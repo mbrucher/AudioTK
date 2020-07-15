@@ -11,7 +11,7 @@ namespace ATK
 {
   template <typename DataType>
   ConvolutionFilter<DataType>::ConvolutionFilter()
-    :Parent(1, 1), split_position(0), split_size(0)
+    :Parent(1, 1)
   {
   }
 
