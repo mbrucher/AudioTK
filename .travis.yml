@@ -277,15 +277,15 @@ after_script:
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ${HOME}
-      echo ${SSH_KEY} > .ssh/id_rsa
-      chmod 0600 .ssh/id_rsa
-      GIT_SSH_COMMAND="ssh -v -i ~/.ssh/id_rsa -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
+      echo ${SSH_KEY} > ${HOME}/.ssh/id_rsa
+      chmod 0600 ${HOME}/.ssh/id_rsa
+      GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/id_rsa -o \"StrictHostKeyChecking no\" -o \"RSAAuthentication yes\" -o \"PubkeyAuthentication yes\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
       cd cov.audio-tk.com
       git rm *
       cp -R ${TRAVIS_BUILD_DIR}/build/coverage/* cov.audio-tk.com
       git add .
       git commit -m "Run ${TRAVIS_JOB_ID}"
-      git push
+      GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/id_rsa -o \"StrictHostKeyChecking no\" -o \"RSAAuthentication yes\" -o \"PubkeyAuthentication yes\"" git push
       ssh 3649288@git.sd3.gpaas.net deploy cov.audio-tk.com.git
     fi
   - |
@@ -293,15 +293,15 @@ after_script:
      cd ${TRAVIS_BUILD_DIR}
      doxygen Doxyfile
      cd ${HOME}
-     echo ${SSH_KEY} > .ssh/id_rsa
-     chmod 0600 .ssh/id_rsa
-     GIT_SSH_COMMAND="ssh -v -i ~/.ssh/id_rsa -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
+     echo ${SSH_KEY} > ${HOME}/.ssh/id_rsa
+     chmod 0600 ${HOME}/.ssh/id_rsa
+     GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/id_rsa -o \"StrictHostKeyChecking no\" -o \"RSAAuthentication yes\" -o \"PubkeyAuthentication yes\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
      cd doc.audio-tk.com
      git rm *
      cp -R ${TRAVIS_BUILD_DIR}/Doxygen/* doc.audio-tk.com
      git add .
      git commit -m "Run ${TRAVIS_JOB_ID}"
-     git push
+     GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/id_rsa -o \"StrictHostKeyChecking no\" -o \"RSAAuthentication yes\" -o \"PubkeyAuthentication yes\"" git push
      ssh 3649288@git.sd3.gpaas.net deploy doc.audio-tk.com.git
    fi
 
