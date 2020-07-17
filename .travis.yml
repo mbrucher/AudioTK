@@ -245,7 +245,7 @@ script:
   - pwd
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$BOOST_BUILD/lib ; fi
-  - ${MAKE_WRAPPER} make -j16
+  - ${MAKE_WRAPPER} make -j2
   - make install
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
   - echo $DYLD_LIBRARY_PATH
@@ -279,7 +279,7 @@ after_script:
       cd ${HOME}
       echo ${SSH_KEY} > .ssh/id_rsa
       chmod 0600 .ssh/id_rsa
-      GIT_SSH_COMMAND="ssh -v -i ~/.ssh/travis -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
+      GIT_SSH_COMMAND="ssh -v -i ~/.ssh/id_rsa -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
       cd cov.audio-tk.com
       git rm *
       cp -R ${TRAVIS_BUILD_DIR}/build/coverage/* cov.audio-tk.com
@@ -295,7 +295,7 @@ after_script:
      cd ${HOME}
      echo ${SSH_KEY} > .ssh/id_rsa
      chmod 0600 .ssh/id_rsa
-     GIT_SSH_COMMAND="ssh -v -i ~/.ssh/travis -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
+     GIT_SSH_COMMAND="ssh -v -i ~/.ssh/id_rsa -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
      cd doc.audio-tk.com
      git rm *
      cp -R ${TRAVIS_BUILD_DIR}/Doxygen/* doc.audio-tk.com
