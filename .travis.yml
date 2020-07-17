@@ -278,7 +278,7 @@ after_success:
       exit
     fi
 
-deploy:
+after_script:
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ${HOME}
