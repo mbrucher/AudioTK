@@ -14,12 +14,6 @@ namespace ATK
   BufferFilter<DataType_>::BufferFilter(gsl::index nb_channels)
   :Parent(nb_channels, nb_channels)
   {
-    
-  }
-  
-  template<typename DataType_>
-  BufferFilter<DataType_>::~BufferFilter()
-  {
   }
   
   template<typename DataType_>

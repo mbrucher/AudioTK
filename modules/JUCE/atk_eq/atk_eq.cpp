@@ -20,7 +20,6 @@
 #include <ATK/EQ/Chebyshev2Filter.cpp>
 #include <ATK/EQ/CustomFIRFilter.cpp>
 #include <ATK/EQ/CustomIIRFilter.cpp>
-#include <ATK/EQ/FourthOrderFilter.cpp>
 #include <ATK/EQ/LinkwitzRileyFilter.cpp>
 #include <ATK/EQ/PedalToneStackFilter.cpp>
 #include <ATK/EQ/RIAAFilter.cpp>

@@ -17,11 +17,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  OneMinusFilter<DataType_>::~OneMinusFilter()
-  {
-  }
-
-  template<typename DataType_>
   void OneMinusFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);

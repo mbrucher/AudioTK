@@ -111,14 +111,14 @@ namespace ATK
       }
       else
       {
-        ippsDFTGetSize_C_64fc(size, IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, &sizeFFTSpec, &sizeFFTInitBuf, &sizeFFTWorkBuf);
+        ippsDFTGetSize_C_64fc(static_cast<int>(size), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, &sizeFFTSpec, &sizeFFTInitBuf, &sizeFFTWorkBuf);
       }
       
       pFFTSpecBuf = ippsMalloc_8u(sizeFFTSpec);
       pFFTInitBuf = ippsMalloc_8u(sizeFFTInitBuf);
       pFFTWorkBuf = ippsMalloc_8u(sizeFFTWorkBuf);
-      pSrc = ippsMalloc_64fc(size);
-      pDst = ippsMalloc_64fc(size);
+      pSrc = ippsMalloc_64fc(static_cast<int>(size));
+      pDst = ippsMalloc_64fc(static_cast<int>(size));
       if (power_of_two)
       {
         ippsFFTInit_C_64fc(&pFFTSpec, std::lround(std::log(size) / std::log(2)), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, pFFTSpecBuf, pFFTInitBuf);
@@ -126,7 +126,7 @@ namespace ATK
       else
       {
         pDFTSpec = (IppsDFTSpec_C_64fc*)ippsMalloc_8u(sizeFFTSpec);
-        ippsDFTInit_C_64fc(size, IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, pDFTSpec, pFFTInitBuf);
+        ippsDFTInit_C_64fc(static_cast<int>(size), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, pDFTSpec, pFFTInitBuf);
       }
       if (pFFTInitBuf)
         ippFree(pFFTInitBuf);
@@ -295,7 +295,7 @@ namespace ATK
     
     void get_amp(std::vector<DataType_>& amp) const
     {
-      for(gsl::index i = 0; i < amp.size(); ++i)
+      for(size_t i = 0; i < amp.size(); ++i)
       {
 #if ATK_USE_FFTW == 1
         amp[i] = output_freqs[i][0] * output_freqs[i][0];
@@ -312,7 +312,7 @@ namespace ATK
     
     void get_angle(std::vector<DataType_>& angle) const
     {
-      for(gsl::index i = 0; i < angle.size(); ++i)
+      for(size_t i = 0; i < angle.size(); ++i)
       {
 #if ATK_USE_FFTW == 1
         angle[i] = std::arg(std::complex<DataType_>(output_freqs[i][0], output_freqs[i][1]));
@@ -326,21 +326,24 @@ namespace ATK
 
   template<class DataType_>
   FFT<DataType_>::FFT()
-  :size(0), impl(new FFTImpl)
+  :size(0), impl(std::make_unique<FFTImpl>())
   {
   }
   
+
   template<class DataType_>
   FFT<DataType_>::~FFT()
   {
   }
-  
+
   template<class DataType_>
-  void FFT<DataType_>::set_size(gsl::index size)
+  void FFT<DataType_>::set_size(gsl::index size_)
   {
-    if(this->size == size)
+    if(size == size_)
+    {
       return;
-    this->size = size;
+    }
+    size = size_;
     impl->set_size(size);
   }
 

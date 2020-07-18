@@ -13,11 +13,6 @@ namespace ATK
   }
   
   template<typename DataType_>
-  MiddleSideFilter<DataType_>::~MiddleSideFilter()
-  {
-  }
-  
-  template<typename DataType_>
   void MiddleSideFilter<DataType_>::process_impl(gsl::index size) const
   {
     assert(nb_input_ports == nb_output_ports);

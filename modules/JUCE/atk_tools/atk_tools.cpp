@@ -11,8 +11,6 @@
 
 #include "atk_tools.h"
 
-#include <ATK/Tools/ToolsInterface.cpp>
-
 #include <ATK/Tools/ApplyGainFilter.cpp>
 #include <ATK/Tools/BufferFilter.cpp>
 #include <ATK/Tools/CachedCosinusGeneratorFilter.cpp>

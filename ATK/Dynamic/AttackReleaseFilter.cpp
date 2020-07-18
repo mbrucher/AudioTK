@@ -4,22 +4,18 @@
 
 #include <ATK/Dynamic/AttackReleaseFilter.h>
 
+#include <ATK/Core/Utilities.h>
+
 #include <cassert>
 #include <cstdint>
-#include <stdexcept>
 
 namespace ATK
 {
   template<typename DataType_>
   AttackReleaseFilter<DataType_>::AttackReleaseFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), attack(1), release(1)
+  :Parent(nb_channels, nb_channels)
   {
     output_delay = 1;
-  }
-  
-  template<typename DataType_>
-  AttackReleaseFilter<DataType_>::~AttackReleaseFilter()
-  {
   }
 
   template<typename DataType_>
@@ -27,11 +23,11 @@ namespace ATK
   {
     if(attack < 0)
     {
-      throw std::out_of_range("Attack factor must be positive value");
+      throw ATK::RuntimeError("Attack factor must be positive value");
     }
     if(attack > 1)
     {
-      throw std::out_of_range("Attack factor must be less than 1");
+      throw ATK::RuntimeError("Attack factor must be less than 1");
     }
     this->attack = attack;
   }
@@ -47,11 +43,11 @@ namespace ATK
   {
     if(release < 0)
     {
-      throw std::out_of_range("Release factor must be positive value");
+      throw ATK::RuntimeError("Release factor must be positive value");
     }
     if(release > 1)
     {
-      throw std::out_of_range("Release factor must be less than 1");
+      throw ATK::RuntimeError("Release factor must be less than 1");
     }
     this->release = release;
   }

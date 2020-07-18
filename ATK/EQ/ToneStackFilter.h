@@ -25,17 +25,17 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    CoeffDataType R1;
-    CoeffDataType R2;
-    CoeffDataType R3;
-    CoeffDataType R4;
-    CoeffDataType C1;
-    CoeffDataType C2;
-    CoeffDataType C3;
+    CoeffDataType R1 = 0;
+    CoeffDataType R2 = 0;
+    CoeffDataType R3 = 0;
+    CoeffDataType R4 = 0;
+    CoeffDataType C1 = 0;
+    CoeffDataType C2 = 0;
+    CoeffDataType C3 = 0;
     /// Parameters of the stack
-    CoeffDataType low;
-    CoeffDataType middle;
-    CoeffDataType high;
+    CoeffDataType low = 0.5;
+    CoeffDataType middle = 0.5;
+    CoeffDataType high = 0.5;
     
     static const gsl::index in_order = 3;
     static const gsl::index out_order = 3;
@@ -51,7 +51,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    ToneStackCoefficients(gsl::index nb_channels = 1);
+    explicit ToneStackCoefficients(gsl::index nb_channels = 1);
   public:
     /// Move constructor
     ToneStackCoefficients(ToneStackCoefficients&& other);

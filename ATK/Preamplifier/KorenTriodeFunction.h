@@ -52,7 +52,7 @@ namespace ATK
     {
       if (muVbeVce > 0)
       {
-        return K * mu * 1.5f * muVbeVce2;
+        return K * mu * 1.5F * muVbeVce2;
       }
       return 0;
     }
@@ -62,7 +62,7 @@ namespace ATK
     {
       if (muVbeVce > 0)
       {
-        return K * 1.5f * muVbeVce2;
+        return K * 1.5F * muVbeVce2;
       }
       return 0;
     }

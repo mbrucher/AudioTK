@@ -28,9 +28,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    VolumeFilter(gsl::index nb_channels = 1);
+    explicit VolumeFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~VolumeFilter() override;
+    ~VolumeFilter() override = default;
 
     /// Changes the output volume
     void set_volume(DataType_ volume);
@@ -43,7 +43,7 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ volume;
+    DataType_ volume = 1;
   };
 }
 

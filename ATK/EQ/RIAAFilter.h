@@ -38,7 +38,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    RIAACoefficients(gsl::index nb_channels = 1);
+    explicit RIAACoefficients(gsl::index nb_channels = 1);
   };
 
   /// RIAA coefficients used to create the inverse compensation (for mastering engineers)
@@ -67,7 +67,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    InverseRIAACoefficients(gsl::index nb_channels = 1);
+    explicit InverseRIAACoefficients(gsl::index nb_channels = 1);
   };
 }
 

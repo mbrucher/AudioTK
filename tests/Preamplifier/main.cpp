@@ -5,5 +5,5 @@
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_MAIN
-#define BOOST_TEST_MODULE ATKAdaptive_test
+#define BOOST_TEST_MODULE ATKPreamplifier_test
 #include <boost/test/unit_test.hpp>

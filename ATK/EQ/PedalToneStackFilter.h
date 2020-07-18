@@ -22,19 +22,19 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    CoeffDataType R1;
-    CoeffDataType R2;
-    CoeffDataType R3;
-    CoeffDataType R4;
-    CoeffDataType C1;
-    CoeffDataType C2;
-    CoeffDataType C3;
+    CoeffDataType R1 = 10e3;
+    CoeffDataType R2 = 22e3;
+    CoeffDataType R3 = 470;
+    CoeffDataType R4 = 10e3;
+    CoeffDataType C1 = 0.018e-6;
+    CoeffDataType C2 = 0.027e-6;
+    CoeffDataType C3 = 0.01e-6;
     /// Parameter of the stack
-    CoeffDataType alpha;
+    CoeffDataType alpha = 1;
     
     static const gsl::index in_order = 2;
     static const gsl::index out_order = 2;
-    
+
     void setup() override;
     
     /// MA part of the filter, based on the electronic components specifications
@@ -47,7 +47,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SD1ToneCoefficients(gsl::index nb_channels = 1);
+    explicit SD1ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);
@@ -68,16 +68,16 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    CoeffDataType R1;
-    CoeffDataType R2;
-    CoeffDataType R3;
-    CoeffDataType R4;
-    CoeffDataType P;
-    CoeffDataType C1;
-    CoeffDataType C2;
+    CoeffDataType R1 = 1e3;
+    CoeffDataType R2 = 10e3;
+    CoeffDataType R3 = 1e3;
+    CoeffDataType R4 = 220;
+    CoeffDataType P = 22e3;
+    CoeffDataType C1 = 0.022e-6;
+    CoeffDataType C2 = 0.022e-6;
     /// Parameter of the stack
-    CoeffDataType alpha;
-    
+    CoeffDataType alpha = 0.5;
+
     static const gsl::index in_order = 2;
     static const gsl::index out_order = 2;
     
@@ -93,7 +93,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    TS9ToneCoefficients(gsl::index nb_channels = 1);
+    explicit TS9ToneCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the tone of the filter
     void set_tone(CoeffDataType alpha);

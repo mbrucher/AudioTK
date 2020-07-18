@@ -34,7 +34,7 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max-delay is the maximum delay allowed
     */
-    UniversalFixedDelayLineFilter(gsl::index max_delay);
+    explicit UniversalFixedDelayLineFilter(gsl::index max_delay);
     /// Destructor
     ~UniversalFixedDelayLineFilter() override;
 
@@ -65,10 +65,10 @@ namespace ATK
   private:
     // internal state
     std::unique_ptr<UFDLF_Impl> impl;
-    gsl::index delay;
-    Scalar blend;
-    Scalar feedback;
-    Scalar feedforward;
+    gsl::index delay = 100;
+    Scalar blend = 0;
+    Scalar feedback = 0;
+    Scalar feedforward = 1;
   };
 }
 

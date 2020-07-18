@@ -22,13 +22,8 @@ namespace ATK
     using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
-#if defined(_MSC_VER) || __cplusplus >= 201703L
     constexpr static gsl::index in_order = 2;
     constexpr static gsl::index out_order = 2;
-#else
-    const static gsl::index in_order;
-    const static gsl::index out_order;
-#endif
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
@@ -37,7 +32,7 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    SecondOrderCoreCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderCoreCoefficients(gsl::index nb_channels = 1);
   };
   
   /// Base class for all IIR second order filters
@@ -52,14 +47,14 @@ namespace ATK
     using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
-    CoeffDataType cut_frequency;
+    CoeffDataType cut_frequency = 0;
 
     constexpr static gsl::index in_order = 2;
     constexpr static gsl::index out_order = 2;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
-    SecondOrderBaseCoefficients(gsl::index nb_channels);
+    explicit SecondOrderBaseCoefficients(gsl::index nb_channels);
     void setup() override;
   public:
     /// Sets the cut or central frequency of the filter
@@ -84,7 +79,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    CoeffDataType Q;
+    CoeffDataType Q = 1;
     
   protected:
     void setup() override;
@@ -93,7 +88,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderBandPassCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderBandPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -125,7 +120,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderLowPassCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderLowPassCoefficients(gsl::index nb_channels = 1);
   };
   
   /// Coefficients for a second order highpass filter
@@ -149,7 +144,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderHighPassCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderHighPassCoefficients(gsl::index nb_channels = 1);
   };
 
   /// Coefficients for a second order bandpass peak filter
@@ -168,8 +163,8 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    CoeffDataType Q;
-    CoeffDataType gain;
+    CoeffDataType Q = 1;
+    CoeffDataType gain = 1;
   protected:
     void setup() override;
     
@@ -178,7 +173,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderBandPassPeakCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderBandPassPeakCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -210,7 +205,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    CoeffDataType Q;
+    CoeffDataType Q = 1;
   protected:
     void setup() override;
     
@@ -219,7 +214,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderAllPassCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderAllPassCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the Q factor, must be strictly positive
     /*!
@@ -247,14 +242,14 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   private:
-    CoeffDataType gain;
+    CoeffDataType gain = 1;
     
   public:
     /*!
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderLowShelvingCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderLowShelvingCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the gain of the shelf
     void set_gain(CoeffDataType gain) final;
@@ -279,14 +274,14 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   private:
-    CoeffDataType gain;
+    CoeffDataType gain = 1;
     
   public:
     /*!
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    SecondOrderHighShelvingCoefficients(gsl::index nb_channels = 1);
+    explicit SecondOrderHighShelvingCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the gain of the shelf
     void set_gain(CoeffDataType gain) final;

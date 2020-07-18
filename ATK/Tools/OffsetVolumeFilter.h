@@ -28,9 +28,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    OffsetVolumeFilter(gsl::index nb_channels = 1);
+    explicit OffsetVolumeFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~OffsetVolumeFilter();
+    ~OffsetVolumeFilter() override = default;
 
     /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);
@@ -46,8 +46,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ volume;
-    DataType_ offset;
+    DataType_ volume = 1;
+    DataType_ offset = 0;
   };
 }
 

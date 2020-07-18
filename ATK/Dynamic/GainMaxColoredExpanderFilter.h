@@ -33,7 +33,7 @@ namespace ATK
     */
     GainMaxColoredExpanderFilter(gsl::index nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 1024);
     /// Destructor
-    ~GainMaxColoredExpanderFilter();
+    ~GainMaxColoredExpanderFilter() override = default;
 
     /// Sets the softness of the knee of the filter (positive value)
     void set_softness(DataType_ softness);
@@ -63,10 +63,10 @@ namespace ATK
     DataType_ computeGain(DataType_ value) const;
 
   private:
-    DataType_ softness;
-    DataType_ max_reduction;
-    DataType_ color;
-    DataType_ quality;
+    DataType_ softness = static_cast<DataType_>(0.0001);
+    DataType_ max_reduction = static_cast<DataType_>(0.01);
+    DataType_ color = 0;
+    DataType_ quality = 0;
   };
 }
 

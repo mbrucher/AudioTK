@@ -223,13 +223,13 @@ namespace ATK
   void FollowerTransistorClassAFilter<DataType_>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<TransistorClassAFunction, vector_size, nb_max_iter, true>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer = std::make_unique<VectorizedNewtonRaphson<TransistorClassAFunction, vector_size, nb_max_iter, true>>(TransistorClassAFunction(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg1, Rg2, Ro, Rk1, Rk2, //R
       Vbias, // Vbias
       Cg, Co, Ck, // C
       transistor_function_1, // transistor
       transistor_function_2, // transistor
-      default_output)));
+      default_output));
   }
 
   template<typename DataType_>

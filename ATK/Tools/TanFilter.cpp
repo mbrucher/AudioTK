@@ -13,15 +13,8 @@ namespace ATK
 {
   template<typename DataType_>
   TanFilter<DataType_>::TanFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), coeff(1)
+  :Parent(nb_channels, nb_channels)
   {
-    
-  }
-  
-  template<typename DataType_>
-  TanFilter<DataType_>::~TanFilter()
-  {
-    
   }
   
   template<typename DataType_>

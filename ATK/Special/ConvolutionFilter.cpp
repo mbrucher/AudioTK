@@ -11,7 +11,7 @@ namespace ATK
 {
   template <typename DataType>
   ConvolutionFilter<DataType>::ConvolutionFilter()
-    :Parent(1, 1), split_position(0), split_size(0)
+    :Parent(1, 1)
   {
   }
 
@@ -108,7 +108,9 @@ namespace ATK
   void ConvolutionFilter<DataType_>::process_new_chunk(int64_t position) const
   {
     if(partial_frequency_input.empty())
+    {
       return;
+    }
     partial_frequency_input.pop_back();
     AlignedComplexVector chunk(2 * split_size);
     processor.process_forward(converted_inputs[0] + position - split_size, chunk.data(), split_size);

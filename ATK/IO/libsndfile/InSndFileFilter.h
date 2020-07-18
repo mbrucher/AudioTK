@@ -37,9 +37,9 @@ namespace ATK
      * @brief Constructor
      * @param filename is the name of the input file
      */
-    InSndFileFilter(const std::string& filename);
+    explicit InSndFileFilter(const std::string& filename);
     /// Destructor
-    ~InSndFileFilter();
+    ~InSndFileFilter() override;
     
     /// Returns the number of frames/samples in the opened file
     int64_t get_frames() const;

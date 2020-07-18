@@ -42,7 +42,7 @@ namespace ATK
      */
     OutSndFileFilter(const std::string& filename, int ports);
     /// Destructor
-    ~OutSndFileFilter();
+    ~OutSndFileFilter() override;
   };
 }
 #endif

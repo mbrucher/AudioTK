@@ -14,12 +14,7 @@ namespace ATK
 {
   template<typename DataType_>
   CachedSinusGeneratorFilter<DataType_>::CachedSinusGeneratorFilter(int periods, int seconds)
-  :Parent(0, 1), indice(1), periods(periods), seconds(seconds), volume(1), offset(0)
-  {
-  }
-  
-  template<typename DataType_>
-  CachedSinusGeneratorFilter<DataType_>::~CachedSinusGeneratorFilter()
+  :Parent(0, 1), periods(periods), seconds(seconds)
   {
   }
     

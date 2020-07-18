@@ -27,9 +27,9 @@ namespace ATK
     /*!
     * @brief Constructor
     */
-    MiddleSideFilter(gsl::index nb_channels = 1);
+    explicit MiddleSideFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~MiddleSideFilter() override;
+    ~MiddleSideFilter() override = default;
     
   protected:
     void process_impl(gsl::index size) const final;

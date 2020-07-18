@@ -6,6 +6,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -25,13 +26,13 @@ BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_delay_test )
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_delay_range_test )
 {
   ATK::LowPassReverbFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_delay(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_delay(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_delay_range2_test )
 {
   ATK::LowPassReverbFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_delay(128), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_delay(128), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_cutoff_test )
@@ -44,13 +45,13 @@ BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_cutoff_test )
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_cutoff_range_test )
 {
   ATK::LowPassReverbFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_cutoff(1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_cutoff(1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_cutoff_range2_test )
 {
   ATK::LowPassReverbFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_cutoff(-1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_cutoff(-1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_feedback_test )
@@ -63,20 +64,20 @@ BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_feedback_test )
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_feedback_range_test )
 {
   ATK::LowPassReverbFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_feedback(1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_feedback_range2_test )
 {
   ATK::LowPassReverbFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(-1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_feedback(-1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( LowPassReverbFilter_sinus_feedback_cutoff_range_test )
 {
   ATK::LowPassReverbFilter<double> filter(128);
   filter.set_cutoff(.5);
-  BOOST_CHECK_THROW(filter.set_feedback(.5), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_feedback(.5), ATK::RuntimeError);
 }
 
 namespace

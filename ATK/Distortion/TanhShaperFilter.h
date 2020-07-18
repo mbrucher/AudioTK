@@ -30,9 +30,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    TanhShaperFilter(gsl::index nb_channels = 1);
+    explicit TanhShaperFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~TanhShaperFilter() override;
+    ~TanhShaperFilter() override = default;
     
     void set_coefficient(DataType coeff);
     DataType_ get_coefficient() const;
@@ -40,7 +40,7 @@ namespace ATK
   protected:
     void process_impl(gsl::index size) const final;
   private:
-    DataType coeff;
+    DataType coeff = 1;
   };
 }
 

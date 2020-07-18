@@ -80,7 +80,7 @@ namespace ATK
     /// Move constructor
     TriodeFilter(TriodeFilter&& other);
     /// Destructor
-    ~TriodeFilter();
+    ~TriodeFilter() override;
 
     void process_impl(gsl::index size) const final;
     

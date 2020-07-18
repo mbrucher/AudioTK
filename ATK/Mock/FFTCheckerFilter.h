@@ -9,11 +9,10 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 
+#include <ATK/Utility/FFT.h>
+
 namespace ATK
 {
-  template<class DataType>
-  class FFT;
-  
   /// Checks the input signal has a specific spectrum template
   template<class DataType_>
   class ATK_MOCK_EXPORT FFTCheckerFilter final: public TypedBaseFilter<DataType_>
@@ -39,7 +38,7 @@ namespace ATK
 
   private:
     std::vector<std::pair<int, DataType> > frequency_checks;
-    std::unique_ptr<FFT<DataType> > FFTimpl;
+    std::unique_ptr<FFT<DataType> > FFTimpl = std::make_unique<FFT<DataType_>>();
   };
 }
 

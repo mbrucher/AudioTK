@@ -34,9 +34,9 @@ namespace ATK
      * of the reference and the estimate. The block variant only updates the coefficients each time a block is processed.
      * @param size is the size of the underlying MA filter
      */
-    BlockLMSFilter(gsl::index size);
+    explicit BlockLMSFilter(gsl::index size);
     /// Destructor
-    ~BlockLMSFilter() override;
+    ~BlockLMSFilter();
     
     /// Changes the underlying size
     void set_size(gsl::index size);

@@ -16,7 +16,7 @@ namespace ATK
   class ATK_DELAY_EXPORT DelayInterface
   {
   public:
-    virtual ~DelayInterface();
+    virtual ~DelayInterface() = default;
     /// Sets the delay of the filter
   virtual void set_delay(gsl::index delay) = 0;
     /// Returns the delay
@@ -28,7 +28,7 @@ namespace ATK
   class ATK_DELAY_EXPORT UniversalDelayInterface
   {
   public:
-    virtual ~UniversalDelayInterface();
+    virtual ~UniversalDelayInterface() = default;
     
     /// Sets the blend of the filter
     virtual void set_blend(DataType blend) = 0;

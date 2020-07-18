@@ -28,10 +28,10 @@ namespace ATK
   InWavFilter<DataType>::InWavFilter(const std::string& filename)
   :TypedBaseFilter<DataType>(0, 0), filename(filename)
   {
-    wavstream.open(filename.c_str(), std::ios_base::binary);
+    wavstream.open(filename, std::ios_base::binary);
     if(!wavstream.good())
     {
-      throw std::runtime_error("Could not open WAV file " + filename);
+      throw RuntimeError("Could not open WAV file " + filename);
     }
     // Read wave header
     wavstream.read(reinterpret_cast<char*>(&header), sizeof(WavHeader));
@@ -84,7 +84,7 @@ namespace ATK
   {
     if(!wavstream.is_open())
     {
-      wavstream.open(filename.c_str(), std::ios_base::binary);
+      wavstream.open(filename, std::ios_base::binary);
       wavstream.seekg(offset);
     }
     std::vector<char> buffer(size * format.NbChannels * format.BitsPerSample / 8);
@@ -116,13 +116,15 @@ namespace ATK
         convert<DataType, double>(temp_arrays, buffer);
         break;
       default:
-      throw std::runtime_error("Don't know how to process bits per sample=" + std::to_string(format.BitsPerSample));
+      throw RuntimeError("Don't know how to process bits per sample=" + std::to_string(format.BitsPerSample));
     }
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class InWavFilter<std::int16_t>;
   template class InWavFilter<std::int32_t>;
   template class InWavFilter<int64_t>;
+#endif
   template class InWavFilter<float>;
   template class InWavFilter<double>;
 }

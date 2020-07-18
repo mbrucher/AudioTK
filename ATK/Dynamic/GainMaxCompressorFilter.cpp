@@ -6,7 +6,8 @@
 
 #include <cmath>
 #include <cstdint>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Utility/fmath.h>
 
@@ -14,12 +15,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainMaxCompressorFilter<DataType_>::GainMaxCompressorFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), max_reduction(static_cast<DataType_>(0.01))
-  {
-  }
-  
-  template<typename DataType_>
-  GainMaxCompressorFilter<DataType_>::~GainMaxCompressorFilter()
+  :Parent(nb_channels, LUTsize, LUTprecision)
   {
   }
 
@@ -28,7 +24,7 @@ namespace ATK
   {
     if (softness < 0)
     {
-      throw std::out_of_range("Softness factor must be positive value");
+      throw ATK::RuntimeError("Softness factor must be positive value");
     }
     this->softness = softness;
     start_recomputeLUT();
@@ -45,7 +41,7 @@ namespace ATK
   {
     if (max_reduction <= 0)
     {
-      throw std::out_of_range("Maximum reduction factor must be strictly positive value");
+      throw ATK::RuntimeError("Maximum reduction factor must be strictly positive value");
     }
     this->max_reduction = max_reduction;
     start_recomputeLUT();
@@ -68,7 +64,9 @@ namespace ATK
   DataType_ GainMaxCompressorFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
+    {
       return 1;
+    }
     DataType diff = static_cast<DataType_>(-5 * fmath::log10(1/(value * value) + fmath::pow(max_reduction, 2 * ratio / (ratio - 1))));
     return static_cast<DataType>(fmath::pow(10, -(std::sqrt(diff*diff + softness) + diff) / 40 * (ratio - 1) / ratio));
   }

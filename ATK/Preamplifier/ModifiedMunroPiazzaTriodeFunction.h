@@ -48,7 +48,9 @@ namespace ATK
     DataType_ Lb_Vbe(DataType_ Vbe, DataType_ Vce)
     {
       if(mu + Vbe > 0)
+      {
         return 3 * K * (mu + Vbe) * (mu + Vbe) / (2 * sqrt_muvbe);
+      }
       return 0;
     }
     
@@ -75,7 +77,7 @@ namespace ATK
     {
       if (E1 > 0 && Vbe >= 0 && Vbe <= 5)
       {
-        return Kg * Vce / 5 * Kvb * sqrt_E1 * 1.5f;
+        return Kg * Vce / 5 * Kvb * sqrt_E1 * 1.5F;
       }
       return 0;
     }
@@ -85,7 +87,7 @@ namespace ATK
     {
       if (E1 > 0 && Vbe >= 0 && Vbe <= 5)
       {
-        return Kvb * sqrt_E1 * E1 / 5 + Vce / 5 * Kvb * sqrt_E1 * 1.5f;
+        return Kvb * sqrt_E1 * E1 / 5 + Vce / 5 * Kvb * sqrt_E1 * 1.5F;
       }
       return 0;
     }

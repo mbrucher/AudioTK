@@ -28,7 +28,7 @@ namespace ATK
     /// Constructor
     WhiteNoiseGeneratorFilter();
     /// Destructor
-    ~WhiteNoiseGeneratorFilter() override;
+    ~WhiteNoiseGeneratorFilter() override = default;
 
     /// Sets the output volume, doesn't update the cache
     void set_volume(DataType_ volume);
@@ -44,11 +44,11 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ volume;
-    DataType_ offset;
+    DataType_ volume = 1;
+    DataType_ offset = 0;
     
     mutable boost::random::mt19937 gen; // Should use a random123 when they will be in Boost
-    mutable boost::random::uniform_real_distribution<DataType_> dist;
+    mutable boost::random::uniform_real_distribution<DataType_> dist{-1, 1};
   };
 }
 

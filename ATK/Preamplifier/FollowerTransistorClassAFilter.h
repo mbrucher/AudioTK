@@ -70,7 +70,7 @@ namespace ATK
     /// Move constructor
     FollowerTransistorClassAFilter(FollowerTransistorClassAFilter&& other);
     /// Destructor
-    ~FollowerTransistorClassAFilter();
+    ~FollowerTransistorClassAFilter() override;
 
     /// Build a simple class A preamp
     /**

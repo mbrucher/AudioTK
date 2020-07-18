@@ -1,6 +1,5 @@
 
-sudo: required
-language: c++
+language: cpp
 
 notifications:
   email: false
@@ -13,308 +12,206 @@ notifications:
 git:
   depth: 500
 
-matrix:
+stages:
+  - before_install
+  - install
+  - before_script
+  - script
+  - after_success
+  - name: after_script
+    if: branch = master
+    
+jobs:
   include:
-  - compiler: gcc-8
+  - compiler: gcc-9
     os: linux
-    dist: trusty
+    dist: bionic
+    python: 3.8
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-8
+        - g++-9
         - libfftw3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
-        - lcov
         - curl
-        - gcov
+        - doxygen
       sonarcloud:
         organization: "mbrucher-github"
     env:
     - MY_NAME: Static Analysis
-    - COMPILER=g++-8
-    - PLATFORM=gcc-8
+    - COMPILER=g++-9
+    - PLATFORM=gcc-9
     - ENABLE_PYTHON=OFF
     - ENABLE_STATIC_ANALYSIS=ON
     - ENABLE_CODECOVERAGE=ON
+    - GCOV_VERSION=gcov-9
+    - Python_ADDITIONAL_VERSIONS=3.8.1
     - BUILD_TYPE=Coverage
+    - CUSTOM_LCOV=ON
     - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
-  - compiler: gcc-7
+    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF -DCMAKE_CXX_FLAGS_DEBUG_INIT=\"-O0\""
+  - compiler: gcc-9
     os: linux
-    dist: trusty
+    dist: bionic
+    python: 3.8
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
         packages:
-        - g++-7
+        - g++-9
         - libfftw3-dev
         - libsndfile-dev
         - swig
-        - libatlas-base-dev
-        - lcov
-        - curl
-      sonarcloud:
-        organization: "mbrucher-github"
     env:
-    - MY_NAME: Static Analysis
-    - COMPILER=g++-7
-    - PLATFORM=gcc-7
-    - ENABLE_PYTHON=OFF
-    - ENABLE_STATIC_ANALYSIS=ON
-    - ENABLE_CODECOVERAGE=ON
-    - BUILD_TYPE=Coverage
-    - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_CODECOVERAGE=ON -DENABLE_STATIC_LIBRARIES=OFF"
-  - compiler: gcc-8
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - g++-8
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-        - libatlas-base-dev
-    env:
-    - MY_NAME: GCC 8 Python 2
-    - COMPILER=g++-8
-    - PLATFORM=gcc-8
+    - MY_NAME: GCC 9
+    - COMPILER=g++-9
+    - PLATFORM=gcc-9
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
-    - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: gcc-8
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - g++-8
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-    env:
-    - MY_NAME: GCC 8 Python 3
-    - COMPILER=g++-8
-    - PLATFORM=gcc-8
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.7
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.3
+    - Python_ADDITIONAL_VERSIONS=3.8.1
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: gcc-7
+  - compiler: clang-9
     os: linux
-    dist: trusty
+    dist: bionic
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
+        - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+          key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
-        - g++-7
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-        - libatlas-base-dev
-    env:
-    - MY_NAME: GCC 7 Python 2
-    - COMPILER=g++-7
-    - PLATFORM=gcc-7
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
-    - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: gcc-7
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        packages:
-        - g++-7
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-    env:
-    - MY_NAME: GCC 7 Python 3
-    - COMPILER=g++-7
-    - PLATFORM=gcc-7
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
-    - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.3
-    - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: clang-6.0
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-6.0
-        packages:
-        - clang-6.0
-        - g++-8
+        - clang-9
+        - g++-9
         - libfftw3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
     env:
     - MY_NAME=ASAN
-    - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
+    - COMPILER=clang++-9
+    - PLATFORM=clang-9
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
     - ASAN_OPTIONS=verbosity=1:detect_stack_use_after_return=true
-    - LD_PRELOAD_=/usr/lib/llvm-6.0/lib/clang/6.0.1/lib/linux/libclang_rt.asan-x86_64.so
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF"
-  - compiler: clang-6.0
+    - LD_PRELOAD_=/usr/lib/llvm-9/lib/clang/9.0.0/lib/linux/libclang_rt.asan-x86_64.so
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_ADDRESS_SANITIZER=ON -DENABLE_STATIC_LIBRARIES=OFF  -DCMAKE_CXX_FLAGS_DEBUG_INIT=\"-O0\""
+    - ASAN_OPTIONS=detect_leaks=0
+    - ASAN_SYMBOLIZER_PATH=llvm-symbolizer
+  - compiler: clang-9
     os: linux
-    dist: trusty
+    dist: bionic
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-6.0
+        - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+          key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
-        - clang-6.0
-        - g++-8
+        - clang-9
+        - g++-9
         - libfftw3-dev
         - libsndfile-dev
         - swig
         - libatlas-base-dev
-        - lcov
         - curl
+        - lcov
+      sonarcloud:
+        organization: "mbrucher-github"
     env:
     - MY_NAME=LLVM coverage
-    - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
+    - COMPILER=clang++-9
+    - PLATFORM=clang-9
     - ENABLE_PYTHON=OFF
     - BUILD_TYPE=Debug
+    - ENABLE_STATIC_ANALYSIS=OFF
     - ENABLE_CODECOVERAGE=ON
-    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=llvm-gcov.sh -DENABLE_STATIC_LIBRARIES=OFF"
-  - compiler: clang-6.0
+    - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
+    - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=`pwd`/scripts/llvm-cov.sh -DENABLE_STATIC_LIBRARIES=OFF -DCMAKE_CXX_FLAGS_DEBUG_INIT=\"-O0\""
+  - compiler: clang-9
     os: linux
-    dist: trusty
+    dist: bionic
+    python: 3.7
     addons:
       apt:
         sources:
         - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-6.0
+        - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+          key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
         packages:
-        - clang-6.0
-        - g++-8
-        - libfftw3-dev
-        - libsndfile-dev
-        - swig
-        - libatlas-base-dev
-    env:
-    - MY_NAME: clang 6 Python 2
-    - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
-    - BUILD_TYPE=Release
-    - ADDITONAL_CMAKE_FLAGS="-DDISABLE_PYTHON_TESTS=ON -DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
-  - compiler: clang-6.0
-    os: linux
-    dist: trusty
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - llvm-toolchain-trusty-6.0
-        packages:
-        - clang-6.0
-        - g++-8
+        - clang-9
+        - g++-9
         - libfftw3-dev
         - libsndfile-dev
         - swig
     env:
-    - MY_NAME: clang 6 Python 3
-    - COMPILER=clang++-6.0
-    - PLATFORM=clang-6.0
+    - MY_NAME: clang 9
+    - COMPILER=clang++-9
+    - PLATFORM=clang-9
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.6
+    - PYTHON_VERSION=3.8
     - PYTHON=python3
-    - Python_ADDITIONAL_VERSIONS=3.6.3
+    - Python_ADDITIONAL_VERSIONS=3.8.1
     - BUILD_TYPE=Release
     - ADDITONAL_CMAKE_FLAGS="-DDISABLE_PYTHON_TESTS=ON -DPYTHON_LIBRARY=/opt/python/${Python_ADDITIONAL_VERSIONS}/lib/libpython${PYTHON_VERSION}.so -DPYTHON_INCLUDE_DIR=/opt/python/${Python_ADDITIONAL_VERSIONS}/include/python${PYTHON_VERSION} -DPYTHON_EXECUTABLE=/opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python -DENABLE_STATIC_LIBRARIES=ON"
   - os: osx
-    osx_image: xcode9.2
+    osx_image: xcode12
+    python: 3.7
     env:
-    - MY_NAME: XCode 9 Python 2
+    - MY_NAME: XCode 12
     - COMPILER=clang++
-    - PLATFORM=xcode-9.2
-    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
-    - BUILD_TYPE=Release
-  - os: osx
-    osx_image: xcode9.2
-    env:
-    - MY_NAME: XCode 9 Python 3
-    - COMPILER=clang++
-    - PLATFORM=xcode-9.2
-    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
+    - PLATFORM=xcode-12
+    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="x86_64" -DENABLE_STATIC_LIBRARIES=ON
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=3.7
-    - PYTHON=python3
+    - PYTHON=python
     - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
   - os: osx
-    osx_image: xcode10
+    osx_image: xcode11.6
+    python: 3.7
     env:
-    - MY_NAME: XCode 10 Python 2
+    - MY_NAME: XCode 11
     - COMPILER=clang++
-    - PLATFORM=xcode-10
-    - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
-    - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=2.7
-    - PYTHON=python2
-    - Python_ADDITIONAL_VERSIONS=2.7.14
-    - BUILD_TYPE=Release
-  - os: osx
-    osx_image: xcode10
-    env:
-    - MY_NAME: XCode 10 Python 3
-    - COMPILER=clang++
-    - PLATFORM=xcode-10
+    - PLATFORM=xcode-11.6
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
     - ENABLE_PYTHON=ON
     - PYTHON_VERSION=3.7
-    - PYTHON=python3
+    - PYTHON=python
     - Python_ADDITIONAL_VERSIONS=3.7
     - BUILD_TYPE=Release
-  allow_failures:
-  - compiler: gcc-8
-  - compiler: clang-6.0
 
 before_install:
-  - ls /usr/lib/clang/ | echo 0
-  - ls /usr/lib/clang/6.0.1 | echo 0
-  - mkdir $HOME/usr
+  - ls /usr/lib
+  - ls /usr/lib/llvm-*/lib/clang/ || true
+  - ls /usr/lib/llvm-*/lib/clang/*/lib/linux || true
+  - mkdir -p $HOME/usr/bin
   - export PATH="$HOME/usr/bin:$PATH"
+  - export PATH="/usr/local/bin:$PATH"
+  - |
+    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
+      ln -s /usr/bin/$GCOV_VERSION $HOME/usr/bin/gcov
+    fi
+  - |
+    if [[ "${CUSTOM_LCOV}" = "ON" ]]; then
+      wget http://ftp.de.debian.org/debian/pool/main/l/lcov/lcov_1.14.orig.tar.gz
+      tar xzf lcov_1.14.orig.tar.gz
+      cd lcov-1.14
+      wget https://github.com/linux-test-project/lcov/commit/ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.diff
+      patch -p1 < ebfeb3e179e450c69c3532f98cd5ea1fbf6ccba7.diff
+      wget https://github.com/linux-test-project/lcov/commit/75fbae1cfc5027f818a0bb865bf6f96fab3202da.diff
+      patch -p1 < 75fbae1cfc5027f818a0bb865bf6f96fab3202da.diff
+
+      sudo make install
+      cd ..
+      cpanm --sudo --notest PerlIO::gzip JSON
+    fi
   - |
     if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then
       ls /opt/python/
@@ -322,7 +219,6 @@ before_install:
       chmod +x cmake-3.12.1-Linux-x86_64.sh
       ./cmake-3.12.1-Linux-x86_64.sh --prefix=$HOME/usr --exclude-subdir --skip-license
       if [[ "$ENABLE_PYTHON" == "ON" ]]; then
-        ls /opt/python/
         /opt/python/${Python_ADDITIONAL_VERSIONS}/bin/python${Python_ADDITIONAL_VERSIONS} -m pip install numpy scipy nose
       fi
     fi
@@ -340,11 +236,11 @@ before_install:
       fi
     fi
 
-  - wget --no-verbose --output-document=boost_1_68_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.68.0/boost_1_68_0.tar.bz2/download
+  - wget --no-verbose --output-document=boost_1_73_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.73.0/boost_1_73_0.tar.bz2/download
   - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost"
   - export BOOST_BUILD="$TRAVIS_BUILD_DIR/../boost-build"
   - mkdir -p $BOOST_ROOT
-  - tar jxf boost_1_68_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
+  - tar jxf boost_1_73_0.tar.bz2 --strip-components=1 -C $BOOST_ROOT
 
 install:
   - "(cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=system,test)"
@@ -359,7 +255,7 @@ script:
   - pwd
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$BOOST_BUILD/lib ; fi
-  - ${MAKE_WRAPPER} make -j16
+  - ${MAKE_WRAPPER} make -j2
   - make install
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
   - echo $DYLD_LIBRARY_PATH
@@ -385,20 +281,51 @@ after_success:
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ..
       sonar-scanner
-      cd build
-      ls
-    fi
-  - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
-      exit
     fi
 
+after_script:
+  - |
+    if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
+      cd ${HOME}
+      echo "-----BEGIN RSA PRIVATE KEY-----" > ${HOME}/.ssh/key
+      echo ${SSH_KEY} | awk '{for(i=1;i<length;i+=64) print substr($0,i,64)}' >> ${HOME}/.ssh/key
+      echo "-----END RSA PRIVATE KEY-----" >> ${HOME}/.ssh/key
+      chmod 0600 ${HOME}/.ssh/key
+      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
+      cd cov.audio-tk.com
+      git rm -r *
+      cp -R ${TRAVIS_BUILD_DIR}/build/coverage htdocs
+      git add .
+      git commit -m "Run ${TRAVIS_JOB_ID}"
+      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
+      ssh -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy cov.audio-tk.com.git
+    fi
+  - |
+   if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
+     cd ${TRAVIS_BUILD_DIR}
+     doxygen Doxyfile
+     cd ${HOME}
+     echo "-----BEGIN RSA PRIVATE KEY-----" > ${HOME}/.ssh/key
+     echo ${SSH_KEY} | awk '{for(i=1;i<length;i+=64) print substr($0,i,64)}' >> ${HOME}/.ssh/key
+     echo "-----END RSA PRIVATE KEY-----" >> ${HOME}/.ssh/key
+     chmod 0600 ${HOME}/.ssh/key
+     GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
+     cd doc.audio-tk.com
+     git rm -r *
+     cp -R ${TRAVIS_BUILD_DIR}/Doxygen/html htdocs
+     git add .
+     git commit -m "Run ${TRAVIS_JOB_ID}"
+     GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
+     ssh -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy doc.audio-tk.com.git
+   fi
+
 deploy:
+  cleanup: false
   provider: releases
-  api_key:
+  token:
     secure: ilhQ9vSyOl+QjRiRebj7CuQPYY1OygH3YxEuuFOXVa1cN4iw5yid2igEScLfKB5Xn2x2jMYDqL4bC6nLMHa1GNtCTIhCJrrHhXPeYX1W1EsOtExfAbD1G0QvUoQPZEBnK1Lu2Uf+qiQaH1IEquhzux8dxRCe/qJJzpntoWiLgm6po1giUAyQGsVzKlon4dxhgq08QcYxaQq2snOcKFJVx+zfeELfB7RZeEQXymtlMosMWnoKv3tjtFI5crWWdjD8oYKaTdLEms5EmR/cXAoYZ8jkhW0mTn1j9Ww9gaN4f/AnIlZDyggsdxVsV77rW/Kh6qqUdRbWaAnnpDgozv/HNXkgrFpxNyevIiS/pfbiyIT1zqT+iy4N9ofuc8iWuXncom3tDK/aGU+KS693ZkeLkkOT+FhT3YnIwE7UHeRS/Lqn26FQXQ/u7stuYVxCTrGR+LsfOrQdxmkQVOKicbWlOkU0+JpccaoES+j7SSCGgUkO/5f8bFzTraEu5VCN9pTuMX7TIp8OwS7b13L/TZGPwoeJDBtn5SsUl/1cqpuJbjQvf0KQqp6tJcQ8LjS9K0WrtVB+T2coQC5vYz5pM4RhYcGavj6a9+RM6U13PDvpHgP5ec5zeGbNJ2QKHLZ8s0LiuSMgffhp0vsl8E0nWjpelnSIDPtCLv5xAtk47vn+aiQ=
   file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz
-  skip_cleanup: true
   on:
     repo: mbrucher/AudioTK
     tags: true
+    branch: master

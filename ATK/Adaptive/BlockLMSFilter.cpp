@@ -11,6 +11,7 @@
 #include <Eigen/Core>
 
 #include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 #include <ATK/Utility/FFT.h>
 
 namespace ATK
@@ -42,17 +43,17 @@ namespace ATK
 
     FFT<double> fft;
     /// Memory factor
-    double alpha;
+    double alpha = .99;
     /// line search
-    double mu;
+    double mu = 0.05;
     /// block size
-    gsl::index block_size;
-    gsl::index accumulate_block_size;
-    bool learning;
+    gsl::index block_size = 0;
+    gsl::index accumulate_block_size = 0;
+    bool learning = true;
 
-    BlockLMSFilterImpl(gsl::index size)
+    explicit BlockLMSFilterImpl(gsl::index size)
     :wfft(cwType::Zero(2*size)), block_input(2 * size, DataType_(0)), block_ref(size, DataType_(0)), block_error(size, DataType_(0)),
-     block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), alpha(.99), mu(0.05), block_size(size), accumulate_block_size(0), learning(true)
+     block_fft(2 * size), block_fft2(2 * size), block_ifft(2 * size), block_size(size)
     {
       fft.set_size(2 * size);
     }
@@ -103,11 +104,11 @@ namespace ATK
 
   template<typename DataType_>
   BlockLMSFilter<DataType_>::BlockLMSFilter(gsl::index size)
-  :Parent(2, 1), impl(new BlockLMSFilterImpl(size))
+  :Parent(2, 1), impl(std::make_unique<BlockLMSFilterImpl>(size))
   {
     if (size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw RuntimeError("Size must be strictly positive");
     }
   }
   
@@ -121,10 +122,10 @@ namespace ATK
   {
     if(size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw RuntimeError("Size must be strictly positive");
     }
     auto block_size = impl->block_size;
-    impl.reset(new BlockLMSFilterImpl(size));
+    impl = std::make_unique<BlockLMSFilterImpl>(size);
     set_block_size(block_size);
   }
 
@@ -139,7 +140,7 @@ namespace ATK
   {
     if (size == 0)
     {
-      throw std::out_of_range("Block size must be strictly positive");
+      throw ATK::RuntimeError("Block size must be strictly positive");
     }
     impl->accumulate_block_size = 0;
     impl->block_size = size;
@@ -161,11 +162,11 @@ namespace ATK
   {
     if (memory >= 1)
     {
-      throw std::out_of_range("Memory must be less than 1");
+      throw ATK::RuntimeError("Memory must be less than 1");
     }
     if (memory <= 0)
     {
-      throw std::out_of_range("Memory must be strictly positive");
+      throw ATK::RuntimeError("Memory must be strictly positive");
     }
 
     impl->alpha = memory;
@@ -182,11 +183,11 @@ namespace ATK
   {
     if (mu >= 1)
     {
-      throw std::out_of_range("Mu must be less than 1");
+      throw ATK::RuntimeError("Mu must be less than 1");
     }
     if (mu <= 0)
     {
-      throw std::out_of_range("Mu must be strictly positive");
+      throw ATK::RuntimeError("Mu must be strictly positive");
     }
 
     impl->mu = mu;

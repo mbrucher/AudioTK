@@ -25,6 +25,13 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 3.2.0
+* Cleanup
+
+### 3.1.1
+* Upgrade pybind11
+* Upgrade Travis support
+
 ### 3.1.0
 * Move to C++17 only
 * Drop support for libsimdpp (SIMD support will move in another direction)

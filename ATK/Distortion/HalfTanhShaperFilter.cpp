@@ -13,12 +13,7 @@ namespace ATK
 {
   template<typename DataType_>
   HalfTanhShaperFilter<DataType_>::HalfTanhShaperFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), coeff(1)
-  {
-  }
-  
-  template<typename DataType_>
-  HalfTanhShaperFilter<DataType_>::~HalfTanhShaperFilter()
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -49,9 +44,8 @@ namespace ATK
       {
         if(input[i] < 0)
         {
-          auto exp = fmath::exp(coeff * input[i]);
-          auto invexp = 1 / exp;
-          output[i] = (exp - invexp) / (coeff * (exp + invexp));
+          auto exp = fmath::exp(2 * coeff * input[i]);
+          output[i] = (exp - 1) / (coeff * (exp + 1));
         }
         else
         {

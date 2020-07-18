@@ -1,4 +1,4 @@
-version: '3.1.0.{build}'
+version: '3.2.0.{build}'
 
 shallow_clone: true
 
@@ -19,124 +19,164 @@ environment:
  ### Debug build
     - MY_NAME: VS 2017 Debug
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_67_0
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
-      COMPILER: Visual Studio 15 2017 Win64
+      COMPILER: Visual Studio 15 2017
       OUTPUT: dynamic-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON_VERSION: none
       BUILD_CONFIGURATION: Debug
 
  ### static runtime
     - MY_NAME: VS 2017 Release Static 32
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_67_0
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 15 2017
       OUTPUT: static-x86
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF -DENABLE_SIMD=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_PYTHON=OFF -DENABLE_SIMD=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON_VERSION: none
       BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2017 Release Static 64
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_67_0
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
-      COMPILER: Visual Studio 15 2017 Win64
+      COMPILER: Visual Studio 15 2017
       OUTPUT: static-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON: C:\\Python27-x64
-      PYTHON_VERSION: none
-      BUILD_CONFIGURATION: Release
-
- ### shared runtime
-    - MY_NAME: VS 2017 Release Shared 32 Python 2
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_67_0
-      FFTW_NAME: fftw-3.3.5-dll32.zip
-      BITS: 32
-      MSVC_PLATFORM: x86
-      SHORT_MSVC_PLATFORM: x86
-      COMPILER: Visual Studio 15 2017 
-      OUTPUT: dynamic-x86
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_SIMD=OFF -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27\\python.exe"
-      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
-      MSVC_VERSION: msvc-14.1
-      PYTHON: C:\\Python27
-      PYTHON_VERSION: 2.7
-      BUILD_CONFIGURATION: Release
-
-    - MY_NAME: VS 2017 Release Shared 64 Python 2
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_67_0
-      FFTW_NAME: fftw-3.3.5-dll64.zip
-      BITS: 64
-      MSVC_PLATFORM: amd64
-      SHORT_MSVC_PLATFORM: x64
-      COMPILER: Visual Studio 15 2017 Win64
-      OUTPUT: dynamic-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
-      VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
-      MSVC_VERSION: msvc-14.1
-      PYTHON: C:\\Python27-x64
-      PYTHON_VERSION: 2.7
       BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2017 Release Shared 32 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_67_0
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
       FFTW_NAME: fftw-3.3.5-dll32.zip
       BITS: 32
       MSVC_PLATFORM: x86
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 15 2017 
       OUTPUT: dynamic-x86
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_SIMD=OFF -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27\\python.exe"
+      ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_SIMD=OFF -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python37\\python.exe"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON: C:\\Python36
-      PYTHON_VERSION: 3.6
+      PYTHON: C:\\Python37
+      PYTHON_VERSION: 3.7
       BUILD_CONFIGURATION: Release
 
     - MY_NAME: VS 2017 Release Shared 64 Python 3
       APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
-      BOOST_ROOT: C:/Libraries/boost_1_67_0
+      BOOST_ROOT: C:/Libraries/boost_1_69_0
       FFTW_NAME: fftw-3.3.5-dll64.zip
       BITS: 64
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x64
-      COMPILER: Visual Studio 15 2017 Win64
+      COMPILER: Visual Studio 15 2017
       OUTPUT: dynamic-x64
-      ADDITONAL_CMAKE_FLAGS: "-DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python27-x64\\python.exe"
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python37-x64\\python.exe"
       VSINSTALL: "Microsoft Visual Studio\\2017\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.1
-      PYTHON: C:\\Python36-x64
-      PYTHON_VERSION: 3.6
+      PYTHON: C:\\Python37-x64
+      PYTHON_VERSION: 3.7
+      BUILD_CONFIGURATION: Release
+
+#### VS 2019
+ ### Debug build
+    - MY_NAME: VS 2019 Debug
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      BOOST_ROOT: C:/Libraries/boost_1_73_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 16 2019
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF"
+      VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.2
+      PYTHON_VERSION: none
+      BUILD_CONFIGURATION: Debug
+
+    - MY_NAME: VS 2019 Release Static 32
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      BOOST_ROOT: C:/Libraries/boost_1_73_0
+      FFTW_NAME: fftw-3.3.5-dll32.zip
+      BITS: 32
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x86
+      COMPILER: Visual Studio 16 2019
+      OUTPUT: static-x64
+      ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.2
+      BUILD_CONFIGURATION: Release
+
+    - MY_NAME: VS 2019 Release Static 64
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      BOOST_ROOT: C:/Libraries/boost_1_73_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 16 2019
+      OUTPUT: static-x64
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
+      VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.2
+      BUILD_CONFIGURATION: Release
+
+    - MY_NAME: VS 2019 Release Shared 32 Python 3
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      BOOST_ROOT: C:/Libraries/boost_1_73_0
+      FFTW_NAME: fftw-3.3.5-dll32.zip
+      BITS: 32
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x86
+      COMPILER: Visual Studio 16 2019
+      OUTPUT: dynamic-x86
+      ADDITONAL_CMAKE_FLAGS: "-A win32 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python38\\python.exe"
+      VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.2
+      PYTHON: C:\\Python38
+      PYTHON_VERSION: 3.8
+      BUILD_CONFIGURATION: Release
+
+    - MY_NAME: VS 2019 Release Shared 64 Python 3
+      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+      BOOST_ROOT: C:/Libraries/boost_1_73_0
+      FFTW_NAME: fftw-3.3.5-dll64.zip
+      BITS: 64
+      MSVC_PLATFORM: amd64
+      SHORT_MSVC_PLATFORM: x64
+      COMPILER: Visual Studio 16 2019
+      OUTPUT: dynamic-x64
+      ADDITONAL_CMAKE_FLAGS: "-A x64 -DENABLE_PYTHON=ON -DDISABLE_PYTHON_TESTS=ON -DPYTHON_EXECUTABLE=C:\\Python38-x64\\python.exe"
+      VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
+      MSVC_VERSION: msvc-14.2
+      PYTHON: C:\\Python38-x64
+      PYTHON_VERSION: 3.8
       BUILD_CONFIGURATION: Release
 
 matrix:
   fast_finish: true
+  allow_failures:
+    - COMPILER: Visual Studio 16 2019
 
 init:
   - cmake --version
   - C:\"Program Files (x86)"\"%VSINSTALL%"\vcvarsall.bat %MSVC_PLATFORM%
-  - ls C:
-  - ls C:\Libraries
 
 before_build:
   - mkdir %FFTW_ROOT%
@@ -159,7 +199,12 @@ build_script:
 
 after_build:
   - cd %ATK_OUT%
-  - 7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+  - ps: |
+      if($PYTHON_VERSION) {
+        7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+      } else {
+        7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+      }
 
 test_script:
   - set PATH=%ATK_OUT%\bin;%BOOST_ROOT%\lib%BITS%-%MSVC_VERSION%;%FFTW_ROOT%;%PATH%
@@ -169,7 +214,7 @@ test_script:
   - msbuild RUN_TESTS.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 artifacts: 
-  - path: AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip
+  - path: AudioTK.*.zip
     name: package
 
 deploy:

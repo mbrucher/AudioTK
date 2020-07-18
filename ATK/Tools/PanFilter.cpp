@@ -16,15 +16,8 @@ namespace ATK
 {
   template<typename DataType_>
   PanFilter<DataType_>::PanFilter(gsl::index nb_channels)
-  :Parent(nb_channels, 2 * nb_channels), law(PAN_LAWS::SINCOS_0_CENTER), pan(0)
+  :Parent(nb_channels, 2 * nb_channels)
   {
-    
-  }
-  
-  template<typename DataType_>
-  PanFilter<DataType_>::~PanFilter()
-  {
-    
   }
   
   template<typename DataType_>

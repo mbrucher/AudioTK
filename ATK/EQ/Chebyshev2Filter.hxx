@@ -81,7 +81,7 @@ namespace ATK
 {
   template <typename DataType>
   Chebyshev2LowPassCoefficients<DataType>::Chebyshev2LowPassCoefficients(gsl::index nb_channels)
-  :Parent(1, 1), cut_frequency(0), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -144,7 +144,7 @@ namespace ATK
   
   template <typename DataType>
   Chebyshev2HighPassCoefficients<DataType>::Chebyshev2HighPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequency(0), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -212,7 +212,7 @@ namespace ATK
   
   template <typename DataType>
   Chebyshev2BandPassCoefficients<DataType>::Chebyshev2BandPassCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   
@@ -281,7 +281,7 @@ namespace ATK
   
   template <typename DataType>
   Chebyshev2BandStopCoefficients<DataType>::Chebyshev2BandStopCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), cut_frequencies(0, 0), ripple(0), in_order(1), out_order(1)
+  :Parent(nb_channels, nb_channels)
   {
   }
   

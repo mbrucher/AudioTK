@@ -8,6 +8,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
@@ -27,7 +28,7 @@ BOOST_AUTO_TEST_CASE( GainMaxCompressorFilter_softness_test )
 BOOST_AUTO_TEST_CASE( GainMaxCompressorFilter_softness_range_test )
 {
   ATK::GainFilter<ATK::GainMaxCompressorFilter<double>> filter;
-  BOOST_CHECK_THROW(filter.set_softness(-0.000001), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_softness(-0.000001), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( GainMaxCompressorFilter_maxreduc_test )
@@ -47,7 +48,7 @@ BOOST_AUTO_TEST_CASE( GainMaxCompressorFilter_maxreduc_db_test )
 BOOST_AUTO_TEST_CASE( GainMaxCompressorFilter_maxreduc_range_test )
 {
   ATK::GainFilter<ATK::GainMaxCompressorFilter<double>> filter;
-  BOOST_CHECK_THROW(filter.set_max_reduction(-0.000001), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_max_reduction(-0.000001), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( GainMaxCompressorFilter_const_1_test )

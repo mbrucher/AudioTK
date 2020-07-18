@@ -16,7 +16,7 @@ namespace ATK
   class ATK_EQ_EXPORT OrderInterface
   {
   public:
-    virtual ~OrderInterface();
+    virtual ~OrderInterface() = default;
     /// Sets the cut or central frequency of the filter
     virtual void set_order(unsigned int cut_frequency) = 0;
     /// Returns the cut or central frequency
@@ -28,7 +28,7 @@ namespace ATK
   class ATK_EQ_EXPORT SingleCutFrequencyInterface
   {
   public:
-    virtual ~SingleCutFrequencyInterface();
+    virtual ~SingleCutFrequencyInterface() = default;
     /// Sets the cut or central frequency of the filter
     virtual void set_cut_frequency(DataType cut_frequency) = 0;
     /// Returns the cut or central frequency
@@ -40,7 +40,7 @@ namespace ATK
   class ATK_EQ_EXPORT DualCutFrequencyInterface
   {
   public:
-    virtual ~DualCutFrequencyInterface();
+    virtual ~DualCutFrequencyInterface() = default;
     /// Sets the bandwidth as a bandwidth
     virtual void set_cut_frequencies(std::pair<DataType, DataType> cut_frequencies) = 0;
     /// Sets the bandwidth as two separate values
@@ -54,7 +54,7 @@ namespace ATK
   class ATK_EQ_EXPORT QInterface
   {
   public:
-    virtual ~QInterface();
+    virtual ~QInterface() = default;
     /// Sets the Q factor, must be strictly positive
     /*!
      * A smaller Q will lead to a bigger bandwidth, a bigger Q will lead to a smaller bandwidth
@@ -69,7 +69,7 @@ namespace ATK
   class ATK_EQ_EXPORT GainInterface
   {
   public:
-    virtual ~GainInterface();
+    virtual ~GainInterface() = default;
     /// Sets the gain of the filter
     virtual void set_gain(DataType gain) = 0;
     /// Returns the gain for the filter
@@ -81,7 +81,7 @@ namespace ATK
   class ATK_EQ_EXPORT RippleInterface
   {
   public:
-    virtual ~RippleInterface();
+    virtual ~RippleInterface() = default;
     /// Sets the ripple
     virtual void set_ripple(DataType ripple) = 0;
     /// Returns the ripple

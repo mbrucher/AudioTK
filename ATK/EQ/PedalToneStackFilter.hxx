@@ -10,8 +10,7 @@ namespace ATK
 {
   template<typename DataType>
   SD1ToneCoefficients<DataType>::SD1ToneCoefficients(gsl::index nb_channels)
-  :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(10e3), R2(22e3), R3(470), R4(10e3),
-    C1(0.018e-6), C2(0.027e-6), C3(0.01e-6), alpha(1)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
   }
 
@@ -69,8 +68,7 @@ namespace ATK
 
   template<typename DataType>
   TS9ToneCoefficients<DataType>::TS9ToneCoefficients(gsl::index nb_channels)
-  :TypedBaseFilter<DataType>(nb_channels, nb_channels), R1(1e3), R2(10e3), R3(1e3), R4(220), P(22e3),
-  C1(0.022e-6), C2(0.022e-6), alpha(.5)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
   }
   

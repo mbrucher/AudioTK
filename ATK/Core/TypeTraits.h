@@ -7,6 +7,7 @@
 
 #include <ATK/config.h>
 
+#include <algorithm>
 #include <complex>
 #include <cstdint>
 #include <limits>
@@ -66,7 +67,7 @@ namespace ATK
     using Scalar = int64_t;
 
     /// Converts an integer 24bits to a double
-    static Scalar to_double(const char el[3])
+    static double to_double(const char el[3])
     {
       int32_t data = 0;
       char* temp = reinterpret_cast<char*>(&data);
@@ -176,211 +177,6 @@ namespace ATK
     }
   };
   
-#if ATK_USE_SIMD
-  /// Traits to handle conversion complex floating point numbers from/to double
-  template<>
-  class ComplexRealTypeTraits<simdpp::float64<2> >
-  {
-  public:
-    static constexpr int VECTOR_LANES = 2;
-    using Scalar = double;
-    
-    /// Converts to a double
-    static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    /// Converts from a double
-    static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    static simdpp::float64<VECTOR_LANES> Zero()
-    {
-      return simdpp::make_float(0, 0);
-    }
-
-    static simdpp::float64<VECTOR_LANES> One()
-    {
-      return simdpp::make_float(1, 1);
-    }
-
-    static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
-    {
-      return simdpp::max(a, b);
-    }
-  };
-
-  /// Traits to handle conversion complex floating point numbers from/to double
-  template<>
-  class ComplexRealTypeTraits<simdpp::float32<4> >
-  {
-  public:
-    static const int VECTOR_LANES = 4;
-    using Scalar = float;
-
-    /// Converts to a double
-    static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    /// Converts from a double
-    static simdpp::float32<VECTOR_LANES> from_double(simdpp::float32<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    static simdpp::float32<VECTOR_LANES> Zero()
-    {
-      return simdpp::make_float(0, 0, 0, 0);
-    }
-
-    static simdpp::float32<VECTOR_LANES> One()
-    {
-      return simdpp::make_float(1, 1, 1, 1);
-    }
-
-    static simdpp::float32<VECTOR_LANES> max(simdpp::float32<VECTOR_LANES> a, simdpp::float32<VECTOR_LANES> b)
-    {
-      return simdpp::max(a, b);
-    }
-  };
-
-  /// Traits to handle conversion complex floating point numbers from/to double
-  template<>
-  class ComplexRealTypeTraits<simdpp::float32<8> >
-  {
-  public:
-    static const int VECTOR_LANES = 8;
-    using Scalar = float;
-
-    /// Converts to a double
-    static simdpp::float32<VECTOR_LANES> to_double(simdpp::float32<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    /// Converts from a double
-    static simdpp::float32<VECTOR_LANES> from_double(simdpp::float32<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    static simdpp::float32<VECTOR_LANES> Zero()
-    {
-      return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
-    }
-
-    static simdpp::float32<VECTOR_LANES> One()
-    {
-      return simdpp::make_float(1, 1, 1, 1, 1, 1, 1, 1);
-    }
-
-    static simdpp::float32<VECTOR_LANES> max(simdpp::float32<VECTOR_LANES> a, simdpp::float32<VECTOR_LANES> b)
-    {
-      return simdpp::max(a, b);
-    }
-  };
-  
-  /// Traits to handle conversion complex floating point numbers from/to double
-  template<>
-  class ComplexRealTypeTraits<simdpp::float64<4> >
-  {
-  public:
-    static const int VECTOR_LANES = 4;
-    using Scalar = double;
-
-    /// Converts to a double
-    static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    /// Converts from a double
-    static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    static simdpp::float64<VECTOR_LANES> Zero()
-    {
-      return simdpp::make_float(0, 0, 0, 0);
-    }
-
-    static simdpp::float64<VECTOR_LANES> One()
-    {
-      return simdpp::make_float(1, 1, 1, 1);
-    }
-
-    static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
-    {
-      return simdpp::max(a, b);
-    }
-  };
-
-  /// Traits to handle conversion complex floating point numbers from/to double
-  template<>
-  class ComplexRealTypeTraits<simdpp::float64<8> >
-  {
-  public:
-    static const int VECTOR_LANES = 8;
-    using Scalar = double;
-
-    /// Converts to a double
-    static simdpp::float64<VECTOR_LANES> to_double(simdpp::float64<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    /// Converts from a double
-    static simdpp::float64<VECTOR_LANES> from_double(simdpp::float64<VECTOR_LANES> el)
-    {
-      return el;
-    }
-
-    static simdpp::float64<VECTOR_LANES> Zero()
-    {
-      return simdpp::make_float(0, 0, 0, 0, 0, 0, 0, 0);
-    }
-
-    static simdpp::float64<VECTOR_LANES> One()
-    {
-      return simdpp::make_float(1, 1, 1, 1, 1, 1, 1, 1);
-    }
-
-    static simdpp::float64<VECTOR_LANES> max(simdpp::float64<VECTOR_LANES> a, simdpp::float64<VECTOR_LANES> b)
-    {
-      return simdpp::max(a, b);
-    }
-  };
-
-  /// Traits to retrieve SIMD typename
-  template<typename DataType>
-  class SIMDTypeTraits
-  {
-  };
-
-  template<>
-  class SIMDTypeTraits<float>
-  {
-  public:
-    template<int size>
-    using SIMDType = simdpp::float32<size>;
-  };
-
-  template<>
-  class SIMDTypeTraits<double>
-  {
-  public:
-    template<int size>
-    using SIMDType = simdpp::float64<size>;
-  };
-
-#endif
-
   /// Common base class for conversion type traits
   template<typename DataType>
   class TypeTraits : public std::conditional<std::is_class<DataType>::value, ComplexRealTypeTraits<DataType>,

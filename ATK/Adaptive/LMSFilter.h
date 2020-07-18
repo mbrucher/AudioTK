@@ -33,9 +33,9 @@ namespace ATK
      * of the reference and the estimate.
      * @param size is the size of the underlying MA filter
      */
-    LMSFilter(gsl::index size);
+    explicit LMSFilter(gsl::index size);
     /// Destructor
-    ~LMSFilter() override;
+    ~LMSFilter();
     
     /// Changes the underlying size
     void set_size(gsl::index size);
@@ -77,10 +77,10 @@ namespace ATK
 
   protected:
     void process_impl(gsl::index size) const final;
-    bool learning;
+    bool learning = true;
     
   private:
-    Mode mode;
+    Mode mode = Mode::NORMAL;
   };
 
 }

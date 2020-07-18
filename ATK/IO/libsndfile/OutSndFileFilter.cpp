@@ -20,7 +20,7 @@ namespace ATK
   template<typename DataType>
   void OutSndFileFilter<DataType>::setup()
   {
-    stream.reset(new SndfileHandle(filename.c_str(), SFM_WRITE, SndfileTraits<DataType>::get_type() | SF_FORMAT_WAV, converted_inputs.size(), input_sampling_rate));
+    stream = std::make_unique<SndfileHandle>(filename.c_str(), SFM_WRITE, SndfileTraits<DataType>::get_type() | SF_FORMAT_WAV, converted_inputs.size(), input_sampling_rate);
     stream->command(SFC_SET_SCALE_INT_FLOAT_WRITE, NULL, 1);
   }
   
@@ -46,8 +46,10 @@ namespace ATK
     stream->write(temp.data(), size * converted_inputs.size());
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class OutSndFileFilter<std::int16_t>;
   template class OutSndFileFilter<std::int32_t>;
-  template class OutSndFileFilter<float>;
   template class OutSndFileFilter<double>;
+#endif
+  template class OutSndFileFilter<float>;
 }

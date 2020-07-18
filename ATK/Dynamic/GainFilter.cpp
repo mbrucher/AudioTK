@@ -7,28 +7,23 @@
 #include <cassert>
 #include <cmath>
 #include <cstdint>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
   template<typename DataType_>
   ParentGainFilter<DataType_>::ParentGainFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, nb_channels), threshold(1), ratio(1),
-  LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0)
+  :Parent(nb_channels, nb_channels), LUTsize(LUTsize), LUTprecision(LUTprecision), gainLUT(LUTsize, 0)
   {
   }
   
-  template<typename DataType_>
-  ParentGainFilter<DataType_>::~ParentGainFilter()
-  {
-  }
-
   template<typename DataType_>
   void ParentGainFilter<DataType_>::set_threshold(DataType_ threshold)
   {
     if (threshold <= 0)
     {
-      throw std::out_of_range("Threshold factor must be strictly positive value");
+      throw ATK::RuntimeError("Threshold factor must be strictly positive value");
     }
     this->threshold = 1 / threshold;
   }
@@ -50,7 +45,7 @@ namespace ATK
   {
     if (ratio <= 0)
     {
-      throw std::out_of_range("Ratio factor must be higher than 0");
+      throw ATK::RuntimeError("Ratio factor must be higher than 0");
     }
     this->ratio = ratio;
     start_recomputeLUT();

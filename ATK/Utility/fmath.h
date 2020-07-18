@@ -88,9 +88,9 @@ namespace fmath {
     size_t NumOfArray(const T (&)[N]) { return N; }
     
     /*
-     exp(88.722839f) = inf ; 0x42b17218
-     exp(-87.33655f) = 1.175491e-038f(007fffe6) denormal ; 0xc2aeac50
-     exp(-103.972081f) = 0 ; 0xc2cff1b5
+     exp(88.722839F) = inf ; 0x42b17218
+     exp(-87.33655F) = 1.175491e-038f(007fffe6) denormal ; 0xc2aeac50
+     exp(-103.972081F) = 0 ; 0xc2cff1b5
      */
     template<size_t N = EXP_TABLE_SIZE>
     class ExpVar {
@@ -111,20 +111,20 @@ namespace fmath {
       unsigned int tbl[n];
       ExpVar()
       {
-        float log_2 = ::logf(2.0f);
+        float log_2 = std::log(2.0F);
         for (int i = 0; i < 8; i++) {
           maxX[i] = 88;
           minX[i] = -88;
           a[i] = n / log_2;
           b[i] = log_2 / n;
-          f1[i] = 1.0f;
+          f1[i] = 1.0F;
           i127s[i] = 127 << s;
           i7fffffff[i] = 0x7fffffff;
           mask_s[i] = mask(s);
         }
         
         for (int i = 0; i < n; i++) {
-          float y = pow(2.0f, (float)i / n);
+          float y = std::pow(2.0F, static_cast<float>(i) / n);
           fi fi;
           fi.f = y;
           tbl[i] = fi.i & mask(23);
@@ -181,20 +181,20 @@ namespace fmath {
       } tbl[1 << LEN];
       float c_log2;
       LogVar()
-      : c_log2(::logf(2.0f) / (1 << 23))
+      : c_log2(std::log(2.0F) / (1 << 23))
       {
-        const double e = 1 / double(1 << 24);
-        const double h = 1 / double(1 << LEN);
+        const double e = 1 / static_cast<double>(1 << 24);
+        const double h = 1 / static_cast<double>(1 << LEN);
         constexpr size_t n = 1U << LEN;
         for (size_t i = 0; i < n; i++) {
-          double x = 1 + double(i) / n;
-          double a = ::log(x);
-          tbl[i].app = (float)a;
+          double x = 1 + static_cast<double>(i) / n;
+          double a = std::log(x);
+          tbl[i].app = static_cast<float>(a);
           if (i < n - 1) {
-            double b = ::log(x + h - e);
-            tbl[i].rev = (float)((b - a) / ((h - e) * (1 << 23)));
+            double b = std::log(x + h - e);
+            tbl[i].rev = static_cast<float>((b - a) / ((h - e) * (1 << 23)));
           } else {
-            tbl[i].rev = (float)(1 / (x * (1 << 23)));
+            tbl[i].rev = static_cast<float>(1 / (x * (1 << 23)));
           }
         }
         for (int i = 0; i < 4; i++) {
@@ -231,11 +231,17 @@ namespace fmath {
 #else
   inline double exp(double x)
   {
-    if (x <= -708.39641853226408) return 0;
-    if (x >= 709.78271289338397) return std::numeric_limits<double>::infinity();
+    if (x <= -708.39641853226408)
+    {
+      return 0;
+    }
+    if (x >= 709.78271289338397)
+    {
+      return std::numeric_limits<double>::infinity();
+    }
 
     const auto& c = local::C<>::expdVar;
-    const double _b = double(uint64_t(3) << 51);
+    const double _b = static_cast<double>(uint64_t(3) << 51);
     __m128d b = _mm_load_sd(&_b);
     __m128d xx = _mm_load_sd(&x);
     __m128d d = _mm_add_sd(_mm_mul_sd(xx, _mm_load_sd(&c.a)), b);
@@ -268,11 +274,11 @@ namespace fmath {
     unsigned int b1 = fi.i & (local::mask(logLen) << (23 - logLen));
     unsigned int b2 = fi.i & local::mask(23 - logLen);
     int idx = b1 >> (23 - logLen);
-    float f = float(a - (127 << 23)) * logVar.c_log2 + logVar.tbl[idx].app + float(b2) * logVar.tbl[idx].rev;
+    float f = static_cast<float>(a - (127 << 23)) * logVar.c_log2 + logVar.tbl[idx].app + static_cast<float>(b2) * logVar.tbl[idx].rev;
     return f;
   }
   
-  inline float log2(float x) { return fmath::log(x) * 1.442695f; }
+  inline float log2(float x) { return fmath::log(x) * 1.442695F; }
 
   inline double log(double x)
   {
@@ -313,17 +319,17 @@ namespace fmath {
     explicit PowGenerator(float y)
     {
       for (int i = 0; i < 256; i++) {
-        tbl0_[i] = ::powf(2, (i - 127) * y);
+        tbl0_[i] = std::pow(2, (i - 127) * y);
       }
-      const double e = 1 / double(1 << 24);
-      const double h = 1 / double(1 << N);
+      const double e = 1 / static_cast<double>(1 << 24);
+      const double h = 1 / static_cast<double>(1 << N);
       constexpr size_t n = 1U << N;
       for (size_t i = 0; i < n; i++) {
-        double x = 1 + double(i) / n;
-        double a = ::pow(x, (double)y);
-        tbl1_[i].app = (float)a;
-        double b = ::pow(x + h - e, (double)y);
-        tbl1_[i].rev = (float)((b - a) / (h - e) / (1 << 23));
+        double x = 1 + static_cast<double>(i) / n;
+        double a = std::pow(x, static_cast<double>(y));
+        tbl1_[i].app = static_cast<float>(a);
+        double b = std::pow(x + h - e, static_cast<double>(y));
+        tbl1_[i].rev = static_cast<float>((b - a) / (h - e) / (1 << 23));
       }
     }
     float get(float x) const
@@ -336,13 +342,13 @@ namespace fmath {
       unsigned int b2 = b & local::mask(23 - N);
       float f;
       int idx = b1 >> (23 - N);
-      f = tbl0_[a] * (tbl1_[idx].app + float(b2) * tbl1_[idx].rev);
+      f = tbl0_[a] * (tbl1_[idx].app + static_cast<float>(b2) * tbl1_[idx].rev);
       return f;
     }
   };
   
   // exp2(x) = pow(2, x)
-  inline float exp2(float x) { return fmath::exp(x * 0.6931472f); }
+  inline float exp2(float x) { return fmath::exp(x * 0.6931472F); }
   
 } // fmath
 

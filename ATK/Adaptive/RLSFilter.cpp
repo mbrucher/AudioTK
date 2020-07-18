@@ -11,6 +11,7 @@
 #include <Eigen/Core>
 
 #include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -22,8 +23,8 @@ namespace ATK
     using wType = Eigen::Matrix<DataType_, Eigen::Dynamic, 1>;
     using xType = Eigen::Map<const wType>;
 
-    RLSFilterImpl(gsl::index size)
-      :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size)), memory(.99)
+    explicit RLSFilterImpl(gsl::index size)
+      :P(PType::Identity(size, size) / DataType(size)), w(wType::Zero(size))
     {
     }
 
@@ -60,12 +61,12 @@ namespace ATK
 
     PType P;
     wType w;
-    double memory;
+    double memory = 0.99;
   };
 
   template<typename DataType_>
   RLSFilter<DataType_>::RLSFilter(gsl::index size)
-  :Parent(1, 1), impl(new RLSFilterImpl(size)), global_size(size), learning(true)
+  :Parent(1, 1), impl(std::make_unique<RLSFilterImpl>(size)), global_size(size)
   {
     input_delay = size + 1;
   }
@@ -80,7 +81,7 @@ namespace ATK
   {
     if(size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw ATK::RuntimeError("Size must be strictly positive");
     }
 
     impl->P = RLSFilterImpl::PType::Identity(size, size) / DataType(size);
@@ -100,11 +101,11 @@ namespace ATK
   {
     if(memory >= 1)
     {
-      throw std::out_of_range("Memory must be less than 1");
+      throw ATK::RuntimeError("Memory must be less than 1");
     }
     if(memory <= 0)
     {
-      throw std::out_of_range("Memory must be strictly positive");
+      throw ATK::RuntimeError("Memory must be strictly positive");
     }
     
     impl->memory = memory;

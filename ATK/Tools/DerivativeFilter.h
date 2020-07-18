@@ -29,9 +29,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    DerivativeFilter(gsl::index nb_channels = 1);
+    explicit DerivativeFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~DerivativeFilter() override;
+    ~DerivativeFilter() override = default;
 
   protected:
     void process_impl(gsl::index size) const final;

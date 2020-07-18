@@ -11,6 +11,7 @@
 #include <Eigen/Core>
 
 #include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -23,12 +24,12 @@ namespace ATK
 
     wType w;
     /// Memory factor
-    double alpha;
+    double alpha = 0.99;
     /// line search
-    double mu;
+    double mu = 0.05;
 
-    LMSFilterImpl(gsl::index size)
-    :w(wType::Zero(size)), alpha(.99), mu(0.05)
+    explicit LMSFilterImpl(gsl::index size)
+    :w(wType::Zero(size))
     {
     }
 
@@ -81,7 +82,7 @@ namespace ATK
 
   template<typename DataType_>
   LMSFilter<DataType_>::LMSFilter(gsl::index size)
-  :Parent(2, 1), impl(new LMSFilterImpl(size)), learning(true), mode(Mode::NORMAL)
+  :Parent(2, 1), impl(std::make_unique<LMSFilterImpl>(size))
   {
     input_delay = size - 1;
   }
@@ -90,17 +91,17 @@ namespace ATK
   LMSFilter<DataType_>::~LMSFilter()
   {
   }
-  
+
   template<typename DataType_>
   void LMSFilter<DataType_>::set_size(gsl::index size)
   {
     if(size == 0)
     {
-      throw std::out_of_range("Size must be strictly positive");
+      throw RuntimeError("Size must be strictly positive");
     }
 
     input_delay = size - 1;
-    impl.reset(new LMSFilterImpl(size));
+    impl = std::make_unique<LMSFilterImpl>(size);
   }
 
   template<typename DataType_>
@@ -114,11 +115,11 @@ namespace ATK
   {
     if (memory >= 1)
     {
-      throw std::out_of_range("Memory must be less than 1");
+      throw ATK::RuntimeError("Memory must be less than 1");
     }
     if (memory <= 0)
     {
-      throw std::out_of_range("Memory must be strictly positive");
+      throw ATK::RuntimeError("Memory must be strictly positive");
     }
 
     impl->alpha = memory;
@@ -135,11 +136,11 @@ namespace ATK
   {
     if (mu >= 1)
     {
-      throw std::out_of_range("Mu must be less than 1");
+      throw ATK::RuntimeError("Mu must be less than 1");
     }
     if (mu <= 0)
     {
-      throw std::out_of_range("Mu must be strictly positive");
+      throw ATK::RuntimeError("Mu must be strictly positive");
     }
 
     impl->mu = mu;
@@ -177,7 +178,9 @@ namespace ATK
       typename LMSFilterImpl::xType x(input - input_delay + i, input_delay + 1, 1);
       output[i] = impl->w.conjugate().dot(x);
       if(learning)
+      {
         (impl.get()->*update_function)(x, TypeTraits<DataType>::conj(ref[i] - output[i]));
+      }
     }
   }
 

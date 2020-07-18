@@ -6,6 +6,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Tools/CachedSinusGeneratorFilter.h>
 
@@ -124,11 +125,11 @@ BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_feedback_test )
 BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_feedback_range_test )
 {
   ATK::UniversalVariableDelayLineFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_feedback(1), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( UniversalVariableDelayLineFilter_sinus_feedback_range2_test )
 {
   ATK::UniversalVariableDelayLineFilter<double> filter(128);
-  BOOST_CHECK_THROW(filter.set_feedback(-1), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_feedback(-1), ATK::RuntimeError);
 }

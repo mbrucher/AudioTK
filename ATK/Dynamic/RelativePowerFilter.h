@@ -29,9 +29,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    RelativePowerFilter(gsl::index nb_channels = 1);
+    explicit RelativePowerFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~RelativePowerFilter() override;
+    ~RelativePowerFilter() override = default;
 
     /// Sets the memory of the AR1 (must be between 0 and 1)
     void set_memory(DataType_ memory_factor);
@@ -42,8 +42,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ memory_factor;
-    mutable DataType_ temp_output;
+    DataType_ memory_factor = 0;
+    mutable DataType_ temp_output = 0;
   };
 }
 

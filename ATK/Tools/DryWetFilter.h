@@ -29,9 +29,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of channels, equal to the number of output channels, half the number of input ones
     */
-    DryWetFilter(gsl::index nb_channels = 1);
+    explicit DryWetFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~DryWetFilter() override;
+    ~DryWetFilter() override = default;
 
     /// Sets the amount of input signal in the output signal
     void set_dry(double dry) final;
@@ -43,7 +43,7 @@ namespace ATK
     
   private:
     /// Amount of dry signal, between 0 and 1
-    double dry;
+    double dry = 1;
   };
 }
 

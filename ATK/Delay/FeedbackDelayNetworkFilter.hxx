@@ -11,6 +11,8 @@
 
 #include <Eigen/Dense>
 
+#include <ATK/Core/Utilities.h>
+
 namespace ATK
 {
   template<typename Mixture>
@@ -22,20 +24,20 @@ namespace ATK
 
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> delay_line;
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> processed_input;
-    int64_t index;
-    Vector ingain;
-    Vector outgain;
-    Vector feedback;
+    int64_t index = 0;
+    Vector ingain = Vector::Zero();
+    Vector outgain = Vector::Zero();
+    Vector feedback = Vector::Zero();
 
-    HFDN_Impl(gsl::index max_delay)
-      :processed_input(max_delay, Vector::Zero()), index(0), ingain(Vector::Zero()), outgain(Vector::Zero()), feedback(Vector::Zero())
+    explicit HFDN_Impl(gsl::index max_delay)
+      :processed_input(max_delay, Vector::Zero())
     {
     }
   };
 
   template<typename Mixture>
   FeedbackDelayNetworkFilter<Mixture>::FeedbackDelayNetworkFilter(gsl::index max_delay)
-    :Parent(1, 2), impl(new HFDN_Impl(max_delay)), max_delay(max_delay)
+    :Parent(1, 2), impl(std::make_unique<HFDN_Impl>(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
   }
@@ -50,11 +52,11 @@ namespace ATK
   {
     if (delay == 0)
     {
-      throw std::out_of_range("Delay must be strictly positive");
+      throw ATK::RuntimeError("Delay must be strictly positive");
     }
     if (delay >= max_delay)
     {
-      throw std::out_of_range("Delay must be less than delay line size");
+      throw ATK::RuntimeError("Delay must be less than delay line size");
     }
 
     this->delay[channel] = delay;
@@ -83,7 +85,7 @@ namespace ATK
   {
     if (std::abs(feedback * static_cast<DataType>(Mixture::gain_factor)) >= 1)
     {
-      throw std::out_of_range("Feedback must be between " + std::to_string(-Mixture::gain_factor) + " and " + std::to_string(Mixture::gain_factor) + " to avoid divergence");
+      throw ATK::RuntimeError("Feedback must be between " + std::to_string(-Mixture::gain_factor) + " and " + std::to_string(Mixture::gain_factor) + " to avoid divergence");
     }
     impl->feedback(channel) = feedback * static_cast<DataType>(Mixture::gain_factor);
   }
@@ -139,7 +141,9 @@ namespace ATK
 
       ++impl->index;
       if(impl->index == max_delay)
+      {
         impl->index = 0;
+      }
     }
   }
 }

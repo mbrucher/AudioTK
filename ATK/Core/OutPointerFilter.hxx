@@ -10,12 +10,7 @@ namespace ATK
 {
   template<typename DataType>
   OutPointerFilter<DataType>::OutPointerFilter(DataType* array, int channels, gsl::index size, bool interleaved)
-  :TypedBaseFilter<DataType>(static_cast<int>(interleaved?size:channels), 0), offset(0), array(array), mysize(interleaved?channels:size), channels(static_cast<int>(interleaved?size:channels)), interleaved(interleaved)
-  {
-  }
-  
-  template<typename DataType>
-  OutPointerFilter<DataType>::~OutPointerFilter()
+  :TypedBaseFilter<DataType>(static_cast<int>(interleaved?size:channels), 0), array(array), mysize(interleaved?channels:size), channels(static_cast<int>(interleaved?size:channels)), interleaved(interleaved)
   {
   }
   

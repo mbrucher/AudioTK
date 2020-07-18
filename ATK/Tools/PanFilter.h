@@ -25,9 +25,9 @@ namespace ATK
 
   public:
     /// Constructor
-    PanFilter(gsl::index nb_channels = 1);
+    explicit PanFilter(gsl::index nb_channels = 1);
     /// Destructor
-    ~PanFilter() override;
+    ~PanFilter() override = default;
     
     /// Available laws
     enum class PAN_LAWS {
@@ -58,8 +58,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
 
   private:
-    PAN_LAWS law;
-    double pan;
+    PAN_LAWS law = PAN_LAWS::SINCOS_0_CENTER;
+    double pan = 0;
   };
 }
 

@@ -10,6 +10,7 @@
 #include <stdexcept>
 
 #include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -18,10 +19,9 @@ namespace ATK
   {
   public:
     std::array<std::vector<DataType>, nb_channels> processed_input;
-    int64_t index;
+    int64_t index = 0;
 
-    SUFDLF_Impl(gsl::index max_delay)
-      :index(0)
+    explicit SUFDLF_Impl(gsl::index max_delay)
     {
       // reset the delay line
       for (unsigned int channel = 0; channel < nb_channels; ++channel)
@@ -33,7 +33,7 @@ namespace ATK
 
   template<class DataType, int nb_channels>
   MultipleUniversalFixedDelayLineFilter<DataType, nb_channels>::MultipleUniversalFixedDelayLineFilter(gsl::index max_delay)
-    :Parent(nb_channels, 2 * nb_channels), impl(new SUFDLF_Impl(max_delay)), max_delay(max_delay)
+    :Parent(nb_channels, 2 * nb_channels), impl(std::make_unique<SUFDLF_Impl>(max_delay)), max_delay(max_delay)
   {
     delay.fill(max_delay - 1);
     blend.fill(0);
@@ -51,11 +51,11 @@ namespace ATK
   {
     if (delay == 0)
     {
-      throw std::out_of_range("Delay must be strictly positive");
+      throw ATK::RuntimeError("Delay must be strictly positive");
     }
     if (delay >= max_delay)
     {
-      throw std::out_of_range("Delay must be less than delay line size");
+      throw ATK::RuntimeError("Delay must be less than delay line size");
     }
 
     this->delay[channel] = delay;
@@ -84,7 +84,7 @@ namespace ATK
   {
     if (std::abs(feedback) >= 1)
     {
-      throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
+      throw ATK::RuntimeError("Feedback must be between -1 and 1 to avoid divergence");
     }
     this->feedback[from_channel * nb_channels + to_channel] = feedback;
   }
@@ -149,7 +149,9 @@ namespace ATK
       }
       ++impl->index;
       if (impl->index == max_delay)
+      {
         impl->index = 0;
+      }
     }
   }
 

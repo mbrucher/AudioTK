@@ -31,7 +31,7 @@ namespace ATK
      */
     SumFilter(gsl::index nb_output_channels = 1, gsl::index summed_channels = 2);
     /// Destructor
-    ~SumFilter() override;
+    ~SumFilter() override = default;
     
   protected:
     void process_impl(gsl::index size) const final;

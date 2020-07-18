@@ -31,7 +31,7 @@ namespace ATK
      * @brief Creates the filter with a given size
      * @param size is the size of the underlying MA filter
      */
-    RLSFilter(gsl::index size);
+    explicit RLSFilter(gsl::index size);
     /// Destructor
     ~RLSFilter() override;
     
@@ -63,8 +63,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    gsl::index global_size;
-    bool learning;
+    gsl::index global_size = 0;
+    bool learning = true;
   };
 }
 

@@ -8,6 +8,7 @@
 
 #include <ATK/Core/InPointerFilter.h>
 #include <ATK/Core/OutPointerFilter.h>
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Mock/SimpleSinusGeneratorFilter.h>
 #include <ATK/Mock/TriangleCheckerFilter.h>
@@ -25,13 +26,13 @@
 BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_line100_delay_1_test )
 {
   ATK::FixedDelayLineFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_delay(0), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_delay(0), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_line100_delay_100_test )
 {
   ATK::FixedDelayLineFilter<double> filter(100);
-  BOOST_CHECK_THROW(filter.set_delay(100), std::out_of_range);
+  BOOST_CHECK_THROW(filter.set_delay(100), ATK::RuntimeError);
 }
 
 BOOST_AUTO_TEST_CASE( FixedDelayLineFilter_sinus_line100_delay50_test )

@@ -4,8 +4,6 @@
 
 #include <ATK/Mock/FFTCheckerFilter.h>
 
-#include <ATK/Utility/FFT.h>
-
 #include <cmath>
 
 #define BOOST_TEST_DYN_LINK
@@ -18,7 +16,6 @@ namespace ATK
   FFTCheckerFilter<DataType_>::FFTCheckerFilter()
   :TypedBaseFilter<DataType_>(1, 0)
   {
-    FFTimpl.reset(new FFT<DataType_>);
   }
   
   template<class DataType_>

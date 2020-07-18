@@ -22,7 +22,7 @@ namespace ATK
 
   protected:
     /// Order of the MA polynomial
-    unsigned int in_order;
+    unsigned int in_order = 0;
 
     /// MA polynomial
     AlignedScalarVector coefficients_in;
@@ -32,7 +32,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    CustomFIRCoefficients(gsl::index nb_channels = 1);
+    explicit CustomFIRCoefficients(gsl::index nb_channels = 1);
 
     /// Set custom coefficients for the FIR filter (usually called b in the literature). Be aware that coefficient for lag 0 is the last of this vector (reverse order)
     void set_coefficients_in(const std::vector<typename TypeTraits<DataType>::Scalar>& coefficients_in);

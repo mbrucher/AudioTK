@@ -22,21 +22,16 @@ namespace ATK
     DataType is;
     DataType vt;
 
-    DataType oldy0;
-    DataType oldexpy0;
-    DataType oldinvexpy0;
-    DataType oldy1;
-    DataType oldexpy1;
-    DataType oldinvexpy1;
+    DataType oldy0 = 0;
+    DataType oldexpy0 = 1;
+    DataType oldinvexpy0 = 1;
+    DataType oldy1 = 0;
+    DataType oldexpy1 = 1;
+    DataType oldinvexpy1 = 1;
   public:
     SimpleOverdriveFunction(DataType dt, DataType R, DataType C, DataType is, DataType vt)
-    :is(is), vt(vt)
+    :A(dt / (2 * C) + R), B(dt / (2 * C) - R), is(is), vt(vt)
     {
-      A = dt / (2 * C) + R;
-      B = dt / (2 * C) - R;
-
-      oldy0 = oldy1 = 0;
-      oldexpy0 = oldinvexpy0 = oldexpy1 = oldinvexpy1 = 1;
     }
     
     std::pair<DataType, DataType> operator()(const DataType* ATK_RESTRICT input, DataType* ATK_RESTRICT output, DataType y1)
@@ -110,8 +105,8 @@ namespace ATK
   void SimpleOverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    optimizer.reset(new ScalarNewtonRaphson<SimpleOverdriveFunction>(SimpleOverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
-      10000, static_cast<DataType>(22e-9), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
+    optimizer = std::make_unique<ScalarNewtonRaphson<SimpleOverdriveFunction>>(SimpleOverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
+      10000, static_cast<DataType>(22e-9), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3)));
   }
 
   template <typename DataType>

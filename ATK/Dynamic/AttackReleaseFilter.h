@@ -29,9 +29,9 @@ namespace ATK
     * @brief Constructor
     * @param nb_channels is the number of input and output channels
     */
-    AttackReleaseFilter(gsl::index nb_channels = 1);
+    explicit AttackReleaseFilter(gsl::index nb_channels = 1);
     /// destructor
-    ~AttackReleaseFilter() override;
+    ~AttackReleaseFilter() override = default;
 
     /// Sets the speed of the attack
     void set_attack(DataType_ attack);
@@ -46,8 +46,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ attack;
-    DataType_ release;
+    DataType_ attack = 1;
+    DataType_ release = 1;
   };
 }
 

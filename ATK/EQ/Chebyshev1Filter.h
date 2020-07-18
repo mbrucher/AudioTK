@@ -23,14 +23,14 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Cut-off of the filter
-    CoeffDataType cut_frequency;
+    CoeffDataType cut_frequency = 0;
     /// Ripple of the filter
-    CoeffDataType ripple;
+    CoeffDataType ripple = 0;
     
     /// Order of the filter
-    unsigned int in_order;
+    unsigned int in_order = 1;
     /// Order of the filter
-    unsigned int out_order;
+    unsigned int out_order = 1;
     
     void setup() override;
     
@@ -44,7 +44,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1LowPassCoefficients(gsl::index nb_channels = 1);
+    explicit Chebyshev1LowPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -73,14 +73,14 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Cut-off of the filter
-    CoeffDataType cut_frequency;
+    CoeffDataType cut_frequency = 0;
     /// Ripple of the filter
-    CoeffDataType ripple;
+    CoeffDataType ripple = 0;
 
     /// Order of the filter
-    unsigned int in_order;
+    unsigned int in_order = 1;
     /// Order of the filter
-    unsigned int out_order;
+    unsigned int out_order = 1;
     
     void setup() override;
     
@@ -94,7 +94,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1HighPassCoefficients(gsl::index nb_channels = 1);
+    explicit Chebyshev1HighPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the cut or central frequency of the filter
     void set_cut_frequency(CoeffDataType cut_frequency) final;
@@ -123,14 +123,14 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Bandwidth of the filter
-    std::pair<CoeffDataType, CoeffDataType> cut_frequencies;
+    std::pair<CoeffDataType, CoeffDataType> cut_frequencies = {0, 0};
     /// Ripple of the filter
-    CoeffDataType ripple;
+    CoeffDataType ripple = 0;
 
     /// Order of the filter
-    unsigned int in_order;
+    unsigned int in_order = 1;
     /// Order of the filter
-    unsigned int out_order;
+    unsigned int out_order = 1;
     
     void setup() override;
     
@@ -144,7 +144,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1BandPassCoefficients(gsl::index nb_channels = 1);
+    explicit Chebyshev1BandPassCoefficients(gsl::index nb_channels = 1);
     
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;
@@ -176,14 +176,14 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Bandwidth of the filter
-    std::pair<CoeffDataType, CoeffDataType> cut_frequencies;
+    std::pair<CoeffDataType, CoeffDataType> cut_frequencies = {0, 0};
     /// Ripple of the filter
-    CoeffDataType ripple;
+    CoeffDataType ripple = 0;
 
     /// Order of the filter
-    unsigned int in_order;
+    unsigned int in_order = 1;
     /// Order of the filter
-    unsigned int out_order;
+    unsigned int out_order = 1;
     
     void setup() override;
     
@@ -197,7 +197,7 @@ namespace ATK
      * @brief Constructor
      * @param nb_channels is the number of input and output channels
      */
-    Chebyshev1BandStopCoefficients(gsl::index nb_channels = 1);
+    explicit Chebyshev1BandStopCoefficients(gsl::index nb_channels = 1);
 
     /// Sets the bandwidth as a bandwidth
     void set_cut_frequencies(std::pair<CoeffDataType, CoeffDataType> cut_frequencies) final;

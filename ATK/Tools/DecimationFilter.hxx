@@ -15,11 +15,6 @@ namespace ATK
   }
   
   template<class DataType>
-  DecimationFilter<DataType>::~DecimationFilter()
-  {
-  }
-  
-  template<class DataType>
   void DecimationFilter<DataType>::setup()
   {
     Parent::setup();

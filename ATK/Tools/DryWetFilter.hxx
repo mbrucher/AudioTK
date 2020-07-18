@@ -12,12 +12,7 @@ namespace ATK
 {
   template<typename DataType_>
   DryWetFilter<DataType_>::DryWetFilter(gsl::index nb_channels)
-  :Parent(2 * nb_channels, nb_channels), dry(1)
-  {
-  }
-  
-  template<typename DataType_>
-  DryWetFilter<DataType_>::~DryWetFilter()
+  :Parent(2 * nb_channels, nb_channels)
   {
   }
   

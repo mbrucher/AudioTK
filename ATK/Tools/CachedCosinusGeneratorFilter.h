@@ -31,7 +31,7 @@ namespace ATK
      */
     CachedCosinusGeneratorFilter(int periods, int seconds = 1);
     /// Destructor
-    ~CachedCosinusGeneratorFilter() override;
+    ~CachedCosinusGeneratorFilter() override = default;
 
     /*!
     * @brief Updates the cache with new values
@@ -57,11 +57,11 @@ namespace ATK
     void setup() final;
     
   private:
-    mutable gsl::index indice;
-    int periods;
-    int seconds;
-    DataType_ volume;
-    DataType_ offset;
+    mutable gsl::index indice = 1;
+    int periods = 0;
+    int seconds = 0;
+    DataType_ volume = 1;
+    DataType_ offset = 0;
     std::vector<DataType_> cache;
   };
 }

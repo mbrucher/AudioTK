@@ -19,15 +19,15 @@ namespace ATK
     using Parent::setup;
   protected:
 
-    const static int in_order=2;
-    const static int out_order=2;
+    const static int in_order = 2;
+    const static int out_order = 2;
     AlignedScalarVector coefficients_in;
     AlignedScalarVector coefficients_out;
 
-    double min_frequency;
-    double max_frequency;
-    double memory;
-    int number_of_steps;
+    double min_frequency = 1;
+    double max_frequency = 10;
+    double memory = .5;
+    int number_of_steps = 10;
 
     void setup() override;
 
@@ -62,7 +62,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    DataType Q;
+    DataType Q = 1;
     
   protected:
     void setup() override;
@@ -136,8 +136,8 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    DataType Q;
-    DataType gain;
+    DataType Q = 1;
+    DataType gain = 0;
   protected:
     void setup() override;
     
@@ -169,7 +169,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
   private:
-    DataType Q;
+    DataType Q = 1;
   protected:
     void setup() override;
     
@@ -200,7 +200,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   private:
-    DataType gain;
+    DataType gain = 0;
     
   public:
     TimeVaryingLowShelvingCoefficients();
@@ -228,7 +228,7 @@ namespace ATK
     using Parent::coefficients_out;
     void setup() override;
   private:
-    DataType gain;
+    DataType gain = 0;
     
   public:
     TimeVaryingHighShelvingCoefficients();

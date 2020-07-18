@@ -6,21 +6,16 @@
 
 #include <cassert>
 #include <cstdint>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
   template<typename DataType_>
   PowerFilter<DataType_>::PowerFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), memory_factor(0)
+  :Parent(nb_channels, nb_channels)
   {
     output_delay = 1;
-  }
-  
-  template<typename DataType_>
-  PowerFilter<DataType_>::~PowerFilter()
-  {
-    
   }
 
   template<typename DataType_>
@@ -28,7 +23,7 @@ namespace ATK
   {
     if(memory_factor < 0 || memory_factor >= 1)
     {
-      throw std::out_of_range("Memory factor must be a positive value less than 1 (so that it doesn't diverge)");
+      throw ATK::RuntimeError("Memory factor must be a positive value less than 1 (so that it doesn't diverge)");
     }
     this->memory_factor = memory_factor;
   }

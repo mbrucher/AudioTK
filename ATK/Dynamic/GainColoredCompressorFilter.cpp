@@ -6,7 +6,8 @@
 
 #include <cmath>
 #include <cstdint>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Utility/fmath.h>
 
@@ -14,21 +15,16 @@ namespace ATK
 {
   template<typename DataType_>
   GainColoredCompressorFilter<DataType_>::GainColoredCompressorFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001)), color(0), quality(0)
+  :Parent(nb_channels, LUTsize, LUTprecision)
   {
   }
   
-  template<typename DataType_>
-  GainColoredCompressorFilter<DataType_>::~GainColoredCompressorFilter()
-  {
-  }
-
   template<typename DataType_>
   void GainColoredCompressorFilter<DataType_>::set_softness(DataType_ softness)
   {
     if (softness < 0)
     {
-      throw std::out_of_range("Softness factor must be positive value");
+      throw ATK::RuntimeError("Softness factor must be positive value");
     }
     this->softness = softness;
     start_recomputeLUT();
@@ -58,7 +54,7 @@ namespace ATK
   {
     if (quality <= 0)
     {
-      throw std::out_of_range("Quality factor must be a strictly positive value");
+      throw ATK::RuntimeError("Quality factor must be a strictly positive value");
     }
     this->quality = quality;
     start_recomputeLUT();
@@ -74,7 +70,9 @@ namespace ATK
   DataType_ GainColoredCompressorFilter<DataType_>::computeGain( DataType_ value ) const
   {
     if(value == 0)
+    {
       return 1;
+    }
     DataType diff = 10 * fmath::log10(value);
     
     DataType additional_color = color * fmath::exp(- diff * diff * quality);

@@ -10,13 +10,6 @@ namespace ATK
   MaxFilter<DataType_>::MaxFilter(gsl::index nb_channels)
   :Parent(2 * nb_channels, nb_channels)
   {
-    
-  }
-  
-  template<typename DataType_>
-  MaxFilter<DataType_>::~MaxFilter()
-  {
-    
   }
 
   template<typename DataType_>

@@ -7,6 +7,8 @@
 #include <cstring>
 #include <stdexcept>
 
+#include <ATK/Core/Utilities.h>
+
 namespace ATK
 {
   template<typename DataType>
@@ -14,17 +16,17 @@ namespace ATK
   {
   public:
     std::vector<DataType> delay_line;
-    gsl::index index;
+    gsl::index index = 0;
 
-    UFDLF_Impl(gsl::index max_delay)
-  :delay_line(max_delay, TypeTraits<DataType>::Zero()), index(0)
+    explicit UFDLF_Impl(gsl::index max_delay)
+      :delay_line(max_delay, TypeTraits<DataType>::Zero())
     {
     }
   };
 
   template<typename DataType_>
   UniversalFixedDelayLineFilter<DataType_>::UniversalFixedDelayLineFilter(gsl::index max_delay)
-    :Parent(1, 2), impl(new UFDLF_Impl(max_delay)), delay(100), blend(0), feedback(0), feedforward(1)
+    :Parent(1, 2), impl(std::make_unique<UFDLF_Impl>(max_delay))
   {
   }
   
@@ -38,11 +40,11 @@ namespace ATK
   {
     if(delay == 0)
     {
-      throw std::out_of_range("Delay must be strictly positive");
+      throw ATK::RuntimeError("Delay must be strictly positive");
     }
     if(delay >= impl->delay_line.size())
     {
-      throw std::out_of_range("Delay must be less than delay line size");
+      throw ATK::RuntimeError("Delay must be less than delay line size");
     }
 
     this->delay = delay;
@@ -71,7 +73,7 @@ namespace ATK
   {
     if(std::abs(feedback) >= 1)
     {
-      throw std::out_of_range("Feedback must be between -1 and 1 to avoid divergence");
+      throw ATK::RuntimeError("Feedback must be between -1 and 1 to avoid divergence");
     }
     this->feedback = feedback;
   }
@@ -112,7 +114,9 @@ namespace ATK
     DataType* ATK_RESTRICT delay_line = impl->delay_line.data();
     auto delay_line_size = static_cast<gsl::index>(impl->delay_line.size());
 
-    auto size_before_index = std::min(impl->index, impl->index < delay ? (size > delay - impl->index ? size - (delay - impl->index) : 0) : std::min(size, delay));
+    auto max_index1 = size > delay - impl->index ? size - (delay - impl->index) : 0;
+    auto max_index2 = impl->index < delay ? max_index1 : std::min(size, delay);
+    auto size_before_index = std::min(impl->index, max_index2);
     auto size_after_index = impl->index < delay ? std::min(size, delay - impl->index) : 0;
 
     // Update intermediate input

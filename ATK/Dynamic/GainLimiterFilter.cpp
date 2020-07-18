@@ -6,7 +6,8 @@
 
 #include <cmath>
 #include <cstdint>
-#include <stdexcept>
+
+#include <ATK/Core/Utilities.h>
 
 #include <ATK/Utility/fmath.h>
 
@@ -14,12 +15,7 @@ namespace ATK
 {
   template<typename DataType_>
   GainLimiterFilter<DataType_>::GainLimiterFilter(gsl::index nb_channels, size_t LUTsize, size_t LUTprecision)
-  :Parent(nb_channels, LUTsize, LUTprecision), softness(static_cast<DataType_>(.0001))
-  {
-  }
-
-  template<typename DataType_>
-  GainLimiterFilter<DataType_>::~GainLimiterFilter()
+  :Parent(nb_channels, LUTsize, LUTprecision)
   {
   }
 
@@ -28,7 +24,7 @@ namespace ATK
   {
     if (softness <= 0)
     {
-      throw std::out_of_range("Softness factor must be strictly positive value");
+      throw ATK::RuntimeError("Softness factor must be strictly positive value");
     }
     this->softness = softness;
     start_recomputeLUT();

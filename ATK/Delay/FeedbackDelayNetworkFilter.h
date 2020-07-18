@@ -34,7 +34,7 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    FeedbackDelayNetworkFilter(gsl::index max_delay);
+    explicit FeedbackDelayNetworkFilter(gsl::index max_delay);
     /// Destructor
     ~FeedbackDelayNetworkFilter() override;
 
@@ -67,7 +67,7 @@ namespace ATK
     std::unique_ptr<HFDN_Impl> impl;
     std::array<gsl::index, nb_channels> delay;
     /// Max delay for the delay line
-    gsl::index max_delay;
+    gsl::index max_delay = 0;
   };
 }
 

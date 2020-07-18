@@ -11,12 +11,7 @@ namespace ATK
 {
   template<typename DataType_>
   WhiteNoiseGeneratorFilter<DataType_>::WhiteNoiseGeneratorFilter()
-  :Parent(0, 1), volume(1), offset(0), dist(static_cast<DataType>(-1), static_cast<DataType>(1))
-  {
-  }
-  
-  template<typename DataType_>
-  WhiteNoiseGeneratorFilter<DataType_>::~WhiteNoiseGeneratorFilter()
+  :Parent(0, 1)
   {
   }
   

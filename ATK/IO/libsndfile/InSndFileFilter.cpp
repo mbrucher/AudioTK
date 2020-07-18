@@ -12,7 +12,7 @@ namespace ATK
   InSndFileFilter<DataType>::InSndFileFilter(const std::string& filename)
   :TypedBaseFilter<DataType>(0, 0)
   {
-    stream.reset(new SndfileHandle(filename.c_str()));
+    stream = std::make_unique<SndfileHandle>(filename.c_str());
     set_output_sampling_rate(stream->samplerate());
     set_nb_output_ports(stream->channels());
     stream->command(SFC_SET_SCALE_FLOAT_INT_READ, NULL, 1);
@@ -45,8 +45,10 @@ namespace ATK
 
   }
   
+#if ATK_ENABLE_INSTANTIATION
   template class InSndFileFilter<std::int16_t>;
   template class InSndFileFilter<std::int32_t>;
+#endif
   template class InSndFileFilter<float>;
   template class InSndFileFilter<double>;
 }

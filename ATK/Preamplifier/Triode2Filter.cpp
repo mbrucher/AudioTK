@@ -169,12 +169,12 @@ namespace ATK
   void Triode2Filter<DataType, TriodeFunction>::setup()
   {
     Parent::setup();
-    optimizer.reset(new VectorizedNewtonRaphson<CommonCathodeTriode2Function, 4, iterations, true>(CommonCathodeTriode2Function(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer = std::make_unique<VectorizedNewtonRaphson<CommonCathodeTriode2Function, 4, iterations, true>>(CommonCathodeTriode2Function(static_cast<DataType>(1. / input_sampling_rate),
       Rp, Rg, Ro, Rk, //R
       Vbias, // Vbias
       Co, Ck, // C
       tube_function, // tube
-      default_output)));
+      default_output));
   }
 
   template<typename DataType, typename TriodeFunction>

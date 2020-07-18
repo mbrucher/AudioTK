@@ -36,7 +36,7 @@ namespace ATK
     */
     ParentGainFilter(gsl::index nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     /// Destructor
-    ~ParentGainFilter() override;
+    ~ParentGainFilter() override = default;
     
     /// Sets the threshold (superior to 0)
     void set_threshold(DataType_ threshold);
@@ -51,14 +51,14 @@ namespace ATK
 
   protected:
     /// Threshold
-    DataType_ threshold;
+    DataType_ threshold = 1;
     /// Ratio
-    DataType_ ratio;
+    DataType_ ratio = 1;
 
     virtual void start_recomputeLUT() = 0;
 
-    size_t LUTsize;
-    size_t LUTprecision;
+    gsl::index LUTsize = 0;
+    gsl::index LUTprecision = 0;
     std::vector<DataType_> gainLUT;
   };
 
@@ -79,7 +79,7 @@ namespace ATK
     using Parent::gainLUT;
 
     GainFilter(gsl::index nb_channels = 1, gsl::index LUTsize = 128 * 1024, gsl::index LUTprecision = 64)
-    :ParentFilter(nb_channels, LUTsize, LUTprecision), isRunning(false), resetRequest(false)
+    :ParentFilter(nb_channels, LUTsize, LUTprecision)
     {
       start_recomputeLUT();
     }
@@ -87,6 +87,11 @@ namespace ATK
     ~GainFilter() override
     {
       //Future has to be deleted in child destructor as it uses computeGain
+      wait_for_LUT_completion();
+    }
+
+    void wait_for_LUT_completion()
+    {
       if (recomputeFuture.valid())
       {
         recomputeFuture.wait();
@@ -97,9 +102,9 @@ namespace ATK
     /// Future used to track the thread recomputing the LUT
     std::future<void> recomputeFuture;
     /// Is the thread recomputing the LUT running (which way of computing the gain shall we use?)
-    std::atomic<bool> isRunning;
+    std::atomic<bool> isRunning{false};
     /// Indicates to start recomputing the LUT from the start, used when asked to change LUT parameters when the LUT is recomputed
-    std::atomic<bool> resetRequest;
+    std::atomic<bool> resetRequest{false};
 
     void process_impl(gsl::index size) const final
     {

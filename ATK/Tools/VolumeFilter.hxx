@@ -10,12 +10,7 @@ namespace ATK
 {
   template<typename DataType_>
   VolumeFilter<DataType_>::VolumeFilter(gsl::index nb_channels)
-  :Parent(nb_channels, nb_channels), volume(TypeTraits<DataType_>::One())
-  {
-  }
-  
-  template<typename DataType_>
-  VolumeFilter<DataType_>::~VolumeFilter()
+  :Parent(nb_channels, nb_channels)
   {
   }
   

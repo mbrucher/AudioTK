@@ -14,18 +14,13 @@ namespace ATK
   class SecondOrderSVFFilter<SVFCoefficients>::SVFState
   {
   public:
-    typename SVFCoefficients::DataType iceq1;
-    typename SVFCoefficients::DataType iceq2;
-    
-    SVFState()
-    :iceq1(0), iceq2(0)
-    {
-    }
+    typename SVFCoefficients::DataType iceq1 = 0;
+    typename SVFCoefficients::DataType iceq2 = 0;
   };
   
   template<typename SVFCoefficients>
   SecondOrderSVFFilter<SVFCoefficients>::SecondOrderSVFFilter(gsl::index nb_channels)
-  :SVFCoefficients(nb_channels), state(new SVFState[nb_channels])
+  :SVFCoefficients(nb_channels), state(std::make_unique<SVFState[]>(nb_channels))
   {
   }
 
@@ -37,7 +32,7 @@ namespace ATK
   template<typename SVFCoefficients>
   void SecondOrderSVFFilter<SVFCoefficients>::full_setup()
   {
-    state.reset(new SVFState[nb_input_ports]);
+    state = std::make_unique<SVFState[]>(nb_input_ports);
   }
 
   template<typename DataType>
@@ -65,7 +60,7 @@ namespace ATK
   
   template<typename DataType>
   SecondOrderSVFBaseCoefficients<DataType>::SecondOrderSVFBaseCoefficients(gsl::index nb_channels)
-  :TypedBaseFilter<DataType>(nb_channels, nb_channels), cut_frequency(0), Q(1)
+  :TypedBaseFilter<DataType>(nb_channels, nb_channels)
   {
   }
 
@@ -200,7 +195,7 @@ namespace ATK
 
   template<typename DataType_>
   SecondOrderSVFBellCoefficients<DataType_>::SecondOrderSVFBellCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), gain(1)
+  :Parent(nb_channels)
   {
     
   }
@@ -237,9 +232,8 @@ namespace ATK
 
   template<typename DataType_>
   SecondOrderSVFLowShelfCoefficients<DataType_>::SecondOrderSVFLowShelfCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), gain(0)
+  :Parent(nb_channels)
   {
-    
   }
 
   template<typename DataType_>
@@ -270,7 +264,7 @@ namespace ATK
 
   template<typename DataType_>
   SecondOrderSVFHighShelfCoefficients<DataType_>::SecondOrderSVFHighShelfCoefficients(gsl::index nb_channels)
-  :Parent(nb_channels), gain(0)
+  :Parent(nb_channels)
   {
   }
 
@@ -291,7 +285,7 @@ namespace ATK
   void SecondOrderSVFHighShelfCoefficients<DataType>::setup()
   {
     auto g = std::tan(boost::math::constants::pi<CoeffDataType>() * cut_frequency / input_sampling_rate);
-    auto k = 1 / (Q* gain);
+    auto k = 1 / (Q * gain);
     a1 = 1 / (1 + g * (g + k));
     a2 = g * a1;
     a3 = g * a2;

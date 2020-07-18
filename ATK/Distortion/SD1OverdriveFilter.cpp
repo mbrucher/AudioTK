@@ -23,19 +23,19 @@ namespace ATK
     const DataType R1;
     const DataType C;
     const DataType Q;
-    DataType drive;
+    DataType drive = 0.5;
     const DataType is;
     const DataType vt;
 
-    DataType ieq;
-    DataType i;
+    DataType ieq = 0;
+    DataType i = 0;
 
-    DataType expdiode_y1_p;
-    DataType expdiode_y1_m;
+    DataType expdiode_y1_p = 1;
+    DataType expdiode_y1_m = 1;
 
   public:
     SD1OverdriveFunction(DataType dt, DataType R, DataType C, DataType R1, DataType Q, DataType is, DataType vt)
-      :R(R), R1(R1), C(2 * C / dt), Q(Q), drive(0.5), is(is), vt(vt), ieq(0), i(0), expdiode_y1_p(1), expdiode_y1_m(1)
+      :R(R), R1(R1), C(2 * C / dt), Q(Q), is(is), vt(vt)
     {
     }
     
@@ -86,7 +86,7 @@ namespace ATK
   
   template <typename DataType>
   SD1OverdriveFilter<DataType>::SD1OverdriveFilter()
-    :TypedBaseFilter<DataType>(1, 1), drive(0)
+    :TypedBaseFilter<DataType>(1, 1)
   {
     input_delay = 1;
     output_delay = 1;
@@ -101,9 +101,9 @@ namespace ATK
   void SD1OverdriveFilter<DataType>::setup()
   {
     Parent::setup();
-    optimizer.reset(new ScalarNewtonRaphson<SD1OverdriveFunction, num_iterations, true>(SD1OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
+    optimizer = std::make_unique<ScalarNewtonRaphson<SD1OverdriveFunction, num_iterations, true>>(SD1OverdriveFunction(static_cast<DataType>(1. / input_sampling_rate),
       static_cast<DataType>(4.7e3), static_cast<DataType>(0.047e-6), static_cast<DataType>(33e3),
-      static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3))));
+      static_cast<DataType>(1e6), static_cast<DataType>(1e-12), static_cast<DataType>(26e-3)));
 
     optimizer->get_function().set_drive(drive);
   }
@@ -117,7 +117,9 @@ namespace ATK
     }
     this->drive = drive;
     if(optimizer)
-      optimizer->get_function().set_drive(drive);
+    {
+        optimizer->get_function().set_drive(drive);
+    }
   }
 
   template <typename DataType_>

@@ -102,11 +102,6 @@ namespace Utilities
   }
 }
 
-  template<typename DataType>
-  OutputArrayInterface<DataType>::~OutputArrayInterface()
-  {
-  }
-
   template<typename DataType_, typename DataType__>
   TypedBaseFilter<DataType_, DataType__>::TypedBaseFilter(gsl::index nb_input_ports, gsl::index nb_output_ports)
   :Parent(nb_input_ports, nb_output_ports), converted_inputs_delay(nb_input_ports), converted_inputs(nb_input_ports, nullptr), converted_inputs_size(nb_input_ports, 0), converted_in_delays(nb_input_ports, 0), direct_filters(nb_input_ports, nullptr), outputs_delay(nb_output_ports), outputs(nb_output_ports, nullptr), outputs_size(nb_output_ports, 0), out_delays(nb_output_ports, 0), default_input(nb_input_ports, TypeTraits<DataType_>::Zero()), default_output(nb_output_ports, TypeTraits<DataType__>::Zero())
@@ -120,15 +115,12 @@ namespace Utilities
   }
 
   template<typename DataType_, typename DataType__>
-  TypedBaseFilter<DataType_, DataType__>::~TypedBaseFilter()
-  {
-  }
-
-  template<typename DataType_, typename DataType__>
   void TypedBaseFilter<DataType_, DataType__>::set_nb_input_ports(gsl::index nb_ports)
   {
     if(nb_ports == nb_input_ports)
+    {
       return;
+    }
     Parent::set_nb_input_ports(nb_ports);
     converted_inputs_delay = std::vector<AlignedVector>(nb_ports);
     converted_inputs.assign(nb_ports, nullptr);
@@ -142,7 +134,9 @@ namespace Utilities
   void TypedBaseFilter<DataType_, DataType__>::set_nb_output_ports(gsl::index nb_ports)
   {
     if(nb_ports == nb_output_ports)
+    {
       return;
+    }
     Parent::set_nb_output_ports(nb_ports);
     outputs_delay = std::vector<AlignedOutVector>(nb_ports);
     outputs.assign(nb_ports, nullptr);

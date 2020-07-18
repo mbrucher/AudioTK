@@ -46,7 +46,7 @@ namespace ATK
   protected:
     void setup() final;
     void process_impl(gsl::index size) const final;
-    DataType drive;
+    DataType drive = 0.5;
     
   private:
     static const int num_iterations = 30;

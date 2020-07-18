@@ -44,7 +44,7 @@ namespace ATK
     * @brief Constructor
     * @param filename is the name of the input file
     */
-    InWavFilter(const std::string& filename);
+    explicit InWavFilter(const std::string& filename);
   protected:
     void process_impl(gsl::index size) const final;
   };

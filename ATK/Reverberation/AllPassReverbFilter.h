@@ -30,9 +30,9 @@ namespace ATK
     * @brief construct the filter with a maximum delay line size
     * @param max_delay is the maximum delay allowed
     */
-    AllPassReverbFilter(gsl::index max_delay);
+    explicit AllPassReverbFilter(gsl::index max_delay);
     /// Destructor
-    ~AllPassReverbFilter() override;
+    ~AllPassReverbFilter() override = default;
 
     /// Changes the delay used for the filter
     void set_delay(gsl::index delay);
@@ -47,8 +47,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
 
   private:
-    gsl::index delay;
-    DataType_ feedback;
+    gsl::index delay = 0;
+    DataType_ feedback = 0;
   };
 }
 

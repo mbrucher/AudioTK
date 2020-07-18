@@ -24,7 +24,7 @@ namespace ATK
   class ATK_CORE_EXPORT OutputArrayInterface
   {
   public:
-    virtual ~OutputArrayInterface();
+    virtual ~OutputArrayInterface() = default;
 
     /**
      * @brief Returns an array with the processed output
@@ -63,7 +63,7 @@ namespace ATK
     /// Move constructor
     TypedBaseFilter(TypedBaseFilter&& other);
     /// Destructor
-    ~TypedBaseFilter() override;
+    ~TypedBaseFilter() override = default;
 
     TypedBaseFilter(const TypedBaseFilter&) = delete;
     TypedBaseFilter& operator=(const TypedBaseFilter&) = delete;

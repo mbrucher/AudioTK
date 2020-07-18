@@ -47,12 +47,7 @@ namespace ATK
 {
   template<class DataType_>
   TriangleCheckerFilter<DataType_>::TriangleCheckerFilter()
-  :TypedBaseFilter<DataType_>(1, 0), state(0), ascending(true), amplitude(1), frequency(1)
-  {
-  }
-  
-  template<class DataType_>
-  TriangleCheckerFilter<DataType_>::~TriangleCheckerFilter()
+  :TypedBaseFilter<DataType_>(1, 0)
   {
   }
   

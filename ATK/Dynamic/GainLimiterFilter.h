@@ -30,7 +30,7 @@ namespace ATK
     */
     GainLimiterFilter(gsl::index nb_channels = 1, size_t LUTsize = 128*1024, size_t LUTprecision = 64);
     /// Destructor
-    ~GainLimiterFilter();
+    ~GainLimiterFilter() override = default;
 
     /// Sets the softness of the knee of the filter (positive value)
     void set_softness(DataType_ softness);
@@ -40,7 +40,7 @@ namespace ATK
   protected:
     DataType_ computeGain(DataType_ value) const;
   private:
-    DataType_ softness;
+    DataType_ softness = static_cast<DataType_>(0.0001);
   };
 }
 
