@@ -320,11 +320,10 @@ after_script:
    fi
 
 deploy:
-  cleanup: false
+  skip_cleanup: true
   provider: releases
   token:
     secure: ${GITHUB_OAUTH_TOKEN}
   file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz
   on:
     repo: mbrucher/AudioTK
-    tags: true
