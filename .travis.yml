@@ -29,6 +29,7 @@ jobs:
         - swig
         - libatlas-base-dev
         - curl
+        - doxygen
       sonarcloud:
         organization: "mbrucher-github"
     env:
@@ -281,14 +282,14 @@ after_script:
       echo ${SSH_KEY} | awk '{for(i=1;i<length;i+=64) print substr($0,i,64)}' >> ${HOME}/.ssh/key
       echo "-----END RSA PRIVATE KEY-----" >> ${HOME}/.ssh/key
       chmod 0600 ${HOME}/.ssh/key
-      GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
+      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
       cd cov.audio-tk.com
       git rm *
       cp -R ${TRAVIS_BUILD_DIR}/build/coverage/* .
       git add .
       git commit -m "Run ${TRAVIS_JOB_ID}"
-      GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
-      ssh -v -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy cov.audio-tk.com.git
+      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
+      ssh -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy cov.audio-tk.com.git
     fi
   - |
    if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
@@ -299,14 +300,14 @@ after_script:
      echo ${SSH_KEY} | awk '{for(i=1;i<length;i+=64) print substr($0,i,64)}' >> ${HOME}/.ssh/key
      echo "-----END RSA PRIVATE KEY-----" >> ${HOME}/.ssh/key
      chmod 0600 ${HOME}/.ssh/key
-     GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
+     GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
      cd doc.audio-tk.com
      git rm *
      cp -R ${TRAVIS_BUILD_DIR}/Doxygen/* .
      git add .
      git commit -m "Run ${TRAVIS_JOB_ID}"
-     GIT_SSH_COMMAND="ssh -v -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
-     ssh -v -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy doc.audio-tk.com.git
+     GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
+     ssh -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy doc.audio-tk.com.git
    fi
 
 deploy:
