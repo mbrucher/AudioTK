@@ -12,6 +12,15 @@ notifications:
 git:
   depth: 500
 
+stages:
+  - before_install
+  - install
+  - before_script
+  - script
+  - after_success
+  - name: after_script
+    if: branch = master
+    
 jobs:
   include:
   - compiler: gcc-9
@@ -275,8 +284,6 @@ after_success:
     fi
 
 after_script:
-  on:
-    branch: master
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ${HOME}
