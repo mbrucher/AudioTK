@@ -201,9 +201,9 @@ after_build:
   - cd %ATK_OUT%
   - ps: |
       if($PYTHON_VERSION) {
-        7z a ${ATK_ROOT}\AudioTK.${MSVC_VERSION}.py${PYTHON_VERSION}.${OUTPUT}-${BUILD_CONFIGURATION}.zip * -tzip
+        7z a ${env:ATK_ROOT}\AudioTK.${env:MSVC_VERSION}.py${env:PYTHON_VERSION}.${env:OUTPUT}-${env:BUILD_CONFIGURATION}.zip * -tzip
       } else {
-        7z a ${ATK_ROOT}\AudioTK.${MSVC_VERSION}.${OUTPUT}-${BUILD_CONFIGURATION}.zip * -tzip
+        7z a ${env:ATK_ROOT}\AudioTK.${env:MSVC_VERSION}.${env:OUTPUT}-${env:BUILD_CONFIGURATION}.zip * -tzip
       }
 
 test_script:
