@@ -214,7 +214,7 @@ test_script:
   - msbuild RUN_TESTS.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 artifacts: 
-  - path: AudioTK.*.zip
+  - path: %ATK_ROOT%/AudioTK.*.zip
     name: package
 
 deploy:
