@@ -303,7 +303,7 @@ after_script:
      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
      cd doc.audio-tk.com
      git rm *
-     cp -R ${TRAVIS_BUILD_DIR}/Doxygen htdocs
+     cp -R ${TRAVIS_BUILD_DIR}/Doxygen/html htdocs
      git add .
      git commit -m "Run ${TRAVIS_JOB_ID}"
      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
