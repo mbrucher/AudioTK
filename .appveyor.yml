@@ -201,9 +201,9 @@ after_build:
   - cd %ATK_OUT%
   - ps: |
       if($PYTHON_VERSION) {
-        7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+        7z a %ATK_ROOT%\build\AudioTK.%MSVC_VERSION%.py%PYTHON_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
       } else {
-        7z a %ATK_ROOT%\AudioTK.%MSVC_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
+        7z a %ATK_ROOT%\build\AudioTK.%MSVC_VERSION%.%OUTPUT%-%BUILD_CONFIGURATION%.zip * -tzip
       }
 
 test_script:
@@ -214,7 +214,7 @@ test_script:
   - msbuild RUN_TESTS.vcxproj /property:Configuration=%BUILD_CONFIGURATION%
 
 artifacts: 
-  - path: %ATK_ROOT%/AudioTK.*.zip
+  - path: '*/AudioTK.*.zip'
     name: package
 
 deploy:
