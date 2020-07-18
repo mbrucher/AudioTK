@@ -12,6 +12,15 @@ notifications:
 git:
   depth: 500
 
+stages:
+  - before_install
+  - install
+  - before_script
+  - script
+  - after_success
+  - name: after_script
+    if: branch = master
+    
 jobs:
   include:
   - compiler: gcc-9
@@ -29,6 +38,7 @@ jobs:
         - swig
         - libatlas-base-dev
         - curl
+        - doxygen
       sonarcloud:
         organization: "mbrucher-github"
     env:
@@ -122,7 +132,6 @@ jobs:
     - BUILD_TYPE=Debug
     - ENABLE_STATIC_ANALYSIS=OFF
     - ENABLE_CODECOVERAGE=ON
-    - ENABLE_STATIC_ANALYSIS=ON
     - MAKE_WRAPPER="build-wrapper-linux-x86-64 --out-dir bw-outputs "
     - ADDITONAL_CMAKE_FLAGS="-DENABLE_CODECOVERAGE=ON -DLCOV_SCRIPT=--gcov-tool=`pwd`/scripts/llvm-cov.sh -DENABLE_STATIC_LIBRARIES=OFF -DCMAKE_CXX_FLAGS_DEBUG_INIT=\"-O0\""
   - compiler: clang-9
@@ -246,7 +255,7 @@ script:
   - pwd
   - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then export LD_LIBRARY_PATH=${HOME}/ATK/lib:$LD_LIBRARY_PATH ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export DYLD_LIBRARY_PATH=${HOME}/ATK/lib:$BOOST_BUILD/lib ; fi
-  - ${MAKE_WRAPPER} make -j16
+  - ${MAKE_WRAPPER} make -j2
   - make install
   - export PYTHONPATH=${HOME}/ATK/lib/site-packages/:$PYTHONPATH
   - echo $DYLD_LIBRARY_PATH
@@ -272,19 +281,51 @@ after_success:
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ..
       sonar-scanner
-      cd build
-      ls
-    fi
-  - |
-    if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
-      exit
     fi
 
-skip_cleanup:
+after_script:
+  - |
+    if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
+      cd ${HOME}
+      echo "-----BEGIN RSA PRIVATE KEY-----" > ${HOME}/.ssh/key
+      echo ${SSH_KEY} | awk '{for(i=1;i<length;i+=64) print substr($0,i,64)}' >> ${HOME}/.ssh/key
+      echo "-----END RSA PRIVATE KEY-----" >> ${HOME}/.ssh/key
+      chmod 0600 ${HOME}/.ssh/key
+      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
+      cd cov.audio-tk.com
+      git rm -r *
+      cp -R ${TRAVIS_BUILD_DIR}/build/coverage htdocs
+      git add .
+      git commit -m "Run ${TRAVIS_JOB_ID}"
+      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
+      ssh -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy cov.audio-tk.com.git
+    fi
+  - |
+   if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
+     cd ${TRAVIS_BUILD_DIR}
+     doxygen Doxyfile
+     cd ${HOME}
+     echo "-----BEGIN RSA PRIVATE KEY-----" > ${HOME}/.ssh/key
+     echo ${SSH_KEY} | awk '{for(i=1;i<length;i+=64) print substr($0,i,64)}' >> ${HOME}/.ssh/key
+     echo "-----END RSA PRIVATE KEY-----" >> ${HOME}/.ssh/key
+     chmod 0600 ${HOME}/.ssh/key
+     GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
+     cd doc.audio-tk.com
+     git rm -r *
+     cp -R ${TRAVIS_BUILD_DIR}/Doxygen/html htdocs
+     git add .
+     git commit -m "Run ${TRAVIS_JOB_ID}"
+     GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git push
+     ssh -i ${HOME}/.ssh/key -o "StrictHostKeyChecking no" 3649288@git.sd3.gpaas.net deploy doc.audio-tk.com.git
+   fi
+
+deploy:
+  cleanup: false
   provider: releases
-  api_key:
+  token:
     secure: ilhQ9vSyOl+QjRiRebj7CuQPYY1OygH3YxEuuFOXVa1cN4iw5yid2igEScLfKB5Xn2x2jMYDqL4bC6nLMHa1GNtCTIhCJrrHhXPeYX1W1EsOtExfAbD1G0QvUoQPZEBnK1Lu2Uf+qiQaH1IEquhzux8dxRCe/qJJzpntoWiLgm6po1giUAyQGsVzKlon4dxhgq08QcYxaQq2snOcKFJVx+zfeELfB7RZeEQXymtlMosMWnoKv3tjtFI5crWWdjD8oYKaTdLEms5EmR/cXAoYZ8jkhW0mTn1j9Ww9gaN4f/AnIlZDyggsdxVsV77rW/Kh6qqUdRbWaAnnpDgozv/HNXkgrFpxNyevIiS/pfbiyIT1zqT+iy4N9ofuc8iWuXncom3tDK/aGU+KS693ZkeLkkOT+FhT3YnIwE7UHeRS/Lqn26FQXQ/u7stuYVxCTrGR+LsfOrQdxmkQVOKicbWlOkU0+JpccaoES+j7SSCGgUkO/5f8bFzTraEu5VCN9pTuMX7TIp8OwS7b13L/TZGPwoeJDBtn5SsUl/1cqpuJbjQvf0KQqp6tJcQ8LjS9K0WrtVB+T2coQC5vYz5pM4RhYcGavj6a9+RM6U13PDvpHgP5ec5zeGbNJ2QKHLZ8s0LiuSMgffhp0vsl8E0nWjpelnSIDPtCLv5xAtk47vn+aiQ=
   file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz
   on:
     repo: mbrucher/AudioTK
     tags: true
+    branch: master
