@@ -220,8 +220,7 @@ artifacts:
 deploy:
   provider: GitHub
   description: 'Audio Toolkit files'
-  auth_token:
-    secure: jkxOmoTMtVlBIlIlVlxiGzV+4AX9NMjfT0hzTS3JxNtjGken02XG0FaDESBDxS0+
+  auth_token: ${GITHUB_OAUTH_TOKEN}
   artifact: package
   on:
     appveyor_repo_tag: true
