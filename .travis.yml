@@ -275,6 +275,8 @@ after_success:
     fi
 
 after_script:
+  on:
+    branch: master
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ${HOME}
@@ -284,7 +286,7 @@ after_script:
       chmod 0600 ${HOME}/.ssh/key
       GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/cov.audio-tk.com.git
       cd cov.audio-tk.com
-      git rm *
+      git rm -r *
       cp -R ${TRAVIS_BUILD_DIR}/build/coverage htdocs
       git add .
       git commit -m "Run ${TRAVIS_JOB_ID}"
@@ -302,7 +304,7 @@ after_script:
      chmod 0600 ${HOME}/.ssh/key
      GIT_SSH_COMMAND="ssh -i ${HOME}/.ssh/key -o \"StrictHostKeyChecking no\"" git clone git+ssh://3649288@git.sd3.gpaas.net/doc.audio-tk.com.git
      cd doc.audio-tk.com
-     git rm *
+     git rm -r *
      cp -R ${TRAVIS_BUILD_DIR}/Doxygen/html htdocs
      git add .
      git commit -m "Run ${TRAVIS_JOB_ID}"
