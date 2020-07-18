@@ -25,6 +25,9 @@ and output sampling rates are also identical.
 Audio Toolkit is published under the BSD license.
 
 ## Changelog
+### 3.2.0
+* Cleanup
+
 ### 3.1.1
 * Upgrade pybind11
 * Upgrade Travis support
