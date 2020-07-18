@@ -47,8 +47,8 @@ namespace ATK
     /// This implementation retrieves inputs from other filters and converts it accordingly
     void process_impl(gsl::index size) const final;
     /// Output array
-    mutable std::array<DataType, nb_slices * slice_size> array;
-    SliceBuffer last_slice;
+    mutable std::array<DataType, nb_slices* slice_size> array{};
+    SliceBuffer last_slice{};
 
     /// Current offset in the array
     mutable gsl::index offset = 0;

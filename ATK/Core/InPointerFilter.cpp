@@ -15,6 +15,8 @@ namespace ATK
 #endif
   template class InPointerFilter<float>;
   template class InPointerFilter<double>;
+#if ATK_ENABLE_INSTANTIATION
   template class InPointerFilter<std::complex<float>>;
   template class InPointerFilter<std::complex<double>>;
+#endif
 }

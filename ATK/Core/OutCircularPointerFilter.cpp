@@ -74,8 +74,8 @@ namespace ATK
   template class OutCircularPointerFilter<std::int64_t>;
 #endif
   template class OutCircularPointerFilter<float>;
-  template class OutCircularPointerFilter<double>;
 #if ATK_ENABLE_INSTANTIATION
+  template class OutCircularPointerFilter<double>;
   template class OutCircularPointerFilter<std::complex<float>>;
   template class OutCircularPointerFilter<std::complex<double>>;
 #endif

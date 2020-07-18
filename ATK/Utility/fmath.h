@@ -141,12 +141,12 @@ namespace fmath {
         adj = (1UL << (sbit + 10)) - (1UL << sbit)
       };
       // A = 1, B = 1, C = 1/2, D = 1/6
-      double C1[2]; // A
-      double C2[2]; // D
-      double C3[2]; // C/D
-      uint64_t tbl[s];
-      double a;
-      double ra;
+      double C1[2]{}; // A
+      double C2[2]{}; // D
+      double C3[2]{}; // C/D
+      uint64_t tbl[s]{};
+      double a{};
+      double ra{};
       ExpdVar()
       : a(s / ::log(2.0))
       , ra(1 / a)
@@ -310,16 +310,16 @@ namespace fmath {
     enum {
       N = 11
     };
-    float tbl0_[256];
+    float tbl0_[256]{};
     struct {
       float app;
       float rev;
-    } tbl1_[1 << N];
+    } tbl1_[1 << N]{};
   public:
     explicit PowGenerator(float y)
     {
       for (int i = 0; i < 256; i++) {
-        tbl0_[i] = std::pow(2, (i - 127) * y);
+        tbl0_[i] = static_cast<float>(std::pow(2, (i - 127) * y));
       }
       const double e = 1 / static_cast<double>(1 << 24);
       const double h = 1 / static_cast<double>(1 << N);
