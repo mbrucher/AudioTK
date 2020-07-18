@@ -10,7 +10,7 @@ notifications:
     on_success: always
     on_failure: always
 git:
-  depth: 500
+  depth: 5
 
 stages:
   - before_install
