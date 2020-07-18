@@ -146,7 +146,7 @@ FUNCTION(SETUP_TARGET_FOR_COVERAGE _targetname _testrunner _outputname)
 
 		# Capturing lcov counters and generating report
     COMMAND ${LCOV_PATH} --directory . --capture ${LCOV_SCRIPT} --output-file ${coverage_info}
-		COMMAND ${LCOV_PATH} --remove ${coverage_info} '/usr/*' --remove ${coverage_info} '3rdParty/*' --remove ${coverage_info} 'tests/*' --remove ${coverage_info} '/home/travis/build/mbrucher/boost-build/*' --output-file ${coverage_cleaned}
+		COMMAND ${LCOV_PATH} --remove ${coverage_info} '/usr/*' '3rdParty/*' 'tests/*' '/home/travis/build/mbrucher/boost-build/*' --output-file ${coverage_cleaned}
 		COMMAND ${GENHTML_PATH} -o ${_outputname} ${coverage_cleaned}
 		COMMAND ${CMAKE_COMMAND} -E remove ${coverage_info} ${coverage_cleaned}
 
