@@ -10,7 +10,7 @@ notifications:
     on_success: always
     on_failure: always
 git:
-  depth: 5
+  depth: 500
 
 stages:
   - before_install
@@ -273,10 +273,9 @@ after_success:
   - |
     if [[ "${ENABLE_CODECOVERAGE}" = "ON" ]]; then
       bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
-    else
-      cd ${HOME}/ATK
-      tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz *
     fi
+  - cd ${HOME}/ATK
+  - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${BUILD_TYPE}.tar.gz *
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ..
@@ -322,8 +321,7 @@ after_script:
 deploy:
   skip_cleanup: true
   provider: releases
-  token:
-    secure: ${GITHUB_OAUTH_TOKEN}
+  token: ${GITHUB_OAUTH_TOKEN}
   file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz
   on:
     repo: mbrucher/AudioTK
