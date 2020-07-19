@@ -42,7 +42,7 @@ jobs:
       sonarcloud:
         organization: "mbrucher-github"
     env:
-    - MY_NAME: Static Analysis
+    - MY_NAME: Coverage
     - COMPILER=g++-9
     - PLATFORM=gcc-9
     - ENABLE_PYTHON=OFF
@@ -68,7 +68,7 @@ jobs:
         - libsndfile-dev
         - swig
     env:
-    - MY_NAME: GCC 9
+    - MY_NAME: Release
     - COMPILER=g++-9
     - PLATFORM=gcc-9
     - ENABLE_PYTHON=ON
@@ -125,7 +125,7 @@ jobs:
       sonarcloud:
         organization: "mbrucher-github"
     env:
-    - MY_NAME=LLVM coverage
+    - MY_NAME=Coverage
     - COMPILER=clang++-9
     - PLATFORM=clang-9
     - ENABLE_PYTHON=OFF
@@ -151,7 +151,7 @@ jobs:
         - libsndfile-dev
         - swig
     env:
-    - MY_NAME: clang 9
+    - MY_NAME: Release
     - COMPILER=clang++-9
     - PLATFORM=clang-9
     - ENABLE_PYTHON=ON
@@ -164,7 +164,7 @@ jobs:
     osx_image: xcode12
     python: 3.7
     env:
-    - MY_NAME: XCode 12
+    - MY_NAME: XCode
     - COMPILER=clang++
     - PLATFORM=xcode-12
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="x86_64" -DENABLE_STATIC_LIBRARIES=ON
@@ -177,7 +177,7 @@ jobs:
     osx_image: xcode11.6
     python: 3.7
     env:
-    - MY_NAME: XCode 11
+    - MY_NAME: XCode
     - COMPILER=clang++
     - PLATFORM=xcode-11.6
     - ADDITONAL_CMAKE_FLAGS=-DDISABLE_PYTHON_TESTS=ON -DCMAKE_OSX_ARCHITECTURES="i386,x86_64" -DENABLE_STATIC_LIBRARIES=ON
@@ -275,7 +275,7 @@ after_success:
       bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     fi
   - cd ${HOME}/ATK
-  - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${BUILD_TYPE}.tar.gz *
+  - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${MY_NAME}.tar.gz *
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ..
@@ -322,7 +322,7 @@ deploy:
   skip_cleanup: true
   provider: releases
   token: ${GITHUB_OAUTH_TOKEN}
-  file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${BUILD_TYPE}.tar.gz
+  file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${MY_NAME}.tar.gz
   on:
     repo: mbrucher/AudioTK
     tags: true
