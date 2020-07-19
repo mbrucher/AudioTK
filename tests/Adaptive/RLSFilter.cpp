@@ -23,6 +23,11 @@
 
 constexpr gsl::index PROCESSSIZE = 1024 * 64;
 
+BOOST_AUTO_TEST_CASE(RLSFilter_destructor_test)
+{
+  BOOST_CHECK_NO_THROW(std::make_unique<ATK::RLSFilter<double>>(100));
+}
+
 BOOST_AUTO_TEST_CASE(RLSFilter_size_negative_test)
 {
   ATK::RLSFilter<double> filter(100);
@@ -85,6 +90,8 @@ BOOST_AUTO_TEST_CASE( RLSFilter_memory_99_test )
   checker.set_input_port(0, &filter, 0);
   
   checker.process(PROCESSSIZE);
+
+  BOOST_CHECK_NE(filter.get_w(), nullptr);
 }
 
 BOOST_AUTO_TEST_CASE( RLSFilter_constant_test )

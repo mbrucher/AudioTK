@@ -27,6 +27,11 @@
 
 constexpr gsl::index PROCESSSIZE = 1200;
 
+BOOST_AUTO_TEST_CASE(BlockLMSFilter_destructor_test)
+{
+  BOOST_CHECK_NO_THROW(std::make_unique<ATK::BlockLMSFilter<double>>(100));
+}
+
 BOOST_AUTO_TEST_CASE(BlockLMSFilter_size_negative_test)
 {
   ATK::BlockLMSFilter<double> filter(100);
@@ -132,6 +137,7 @@ BOOST_AUTO_TEST_CASE( BlockLMSFilter_memory_999_test )
 
   filter.process(100);
   output.process(PROCESSSIZE);
+  BOOST_CHECK_NE(filter.get_w(), nullptr);
 
   std::array<double, PROCESSSIZE> ref;
   {
