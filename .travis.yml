@@ -325,3 +325,4 @@ deploy:
   file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz
   on:
     repo: mbrucher/AudioTK
+    tags: true
