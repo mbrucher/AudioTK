@@ -50,8 +50,8 @@ namespace ATK
   protected:
     DataType_ computeGain(DataType_ value) const;
   private:
-    DataType_ softness = static_cast<DataType_>(0.0001);
-    DataType_ max_reduction = static_cast<DataType_>(0.01);
+    DataType_ softness = 0.0001;
+    DataType_ max_reduction = 0.01;
   };
 }
 
