@@ -72,7 +72,7 @@ jobs:
     - COMPILER=g++-9
     - PLATFORM=gcc-9
     - ENABLE_PYTHON=ON
-    - PYTHON_VERSION=3.7
+    - PYTHON_VERSION=3.8
     - PYTHON=python3
     - Python_ADDITIONAL_VERSIONS=3.8.1
     - BUILD_TYPE=Release
@@ -275,7 +275,12 @@ after_success:
       bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     fi
   - cd ${HOME}/ATK
-  - tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${MY_NAME}.tar.gz *
+  - |
+    if [[ "ENQBLE_PYTHON" = "ON" ]]; then
+      tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${MY_NAME}.tar.gz *
+    else
+      tar -cvzf ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}-${MY_NAME}.tar.gz *
+    fi
   - |
     if [[ "${ENABLE_STATIC_ANALYSIS}" = "ON" ]]; then
       cd ..
@@ -322,7 +327,8 @@ deploy:
   skip_cleanup: true
   provider: releases
   token: ${GITHUB_OAUTH_TOKEN}
-  file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${MY_NAME}.tar.gz
+  file_glob: true
+  file: ${HOME}/AudioTK.*.tar.gz
   on:
     repo: mbrucher/AudioTK
     tags: true

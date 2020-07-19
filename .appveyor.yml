@@ -117,7 +117,7 @@ environment:
       MSVC_PLATFORM: amd64
       SHORT_MSVC_PLATFORM: x86
       COMPILER: Visual Studio 16 2019
-      OUTPUT: static-x64
+      OUTPUT: static-x32
       ADDITONAL_CMAKE_FLAGS: "-A Win32 -DENABLE_PYTHON=OFF -DMSVC_RUNTIME=Static -DENABLE_SHARED_LIBRARIES=OFF -DENABLE_TESTS=OFF"
       VSINSTALL: "Microsoft Visual Studio\\2019\\Community\\VC\\Auxiliary\\Build"
       MSVC_VERSION: msvc-14.2
