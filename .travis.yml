@@ -322,7 +322,7 @@ deploy:
   skip_cleanup: true
   provider: releases
   token: ${GITHUB_OAUTH_TOKEN}
-  file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}.tar.gz
+  file: ${HOME}/AudioTK.${TRAVIS_OS_NAME}.${PLATFORM}.py${PYTHON_VERSION}-${BUILD_TYPE}.tar.gz
   on:
     repo: mbrucher/AudioTK
     tags: true
