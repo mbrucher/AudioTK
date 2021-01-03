@@ -60,15 +60,25 @@ namespace ATK
 #endif
 #if ATK_USE_IPP == 1
       if (pSrc)
+      {
         ippFree(pSrc);
+      }
       if (pDst)
+      {
         ippFree(pDst);
+      }
       if (pFFTSpec)
+      {
         ippFree(pFFTSpec);
+      }
       if (pFFTInitBuf)
+      {
         ippFree(pFFTInitBuf);
+      }
       if (pFFTWorkBuf)
+      {
         ippFree(pFFTWorkBuf);
+      }
 #endif
     }
 
@@ -89,25 +99,39 @@ namespace ATK
 #if ATK_USE_IPP == 1
       power_of_two = ((size & (size - 1)) == 0);
       if (pSrc)
+      {
         ippFree(pSrc);
+      }
       if (pDst)
+      {
         ippFree(pDst);
+      }
       if (pFFTSpec)
+      {
         ippFree(pFFTSpec);
+      }
       pFFTSpec = nullptr;
       if (pDFTSpec)
+      {
         ippFree(pDFTSpec);
+      }
       pDFTSpec = nullptr;
       if (pFFTSpecBuf)
+      {
         ippFree(pFFTSpecBuf);
+      }
       if (pFFTInitBuf)
+      {
         ippFree(pFFTInitBuf);
+      }
       if (pFFTWorkBuf)
+      {
         ippFree(pFFTWorkBuf);
+      }
       int sizeFFTSpec, sizeFFTInitBuf, sizeFFTWorkBuf;
       if (power_of_two)
       {
-        ippsFFTGetSize_C_64fc(std::lround(std::log(size) / std::log(2)), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, &sizeFFTSpec, &sizeFFTInitBuf, &sizeFFTWorkBuf);
+        ippsFFTGetSize_C_64fc(static_cast<int>(std::lround(std::log(size) / std::log(2))), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, &sizeFFTSpec, &sizeFFTInitBuf, &sizeFFTWorkBuf);
       }
       else
       {
@@ -121,7 +145,7 @@ namespace ATK
       pDst = ippsMalloc_64fc(static_cast<int>(size));
       if (power_of_two)
       {
-        ippsFFTInit_C_64fc(&pFFTSpec, std::lround(std::log(size) / std::log(2)), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, pFFTSpecBuf, pFFTInitBuf);
+        ippsFFTInit_C_64fc(&pFFTSpec, static_cast<int>(std::lround(std::log(size) / std::log(2))), IPP_FFT_DIV_FWD_BY_N, ippAlgHintAccurate, pFFTSpecBuf, pFFTInitBuf);
       }
       else
       {

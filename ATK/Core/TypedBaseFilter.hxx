@@ -69,7 +69,7 @@ namespace Utilities
   }
 
   template<typename Vector, typename DataType>
-  void convert_array(ATK::BaseFilter* filter, unsigned int port, DataType* converted_input, gsl::index size, int type)
+  void convert_array(ATK::BaseFilter* filter, gsl::index port, DataType* converted_input, gsl::index size, int type)
   {
     if constexpr(std::is_arithmetic<DataType>::value)
     {

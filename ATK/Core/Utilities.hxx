@@ -14,7 +14,7 @@ namespace ATK
 namespace Utilities
 {
   template<typename DataType>
-  void convert_to_array(const DataType* input_array, DataType* output_array, gsl::index size, gsl::index offset, gsl::index  ports)
+  void convert_to_array(const DataType* input_array, DataType* output_array, gsl::index size, gsl::index offset, gsl::index ports)
   {
     if(ports == 1)
     {
@@ -30,7 +30,7 @@ namespace Utilities
   }
   
   template<typename DataType1, typename DataType2>
-  typename std::enable_if<!std::is_same<DataType1, DataType2>::value>::type convert_to_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset, gsl::index  ports)
+  typename std::enable_if<!std::is_same<DataType1, DataType2>::value>::type convert_to_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset, gsl::index ports)
   {
     for(gsl::index i = 0; i < size; ++i)
     {
@@ -40,7 +40,7 @@ namespace Utilities
 }
 
   template<typename DataType1, typename DataType2>
-  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset, gsl::index  ports)
+  void ConversionUtilities<DataType1, DataType2>::convert_array(const DataType1* input_array, DataType2* output_array, gsl::index size, gsl::index offset, gsl::index ports)
   {
     Utilities::convert_to_array(input_array, output_array, size, offset, ports);
   }
