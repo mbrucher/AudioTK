@@ -6,8 +6,8 @@
 #ifndef ATK_EQ_SECONDORDERSVFFILTER_H
 #define ATK_EQ_SECONDORDERSVFFILTER_H
 
-#include "config.h"
-#include "../Core/TypedBaseFilter.h"
+#include <ATK/EQ/config.h>
+#include <ATK/Core/TypedBaseFilter.h>
 
 namespace ATK
 {
@@ -53,15 +53,15 @@ namespace ATK
     using CoeffDataType = typename TypeTraits<DataType>::Scalar;
     using Parent::setup;
   protected:
-    CoeffDataType cut_frequency = 0;
-    CoeffDataType Q = 1;
+    CoeffDataType cut_frequency{0};
+    CoeffDataType Q{1};
 
-    CoeffDataType a1 = 0;
-    CoeffDataType a2 = 0;
-    CoeffDataType a3 = 0;
-    CoeffDataType m0 = 0;
-    CoeffDataType m1 = 0;
-    CoeffDataType m2 = 0;
+    CoeffDataType a1{0};
+    CoeffDataType a2{0};
+    CoeffDataType a3{0};
+    CoeffDataType m0{0};
+    CoeffDataType m1{0};
+    CoeffDataType m2{0};
 
   public:
     explicit SecondOrderSVFBaseCoefficients(gsl::index nb_channels);
@@ -232,7 +232,7 @@ namespace ATK
   protected:
     void setup() override;
 
-    CoeffDataType gain = 1;
+    CoeffDataType gain{1};
   };
 
   /// Coefficients for a second order SVF low-pass shelving filter
@@ -263,7 +263,7 @@ namespace ATK
   protected:
     void setup() override;
 
-    CoeffDataType gain = 1;
+    CoeffDataType gain{1};
   };
 
   /// Coefficients for a second order SVF high-pass shelving filter
@@ -295,7 +295,7 @@ namespace ATK
   protected:
     void setup() override;
 
-    CoeffDataType gain = 1;
+    CoeffDataType gain{1};
   };
 }
 

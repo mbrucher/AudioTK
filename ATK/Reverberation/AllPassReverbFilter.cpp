@@ -2,12 +2,11 @@
  * \file AllPassReverbFilter.cpp
  */
 
-#include <ATK/Reverberation/AllPassReverbFilter.h>
+#include "AllPassReverbFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <iostream>
 #include <cmath>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

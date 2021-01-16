@@ -5,10 +5,10 @@
 #ifndef ATK_TOOLS_CACHEDCOSINUSGENERATORFILTER_H
 #define ATK_TOOLS_CACHEDCOSINUSGENERATORFILTER_H
 
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Tools/config.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -57,11 +57,11 @@ namespace ATK
     void setup() final;
     
   private:
-    mutable gsl::index indice = 1;
-    int periods = 0;
-    int seconds = 0;
-    DataType_ volume = 1;
-    DataType_ offset = 0;
+    mutable gsl::index indice{1};
+    int periods{0};
+    int seconds{0};
+    DataType_ volume{1};
+    DataType_ offset{0};
     std::vector<DataType_> cache;
   };
 }

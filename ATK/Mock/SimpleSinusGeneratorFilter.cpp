@@ -2,12 +2,12 @@
  * \file SinusGeneratorFilter.cpp
  */
 
-#include <ATK/Mock/SimpleSinusGeneratorFilter.h>
+#include "SimpleSinusGeneratorFilter.h"
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cmath>
 #include <cstdint>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

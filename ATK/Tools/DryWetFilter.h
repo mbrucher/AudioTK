@@ -43,7 +43,7 @@ namespace ATK
     
   private:
     /// Amount of dry signal, between 0 and 1
-    double dry = 1;
+    double dry{1};
   };
 }
 

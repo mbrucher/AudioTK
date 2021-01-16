@@ -5,9 +5,9 @@
 #ifndef ATK_UTILITY_FLUSHTOZERO_H
 #define ATK_UTILITY_FLUSHTOZERO_H
 
-#include <fenv.h>
-
 #include <ATK/Utility/config.h>
+
+#include <fenv.h>
 
 namespace ATK
 {

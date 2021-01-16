@@ -2,7 +2,7 @@
  * \file FlushToZero.cpp
  */
 
-#include <ATK/Utility/FlushToZero.h>
+#include "FlushToZero.h"
 
 #if defined(__APPLE__)
 #elif defined(__GNUC__) && (defined(__x86_64__) || defined(__i386__))

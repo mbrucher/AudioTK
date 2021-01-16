@@ -2,9 +2,9 @@
  * \file ToneStackFilter.hxx
  */
 
-#include <boost/math/tools/polynomial.hpp>
+#include "ToneStackFilter.h"
 
-#include <ATK/EQ/ToneStackFilter.h>
+#include <boost/math/tools/polynomial.hpp>
 
 namespace ATK
 {

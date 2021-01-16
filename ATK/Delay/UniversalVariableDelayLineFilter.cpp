@@ -2,14 +2,13 @@
  * \file UniversalVariableDelayLineFilter.cpp
  */
 
-#include <ATK/Delay/UniversalVariableDelayLineFilter.h>
+#include "UniversalVariableDelayLineFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <cassert>
 #include <cmath>
 #include <cstdint>
 #include <cstring>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -25,7 +24,7 @@ namespace ATK
     std::vector<gsl::index> integer_delay;
     /// Fractional portion of the delay for the last processed chunk, used for the interpolation
     std::vector<DataType> fractional_delay;
-    DataType last_delay = 0;
+    DataType last_delay{0};
 
     explicit UVDLF_Impl(gsl::index max_delay)
       :processed_input(max_delay, 0)

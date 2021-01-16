@@ -2,7 +2,7 @@
  * \file MaxFilter.hxx
  */
 
-#include <ATK/Tools/MaxFilter.h>
+#include "MaxFilter.h"
 
 namespace ATK
 {

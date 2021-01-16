@@ -5,12 +5,12 @@
 #ifndef ATK_UTILITY_SIMPLIFIEDVECTORIZEDNEWTONRAPHSON_H
 #define ATK_UTILITY_SIMPLIFIEDVECTORIZEDNEWTONRAPHSON_H
 
-#include <cmath>
-#include <limits>
-
 #include <ATK/config.h>
 
 #include <Eigen/Dense>
+
+#include <cmath>
+#include <limits>
 
 namespace ATK
 {
@@ -27,8 +27,8 @@ namespace ATK
     Function function;
     
     DataType precision;
-    DataType maxstep;
-    Vector y0;
+    DataType maxstep{10};
+    Vector y0{Vector::Zero()};
     
   public:
     /*!
@@ -38,7 +38,7 @@ namespace ATK
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
     SimplifiedVectorizedNewtonRaphson(Function&& function, DataType precision = 0)
-    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(Vector::Zero())
+    :function(std::move(function)), precision(precision)
     {
       if(precision == 0)
       {
@@ -47,7 +47,7 @@ namespace ATK
     }
 
     SimplifiedVectorizedNewtonRaphson(Function&& function, Vector&& y0, DataType precision = 0)
-      :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(10)), y0(y0)
+      :function(std::move(function)), precision(precision), y0(y0)
     {
       if (precision == 0)
       {

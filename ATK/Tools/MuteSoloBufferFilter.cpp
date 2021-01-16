@@ -2,13 +2,12 @@
  * \file MuteSoloBufferFilter.cpp
  */
 
-#include <ATK/Tools/MuteSoloBufferFilter.h>
+#include "MuteSoloBufferFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <cmath>
 #include <complex>
 #include <cstdint>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

@@ -5,10 +5,10 @@
 #ifndef ATK_CORE_COMPLEXCONVERTFILTER_H
 #define ATK_CORE_COMPLEXCONVERTFILTER_H
 
-#include <complex>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Core/config.h>
+
+#include <complex>
 
 namespace ATK
 {

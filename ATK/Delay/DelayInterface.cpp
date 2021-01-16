@@ -2,7 +2,7 @@
  * \file DelayInterface.cpp
  */
 
-#include <ATK/Delay/DelayInterface.h>
+#include "DelayInterface.h"
 
 namespace ATK
 {

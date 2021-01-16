@@ -2,13 +2,13 @@
  * \file CachedCosinusGeneratorFilter.cpp
  */
 
-#include <ATK/Tools/CachedCosinusGeneratorFilter.h>
+#include "CachedCosinusGeneratorFilter.h"
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cmath>
 #include <cstdint>
 #include <cstring>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

@@ -21,9 +21,9 @@ namespace ATK
     using Parent::setup;
   protected:
     /// Order of the MA polynomial
-    unsigned int in_order = 0;
+    unsigned int in_order{0};
     /// Order of the AR polynomial
-    unsigned int out_order = 0;
+    unsigned int out_order{0};
 
     /// MA polynomial
     AlignedScalarVector coefficients_in;

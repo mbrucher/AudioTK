@@ -5,11 +5,11 @@
 #ifndef ATK_TOOLS_WHITENOISEGENERATORFILTER_H
 #define ATK_TOOLS_WHITENOISEGENERATORFILTER_H
 
-#include <boost/random/mersenne_twister.hpp>
-#include <boost/random/uniform_real_distribution.hpp>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Tools/config.h>
+
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
 
 namespace ATK
 {
@@ -44,8 +44,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ volume = 1;
-    DataType_ offset = 0;
+    DataType_ volume{1};
+    DataType_ offset{0};
     
     mutable boost::random::mt19937 gen; // Should use a random123 when they will be in Boost
     mutable boost::random::uniform_real_distribution<DataType_> dist{-1, 1};

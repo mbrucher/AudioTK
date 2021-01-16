@@ -42,8 +42,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ memory_factor = 0;
-    mutable DataType_ temp_output = 0;
+    DataType_ memory_factor{0};
+    mutable DataType_ temp_output{0};
   };
 }
 

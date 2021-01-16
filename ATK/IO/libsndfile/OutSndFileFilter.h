@@ -5,11 +5,11 @@
 #ifndef ATK_IO_OUTSNDFILEFILTER_H
 #define ATK_IO_OUTSNDFILEFILTER_H
 
-#include <memory>
-#include <string>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/IO/config.h>
+
+#include <memory>
+#include <string>
 
 class SndfileHandle;
 

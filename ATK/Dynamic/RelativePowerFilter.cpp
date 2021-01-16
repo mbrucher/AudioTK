@@ -2,13 +2,12 @@
  * \file RelativePowerFilter.cpp
  */
 
-#include <ATK/Dynamic/RelativePowerFilter.h>
+#include "RelativePowerFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <cassert>
 #include <cstdint>
 #include <limits>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

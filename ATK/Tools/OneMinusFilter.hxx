@@ -2,11 +2,10 @@
  * \file OneMinusFilter.hxx
  */
 
-#include <ATK/Tools/OneMinusFilter.h>
+#include "OneMinusFilter.h"
+#include <ATK/Core/TypeTraits.h>
 
 #include <cassert>
-
-#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {

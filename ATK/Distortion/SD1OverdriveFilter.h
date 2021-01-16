@@ -5,10 +5,10 @@
 #ifndef ATK_DISTORTION_SD1OVERDRIVEFILTER_H
 #define ATK_DISTORTION_SD1OVERDRIVEFILTER_H
 
-#include <memory>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Distortion/config.h>
+
+#include <memory>
 
 namespace ATK
 {

@@ -2,12 +2,11 @@
  * \file FixedDelayLineFilter.hxx
  */
 
-#include <ATK/Delay/FixedDelayLineFilter.h>
+#include "FixedDelayLineFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <cstring>
 #include <stdexcept>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -16,7 +15,7 @@ namespace ATK
   {
   public:
     typename FixedDelayLineFilter<DataType>::AlignedOutVector delay_line;
-    gsl::index index = 0;
+    gsl::index index{0};
 
     explicit FDLF_Impl(gsl::index max_delay)
       :delay_line(max_delay, TypeTraits<DataType>::Zero())

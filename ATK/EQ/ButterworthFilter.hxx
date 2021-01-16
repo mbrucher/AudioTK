@@ -2,11 +2,11 @@
  * \file ButterworthFilter.hxx
  */
 
+#include "ButterworthFilter.h"
+#include <ATK/EQ/helpers.h>
+
 #include <boost/math/constants/constants.hpp>
 #include <boost/math/tools/polynomial.hpp>
-
-#include <ATK/EQ/ButterworthFilter.h>
-#include <ATK/EQ/helpers.h>
 
 namespace ButterworthUtilities
 {

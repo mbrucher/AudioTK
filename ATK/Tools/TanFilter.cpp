@@ -2,12 +2,12 @@
  * \file TanFilter.cpp
  */
 
-#include <ATK/Tools/TanFilter.h>
+#include "TanFilter.h"
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cassert>
 #include <cmath>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

@@ -31,8 +31,8 @@ namespace ATK
     DataType precision;
     
 #if ATK_PROFILING == 1
-    int64_t nb_iterations;
-    int64_t nb_optimizations;
+    int64_t nb_iterations{0};
+    int64_t nb_optimizations{0};
 #endif
     using Vector = Eigen::Matrix<DataType, size, 1>;
     
@@ -45,9 +45,6 @@ namespace ATK
      */
     VectorizedNewtonRaphson(Function&& function, DataType precision = 0)
     :function(std::move(function)), precision(precision)
-#if ATK_PROFILING == 1
-    , nb_iterations(0), nb_optimizations(0)
-#endif
     {
       if(precision == 0)
       {

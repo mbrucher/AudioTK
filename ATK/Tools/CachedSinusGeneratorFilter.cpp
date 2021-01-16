@@ -2,13 +2,13 @@
  * \file CachedSinusGeneratorFilter.cpp
  */
 
-#include <ATK/Tools/CachedSinusGeneratorFilter.h>
+#include "CachedSinusGeneratorFilter.h"
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cmath>
 #include <cstdint>
 #include <cstring>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

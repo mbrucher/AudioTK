@@ -2,11 +2,10 @@
  * \file DryWetFilter.hxx
  */
 
-#include <ATK/Tools/DryWetFilter.h>
+#include "DryWetFilter.h"
+#include <ATK/Core/TypeTraits.h>
 
 #include <cstdint>
-
-#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {

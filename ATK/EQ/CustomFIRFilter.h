@@ -22,7 +22,7 @@ namespace ATK
 
   protected:
     /// Order of the MA polynomial
-    unsigned int in_order = 0;
+    unsigned int in_order{0};
 
     /// MA polynomial
     AlignedScalarVector coefficients_in;

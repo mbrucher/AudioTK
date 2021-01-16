@@ -2,7 +2,7 @@
  * \file MSFilter.hxx
  */
 
-#include <ATK/Tools/MSFilter.h>
+#include "MSFilter.h"
 
 namespace ATK
 {

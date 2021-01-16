@@ -2,15 +2,13 @@
  * \file GainMaxExpanderFilter.cpp
  */
 
-#include <ATK/Dynamic/GainMaxExpanderFilter.h>
+#include "GainMaxExpanderFilter.h"
+#include <ATK/Core/Utilities.h>
+#include <ATK/Utility/fmath.h>
 
 #include <cmath>
 #include <cstdint>
 #include <iostream>
-
-#include <ATK/Core/Utilities.h>
-
-#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {

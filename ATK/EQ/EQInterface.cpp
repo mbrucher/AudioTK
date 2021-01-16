@@ -2,7 +2,7 @@
  * \file EQInterface.cpp
  */
 
-#include <ATK/EQ/EQInterface.h>
+#include "EQInterface.h"
 
 #include <complex>
 

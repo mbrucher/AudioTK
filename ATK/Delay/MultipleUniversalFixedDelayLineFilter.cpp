@@ -2,15 +2,14 @@
  * \file MultipleUniversalFixedDelayLineFilter.cpp
  */
 
-#include <ATK/Delay/MultipleUniversalFixedDelayLineFilter.h>
+#include "MultipleUniversalFixedDelayLineFilter.h"
+#include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
 
 #include <cmath>
 #include <cstring>
 #include <complex>
 #include <stdexcept>
-
-#include <ATK/Core/TypeTraits.h>
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -19,7 +18,7 @@ namespace ATK
   {
   public:
     std::array<std::vector<DataType>, nb_channels> processed_input;
-    int64_t index = 0;
+    int64_t index{0};
 
     explicit SUFDLF_Impl(gsl::index max_delay)
     {

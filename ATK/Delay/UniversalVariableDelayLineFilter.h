@@ -5,10 +5,10 @@
 #ifndef ATK_DELAY_UNIVERSALVARIABLEDELAYFILTER_H
 #define ATK_DELAY_UNIVERSALVARIABLEDELAYFILTER_H
 
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -64,11 +64,11 @@ namespace ATK
     std::unique_ptr<UVDLF_Impl> impl;
 
     /// Max delay for the delay line
-    gsl::index max_delay = 0;
-    gsl::index central_delay = 0;
-    DataType_ blend = 0;
-    DataType_ feedback = 0;
-    DataType_ feedforward = 1;
+    gsl::index max_delay{0};
+    gsl::index central_delay{0};
+    DataType_ blend{0};
+    DataType_ feedback{0};
+    DataType_ feedforward{1};
   };
 }
 

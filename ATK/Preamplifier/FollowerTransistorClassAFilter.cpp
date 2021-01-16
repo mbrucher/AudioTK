@@ -4,7 +4,6 @@
 
 #include <ATK/Preamplifier/FollowerTransistorClassAFilter.h>
 #include <ATK/Preamplifier/TransistorFunction.h>
-
 #include <ATK/Utility/fmath.h>
 #include <ATK/Utility/SimplifiedVectorizedNewtonRaphson.h>
 #include <ATK/Utility/VectorizedNewtonRaphson.h>

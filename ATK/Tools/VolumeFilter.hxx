@@ -2,8 +2,7 @@
  * \file VolumeFilter.hxx
  */
 
-#include <ATK/Tools/VolumeFilter.h>
-
+#include "VolumeFilter.h"
 #include <ATK/Core/TypeTraits.h>
 
 namespace ATK

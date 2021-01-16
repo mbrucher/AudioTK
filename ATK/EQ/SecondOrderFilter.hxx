@@ -4,12 +4,12 @@
  * @see http://www.music.mcgill.ca/~ich/classes/FiltersChap2.pdf for the allpass filter
  */
 
-#include <ATK/EQ/SecondOrderFilter.h>
+#include "SecondOrderFilter.h"
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cassert>
 #include <cmath>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

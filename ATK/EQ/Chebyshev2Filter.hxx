@@ -2,11 +2,11 @@
  * \file Chebyshev2Filter.hxx
  */
 
+#include "Chebyshev2Filter.h"
+#include <ATK/EQ/helpers.h>
+
 #include <boost/math/constants/constants.hpp>
 #include <boost/math/special_functions/asinh.hpp>
-
-#include <ATK/EQ/Chebyshev2Filter.h>
-#include <ATK/EQ/helpers.h>
 
 namespace Chebyshev2Utilities
 {

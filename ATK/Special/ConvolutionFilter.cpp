@@ -2,7 +2,7 @@
  * \file ConvolutionFilter.cpp
  */
 
-#include <ATK/Special/ConvolutionFilter.h>
+#include "ConvolutionFilter.h"
 
 #include <cassert>
 #include <algorithm>

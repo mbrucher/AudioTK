@@ -5,14 +5,14 @@
 #ifndef ATK_EQ_FIRFILTER_H
 #define ATK_EQ_FIRFILTER_H
 
-#include <cassert>
-#include <cstdint>
-#include <vector>
+#include <ATK/config.h>
+#include <ATK/EQ/config.h>
 
 #include <gsl/gsl>
 
-#include <ATK/config.h>
-#include <ATK/EQ/config.h>
+#include <cassert>
+#include <cstdint>
+#include <vector>
 
 namespace ATK
 {

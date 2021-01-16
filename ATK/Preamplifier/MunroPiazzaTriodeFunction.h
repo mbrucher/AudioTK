@@ -6,8 +6,9 @@
 #ifndef ATK_PREAMPLIFIER_MUNROPIAZZATRIODEFUNCTION_H
 #define ATK_PREAMPLIFIER_MUNROPIAZZATRIODEFUNCTION_H
 
-#include <cmath>
 #include <ATK/Utility/fmath.h>
+
+#include <cmath>
 
 namespace ATK
 {

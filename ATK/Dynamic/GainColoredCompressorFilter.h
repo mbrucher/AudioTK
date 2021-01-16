@@ -5,10 +5,10 @@
 #ifndef ATK_DYNAMIC_GAINCOLOREDCOMPRESSORFILTER_H
 #define ATK_DYNAMIC_GAINCOLOREDCOMPRESSORFILTER_H
 
-#include <vector>
-
 #include <ATK/Dynamic/GainFilter.h>
 #include <ATK/Dynamic/config.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -52,9 +52,9 @@ namespace ATK
   protected:
     DataType_ computeGain(DataType_ value) const;
   private:
-    DataType_ softness = static_cast<DataType_>(0.0001);
-    DataType_ color = 0;
-    DataType_ quality = 0;
+    DataType_ softness{0.0001};
+    DataType_ color{0};
+    DataType_ quality{0};
   };
 }
 

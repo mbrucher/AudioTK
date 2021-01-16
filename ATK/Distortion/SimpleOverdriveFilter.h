@@ -7,10 +7,10 @@
 #ifndef ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
 #define ATK_DISTORTION_SIMPLEOVERDRIVEFILTER_H
 
-#include <memory>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Distortion/config.h>
+
+#include <memory>
 
 namespace ATK
 {

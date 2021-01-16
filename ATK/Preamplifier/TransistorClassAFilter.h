@@ -6,13 +6,12 @@
 #ifndef ATK_PREAMPLIFIER_TRANSISTORCLASSAFILTER_H
 #define ATK_PREAMPLIFIER_TRANSISTORCLASSAFILTER_H
 
-#include <list>
-#include <vector>
-
 #include <ATK/Preamplifier/config.h>
 #include <ATK/Preamplifier/TransistorFunction.h>
-
 #include <ATK/Core/TypedBaseFilter.h>
+
+#include <list>
+#include <vector>
 
 namespace ATK
 {

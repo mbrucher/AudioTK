@@ -2,14 +2,12 @@
  * \file GainMaxCompressorFilter.cpp
  */
 
-#include <ATK/Dynamic/GainMaxCompressorFilter.h>
+#include "GainMaxCompressorFilter.h"
+#include <ATK/Core/Utilities.h>
+#include <ATK/Utility/fmath.h>
 
 #include <cmath>
 #include <cstdint>
-
-#include <ATK/Core/Utilities.h>
-
-#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {

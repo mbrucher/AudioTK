@@ -2,7 +2,7 @@
  * \file SecondOrderFilter.cpp
  */
 
-#include <ATK/EQ/SecondOrderFilter.hxx>
+#include "SecondOrderFilter.hxx"
 #include <ATK/EQ/IIRFilter.h>
 
 namespace ATK

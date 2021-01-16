@@ -2,7 +2,7 @@
  * \file ButterworthFilter.cpp
  */
 
-#include <ATK/EQ/ButterworthFilter.hxx>
+#include "ButterworthFilter.hxx"
 
 namespace ATK
 {

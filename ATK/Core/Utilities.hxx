@@ -2,12 +2,12 @@
  * \file Utilities.hxx
  */
 
-#include <ATK/Core/Utilities.h>
+#include "Utilities.h"
 #include <ATK/Core/TypeTraits.h>
 
-#include <cstring>
-
 #include <gsl/gsl>
+
+#include <cstring>
 
 namespace ATK
 {

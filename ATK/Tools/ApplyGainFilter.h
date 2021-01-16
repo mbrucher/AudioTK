@@ -6,7 +6,7 @@
 #define ATK_TOOLS_APPLYGAINFILTER_H
 
 #include <ATK/Core/TypedBaseFilter.h>
-#include "config.h"
+#include <ATK/Tools/config.h>
 
 namespace ATK
 {

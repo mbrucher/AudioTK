@@ -38,7 +38,7 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     void setup() final;
   private:
-    double coeff = 1;
+    double coeff{1};
   };
 }
 

@@ -2,7 +2,7 @@
  * \file VariableDelayLineFilter.cpp
  */
 
-#include <ATK/Delay/VariableDelayLineFilter.h>
+#include "VariableDelayLineFilter.h"
 
 #include <cstdint>
 #include <cstring>

@@ -5,12 +5,12 @@
 #ifndef ATK_EQ_TIMEVARYINGIIRFILTER_H
 #define ATK_EQ_TIMEVARYINGIIRFILTER_H
 
+#include <ATK/config.h>
+#include <ATK/EQ/config.h>
+
 #include <cassert>
 #include <cmath>
 #include <vector>
-
-#include <ATK/config.h>
-#include <ATK/EQ/config.h>
 
 namespace ATK
 {

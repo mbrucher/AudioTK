@@ -2,14 +2,13 @@
  * \file TS9OverdriveFilter.cpp
  */
 
-#include <ATK/Distortion/TS9OverdriveFilter.h>
-
-#include <stdexcept>
+#include "TS9OverdriveFilter.h"
+#include <ATK/Utility/fmath.h>
+#include <ATK/Utility/ScalarNewtonRaphson.h>
 
 #include <boost/math/special_functions/sign.hpp>
 
-#include <ATK/Utility/fmath.h>
-#include <ATK/Utility/ScalarNewtonRaphson.h>
+#include <stdexcept>
 
 namespace ATK
 {
@@ -27,11 +26,11 @@ namespace ATK
     const DataType is;
     const DataType vt;
 
-    DataType ieq = 0;
-    DataType i = 0;
+    DataType ieq{0};
+    DataType i{0};
 
-    DataType expdiode_y1_p = 1;
-    DataType expdiode_y1_m = 1;
+    DataType expdiode_y1_p{1};
+    DataType expdiode_y1_m{1};
 
   public:
     TS9OverdriveFunction(DataType dt, DataType R, DataType R1, DataType Q, DataType C, DataType is, DataType vt)

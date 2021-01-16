@@ -25,7 +25,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
+    CoeffDataType Q{1};
 
     void setup() override;
         
@@ -60,7 +60,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
+    CoeffDataType Q{1};
 
     void setup() override;
 
@@ -95,7 +95,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
+    CoeffDataType Q{1};
 
     void setup() override;
 
@@ -130,7 +130,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
+    CoeffDataType Q{1};
 
     void setup() override;
 
@@ -165,7 +165,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
+    CoeffDataType Q{1};
 
     void setup() override;
 
@@ -200,7 +200,7 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
+    CoeffDataType Q{1};
 
     void setup() override;
 
@@ -235,8 +235,8 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
-    CoeffDataType gain = 1;
+    CoeffDataType Q{1};
+    CoeffDataType gain{1};
 
     void setup() override;
 
@@ -275,8 +275,8 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
-    CoeffDataType gain = 1;
+    CoeffDataType Q{1};
+    CoeffDataType gain{1};
 
     void setup() override;
 
@@ -315,8 +315,8 @@ namespace ATK
     using Parent::coefficients_in;
     using Parent::coefficients_out;
 
-    CoeffDataType Q = 1;
-    CoeffDataType gain = 1;
+    CoeffDataType Q{1};
+    CoeffDataType gain{1};
 
     void setup() override;
 

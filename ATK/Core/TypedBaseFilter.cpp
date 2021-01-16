@@ -2,7 +2,7 @@
  * \file TypedBaseFilter.cpp
  */
 
-#include <ATK/Core/TypedBaseFilter.hxx>
+#include "TypedBaseFilter.hxx"
 
 namespace ATK
 {

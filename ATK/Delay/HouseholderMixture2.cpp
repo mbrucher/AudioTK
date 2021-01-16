@@ -2,7 +2,7 @@
  * \file HouseholderMixture2.cpp
  */
 
-#include <ATK/Delay/HouseholderMixture.hxx>
+#include "HouseholderMixture.hxx"
 
 #include <complex>
 

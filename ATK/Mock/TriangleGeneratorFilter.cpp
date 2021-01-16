@@ -2,12 +2,11 @@
  * \file TriangleGeneratorFilter.cpp
  */
 
-#include <ATK/Mock/TriangleGeneratorFilter.h>
+#include "TriangleGeneratorFilter.h"
+#include <ATK/Core/TypeTraits.h>
 
 #include <cstdint>
 #include <complex>
-
-#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {

@@ -5,11 +5,11 @@
 #ifndef ATK_DELAY_FIXEDDELAYFILTER_H
 #define ATK_DELAY_FIXEDDELAYFILTER_H
 
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
 #include <ATK/Delay/DelayInterface.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -49,7 +49,7 @@ namespace ATK
   private:
     std::unique_ptr<FDLF_Impl> impl;
 
-    gsl::index delay = 0;
+    gsl::index delay{0};
   };
 }
 

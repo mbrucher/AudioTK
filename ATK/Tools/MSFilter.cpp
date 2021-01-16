@@ -2,7 +2,7 @@
  * \file MSFilter.cpp
  */
 
-#include <ATK/Tools/MSFilter.hxx>
+#include "MSFilter.hxx"
 
 #include <complex>
 #include <cstdint>

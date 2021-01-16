@@ -5,10 +5,10 @@
 #ifndef ATK_EQ_EQINTERFACE_H
 #define ATK_EQ_EQINTERFACE_H
 
-#include <map>
-
 #include <ATK/config.h>
 #include <ATK/EQ/config.h>
+
+#include <map>
 
 namespace ATK
 {

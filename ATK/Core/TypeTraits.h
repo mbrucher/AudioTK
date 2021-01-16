@@ -13,10 +13,6 @@
 #include <limits>
 #include <type_traits>
 
-#if ATK_USE_SIMD
-#include <experimental/simd>
-#endif
-
 namespace ATK
 {
   /// Traits to handle conversion integer full scale from/to double

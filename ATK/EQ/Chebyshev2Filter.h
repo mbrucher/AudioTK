@@ -23,14 +23,14 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Cut-off of the filter
-    CoeffDataType cut_frequency = 0;
+    CoeffDataType cut_frequency{0};
     /// Ripple of the filter
-    CoeffDataType ripple = 0;
+    CoeffDataType ripple{0};
     
     /// Order of the filter
-    unsigned int in_order = 1;
+    unsigned int in_order{1};
     /// Order of the filter
-    unsigned int out_order = 1;
+    unsigned int out_order{1};
     
     void setup() override;
     
@@ -73,14 +73,14 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Cut-off of the filter
-    CoeffDataType cut_frequency = 0;
+    CoeffDataType cut_frequency{0};
     /// Ripple of the filter
-    CoeffDataType ripple = 0;
+    CoeffDataType ripple{0};
     
     /// Order of the filter
-    unsigned int in_order = 1;
+    unsigned int in_order{1};
     /// Order of the filter
-    unsigned int out_order = 1;
+    unsigned int out_order{1};
     
     void setup() override;
     
@@ -125,12 +125,12 @@ namespace ATK
     /// Bandwidth of the filter
     std::pair<CoeffDataType, CoeffDataType> cut_frequencies = {0, 0};
     /// Ripple of the filter
-    CoeffDataType ripple = 0;
+    CoeffDataType ripple{0};
     
     /// Order of the filter
-    unsigned int in_order = 1;
+    unsigned int in_order{1};
     /// Order of the filter
-    unsigned int out_order = 1;
+    unsigned int out_order{1};
     
     void setup() override;
     
@@ -177,12 +177,12 @@ namespace ATK
     /// Bandwidth of the filter
     std::pair<CoeffDataType, CoeffDataType> cut_frequencies = {0, 0};
     /// Ripple of the filter
-    CoeffDataType ripple = 0;
+    CoeffDataType ripple{0};
     
     /// Order of the filter
-    unsigned int in_order = 1;
+    unsigned int in_order{1};
     /// Order of the filter
-    unsigned int out_order = 1;
+    unsigned int out_order{1};
     
     void setup() override;
     

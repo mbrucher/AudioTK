@@ -2,13 +2,13 @@
  * \file HadamardMixture.hxx
  */
 
+#include "HadamardMixture.h"
 #include <ATK/Delay/FeedbackDelayNetworkFilter.hxx>
-#include <ATK/Delay/HadamardMixture.h>
-
-#include <Eigen/Dense>
 
 #include <ATK/Core/TypeTraits.h>
 #include <ATK/Utility/fmath.h>
+
+#include <Eigen/Dense>
 
 namespace ATK
 {

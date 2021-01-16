@@ -6,9 +6,9 @@
 #ifndef ATK_EQ_RIAAFILTER_H
 #define ATK_EQ_RIAAFILTER_H
 
-#include <gsl/gsl>
-
 #include <ATK/EQ/SecondOrderFilter.h>
+
+#include <gsl/gsl>
 
 namespace ATK
 {

@@ -2,13 +2,13 @@
  * \file FFTCheckerFilter.cpp
  */
 
-#include <ATK/Mock/FFTCheckerFilter.h>
-
-#include <cmath>
+#include "FFTCheckerFilter.h"
 
 #define BOOST_TEST_DYN_LINK
 #define BOOST_TEST_NO_MAIN
 #include <boost/test/unit_test.hpp>
+
+#include <cmath>
 
 namespace ATK
 {

@@ -5,6 +5,8 @@
 #ifndef ATK_PREAMPLIFIER_TRANSISTORFUNCTION_H
 #define ATK_PREAMPLIFIER_TRANSISTORFUNCTION_H
 
+#include <utility>
+
 namespace ATK
 {
   template <typename DataType_>

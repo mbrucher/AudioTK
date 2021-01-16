@@ -5,15 +5,15 @@
 #ifndef ATK_EQ_IIRFILTER_H
 #define ATK_EQ_IIRFILTER_H
 
-#include <algorithm>
-#include <cassert>
-#include <vector>
-
-#include <gsl/gsl>
-
 #include <ATK/config.h>
 #include <ATK/Core/TypeTraits.h>
 #include <ATK/EQ/config.h>
+
+#include <gsl/gsl>
+
+#include <algorithm>
+#include <cassert>
+#include <vector>
 
 namespace ATK
 {

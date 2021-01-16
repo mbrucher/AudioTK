@@ -5,11 +5,11 @@
 #ifndef ATK_CORE_UTILITIES_H
 #define ATK_CORE_UTILITIES_H
 
-#include <cstddef>
+#include <ATK/Core/config.h>
 
 #include <gsl/gsl>
 
-#include <ATK/Core/config.h>
+#include <cstddef>
 
 namespace ATK
 {

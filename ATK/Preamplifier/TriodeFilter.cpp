@@ -9,11 +9,10 @@
 #include <ATK/Preamplifier/MunroPiazzaTriodeFunction.h>
 #include <ATK/Preamplifier/ModifiedMunroPiazzaTriodeFunction.h>
 #include <ATK/Preamplifier/TriodeFilter.h>
-
-#include <cassert>
-
 #include <ATK/Utility/SimplifiedVectorizedNewtonRaphson.h>
 #include <ATK/Utility/VectorizedNewtonRaphson.h>
+
+#include <cassert>
 
 namespace ATK
 {

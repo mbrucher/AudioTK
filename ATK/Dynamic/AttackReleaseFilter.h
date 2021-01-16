@@ -46,8 +46,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ attack = 1;
-    DataType_ release = 1;
+    DataType_ attack{1};
+    DataType_ release{1};
   };
 }
 

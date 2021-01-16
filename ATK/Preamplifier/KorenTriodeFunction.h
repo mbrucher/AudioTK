@@ -6,8 +6,9 @@
 #ifndef ATK_PREAMPLIFIER_KORENTRIODEFUNCTION_H
 #define ATK_PREAMPLIFIER_KORENTRIODEFUNCTION_H
 
-#include <cmath>
 #include <ATK/Utility/fmath.h>
+
+#include <cmath>
 
 namespace ATK
 {

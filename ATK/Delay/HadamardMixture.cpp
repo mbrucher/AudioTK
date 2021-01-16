@@ -2,9 +2,10 @@
  * \file HadamardMixture.cpp
  */
 
-#include <ATK/Delay/HadamardMixture.hxx>
+#include "HadamardMixture.hxx"
 
 #include <complex>
+
 namespace ATK
 {
   template class FeedbackDelayNetworkFilter<HadamardMixture<double, 1>>;

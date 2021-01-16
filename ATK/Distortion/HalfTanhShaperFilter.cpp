@@ -2,8 +2,7 @@
  * \file HalfTanhShaperFilter.cpp
  */
 
-#include <ATK/Distortion/HalfTanhShaperFilter.h>
-
+#include "HalfTanhShaperFilter.h"
 #include <ATK/Utility/fmath.h>
 
 #include <cassert>

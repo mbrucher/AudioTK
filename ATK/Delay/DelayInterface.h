@@ -5,10 +5,11 @@
 #ifndef ATK_DELAY_DELAYINTERFACE_H
 #define ATK_DELAY_DELAYINTERFACE_H
 
-#include <map>
+#include <ATK/Delay/config.h>
+
 #include <gsl/gsl>
 
-#include <ATK/Delay/config.h>
+#include <map>
 
 namespace ATK
 {

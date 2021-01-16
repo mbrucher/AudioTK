@@ -5,11 +5,11 @@
 #ifndef ATK_DELAY_UNIVERSALFIXEDDELAYFILTER_H
 #define ATK_DELAY_UNIVERSALFIXEDDELAYFILTER_H
 
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
 #include <ATK/Delay/DelayInterface.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -66,9 +66,9 @@ namespace ATK
     // internal state
     std::unique_ptr<UFDLF_Impl> impl;
     gsl::index delay = 100;
-    Scalar blend = 0;
-    Scalar feedback = 0;
-    Scalar feedforward = 1;
+    Scalar blend{0};
+    Scalar feedback{0};
+    Scalar feedforward{1};
   };
 }
 

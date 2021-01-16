@@ -2,11 +2,10 @@
  * \file InWavFilter.cpp
  */
 
-#include <ATK/IO/InWavFilter.h>
+#include "InWavFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <stdexcept>
-
-#include <ATK/Core/Utilities.h>
 
 namespace
 {

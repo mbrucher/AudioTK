@@ -5,8 +5,6 @@
 #ifndef ATK_DYNAMIC_GAINMAXEXPANDERFILTER_H
 #define ATK_DYNAMIC_GAINMAXEXPANDERFILTER_H
 
-#include <vector>
-
 #include <ATK/Dynamic/GainFilter.h>
 #include <ATK/Dynamic/config.h>
 
@@ -50,8 +48,8 @@ namespace ATK
   protected:
     DataType_ computeGain(DataType_ value) const;
   private:
-    DataType_ softness = 0.0001;
-    DataType_ max_reduction = 0.01;
+    DataType_ softness{0.0001};
+    DataType_ max_reduction{0.01};
   };
 }
 

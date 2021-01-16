@@ -5,11 +5,11 @@
 #ifndef ATK_DELAY_MULTIPLEUNIVERSALFIXEDDELAYFILTER_H
 #define ATK_DELAY_MULTIPLEUNIVERSALFIXEDDELAYFILTER_H
 
-#include <array>
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
+
+#include <array>
+#include <vector>
 
 namespace ATK
 {
@@ -66,7 +66,7 @@ namespace ATK
     std::unique_ptr<SUFDLF_Impl> impl;
     std::array<gsl::index, nb_channels> delay;
     /// Max delay for the delay line
-    gsl::index max_delay = 0;
+    gsl::index max_delay{0};
     std::array<DataType_, nb_channels> blend;
     std::array<DataType_, nb_channels*nb_channels> feedback;
     std::array<DataType_, nb_channels*nb_channels> feedforward;

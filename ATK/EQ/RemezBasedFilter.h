@@ -28,7 +28,7 @@ namespace ATK
      */
     std::vector<std::pair<std::pair<CoeffDataType, CoeffDataType>, std::pair<CoeffDataType, CoeffDataType> > > target;
     /// Oarger of the polynomial we can use
-    gsl::index in_order = 0;
+    gsl::index in_order{0};
     /// Launches the computation
     void setup() override;
     /// Final coefficients

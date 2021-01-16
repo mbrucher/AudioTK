@@ -8,12 +8,12 @@
 #include <ATK/Core/BaseFilter.h>
 #include <ATK/Core/TypeTraits.h>
 
-#include <memory>
-#include <vector>
-
 #include <boost/align/aligned_allocator.hpp>
 
 #include <gsl/gsl>
+
+#include <memory>
+#include <vector>
 
 namespace ATK
 {

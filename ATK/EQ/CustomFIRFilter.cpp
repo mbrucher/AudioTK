@@ -2,14 +2,14 @@
  * \file CustomFIRFilter.cpp
  */
 
+#include "CustomFIRFilter.h"
 #include <ATK/EQ/config.h>
-#include <ATK/EQ/CustomFIRFilter.h>
+
+#include <boost/math/constants/constants.hpp>
 
 #include <complex>
 #include <cassert>
 #include <cmath>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

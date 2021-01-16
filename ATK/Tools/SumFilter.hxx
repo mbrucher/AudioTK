@@ -2,7 +2,7 @@
  * \file SumFilter.hxx
  */
 
-#include <ATK/Tools/SumFilter.h>
+#include "SumFilter.h"
 
 #include <cstring>
 

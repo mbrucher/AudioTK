@@ -5,10 +5,10 @@
 #ifndef ATK_REVERBERATION_LOWPASSREVERBFILTER_H
 #define ATK_REVERBERATION_LOWPASSREVERBFILTER_H
 
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Reverberation/config.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -52,9 +52,9 @@ namespace ATK
   protected:
     void process_impl(gsl::index size) const final;
   private:
-    gsl::index delay = 0;
-    DataType_ feedback = 0;
-    DataType_ cutoff = 0;
+    gsl::index delay{0};
+    DataType_ feedback{0};
+    DataType_ cutoff{0};
   };
 }
 

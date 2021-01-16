@@ -2,10 +2,10 @@
  * \file BesselFilter.hxx
  */
 
-#include <boost/math/constants/constants.hpp>
-
-#include <ATK/EQ/BesselFilter.h>
+#include "BesselFilter.h"
 #include <ATK/EQ/helpers.h>
+
+#include <boost/math/constants/constants.hpp>
 
 namespace BesselUtilities
 {

@@ -2,12 +2,12 @@
  * \file RIAAFilter.hxx
  */
 
-#include <cmath>
+#include "RIAAFilter.h"
+#include <ATK/EQ/helpers.h>
 
 #include <boost/math/tools/polynomial.hpp>
 
-#include <ATK/EQ/RIAAFilter.h>
-#include <ATK/EQ/helpers.h>
+#include <cmath>
 
 namespace ATK
 {

@@ -2,7 +2,7 @@
  * \file ToneStackFilter.cpp
  */
 
-#include <ATK/EQ/ToneStackFilter.hxx>
+#include "ToneStackFilter.hxx"
 #include <ATK/EQ/IIRFilter.h>
 
 namespace ATK

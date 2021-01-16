@@ -2,13 +2,12 @@
  * \file GainFilter.cpp
  */
 
-#include <ATK/Dynamic/GainFilter.h>
+#include "GainFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <cassert>
 #include <cmath>
 #include <cstdint>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

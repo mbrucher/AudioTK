@@ -5,12 +5,12 @@
 #ifndef ATK_EQ_SIMPLEIIRFILTER_H
 #define ATK_EQ_SIMPLEIIRFILTER_H
 
+#include <ATK/config.h>
+#include <ATK/EQ/config.h>
+
 #include <algorithm>
 #include <cassert>
 #include <vector>
-
-#include <ATK/config.h>
-#include <ATK/EQ/config.h>
 
 namespace ATK
 {

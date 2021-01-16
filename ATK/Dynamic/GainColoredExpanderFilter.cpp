@@ -2,15 +2,13 @@
  * \file GainColoredExpanderFilter.cpp
  */
 
-#include <ATK/Dynamic/GainColoredExpanderFilter.h>
+#include "GainColoredExpanderFilter.h"
+#include <ATK/Core/Utilities.h>
+#include <ATK/Utility/fmath.h>
 
 #include <cmath>
 #include <cstdint>
 #include <stdexcept>
-
-#include <ATK/Core/Utilities.h>
-
-#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {

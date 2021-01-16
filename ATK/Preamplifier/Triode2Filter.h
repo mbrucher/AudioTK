@@ -6,12 +6,11 @@
 #ifndef ATK_PREAMPLIFIER_TRIODE2FILTER_H
 #define ATK_PREAMPLIFIER_TRIODE2FILTER_H
 
+#include <ATK/Preamplifier/config.h>
+#include <ATK/Core/TypedBaseFilter.h>
+
 #include <list>
 #include <vector>
-
-#include <ATK/Preamplifier/config.h>
-
-#include <ATK/Core/TypedBaseFilter.h>
 
 namespace ATK
 {

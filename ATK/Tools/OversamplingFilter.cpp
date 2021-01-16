@@ -2,7 +2,7 @@
  * \file OversamplingFilter.cpp
  */
 
-#include <ATK/Tools/OversamplingFilter.hxx>
+#include "OversamplingFilter.hxx"
 
 #include <complex>
 

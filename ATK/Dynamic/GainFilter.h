@@ -5,13 +5,13 @@
 #ifndef ATK_DYNAMIC_GAINFILTER_H
 #define ATK_DYNAMIC_GAINFILTER_H
 
+#include <ATK/Core/TypedBaseFilter.h>
+#include <ATK/Dynamic/config.h>
+
 #include <cassert>
 #include <atomic>
 #include <future>
 #include <vector>
-
-#include <ATK/Core/TypedBaseFilter.h>
-#include <ATK/Dynamic/config.h>
 
 namespace ATK
 {
@@ -51,14 +51,14 @@ namespace ATK
 
   protected:
     /// Threshold
-    DataType_ threshold = 1;
+    DataType_ threshold{1};
     /// Ratio
-    DataType_ ratio = 1;
+    DataType_ ratio{1};
 
     virtual void start_recomputeLUT() = 0;
 
-    gsl::index LUTsize = 0;
-    gsl::index LUTprecision = 0;
+    gsl::index LUTsize{0};
+    gsl::index LUTprecision{0};
     std::vector<DataType_> gainLUT;
   };
 

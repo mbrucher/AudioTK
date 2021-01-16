@@ -4,12 +4,11 @@
 
 #include <ATK/Preamplifier/TransistorClassAFilter.h>
 #include <ATK/Preamplifier/TransistorFunction.h>
-
-#include <cassert>
-
 #include <ATK/Utility/fmath.h>
 #include <ATK/Utility/SimplifiedVectorizedNewtonRaphson.h>
 #include <ATK/Utility/VectorizedNewtonRaphson.h>
+
+#include <cassert>
 
 namespace ATK
 {

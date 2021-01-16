@@ -5,13 +5,12 @@
 #ifndef ATK_IO_INWAVFILTER_H
 #define ATK_IO_INWAVFILTER_H
 
-#include <fstream>
-#include <string>
-
 #include <ATK/Core/TypedBaseFilter.h>
-
 #include <ATK/IO/config.h>
 #include <ATK/IO/WavStruct.h>
+
+#include <fstream>
+#include <string>
 
 namespace ATK
 {

@@ -2,7 +2,7 @@
  * \file Utilities.cpp
  */
 
-#include <ATK/Core/Utilities.hxx>
+#include "Utilities.hxx"
 
 namespace ATK
 {

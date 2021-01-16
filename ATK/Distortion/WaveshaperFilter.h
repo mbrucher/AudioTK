@@ -5,11 +5,11 @@
 #ifndef ATK_DISTORTION_WAVESHAPER_H
 #define ATK_DISTORTION_WAVESHAPER_H
 
-#include <cassert>
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Distortion/config.h>
+
+#include <cassert>
+#include <vector>
 
 namespace ATK
 {

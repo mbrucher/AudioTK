@@ -5,8 +5,6 @@
 #ifndef ATK_TOOLS_TOOLSINTERFACE_H
 #define ATK_TOOLS_TOOLSINTERFACE_H
 
-#include <map>
-
 #include <ATK/Tools/config.h>
 
 namespace ATK

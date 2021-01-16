@@ -2,7 +2,7 @@
  * \file DryWetFilter.cpp
  */
 
-#include <ATK/Tools/DryWetFilter.hxx>
+#include "DryWetFilter.hxx"
 
 #include <complex>
 

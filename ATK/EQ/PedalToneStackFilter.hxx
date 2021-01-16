@@ -2,9 +2,9 @@
  * \file PedalToneStackFilter.hxx
  */
 
-#include <boost/math/tools/polynomial.hpp>
+#include "PedalToneStackFilter.h"
 
-#include <ATK/EQ/PedalToneStackFilter.h>
+#include <boost/math/tools/polynomial.hpp>
 
 namespace ATK
 {

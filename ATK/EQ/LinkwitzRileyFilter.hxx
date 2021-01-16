@@ -2,9 +2,9 @@
  * \file LinkwitzRileyFilter.hxx
  */
 
-#include <boost/math/tools/polynomial.hpp>
+#include "LinkwitzRileyFilter.h"
 
-#include <ATK/EQ/LinkwitzRileyFilter.h>
+#include <boost/math/tools/polynomial.hpp>
 
 namespace ATK
 {

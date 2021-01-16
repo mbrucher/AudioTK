@@ -2,15 +2,15 @@
  * \file TypedBaseFilter.hxx
  */
 
-#include <ATK/Core/TypedBaseFilter.h>
+#include "TypedBaseFilter.h"
 #include <ATK/Core/Utilities.h>
+
+#include <boost/mp11/algorithm.hpp>
+#include <boost/mp11/list.hpp>
 
 #include <complex>
 #include <cstdint>
 #include <type_traits>
-
-#include <boost/mp11/algorithm.hpp>
-#include <boost/mp11/list.hpp>
 
 namespace ATK
 {

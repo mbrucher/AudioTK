@@ -6,12 +6,11 @@
 #define ATK_DELAY_FEEDBACKDELAYNETWORKFILTER_HXX
 
 #include <ATK/Delay/FeedbackDelayNetworkFilter.h>
-
-#include <complex>
+#include <ATK/Core/Utilities.h>
 
 #include <Eigen/Dense>
 
-#include <ATK/Core/Utilities.h>
+#include <complex>
 
 namespace ATK
 {
@@ -24,7 +23,7 @@ namespace ATK
 
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> delay_line;
     std::vector<Vector, boost::alignment::aligned_allocator<Vector, 32>> processed_input;
-    int64_t index = 0;
+    int64_t index{0};
     Vector ingain = Vector::Zero();
     Vector outgain = Vector::Zero();
     Vector feedback = Vector::Zero();

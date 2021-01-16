@@ -7,7 +7,6 @@
 
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Core/TypeTraits.h>
-
 #include <ATK/Mock/config.h>
 
 namespace ATK
@@ -39,8 +38,8 @@ namespace ATK
   private:
     mutable double state = 0;
     mutable bool ascending = true;
-    DataType amplitude = 1;
-    int frequency = 1;
+    DataType amplitude{1};
+    int frequency{1};
   };
 }
 

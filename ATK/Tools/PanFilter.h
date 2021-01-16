@@ -59,7 +59,7 @@ namespace ATK
 
   private:
     PAN_LAWS law = PAN_LAWS::SINCOS_0_CENTER;
-    double pan = 0;
+    double pan{0};
   };
 }
 

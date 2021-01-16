@@ -5,11 +5,11 @@
 #ifndef ATK_DELAY_HADAMARDFEEDBACKDELAYNETWORKFILTER_H
 #define ATK_DELAY_HADAMARDFEEDBACKDELAYNETWORKFILTER_H
 
-#include <array>
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
+
+#include <array>
+#include <vector>
 
 namespace ATK
 {

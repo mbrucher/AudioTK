@@ -2,14 +2,12 @@
  * \file GainLimiterFilter.cpp
  */
 
-#include <ATK/Dynamic/GainLimiterFilter.h>
+#include "GainLimiterFilter.h"
+#include <ATK/Core/Utilities.h>
+#include <ATK/Utility/fmath.h>
 
 #include <cmath>
 #include <cstdint>
-
-#include <ATK/Core/Utilities.h>
-
-#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {

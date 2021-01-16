@@ -2,7 +2,7 @@
  * \file OversamplingFilter.hxx
  */
 
-#include <ATK/Tools/OversamplingFilter.h>
+#include "OversamplingFilter.h"
 
 #include <cassert>
 

@@ -5,10 +5,10 @@
 #ifndef ATK_DELAY_VARIABLEDELAYFILTER_H
 #define ATK_DELAY_VARIABLEDELAYFILTER_H
 
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Delay/config.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -44,7 +44,7 @@ namespace ATK
     std::unique_ptr<VDLF_Impl> impl;
     
     /// Max delay for the delay line
-    gsl::index max_delay = 0;
+    gsl::index max_delay{0};
   };
 }
 

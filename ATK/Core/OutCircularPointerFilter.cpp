@@ -2,7 +2,7 @@
  * \file OutCircularPointerFilter.cpp
  */
 
-#include <ATK/Core/OutCircularPointerFilter.h>
+#include "OutCircularPointerFilter.h"
 
 #include <algorithm>
 #include <complex>

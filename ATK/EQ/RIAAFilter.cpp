@@ -2,10 +2,10 @@
  * \file RIAAFilter.cpp
  */
 
-#include <gsl/gsl>
-
-#include <ATK/EQ/RIAAFilter.hxx>
+#include "RIAAFilter.hxx"
 #include <ATK/EQ/IIRFilter.h>
+
+#include <gsl/gsl>
 
 namespace ATK
 {

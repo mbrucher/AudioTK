@@ -2,17 +2,16 @@
  * \file BlockLMSFilter.cpp
  */
 
-#include <ATK/Adaptive/BlockLMSFilter.h>
+#include "BlockLMSFilter.h"
+#include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
+#include <ATK/Utility/FFT.h>
+
+#include <Eigen/Core>
 
 #include <complex>
 #include <cstdint>
 #include <stdexcept>
-
-#include <Eigen/Core>
-
-#include <ATK/Core/TypeTraits.h>
-#include <ATK/Core/Utilities.h>
-#include <ATK/Utility/FFT.h>
 
 namespace ATK
 {

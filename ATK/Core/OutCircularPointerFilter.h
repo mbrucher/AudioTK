@@ -5,9 +5,9 @@
 #ifndef ATK_CORE_OUTCIRCULARPOINTERFILTER_H
 #define ATK_CORE_OUTCIRCULARPOINTERFILTER_H
 
-#include <array>
-
 #include <ATK/Core/TypedBaseFilter.h>
+
+#include <array>
 
 namespace ATK
 {
@@ -51,8 +51,8 @@ namespace ATK
     SliceBuffer last_slice{};
 
     /// Current offset in the array
-    mutable gsl::index offset = 0;
-    mutable gsl::index current_slice = 0;
+    mutable gsl::index offset{0};
+    mutable gsl::index current_slice{0};
     gsl::index last_checked_out_buffer = -1;
     
   };

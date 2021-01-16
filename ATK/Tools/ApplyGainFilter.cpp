@@ -2,7 +2,7 @@
  * \file ApplyGainFilter.h
  */
 
-#include <ATK/Tools/ApplyGainFilter.hxx>
+#include "ApplyGainFilter.hxx"
 
 #include <cassert>
 #include <cmath>

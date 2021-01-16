@@ -2,14 +2,12 @@
  * \file GainSwellFilter.cpp
  */
 
-#include <ATK/Dynamic/GainSwellFilter.h>
+#include "GainSwellFilter.h"
+#include <ATK/Core/Utilities.h>
+#include <ATK/Utility/fmath.h>
 
 #include <cmath>
 #include <cstdint>
-
-#include <ATK/Core/Utilities.h>
-
-#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {

@@ -2,14 +2,14 @@
  * \file PipelineGlobalSinkFilter.cpp
  */
 
-#include <ATK/Core/PipelineGlobalSinkFilter.h>
+#include "PipelineGlobalSinkFilter.h"
 #include <ATK/Core/Utilities.h>
-
-#include <algorithm>
 
 #if ATK_USE_THREADPOOL == 1
 #include <tbb/task_group.h>
 #endif
+
+#include <algorithm>
 
 namespace ATK
 {

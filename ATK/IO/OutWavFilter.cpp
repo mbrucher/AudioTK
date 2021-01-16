@@ -2,12 +2,11 @@
  * \file OutWavFilter.cpp
  */
 
-#include <ATK/IO/OutWavFilter.h>
+#include "OutWavFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <cstring>
 #include <stdexcept>
-
-#include <ATK/Core/Utilities.h>
 
 namespace
 {

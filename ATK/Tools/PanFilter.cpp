@@ -2,15 +2,14 @@
  * \file PanFilter.cpp
  */
 
-#include <ATK/Tools/PanFilter.h>
+#include "PanFilter.h"
+#include <ATK/Core/TypeTraits.h>
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cmath>
 #include <complex>
 #include <cstdint>
-
-#include <boost/math/constants/constants.hpp>
-
-#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {
@@ -51,8 +50,8 @@ namespace ATK
   template<typename DataType_>
   void PanFilter<DataType_>::process_impl(gsl::index size) const
   {
-    double left_coeff = 1;
-    double right_coeff = 1;
+    double left_coeff{1};
+    double right_coeff{1};
     
     switch(law)
     {

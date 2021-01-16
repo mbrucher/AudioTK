@@ -5,13 +5,12 @@
 #ifndef ATK_SPECIAL_CONVOLUTIONFILTER_H
 #define ATK_SPECIAL_CONVOLUTIONFILTER_H
 
-#include <list>
-#include <vector>
-
 #include <ATK/Special/config.h>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Utility/FFT.h>
+
+#include <list>
+#include <vector>
 
 namespace ATK
 {
@@ -35,7 +34,7 @@ namespace ATK
     using AlignedComplexVector = typename TypedBaseFilter<std::complex<DataType_> >::AlignedVector;
   protected:
     /// Current amount of data in the buffer
-    mutable unsigned int split_position = 0;
+    mutable unsigned int split_position{0};
     /// Size of the individual FFTs that are processed
     unsigned int split_size = 0;
     

@@ -6,9 +6,7 @@
 #define ATK_MOCK_FFTCHECKERFILTER_H
 
 #include <ATK/Mock/config.h>
-
 #include <ATK/Core/TypedBaseFilter.h>
-
 #include <ATK/Utility/FFT.h>
 
 namespace ATK

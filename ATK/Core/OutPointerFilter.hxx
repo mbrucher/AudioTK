@@ -2,7 +2,7 @@
  * \file OutPointerFilter.hxx
  */
 
-#include <ATK/Core/OutPointerFilter.h>
+#include "OutPointerFilter.h"
 
 #include <cstring>
 

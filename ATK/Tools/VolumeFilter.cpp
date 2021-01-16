@@ -2,7 +2,7 @@
  * \file VolumeFilter.cpp
  */
 
-#include <ATK/Tools/VolumeFilter.hxx>
+#include "VolumeFilter.hxx"
 
 #include <complex>
 #include <cstdint>

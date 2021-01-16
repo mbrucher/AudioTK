@@ -2,17 +2,16 @@
  * \file RemezBasedFilter.cpp
  */
 
-#include <vector>
+#include "RemezBasedFilter.h"
+#include <ATK/Core/Utilities.h>
+#include <ATK/EQ/FIRFilter.h>
+#include <ATK/Utility/FFT.h>
 
 #include <boost/math/constants/constants.hpp>
 
 #include <Eigen/Dense>
 
-#include <ATK/Core/Utilities.h>
-#include <ATK/EQ/RemezBasedFilter.h>
-#include <ATK/EQ/FIRFilter.h>
-
-#include <ATK/Utility/FFT.h>
+#include <vector>
 
 namespace
 {

@@ -2,11 +2,11 @@
  * \file SecondOrderSVFFilter.cpp
  */
 
-#include <ATK/EQ/SecondOrderSVFFilter.h>
-
-#include <cassert>
+#include "SecondOrderSVFFilter.h"
 
 #include <boost/math/constants/constants.hpp>
+
+#include <cassert>
 
 namespace ATK
 {
@@ -14,8 +14,8 @@ namespace ATK
   class SecondOrderSVFFilter<SVFCoefficients>::SVFState
   {
   public:
-    typename SVFCoefficients::DataType iceq1 = 0;
-    typename SVFCoefficients::DataType iceq2 = 0;
+    typename SVFCoefficients::DataType iceq1{0};
+    typename SVFCoefficients::DataType iceq2{0};
   };
   
   template<typename SVFCoefficients>

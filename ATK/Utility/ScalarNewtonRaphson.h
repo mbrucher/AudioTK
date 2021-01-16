@@ -5,13 +5,13 @@
 #ifndef ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 #define ATK_UTILITY_SCALAR_NEWTONRAPHSON_H
 
+#include <ATK/config.h>
+
 #include <cmath>
 #if ATK_PROFILING == 1
 #include <iostream>
 #endif
 #include <limits>
-
-#include <ATK/config.h>
 
 namespace ATK
 {
@@ -27,11 +27,11 @@ namespace ATK
     Function function;
     
     DataType precision;
-    DataType maxstep;
+    DataType maxstep{1};
     
 #if ATK_PROFILING == 1
-    int64_t nb_iterations;
-    int64_t nb_optimizations;
+    int64_t nb_iterations{0};
+    int64_t nb_optimizations{0};
 #endif
     
   public:
@@ -42,10 +42,7 @@ namespace ATK
      * @param precision is the precision that the optimizer will try to achieve. By default uses $$\\sqrt{\\epsilon_{Datatype}}$$
      */
     ScalarNewtonRaphson(Function&& function, DataType precision = 0)
-    :function(std::move(function)), precision(precision), maxstep(static_cast<DataType>(.1))
-#if ATK_PROFILING == 1
-    , nb_iterations(0), nb_optimizations(0)
-#endif
+    :function(std::move(function)), precision(precision)
     {
       if(precision == 0)
       {

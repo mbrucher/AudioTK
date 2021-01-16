@@ -2,16 +2,15 @@
  * \file RLSFilter.cpp
  */
 
-#include <ATK/Adaptive/RLSFilter.h>
+#include "RLSFilter.h"
+#include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
+
+#include <Eigen/Core>
 
 #include <cstdint>
 #include <complex>
 #include <stdexcept>
-
-#include <Eigen/Core>
-
-#include <ATK/Core/TypeTraits.h>
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

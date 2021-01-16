@@ -2,8 +2,7 @@
  * \file WhiteNoiseGeneratorFilter.cpp
  */
 
-#include <ATK/Tools/WhiteNoiseGeneratorFilter.h>
-
+#include "WhiteNoiseGeneratorFilter.h"
 
 #include <boost/math/constants/constants.hpp>
 

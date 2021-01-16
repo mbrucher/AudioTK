@@ -2,8 +2,8 @@
  * \file LinkwitzRileyFilter.cpp
  */
 
+#include "LinkwitzRileyFilter.hxx"
 #include <ATK/EQ/FourthOrderFilter.hxx>
-#include <ATK/EQ/LinkwitzRileyFilter.hxx>
 
 namespace ATK
 {

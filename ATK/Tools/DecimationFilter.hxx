@@ -2,7 +2,7 @@
  * \file DecimationFilter.hxx
  */
 
-#include <ATK/Tools/DecimationFilter.h>
+#include "DecimationFilter.h"
 
 #include <cassert>
 

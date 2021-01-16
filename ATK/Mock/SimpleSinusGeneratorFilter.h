@@ -36,8 +36,8 @@ namespace ATK
 
   private:
     mutable double state = 0;
-    DataType_ amplitude = 1;
-    int frequency = 1;
+    DataType_ amplitude{1};
+    int frequency{1};
   };
 }
 

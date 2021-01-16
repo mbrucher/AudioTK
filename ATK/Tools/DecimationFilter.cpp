@@ -2,7 +2,7 @@
  * \file DecimationFilter.cpp
  */
 
-#include <ATK/Tools/DecimationFilter.hxx>
+#include "DecimationFilter.hxx"
 
 #include <complex>
 #include <cstdint>

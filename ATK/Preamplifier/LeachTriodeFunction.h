@@ -5,8 +5,9 @@
 #ifndef ATK_PREAMPLIFIER_LEACHTRIODEFUNCTION_H
 #define ATK_PREAMPLIFIER_LEACHTRIODEFUNCTION_H
 
-#include <cmath>
 #include <ATK/Utility/fmath.h>
+
+#include <cmath>
 
 namespace ATK
 {

@@ -2,7 +2,7 @@
  * \file RobertBristowJohnsonFilter.cpp
  */
 
-#include <ATK/EQ/RobertBristowJohnsonFilter.hxx>
+#include "RobertBristowJohnsonFilter.hxx"
 #include <ATK/EQ/IIRFilter.h>
 
 namespace ATK

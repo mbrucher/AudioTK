@@ -2,11 +2,10 @@
  * \file OutSndFileFilter.cpp
  */
 
-#include <ATK/IO/libsndfile/OutSndFileFilter.h>
+#include "OutSndFileFilter.h"
+#include <ATK/IO/libsndfile/sndfile_traits.h>
 
 #include <sndfile.hh>
-
-#include <ATK/IO/libsndfile/sndfile_traits.h>
 
 namespace ATK
 {

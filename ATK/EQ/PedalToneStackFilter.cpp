@@ -2,7 +2,7 @@
  * \file PedalToneStackFilter.cpp
  */
 
-#include <ATK/EQ/PedalToneStackFilter.hxx>
+#include "PedalToneStackFilter.hxx"
 #include <ATK/EQ/IIRFilter.h>
 
 namespace ATK

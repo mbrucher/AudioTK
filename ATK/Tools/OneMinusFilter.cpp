@@ -2,11 +2,10 @@
  * \file OneMinusFilter.cpp
  */
 
-#include <ATK/Tools/OneMinusFilter.hxx>
+#include "OneMinusFilter.hxx"
+#include <ATK/Core/TypeTraits.h>
 
 #include <complex>
-
-#include <ATK/Core/TypeTraits.h>
 
 namespace ATK
 {

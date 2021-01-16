@@ -5,10 +5,10 @@
 #ifndef ATK_TOOLS_SINUSGENERATORFILTER_H
 #define ATK_TOOLS_SINUSGENERATORFILTER_H
 
-#include <vector>
-
 #include <ATK/Core/TypedBaseFilter.h>
 #include <ATK/Tools/config.h>
+
+#include <vector>
 
 namespace ATK
 {
@@ -50,14 +50,14 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ volume = 1;
-    DataType_ offset = 0;
-    DataType_ frequency = 0;
-    DataType_ frequ_cos = 1;
-    DataType_ frequ_sin = 0;
+    DataType_ volume{1};
+    DataType_ offset{0};
+    DataType_ frequency{0};
+    DataType_ frequ_cos{1};
+    DataType_ frequ_sin{0};
 
-    mutable DataType_ cos = 1;
-    mutable DataType_ sin = 0;
+    mutable DataType_ cos{1};
+    mutable DataType_ sin{0};
   };
 }
 

@@ -2,12 +2,11 @@
  * \file UniversalFixedDelayLineFilter.hxx
  */
 
-#include <ATK/Delay/UniversalFixedDelayLineFilter.h>
+#include "UniversalFixedDelayLineFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <cstring>
 #include <stdexcept>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {
@@ -16,7 +15,7 @@ namespace ATK
   {
   public:
     std::vector<DataType> delay_line;
-    gsl::index index = 0;
+    gsl::index index{0};
 
     explicit UFDLF_Impl(gsl::index max_delay)
       :delay_line(max_delay, TypeTraits<DataType>::Zero())

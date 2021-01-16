@@ -2,11 +2,7 @@
  * \file FFT.cpp
  */
 
-#include <algorithm>
-#include <complex>
-#include <cstdlib>
-
-#include <ATK/Utility/FFT.h>
+#include "FFT.h"
 
 #include <ATK/config.h>
 #if ATK_USE_FFTW == 1
@@ -17,6 +13,10 @@
 #endif
 
 #include <gsl/gsl>
+
+#include <algorithm>
+#include <complex>
+#include <cstdlib>
 
 namespace ATK
 {

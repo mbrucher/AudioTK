@@ -2,12 +2,11 @@
  * \file DiodeClipperFilter.cpp
  */
 
-#include <ATK/Distortion/DiodeClipperFilter.h>
-
-#include <boost/math/special_functions/sign.hpp>
-
+#include "DiodeClipperFilter.h"
 #include <ATK/Utility/fmath.h>
 #include <ATK/Utility/ScalarNewtonRaphson.h>
+
+#include <boost/math/special_functions/sign.hpp>
 
 namespace ATK
 {
@@ -22,12 +21,12 @@ namespace ATK
     DataType is;
     DataType vt;
 
-    DataType oldy0 = 0;
-    DataType oldexpy0 = 1;
-    DataType oldinvexpy0 = 1;
-    DataType oldy1 = 0;
-    DataType oldexpy1 = 1;
-    DataType oldinvexpy1 = 1;
+    DataType oldy0{0};
+    DataType oldexpy0{1};
+    DataType oldinvexpy0{1};
+    DataType oldy1{0};
+    DataType oldexpy1{1};
+    DataType oldinvexpy1{1};
   public:
     SimpleOverdriveFunction(DataType dt, DataType R, DataType C, DataType is, DataType vt)
     :A(dt / (2 * C * R)), B(dt / (2 * C)), is(is), vt(vt)

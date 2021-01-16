@@ -2,13 +2,13 @@
  * \file FourthOrderFilter.hxx
  */
 
-#include <ATK/EQ/FourthOrderFilter.h>
+#include "FourthOrderFilter.h"
 #include <ATK/EQ/IIRFilter.h>
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cassert>
 #include <cmath>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

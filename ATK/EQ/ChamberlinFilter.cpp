@@ -2,7 +2,7 @@
  * \file ChamberlinFilter.cpp
  */
 
-#include <ATK/EQ/ChamberlinFilter.h>
+#include "ChamberlinFilter.h"
 
 #include <boost/math/constants/constants.hpp>
 

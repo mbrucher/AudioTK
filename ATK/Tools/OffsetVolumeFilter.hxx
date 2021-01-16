@@ -2,7 +2,7 @@
  * \file OffsetVolumeFilter.hxx
  */
 
-#include <ATK/Tools/OffsetVolumeFilter.h>
+#include "OffsetVolumeFilter.h"
 
 namespace ATK
 {

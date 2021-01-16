@@ -2,11 +2,11 @@
  * \file SinusGeneratorFilter.cpp
  */
 
-#include <ATK/Tools/SinusGeneratorFilter.h>
-
-#include <cmath>
+#include "SinusGeneratorFilter.h"
 
 #include <boost/math/constants/constants.hpp>
+
+#include <cmath>
 
 namespace ATK
 {

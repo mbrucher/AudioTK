@@ -2,8 +2,8 @@
  * \file HouseholderMixture.hxx
  */
 
+#include "HouseholderMixture.h"
 #include <ATK/Delay/FeedbackDelayNetworkFilter.hxx>
-#include <ATK/Delay/HouseholderMixture.h>
 
 #include <Eigen/Dense>
 

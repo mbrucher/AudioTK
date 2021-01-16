@@ -6,8 +6,9 @@
 #ifndef ATK_PREAMPLIFIER_DEMPWOLFTRIODEFUNCTION_H
 #define ATK_PREAMPLIFIER_DEMPWOLFTRIODEFUNCTION_H
 
-#include <cmath>
 #include <ATK/Utility/fmath.h>
+
+#include <cmath>
 
 namespace ATK
 {

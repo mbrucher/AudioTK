@@ -2,9 +2,9 @@
  * \file RobertBristowJohnsonFilter.hxx
  */
 
-#include <boost/math/constants/constants.hpp>
+#include "RobertBristowJohnsonFilter.h"
 
-#include <ATK/EQ/RobertBristowJohnsonFilter.h>
+#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {

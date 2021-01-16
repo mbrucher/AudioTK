@@ -46,8 +46,8 @@ namespace ATK
     void process_impl(gsl::index size) const final;
     
   private:
-    DataType_ volume = 1;
-    DataType_ offset = 0;
+    DataType_ volume{1};
+    DataType_ offset{0};
   };
 }
 

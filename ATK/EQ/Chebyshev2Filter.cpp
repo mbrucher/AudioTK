@@ -2,7 +2,7 @@
  * \file Chebyshev2Filter.cpp
  */
 
-#include <ATK/EQ/Chebyshev2Filter.hxx>
+#include "Chebyshev2Filter.hxx"
 
 namespace ATK
 {

@@ -2,7 +2,7 @@
  * \file InPointerFilter.hxx
  */
 
-#include <ATK/Core/InPointerFilter.h>
+#include "InPointerFilter.h"
 
 #include <cstring>
 

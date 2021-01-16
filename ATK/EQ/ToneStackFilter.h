@@ -25,13 +25,13 @@ namespace ATK
     using Parent::input_sampling_rate;
   protected:
     /// Electronic components of the stack
-    CoeffDataType R1 = 0;
-    CoeffDataType R2 = 0;
-    CoeffDataType R3 = 0;
-    CoeffDataType R4 = 0;
-    CoeffDataType C1 = 0;
-    CoeffDataType C2 = 0;
-    CoeffDataType C3 = 0;
+    CoeffDataType R1{0};
+    CoeffDataType R2{0};
+    CoeffDataType R3{0};
+    CoeffDataType R4{0};
+    CoeffDataType C1{0};
+    CoeffDataType C2{0};
+    CoeffDataType C3{0};
     /// Parameters of the stack
     CoeffDataType low = 0.5;
     CoeffDataType middle = 0.5;

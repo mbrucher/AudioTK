@@ -5,23 +5,23 @@
 #ifndef ATK_CORE_BASEFILTER_H
 #define ATK_CORE_BASEFILTER_H
 
-#include <cstdint>
-#include <string>
-#include <vector>
+#include <ATK/config.h>
+#include <ATK/Core/config.h>
 
 #include <boost/dynamic_bitset/dynamic_bitset.hpp>
 #include <gsl/gsl>
 
-#include <ATK/config.h>
-#include <ATK/Core/config.h>
+#if ATK_USE_THREADPOOL == 1
+#include <tbb/queuing_mutex.h>
+#endif
 
 #if ATK_PROFILING == 1
 #include <chrono>
 #endif
 
-#if ATK_USE_THREADPOOL == 1
-#include <tbb/queuing_mutex.h>
-#endif
+#include <cstdint>
+#include <string>
+#include <vector>
 
 namespace ATK
 {
@@ -140,34 +140,34 @@ namespace ATK
     ATK_CORE_EXPORT virtual void setup();
 
     /// Number of input ports
-    gsl::index nb_input_ports = 0;
+    gsl::index nb_input_ports{0};
     /// Number of output ports
-    gsl::index nb_output_ports = 0;
+    gsl::index nb_output_ports{0};
     /// Input sampling rate of the plugin
-    gsl::index input_sampling_rate = 0;
+    gsl::index input_sampling_rate{0};
     /// Output sampling rate of the plugin
-    gsl::index output_sampling_rate = 0;
+    gsl::index output_sampling_rate{0};
     /// The connections to the output pins of some filters
     std::vector<std::pair<gsl::index, BaseFilter*> > connections;
 
     /// Input delay of the input port
-    gsl::index input_delay = 0;
+    gsl::index input_delay{0};
     /// Output delay of the input port
-    gsl::index output_delay = 0;
+    gsl::index output_delay{0};
     
     /// Latency of the plugin
-    gsl::index latency = 0;
+    gsl::index latency{0};
     /// Last processed size
-    gsl::index last_size = 0;
+    gsl::index last_size{0};
 
   private:
     boost::dynamic_bitset<> input_mandatory_connection;
-    bool is_reset = false;
+    bool is_reset{false};
 #if ATK_PROFILING == 1
     std::string class_name;
-    std::chrono::steady_clock::duration input_conversion_time;
-    std::chrono::steady_clock::duration output_conversion_time;
-    std::chrono::steady_clock::duration process_time;
+    std::chrono::steady_clock::duration input_conversion_time{0};
+    std::chrono::steady_clock::duration output_conversion_time{0};
+    std::chrono::steady_clock::duration process_time{0};
 #endif
 #if ATK_USE_THREADPOOL == 1
     tbb::queuing_mutex mutex;

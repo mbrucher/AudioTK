@@ -2,11 +2,11 @@
  * \file TimeVaryingSecondOrderSVFFilter.cpp
  */
 
-#include <ATK/EQ/TimeVaryingSecondOrderSVFFilter.h>
-
-#include <cassert>
+#include "TimeVaryingSecondOrderSVFFilter.h"
 
 #include <boost/math/constants/constants.hpp>
+
+#include <cassert>
 
 namespace ATK
 {
@@ -14,8 +14,8 @@ namespace ATK
   class TimeVaryingSecondOrderSVFFilter<SVFCoefficients>::SVFState
   {
   public:
-    typename SVFCoefficients::DataType iceq1 = 0;
-    typename SVFCoefficients::DataType iceq2 = 0;
+    typename SVFCoefficients::DataType iceq1{0};
+    typename SVFCoefficients::DataType iceq2{0};
   };
   
   template<typename SVFCoefficients>

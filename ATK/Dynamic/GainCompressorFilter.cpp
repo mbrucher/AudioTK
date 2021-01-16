@@ -2,14 +2,12 @@
  * \file GainCompressorFilter.cpp
  */
 
-#include <ATK/Dynamic/GainCompressorFilter.h>
+#include "GainCompressorFilter.h"
+#include <ATK/Core/Utilities.h>
+#include <ATK/Utility/fmath.h>
 
 #include <cmath>
 #include <cstdint>
-
-#include <ATK/Core/Utilities.h>
-
-#include <ATK/Utility/fmath.h>
 
 namespace ATK
 {

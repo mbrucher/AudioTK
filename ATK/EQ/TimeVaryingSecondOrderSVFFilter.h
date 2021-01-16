@@ -52,14 +52,14 @@ namespace ATK
     using typename Parent::DataType;
     using Parent::setup;
   protected:
-    DataType Q = 1;
+    DataType Q{1};
 
-    mutable DataType a1 = 0;
-    mutable DataType a2 = 0;
-    mutable DataType a3 = 0;
-    mutable DataType m0 = 0;
-    mutable DataType m1 = 0;
-    mutable DataType m2 = 0;
+    mutable DataType a1{0};
+    mutable DataType a2{0};
+    mutable DataType a3{0};
+    mutable DataType m0{0};
+    mutable DataType m1{0};
+    mutable DataType m2{0};
 
   public:
     explicit TimeVaryingSecondOrderSVFBaseCoefficients(gsl::index nb_channels);
@@ -208,7 +208,7 @@ namespace ATK
   protected:
     void update_coeffs(DataType g) const;
 
-    DataType gain = 1;
+    DataType gain{1};
   };
 
   /// Coefficients for a second order SVF low-pass shelving filter
@@ -236,7 +236,7 @@ namespace ATK
   protected:
     void update_coeffs(DataType g) const;
 
-    DataType gain = 0;
+    DataType gain{0};
   };
 
   /// Coefficients for a second order SVF high-pass shelving filter
@@ -265,7 +265,7 @@ namespace ATK
   protected:
     void update_coeffs(DataType g) const;
 
-    DataType gain = 0;
+    DataType gain{0};
   };
 }
 

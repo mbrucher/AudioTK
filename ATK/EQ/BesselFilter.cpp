@@ -2,7 +2,7 @@
  * \file BesselFilter.cpp
  */
 
-#include <ATK/EQ/BesselFilter.hxx>
+#include "BesselFilter.hxx"
 
 namespace ATK
 {

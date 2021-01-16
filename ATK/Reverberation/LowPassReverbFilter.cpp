@@ -2,12 +2,11 @@
  * \file LowPassReverbFilter.cpp
  */
 
-#include <ATK/Reverberation/LowPassReverbFilter.h>
+#include "LowPassReverbFilter.h"
+#include <ATK/Core/Utilities.h>
 
 #include <iostream>
 #include <cmath>
-
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

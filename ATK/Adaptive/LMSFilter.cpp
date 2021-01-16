@@ -2,16 +2,15 @@
  * \file LMSFilter.cpp
  */
 
-#include <ATK/Adaptive/LMSFilter.h>
+#include "LMSFilter.h"
+#include <ATK/Core/TypeTraits.h>
+#include <ATK/Core/Utilities.h>
+
+#include <Eigen/Core>
 
 #include <complex>
 #include <cstdint>
 #include <stdexcept>
-
-#include <Eigen/Core>
-
-#include <ATK/Core/TypeTraits.h>
-#include <ATK/Core/Utilities.h>
 
 namespace ATK
 {

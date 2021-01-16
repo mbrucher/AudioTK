@@ -5,8 +5,8 @@
 #ifndef ATK_EQ_CHAMBERLINFILTER_H
 #define ATK_EQ_CHAMBERLINFILTER_H
 
-#include "config.h"
-#include "../Core/TypedBaseFilter.h"
+#include <ATK/EQ/config.h>
+#include <ATK/Core/TypedBaseFilter.h>
 
 namespace ATK
 {
@@ -25,12 +25,12 @@ namespace ATK
     using Parent::output_sampling_rate;
     
   private:
-    CoeffDataType numerical_frequency = 0;
-    CoeffDataType numerical_attenuation = 1;
+    CoeffDataType numerical_frequency{0};
+    CoeffDataType numerical_attenuation{1};
     
-    mutable CoeffDataType yh = 0;
-    mutable CoeffDataType yb = 0;
-    mutable CoeffDataType yl = 0;
+    mutable CoeffDataType yh{0};
+    mutable CoeffDataType yb{0};
+    mutable CoeffDataType yl{0};
     
   public:
     ChamberlinFilter();
@@ -52,9 +52,9 @@ namespace ATK
     void process_impl(gsl::index size) const final;
 
   private:
-    int selected = 0;
-    CoeffDataType attenuation = 1;
-    CoeffDataType cutoff_frequency = 0;
+    int selected{0};
+    CoeffDataType attenuation{1};
+    CoeffDataType cutoff_frequency{0};
   };
 }
 

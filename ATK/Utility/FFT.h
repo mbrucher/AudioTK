@@ -5,14 +5,14 @@
 #ifndef ATK_UTILITY_FFT_H
 #define ATK_UTILITY_FFT_H
 
+#include <ATK/Utility/config.h>
+
+#include <gsl/gsl>
+
 #include <complex>
 #include <cstdint>
 #include <memory>
 #include <vector>
-
-#include <gsl/gsl>
-
-#include <ATK/Utility/config.h>
 
 namespace ATK
 {

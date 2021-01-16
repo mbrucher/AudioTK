@@ -2,14 +2,14 @@
  * \file CustomIIRFilter.cpp
  */
 
+#include "CustomIIRFilter.h"
 #include <ATK/EQ/config.h>
-#include <ATK/EQ/CustomIIRFilter.h>
+
+#include <boost/math/constants/constants.hpp>
 
 #include <cassert>
 #include <cmath>
 #include <complex>
-
-#include <boost/math/constants/constants.hpp>
 
 namespace ATK
 {
